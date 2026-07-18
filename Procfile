@@ -1,1 +1,1 @@
-web: uvicorn zeropay_backend.main:app --host 0.0.0.0 --port $PORT
+web: cd zeropay_backend && uvicorn main:app --host 0.0.0.0 --port $PORT
