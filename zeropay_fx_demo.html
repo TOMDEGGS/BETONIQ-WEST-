@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noodp, notranslate, noimageindex">
+<meta name="GPTBot" content="noindex, nofollow">
+<meta name="anthropic-ai" content="noindex, nofollow">
+<meta name="copyright" content="ZeroPay by BETONIQ(WEST) Ltd, RC 56802, Abuja, Nigeria. Patent Pending April 2026. All rights reserved.">
+<title>ZeroPay — 147 Currency FX Demo</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+body { font-family: 'Segoe UI', sans-serif; background: #0a0f1e; color: #e0e8f0; min-height: 100vh; }
+
+/* HEADER */
+.header { background: #0d1b3e; padding: 14px 20px; display: flex; align-items: center; justify-content: space-between; border-bottom: 2px solid #00d4ff; }
+.brand { font-size: 22px; font-weight: 900; color: #00d4ff; letter-spacing: 2px; }
+.tagline { font-size: 10px; color: #90a4b7; margin-top: 2px; }
+.patent { font-size: 9px; color: #ffa500; margin-top: 1px; }
+.header-right { text-align: right; }
+.live-badge { background: #00c853; color: white; font-size: 9px; font-weight: 700; padding: 3px 8px; border-radius: 10px; animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.6} }
+
+/* MODE TOGGLE */
+.mode-bar { background: #0d1b3e; padding: 12px 20px; display: flex; gap: 10px; border-bottom: 1px solid #1e3a5f; flex-wrap: wrap; }
+.mode-btn { flex: 1; min-width: 140px; padding: 10px; border: 2px solid #1e3a5f; border-radius: 10px; background: #0a1628; color: #90a4b7; font-size: 11px; font-weight: 700; cursor: pointer; text-align: center; transition: all 0.3s; touch-action: manipulation; }
+.mode-btn.active { border-color: #00d4ff; background: #00d4ff22; color: #00d4ff; }
+.mode-label { font-size: 9px; color: #607080; margin-top: 2px; display: block; font-weight: 400; }
+
+/* MAIN LAYOUT */
+.main { padding: 16px; max-width: 900px; margin: 0 auto; }
+
+/* FX TERMINAL */
+.terminal { background: #0d1b3e; border-radius: 16px; border: 2px solid #1e3a5f; overflow: hidden; margin-bottom: 16px; }
+.terminal-header { background: #0a1628; padding: 12px 16px; border-bottom: 1px solid #1e3a5f; display: flex; align-items: center; justify-content: space-between; }
+.terminal-title { font-size: 12px; font-weight: 700; color: #00d4ff; }
+.connectivity { font-size: 10px; padding: 3px 10px; border-radius: 8px; font-weight: 700; }
+.offline { background: #c6282822; color: #ef5350; border: 1px solid #c62828; }
+.online { background: #00c85322; color: #00c853; border: 1px solid #00c853; }
+
+/* SEND MONEY PANEL */
+.send-panel { padding: 16px; }
+.row { display: flex; gap: 10px; margin-bottom: 12px; flex-wrap: wrap; }
+.field-group { flex: 1; min-width: 120px; }
+.field-label { font-size: 10px; color: #90a4b7; margin-bottom: 4px; font-weight: 600; letter-spacing: 0.5px; }
+select, .amount-display { width: 100%; background: #0a1628; border: 1px solid #1e3a5f; border-radius: 8px; color: #e0e8f0; padding: 8px 10px; font-size: 13px; outline: none; }
+select:focus { border-color: #00d4ff; }
+.amount-display { font-size: 20px; font-weight: 900; color: #00d4ff; text-align: right; min-height: 42px; }
+
+/* NUMPAD */
+.numpad { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-bottom: 12px; }
+.num-btn { background: #132340; border: 1px solid #1e3a5f; border-radius: 8px; color: #e0e8f0; font-size: 18px; font-weight: 700; padding: 14px; cursor: pointer; text-align: center; transition: all 0.15s; touch-action: manipulation; user-select: none; }
+.num-btn:active { background: #00d4ff33; transform: scale(0.95); }
+.del-btn { font-size: 14px; color: #ef5350; }
+.clear-btn { font-size: 12px; color: #ffa500; }
+
+/* FX RATE DISPLAY */
+.fx-rate-box { background: #0a1628; border: 1px solid #1e3a5f; border-radius: 10px; padding: 12px; margin-bottom: 12px; }
+.fx-main { display: flex; justify-content: space-between; align-items: center; }
+.fx-label { font-size: 10px; color: #90a4b7; }
+.fx-value { font-size: 16px; font-weight: 900; color: #ffa500; }
+.fx-sub { display: flex; justify-content: space-between; margin-top: 8px; padding-top: 8px; border-top: 1px solid #1e3a5f; }
+.fx-sub-item { text-align: center; }
+.fx-sub-label { font-size: 9px; color: #607080; }
+.fx-sub-value { font-size: 12px; font-weight: 700; color: #e0e8f0; margin-top: 2px; }
+
+/* IMTO ROUTE */
+.route-box { background: #0a1628; border: 1px solid #1e3a5f; border-radius: 10px; padding: 12px; margin-bottom: 12px; }
+.route-title { font-size: 10px; color: #90a4b7; margin-bottom: 8px; font-weight: 600; }
+.route-steps { display: flex; align-items: center; gap: 4px; flex-wrap: wrap; }
+.route-node { background: #132340; border: 1px solid #1e3a5f; border-radius: 6px; padding: 4px 8px; font-size: 10px; color: #00d4ff; font-weight: 700; white-space: nowrap; }
+.route-arrow { color: #ffa500; font-size: 12px; font-weight: 900; }
+.route-node.active-node { border-color: #00d4ff; background: #00d4ff22; animation: nodeGlow 1s infinite; }
+@keyframes nodeGlow { 0%,100%{box-shadow:0 0 0 0 #00d4ff44} 50%{box-shadow:0 0 8px 3px #00d4ff33} }
+
+/* SEND BUTTON */
+.send-btn { width: 100%; padding: 14px; background: linear-gradient(135deg, #00b4db, #0083b0); border: none; border-radius: 10px; color: white; font-size: 14px; font-weight: 900; cursor: pointer; touch-action: manipulation; transition: all 0.3s; letter-spacing: 1px; }
+.send-btn:active { transform: scale(0.98); }
+.send-btn.processing { background: linear-gradient(135deg, #ffa500, #ff6b00); animation: btnPulse 0.5s infinite; }
+.send-btn.success-btn { background: linear-gradient(135deg, #00c853, #009624); }
+@keyframes btnPulse { 0%,100%{opacity:1} 50%{opacity:0.7} }
+
+/* CORRIDORS */
+.corridors { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 16px; }
+.corridor-card { background: #0d1b3e; border: 2px solid #1e3a5f; border-radius: 12px; padding: 10px; cursor: pointer; transition: all 0.2s; touch-action: manipulation; }
+.corridor-card:active, .corridor-card.selected { border-color: #00d4ff; background: #00d4ff11; }
+.corridor-flag { font-size: 20px; text-align: center; margin-bottom: 4px; }
+.corridor-name { font-size: 9px; color: #90a4b7; text-align: center; font-weight: 600; }
+.corridor-rate { font-size: 11px; color: #00d4ff; text-align: center; font-weight: 900; margin-top: 2px; }
+.corridor-vol { font-size: 8px; color: #607080; text-align: center; margin-top: 1px; }
+
+/* CURRENCY GRID */
+.currency-section { background: #0d1b3e; border-radius: 14px; border: 1px solid #1e3a5f; overflow: hidden; margin-bottom: 16px; }
+.currency-section-header { background: #0a1628; padding: 10px 14px; font-size: 11px; font-weight: 700; color: #00d4ff; border-bottom: 1px solid #1e3a5f; display: flex; justify-content: space-between; align-items: center; }
+.currency-count { background: #00d4ff22; color: #00d4ff; font-size: 10px; padding: 2px 8px; border-radius: 8px; }
+.currency-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; max-height: 200px; overflow-y: auto; }
+.currency-item { padding: 8px 6px; border-bottom: 1px solid #0d1b3e; border-right: 1px solid #0d1b3e; text-align: center; cursor: pointer; transition: background 0.15s; }
+.currency-item:active { background: #00d4ff11; }
+.currency-code { font-size: 11px; font-weight: 700; color: #00d4ff; }
+.currency-name { font-size: 8px; color: #607080; margin-top: 1px; }
+.currency-rate { font-size: 9px; color: #ffa500; margin-top: 1px; }
+
+/* STATUS LOG */
+.status-log { background: #050d1a; border: 1px solid #1e3a5f; border-radius: 10px; padding: 10px; min-height: 80px; max-height: 120px; overflow-y: auto; font-family: monospace; font-size: 10px; }
+.log-entry { color: #90a4b7; margin-bottom: 3px; }
+.log-entry.success { color: #00c853; }
+.log-entry.processing { color: #ffa500; }
+.log-entry.info { color: #00d4ff; }
+
+/* RESULT OVERLAY */
+.result-overlay { display: none; position: fixed; inset: 0; background: #000d; z-index: 100; align-items: center; justify-content: center; padding: 20px; }
+.result-overlay.show { display: flex; }
+.result-card { background: #0d1b3e; border-radius: 20px; padding: 30px 20px; max-width: 340px; width: 100%; text-align: center; border: 2px solid #00c853; }
+.result-icon { font-size: 50px; margin-bottom: 10px; }
+.result-title { font-size: 18px; font-weight: 900; color: #00c853; margin-bottom: 8px; }
+.result-details { font-size: 12px; color: #90a4b7; line-height: 1.6; margin-bottom: 16px; }
+.result-ref { font-size: 10px; color: #607080; font-family: monospace; margin-bottom: 16px; }
+.result-close { width: 100%; padding: 12px; background: #00c853; border: none; border-radius: 10px; color: white; font-size: 14px; font-weight: 700; cursor: pointer; }
+
+/* STATS BAR */
+.stats-bar { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 16px; }
+.stat-card { background: #0d1b3e; border: 1px solid #1e3a5f; border-radius: 10px; padding: 10px; text-align: center; }
+.stat-value { font-size: 14px; font-weight: 900; color: #00d4ff; }
+.stat-label { font-size: 8px; color: #607080; margin-top: 2px; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div>
+    <div class="brand">⚡ ZEROPAY FX</div>
+    <div class="tagline">147 CURRENCIES · ZERO CONNECTIVITY</div>
+    <div class="patent">© BETONIQ(WEST) Ltd RC 56802 · Patent Pending April 2026</div>
+  </div>
+  <div class="header-right">
+    <div class="live-badge">● LIVE DEMO</div>
+    <div style="font-size:9px;color:#607080;margin-top:4px;">IMTO-POWERED</div>
+  </div>
+</div>
+
+<!-- MODE BAR -->
+<div class="mode-bar">
+  <div class="mode-btn active" id="modePartner" onclick="setMode('partner')">
+    🤝 IMTO PARTNER MODE
+    <span class="mode-label">Flutterwave / Western Union / Wise</span>
+  </div>
+  <div class="mode-btn" id="modeOwn" onclick="setMode('own')">
+    🏦 OWN IMTO LICENSE
+    <span class="mode-label">ZeroPay Direct — CBN Licensed</span>
+  </div>
+</div>
+
+<div class="main">
+
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="stat-card">
+    <div class="stat-value" id="statCurrencies">147</div>
+    <div class="stat-label">CURRENCIES</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-value" id="statTx">0</div>
+    <div class="stat-label">TX TODAY</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-value" id="statVol">$0</div>
+    <div class="stat-label">VOLUME</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-value" id="statSpeed">0ms</div>
+    <div class="stat-label">SETTLE TIME</div>
+  </div>
+</div>
+
+<!-- TOP CORRIDORS -->
+<div style="font-size:10px;color:#90a4b7;font-weight:700;margin-bottom:8px;letter-spacing:0.5px;">🔥 TOP REMITTANCE CORRIDORS</div>
+<div class="corridors">
+  <div class="corridor-card selected" id="corr_gbp" onclick="selectCorridor('GBP','NGN','🇬🇧','🇳🇬','1','1595.40','Nigeria→UK','$2.1B/yr')">
+    <div class="corridor-flag">🇬🇧→🇳🇬</div>
+    <div class="corridor-name">NG–UK</div>
+    <div class="corridor-rate">£1 = ₦1,595</div>
+    <div class="corridor-vol">$2.1B/yr</div>
+  </div>
+  <div class="corridor-card" id="corr_aed" onclick="selectCorridor('AED','NGN','🇦🇪','🇳🇬','1','433.20','Nigeria→UAE','$890M/yr')">
+    <div class="corridor-flag">🇦🇪→🇳🇬</div>
+    <div class="corridor-name">NG–UAE</div>
+    <div class="corridor-rate">د.إ1 = ₦433</div>
+    <div class="corridor-vol">$890M/yr</div>
+  </div>
+  <div class="corridor-card" id="corr_ghs" onclick="selectCorridor('GHS','NGN','🇬🇭','🇳🇬','1','108.50','Ghana→NG','$340M/yr')">
+    <div class="corridor-flag">🇬🇭→🇳🇬</div>
+    <div class="corridor-name">NG–GHANA</div>
+    <div class="corridor-rate">₵1 = ₦108</div>
+    <div class="corridor-vol">$340M/yr</div>
+  </div>
+  <div class="corridor-card" id="corr_kes" onclick="selectCorridor('KES','NGN','🇰🇪','🇳🇬','1','9.85','Kenya→NG','$210M/yr')">
+    <div class="corridor-flag">🇰🇪→🇳🇬</div>
+    <div class="corridor-name">NG–KENYA</div>
+    <div class="corridor-rate">KSh1 = ₦9.85</div>
+    <div class="corridor-vol">$210M/yr</div>
+  </div>
+  <div class="corridor-card" id="corr_usd" onclick="selectCorridor('USD','NGN','🇺🇸','🇳🇬','1','1610.00','US→NG','$5.8B/yr')">
+    <div class="corridor-flag">🇺🇸→🇳🇬</div>
+    <div class="corridor-name">NG–USA</div>
+    <div class="corridor-rate">$1 = ₦1,610</div>
+    <div class="corridor-vol">$5.8B/yr</div>
+  </div>
+  <div class="corridor-card" id="corr_eur" onclick="selectCorridor('EUR','NGN','🇪🇺','🇳🇬','1','1745.00','EU→NG','$1.4B/yr')">
+    <div class="corridor-flag">🇪🇺→🇳🇬</div>
+    <div class="corridor-name">NG–EUROPE</div>
+    <div class="corridor-rate">€1 = ₦1,745</div>
+    <div class="corridor-vol">$1.4B/yr</div>
+  </div>
+</div>
+
+<!-- TERMINAL -->
+<div class="terminal">
+  <div class="terminal-header">
+    <div class="terminal-title">💱 FX TRANSFER TERMINAL</div>
+    <div class="connectivity offline" id="connStatus">● OFFLINE</div>
+  </div>
+  <div class="send-panel">
+
+    <!-- FROM / TO -->
+    <div class="row">
+      <div class="field-group">
+        <div class="field-label">FROM CURRENCY</div>
+        <select id="fromCurrency" onchange="updateFX()">
+          <option value="GBP">🇬🇧 GBP — British Pound</option>
+          <option value="USD">🇺🇸 USD — US Dollar</option>
+          <option value="EUR">🇪🇺 EUR — Euro</option>
+          <option value="AED">🇦🇪 AED — UAE Dirham</option>
+          <option value="GHS">🇬🇭 GHS — Ghanaian Cedi</option>
+          <option value="KES">🇰🇪 KES — Kenyan Shilling</option>
+          <option value="ZAR">🇿🇦 ZAR — South African Rand</option>
+          <option value="CAD">🇨🇦 CAD — Canadian Dollar</option>
+          <option value="CHF">🇨🇭 CHF — Swiss Franc</option>
+          <option value="JPY">🇯🇵 JPY — Japanese Yen</option>
+          <option value="CNY">🇨🇳 CNY — Chinese Yuan</option>
+          <option value="INR">🇮🇳 INR — Indian Rupee</option>
+          <option value="SAR">🇸🇦 SAR — Saudi Riyal</option>
+          <option value="XOF">🌍 XOF — West African Franc</option>
+          <option value="EGP">🇪🇬 EGP — Egyptian Pound</option>
+        </select>
+      </div>
+      <div class="field-group">
+        <div class="field-label">TO (NGN)</div>
+        <select id="toCurrency">
+          <option value="NGN">🇳🇬 NGN — Nigerian Naira</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- AMOUNT -->
+    <div class="field-label" style="margin-bottom:6px;">SEND AMOUNT</div>
+    <div class="amount-display" id="amountDisplay">0.00</div>
+    <br>
+
+    <!-- NUMPAD -->
+    <div class="numpad">
+      <div class="num-btn" onclick="numPress('1')" ontouchend="numPress('1')">1</div>
+      <div class="num-btn" onclick="numPress('2')" ontouchend="numPress('2')">2</div>
+      <div class="num-btn" onclick="numPress('3')" ontouchend="numPress('3')">3</div>
+      <div class="num-btn" onclick="numPress('4')" ontouchend="numPress('4')">4</div>
+      <div class="num-btn" onclick="numPress('5')" ontouchend="numPress('5')">5</div>
+      <div class="num-btn" onclick="numPress('6')" ontouchend="numPress('6')">6</div>
+      <div class="num-btn" onclick="numPress('7')" ontouchend="numPress('7')">7</div>
+      <div class="num-btn" onclick="numPress('8')" ontouchend="numPress('8')">8</div>
+      <div class="num-btn" onclick="numPress('9')" ontouchend="numPress('9')">9</div>
+      <div class="num-btn clear-btn" onclick="numPress('C')" ontouchend="numPress('C')">CLR</div>
+      <div class="num-btn" onclick="numPress('0')" ontouchend="numPress('0')">0</div>
+      <div class="num-btn del-btn" onclick="numPress('DEL')" ontouchend="numPress('DEL')">⌫</div>
+    </div>
+
+    <!-- FX RATE -->
+    <div class="fx-rate-box">
+      <div class="fx-main">
+        <div>
+          <div class="fx-label">LIVE RATE (CACHED OFFLINE)</div>
+          <div class="fx-value" id="fxRateDisplay">1 GBP = ₦1,595.40</div>
+        </div>
+        <div style="font-size:20px;">🔒</div>
+      </div>
+      <div class="fx-sub">
+        <div class="fx-sub-item">
+          <div class="fx-sub-label">RECIPIENT GETS</div>
+          <div class="fx-sub-value" id="recipientAmount">₦0.00</div>
+        </div>
+        <div class="fx-sub-item">
+          <div class="fx-sub-label">ZEROPAY FEE</div>
+          <div class="fx-sub-value" id="feeAmount">₦0.00</div>
+        </div>
+        <div class="fx-sub-item">
+          <div class="fx-sub-label">SETTLEMENT</div>
+          <div class="fx-sub-value" id="settleTime">~2 hrs</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ROUTE -->
+    <div class="route-box">
+      <div class="route-title" id="routeTitle">🔗 TRANSFER ROUTE — FLUTTERWAVE IMTO PARTNER</div>
+      <div class="route-steps" id="routeSteps">
+        <div class="route-node active-node">PUF CARD</div>
+        <div class="route-arrow">→</div>
+        <div class="route-node">OFFLINE TOKEN</div>
+        <div class="route-arrow">→</div>
+        <div class="route-node">MESH HUB</div>
+        <div class="route-arrow">→</div>
+        <div class="route-node">FLUTTERWAVE</div>
+        <div class="route-arrow">→</div>
+        <div class="route-node">CBN NXP</div>
+        <div class="route-arrow">→</div>
+        <div class="route-node">NGN WALLET</div>
+      </div>
+    </div>
+
+    <!-- SEND -->
+    <button class="send-btn" id="sendBtn" onclick="initiateSend()" ontouchend="initiateSend()">
+      SEND MONEY — OFFLINE CRYPTOGRAPHIC TRANSFER
+    </button>
+
+    <!-- LOG -->
+    <br>
+    <div class="status-log" id="statusLog">
+      <div class="log-entry info">[SYSTEM] ZeroPay FX Engine v3.1 — Offline mode active</div>
+      <div class="log-entry info">[CACHE] 147 FX rates cached from last connectivity window</div>
+      <div class="log-entry">[READY] Tap a corridor above or enter amount to begin</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- 147 CURRENCY GRID -->
+<div class="currency-section">
+  <div class="currency-section-header">
+    🌍 ALL 147 SUPPORTED CURRENCIES
+    <div class="currency-count">IMF CERTIFIED</div>
+  </div>
+  <div class="currency-grid" id="currencyGrid"></div>
+</div>
+
+</div>
+
+<!-- RESULT OVERLAY -->
+<div class="result-overlay" id="resultOverlay">
+  <div class="result-card">
+    <div class="result-icon" id="resultIcon">✅</div>
+    <div class="result-title" id="resultTitle">TRANSFER INITIATED</div>
+    <div class="result-details" id="resultDetails"></div>
+    <div class="result-ref" id="resultRef"></div>
+    <button class="result-close" onclick="closeResult()">NEW TRANSFER</button>
+  </div>
+</div>
+
+<script>
+// ===== FX DATA =====
+const FX_RATES = {
+  USD:1610.00, GBP:1595.40, EUR:1745.00, AED:433.20, GHS:108.50,
+  KES:9.85, ZAR:87.30, CAD:1182.00, CHF:1820.00, JPY:10.85,
+  CNY:221.50, INR:19.25, SAR:429.00, XOF:2.72, EGP:32.80,
+  SEK:155.40, NOK:148.20, DKK:234.00, PLN:408.00, CZK:70.50,
+  HUF:4.28, RON:357.00, BGN:891.00, HRK:229.00, RSD:14.65,
+  TRY:48.90, RUB:17.80, UAH:38.70, BYN:456.00, GEL:598.00,
+  AMD:3.95, AZN:945.00, KZT:3.48, UZS:0.127, KGS:18.20,
+  TJS:148.00, TMT:460.00, AFN:22.50, PKR:5.82, BDT:14.65,
+  LKR:5.45, NPR:11.95, BTN:19.25, MVR:104.00, MYR:371.00,
+  SGD:1195.00, THB:44.80, IDR:0.098, PHP:28.20, VND:0.064,
+  KHR:0.392, LAK:0.075, MMK:0.768, BND:1195.00, TWD:50.40,
+  KRW:1.168, MNT:0.475, XCD:595.00, BBD:805.00, BSD:1610.00,
+  BMD:1610.00, KYD:1932.00, TTD:237.00, JMD:10.40, HTI:11.85,
+  DOP:28.70, CUP:67.10, ANG:895.00, AWG:895.00, SRD:44.20,
+  GYD:7.65, BZD:798.00, GTQ:207.00, HNL:64.80, NIO:44.30,
+  CRC:3.05, PAB:1610.00, COP:0.396, VES:0.045, PEN:428.00,
+  BOB:231.00, UYU:40.20, PYG:0.218, CLP:1.78, ARS:1.73,
+  BRL:295.00, MAD:161.00, TND:516.00, DZD:11.95, LYD:335.00,
+  SDG:2.72, ETB:27.80, SOS:2.82, KES:9.85, UGX:0.432,
+  TZS:0.618, RWF:1.12, BIF:0.562, MWK:0.935, MZN:25.40,
+  ZMW:62.30, BWP:117.00, NAD:87.30, SZL:87.30, LSL:87.30,
+  MUR:34.80, SCR:110.00, KMF:3.56, DJF:9.05, ERN:107.00,
+  GMD:22.80, GNF:0.188, SLL:0.072, LRD:8.20, CVE:16.28,
+  STN:71.40, AOA:1.75, CDF:0.565, XAF:2.72, CMR:2.72,
+  CAF:2.72, TCD:2.72, GNQ:2.72, GAB:2.72, COG:2.72,
+  MDG:0.358, COM:3.56, ZWL:4.47, SDP:2.72, MRO:4.48,
+  OMR:4186.00, QAR:442.00, BHD:4271.00, KWD:5230.00, IQD:1.23,
+  IRR:0.038, JOD:2270.00, SYP:0.122, LBP:0.107, ILS:430.00,
+  YER:6.44, HKD:207.00, MOP:199.00, NZD:985.00, AUD:1048.00,
+  FJD:716.00, PGK:418.00, SBD:190.00, VUV:13.40, WST:582.00,
+  TOP:678.00, NCF:16.28, PYF:16.28, XPF:16.28
+};
+
+const CURRENCY_NAMES = {
+  USD:'US Dollar', GBP:'British Pound', EUR:'Euro', AED:'UAE Dirham', GHS:'Ghana Cedi',
+  KES:'Kenyan Shilling', ZAR:'South African Rand', CAD:'Canadian Dollar', CHF:'Swiss Franc',
+  JPY:'Japanese Yen', CNY:'Chinese Yuan', INR:'Indian Rupee', SAR:'Saudi Riyal',
+  XOF:'West African CFA', EGP:'Egyptian Pound', SEK:'Swedish Krona', NOK:'Norwegian Krone',
+  DKK:'Danish Krone', PLN:'Polish Zloty', CZK:'Czech Koruna', HUF:'Hungarian Forint',
+  RON:'Romanian Leu', BGN:'Bulgarian Lev', TRY:'Turkish Lira', RUB:'Russian Ruble',
+  UAH:'Ukrainian Hryvnia', KZT:'Kazakhstani Tenge', PKR:'Pakistani Rupee', BDT:'Bangladeshi Taka',
+  LKR:'Sri Lankan Rupee', MYR:'Malaysian Ringgit', SGD:'Singapore Dollar', THB:'Thai Baht',
+  IDR:'Indonesian Rupiah', PHP:'Philippine Peso', VND:'Vietnamese Dong', KHR:'Cambodian Riel',
+  TWD:'Taiwan Dollar', KRW:'South Korean Won', XCD:'East Caribbean Dollar', TTD:'Trinidad Dollar',
+  JMD:'Jamaican Dollar', DOP:'Dominican Peso', COP:'Colombian Peso', PEN:'Peruvian Sol',
+  BRL:'Brazilian Real', ARS:'Argentine Peso', CLP:'Chilean Peso', MAD:'Moroccan Dirham',
+  TND:'Tunisian Dinar', DZD:'Algerian Dinar', ETB:'Ethiopian Birr', UGX:'Ugandan Shilling',
+  TZS:'Tanzanian Shilling', RWF:'Rwandan Franc', MWK:'Malawian Kwacha', ZMW:'Zambian Kwacha',
+  BWP:'Botswana Pula', MUR:'Mauritian Rupee', OMR:'Omani Rial', QAR:'Qatari Riyal',
+  BHD:'Bahraini Dinar', KWD:'Kuwaiti Dinar', IQD:'Iraqi Dinar', JOD:'Jordanian Dinar',
+  ILS:'Israeli Shekel', HKD:'Hong Kong Dollar', NZD:'New Zealand Dollar', AUD:'Australian Dollar'
+};
+
+let currentAmount = '';
+let currentMode = 'partner';
+let txCount = 0;
+let totalVolume = 0;
+let activeCorridor = { from:'GBP', rate:1595.40 };
+
+function numPress(key) {
+  event && event.preventDefault && event.preventDefault();
+  if(key === 'C') { currentAmount = ''; }
+  else if(key === 'DEL') { currentAmount = currentAmount.slice(0,-1); }
+  else if(key === '.' && currentAmount.includes('.')) { return; }
+  else if(currentAmount.length < 10) { currentAmount += key; }
+  updateDisplay();
+}
+
+function updateDisplay() {
+  const val = parseFloat(currentAmount) || 0;
+  document.getElementById('amountDisplay').textContent = val.toFixed(2);
+  const rate = FX_RATES[document.getElementById('fromCurrency').value] || 1610;
+  const naira = val * rate;
+  const fee = naira * 0.015;
+  document.getElementById('recipientAmount').textContent = '₦' + (naira - fee).toLocaleString('en-NG', {minimumFractionDigits:2});
+  document.getElementById('feeAmount').textContent = '₦' + fee.toLocaleString('en-NG', {minimumFractionDigits:2});
+}
+
+function updateFX() {
+  const cur = document.getElementById('fromCurrency').value;
+  const rate = FX_RATES[cur] || 1610;
+  document.getElementById('fxRateDisplay').textContent = '1 ' + cur + ' = ₦' + rate.toLocaleString('en-NG', {minimumFractionDigits:2});
+  updateDisplay();
+}
+
+function setMode(mode) {
+  currentMode = mode;
+  document.getElementById('modePartner').classList.toggle('active', mode==='partner');
+  document.getElementById('modeOwn').classList.toggle('active', mode==='own');
+
+  const connEl = document.getElementById('connStatus');
+  const routeTitle = document.getElementById('routeTitle');
+  const routeSteps = document.getElementById('routeSteps');
+  const settleEl = document.getElementById('settleTime');
+
+  if(mode === 'partner') {
+    routeTitle.textContent = '🔗 TRANSFER ROUTE — FLUTTERWAVE IMTO PARTNER';
+    routeSteps.innerHTML = `
+      <div class="route-node active-node">PUF CARD</div><div class="route-arrow">→</div>
+      <div class="route-node">OFFLINE TOKEN</div><div class="route-arrow">→</div>
+      <div class="route-node">MESH HUB</div><div class="route-arrow">→</div>
+      <div class="route-node">FLUTTERWAVE</div><div class="route-arrow">→</div>
+      <div class="route-node">CBN NXP</div><div class="route-arrow">→</div>
+      <div class="route-node">NGN WALLET</div>`;
+    settleEl.textContent = '~2 hrs';
+  } else {
+    routeTitle.textContent = '🏦 TRANSFER ROUTE — ZEROPAY OWN IMTO LICENSE';
+    routeSteps.innerHTML = `
+      <div class="route-node active-node">PUF CARD</div><div class="route-arrow">→</div>
+      <div class="route-node">OFFLINE TOKEN</div><div class="route-arrow">→</div>
+      <div class="route-node">MESH HUB</div><div class="route-arrow">→</div>
+      <div class="route-node">ZEROPAY MFB</div><div class="route-arrow">→</div>
+      <div class="route-node">SWIFT/NIBSS</div><div class="route-arrow">→</div>
+      <div class="route-node">NGN WALLET</div>`;
+    settleEl.textContent = '~45 min';
+  }
+  addLog('info', '[MODE] Switched to ' + (mode==='partner' ? 'Flutterwave IMTO Partner' : 'ZeroPay Own IMTO License'));
+}
+
+function selectCorridor(from, to, flag1, flag2, amt, rate, name, vol) {
+  document.querySelectorAll('.corridor-card').forEach(c => c.classList.remove('selected'));
+  document.getElementById('corr_'+from.toLowerCase()).classList.add('selected');
+  activeCorridor = { from, rate:parseFloat(rate) };
+
+  // Update from currency dropdown
+  const sel = document.getElementById('fromCurrency');
+  for(let i=0; i<sel.options.length; i++) {
+    if(sel.options[i].value === from) { sel.selectedIndex = i; break; }
+  }
+  updateFX();
+  addLog('info', '[CORRIDOR] Selected ' + name + ' · ' + vol + ' annual volume');
+}
+
+function addLog(type, msg) {
+  const log = document.getElementById('statusLog');
+  const entry = document.createElement('div');
+  entry.className = 'log-entry ' + type;
+  entry.textContent = new Date().toLocaleTimeString() + ' ' + msg;
+  log.appendChild(entry);
+  log.scrollTop = log.scrollHeight;
+}
+
+function initiateSend() {
+  event && event.preventDefault && event.preventDefault();
+  const val = parseFloat(currentAmount) || 0;
+  if(val <= 0) {
+    addLog('', '[ERROR] Enter amount first');
+    return;
+  }
+
+  const cur = document.getElementById('fromCurrency').value;
+  const rate = FX_RATES[cur] || 1610;
+  const naira = val * rate;
+  const fee = naira * 0.015;
+  const ref = 'ZFX' + Date.now().toString(36).toUpperCase();
+
+  const btn = document.getElementById('sendBtn');
+  btn.classList.add('processing');
+  btn.textContent = '⚡ PROCESSING OFFLINE CRYPTOGRAPHIC TRANSFER...';
+
+  addLog('processing', '[TX] Initiating offline FX transfer · ' + val + ' ' + cur);
+  addLog('processing', '[CRYPTO] Generating PUF cryptographic signature...');
+
+  setTimeout(() => {
+    addLog('processing', '[TOKEN] Offline token validated · TTL: 72hrs remaining');
+    addLog('processing', '[FX] Rate locked: 1 ' + cur + ' = ₦' + rate.toLocaleString());
+  }, 600);
+
+  setTimeout(() => {
+    addLog('processing', '[QUEUE] Transaction added to offline batch queue');
+    addLog('processing', '[MESH] Awaiting Solar Mesh Hub sync window...');
+  }, 1200);
+
+  setTimeout(() => {
+    btn.classList.remove('processing');
+    btn.classList.add('success-btn');
+    btn.textContent = '✅ TRANSFER QUEUED — BATCH SYNC PENDING';
+
+    txCount++;
+    totalVolume += val;
+    document.getElementById('statTx').textContent = txCount;
+    document.getElementById('statVol').textContent = '$' + totalVolume.toFixed(0);
+    document.getElementById('statSpeed').textContent = (Math.random()*50+20).toFixed(0)+'ms';
+
+    addLog('success', '[SUCCESS] Transfer queued · Ref: ' + ref);
+    addLog('success', '[RECIPIENT] Will receive ₦' + (naira-fee).toLocaleString('en-NG', {minimumFractionDigits:2}));
+
+    showResult(cur, val, naira-fee, fee, rate, ref);
+
+    setTimeout(() => {
+      btn.classList.remove('success-btn');
+      btn.textContent = 'SEND MONEY — OFFLINE CRYPTOGRAPHIC TRANSFER';
+    }, 3000);
+  }, 2200);
+}
+
+function showResult(cur, amount, receive, fee, rate, ref) {
+  document.getElementById('resultIcon').textContent = '✅';
+  document.getElementById('resultTitle').textContent = 'TRANSFER QUEUED';
+  document.getElementById('resultDetails').innerHTML =
+    'Sent: <strong>' + amount + ' ' + cur + '</strong><br>' +
+    'Recipient receives: <strong>₦' + receive.toLocaleString('en-NG', {minimumFractionDigits:2}) + '</strong><br>' +
+    'ZeroPay fee: ₦' + fee.toLocaleString('en-NG', {minimumFractionDigits:2}) + '<br>' +
+    'Rate locked: 1 ' + cur + ' = ₦' + rate.toLocaleString() + '<br>' +
+    'Settlement: On next connectivity window<br>' +
+    'Mode: ' + (currentMode==='partner' ? 'Flutterwave IMTO' : 'ZeroPay Own IMTO');
+  document.getElementById('resultRef').textContent = 'REF: ' + ref + ' · PUF-SIGNED · ENCRYPTED';
+  document.getElementById('resultOverlay').classList.add('show');
+}
+
+function closeResult() {
+  document.getElementById('resultOverlay').classList.remove('show');
+  currentAmount = '';
+  updateDisplay();
+}
+
+// Build 147 currency grid
+function buildCurrencyGrid() {
+  const grid = document.getElementById('currencyGrid');
+  const currencies = Object.keys(FX_RATES);
+  currencies.forEach(code => {
+    const item = document.createElement('div');
+    item.className = 'currency-item';
+    const rate = FX_RATES[code];
+    const name = CURRENCY_NAMES[code] || code;
+    item.innerHTML = '<div class="currency-code">'+code+'</div><div class="currency-name">'+name.substring(0,12)+'</div><div class="currency-rate">₦'+rate.toLocaleString('en-NG',{maximumFractionDigits:2})+'</div>';
+    item.onclick = () => {
+      const sel = document.getElementById('fromCurrency');
+      let found = false;
+      for(let i=0; i<sel.options.length; i++) { if(sel.options[i].value===code){sel.selectedIndex=i;found=true;break;} }
+      if(!found) {
+        const opt = document.createElement('option');
+        opt.value = code; opt.textContent = code + ' — ' + name;
+        sel.appendChild(opt); sel.value = code;
+      }
+      updateFX();
+      addLog('info', '[CURRENCY] Selected ' + code + ' · ₦' + rate.toLocaleString());
+    };
+    grid.appendChild(item);
+  });
+}
+
+buildCurrencyGrid();
+updateFX();
+addLog('info', '[RATES] 147 FX rates loaded from offline cache');
+</script>
+</body>
+</html>
