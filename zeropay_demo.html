@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>ZeroPay — Offline Merchant Demo</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background: linear-gradient(135deg, #e8f0fe 0%, #f0f7ff 100%);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 12px;
+}
+
+/* ─── HEADER ─── */
+.header {
+  width: 100%;
+  max-width: 700px;
+  background: #0d1b3e;
+  border-radius: 16px;
+  padding: 14px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.brand { font-size: 22px; font-weight: 900; color: #00d4ff; letter-spacing: 2px; }
+.tagline { font-size: 10px; color: #90a4b7; margin-top: 2px; }
+.conn-btn {
+  display: flex; align-items: center; gap: 8px;
+  padding: 9px 18px; border-radius: 24px; border: none;
+  cursor: pointer; font-weight: 800; font-size: 13px; transition: all 0.3s;
+}
+.conn-btn.offline { background: #c62828; color: white; }
+.conn-btn.online  { background: #2e7d32; color: white; }
+.conn-dot { width: 9px; height: 9px; border-radius: 50%; background: white; animation: blink 1.2s infinite; }
+@keyframes blink { 0%,100%{opacity:1}50%{opacity:0.2} }
+
+/* ─── MAIN CARD ─── */
+.card {
+  width: 100%; max-width: 700px;
+  background: white; border-radius: 20px;
+  overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.12);
+}
+.card-header {
+  background: #1565c0; color: white;
+  padding: 14px 22px; font-size: 13px; font-weight: 800;
+  letter-spacing: 1px; display: flex; justify-content: space-between; align-items: center;
+}
+.card-header .mid { font-size: 11px; font-weight: 400; opacity: 0.8; }
+.card-body { padding: 22px; }
+
+/* ─── SCENARIO SELECTOR ─── */
+.scenario-bar {
+  background: #f0f4ff;
+  border: 2px solid #c5cae9;
+  border-radius: 14px;
+  padding: 14px;
+  margin-bottom: 18px;
+}
+.scenario-title { font-size: 11px; font-weight: 800; color: #3949ab; letter-spacing: 1px; margin-bottom: 10px; }
+.scenario-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
+.sc-btn {
+  padding: 10px 8px; border-radius: 10px; border: 2px solid transparent;
+  font-size: 11px; font-weight: 700; cursor: pointer; transition: all 0.2s;
+  text-align: center; line-height: 1.3;
+}
+.sc-btn.approve { background: #e8f5e9; border-color: #2e7d32; color: #1b5e20; }
+.sc-btn.decline-funds { background: #fff3e0; border-color: #e65100; color: #bf360c; }
+.sc-btn.decline-fraud { background: #fce4ec; border-color: #c62828; color: #880e4f; }
+.sc-btn.decline-stolen { background: #f3e5f5; border-color: #6a1b9a; color: #4a148c; }
+.sc-btn.decline-tamper { background: #fafafa; border-color: #424242; color: #212121; }
+.sc-btn.decline-expired { background: #fff8e1; border-color: #f57f17; color: #e65100; }
+.sc-btn.decline-dup { background: #e8eaf6; border-color: #283593; color: #1a237e; }
+.sc-btn.active { box-shadow: 0 0 0 3px rgba(0,0,0,0.25); transform: scale(1.03); }
+
+/* ─── AMOUNT ─── */
+.amount-box {
+  background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+  border: 2px solid #1565c0; border-radius: 16px;
+  padding: 20px; text-align: center; margin-bottom: 16px;
+}
+.amount-label { font-size: 11px; font-weight: 700; color: #555; letter-spacing: 1px; margin-bottom: 6px; }
+.amount-ngn { font-size: 46px; font-weight: 900; color: #0d47a1; line-height: 1; }
+.amount-usd { font-size: 17px; color: #1565c0; font-weight: 600; margin-top: 6px; }
+.amount-hint { font-size: 12px; color: #777; margin-top: 8px; }
+
+/* ─── NUMPAD ─── */
+.numpad { display: grid; grid-template-columns: repeat(3,1fr); gap: 9px; margin-bottom: 14px; }
+.nk {
+  background: #f5f7ff; border: 2px solid #dde3f5; border-radius: 12px;
+  padding: 17px 10px; font-size: 22px; font-weight: 700; color: #1a1a3e;
+  cursor: pointer; transition: all 0.15s; text-align: center; user-select: none;
+}
+.nk:hover  { background: #dce8ff; border-color: #1565c0; transform: scale(1.02); }
+.nk:active { background: #bbdefb; transform: scale(0.97); }
+.nk.clr  { background: #fff3e0; border-color: #fb8c00; color: #e65100; font-size: 13px; }
+.nk.wide { grid-column: span 2; }
+
+/* ─── CHARGE BUTTON ─── */
+.charge-btn {
+  width: 100%; background: linear-gradient(135deg,#1565c0,#0d47a1);
+  color: white; border: none; border-radius: 14px; padding: 18px;
+  font-size: 17px; font-weight: 900; cursor: pointer; letter-spacing: 1px;
+  box-shadow: 0 6px 20px rgba(21,101,192,0.35); transition: all 0.2s; margin-bottom: 18px;
+}
+.charge-btn:hover:not(:disabled) { transform: translateY(-2px); }
+.charge-btn:disabled { background: #b0bec5; cursor: not-allowed; box-shadow: none; transform: none; }
+
+/* ─── NFC ZONE ─── */
+.nfc-zone { display: none; flex-direction: column; align-items: center; margin-bottom: 18px; }
+.nfc-zone.visible { display: flex; }
+.nfc-ring {
+  width: 155px; height: 155px; border-radius: 50%;
+  border: 4px solid #1565c0;
+  background: linear-gradient(135deg,#e3f2fd,#bbdefb);
+  display: flex; flex-direction: column; align-items: center;
+  justify-content: center; cursor: pointer; position: relative;
+  margin-bottom: 12px; transition: all 0.3s;
+}
+.nfc-ring:hover { transform: scale(1.05); }
+.nfc-wave {
+  position: absolute; border: 2px solid rgba(21,101,192,0.3);
+  border-radius: 50%; animation: wave 2s infinite;
+}
+.nfc-wave:nth-child(1){width:100%;height:100%;animation-delay:0s}
+.nfc-wave:nth-child(2){width:125%;height:125%;top:-12.5%;left:-12.5%;animation-delay:.6s}
+.nfc-wave:nth-child(3){width:150%;height:150%;top:-25%;left:-25%;animation-delay:1.2s}
+@keyframes wave{0%{opacity:.6;transform:scale(.85)}100%{opacity:0;transform:scale(1.1)}}
+.nfc-icon { font-size: 50px; z-index:1; }
+.nfc-text { font-size: 12px; font-weight: 800; color: #1565c0; z-index:1; letter-spacing:1px; margin-top:4px; }
+.nfc-ring.tapping { animation: tap-flash 0.5s ease; }
+@keyframes tap-flash{0%{box-shadow:0 0 0 0 rgba(21,101,192,.5)}50%{box-shadow:0 0 0 25px rgba(21,101,192,0)}100%{box-shadow:0 0 0 0 rgba(21,101,192,0)}}
+.nfc-ring.approved { background: linear-gradient(135deg,#c8e6c9,#a5d6a7); border-color:#2e7d32; }
+.nfc-ring.rejected { background: linear-gradient(135deg,#ffcdd2,#ef9a9a); border-color:#c62828; }
+.nfc-instr { font-size: 14px; font-weight: 600; color: #444; text-align: center; }
+
+/* ─── PAY SUMMARY ─── */
+.pay-summary {
+  display: none; background: #f9fbe7;
+  border: 2px solid #1565c0; border-radius: 14px;
+  padding: 16px; margin-bottom: 14px;
+}
+.pay-summary.visible { display: block; }
+.pr { display: flex; justify-content: space-between; margin-bottom: 7px; font-size: 13px; }
+.pr .lb { color: #666; } .pr .vl { font-weight: 700; color: #1a1a2e; }
+.pd { border: none; border-top: 1px solid #ddd; margin: 10px 0; }
+.pt { text-align: center; }
+.pt-ngn { font-size: 30px; font-weight: 900; color: #0d47a1; }
+.pt-usd { font-size: 15px; color: #1565c0; font-weight: 600; margin-top: 3px; }
+
+/* ─── CRYPTO TOKEN ─── */
+.token-box { display:none; background:#0d1b3e; border-radius:12px; padding:14px; margin-bottom:14px; }
+.token-box.visible { display:block; }
+.tk-title { font-size:10px; color:#00d4ff; font-weight:700; letter-spacing:1px; margin-bottom:8px; }
+.tk-row { display:flex; justify-content:space-between; margin-bottom:5px; font-size:10px; }
+.tk-k { color:#90caf9; } .tk-v { color:#69f0ae; font-family:monospace; font-size:9px; text-align:right; max-width:60%; word-break:break-all; }
+.tk-v.warn { color:#ffd740; } .tk-v.red { color:#ff5252; } .tk-v.good { color:#69f0ae; }
+
+/* ─── VERIFY BOX (nano check) ─── */
+.verify-box {
+  display:none; background:#e8f5e9; border:2px solid #2e7d32;
+  border-radius:12px; padding:14px; margin-bottom:14px;
+}
+.verify-box.visible { display:block; }
+.verify-title { font-size:11px; color:#1b5e20; font-weight:800; letter-spacing:1px; margin-bottom:8px; }
+.check-row { display:flex; justify-content:space-between; align-items:center; font-size:12px; margin-bottom:6px; }
+.chk-label { color:#333; }
+.chk-val { font-weight:700; padding:2px 8px; border-radius:6px; font-size:11px; }
+.chk-val.pass { background:#c8e6c9; color:#1b5e20; }
+.chk-val.fail { background:#ffcdd2; color:#c62828; }
+.chk-val.checking { background:#fff9c4; color:#f57f17; }
+.nano-time { font-size:10px; color:#888; margin-top:6px; text-align:right; font-family:monospace; }
+
+/* ─── DECLINE BOX ─── */
+.decline-box {
+  display:none; border-radius:14px; padding:20px;
+  text-align:center; margin-bottom:14px;
+}
+.decline-box.visible { display:block; }
+.decline-box.red-d { background:linear-gradient(135deg,#c62828,#b71c1c); color:white; }
+.decline-box.orange-d { background:linear-gradient(135deg,#e65100,#bf360c); color:white; }
+.decline-box.purple-d { background:linear-gradient(135deg,#6a1b9a,#4a148c); color:white; }
+.decline-box.dark-d { background:linear-gradient(135deg,#424242,#212121); color:white; }
+.decline-box.amber-d { background:linear-gradient(135deg,#f57f17,#e65100); color:white; }
+.decline-box.navy-d { background:linear-gradient(135deg,#283593,#1a237e); color:white; }
+.dec-icon { font-size:50px; margin-bottom:8px; }
+.dec-title { font-size:22px; font-weight:900; margin-bottom:4px; }
+.dec-code { font-family:monospace; font-size:12px; opacity:0.85; margin-bottom:8px; }
+.dec-sub { font-size:13px; opacity:0.9; line-height:1.5; }
+.dec-action {
+  margin-top:12px; background:rgba(255,255,255,0.2);
+  border-radius:8px; padding:8px 12px; font-size:11px; font-style:italic;
+}
+
+/* ─── CONFIRM BTN ─── */
+.confirm-btn {
+  display:none; width:100%;
+  background:linear-gradient(135deg,#2e7d32,#1b5e20);
+  color:white; border:none; border-radius:14px; padding:18px;
+  font-size:17px; font-weight:900; cursor:pointer; letter-spacing:1px;
+  box-shadow:0 6px 20px rgba(46,125,50,0.35); transition:all 0.2s; margin-bottom:14px;
+}
+.confirm-btn.visible { display:block; }
+.confirm-btn:hover:not(:disabled) { transform:translateY(-2px); }
+.confirm-btn:disabled { background:#b0bec5; cursor:not-allowed; transform:none; box-shadow:none; }
+
+/* ─── SUCCESS ─── */
+.success-banner {
+  display:none; background:linear-gradient(135deg,#2e7d32,#1b5e20);
+  border-radius:14px; padding:20px; text-align:center; color:white; margin-bottom:14px;
+}
+.success-banner.visible { display:block; }
+.suc-icon { font-size:52px; margin-bottom:6px; }
+.suc-title { font-size:22px; font-weight:900; }
+.suc-sub { font-size:13px; opacity:.9; margin-top:4px; }
+.receipt-ref { font-family:monospace; font-size:11px; background:rgba(255,255,255,.18); padding:4px 10px; border-radius:6px; margin-top:10px; display:inline-block; }
+
+/* ─── QUEUE ─── */
+.queue-section {
+  background:#f8f9fa; border:2px solid #e0e0e0;
+  border-radius:14px; padding:16px; margin-top:6px;
+}
+.q-hdr { display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; }
+.q-title { font-size:13px; font-weight:800; color:#1a1a2e; }
+.q-badge { background:#e65100; color:white; border-radius:20px; padding:3px 12px; font-size:11px; font-weight:700; }
+.q-list { max-height:180px; overflow-y:auto; margin-bottom:10px; }
+.q-item {
+  display:flex; justify-content:space-between; align-items:center;
+  background:white; border-left:4px solid #fb8c00; border-radius:8px;
+  padding:9px 12px; margin-bottom:7px; font-size:12px;
+}
+.q-item.synced { border-left-color:#2e7d32; }
+.q-item.declined { border-left-color:#c62828; background:#fff5f5; }
+.q-txid { color:#999; font-family:monospace; font-size:10px; }
+.q-ngn { font-weight:800; color:#1a1a2e; font-size:14px; }
+.q-usd { font-size:10px; color:#888; }
+.q-st { font-size:11px; font-weight:700; }
+.q-st.pending { color:#fb8c00; }
+.q-st.synced  { color:#2e7d32; }
+.q-st.declined { color:#c62828; }
+
+.sync-bar { display:none; margin-bottom:10px; }
+.sync-track { height:9px; background:#e0e0e0; border-radius:5px; overflow:hidden; }
+.sync-fill { height:100%; width:0%; background:linear-gradient(90deg,#00c853,#69f0ae); border-radius:5px; transition:width 0.4s ease; }
+.sync-lbl { font-size:11px; color:#555; margin-top:5px; text-align:center; }
+
+.sync-btn {
+  width:100%; background:linear-gradient(135deg,#00c853,#1b5e20);
+  color:white; border:none; border-radius:10px; padding:13px;
+  font-size:14px; font-weight:800; cursor:pointer; transition:all 0.2s; letter-spacing:.5px;
+}
+.sync-btn:disabled { background:#ccc; cursor:not-allowed; }
+.sync-btn:hover:not(:disabled) { transform:translateY(-1px); }
+
+.settlement {
+  display:none; background:linear-gradient(135deg,#fff8e1,#fff3e0);
+  border:2px solid #ff9800; border-radius:12px; padding:14px; margin-top:10px;
+}
+.settlement.visible { display:block; }
+.sett-title { font-size:12px; font-weight:800; color:#e65100; margin-bottom:8px; letter-spacing:1px; }
+.sett-row { display:flex; justify-content:space-between; font-size:12px; margin-bottom:5px; }
+.sett-l { color:#666; } .sett-v { font-weight:700; color:#1a1a2e; }
+.sett-v.green { color:#2e7d32; }
+
+.new-btn {
+  width:100%; background:#f0f4ff; color:#1565c0; border:2px solid #1565c0;
+  border-radius:10px; padding:12px; font-size:13px; font-weight:700;
+  cursor:pointer; margin-top:10px; display:none; transition:all 0.2s;
+}
+.new-btn:hover { background:#dce8ff; }
+
+@media(max-width:500px){
+  .scenario-grid { grid-template-columns:1fr; }
+  .amount-ngn { font-size:36px; }
+  .nk { padding:15px 8px; font-size:20px; }
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div>
+    <div class="brand">⚡ ZEROPAY</div>
+    <div class="tagline">World-First Offline NFC Payment · Patent Pending April 2026</div>
+  </div>
+  <button class="conn-btn offline" id="connBtn" onclick="toggleConn()">
+    <span class="conn-dot"></span>
+    <span id="connLabel">OFFLINE</span>
+  </button>
+</div>
+
+<!-- CARD -->
+<div class="card">
+  <div class="card-header">
+    🏪 MERCHANT TERMINAL — Chidi's Electronics
+    <span class="mid">RC 56802 · ZeroPay Certified · Abuja, FCT</span>
+  </div>
+  <div class="card-body">
+
+    <!-- SCENARIO SELECTOR -->
+    <div class="scenario-bar">
+      <div class="scenario-title">⚙️ DEMO SCENARIO — SELECT BEFORE CHARGING:</div>
+      <div class="scenario-grid">
+        <button class="sc-btn approve active" onclick="setScenario('approve',this)">✅ APPROVED — Normal Payment</button>
+        <button class="sc-btn decline-funds" onclick="setScenario('funds',this)">💸 DECLINED — Insufficient Funds</button>
+        <button class="sc-btn decline-fraud" onclick="setScenario('fraud',this)">🚨 DECLINED — Fraud / Flagged Account</button>
+        <button class="sc-btn decline-stolen" onclick="setScenario('stolen',this)">🔒 DECLINED — Stolen Card / Relay Attack</button>
+        <button class="sc-btn decline-tamper" onclick="setScenario('tamper',this)">⚠️ DECLINED — Tampered Terminal</button>
+        <button class="sc-btn decline-expired" onclick="setScenario('expired',this)">⏰ DECLINED — Expired Token (72h)</button>
+        <button class="sc-btn decline-dup" onclick="setScenario('duplicate',this)" style="grid-column:span 2">🔁 DECLINED — Duplicate Transaction</button>
+      </div>
+    </div>
+
+    <!-- AMOUNT DISPLAY -->
+    <div class="amount-box">
+      <div class="amount-label">CHARGE AMOUNT</div>
+      <div class="amount-ngn" id="dispNGN">₦0</div>
+      <div class="amount-usd" id="dispUSD">≈ $0.00 USD</div>
+      <div class="amount-hint" id="dispHint">Enter amount using keypad below</div>
+    </div>
+
+    <!-- NUMPAD -->
+    <div class="numpad" id="numpad">
+      <div class="nk" onclick="kp('1')">1</div>
+      <div class="nk" onclick="kp('2')">2</div>
+      <div class="nk" onclick="kp('3')">3</div>
+      <div class="nk" onclick="kp('4')">4</div>
+      <div class="nk" onclick="kp('5')">5</div>
+      <div class="nk" onclick="kp('6')">6</div>
+      <div class="nk" onclick="kp('7')">7</div>
+      <div class="nk" onclick="kp('8')">8</div>
+      <div class="nk" onclick="kp('9')">9</div>
+      <div class="nk wide" onclick="kp('0')">0</div>
+      <div class="nk clr"  onclick="kp('C')">⌫ CLR</div>
+    </div>
+
+    <!-- CHARGE BUTTON -->
+    <button class="charge-btn" id="chargeBtn" onclick="initiateCharge()">
+      📲 CHARGE CUSTOMER — TAP TO PAY
+    </button>
+
+    <!-- NFC ZONE -->
+    <div class="nfc-zone" id="nfcZone">
+      <div class="nfc-ring" id="nfcRing" onclick="nfcTap()">
+        <div class="nfc-wave"></div>
+        <div class="nfc-wave"></div>
+        <div class="nfc-wave"></div>
+        <div class="nfc-icon" id="nfcIcon">📶</div>
+        <div class="nfc-text" id="nfcText">HOLD CARD HERE</div>
+      </div>
+      <div class="nfc-instr" id="nfcInstr">Customer: Hold NFC card or phone to terminal</div>
+    </div>
+
+    <!-- PAYMENT SUMMARY -->
+    <div class="pay-summary" id="paySummary">
+      <div class="pr"><span class="lb">Merchant</span><span class="vl">Chidi's Electronics</span></div>
+      <div class="pr"><span class="lb">Terminal</span><span class="vl">ZeroPay NFC Terminal</span></div>
+      <div class="pr"><span class="lb">Network</span><span class="vl" id="netStatus">⚡ OFFLINE — ZeroPay Secured</span></div>
+      <hr class="pd">
+      <div class="pt">
+        <div class="pt-ngn" id="sumNGN">₦0</div>
+        <div class="pt-usd" id="sumUSD">≈ $0.00 USD</div>
+      </div>
+    </div>
+
+    <!-- NANO VERIFICATION BOX -->
+    <div class="verify-box" id="verifyBox">
+      <div class="verify-title">⚡ OFFLINE VERIFICATION — CRYPTOGRAPHIC CHECKS (nanoseconds)</div>
+      <div class="check-row"><span class="chk-label">PUF Fingerprint Valid</span><span class="chk-val" id="ck1">checking...</span></div>
+      <div class="check-row"><span class="chk-label">Spending Ceiling Check</span><span class="chk-val" id="ck2">checking...</span></div>
+      <div class="check-row"><span class="chk-label">Blacklist / Fraud Flag</span><span class="chk-val" id="ck3">checking...</span></div>
+      <div class="check-row"><span class="chk-label">Distance Bounding (Anti-Relay)</span><span class="chk-val" id="ck4">checking...</span></div>
+      <div class="check-row"><span class="chk-label">Token Expiry (TTL 72h)</span><span class="chk-val" id="ck5">checking...</span></div>
+      <div class="check-row"><span class="chk-label">Duplicate Transaction</span><span class="chk-val" id="ck6">checking...</span></div>
+      <div class="nano-time" id="nanoTime"></div>
+    </div>
+
+    <!-- CRYPTO TOKEN (shown on approve) -->
+    <div class="token-box" id="tokenBox">
+      <div class="tk-title">🔐 CRYPTOGRAPHIC TOKEN — GENERATED OFFLINE</div>
+      <div class="tk-row"><span class="tk-k">PUF Fingerprint</span><span class="tk-v" id="tPUF"></span></div>
+      <div class="tk-row"><span class="tk-k">ECC P-256 Signature</span><span class="tk-v" id="tECC"></span></div>
+      <div class="tk-row"><span class="tk-k">Token Hash</span><span class="tk-v" id="tHash"></span></div>
+      <div class="tk-row"><span class="tk-k">Timestamp</span><span class="tk-v" id="tTime"></span></div>
+      <div class="tk-row"><span class="tk-k">Status</span><span class="tk-v warn" id="tStatus">⏳ QUEUED — Pending Sync to Paystack</span></div>
+    </div>
+
+    <!-- DECLINE BOX -->
+    <div class="decline-box" id="declineBox">
+      <div class="dec-icon" id="decIcon"></div>
+      <div class="dec-title" id="decTitle"></div>
+      <div class="dec-code" id="decCode"></div>
+      <div class="dec-sub" id="decSub"></div>
+      <div class="dec-action" id="decAction"></div>
+    </div>
+
+    <!-- CONFIRM BUTTON -->
+    <button class="confirm-btn" id="confirmBtn" onclick="confirmPay()">
+      ✅ CONFIRM — PAY ₦<span id="confirmAmt">0</span>
+    </button>
+
+    <!-- SUCCESS BANNER -->
+    <div class="success-banner" id="successBanner">
+      <div class="suc-icon">✅</div>
+      <div class="suc-title">PAYMENT ACCEPTED</div>
+      <div class="suc-sub" id="successSub">Offline token secured. Will sync when internet returns.</div>
+      <div class="receipt-ref" id="receiptRef">REF: --</div>
+    </div>
+    <button class="new-btn" id="newBtn" onclick="resetPayment()">↩ New Payment</button>
+
+    <!-- QUEUE -->
+    <div class="queue-section">
+      <div class="q-hdr">
+        <div class="q-title">📦 OFFLINE BATCH QUEUE</div>
+        <div class="q-badge" id="qBadge">0 pending</div>
+      </div>
+      <div class="q-list" id="qList">
+        <div style="text-align:center;color:#aaa;font-size:12px;padding:18px 0">
+          No transactions yet.<br>Queue builds offline — syncs when internet returns.
+        </div>
+      </div>
+      <div class="sync-bar" id="syncBar">
+        <div class="sync-track"><div class="sync-fill" id="syncFill"></div></div>
+        <div class="sync-lbl" id="syncLbl">Syncing...</div>
+      </div>
+      <button class="sync-btn" id="syncBtn" onclick="syncQueue()" disabled>
+        🌐 SYNC TO PAYSTACK — Internet Required
+      </button>
+      <div class="settlement" id="settlement">
+        <div class="sett-title">✅ BATCH SETTLEMENT COMPLETE — PAYSTACK CONFIRMED</div>
+        <div class="sett-row"><span class="sett-l">Transactions Settled</span><span class="sett-v" id="sCount">0</span></div>
+        <div class="sett-row"><span class="sett-l">Total Volume (NGN)</span><span class="sett-v" id="sNGN">₦0</span></div>
+        <div class="sett-row"><span class="sett-l">Total Volume (USD)</span><span class="sett-v" id="sUSD">$0.00</span></div>
+        <div class="sett-row"><span class="sett-l">Settlement Rail</span><span class="sett-v">Paystack API ✓</span></div>
+        <div class="sett-row"><span class="sett-l">Status</span><span class="sett-v green">CONFIRMED ✓</span></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+const FX = 1580;
+let raw = '', isOnline = false, queue = [], txN = 1000, pendingTx = null, charged = false;
+let scenario = 'approve';
+
+const SCENARIOS = {
+  approve: {
+    checks: ['pass','pass','pass','pass','pass','pass'],
+    outcome: 'approve'
+  },
+  funds: {
+    checks: ['pass','fail','pass','pass','pass','pass'],
+    outcome: 'decline',
+    cls: 'orange-d', icon: '💸',
+    title: 'PAYMENT DECLINED',
+    code: 'ERR-ZP-001 · SPENDING_CEILING_EXCEEDED',
+    sub: 'Your ZeroPay token spending limit has been reached. This check is performed entirely offline in nanoseconds using your card\'s cryptographic ceiling — no internet required.\n\nNo funds were transferred. No network call was made.',
+    action: 'Action: Top up your ZeroPay card at any agent or via the app to restore your spending ceiling.'
+  },
+  fraud: {
+    checks: ['pass','pass','fail','pass','pass','pass'],
+    outcome: 'decline',
+    cls: 'red-d', icon: '🚨',
+    title: 'TRANSACTION BLOCKED',
+    code: 'ERR-ZP-002 · ACCOUNT_FLAGGED · FRAUD_BLACKLIST',
+    sub: 'This card\'s PUF fingerprint appears on the fraud blacklist cached from the last network sync. Transaction blocked. The attempted transaction has been logged with a timestamp and PUF fingerprint for upload to ZeroPay Risk at next sync.',
+    action: 'Action: Card holder must contact ZeroPay Support. Merchant: Do not proceed. Log has been created automatically.'
+  },
+  stolen: {
+    checks: ['pass','pass','pass','fail','pass','pass'],
+    outcome: 'decline',
+    cls: 'purple-d', icon: '🔒',
+    title: 'RELAY ATTACK DETECTED',
+    code: 'ERR-ZP-003 · DISTANCE_BOUNDING_FAILED · RELAY_SUSPECTED',
+    sub: 'Distance Bounding Protocol failed. Signal round-trip time exceeded the 30-nanosecond physical proximity threshold. This card is not physically present — a relay or cloning device has been detected.\n\nTransaction blocked. Incident logged.',
+    action: 'Action: Do not accept this card. Relay attack logged for upload. Alert ZeroPay Security.'
+  },
+  tamper: {
+    checks: ['fail','pass','pass','pass','pass','pass'],
+    outcome: 'decline',
+    cls: 'dark-d', icon: '⚠️',
+    title: 'TERMINAL INTEGRITY FAILURE',
+    code: 'ERR-ZP-004 · PUF_MISMATCH · TERMINAL_TAMPERED',
+    sub: 'The terminal\'s own PUF silicon fingerprint does not match its registered identity. This terminal has been physically tampered with or replaced. All transactions blocked.\n\nThis terminal cannot process payments until it is re-certified by ZeroPay.',
+    action: 'Action: Remove terminal from service immediately. Contact ZeroPay Hardware Support. Do not accept cash workarounds.'
+  },
+  expired: {
+    checks: ['pass','pass','pass','pass','fail','pass'],
+    outcome: 'decline',
+    cls: 'amber-d', icon: '⏰',
+    title: 'TOKEN EXPIRED',
+    code: 'ERR-ZP-005 · TOKEN_TTL_EXCEEDED · 72H_LIMIT',
+    sub: 'This ZeroPay offline token has exceeded its 72-hour maximum validity window without a network sync. For security, all offline tokens expire after 72 hours regardless of usage.\n\nThis prevents indefinite offline spending beyond risk limits.',
+    action: 'Action: Customer must sync their device or card to a ZeroPay hub or WiFi point to refresh their token. Takes under 3 seconds.'
+  },
+  duplicate: {
+    checks: ['pass','pass','pass','pass','pass','fail'],
+    outcome: 'decline',
+    cls: 'navy-d', icon: '🔁',
+    title: 'DUPLICATE TRANSACTION',
+    code: 'ERR-ZP-006 · DUPLICATE_DETECTED · 60S_WINDOW',
+    sub: 'Identical transaction detected — same PUF fingerprint, same merchant, same amount within the 60-second duplicate prevention window. This protects customers from accidental double-charges or merchant replay attacks.\n\nNo funds transferred.',
+    action: 'Action: If this is intentional (e.g. two separate items), wait 60 seconds or adjust the amount slightly and retry.'
+  }
+};
+
+// ─── SCENARIO SELECTOR ───
+function setScenario(s, btn) {
+  scenario = s;
+  document.querySelectorAll('.sc-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+// ─── NUMPAD ───
+function kp(k) {
+  if (charged) return;
+  if (k === 'C') raw = raw.slice(0, -1);
+  else if (raw.length < 7) raw += k;
+  refresh();
+}
+function refresh() {
+  const n = parseInt(raw || '0');
+  document.getElementById('dispNGN').textContent = '₦' + n.toLocaleString();
+  document.getElementById('dispUSD').textContent = '≈ $' + (n / FX).toFixed(2) + ' USD';
+  document.getElementById('dispHint').textContent = n > 0 ? 'Ready to charge. Press button below.' : 'Enter amount using keypad below';
+}
+
+// ─── INITIATE CHARGE ───
+function initiateCharge() {
+  const n = parseInt(raw || '0');
+  if (n < 1) { alert('Please enter an amount first.'); return; }
+  charged = true;
+  document.getElementById('chargeBtn').disabled = true;
+  document.getElementById('numpad').style.opacity = '0.4';
+  document.getElementById('numpad').style.pointerEvents = 'none';
+  document.getElementById('nfcZone').classList.add('visible');
+  document.getElementById('sumNGN').textContent = '₦' + n.toLocaleString();
+  document.getElementById('sumUSD').textContent = '≈ $' + (n / FX).toFixed(2) + ' USD';
+  document.getElementById('netStatus').textContent = isOnline ? '🌐 ONLINE' : '⚡ OFFLINE — ZeroPay Secured';
+  document.getElementById('paySummary').classList.add('visible');
+}
+
+// ─── NFC TAP ───
+function nfcTap() {
+  if (!charged) return;
+  const ring = document.getElementById('nfcRing');
+  ring.classList.add('tapping');
+  document.getElementById('nfcIcon').textContent = '🔐';
+  document.getElementById('nfcText').textContent = 'READING...';
+  document.getElementById('nfcInstr').textContent = '⚡ Running 6 cryptographic checks offline...';
+
+  setTimeout(() => {
+    ring.classList.remove('tapping');
+    showVerification();
+  }, 700);
+}
+
+// ─── VERIFICATION SEQUENCE ───
+function showVerification() {
+  const sc = SCENARIOS[scenario];
+  const box = document.getElementById('verifyBox');
+  box.classList.add('visible');
+  const checks = ['ck1','ck2','ck3','ck4','ck5','ck6'];
+  const labels = ['pass','pass','pass','pass','pass','pass'];
+  const results = sc.checks;
+  let i = 0;
+
+  const iv = setInterval(() => {
+    const el = document.getElementById(checks[i]);
+    el.textContent = results[i] === 'pass' ? '✓ PASS' : '✗ FAIL';
+    el.className = 'chk-val ' + results[i];
+    i++;
+    if (i >= checks.length) {
+      clearInterval(iv);
+      document.getElementById('nanoTime').textContent = 'Total verification time: ' + (Math.random() * 0.4 + 0.1).toFixed(3) + ' milliseconds (offline)';
+      setTimeout(() => resolveOutcome(sc), 600);
+    }
+  }, 200);
+}
+
+// ─── RESOLVE ───
+function resolveOutcome(sc) {
+  const n = parseInt(raw || '0');
+  const ring = document.getElementById('nfcRing');
+
+  if (sc.outcome === 'approve') {
+    ring.classList.add('approved');
+    document.getElementById('nfcIcon').textContent = '✅';
+    document.getElementById('nfcText').textContent = 'APPROVED';
+    document.getElementById('nfcInstr').textContent = 'All checks passed. Confirm payment below ↓';
+
+    const tx = {
+      id: 'ZP' + (++txN), amount: n,
+      puf: rndHex(16), ecc: rndHex(32), hash: rndHex(20),
+      ts: new Date().toISOString(), status: 'pending'
+    };
+    pendingTx = tx;
+    document.getElementById('tPUF').textContent  = tx.puf;
+    document.getElementById('tECC').textContent  = tx.ecc;
+    document.getElementById('tHash').textContent = tx.hash;
+    document.getElementById('tTime').textContent = tx.ts;
+    document.getElementById('tokenBox').classList.add('visible');
+    document.getElementById('confirmAmt').textContent = n.toLocaleString();
+    document.getElementById('confirmBtn').classList.add('visible');
+  } else {
+    ring.classList.add('rejected');
+    document.getElementById('nfcIcon').textContent = '❌';
+    document.getElementById('nfcText').textContent = 'DECLINED';
+    document.getElementById('nfcInstr').textContent = 'Transaction blocked. See details below ↓';
+
+    const box = document.getElementById('declineBox');
+    box.className = 'decline-box visible ' + sc.cls;
+    document.getElementById('decIcon').textContent  = sc.icon;
+    document.getElementById('decTitle').textContent = sc.title;
+    document.getElementById('decCode').textContent  = sc.code;
+    document.getElementById('decSub').textContent   = sc.sub;
+    document.getElementById('decAction').textContent = sc.action;
+
+    // Log to queue as declined
+    queue.push({
+      id: 'ZP' + (++txN), amount: n,
+      ts: new Date().toISOString(), status: 'declined'
+    });
+    updateQueue();
+    document.getElementById('newBtn').style.display = 'block';
+  }
+}
+
+// ─── CONFIRM ───
+function confirmPay() {
+  if (!pendingTx) return;
+  document.getElementById('confirmBtn').disabled = true;
+  queue.push({ ...pendingTx });
+  updateQueue();
+  document.getElementById('successBanner').classList.add('visible');
+  document.getElementById('successSub').textContent = isOnline
+    ? 'Payment settled via Paystack. ✓'
+    : 'Offline token secured. Will sync when internet returns.';
+  document.getElementById('receiptRef').textContent = 'REF: ' + pendingTx.id + ' · ' + new Date().toLocaleTimeString();
+  document.getElementById('newBtn').style.display = 'block';
+  pendingTx = null;
+}
+
+// ─── RESET ───
+function resetPayment() {
+  raw = ''; charged = false; pendingTx = null; refresh();
+  document.getElementById('chargeBtn').disabled = false;
+  document.getElementById('numpad').style.opacity = '1';
+  document.getElementById('numpad').style.pointerEvents = 'auto';
+  document.getElementById('nfcZone').classList.remove('visible');
+  document.getElementById('paySummary').classList.remove('visible');
+  document.getElementById('verifyBox').classList.remove('visible');
+  document.getElementById('tokenBox').classList.remove('visible');
+  document.getElementById('confirmBtn').classList.remove('visible');
+  document.getElementById('confirmBtn').disabled = false;
+  document.getElementById('successBanner').classList.remove('visible');
+  document.getElementById('declineBox').classList.remove('visible');
+  document.getElementById('newBtn').style.display = 'none';
+  document.getElementById('nanoTime').textContent = '';
+  ['ck1','ck2','ck3','ck4','ck5','ck6'].forEach(id => {
+    document.getElementById(id).textContent = 'checking...';
+    document.getElementById(id).className = 'chk-val checking';
+  });
+  const ring = document.getElementById('nfcRing');
+  ring.classList.remove('approved','rejected','tapping');
+  document.getElementById('nfcIcon').textContent = '📶';
+  document.getElementById('nfcText').textContent = 'HOLD CARD HERE';
+  document.getElementById('nfcInstr').textContent = 'Customer: Hold NFC card or phone to terminal';
+}
+
+// ─── QUEUE ───
+function updateQueue() {
+  const pending = queue.filter(t => t.status === 'pending').length;
+  document.getElementById('qBadge').textContent = pending + ' pending';
+  document.getElementById('syncBtn').disabled = !isOnline || pending === 0;
+  const list = document.getElementById('qList');
+  if (queue.length === 0) {
+    list.innerHTML = '<div style="text-align:center;color:#aaa;font-size:12px;padding:18px 0">No transactions yet.<br>Queue builds offline — syncs when internet returns.</div>';
+    return;
+  }
+  list.innerHTML = [...queue].reverse().map(t => `
+    <div class="q-item ${t.status}">
+      <div><div class="q-txid">${t.id}</div><div style="font-size:10px;color:#aaa">${new Date(t.ts).toLocaleTimeString()}</div></div>
+      <div style="text-align:right">
+        <div class="q-ngn">₦${t.amount.toLocaleString()}</div>
+        <div class="q-usd">$${(t.amount/FX).toFixed(2)}</div>
+      </div>
+      <div class="q-st ${t.status}">${t.status === 'synced' ? '✅ Settled' : t.status === 'declined' ? '❌ Declined' : '⏳ Pending'}</div>
+    </div>`).join('');
+}
+
+// ─── SYNC ───
+function syncQueue() {
+  const pending = queue.filter(t => t.status === 'pending');
+  if (!isOnline || pending.length === 0) return;
+  document.getElementById('syncBtn').disabled = true;
+  document.getElementById('syncBar').style.display = 'block';
+  document.getElementById('settlement').classList.remove('visible');
+  let done = 0;
+  const iv = setInterval(() => {
+    pending[done].status = 'synced';
+    done++;
+    const pct = Math.round(done / pending.length * 100);
+    document.getElementById('syncFill').style.width = pct + '%';
+    document.getElementById('syncLbl').textContent = 'Settling ' + done + ' of ' + pending.length + ' via Paystack API...';
+    updateQueue();
+    if (done >= pending.length) {
+      clearInterval(iv);
+      document.getElementById('syncLbl').textContent = '✅ All transactions settled!';
+      const totalNGN = queue.filter(t=>t.status==='synced').reduce((s,t)=>s+t.amount,0);
+      document.getElementById('sCount').textContent = queue.filter(t=>t.status==='synced').length;
+      document.getElementById('sNGN').textContent = '₦' + totalNGN.toLocaleString();
+      document.getElementById('sUSD').textContent = '$' + (totalNGN/FX).toFixed(2);
+      document.getElementById('settlement').classList.add('visible');
+    }
+  }, 650);
+}
+
+// ─── TOGGLE CONNECTION ───
+function toggleConn() {
+  isOnline = !isOnline;
+  const btn = document.getElementById('connBtn');
+  const pending = queue.filter(t=>t.status==='pending').length;
+  if (isOnline) {
+    btn.className = 'conn-btn online';
+    document.getElementById('connLabel').textContent = 'ONLINE — Solar Mesh Hub';
+    document.getElementById('syncBtn').disabled = pending === 0;
+  } else {
+    btn.className = 'conn-btn offline';
+    document.getElementById('connLabel').textContent = 'OFFLINE';
+    document.getElementById('syncBtn').disabled = true;
+    document.getElementById('settlement').classList.remove('visible');
+    document.getElementById('syncBar').style.display = 'none';
+    document.getElementById('syncFill').style.width = '0%';
+  }
+}
+
+function rndHex(n) {
+  return Array.from({length:n},()=>Math.floor(Math.random()*16).toString(16)).join('');
+}
+
+refresh(); updateQueue();
+</script>
+</body>
+</html>
