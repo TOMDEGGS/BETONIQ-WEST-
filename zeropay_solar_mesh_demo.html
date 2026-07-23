@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noodp, notranslate, noimageindex">
+<meta name="GPTBot" content="noindex, nofollow">
+<meta name="anthropic-ai" content="noindex, nofollow">
+<meta name="copyright" content="ZeroPay by BETONIQ(WEST) Ltd, RC 56802, Abuja, Nigeria. Patent Pending April 2026. All rights reserved.">
+<title>ZeroPay — Solar Mesh Relay Demo</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+body { font-family: 'Segoe UI', sans-serif; background: #0a0f1e; color: #e0e8f0; min-height: 100vh; overflow-x: hidden; }
+
+.header { background: #0d1b3e; padding: 14px 20px; display: flex; align-items: center; justify-content: space-between; border-bottom: 2px solid #ffa500; }
+.brand { font-size: 20px; font-weight: 900; color: #ffa500; letter-spacing: 2px; }
+.tagline { font-size: 10px; color: #90a4b7; margin-top: 2px; }
+.patent { font-size: 9px; color: #00d4ff; margin-top: 1px; }
+.trade-secret { background: #c62828; color: white; font-size: 9px; font-weight: 700; padding: 3px 8px; border-radius: 8px; text-align: center; }
+
+/* ENVIRONMENT TOGGLE */
+.env-bar { background: #0d1b3e; padding: 10px 16px; display: flex; gap: 8px; border-bottom: 1px solid #1e3a5f; flex-wrap: wrap; align-items: center; }
+.env-label { font-size: 10px; color: #90a4b7; font-weight: 700; margin-right: 4px; }
+.env-btn { padding: 7px 14px; border: 2px solid #1e3a5f; border-radius: 8px; background: #0a1628; color: #90a4b7; font-size: 10px; font-weight: 700; cursor: pointer; transition: all 0.2s; touch-action: manipulation; }
+.env-btn.active { border-color: #ffa500; background: #ffa50022; color: #ffa500; }
+.env-btn.danger.active { border-color: #ef5350; background: #ef535022; color: #ef5350; }
+
+/* WEATHER STATUS */
+.weather-bar { display: flex; align-items: center; justify-content: space-between; padding: 8px 16px; background: #050d1a; border-bottom: 1px solid #1e3a5f; }
+.weather-info { display: flex; align-items: center; gap: 8px; font-size: 11px; }
+.power-info { font-size: 10px; color: #90a4b7; }
+.battery-bar { display: inline-flex; align-items: center; gap: 4px; }
+.battery-fill { height: 10px; border-radius: 2px; background: #00c853; transition: width 0.5s; }
+.battery-shell { width: 40px; height: 12px; border: 1px solid #607080; border-radius: 2px; padding: 1px; display: inline-block; }
+
+/* MAIN */
+.main { padding: 14px; max-width: 900px; margin: 0 auto; }
+
+/* NANO COUNTER */
+.nano-display { background: #0d1b3e; border: 2px solid #ffa500; border-radius: 14px; padding: 14px 16px; margin-bottom: 14px; display: flex; align-items: center; justify-content: space-between; }
+.nano-label { font-size: 10px; color: #90a4b7; font-weight: 700; margin-bottom: 4px; }
+.nano-value { font-size: 28px; font-weight: 900; color: #ffa500; font-family: monospace; letter-spacing: 2px; }
+.nano-unit { font-size: 10px; color: #607080; }
+.nano-right { text-align: right; }
+.hops-value { font-size: 22px; font-weight: 900; color: #00d4ff; }
+
+/* MESH MAP */
+.mesh-map { background: #0d1b3e; border-radius: 14px; border: 2px solid #1e3a5f; overflow: hidden; margin-bottom: 14px; }
+.mesh-map-header { background: #0a1628; padding: 10px 14px; font-size: 11px; font-weight: 700; color: #ffa500; border-bottom: 1px solid #1e3a5f; display: flex; justify-content: space-between; }
+.mesh-canvas { position: relative; width: 100%; height: 280px; overflow: hidden; }
+
+/* NODES */
+.mesh-node { position: absolute; display: flex; flex-direction: column; align-items: center; cursor: pointer; }
+.node-circle { width: 52px; height: 52px; border-radius: 50%; border: 3px solid #1e3a5f; display: flex; align-items: center; justify-content: center; font-size: 18px; background: #0a1628; transition: all 0.4s; }
+.node-circle.idle { border-color: #1e3a5f; box-shadow: none; }
+.node-circle.active { border-color: #ffa500; box-shadow: 0 0 20px #ffa50066; background: #ffa50022; animation: nodeActive 0.5s infinite; }
+.node-circle.done { border-color: #00c853; box-shadow: 0 0 12px #00c85344; background: #00c85322; }
+.node-circle.offline-node { border-color: #ef5350; box-shadow: 0 0 8px #ef535044; }
+.node-label { font-size: 9px; color: #90a4b7; margin-top: 4px; text-align: center; font-weight: 700; max-width: 70px; }
+.node-sub { font-size: 8px; color: #607080; text-align: center; }
+.node-status { font-size: 8px; margin-top: 2px; font-weight: 700; }
+@keyframes nodeActive { 0%,100%{transform:scale(1)} 50%{transform:scale(1.08)} }
+
+/* SIGNAL PULSE */
+.signal-pulse { position: absolute; width: 12px; height: 12px; border-radius: 50%; background: #ffa500; box-shadow: 0 0 8px #ffa500; display: none; pointer-events: none; z-index: 10; transition: none; }
+
+/* SVG LINES */
+.mesh-svg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; }
+
+/* TRANSACTION PANEL */
+.tx-panel { background: #0d1b3e; border-radius: 14px; border: 1px solid #1e3a5f; overflow: hidden; margin-bottom: 14px; }
+.tx-header { background: #0a1628; padding: 10px 14px; font-size: 11px; font-weight: 700; color: #00d4ff; border-bottom: 1px solid #1e3a5f; }
+.tx-row { display: flex; align-items: center; gap: 8px; padding: 10px 14px; border-bottom: 1px solid #0a1628; }
+.tx-icon { font-size: 16px; width: 28px; text-align: center; }
+.tx-info { flex: 1; }
+.tx-name { font-size: 11px; font-weight: 700; color: #e0e8f0; }
+.tx-detail { font-size: 9px; color: #607080; margin-top: 1px; }
+.tx-amount { font-size: 12px; font-weight: 900; color: #00d4ff; }
+.tx-status { font-size: 9px; font-weight: 700; padding: 2px 8px; border-radius: 6px; }
+.status-queued { background: #ffa50022; color: #ffa500; }
+.status-syncing { background: #00d4ff22; color: #00d4ff; }
+.status-settled { background: #00c85322; color: #00c853; }
+
+/* CONTROLS */
+.controls { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px; }
+.ctrl-btn { padding: 14px; border: 2px solid #1e3a5f; border-radius: 12px; background: #0d1b3e; color: #e0e8f0; font-size: 12px; font-weight: 700; cursor: pointer; text-align: center; touch-action: manipulation; transition: all 0.2s; }
+.ctrl-btn:active { transform: scale(0.97); }
+.ctrl-btn.primary { border-color: #ffa500; color: #ffa500; }
+.ctrl-btn.primary:active { background: #ffa50022; }
+.ctrl-btn.settle { border-color: #00c853; color: #00c853; }
+.ctrl-btn.settle:active { background: #00c85322; }
+.ctrl-btn.danger { border-color: #ef5350; color: #ef5350; }
+.ctrl-btn.danger:active { background: #ef535022; }
+.ctrl-btn.reset-btn { border-color: #607080; color: #607080; }
+
+/* RESILIENCE PANEL */
+.resilience { background: #0d1b3e; border-radius: 14px; border: 2px solid #ef535044; overflow: hidden; margin-bottom: 14px; }
+.resilience-header { background: #c6282822; padding: 10px 14px; font-size: 11px; font-weight: 700; color: #ef5350; border-bottom: 1px solid #ef535033; }
+.resilience-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
+.resilience-item { padding: 12px 14px; border-bottom: 1px solid #0a1628; border-right: 1px solid #0a1628; }
+.res-title { font-size: 10px; font-weight: 700; color: #ffa500; margin-bottom: 4px; }
+.res-desc { font-size: 9px; color: #90a4b7; line-height: 1.4; }
+.res-status { font-size: 9px; color: #00c853; font-weight: 700; margin-top: 4px; }
+
+/* LOG */
+.log-box { background: #050d1a; border: 1px solid #1e3a5f; border-radius: 10px; padding: 10px; height: 100px; overflow-y: auto; font-family: monospace; font-size: 10px; }
+.log-entry { margin-bottom: 3px; color: #90a4b7; }
+.log-entry.warn { color: #ffa500; }
+.log-entry.success { color: #00c853; }
+.log-entry.info { color: #00d4ff; }
+.log-entry.danger { color: #ef5350; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div>
+    <div class="brand">☀️ ZEROPAY SOLAR MESH</div>
+    <div class="tagline">NANOSECOND RELAY · EDO STATE → SETTLEMENT</div>
+    <div class="patent">© BETONIQ(WEST) Ltd RC 56802 · Patent Pending April 2026</div>
+  </div>
+  <div>
+    <div class="trade-secret">🔒 TRADE SECRET<br>ARCHITECTURE</div>
+  </div>
+</div>
+
+<!-- ENV BAR -->
+<div class="env-bar">
+  <span class="env-label">ENVIRONMENT:</span>
+  <div class="env-btn active" id="envDay" onclick="setEnv('day')">☀️ DAYTIME</div>
+  <div class="env-btn" id="envNight" onclick="setEnv('night')">🌙 NIGHT</div>
+  <div class="env-btn danger" id="envStorm" onclick="setEnv('storm')">⛈️ HEAVY STORM</div>
+  <div class="env-btn danger" id="envBlackout" onclick="setEnv('blackout')">🔌 GRID BLACKOUT</div>
+</div>
+
+<!-- WEATHER BAR -->
+<div class="weather-bar">
+  <div class="weather-info">
+    <span id="weatherIcon">☀️</span>
+    <span id="weatherText" style="color:#ffa500;font-weight:700;">SOLAR CHARGING — OPTIMAL</span>
+    <span id="weatherSub" style="color:#607080;font-size:9px;">All nodes at 100% capacity</span>
+  </div>
+  <div class="power-info">
+    <div style="display:flex;align-items:center;gap:4px;">
+      <span style="font-size:9px;color:#607080;">BATTERY:</span>
+      <div class="battery-shell">
+        <div class="battery-fill" id="battFill" style="width:100%;"></div>
+      </div>
+      <span id="battPct" style="font-size:10px;font-weight:700;color:#00c853;">100%</span>
+    </div>
+    <div style="font-size:8px;color:#607080;margin-top:2px;" id="battLabel">72-hr supercapacitor + LiFePO4</div>
+  </div>
+</div>
+
+<div class="main">
+
+<!-- NANO COUNTER -->
+<div class="nano-display">
+  <div>
+    <div class="nano-label">⚡ SIGNAL PROPAGATION TIME</div>
+    <div class="nano-value" id="nanoDisplay">000.00</div>
+    <div class="nano-unit">nanoseconds</div>
+  </div>
+  <div class="nano-right">
+    <div class="nano-label">HOPS COMPLETED</div>
+    <div class="hops-value" id="hopsDisplay">0 / 5</div>
+    <div class="nano-unit">Agenegbode → Paystack</div>
+  </div>
+</div>
+
+<!-- MESH MAP -->
+<div class="mesh-map">
+  <div class="mesh-map-header">
+    🗺️ EDO STATE → PAYSTACK SETTLEMENT — LIVE RELAY MAP
+    <span id="mapStatus" style="color:#607080;">READY</span>
+  </div>
+  <div class="mesh-canvas" id="meshCanvas">
+    <svg class="mesh-svg" id="meshSVG"></svg>
+    <!-- Nodes positioned in HTML, positioned via JS -->
+  </div>
+</div>
+
+<!-- CONTROLS -->
+<div class="controls">
+  <div class="ctrl-btn primary" onclick="startRelay()" ontouchend="startRelay()">
+    ⚡ FIRE TRANSACTION<br><span style="font-size:9px;font-weight:400;">Agenegbode → Paystack</span>
+  </div>
+  <div class="ctrl-btn settle" onclick="batchSettle()" ontouchend="batchSettle()">
+    🏦 BATCH SETTLE<br><span style="font-size:9px;font-weight:400;">Push queue to Paystack</span>
+  </div>
+  <div class="ctrl-btn danger" onclick="simulateNodeFail()" ontouchend="simulateNodeFail()">
+    💥 SIMULATE NODE FAIL<br><span style="font-size:9px;font-weight:400;">Test rerouting</span>
+  </div>
+  <div class="ctrl-btn reset-btn" onclick="resetDemo()" ontouchend="resetDemo()">
+    🔄 RESET DEMO<br><span style="font-size:9px;font-weight:400;">Clear all state</span>
+  </div>
+</div>
+
+<!-- TRANSACTIONS -->
+<div class="tx-panel">
+  <div class="tx-header">📋 OFFLINE BATCH QUEUE — EDO MERCHANTS</div>
+  <div id="txList">
+    <div class="tx-row">
+      <div class="tx-icon">🛒</div>
+      <div class="tx-info">
+        <div class="tx-name">Agenegbode Market — Mama Ifeoma</div>
+        <div class="tx-detail">Queued: 14:32:07 · Token: ZPT-A71F · PUF-Signed</div>
+      </div>
+      <div style="text-align:right">
+        <div class="tx-amount">₦4,500</div>
+        <div class="tx-status status-queued">QUEUED</div>
+      </div>
+    </div>
+    <div class="tx-row">
+      <div class="tx-icon">⛽</div>
+      <div class="tx-info">
+        <div class="tx-name">Fugar Filling Station — Emeka Obi</div>
+        <div class="tx-detail">Queued: 15:18:44 · Token: ZPT-B33C · PUF-Signed</div>
+      </div>
+      <div style="text-align:right">
+        <div class="tx-amount">₦12,000</div>
+        <div class="tx-status status-queued">QUEUED</div>
+      </div>
+    </div>
+    <div class="tx-row">
+      <div class="tx-icon">💊</div>
+      <div class="tx-info">
+        <div class="tx-name">Uzairue Pharmacy — Grace Osagie</div>
+        <div class="tx-detail">Queued: 16:05:21 · Token: ZPT-C88E · PUF-Signed</div>
+      </div>
+      <div style="text-align:right">
+        <div class="tx-amount">₦7,800</div>
+        <div class="tx-status status-queued">QUEUED</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- RESILIENCE PANEL -->
+<div class="resilience">
+  <div class="resilience-header">🛡️ ALL-WEATHER RESILIENCE — WHY ZEROPAY NEVER STOPS</div>
+  <div class="resilience-grid">
+    <div class="resilience-item">
+      <div class="res-title">🌙 NIGHT OPERATION</div>
+      <div class="res-desc">72-hour LiFePO4 + supercapacitor backup. Mesh hubs operate independently of solar. PUF card and terminal transact locally without hub contact.</div>
+      <div class="res-status">✅ OPERATIONAL 24/7</div>
+    </div>
+    <div class="resilience-item">
+      <div class="res-title">⛈️ STORM / RAIN</div>
+      <div class="res-desc">LoRa 915MHz mesh signal penetrates heavy rain and foliage. RF signal power adjusted dynamically. 500km relay range maintained in adverse conditions.</div>
+      <div class="res-status">✅ RAIN-HARDENED</div>
+    </div>
+    <div class="resilience-item">
+      <div class="res-title">🔌 GRID BLACKOUT</div>
+      <div class="res-desc">72-hour battery = 72-hour offline token TTL. Designed together intentionally. When power returns, hub auto-syncs entire batch queue to Paystack settlement rail.</div>
+      <div class="res-status">✅ BLACKOUT-PROOF</div>
+    </div>
+    <div class="resilience-item">
+      <div class="res-title">💥 NODE FAILURE</div>
+      <div class="res-desc">Mesh topology auto-reroutes around failed nodes. Minimum 3 alternate paths maintained at all times. Token cryptography ensures no double-spend on reroute.</div>
+      <div class="res-status">✅ SELF-HEALING</div>
+    </div>
+  </div>
+</div>
+
+<!-- LOG -->
+<div class="log-box" id="logBox">
+  <div class="log-entry info">[SYSTEM] ZeroPay Solar Mesh Relay v2.0 — Edo State Network</div>
+  <div class="log-entry info">[NODES] 5 relay nodes online · 0 failed · Coverage: 500km radius</div>
+  <div class="log-entry">[READY] Press FIRE TRANSACTION to begin relay demonstration</div>
+</div>
+
+</div>
+
+<script>
+// NODE DEFINITIONS — positions as % for responsive layout
+const NODES = [
+  { id:'agenegbode', label:'AGENEGBODE', sub:'Origin · Market Hub', icon:'🏪', x:5, y:35 },
+  { id:'ivhioghe',   label:'IVHIOGHE',   sub:'Relay Node 1 · 45km', icon:'☀️', x:22, y:55 },
+  { id:'fugar',      label:'FUGAR',      sub:'Relay Node 2 · 95km', icon:'☀️', x:40, y:30 },
+  { id:'uzairue',    label:'UZAIRUE',    sub:'Relay Node 3 · 150km', icon:'☀️', x:58, y:58 },
+  { id:'auchi',      label:'AUCHI',      sub:'Hub · 220km', icon:'🏙️', x:76, y:32 },
+  { id:'paystack',   label:'PAYSTACK',   sub:'Settlement · Lagos', icon:'💳', x:90, y:60 }
+];
+
+let currentEnv = 'day';
+let relayRunning = false;
+let failedNode = null;
+let txQueue = 3;
+let totalSettled = 0;
+let animFrame = null;
+let batteryLevel = 100;
+
+// Build nodes
+function buildNodes() {
+  const canvas = document.getElementById('meshCanvas');
+  // Remove old nodes
+  canvas.querySelectorAll('.mesh-node').forEach(n => n.remove());
+  const pulse = canvas.querySelector('.signal-pulse');
+
+  NODES.forEach((n, i) => {
+    const el = document.createElement('div');
+    el.className = 'mesh-node';
+    el.id = 'node_' + n.id;
+    el.style.left = n.x + '%';
+    el.style.top = n.y + '%';
+    el.style.transform = 'translate(-50%,-50%)';
+    el.style.position = 'absolute';
+
+    const isPaystack = n.id === 'paystack';
+    const circleColor = isPaystack ? '#00c853' : '#1e3a5f';
+    el.innerHTML = `
+      <div class="node-circle idle" id="circle_${n.id}" style="${isPaystack ? 'border-color:#00c853;background:#00c85311' : ''}">
+        <span style="font-size:${isPaystack?'20':'16'}px">${n.icon}</span>
+      </div>
+      <div class="node-label">${n.label}</div>
+      <div class="node-sub">${n.sub}</div>
+      <div class="node-status" id="status_${n.id}"></div>`;
+    canvas.appendChild(el);
+  });
+
+  // Add pulse element
+  if(!canvas.querySelector('.signal-pulse')) {
+    const pulse = document.createElement('div');
+    pulse.className = 'signal-pulse';
+    pulse.id = 'signalPulse';
+    canvas.appendChild(pulse);
+  }
+
+  buildLines();
+}
+
+function buildLines() {
+  const svg = document.getElementById('meshSVG');
+  svg.innerHTML = '';
+  const canvas = document.getElementById('meshCanvas');
+  const W = canvas.offsetWidth || 360;
+  const H = canvas.offsetHeight || 280;
+
+  for(let i=0; i<NODES.length-1; i++) {
+    const a = NODES[i], b = NODES[i+1];
+    const x1 = a.x/100*W, y1 = a.y/100*H;
+    const x2 = b.x/100*W, y2 = b.y/100*H;
+    const line = document.createElementNS('http://www.w3.org/2000/svg','line');
+    line.setAttribute('x1',x1); line.setAttribute('y1',y1);
+    line.setAttribute('x2',x2); line.setAttribute('y2',y2);
+    line.setAttribute('stroke','#1e3a5f'); line.setAttribute('stroke-width','2');
+    line.setAttribute('stroke-dasharray','6,4');
+    line.id = 'line_' + i;
+    svg.appendChild(line);
+  }
+}
+
+function setNodeState(nodeId, state) {
+  const circle = document.getElementById('circle_' + nodeId);
+  const statusEl = document.getElementById('status_' + nodeId);
+  if(!circle) return;
+  circle.className = 'node-circle ' + (state === 'done' ? 'done' : state === 'active' ? 'active' : state === 'fail' ? 'offline-node' : 'idle');
+  if(state === 'active') statusEl.textContent = '⚡ RELAYING';
+  else if(state === 'done') statusEl.textContent = '✅ RELAYED';
+  else if(state === 'fail') statusEl.textContent = '❌ FAILED';
+  else statusEl.textContent = '';
+  if(statusEl) {
+    statusEl.style.color = state==='done'?'#00c853': state==='active'?'#ffa500': state==='fail'?'#ef5350':'transparent';
+  }
+}
+
+function movePulse(fromIdx, toIdx, callback) {
+  const canvas = document.getElementById('meshCanvas');
+  const W = canvas.offsetWidth || 360;
+  const H = canvas.offsetHeight || 280;
+  const pulse = document.getElementById('signalPulse');
+  if(!pulse) { callback && callback(); return; }
+
+  const from = NODES[fromIdx], to = NODES[toIdx];
+  const x1 = from.x/100*W - 6, y1 = from.y/100*H - 6;
+  const x2 = to.x/100*W - 6, y2 = to.y/100*H - 6;
+
+  pulse.style.left = x1 + 'px';
+  pulse.style.top = y1 + 'px';
+  pulse.style.display = 'block';
+
+  const duration = 600;
+  const start = performance.now();
+
+  function animate(now) {
+    const t = Math.min((now - start) / duration, 1);
+    pulse.style.left = (x1 + (x2-x1)*t) + 'px';
+    pulse.style.top = (y1 + (y2-y1)*t) + 'px';
+    if(t < 1) requestAnimationFrame(animate);
+    else { pulse.style.display = 'none'; callback && callback(); }
+  }
+  requestAnimationFrame(animate);
+}
+
+let nanoTotal = 0;
+let hopsComplete = 0;
+
+function startRelay() {
+  event && event.preventDefault && event.preventDefault();
+  if(relayRunning) return;
+  relayRunning = true;
+  nanoTotal = 0;
+  hopsComplete = 0;
+
+  // Reset all nodes
+  NODES.forEach(n => setNodeState(n.id, 'idle'));
+  document.getElementById('nanoDisplay').textContent = '000.00';
+  document.getElementById('hopsDisplay').textContent = '0 / 5';
+  document.getElementById('mapStatus').textContent = 'TRANSMITTING...';
+  document.getElementById('mapStatus').style.color = '#ffa500';
+
+  addLog('warn', '[TX] Transaction fired from Agenegbode Market — PUF token signed');
+  addLog('info', '[RELAY] Beginning mesh hop sequence...');
+
+  let hopIdx = 0;
+  const hopTimes = [18.4, 22.1, 19.8, 21.3, 24.6];
+  const hopLabels = ['Agenegbode→Ivhioghe','Ivhioghe→Fugar','Fugar→Uzairue','Uzairue→Auchi','Auchi→Paystack'];
+
+  function doHop() {
+    if(hopIdx >= NODES.length - 1) {
+      // All done
+      relayRunning = false;
+      document.getElementById('mapStatus').textContent = '✅ SETTLED';
+      document.getElementById('mapStatus').style.color = '#00c853';
+      addLog('success', '[SETTLED] Transaction settled at Paystack · Total: ' + nanoTotal.toFixed(2) + 'ns');
+      addLog('success', '[RECEIPT] ZeroPay batch ref: ZP-' + Math.random().toString(36).substring(2,8).toUpperCase());
+
+      // Update tx status in queue
+      updateFirstTxStatus('SETTLED');
+      totalSettled++;
+      txQueue = Math.max(0, txQueue - 1);
+      return;
+    }
+
+    const fromNode = NODES[hopIdx];
+    const toNode = NODES[hopIdx + 1];
+
+    // Check if node failed
+    if(failedNode === toNode.id && hopIdx < NODES.length - 2) {
+      addLog('danger', '[FAIL] Node ' + toNode.label + ' is offline — REROUTING...');
+      setNodeState(toNode.id, 'fail');
+      setTimeout(() => {
+        addLog('warn', '[REROUTE] Alternate path found · Continuing relay');
+        hopIdx++;
+        doHop();
+      }, 800);
+      return;
+    }
+
+    setNodeState(fromNode.id, hopIdx === 0 ? 'active' : 'done');
+
+    movePulse(hopIdx, hopIdx+1, () => {
+      const ns = hopTimes[hopIdx];
+      nanoTotal += ns;
+      hopsComplete++;
+      setNodeState(fromNode.id, 'done');
+      setNodeState(toNode.id, hopIdx === NODES.length-2 ? 'done' : 'active');
+
+      document.getElementById('nanoDisplay').textContent = nanoTotal.toFixed(2).padStart(6,'0');
+      document.getElementById('hopsDisplay').textContent = hopsComplete + ' / 5';
+
+      addLog('info', '[HOP ' + hopsComplete + '] ' + hopLabels[hopIdx] + ' · ' + ns + 'ns');
+
+      // Update line color
+      const line = document.getElementById('line_' + hopIdx);
+      if(line) { line.setAttribute('stroke','#ffa500'); line.setAttribute('stroke-dasharray','none'); }
+
+      hopIdx++;
+      setTimeout(doHop, 700);
+    });
+  }
+
+  setNodeState('agenegbode', 'active');
+  setTimeout(doHop, 400);
+}
+
+function batchSettle() {
+  event && event.preventDefault && event.preventDefault();
+  addLog('warn', '[BATCH] Initiating batch settlement push to Paystack...');
+  addLog('info', '[QUEUE] 3 transactions queued · Total: ₦24,300');
+  setTimeout(() => {
+    addLog('success', '[PAYSTACK] Batch received · Settlement initiated via NIBSS NIP');
+    addLog('success', '[SETTLED] ₦24,300 settled to BETONIQ(WEST) MFB wallet');
+    document.querySelectorAll('.tx-status').forEach(el => {
+      el.className = 'tx-status status-settled';
+      el.textContent = 'SETTLED';
+    });
+  }, 1500);
+}
+
+function simulateNodeFail() {
+  event && event.preventDefault && event.preventDefault();
+  const failIdx = Math.floor(Math.random() * 3) + 1;
+  failedNode = NODES[failIdx].id;
+  setNodeState(failedNode, 'fail');
+  addLog('danger', '[ALERT] Node ' + NODES[failIdx].label + ' has gone OFFLINE');
+  addLog('warn', '[MESH] Auto-rerouting activated · Alternate path calculated');
+  addLog('info', '[RESILIENCE] Payment capability MAINTAINED · Rerouting via adjacent node');
+}
+
+function resetDemo() {
+  event && event.preventDefault && event.preventDefault();
+  relayRunning = false;
+  failedNode = null;
+  nanoTotal = 0;
+  hopsComplete = 0;
+  NODES.forEach(n => setNodeState(n.id, 'idle'));
+  document.getElementById('nanoDisplay').textContent = '000.00';
+  document.getElementById('hopsDisplay').textContent = '0 / 5';
+  document.getElementById('mapStatus').textContent = 'READY';
+  document.getElementById('mapStatus').style.color = '#607080';
+  buildLines();
+
+  document.querySelectorAll('.tx-status').forEach((el,i) => {
+    el.className = 'tx-status status-queued';
+    el.textContent = 'QUEUED';
+  });
+  addLog('info', '[RESET] Demo reset · All nodes cleared');
+}
+
+function updateFirstTxStatus(newStatus) {
+  const statuses = document.querySelectorAll('.tx-status');
+  if(statuses.length > 0) {
+    statuses[0].className = 'tx-status status-settled';
+    statuses[0].textContent = newStatus;
+  }
+}
+
+function setEnv(env) {
+  currentEnv = env;
+  ['day','night','storm','blackout'].forEach(e => {
+    document.getElementById('env'+e.charAt(0).toUpperCase()+e.slice(1)).classList.remove('active');
+  });
+  document.getElementById('env'+env.charAt(0).toUpperCase()+env.slice(1)).classList.add('active');
+
+  const weatherIcon = document.getElementById('weatherIcon');
+  const weatherText = document.getElementById('weatherText');
+  const weatherSub = document.getElementById('weatherSub');
+  const battFill = document.getElementById('battFill');
+  const battPct = document.getElementById('battPct');
+  const battLabel = document.getElementById('battLabel');
+
+  const configs = {
+    day: { icon:'☀️', text:'SOLAR CHARGING — OPTIMAL', sub:'All nodes at 100% capacity', batt:100, battColor:'#00c853', battText:'100%', label:'72-hr supercapacitor + LiFePO4' },
+    night: { icon:'🌙', text:'BATTERY MODE — NIGHT OPERATION', sub:'Solar offline · Running on 72-hr battery backup', batt:68, battColor:'#ffa500', battText:'68%', label:'48 hrs remaining · Offline tokens valid' },
+    storm: { icon:'⛈️', text:'STORM MODE — LoRa RAIN-HARDENED', sub:'Signal power boosted · 915MHz penetrating storm', batt:45, battColor:'#ffa500', battText:'45%', label:'Storm mode active · All nodes resilient' },
+    blackout: { icon:'🔌', text:'GRID BLACKOUT — BATTERY ONLY', sub:'Full offline mode · 72-hr token TTL synchronized', batt:22, battColor:'#ef5350', battText:'22%', label:'~16 hrs remaining · Auto-sync on restore' }
+  };
+
+  const c = configs[env];
+  weatherIcon.textContent = c.icon;
+  weatherText.textContent = c.text;
+  weatherText.style.color = c.battColor;
+  weatherSub.textContent = c.sub;
+  battFill.style.width = c.batt + '%';
+  battFill.style.background = c.battColor;
+  battPct.textContent = c.battText;
+  battPct.style.color = c.battColor;
+  battLabel.textContent = c.label;
+
+  addLog(env==='day'?'success':env==='blackout'?'danger':'warn', '[ENV] Mode changed to: ' + c.text);
+
+  const msgs = {
+    night: '[RESILIENCE] Night mode: PUF cards + terminals operate without hub contact',
+    storm: '[RESILIENCE] Storm mode: LoRa 915MHz signal maintaining relay through heavy rain',
+    blackout: '[RESILIENCE] Blackout mode: 72-hr token TTL = 72-hr battery. By design.',
+    day: '[SYSTEM] Solar charging resumed · All nodes at optimal capacity'
+  };
+  setTimeout(() => addLog('info', msgs[env]), 300);
+}
+
+function addLog(type, msg) {
+  const log = document.getElementById('logBox');
+  const entry = document.createElement('div');
+  entry.className = 'log-entry ' + type;
+  entry.textContent = new Date().toLocaleTimeString() + ' ' + msg;
+  log.appendChild(entry);
+  log.scrollTop = log.scrollHeight;
+}
+
+// Init
+window.addEventListener('load', () => {
+  buildNodes();
+  window.addEventListener('resize', () => { buildLines(); });
+});
+</script>
+</body>
+</html>
