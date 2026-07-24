@@ -12,49 +12,81 @@
 * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
 body { font-family: 'Segoe UI', sans-serif; background: #0a0f1e; color: #e0e8f0; min-height: 100vh; }
 
-/* HEADER */
 .header { background: #0d1b3e; padding: 14px 20px; display: flex; align-items: center; justify-content: space-between; border-bottom: 2px solid #00d4ff; }
 .brand { font-size: 22px; font-weight: 900; color: #00d4ff; letter-spacing: 2px; }
 .tagline { font-size: 10px; color: #90a4b7; margin-top: 2px; }
 .patent { font-size: 9px; color: #ffa500; margin-top: 1px; }
 .header-right { text-align: right; }
-.live-badge { background: #00c853; color: white; font-size: 9px; font-weight: 700; padding: 3px 8px; border-radius: 10px; animation: pulse 2s infinite; }
+.live-badge { background: #00c853; color: white; font-size: 9px; font-weight: 700; padding: 3px 8px; border-radius: 10px; }
 @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.6} }
 
-/* MODE TOGGLE */
-.mode-bar { background: #0d1b3e; padding: 12px 20px; display: flex; gap: 10px; border-bottom: 1px solid #1e3a5f; flex-wrap: wrap; }
-.mode-btn { flex: 1; min-width: 140px; padding: 10px; border: 2px solid #1e3a5f; border-radius: 10px; background: #0a1628; color: #90a4b7; font-size: 11px; font-weight: 700; cursor: pointer; text-align: center; transition: all 0.3s; touch-action: manipulation; }
+/* CONNECTIVITY TOGGLE BAR */
+.conn-bar { background: #0a1628; padding: 10px 16px; display: flex; align-items: center; justify-content: space-between; border-bottom: 2px solid #1e3a5f; }
+.conn-left { display: flex; align-items: center; gap: 10px; }
+.conn-label { font-size: 11px; font-weight: 700; color: #90a4b7; }
+.conn-toggle { display: flex; gap: 6px; }
+.conn-btn { padding: 7px 16px; border-radius: 8px; border: 2px solid #1e3a5f; background: #0d1b3e; color: #90a4b7; font-size: 11px; font-weight: 700; cursor: pointer; transition: all 0.2s; touch-action: manipulation; }
+.conn-btn.offline-active { border-color: #c62828; background: #c6282822; color: #ef5350; }
+.conn-btn.online-active { border-color: #00c853; background: #00c85322; color: #00c853; }
+.conn-status-text { font-size: 10px; font-weight: 700; }
+.queue-badge { background: #ffa50033; border: 1px solid #ffa500; color: #ffa500; font-size: 10px; font-weight: 700; padding: 4px 10px; border-radius: 8px; }
+
+/* MODE BAR */
+.mode-bar { background: #0d1b3e; padding: 10px 16px; display: flex; gap: 8px; border-bottom: 1px solid #1e3a5f; flex-wrap: wrap; }
+.mode-btn { flex: 1; min-width: 130px; padding: 9px; border: 2px solid #1e3a5f; border-radius: 10px; background: #0a1628; color: #90a4b7; font-size: 11px; font-weight: 700; cursor: pointer; text-align: center; transition: all 0.3s; touch-action: manipulation; }
 .mode-btn.active { border-color: #00d4ff; background: #00d4ff22; color: #00d4ff; }
 .mode-label { font-size: 9px; color: #607080; margin-top: 2px; display: block; font-weight: 400; }
 
-/* MAIN LAYOUT */
-.main { padding: 16px; max-width: 900px; margin: 0 auto; }
+/* TABS */
+.tab-bar { display: flex; background: #0a1628; border-bottom: 2px solid #1e3a5f; }
+.tab { flex: 1; padding: 10px; text-align: center; font-size: 11px; font-weight: 700; color: #607080; cursor: pointer; border-bottom: 3px solid transparent; transition: all 0.2s; touch-action: manipulation; }
+.tab.active { color: #00d4ff; border-bottom-color: #00d4ff; }
+.tab-badge { background: #ffa500; color: #000; font-size: 9px; font-weight: 900; padding: 1px 5px; border-radius: 6px; margin-left: 4px; }
 
-/* FX TERMINAL */
-.terminal { background: #0d1b3e; border-radius: 16px; border: 2px solid #1e3a5f; overflow: hidden; margin-bottom: 16px; }
+/* SCREENS */
+.screen { display: none; }
+.screen.active { display: block; }
+
+/* MAIN */
+.main { padding: 14px; max-width: 1000px; margin: 0 auto; }
+
+.stats-bar { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 14px; }
+.stat-card { background: #0d1b3e; border: 1px solid #1e3a5f; border-radius: 10px; padding: 10px; text-align: center; }
+.stat-value { font-size: 15px; font-weight: 900; color: #00d4ff; }
+.stat-label { font-size: 8px; color: #607080; margin-top: 2px; }
+
+/* CORRIDORS */
+.corridors { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 14px; }
+.corridor-card { background: #0d1b3e; border: 2px solid #1e3a5f; border-radius: 12px; padding: 10px; cursor: pointer; transition: all 0.2s; touch-action: manipulation; }
+.corridor-card.selected { border-color: #00d4ff; background: #00d4ff11; }
+.corridor-flag { font-size: 20px; text-align: center; margin-bottom: 4px; }
+.corridor-name { font-size: 9px; color: #90a4b7; text-align: center; font-weight: 600; }
+.corridor-rate { font-size: 11px; color: #00d4ff; text-align: center; font-weight: 900; margin-top: 2px; }
+.corridor-vol { font-size: 8px; color: #607080; text-align: center; margin-top: 1px; }
+
+/* TERMINAL */
+.terminal { background: #0d1b3e; border-radius: 16px; border: 2px solid #1e3a5f; overflow: hidden; margin-bottom: 14px; }
 .terminal-header { background: #0a1628; padding: 12px 16px; border-bottom: 1px solid #1e3a5f; display: flex; align-items: center; justify-content: space-between; }
 .terminal-title { font-size: 12px; font-weight: 700; color: #00d4ff; }
-.connectivity { font-size: 10px; padding: 3px 10px; border-radius: 8px; font-weight: 700; }
-.offline { background: #c6282822; color: #ef5350; border: 1px solid #c62828; }
-.online { background: #00c85322; color: #00c853; border: 1px solid #00c853; }
+.conn-indicator { font-size: 10px; padding: 3px 10px; border-radius: 8px; font-weight: 700; }
+.ind-offline { background: #c6282822; color: #ef5350; border: 1px solid #c62828; }
+.ind-online { background: #00c85322; color: #00c853; border: 1px solid #00c853; }
+.ind-syncing { background: #ffa50022; color: #ffa500; border: 1px solid #ffa500; animation: pulse 0.5s infinite; }
 
-/* SEND MONEY PANEL */
-.send-panel { padding: 16px; }
+.send-panel { padding: 14px; }
 .row { display: flex; gap: 10px; margin-bottom: 12px; flex-wrap: wrap; }
 .field-group { flex: 1; min-width: 120px; }
 .field-label { font-size: 10px; color: #90a4b7; margin-bottom: 4px; font-weight: 600; letter-spacing: 0.5px; }
 select, .amount-display { width: 100%; background: #0a1628; border: 1px solid #1e3a5f; border-radius: 8px; color: #e0e8f0; padding: 8px 10px; font-size: 13px; outline: none; }
 select:focus { border-color: #00d4ff; }
-.amount-display { font-size: 20px; font-weight: 900; color: #00d4ff; text-align: right; min-height: 42px; }
+.amount-display { font-size: 22px; font-weight: 900; color: #00d4ff; text-align: right; min-height: 44px; }
 
-/* NUMPAD */
 .numpad { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-bottom: 12px; }
 .num-btn { background: #132340; border: 1px solid #1e3a5f; border-radius: 8px; color: #e0e8f0; font-size: 18px; font-weight: 700; padding: 14px; cursor: pointer; text-align: center; transition: all 0.15s; touch-action: manipulation; user-select: none; }
 .num-btn:active { background: #00d4ff33; transform: scale(0.95); }
 .del-btn { font-size: 14px; color: #ef5350; }
 .clear-btn { font-size: 12px; color: #ffa500; }
 
-/* FX RATE DISPLAY */
 .fx-rate-box { background: #0a1628; border: 1px solid #1e3a5f; border-radius: 10px; padding: 12px; margin-bottom: 12px; }
 .fx-main { display: flex; justify-content: space-between; align-items: center; }
 .fx-label { font-size: 10px; color: #90a4b7; }
@@ -64,7 +96,6 @@ select:focus { border-color: #00d4ff; }
 .fx-sub-label { font-size: 9px; color: #607080; }
 .fx-sub-value { font-size: 12px; font-weight: 700; color: #e0e8f0; margin-top: 2px; }
 
-/* IMTO ROUTE */
 .route-box { background: #0a1628; border: 1px solid #1e3a5f; border-radius: 10px; padding: 12px; margin-bottom: 12px; }
 .route-title { font-size: 10px; color: #90a4b7; margin-bottom: 8px; font-weight: 600; }
 .route-steps { display: flex; align-items: center; gap: 4px; flex-wrap: wrap; }
@@ -73,24 +104,48 @@ select:focus { border-color: #00d4ff; }
 .route-node.active-node { border-color: #00d4ff; background: #00d4ff22; animation: nodeGlow 1s infinite; }
 @keyframes nodeGlow { 0%,100%{box-shadow:0 0 0 0 #00d4ff44} 50%{box-shadow:0 0 8px 3px #00d4ff33} }
 
-/* SEND BUTTON */
 .send-btn { width: 100%; padding: 14px; background: linear-gradient(135deg, #00b4db, #0083b0); border: none; border-radius: 10px; color: white; font-size: 14px; font-weight: 900; cursor: pointer; touch-action: manipulation; transition: all 0.3s; letter-spacing: 1px; }
 .send-btn:active { transform: scale(0.98); }
-.send-btn.processing { background: linear-gradient(135deg, #ffa500, #ff6b00); animation: btnPulse 0.5s infinite; }
+.send-btn.processing { background: linear-gradient(135deg, #ffa500, #ff6b00); }
 .send-btn.success-btn { background: linear-gradient(135deg, #00c853, #009624); }
-@keyframes btnPulse { 0%,100%{opacity:1} 50%{opacity:0.7} }
+.send-btn:disabled { background: #1e3a5f; color: #607080; cursor: not-allowed; }
 
-/* CORRIDORS */
-.corridors { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 16px; }
-.corridor-card { background: #0d1b3e; border: 2px solid #1e3a5f; border-radius: 12px; padding: 10px; cursor: pointer; transition: all 0.2s; touch-action: manipulation; }
-.corridor-card:active, .corridor-card.selected { border-color: #00d4ff; background: #00d4ff11; }
-.corridor-flag { font-size: 20px; text-align: center; margin-bottom: 4px; }
-.corridor-name { font-size: 9px; color: #90a4b7; text-align: center; font-weight: 600; }
-.corridor-rate { font-size: 11px; color: #00d4ff; text-align: center; font-weight: 900; margin-top: 2px; }
-.corridor-vol { font-size: 8px; color: #607080; text-align: center; margin-top: 1px; }
+/* BATCH QUEUE SCREEN */
+.batch-header { background: #0a1628; border-bottom: 1px solid #1e3a5f; padding: 12px 16px; display: flex; justify-content: space-between; align-items: center; }
+.batch-title { font-size: 12px; font-weight: 700; color: #ffa500; }
+.batch-count { background: #ffa50022; border: 1px solid #ffa500; color: #ffa500; font-size: 10px; font-weight: 700; padding: 3px 10px; border-radius: 8px; }
+
+.batch-summary { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; padding: 12px 14px; border-bottom: 1px solid #1e3a5f; }
+.bsum-card { background: #132340; border-radius: 8px; padding: 10px; text-align: center; }
+.bsum-val { font-size: 14px; font-weight: 900; color: #00d4ff; }
+.bsum-label { font-size: 8px; color: #607080; margin-top: 2px; }
+
+.queue-list { padding: 0 14px 14px; }
+.queue-item { background: #0d1b3e; border: 1px solid #1e3a5f; border-radius: 10px; padding: 12px; margin-top: 10px; display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+.queue-item.syncing { border-color: #ffa500; background: #ffa50011; animation: pulse 0.8s infinite; }
+.queue-item.settled { border-color: #00c853; background: #00c85311; animation: none; }
+.qi-left { flex: 1; }
+.qi-corridor { font-size: 12px; font-weight: 700; color: #e0e8f0; }
+.qi-detail { font-size: 9px; color: #607080; margin-top: 3px; font-family: monospace; }
+.qi-right { text-align: right; }
+.qi-amount { font-size: 14px; font-weight: 900; color: #00d4ff; }
+.qi-receive { font-size: 9px; color: #00c853; margin-top: 2px; }
+.qi-status { font-size: 9px; font-weight: 700; padding: 3px 9px; border-radius: 6px; margin-top: 4px; display: inline-block; }
+.st-queued { background: #ffa50022; color: #ffa500; }
+.st-syncing { background: #00d4ff22; color: #00d4ff; }
+.st-settled { background: #00c85322; color: #00c853; }
+
+.sync-btn { width: 100%; padding: 14px; background: linear-gradient(135deg, #ffa500, #e65c00); border: none; border-radius: 10px; color: white; font-size: 13px; font-weight: 900; cursor: pointer; touch-action: manipulation; margin-top: 12px; transition: all 0.2s; }
+.sync-btn:active { transform: scale(0.98); }
+.sync-btn:disabled { background: #1e3a5f; color: #607080; cursor: not-allowed; }
+.sync-btn.syncing-active { background: linear-gradient(135deg, #00c853, #009624); animation: pulse 0.6s infinite; }
+
+.empty-queue { text-align: center; padding: 40px 20px; color: #607080; }
+.empty-queue .eq-icon { font-size: 40px; margin-bottom: 10px; }
+.empty-queue .eq-text { font-size: 12px; }
 
 /* CURRENCY GRID */
-.currency-section { background: #0d1b3e; border-radius: 14px; border: 1px solid #1e3a5f; overflow: hidden; margin-bottom: 16px; }
+.currency-section { background: #0d1b3e; border-radius: 14px; border: 1px solid #1e3a5f; overflow: hidden; margin-bottom: 14px; }
 .currency-section-header { background: #0a1628; padding: 10px 14px; font-size: 11px; font-weight: 700; color: #00d4ff; border-bottom: 1px solid #1e3a5f; display: flex; justify-content: space-between; align-items: center; }
 .currency-count { background: #00d4ff22; color: #00d4ff; font-size: 10px; padding: 2px 8px; border-radius: 8px; }
 .currency-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; max-height: 200px; overflow-y: auto; }
@@ -100,28 +155,23 @@ select:focus { border-color: #00d4ff; }
 .currency-name { font-size: 8px; color: #607080; margin-top: 1px; }
 .currency-rate { font-size: 9px; color: #ffa500; margin-top: 1px; }
 
-/* STATUS LOG */
-.status-log { background: #050d1a; border: 1px solid #1e3a5f; border-radius: 10px; padding: 10px; min-height: 80px; max-height: 120px; overflow-y: auto; font-family: monospace; font-size: 10px; }
+.status-log { background: #050d1a; border: 1px solid #1e3a5f; border-radius: 10px; padding: 10px; min-height: 70px; max-height: 100px; overflow-y: auto; font-family: monospace; font-size: 10px; margin-top: 10px; }
 .log-entry { color: #90a4b7; margin-bottom: 3px; }
 .log-entry.success { color: #00c853; }
 .log-entry.processing { color: #ffa500; }
 .log-entry.info { color: #00d4ff; }
+.log-entry.danger { color: #ef5350; }
 
 /* RESULT OVERLAY */
 .result-overlay { display: none; position: fixed; inset: 0; background: #000d; z-index: 100; align-items: center; justify-content: center; padding: 20px; }
 .result-overlay.show { display: flex; }
-.result-card { background: #0d1b3e; border-radius: 20px; padding: 30px 20px; max-width: 340px; width: 100%; text-align: center; border: 2px solid #00c853; }
-.result-icon { font-size: 50px; margin-bottom: 10px; }
-.result-title { font-size: 18px; font-weight: 900; color: #00c853; margin-bottom: 8px; }
-.result-details { font-size: 12px; color: #90a4b7; line-height: 1.6; margin-bottom: 16px; }
-.result-ref { font-size: 10px; color: #607080; font-family: monospace; margin-bottom: 16px; }
-.result-close { width: 100%; padding: 12px; background: #00c853; border: none; border-radius: 10px; color: white; font-size: 14px; font-weight: 700; cursor: pointer; }
-
-/* STATS BAR */
-.stats-bar { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 16px; }
-.stat-card { background: #0d1b3e; border: 1px solid #1e3a5f; border-radius: 10px; padding: 10px; text-align: center; }
-.stat-value { font-size: 14px; font-weight: 900; color: #00d4ff; }
-.stat-label { font-size: 8px; color: #607080; margin-top: 2px; }
+.result-card { background: #0d1b3e; border-radius: 20px; padding: 28px 20px; max-width: 340px; width: 100%; text-align: center; border: 2px solid #ffa500; }
+.result-icon { font-size: 48px; margin-bottom: 10px; }
+.result-title { font-size: 17px; font-weight: 900; color: #ffa500; margin-bottom: 8px; }
+.result-details { font-size: 11px; color: #90a4b7; line-height: 1.7; margin-bottom: 12px; }
+.result-ref { font-size: 9px; color: #607080; font-family: monospace; margin-bottom: 14px; }
+.result-close { width: 100%; padding: 12px; background: #ffa500; border: none; border-radius: 10px; color: #000; font-size: 13px; font-weight: 700; cursor: pointer; }
+.result-queue-note { background: #ffa50022; border: 1px solid #ffa500; border-radius: 8px; padding: 8px 10px; font-size: 10px; color: #ffa500; margin-bottom: 12px; }
 </style>
 </head>
 <body>
@@ -138,90 +188,80 @@ select:focus { border-color: #00d4ff; }
   </div>
 </div>
 
+<!-- CONNECTIVITY TOGGLE -->
+<div class="conn-bar">
+  <div class="conn-left">
+    <div class="conn-label">CONNECTIVITY:</div>
+    <div class="conn-toggle">
+      <div class="conn-btn offline-active" id="btnOffline" onclick="setConnectivity('offline')" ontouchend="setConnectivity('offline')">● OFFLINE</div>
+      <div class="conn-btn" id="btnOnline" onclick="setConnectivity('online')" ontouchend="setConnectivity('online')">◎ ONLINE</div>
+    </div>
+    <span class="conn-status-text" id="connStatusText" style="color:#ef5350;">No internet · Cryptographic token active</span>
+  </div>
+  <div class="queue-badge" id="queueBadge" onclick="switchTab('batch')" ontouchend="switchTab('batch')" style="cursor:pointer;">
+    📋 QUEUE: <span id="queueCount">0</span>
+  </div>
+</div>
+
 <!-- MODE BAR -->
 <div class="mode-bar">
-  <div class="mode-btn active" id="modePartner" onclick="setMode('partner')">
+  <div class="mode-btn active" id="modePartner" onclick="setMode('partner')" ontouchend="setMode('partner')">
     🤝 IMTO PARTNER MODE
     <span class="mode-label">Flutterwave / Western Union / Wise</span>
   </div>
-  <div class="mode-btn" id="modeOwn" onclick="setMode('own')">
+  <div class="mode-btn" id="modeOwn" onclick="setMode('own')" ontouchend="setMode('own')">
     🏦 OWN IMTO LICENSE
     <span class="mode-label">ZeroPay Direct — CBN Licensed</span>
   </div>
 </div>
 
+<!-- TABS -->
+<div class="tab-bar">
+  <div class="tab active" id="tab_send" onclick="switchTab('send')" ontouchend="switchTab('send')">💱 SEND MONEY</div>
+  <div class="tab" id="tab_batch" onclick="switchTab('batch')" ontouchend="switchTab('batch')">📋 BATCH QUEUE <span class="tab-badge" id="tabBadge">0</span></div>
+  <div class="tab" id="tab_currencies" onclick="switchTab('currencies')" ontouchend="switchTab('currencies')">🌍 147 CURRENCIES</div>
+</div>
+
 <div class="main">
 
-<!-- STATS -->
+<!-- ===== SEND MONEY SCREEN ===== -->
+<div class="screen active" id="screen_send">
+
 <div class="stats-bar">
-  <div class="stat-card">
-    <div class="stat-value" id="statCurrencies">147</div>
-    <div class="stat-label">CURRENCIES</div>
-  </div>
-  <div class="stat-card">
-    <div class="stat-value" id="statTx">0</div>
-    <div class="stat-label">TX TODAY</div>
-  </div>
-  <div class="stat-card">
-    <div class="stat-value" id="statVol">$0</div>
-    <div class="stat-label">VOLUME</div>
-  </div>
-  <div class="stat-card">
-    <div class="stat-value" id="statSpeed">0ms</div>
-    <div class="stat-label">SETTLE TIME</div>
-  </div>
+  <div class="stat-card"><div class="stat-value" id="statCurrencies">147</div><div class="stat-label">CURRENCIES</div></div>
+  <div class="stat-card"><div class="stat-value" id="statTx">0</div><div class="stat-label">TX TODAY</div></div>
+  <div class="stat-card"><div class="stat-value" id="statVol">$0</div><div class="stat-label">VOLUME</div></div>
+  <div class="stat-card"><div class="stat-value" id="statSpeed">--</div><div class="stat-label">SETTLE</div></div>
 </div>
 
-<!-- TOP CORRIDORS -->
 <div style="font-size:10px;color:#90a4b7;font-weight:700;margin-bottom:8px;letter-spacing:0.5px;">🔥 TOP REMITTANCE CORRIDORS</div>
 <div class="corridors">
-  <div class="corridor-card selected" id="corr_gbp" onclick="selectCorridor('GBP','NGN','🇬🇧','🇳🇬','1','1595.40','Nigeria→UK','$2.1B/yr')">
-    <div class="corridor-flag">🇬🇧→🇳🇬</div>
-    <div class="corridor-name">NG–UK</div>
-    <div class="corridor-rate">£1 = ₦1,595</div>
-    <div class="corridor-vol">$2.1B/yr</div>
+  <div class="corridor-card selected" id="corr_GBP" onclick="selectCorridor('GBP',1595.40,'NG–UK')" ontouchend="selectCorridor('GBP',1595.40,'NG–UK')">
+    <div class="corridor-flag">🇬🇧→🇳🇬</div><div class="corridor-name">NG–UK</div><div class="corridor-rate">£1 = ₦1,595</div><div class="corridor-vol">$2.1B/yr</div>
   </div>
-  <div class="corridor-card" id="corr_aed" onclick="selectCorridor('AED','NGN','🇦🇪','🇳🇬','1','433.20','Nigeria→UAE','$890M/yr')">
-    <div class="corridor-flag">🇦🇪→🇳🇬</div>
-    <div class="corridor-name">NG–UAE</div>
-    <div class="corridor-rate">د.إ1 = ₦433</div>
-    <div class="corridor-vol">$890M/yr</div>
+  <div class="corridor-card" id="corr_AED" onclick="selectCorridor('AED',433.20,'NG–UAE')" ontouchend="selectCorridor('AED',433.20,'NG–UAE')">
+    <div class="corridor-flag">🇦🇪→🇳🇬</div><div class="corridor-name">NG–UAE</div><div class="corridor-rate">د.إ1 = ₦433</div><div class="corridor-vol">$890M/yr</div>
   </div>
-  <div class="corridor-card" id="corr_ghs" onclick="selectCorridor('GHS','NGN','🇬🇭','🇳🇬','1','108.50','Ghana→NG','$340M/yr')">
-    <div class="corridor-flag">🇬🇭→🇳🇬</div>
-    <div class="corridor-name">NG–GHANA</div>
-    <div class="corridor-rate">₵1 = ₦108</div>
-    <div class="corridor-vol">$340M/yr</div>
+  <div class="corridor-card" id="corr_GHS" onclick="selectCorridor('GHS',108.50,'NG–GHANA')" ontouchend="selectCorridor('GHS',108.50,'NG–GHANA')">
+    <div class="corridor-flag">🇬🇭→🇳🇬</div><div class="corridor-name">NG–GHANA</div><div class="corridor-rate">₵1 = ₦108</div><div class="corridor-vol">$340M/yr</div>
   </div>
-  <div class="corridor-card" id="corr_kes" onclick="selectCorridor('KES','NGN','🇰🇪','🇳🇬','1','9.85','Kenya→NG','$210M/yr')">
-    <div class="corridor-flag">🇰🇪→🇳🇬</div>
-    <div class="corridor-name">NG–KENYA</div>
-    <div class="corridor-rate">KSh1 = ₦9.85</div>
-    <div class="corridor-vol">$210M/yr</div>
+  <div class="corridor-card" id="corr_KES" onclick="selectCorridor('KES',9.85,'NG–KENYA')" ontouchend="selectCorridor('KES',9.85,'NG–KENYA')">
+    <div class="corridor-flag">🇰🇪→🇳🇬</div><div class="corridor-name">NG–KENYA</div><div class="corridor-rate">KSh1 = ₦9.85</div><div class="corridor-vol">$210M/yr</div>
   </div>
-  <div class="corridor-card" id="corr_usd" onclick="selectCorridor('USD','NGN','🇺🇸','🇳🇬','1','1610.00','US→NG','$5.8B/yr')">
-    <div class="corridor-flag">🇺🇸→🇳🇬</div>
-    <div class="corridor-name">NG–USA</div>
-    <div class="corridor-rate">$1 = ₦1,610</div>
-    <div class="corridor-vol">$5.8B/yr</div>
+  <div class="corridor-card" id="corr_USD" onclick="selectCorridor('USD',1610.00,'NG–USA')" ontouchend="selectCorridor('USD',1610.00,'NG–USA')">
+    <div class="corridor-flag">🇺🇸→🇳🇬</div><div class="corridor-name">NG–USA</div><div class="corridor-rate">$1 = ₦1,610</div><div class="corridor-vol">$5.8B/yr</div>
   </div>
-  <div class="corridor-card" id="corr_eur" onclick="selectCorridor('EUR','NGN','🇪🇺','🇳🇬','1','1745.00','EU→NG','$1.4B/yr')">
-    <div class="corridor-flag">🇪🇺→🇳🇬</div>
-    <div class="corridor-name">NG–EUROPE</div>
-    <div class="corridor-rate">€1 = ₦1,745</div>
-    <div class="corridor-vol">$1.4B/yr</div>
+  <div class="corridor-card" id="corr_EUR" onclick="selectCorridor('EUR',1745.00,'NG–EUROPE')" ontouchend="selectCorridor('EUR',1745.00,'NG–EUROPE')">
+    <div class="corridor-flag">🇪🇺→🇳🇬</div><div class="corridor-name">NG–EUROPE</div><div class="corridor-rate">€1 = ₦1,745</div><div class="corridor-vol">$1.4B/yr</div>
   </div>
 </div>
 
-<!-- TERMINAL -->
 <div class="terminal">
   <div class="terminal-header">
     <div class="terminal-title">💱 FX TRANSFER TERMINAL</div>
-    <div class="connectivity offline" id="connStatus">● OFFLINE</div>
+    <div class="conn-indicator ind-offline" id="terminalIndicator">● OFFLINE</div>
   </div>
   <div class="send-panel">
-
-    <!-- FROM / TO -->
     <div class="row">
       <div class="field-group">
         <div class="field-label">FROM CURRENCY</div>
@@ -236,27 +276,22 @@ select:focus { border-color: #00d4ff; }
           <option value="CAD">🇨🇦 CAD — Canadian Dollar</option>
           <option value="CHF">🇨🇭 CHF — Swiss Franc</option>
           <option value="JPY">🇯🇵 JPY — Japanese Yen</option>
-          <option value="CNY">🇨🇳 CNY — Chinese Yuan</option>
-          <option value="INR">🇮🇳 INR — Indian Rupee</option>
           <option value="SAR">🇸🇦 SAR — Saudi Riyal</option>
           <option value="XOF">🌍 XOF — West African Franc</option>
           <option value="EGP">🇪🇬 EGP — Egyptian Pound</option>
+          <option value="CNY">🇨🇳 CNY — Chinese Yuan</option>
+          <option value="INR">🇮🇳 INR — Indian Rupee</option>
         </select>
       </div>
       <div class="field-group">
         <div class="field-label">TO (NGN)</div>
-        <select id="toCurrency">
-          <option value="NGN">🇳🇬 NGN — Nigerian Naira</option>
-        </select>
+        <select id="toCurrency"><option value="NGN">🇳🇬 NGN — Nigerian Naira</option></select>
       </div>
     </div>
 
-    <!-- AMOUNT -->
     <div class="field-label" style="margin-bottom:6px;">SEND AMOUNT</div>
-    <div class="amount-display" id="amountDisplay">0.00</div>
-    <br>
+    <div class="amount-display" id="amountDisplay">0.00</div><br>
 
-    <!-- NUMPAD -->
     <div class="numpad">
       <div class="num-btn" onclick="numPress('1')" ontouchend="numPress('1')">1</div>
       <div class="num-btn" onclick="numPress('2')" ontouchend="numPress('2')">2</div>
@@ -272,121 +307,131 @@ select:focus { border-color: #00d4ff; }
       <div class="num-btn del-btn" onclick="numPress('DEL')" ontouchend="numPress('DEL')">⌫</div>
     </div>
 
-    <!-- FX RATE -->
     <div class="fx-rate-box">
       <div class="fx-main">
         <div>
-          <div class="fx-label">LIVE RATE (CACHED OFFLINE)</div>
+          <div class="fx-label" id="fxCacheLabel">LIVE RATE (CACHED OFFLINE)</div>
           <div class="fx-value" id="fxRateDisplay">1 GBP = ₦1,595.40</div>
         </div>
-        <div style="font-size:20px;">🔒</div>
+        <div style="font-size:22px;" id="fxLockIcon">🔒</div>
       </div>
       <div class="fx-sub">
-        <div class="fx-sub-item">
-          <div class="fx-sub-label">RECIPIENT GETS</div>
-          <div class="fx-sub-value" id="recipientAmount">₦0.00</div>
-        </div>
-        <div class="fx-sub-item">
-          <div class="fx-sub-label">ZEROPAY FEE</div>
-          <div class="fx-sub-value" id="feeAmount">₦0.00</div>
-        </div>
-        <div class="fx-sub-item">
-          <div class="fx-sub-label">SETTLEMENT</div>
-          <div class="fx-sub-value" id="settleTime">~2 hrs</div>
-        </div>
+        <div class="fx-sub-item"><div class="fx-sub-label">RECIPIENT GETS</div><div class="fx-sub-value" id="recipientAmount">₦0.00</div></div>
+        <div class="fx-sub-item"><div class="fx-sub-label">ZEROPAY FEE (1.5%)</div><div class="fx-sub-value" id="feeAmount">₦0.00</div></div>
+        <div class="fx-sub-item"><div class="fx-sub-label">SETTLEMENT</div><div class="fx-sub-value" id="settleTime">~2 hrs</div></div>
       </div>
     </div>
 
-    <!-- ROUTE -->
     <div class="route-box">
-      <div class="route-title" id="routeTitle">🔗 TRANSFER ROUTE — FLUTTERWAVE IMTO PARTNER</div>
+      <div class="route-title" id="routeTitle">🔗 ROUTE — FLUTTERWAVE IMTO PARTNER</div>
       <div class="route-steps" id="routeSteps">
-        <div class="route-node active-node">PUF CARD</div>
-        <div class="route-arrow">→</div>
-        <div class="route-node">OFFLINE TOKEN</div>
-        <div class="route-arrow">→</div>
-        <div class="route-node">MESH HUB</div>
-        <div class="route-arrow">→</div>
-        <div class="route-node">FLUTTERWAVE</div>
-        <div class="route-arrow">→</div>
-        <div class="route-node">CBN NXP</div>
-        <div class="route-arrow">→</div>
+        <div class="route-node active-node">PUF CARD</div><div class="route-arrow">→</div>
+        <div class="route-node">OFFLINE TOKEN</div><div class="route-arrow">→</div>
+        <div class="route-node">MESH HUB</div><div class="route-arrow">→</div>
+        <div class="route-node">FLUTTERWAVE</div><div class="route-arrow">→</div>
+        <div class="route-node">CBN NXP</div><div class="route-arrow">→</div>
         <div class="route-node">NGN WALLET</div>
       </div>
     </div>
 
-    <!-- SEND -->
     <button class="send-btn" id="sendBtn" onclick="initiateSend()" ontouchend="initiateSend()">
-      SEND MONEY — OFFLINE CRYPTOGRAPHIC TRANSFER
+      📤 QUEUE OFFLINE FX TRANSFER
     </button>
 
-    <!-- LOG -->
-    <br>
     <div class="status-log" id="statusLog">
-      <div class="log-entry info">[SYSTEM] ZeroPay FX Engine v3.1 — Offline mode active</div>
+      <div class="log-entry info">[SYSTEM] ZeroPay FX Engine v4.0 — Offline mode active</div>
       <div class="log-entry info">[CACHE] 147 FX rates cached from last connectivity window</div>
-      <div class="log-entry">[READY] Tap a corridor above or enter amount to begin</div>
+      <div class="log-entry">[READY] Select corridor, enter amount, then queue transfer</div>
     </div>
-
   </div>
 </div>
 
-<!-- 147 CURRENCY GRID -->
-<div class="currency-section">
-  <div class="currency-section-header">
-    🌍 ALL 147 SUPPORTED CURRENCIES
-    <div class="currency-count">IMF CERTIFIED</div>
+</div><!-- end screen_send -->
+
+<!-- ===== BATCH QUEUE SCREEN ===== -->
+<div class="screen" id="screen_batch">
+  <div class="terminal" style="margin-bottom:14px;">
+    <div class="batch-header">
+      <div class="batch-title">📋 OFFLINE BATCH QUEUE — PENDING SETTLEMENT</div>
+      <div class="batch-count" id="batchCountLabel">0 TRANSFERS</div>
+    </div>
+    <div class="batch-summary">
+      <div class="bsum-card"><div class="bsum-val" id="bsTotal">0</div><div class="bsum-label">QUEUED</div></div>
+      <div class="bsum-card"><div class="bsum-val" id="bsVolume">$0.00</div><div class="bsum-label">TOTAL VOLUME</div></div>
+      <div class="bsum-card"><div class="bsum-val" id="bsNaira">₦0</div><div class="bsum-label">NGN TO SETTLE</div></div>
+    </div>
+    <div class="queue-list" id="queueList">
+      <div class="empty-queue">
+        <div class="eq-icon">📭</div>
+        <div class="eq-text">No transfers queued yet.<br>Go to SEND MONEY and queue a transfer first.</div>
+      </div>
+    </div>
+    <div style="padding:0 14px 14px;">
+      <button class="sync-btn" id="syncBtn" onclick="syncBatch()" ontouchend="syncBatch()" disabled>
+        🔒 GO ONLINE TO SYNC & SETTLE
+      </button>
+      <div style="font-size:9px;color:#607080;text-align:center;margin-top:6px;" id="syncHint">
+        Toggle ONLINE above to unlock batch settlement
+      </div>
+    </div>
   </div>
-  <div class="currency-grid" id="currencyGrid"></div>
+</div><!-- end screen_batch -->
+
+<!-- ===== 147 CURRENCIES SCREEN ===== -->
+<div class="screen" id="screen_currencies">
+  <div class="currency-section">
+    <div class="currency-section-header">
+      🌍 ALL 147 SUPPORTED CURRENCIES
+      <div class="currency-count">IMF CERTIFIED</div>
+    </div>
+    <div class="currency-grid" id="currencyGrid"></div>
+  </div>
 </div>
 
-</div>
+</div><!-- end main -->
 
 <!-- RESULT OVERLAY -->
 <div class="result-overlay" id="resultOverlay">
   <div class="result-card">
-    <div class="result-icon" id="resultIcon">✅</div>
-    <div class="result-title" id="resultTitle">TRANSFER INITIATED</div>
+    <div class="result-icon">📋</div>
+    <div class="result-title">TRANSFER QUEUED</div>
+    <div class="result-queue-note">🔒 Offline mode — transfer added to batch queue.<br>Switch to ONLINE to settle with Paystack.</div>
     <div class="result-details" id="resultDetails"></div>
     <div class="result-ref" id="resultRef"></div>
-    <button class="result-close" onclick="closeResult()">NEW TRANSFER</button>
+    <button class="result-close" onclick="closeResult()" ontouchend="closeResult()">VIEW BATCH QUEUE</button>
   </div>
 </div>
 
 <script>
-// ===== FX DATA =====
 const FX_RATES = {
   USD:1610.00, GBP:1595.40, EUR:1745.00, AED:433.20, GHS:108.50,
   KES:9.85, ZAR:87.30, CAD:1182.00, CHF:1820.00, JPY:10.85,
   CNY:221.50, INR:19.25, SAR:429.00, XOF:2.72, EGP:32.80,
   SEK:155.40, NOK:148.20, DKK:234.00, PLN:408.00, CZK:70.50,
-  HUF:4.28, RON:357.00, BGN:891.00, HRK:229.00, RSD:14.65,
-  TRY:48.90, RUB:17.80, UAH:38.70, BYN:456.00, GEL:598.00,
-  AMD:3.95, AZN:945.00, KZT:3.48, UZS:0.127, KGS:18.20,
-  TJS:148.00, TMT:460.00, AFN:22.50, PKR:5.82, BDT:14.65,
-  LKR:5.45, NPR:11.95, BTN:19.25, MVR:104.00, MYR:371.00,
-  SGD:1195.00, THB:44.80, IDR:0.098, PHP:28.20, VND:0.064,
-  KHR:0.392, LAK:0.075, MMK:0.768, BND:1195.00, TWD:50.40,
-  KRW:1.168, MNT:0.475, XCD:595.00, BBD:805.00, BSD:1610.00,
-  BMD:1610.00, KYD:1932.00, TTD:237.00, JMD:10.40, HTI:11.85,
-  DOP:28.70, CUP:67.10, ANG:895.00, AWG:895.00, SRD:44.20,
-  GYD:7.65, BZD:798.00, GTQ:207.00, HNL:64.80, NIO:44.30,
-  CRC:3.05, PAB:1610.00, COP:0.396, VES:0.045, PEN:428.00,
-  BOB:231.00, UYU:40.20, PYG:0.218, CLP:1.78, ARS:1.73,
-  BRL:295.00, MAD:161.00, TND:516.00, DZD:11.95, LYD:335.00,
-  SDG:2.72, ETB:27.80, SOS:2.82, KES:9.85, UGX:0.432,
-  TZS:0.618, RWF:1.12, BIF:0.562, MWK:0.935, MZN:25.40,
-  ZMW:62.30, BWP:117.00, NAD:87.30, SZL:87.30, LSL:87.30,
-  MUR:34.80, SCR:110.00, KMF:3.56, DJF:9.05, ERN:107.00,
-  GMD:22.80, GNF:0.188, SLL:0.072, LRD:8.20, CVE:16.28,
-  STN:71.40, AOA:1.75, CDF:0.565, XAF:2.72, CMR:2.72,
-  CAF:2.72, TCD:2.72, GNQ:2.72, GAB:2.72, COG:2.72,
-  MDG:0.358, COM:3.56, ZWL:4.47, SDP:2.72, MRO:4.48,
+  HUF:4.28, RON:357.00, BGN:891.00, TRY:48.90, RUB:17.80,
+  UAH:38.70, KZT:3.48, PKR:5.82, BDT:14.65, LKR:5.45,
+  NPR:11.95, MYR:371.00, SGD:1195.00, THB:44.80, IDR:0.098,
+  PHP:28.20, VND:0.064, KHR:0.392, TWD:50.40, KRW:1.168,
+  XCD:595.00, TTD:237.00, JMD:10.40, DOP:28.70, COP:0.396,
+  PEN:428.00, BRL:295.00, ARS:1.73, CLP:1.78, MAD:161.00,
+  TND:516.00, DZD:11.95, ETB:27.80, UGX:0.432, TZS:0.618,
+  RWF:1.12, MWK:0.935, ZMW:62.30, BWP:117.00, MUR:34.80,
   OMR:4186.00, QAR:442.00, BHD:4271.00, KWD:5230.00, IQD:1.23,
-  IRR:0.038, JOD:2270.00, SYP:0.122, LBP:0.107, ILS:430.00,
-  YER:6.44, HKD:207.00, MOP:199.00, NZD:985.00, AUD:1048.00,
-  FJD:716.00, PGK:418.00, SBD:190.00, VUV:13.40, WST:582.00,
-  TOP:678.00, NCF:16.28, PYF:16.28, XPF:16.28
+  JOD:2270.00, ILS:430.00, HKD:207.00, NZD:985.00, AUD:1048.00,
+  FJD:716.00, PGK:418.00, SBD:190.00, GMD:22.80, SLL:0.072,
+  LRD:8.20, CVE:16.28, AOA:1.75, CDF:0.565, XAF:2.72,
+  MOP:199.00, BND:1195.00, MNT:0.475, HTI:11.85, GTQ:207.00,
+  NIO:44.30, CRC:3.05, BOB:231.00, UYU:40.20, PYG:0.218,
+  VES:0.045, GEL:598.00, AMD:3.95, AZN:945.00, UZS:0.127,
+  KGS:18.20, TJS:148.00, AFN:22.50, BTN:19.25, MVR:104.00,
+  MMK:0.768, LAK:0.075, SCR:110.00, KMF:3.56, DJF:9.05,
+  ERN:107.00, GNF:0.188, STN:71.40, MRO:4.48, SZL:87.30,
+  LSL:87.30, NAD:87.30, ZWL:4.47, YER:6.44, SYP:0.122,
+  LBP:0.107, IRR:0.038, BIF:0.562, MZN:25.40, AWG:895.00,
+  ANG:895.00, SRD:44.20, GYD:7.65, BZD:798.00, HNL:64.80,
+  PAB:1610.00, BSD:1610.00, BMD:1610.00, KYD:1932.00, BBD:805.00,
+  CUP:67.10, DKR:234.00, HRK:229.00, RSD:14.65, MKD:28.50,
+  ALL:17.20, BAM:891.00, MDL:88.40, GNQ:2.72, CAF:2.72, TCD:2.72
 };
 
 const CURRENCY_NAMES = {
@@ -406,17 +451,111 @@ const CURRENCY_NAMES = {
   TZS:'Tanzanian Shilling', RWF:'Rwandan Franc', MWK:'Malawian Kwacha', ZMW:'Zambian Kwacha',
   BWP:'Botswana Pula', MUR:'Mauritian Rupee', OMR:'Omani Rial', QAR:'Qatari Riyal',
   BHD:'Bahraini Dinar', KWD:'Kuwaiti Dinar', IQD:'Iraqi Dinar', JOD:'Jordanian Dinar',
-  ILS:'Israeli Shekel', HKD:'Hong Kong Dollar', NZD:'New Zealand Dollar', AUD:'Australian Dollar'
+  ILS:'Israeli Shekel', HKD:'Hong Kong Dollar', NZD:'New Zealand Dollar', AUD:'Australian Dollar',
+  FJD:'Fijian Dollar', PGK:'PNG Kina', GMD:'Gambian Dalasi', SLL:'Sierra Leone Leone',
+  LRD:'Liberian Dollar', CVE:'Cape Verde Escudo', AOA:'Angolan Kwanza', CDF:'Congolese Franc',
+  XAF:'Central African CFA', MOP:'Macanese Pataca', BND:'Brunei Dollar', MNT:'Mongolian Tugrik',
+  HTI:'Haitian Gourde', GTQ:'Guatemalan Quetzal', NIO:'Nicaraguan Cordoba', CRC:'Costa Rican Colon',
+  BOB:'Bolivian Boliviano', UYU:'Uruguayan Peso', PYG:'Paraguayan Guaraní',
+  GEL:'Georgian Lari', AMD:'Armenian Dram', AZN:'Azerbaijani Manat', UZS:'Uzbekistani Som',
+  KGS:'Kyrgystani Som', TJS:'Tajikistani Somoni', AFN:'Afghan Afghani', BTN:'Bhutanese Ngultrum',
+  MVR:'Maldivian Rufiyaa', MMK:'Myanmar Kyat', LAK:'Lao Kip', SCR:'Seychellois Rupee',
+  KMF:'Comorian Franc', DJF:'Djiboutian Franc', ERN:'Eritrean Nakfa', GNF:'Guinean Franc',
+  STN:'São Tomé Dobra', MRO:'Mauritanian Ouguiya', SZL:'Swazi Lilangeni', LSL:'Lesotho Loti',
+  NAD:'Namibian Dollar', ZWL:'Zimbabwean Dollar', YER:'Yemeni Rial', ILS:'Israeli Shekel'
 };
 
+// STATE
 let currentAmount = '';
 let currentMode = 'partner';
+let isOnline = false;
+let batchQueue = [];
 let txCount = 0;
-let totalVolume = 0;
-let activeCorridor = { from:'GBP', rate:1595.40 };
+let totalVolumeUSD = 0;
+let currentCurrency = 'GBP';
+let currentCorridorName = 'NG–UK';
 
+// ===== CONNECTIVITY TOGGLE =====
+function setConnectivity(mode) {
+  if(event) event.preventDefault();
+  isOnline = (mode === 'online');
+
+  const btnOff = document.getElementById('btnOffline');
+  const btnOn = document.getElementById('btnOnline');
+  const indicator = document.getElementById('terminalIndicator');
+  const statusText = document.getElementById('connStatusText');
+  const fxLabel = document.getElementById('fxCacheLabel');
+  const fxIcon = document.getElementById('fxLockIcon');
+  const sendBtn = document.getElementById('sendBtn');
+  const syncBtn = document.getElementById('syncBtn');
+  const syncHint = document.getElementById('syncHint');
+
+  btnOff.className = 'conn-btn' + (isOnline ? '' : ' offline-active');
+  btnOn.className = 'conn-btn' + (isOnline ? ' online-active' : '');
+
+  if(isOnline) {
+    indicator.className = 'conn-indicator ind-online';
+    indicator.textContent = '◎ ONLINE';
+    statusText.style.color = '#00c853';
+    statusText.textContent = 'Connected · Live FX rates syncing';
+    fxLabel.textContent = 'LIVE RATE (REAL-TIME FEED)';
+    fxIcon.textContent = '🌐';
+    sendBtn.textContent = '⚡ SEND INSTANTLY — LIVE SETTLEMENT';
+    syncBtn.disabled = batchQueue.length === 0;
+    syncHint.textContent = batchQueue.length > 0 ? 'TAP SYNC to settle all queued transfers now' : 'No transfers in queue';
+    addLog('info', '[ONLINE] Internet restored · Live FX rates active · Batch sync available');
+  } else {
+    indicator.className = 'conn-indicator ind-offline';
+    indicator.textContent = '● OFFLINE';
+    statusText.style.color = '#ef5350';
+    statusText.textContent = 'No internet · Cryptographic token active';
+    fxLabel.textContent = 'LIVE RATE (CACHED OFFLINE)';
+    fxIcon.textContent = '🔒';
+    sendBtn.textContent = '📤 QUEUE OFFLINE FX TRANSFER';
+    syncBtn.disabled = true;
+    syncHint.textContent = 'Toggle ONLINE above to unlock batch settlement';
+    addLog('warn', '[OFFLINE] Connectivity lost · Offline cryptographic mode active');
+  }
+}
+
+// ===== MODE =====
+function setMode(mode) {
+  if(event) event.preventDefault();
+  currentMode = mode;
+  document.getElementById('modePartner').classList.toggle('active', mode==='partner');
+  document.getElementById('modeOwn').classList.toggle('active', mode==='own');
+  updateRoute();
+  addLog('info', '[MODE] ' + (mode==='partner' ? 'Flutterwave IMTO Partner' : 'ZeroPay Own IMTO License'));
+}
+
+function updateRoute() {
+  const routeTitle = document.getElementById('routeTitle');
+  const routeSteps = document.getElementById('routeSteps');
+  const settleEl = document.getElementById('settleTime');
+  if(currentMode === 'partner') {
+    routeTitle.textContent = '🔗 ROUTE — FLUTTERWAVE IMTO PARTNER';
+    routeSteps.innerHTML = `<div class="route-node active-node">PUF CARD</div><div class="route-arrow">→</div><div class="route-node">OFFLINE TOKEN</div><div class="route-arrow">→</div><div class="route-node">MESH HUB</div><div class="route-arrow">→</div><div class="route-node">FLUTTERWAVE</div><div class="route-arrow">→</div><div class="route-node">CBN NXP</div><div class="route-arrow">→</div><div class="route-node">NGN WALLET</div>`;
+    settleEl.textContent = '~2 hrs';
+  } else {
+    routeTitle.textContent = '🏦 ROUTE — ZEROPAY OWN IMTO LICENSE';
+    routeSteps.innerHTML = `<div class="route-node active-node">PUF CARD</div><div class="route-arrow">→</div><div class="route-node">OFFLINE TOKEN</div><div class="route-arrow">→</div><div class="route-node">MESH HUB</div><div class="route-arrow">→</div><div class="route-node">ZEROPAY MFB</div><div class="route-arrow">→</div><div class="route-node">SWIFT/NIBSS</div><div class="route-arrow">→</div><div class="route-node">NGN WALLET</div>`;
+    settleEl.textContent = '~45 min';
+  }
+}
+
+// ===== TABS =====
+function switchTab(tab) {
+  if(event) event.preventDefault();
+  ['send','batch','currencies'].forEach(t => {
+    document.getElementById('screen_'+t).classList.toggle('active', t===tab);
+    document.getElementById('tab_'+t).classList.toggle('active', t===tab);
+  });
+  if(tab === 'batch') renderBatchQueue();
+}
+
+// ===== NUMPAD =====
 function numPress(key) {
-  event && event.preventDefault && event.preventDefault();
+  if(event) event.preventDefault();
   if(key === 'C') { currentAmount = ''; }
   else if(key === 'DEL') { currentAmount = currentAmount.slice(0,-1); }
   else if(key === '.' && currentAmount.includes('.')) { return; }
@@ -427,7 +566,7 @@ function numPress(key) {
 function updateDisplay() {
   const val = parseFloat(currentAmount) || 0;
   document.getElementById('amountDisplay').textContent = val.toFixed(2);
-  const rate = FX_RATES[document.getElementById('fromCurrency').value] || 1610;
+  const rate = FX_RATES[currentCurrency] || 1610;
   const naira = val * rate;
   const fee = naira * 0.015;
   document.getElementById('recipientAmount').textContent = '₦' + (naira - fee).toLocaleString('en-NG', {minimumFractionDigits:2});
@@ -435,62 +574,214 @@ function updateDisplay() {
 }
 
 function updateFX() {
-  const cur = document.getElementById('fromCurrency').value;
-  const rate = FX_RATES[cur] || 1610;
-  document.getElementById('fxRateDisplay').textContent = '1 ' + cur + ' = ₦' + rate.toLocaleString('en-NG', {minimumFractionDigits:2});
+  currentCurrency = document.getElementById('fromCurrency').value;
+  const rate = FX_RATES[currentCurrency] || 1610;
+  document.getElementById('fxRateDisplay').textContent = '1 ' + currentCurrency + ' = ₦' + rate.toLocaleString('en-NG', {minimumFractionDigits:2});
   updateDisplay();
 }
 
-function setMode(mode) {
-  currentMode = mode;
-  document.getElementById('modePartner').classList.toggle('active', mode==='partner');
-  document.getElementById('modeOwn').classList.toggle('active', mode==='own');
-
-  const connEl = document.getElementById('connStatus');
-  const routeTitle = document.getElementById('routeTitle');
-  const routeSteps = document.getElementById('routeSteps');
-  const settleEl = document.getElementById('settleTime');
-
-  if(mode === 'partner') {
-    routeTitle.textContent = '🔗 TRANSFER ROUTE — FLUTTERWAVE IMTO PARTNER';
-    routeSteps.innerHTML = `
-      <div class="route-node active-node">PUF CARD</div><div class="route-arrow">→</div>
-      <div class="route-node">OFFLINE TOKEN</div><div class="route-arrow">→</div>
-      <div class="route-node">MESH HUB</div><div class="route-arrow">→</div>
-      <div class="route-node">FLUTTERWAVE</div><div class="route-arrow">→</div>
-      <div class="route-node">CBN NXP</div><div class="route-arrow">→</div>
-      <div class="route-node">NGN WALLET</div>`;
-    settleEl.textContent = '~2 hrs';
-  } else {
-    routeTitle.textContent = '🏦 TRANSFER ROUTE — ZEROPAY OWN IMTO LICENSE';
-    routeSteps.innerHTML = `
-      <div class="route-node active-node">PUF CARD</div><div class="route-arrow">→</div>
-      <div class="route-node">OFFLINE TOKEN</div><div class="route-arrow">→</div>
-      <div class="route-node">MESH HUB</div><div class="route-arrow">→</div>
-      <div class="route-node">ZEROPAY MFB</div><div class="route-arrow">→</div>
-      <div class="route-node">SWIFT/NIBSS</div><div class="route-arrow">→</div>
-      <div class="route-node">NGN WALLET</div>`;
-    settleEl.textContent = '~45 min';
-  }
-  addLog('info', '[MODE] Switched to ' + (mode==='partner' ? 'Flutterwave IMTO Partner' : 'ZeroPay Own IMTO License'));
-}
-
-function selectCorridor(from, to, flag1, flag2, amt, rate, name, vol) {
+function selectCorridor(cur, rate, name) {
+  if(event) event.preventDefault();
+  currentCurrency = cur;
+  currentCorridorName = name;
   document.querySelectorAll('.corridor-card').forEach(c => c.classList.remove('selected'));
-  document.getElementById('corr_'+from.toLowerCase()).classList.add('selected');
-  activeCorridor = { from, rate:parseFloat(rate) };
-
-  // Update from currency dropdown
+  const el = document.getElementById('corr_' + cur);
+  if(el) el.classList.add('selected');
   const sel = document.getElementById('fromCurrency');
-  for(let i=0; i<sel.options.length; i++) {
-    if(sel.options[i].value === from) { sel.selectedIndex = i; break; }
-  }
-  updateFX();
-  addLog('info', '[CORRIDOR] Selected ' + name + ' · ' + vol + ' annual volume');
+  for(let i=0;i<sel.options.length;i++) { if(sel.options[i].value===cur){sel.selectedIndex=i;break;} }
+  document.getElementById('fxRateDisplay').textContent = '1 ' + cur + ' = ₦' + rate.toLocaleString('en-NG', {minimumFractionDigits:2});
+  updateDisplay();
+  addLog('info', '[CORRIDOR] ' + name + ' selected · Rate: ₦' + rate.toLocaleString());
 }
 
+// ===== SEND =====
+function initiateSend() {
+  if(event) event.preventDefault();
+  const val = parseFloat(currentAmount) || 0;
+  if(val <= 0) { addLog('danger', '[ERROR] Enter amount first'); return; }
+
+  const rate = FX_RATES[currentCurrency] || 1610;
+  const naira = val * rate;
+  const fee = naira * 0.015;
+  const receive = naira - fee;
+  const ref = 'ZFX' + Date.now().toString(36).toUpperCase().slice(-6);
+  const valUSD = currentCurrency === 'USD' ? val : val * (FX_RATES[currentCurrency]/1610);
+
+  const btn = document.getElementById('sendBtn');
+  btn.disabled = true;
+  btn.classList.add('processing');
+
+  if(isOnline) {
+    btn.textContent = '⚡ SETTLING LIVE...';
+    addLog('processing', '[TX] Live settlement initiated · ' + val + ' ' + currentCurrency);
+    setTimeout(() => {
+      addLog('success', '[SETTLED] ₦' + receive.toLocaleString('en-NG',{minimumFractionDigits:2}) + ' settled · Ref: ' + ref);
+      txCount++;
+      totalVolumeUSD += valUSD;
+      updateStats();
+      btn.disabled = false;
+      btn.classList.remove('processing');
+      btn.textContent = '⚡ SEND INSTANTLY — LIVE SETTLEMENT';
+      showResultOverlay(val, currentCurrency, receive, fee, rate, ref, true);
+      currentAmount = ''; updateDisplay();
+    }, 1800);
+  } else {
+    btn.textContent = '📋 ADDING TO QUEUE...';
+    addLog('processing', '[QUEUE] Cryptographic token signing · ' + val + ' ' + currentCurrency);
+    setTimeout(() => {
+      // Add to batch queue
+      batchQueue.push({
+        ref, currency: currentCurrency, amount: val, naira, receive, fee, rate,
+        corridor: currentCorridorName, mode: currentMode,
+        time: new Date().toLocaleTimeString(), status: 'queued', valUSD
+      });
+      updateQueueBadge();
+      txCount++;
+      totalVolumeUSD += valUSD;
+      updateStats();
+      btn.disabled = false;
+      btn.classList.remove('processing');
+      btn.textContent = '📤 QUEUE OFFLINE FX TRANSFER';
+      addLog('success', '[QUEUED] Ref: ' + ref + ' · Queue size: ' + batchQueue.length);
+      showResultOverlay(val, currentCurrency, receive, fee, rate, ref, false);
+      currentAmount = ''; updateDisplay();
+    }, 1200);
+  }
+}
+
+function updateQueueBadge() {
+  const pending = batchQueue.filter(t => t.status === 'queued').length;
+  document.getElementById('queueCount').textContent = pending;
+  document.getElementById('tabBadge').textContent = pending;
+  // Enable sync button if online and queue has items
+  const syncBtn = document.getElementById('syncBtn');
+  if(isOnline && pending > 0) {
+    syncBtn.disabled = false;
+    document.getElementById('syncHint').textContent = 'TAP SYNC to settle all ' + pending + ' queued transfers now';
+  }
+}
+
+function updateStats() {
+  document.getElementById('statTx').textContent = txCount;
+  document.getElementById('statVol').textContent = '$' + totalVolumeUSD.toFixed(0);
+  document.getElementById('statSpeed').textContent = isOnline ? '~2s' : 'QUEUED';
+}
+
+// ===== BATCH QUEUE RENDER =====
+function renderBatchQueue() {
+  const list = document.getElementById('queueList');
+  const pending = batchQueue.filter(t => t.status === 'queued');
+  const settled = batchQueue.filter(t => t.status === 'settled');
+
+  document.getElementById('batchCountLabel').textContent = batchQueue.length + ' TRANSFER' + (batchQueue.length!==1?'S':'');
+  document.getElementById('bsTotal').textContent = pending.length;
+
+  const totalVol = batchQueue.reduce((s,t) => s + (t.valUSD||0), 0);
+  const totalNGN = batchQueue.filter(t=>t.status==='queued').reduce((s,t) => s + t.receive, 0);
+  document.getElementById('bsVolume').textContent = '$' + totalVol.toFixed(2);
+  document.getElementById('bsNaira').textContent = '₦' + totalNGN.toLocaleString('en-NG',{minimumFractionDigits:0});
+
+  if(batchQueue.length === 0) {
+    list.innerHTML = '<div class="empty-queue"><div class="eq-icon">📭</div><div class="eq-text">No transfers queued yet.<br>Go to SEND MONEY tab and queue a transfer first.</div></div>';
+    return;
+  }
+
+  list.innerHTML = '';
+  batchQueue.slice().reverse().forEach((tx, i) => {
+    const item = document.createElement('div');
+    item.className = 'queue-item' + (tx.status==='syncing' ? ' syncing' : tx.status==='settled' ? ' settled' : '');
+    item.id = 'qi_' + tx.ref;
+    const statusClass = tx.status==='queued' ? 'st-queued' : tx.status==='syncing' ? 'st-syncing' : 'st-settled';
+    const statusLabel = tx.status==='queued' ? '🕐 QUEUED' : tx.status==='syncing' ? '⚡ SYNCING' : '✅ SETTLED';
+    item.innerHTML = `
+      <div class="qi-left">
+        <div class="qi-corridor">${tx.corridor} · ${tx.currency} → NGN</div>
+        <div class="qi-detail">Ref: ${tx.ref} · ${tx.time} · ${tx.mode==='partner'?'Flutterwave':'Own IMTO'}</div>
+      </div>
+      <div class="qi-right">
+        <div class="qi-amount">${tx.amount.toFixed(2)} ${tx.currency}</div>
+        <div class="qi-receive">Recv: ₦${tx.receive.toLocaleString('en-NG',{minimumFractionDigits:0})}</div>
+        <span class="qi-status ${statusClass}">${statusLabel}</span>
+      </div>`;
+    list.appendChild(item);
+  });
+}
+
+// ===== SYNC BATCH =====
+function syncBatch() {
+  if(event) event.preventDefault();
+  if(!isOnline) { addLog('danger', '[ERROR] Must be ONLINE to sync'); return; }
+  const pending = batchQueue.filter(t => t.status === 'queued');
+  if(pending.length === 0) { addLog('warn', '[SYNC] No pending transfers to settle'); return; }
+
+  const syncBtn = document.getElementById('syncBtn');
+  syncBtn.disabled = true;
+  syncBtn.classList.add('syncing-active');
+  syncBtn.textContent = '⚡ SYNCING ' + pending.length + ' TRANSFERS TO PAYSTACK...';
+
+  renderBatchQueue();
+  addLog('info', '[SYNC] Pushing ' + pending.length + ' queued transfers to Paystack settlement rail...');
+
+  pending.forEach((tx, i) => {
+    tx.status = 'syncing';
+    setTimeout(() => {
+      tx.status = 'settled';
+      addLog('success', '[SETTLED] Ref: ' + tx.ref + ' · ₦' + tx.receive.toLocaleString('en-NG',{maximumFractionDigits:0}) + ' settled');
+      updateQueueBadge();
+      renderBatchQueue();
+
+      if(i === pending.length - 1) {
+        setTimeout(() => {
+          syncBtn.classList.remove('syncing-active');
+          syncBtn.disabled = true;
+          syncBtn.textContent = '✅ ALL TRANSFERS SETTLED';
+          document.getElementById('syncHint').textContent = 'Batch sync complete · ' + pending.length + ' transfers settled';
+          addLog('success', '[BATCH COMPLETE] All ' + pending.length + ' transfers settled via Paystack · NIBSS NIP confirmed');
+        }, 500);
+      }
+    }, (i+1) * 600);
+  });
+}
+
+// ===== RESULT OVERLAY =====
+function showResultOverlay(amount, cur, receive, fee, rate, ref, isLive) {
+  document.getElementById('resultDetails').innerHTML =
+    'Sent: <strong>' + amount.toFixed(2) + ' ' + cur + '</strong><br>' +
+    'Recipient receives: <strong>₦' + receive.toLocaleString('en-NG',{minimumFractionDigits:2}) + '</strong><br>' +
+    'ZeroPay fee: ₦' + fee.toLocaleString('en-NG',{minimumFractionDigits:2}) + '<br>' +
+    'Rate: 1 ' + cur + ' = ₦' + rate.toLocaleString() + '<br>' +
+    (isLive ? '<strong style="color:#00c853">✅ SETTLED LIVE</strong>' : '<strong style="color:#ffa500">📋 QUEUED FOR BATCH SYNC</strong>');
+  document.getElementById('resultRef').textContent = 'REF: ' + ref + ' · PUF-SIGNED · ECC-ENCRYPTED';
+  document.getElementById('resultOverlay').classList.add('show');
+}
+
+function closeResult() {
+  if(event) event.preventDefault();
+  document.getElementById('resultOverlay').classList.remove('show');
+  switchTab('batch');
+}
+
+// ===== CURRENCY GRID =====
+function buildCurrencyGrid() {
+  const grid = document.getElementById('currencyGrid');
+  Object.keys(FX_RATES).forEach(code => {
+    const item = document.createElement('div');
+    item.className = 'currency-item';
+    const name = CURRENCY_NAMES[code] || code;
+    const rate = FX_RATES[code];
+    item.innerHTML = '<div class="currency-code">'+code+'</div><div class="currency-name">'+name.substring(0,13)+'</div><div class="currency-rate">₦'+rate.toLocaleString('en-NG',{maximumFractionDigits:3})+'</div>';
+    item.onclick = () => {
+      selectCorridor(code, rate, code + '→NGN');
+      switchTab('send');
+    };
+    grid.appendChild(item);
+  });
+}
+
+// ===== LOG =====
 function addLog(type, msg) {
   const log = document.getElementById('statusLog');
+  if(!log) return;
   const entry = document.createElement('div');
   entry.className = 'log-entry ' + type;
   entry.textContent = new Date().toLocaleTimeString() + ' ' + msg;
@@ -498,109 +789,10 @@ function addLog(type, msg) {
   log.scrollTop = log.scrollHeight;
 }
 
-function initiateSend() {
-  event && event.preventDefault && event.preventDefault();
-  const val = parseFloat(currentAmount) || 0;
-  if(val <= 0) {
-    addLog('', '[ERROR] Enter amount first');
-    return;
-  }
-
-  const cur = document.getElementById('fromCurrency').value;
-  const rate = FX_RATES[cur] || 1610;
-  const naira = val * rate;
-  const fee = naira * 0.015;
-  const ref = 'ZFX' + Date.now().toString(36).toUpperCase();
-
-  const btn = document.getElementById('sendBtn');
-  btn.classList.add('processing');
-  btn.textContent = '⚡ PROCESSING OFFLINE CRYPTOGRAPHIC TRANSFER...';
-
-  addLog('processing', '[TX] Initiating offline FX transfer · ' + val + ' ' + cur);
-  addLog('processing', '[CRYPTO] Generating PUF cryptographic signature...');
-
-  setTimeout(() => {
-    addLog('processing', '[TOKEN] Offline token validated · TTL: 72hrs remaining');
-    addLog('processing', '[FX] Rate locked: 1 ' + cur + ' = ₦' + rate.toLocaleString());
-  }, 600);
-
-  setTimeout(() => {
-    addLog('processing', '[QUEUE] Transaction added to offline batch queue');
-    addLog('processing', '[MESH] Awaiting Solar Mesh Hub sync window...');
-  }, 1200);
-
-  setTimeout(() => {
-    btn.classList.remove('processing');
-    btn.classList.add('success-btn');
-    btn.textContent = '✅ TRANSFER QUEUED — BATCH SYNC PENDING';
-
-    txCount++;
-    totalVolume += val;
-    document.getElementById('statTx').textContent = txCount;
-    document.getElementById('statVol').textContent = '$' + totalVolume.toFixed(0);
-    document.getElementById('statSpeed').textContent = (Math.random()*50+20).toFixed(0)+'ms';
-
-    addLog('success', '[SUCCESS] Transfer queued · Ref: ' + ref);
-    addLog('success', '[RECIPIENT] Will receive ₦' + (naira-fee).toLocaleString('en-NG', {minimumFractionDigits:2}));
-
-    showResult(cur, val, naira-fee, fee, rate, ref);
-
-    setTimeout(() => {
-      btn.classList.remove('success-btn');
-      btn.textContent = 'SEND MONEY — OFFLINE CRYPTOGRAPHIC TRANSFER';
-    }, 3000);
-  }, 2200);
-}
-
-function showResult(cur, amount, receive, fee, rate, ref) {
-  document.getElementById('resultIcon').textContent = '✅';
-  document.getElementById('resultTitle').textContent = 'TRANSFER QUEUED';
-  document.getElementById('resultDetails').innerHTML =
-    'Sent: <strong>' + amount + ' ' + cur + '</strong><br>' +
-    'Recipient receives: <strong>₦' + receive.toLocaleString('en-NG', {minimumFractionDigits:2}) + '</strong><br>' +
-    'ZeroPay fee: ₦' + fee.toLocaleString('en-NG', {minimumFractionDigits:2}) + '<br>' +
-    'Rate locked: 1 ' + cur + ' = ₦' + rate.toLocaleString() + '<br>' +
-    'Settlement: On next connectivity window<br>' +
-    'Mode: ' + (currentMode==='partner' ? 'Flutterwave IMTO' : 'ZeroPay Own IMTO');
-  document.getElementById('resultRef').textContent = 'REF: ' + ref + ' · PUF-SIGNED · ENCRYPTED';
-  document.getElementById('resultOverlay').classList.add('show');
-}
-
-function closeResult() {
-  document.getElementById('resultOverlay').classList.remove('show');
-  currentAmount = '';
-  updateDisplay();
-}
-
-// Build 147 currency grid
-function buildCurrencyGrid() {
-  const grid = document.getElementById('currencyGrid');
-  const currencies = Object.keys(FX_RATES);
-  currencies.forEach(code => {
-    const item = document.createElement('div');
-    item.className = 'currency-item';
-    const rate = FX_RATES[code];
-    const name = CURRENCY_NAMES[code] || code;
-    item.innerHTML = '<div class="currency-code">'+code+'</div><div class="currency-name">'+name.substring(0,12)+'</div><div class="currency-rate">₦'+rate.toLocaleString('en-NG',{maximumFractionDigits:2})+'</div>';
-    item.onclick = () => {
-      const sel = document.getElementById('fromCurrency');
-      let found = false;
-      for(let i=0; i<sel.options.length; i++) { if(sel.options[i].value===code){sel.selectedIndex=i;found=true;break;} }
-      if(!found) {
-        const opt = document.createElement('option');
-        opt.value = code; opt.textContent = code + ' — ' + name;
-        sel.appendChild(opt); sel.value = code;
-      }
-      updateFX();
-      addLog('info', '[CURRENCY] Selected ' + code + ' · ₦' + rate.toLocaleString());
-    };
-    grid.appendChild(item);
-  });
-}
-
+// INIT
 buildCurrencyGrid();
 updateFX();
-addLog('info', '[RATES] 147 FX rates loaded from offline cache');
+updateRoute();
 </script>
 </body>
 </html>
