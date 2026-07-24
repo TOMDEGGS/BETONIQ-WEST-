@@ -1,0 +1,968 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noodp, notranslate, noimageindex">
+<meta name="GPTBot" content="noindex, nofollow">
+<meta name="anthropic-ai" content="noindex, nofollow">
+<meta name="copyright" content="ZeroPay by BETONIQ(WEST) Ltd, RC 56802, Abuja, Nigeria. Patent Pending April 2026. All rights reserved.">
+<title>ZeroPay — Live Operations Hub</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{font-family:'Segoe UI',sans-serif;background:#050d1a;color:#e0e8f0;min-height:100vh;overflow-x:hidden}
+
+/* ===================== HEADER ===================== */
+.header{background:#0d1b3e;padding:10px 20px;display:flex;align-items:center;justify-content:space-between;border-bottom:3px solid #00d4ff;position:sticky;top:0;z-index:200}
+.brand{font-size:20px;font-weight:900;color:#00d4ff;letter-spacing:2px}
+.tagline{font-size:9px;color:#90a4b7;margin-top:1px}
+.patent{font-size:8px;color:#ffa500;margin-top:1px}
+.header-right{display:flex;flex-direction:column;align-items:flex-end;gap:4px}
+.live-badge{background:#00c853;color:#fff;font-size:9px;font-weight:700;padding:3px 8px;border-radius:10px;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.6}}
+
+/* ===================== CONN BAR ===================== */
+.conn-bar{background:#0a1628;padding:8px 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:2px solid #1e3a5f;flex-wrap:wrap;gap:8px}
+.conn-toggle{display:flex;gap:6px;align-items:center}
+.conn-lbl{font-size:10px;font-weight:700;color:#607080}
+.conn-btn{padding:6px 14px;border-radius:8px;border:2px solid #1e3a5f;background:#0d1b3e;color:#90a4b7;font-size:10px;font-weight:700;cursor:pointer;transition:all .2s;touch-action:manipulation}
+.conn-btn.offline-a{border-color:#c62828;background:#c6282822;color:#ef5350}
+.conn-btn.online-a{border-color:#00c853;background:#00c85322;color:#00c853}
+.global-stats{display:flex;gap:12px}
+.gs-item{text-align:center}
+.gs-val{font-size:13px;font-weight:900;color:#00d4ff}
+.gs-lbl{font-size:8px;color:#607080}
+
+/* ===================== PAGE TABS ===================== */
+.page-tabs{display:flex;background:#0a1628;border-bottom:3px solid #1e3a5f;position:sticky;top:57px;z-index:190}
+.ptab{flex:1;padding:10px 6px;text-align:center;font-size:11px;font-weight:700;color:#607080;cursor:pointer;border-bottom:4px solid transparent;transition:all .2s;touch-action:manipulation}
+.ptab.active{color:#00d4ff;border-bottom-color:#00d4ff;background:#00d4ff08}
+.ptab-badge{background:#ffa500;color:#000;font-size:8px;font-weight:900;padding:1px 5px;border-radius:5px;margin-left:3px}
+
+/* ===================== PAGES ===================== */
+.page{display:none;padding:14px;max-width:1100px;margin:0 auto}
+.page.active{display:block}
+
+/* ===================== SHARED COMPONENTS ===================== */
+.section{background:#0d1b3e;border-radius:14px;border:2px solid #1e3a5f;overflow:hidden;margin-bottom:14px}
+.section-hdr{background:#0a1628;padding:10px 14px;font-size:11px;font-weight:700;border-bottom:1px solid #1e3a5f;display:flex;justify-content:space-between;align-items:center}
+.section-body{padding:14px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.stat-card{background:#132340;border:1px solid #1e3a5f;border-radius:10px;padding:10px;text-align:center}
+.sc-val{font-size:16px;font-weight:900;color:#00d4ff}
+.sc-lbl{font-size:8px;color:#607080;margin-top:2px}
+.sc-sub{font-size:9px;color:#ffa500;margin-top:2px}
+.badge{font-size:9px;font-weight:700;padding:2px 8px;border-radius:6px}
+.badge-green{background:#00c85322;color:#00c853;border:1px solid #00c853}
+.badge-orange{background:#ffa50022;color:#ffa500;border:1px solid #ffa500}
+.badge-red{background:#c6282822;color:#ef5350;border:1px solid #c62828}
+.badge-blue{background:#00d4ff22;color:#00d4ff;border:1px solid #00d4ff}
+.btn{padding:10px 16px;border:none;border-radius:8px;font-size:11px;font-weight:700;cursor:pointer;touch-action:manipulation;transition:all .2s}
+.btn:active{transform:scale(0.97)}
+.btn-primary{background:linear-gradient(135deg,#00b4db,#0083b0);color:#fff}
+.btn-orange{background:linear-gradient(135deg,#ffa500,#e65c00);color:#fff}
+.btn-green{background:linear-gradient(135deg,#00c853,#009624);color:#fff}
+.btn-red{background:#c6282822;color:#ef5350;border:2px solid #c62828}
+.btn-full{width:100%;padding:13px}
+.log-box{background:#050d1a;border:1px solid #1e3a5f;border-radius:8px;padding:8px;height:90px;overflow-y:auto;font-family:monospace;font-size:9px}
+.log-entry{margin-bottom:2px}
+.log-g{color:#00c853}.log-o{color:#ffa500}.log-b{color:#00d4ff}.log-r{color:#ef5350}.log-w{color:#90a4b7}
+
+/* ===================== PAGE 1: TERMINAL & PAYMENT ===================== */
+.terminal-wrap{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:700px){.terminal-wrap{grid-template-columns:1fr}}
+
+/* NFC Terminal */
+.terminal-screen{background:#050d1a;border:3px solid #1e3a5f;border-radius:16px;padding:16px;text-align:center;position:relative;overflow:hidden}
+.terminal-screen.active-t{border-color:#00d4ff;box-shadow:0 0 20px #00d4ff33}
+.terminal-screen.success-t{border-color:#00c853;box-shadow:0 0 20px #00c85333}
+.terminal-screen.error-t{border-color:#ef5350;box-shadow:0 0 20px #ef535033}
+.nfc-ring{width:90px;height:90px;border-radius:50%;border:4px solid #1e3a5f;margin:0 auto 10px;display:flex;align-items:center;justify-content:center;font-size:32px;transition:all .4s;position:relative}
+.nfc-ring.tapping{border-color:#00d4ff;animation:nfcPulse .6s infinite;box-shadow:0 0 20px #00d4ff55}
+.nfc-ring.approved{border-color:#00c853;background:#00c85311}
+.nfc-ring.rejected{border-color:#ef5350;background:#ef535011}
+@keyframes nfcPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.07)}}
+.puf-verify{font-size:10px;color:#607080;margin-bottom:8px}
+.amount-big{font-size:28px;font-weight:900;color:#00d4ff;margin-bottom:6px;font-family:monospace}
+.tx-result{font-size:13px;font-weight:900;margin-top:6px;padding:6px 12px;border-radius:8px;display:inline-block}
+.tx-result.ok{background:#00c85322;color:#00c853;border:1px solid #00c853}
+.tx-result.fail{background:#c6282822;color:#ef5350;border:1px solid #c62828}
+.tx-result.proc{background:#ffa50022;color:#ffa500;border:1px solid #ffa500}
+
+/* Scenario picker */
+.scenario-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.scenario-btn{background:#0a1628;border:1px solid #1e3a5f;border-radius:8px;padding:8px;cursor:pointer;touch-action:manipulation;transition:all .15s;text-align:left}
+.scenario-btn:active{background:#00d4ff11}
+.sc-title{font-size:10px;font-weight:700;color:#e0e8f0}
+.sc-desc{font-size:8px;color:#607080;margin-top:2px}
+.sc-outcome{font-size:8px;font-weight:700;margin-top:3px}
+
+/* Numpad */
+.numpad{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;margin-bottom:10px}
+.num-btn{background:#132340;border:1px solid #1e3a5f;border-radius:8px;color:#e0e8f0;font-size:16px;font-weight:700;padding:12px;cursor:pointer;text-align:center;touch-action:manipulation;user-select:none}
+.num-btn:active{background:#00d4ff22;transform:scale(0.95)}
+
+/* Token display */
+.token-card{background:#050d1a;border:1px solid #ffa500;border-radius:10px;padding:10px;font-family:monospace;font-size:10px;margin-bottom:10px}
+.token-header{color:#ffa500;font-weight:700;font-size:9px;margin-bottom:5px}
+.token-line{color:#90a4b7;margin-bottom:2px}
+.token-line span{color:#00d4ff}
+.token-ttl{color:#ffa500;font-weight:700}
+
+/* ===================== PAGE 2: BATCH QUEUE & SETTLEMENT ===================== */
+.queue-summary{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:12px}
+.q-item{background:#132340;border-radius:10px;padding:10px;text-align:center;border:1px solid #1e3a5f}
+.q-val{font-size:16px;font-weight:900}
+.q-lbl{font-size:8px;color:#607080;margin-top:2px}
+.queue-list-wrap{max-height:240px;overflow-y:auto}
+.qi{display:flex;align-items:center;gap:8px;padding:9px 12px;border-bottom:1px solid #0a1628;transition:background .3s}
+.qi.syncing-qi{background:#ffa50011}
+.qi.settled-qi{background:#00c85311}
+.qi-icon{font-size:16px;width:26px;text-align:center}
+.qi-info{flex:1}
+.qi-title{font-size:11px;font-weight:700;color:#e0e8f0}
+.qi-detail{font-size:8px;color:#607080;margin-top:2px;font-family:monospace}
+.qi-right{text-align:right}
+.qi-amount{font-size:12px;font-weight:900;color:#00d4ff}
+.qi-ngn{font-size:9px;color:#ffa500;margin-top:1px}
+
+/* Settlement flow */
+.settle-flow{display:flex;align-items:center;gap:6px;flex-wrap:wrap;padding:12px;background:#050d1a;border-radius:10px;margin-bottom:12px}
+.sf-node{background:#132340;border:2px solid #1e3a5f;border-radius:8px;padding:6px 10px;font-size:10px;font-weight:700;color:#00d4ff;white-space:nowrap;transition:all .3s}
+.sf-node.sf-active{border-color:#ffa500;background:#ffa50022;color:#ffa500;box-shadow:0 0 10px #ffa50044;animation:nfcPulse .5s infinite}
+.sf-node.sf-done{border-color:#00c853;background:#00c85322;color:#00c853}
+.sf-arrow{color:#ffa500;font-size:14px;font-weight:900}
+
+/* Reconciliation */
+.recon-row{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid #1e3a5f;font-size:11px}
+.recon-label{color:#90a4b7}
+.recon-val{font-weight:700;color:#e0e8f0}
+
+/* ===================== PAGE 3: LIVE NETWORK MONITOR ===================== */
+.network-map{position:relative;background:#050d1a;border-radius:12px;border:1px solid #1e3a5f;height:300px;overflow:hidden;margin-bottom:12px}
+.map-svg{position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none}
+.map-node{position:absolute;display:flex;flex-direction:column;align-items:center;transform:translate(-50%,-50%)}
+.mn-circle{width:50px;height:50px;border-radius:50%;border:3px solid #1e3a5f;display:flex;align-items:center;justify-content:center;font-size:16px;background:#0a1628;transition:all .4s}
+.mn-circle.mn-idle{border-color:#1e3a5f}
+.mn-circle.mn-active{border-color:#ffa500;box-shadow:0 0 15px #ffa50055;animation:nfcPulse .5s infinite}
+.mn-circle.mn-done{border-color:#00c853;box-shadow:0 0 10px #00c85333}
+.mn-circle.mn-fail{border-color:#ef5350;box-shadow:0 0 8px #ef535033}
+.mn-label{font-size:8px;color:#90a4b7;margin-top:3px;font-weight:700;text-align:center;max-width:60px}
+.mn-status{font-size:7px;margin-top:1px;font-weight:700}
+.signal-dot{position:absolute;width:10px;height:10px;border-radius:50%;background:#ffa500;box-shadow:0 0 8px #ffa500;display:none;pointer-events:none;z-index:10}
+
+/* Network stats */
+.net-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px}
+.ns-card{background:#0d1b3e;border:1px solid #1e3a5f;border-radius:10px;padding:10px}
+.ns-title{font-size:9px;color:#90a4b7;font-weight:700;margin-bottom:6px}
+.ns-val{font-size:15px;font-weight:900;color:#ffa500}
+.ns-sub{font-size:8px;color:#607080;margin-top:2px}
+
+/* Ticker */
+.ticker-wrap{background:#050d1a;border:1px solid #1e3a5f;border-radius:8px;overflow:hidden;margin-bottom:12px;height:32px;display:flex;align-items:center}
+.ticker-label{background:#00d4ff;color:#000;font-size:9px;font-weight:900;padding:0 10px;height:100%;display:flex;align-items:center;white-space:nowrap}
+.ticker-inner{flex:1;overflow:hidden;position:relative;height:100%}
+.ticker-text{position:absolute;white-space:nowrap;font-size:10px;color:#90a4b7;font-family:monospace;top:50%;transform:translateY(-50%);animation:tickerMove 30s linear infinite}
+@keyframes tickerMove{0%{left:100%}100%{left:-200%}}
+
+/* Live log */
+.live-log{background:#050d1a;border:1px solid #1e3a5f;border-radius:10px;padding:10px;height:140px;overflow-y:auto;font-family:monospace;font-size:9px}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div>
+    <div class="brand">⚡ ZEROPAY OPS HUB</div>
+    <div class="tagline">COMPLETE BACKEND OPERATIONS · PAYMENT TO SETTLEMENT</div>
+    <div class="patent">© BETONIQ(WEST) Ltd RC 56802 · Patent Pending April 2026</div>
+  </div>
+  <div class="header-right">
+    <div class="live-badge">● LIVE OPERATIONS</div>
+    <div style="font-size:8px;color:#607080;margin-top:2px">PUF · MESH · PAYSTACK</div>
+  </div>
+</div>
+
+<!-- CONN BAR -->
+<div class="conn-bar">
+  <div class="conn-toggle">
+    <span class="conn-lbl">NETWORK:</span>
+    <div class="conn-btn offline-a" id="btnOff" onclick="setConn('offline')" ontouchend="setConn('offline')">● OFFLINE</div>
+    <div class="conn-btn" id="btnOn" onclick="setConn('online')" ontouchend="setConn('online')">◎ ONLINE</div>
+    <span id="connText" style="font-size:9px;color:#ef5350;font-weight:700">No internet · PUF token mode active</span>
+  </div>
+  <div class="global-stats">
+    <div class="gs-item"><div class="gs-val" id="gTx">0</div><div class="gs-lbl">TX TODAY</div></div>
+    <div class="gs-item"><div class="gs-val" id="gVol">₦0</div><div class="gs-lbl">VOLUME</div></div>
+    <div class="gs-item"><div class="gs-val" id="gQueue">0</div><div class="gs-lbl">QUEUED</div></div>
+    <div class="gs-item"><div class="gs-val" id="gSettled">0</div><div class="gs-lbl">SETTLED</div></div>
+  </div>
+</div>
+
+<!-- PAGE TABS -->
+<div class="page-tabs">
+  <div class="ptab active" id="ptab_1" onclick="showPage(1)" ontouchend="showPage(1)">💳 PAGE 1<br><span style="font-size:8px;font-weight:400">TERMINAL & PAYMENT</span></div>
+  <div class="ptab" id="ptab_2" onclick="showPage(2)" ontouchend="showPage(2)">📋 PAGE 2 <span class="ptab-badge" id="qBadge">0</span><br><span style="font-size:8px;font-weight:400">BATCH & SETTLEMENT</span></div>
+  <div class="ptab" id="ptab_3" onclick="showPage(3)" ontouchend="showPage(3)">🗺️ PAGE 3<br><span style="font-size:8px;font-weight:400">NETWORK MONITOR</span></div>
+</div>
+
+<!-- ================================================================ -->
+<!-- PAGE 1: TERMINAL & PAYMENT -->
+<!-- ================================================================ -->
+<div class="page active" id="page_1">
+
+  <div class="terminal-wrap">
+
+    <!-- LEFT: MERCHANT TERMINAL -->
+    <div>
+      <div class="section">
+        <div class="section-hdr">
+          💳 MERCHANT TERMINAL — AGENEGBODE MARKET
+          <span class="badge" id="termBadge1">● OFFLINE</span>
+        </div>
+        <div class="section-body">
+
+          <!-- NFC ring -->
+          <div class="terminal-screen" id="termScreen">
+            <div class="puf-verify" id="pufVerify">🔒 PUF Hardware Authenticated · Serial: ZP-A7F3-0042</div>
+            <div class="nfc-ring" id="nfcRing">📱</div>
+            <div class="amount-big" id="amountBig">₦ 0.00</div>
+            <div id="txResultBox"></div>
+          </div>
+
+          <!-- Numpad -->
+          <br>
+          <div class="numpad">
+            <div class="num-btn" onclick="np('1')" ontouchend="np('1')">1</div>
+            <div class="num-btn" onclick="np('2')" ontouchend="np('2')">2</div>
+            <div class="num-btn" onclick="np('3')" ontouchend="np('3')">3</div>
+            <div class="num-btn" onclick="np('4')" ontouchend="np('4')">4</div>
+            <div class="num-btn" onclick="np('5')" ontouchend="np('5')">5</div>
+            <div class="num-btn" onclick="np('6')" ontouchend="np('6')">6</div>
+            <div class="num-btn" onclick="np('7')" ontouchend="np('7')">7</div>
+            <div class="num-btn" onclick="np('8')" ontouchend="np('8')">8</div>
+            <div class="num-btn" onclick="np('9')" ontouchend="np('9')">9</div>
+            <div class="num-btn" style="color:#ffa500;font-size:11px" onclick="np('C')" ontouchend="np('C')">CLR</div>
+            <div class="num-btn" onclick="np('0')" ontouchend="np('0')">0</div>
+            <div class="num-btn" style="color:#ef5350;font-size:12px" onclick="np('D')" ontouchend="np('D')">⌫</div>
+          </div>
+
+          <!-- Token display -->
+          <div class="token-card" id="tokenCard">
+            <div class="token-header">🔐 ACTIVE PUF CRYPTOGRAPHIC TOKEN</div>
+            <div class="token-line">Token ID: <span id="tokenId">ZPT-A71F-3C9E</span></div>
+            <div class="token-line">PUF Sig: <span id="tokenSig">a3f9...d42c</span></div>
+            <div class="token-line">Issued: <span>2026-07-24 08:00:00</span></div>
+            <div class="token-line token-ttl">TTL: <span id="tokenTtl">71:48:33</span> remaining</div>
+            <div class="token-line">Mode: <span id="tokenMode" style="color:#ef5350">OFFLINE — No sync required</span></div>
+          </div>
+
+          <button class="btn btn-primary btn-full" id="tapBtn" onclick="tapCard()" ontouchend="tapCard()">
+            📱 TAP NFC CARD — PROCESS PAYMENT
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT: SCENARIO PICKER + LOG -->
+    <div>
+      <div class="section">
+        <div class="section-hdr">🎯 TRANSACTION SCENARIOS — SELECT & DEMO</div>
+        <div class="section-body">
+          <div class="scenario-grid">
+            <div class="scenario-btn" onclick="setScenario(0)" ontouchend="setScenario(0)">
+              <div class="sc-title">✅ APPROVED</div>
+              <div class="sc-desc">Valid card, sufficient balance, PUF verified</div>
+              <div class="sc-outcome" style="color:#00c853">→ QUEUED FOR BATCH</div>
+            </div>
+            <div class="scenario-btn" onclick="setScenario(1)" ontouchend="setScenario(1)">
+              <div class="sc-title">💸 INSUFFICIENT FUNDS</div>
+              <div class="sc-desc">Balance check fails at token layer</div>
+              <div class="sc-outcome" style="color:#ef5350">→ DECLINED</div>
+            </div>
+            <div class="scenario-btn" onclick="setScenario(2)" ontouchend="setScenario(2)">
+              <div class="sc-title">🚫 FRAUD FLAG</div>
+              <div class="sc-desc">Card flagged in offline blacklist</div>
+              <div class="sc-outcome" style="color:#ef5350">→ BLOCKED + ALERT</div>
+            </div>
+            <div class="scenario-btn" onclick="setScenario(3)" ontouchend="setScenario(3)">
+              <div class="sc-title">⚡ RELAY ATTACK</div>
+              <div class="sc-desc">Distance bounding protocol fires</div>
+              <div class="sc-outcome" style="color:#ef5350">→ INTERCEPTED</div>
+            </div>
+            <div class="scenario-btn" onclick="setScenario(4)" ontouchend="setScenario(4)">
+              <div class="sc-title">🔧 TAMPERED TERMINAL</div>
+              <div class="sc-desc">PUF silicon fingerprint mismatch</div>
+              <div class="sc-outcome" style="color:#ef5350">→ HARDWARE LOCK</div>
+            </div>
+            <div class="scenario-btn" onclick="setScenario(5)" ontouchend="setScenario(5)">
+              <div class="sc-title">⏰ EXPIRED TOKEN</div>
+              <div class="sc-desc">72-hr TTL exceeded</div>
+              <div class="sc-outcome" style="color:#ef5350">→ TOKEN VOID</div>
+            </div>
+            <div class="scenario-btn" onclick="setScenario(6)" ontouchend="setScenario(6)">
+              <div class="sc-title">♻️ DOUBLE SPEND</div>
+              <div class="sc-desc">Token nonce already consumed</div>
+              <div class="sc-outcome" style="color:#ef5350">→ REJECTED</div>
+            </div>
+            <div class="scenario-btn" onclick="setScenario(7)" ontouchend="setScenario(7)">
+              <div class="sc-title">💱 FX TRANSFER</div>
+              <div class="sc-desc">Cross-border GBP → NGN offline</div>
+              <div class="sc-outcome" style="color:#ffa500">→ FX QUEUED</div>
+            </div>
+          </div>
+
+          <br>
+          <div style="font-size:9px;color:#607080;margin-bottom:6px;font-weight:700">SELECTED SCENARIO: <span id="scenarioLabel" style="color:#ffa500">APPROVED TRANSACTION</span></div>
+
+          <div class="section-hdr" style="border-radius:8px 8px 0 0;border:1px solid #1e3a5f;margin-bottom:0">⚡ CRYPTOGRAPHIC VERIFICATION LOG</div>
+          <div class="log-box" id="termLog" style="border-radius:0 0 8px 8px;border:1px solid #1e3a5f;border-top:none;height:130px">
+            <div class="log-entry log-b">[BOOT] ZeroPay Terminal v4.1 — PUF authenticated</div>
+            <div class="log-entry log-w">[READY] Awaiting NFC card tap...</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PUF Security layers -->
+      <div class="section">
+        <div class="section-hdr">🛡️ SECURITY STACK — LIVE STATUS</div>
+        <div class="section-body">
+          <div class="grid2">
+            <div class="stat-card">
+              <div class="sc-val" style="font-size:13px">🔬 PUF LAYER</div>
+              <div class="sc-sub" style="color:#00c853">✅ SILICON VERIFIED</div>
+              <div class="sc-lbl">Unclonable hardware ID</div>
+            </div>
+            <div class="stat-card">
+              <div class="sc-val" style="font-size:13px">🔐 ECC P-256</div>
+              <div class="sc-sub" style="color:#00c853">✅ SIGNING ACTIVE</div>
+              <div class="sc-lbl">Cryptographic signature</div>
+            </div>
+            <div class="stat-card">
+              <div class="sc-val" style="font-size:13px">📡 DISTANCE BOUND</div>
+              <div class="sc-sub" style="color:#00c853" id="dbStatus">✅ PROTOCOL ARMED</div>
+              <div class="sc-lbl">Anti-relay attack active</div>
+            </div>
+            <div class="stat-card">
+              <div class="sc-val" style="font-size:13px">🪙 OFFLINE TOKEN</div>
+              <div class="sc-sub" style="color:#ffa500">⏳ <span id="ttlShort">71h 48m</span></div>
+              <div class="sc-lbl">72-hr TTL · ECC-encrypted</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ================================================================ -->
+<!-- PAGE 2: BATCH QUEUE & SETTLEMENT -->
+<!-- ================================================================ -->
+<div class="page" id="page_2">
+
+  <!-- Summary -->
+  <div class="queue-summary" id="qSummary">
+    <div class="q-item"><div class="q-val" id="qPending" style="color:#ffa500">0</div><div class="q-lbl">PENDING</div></div>
+    <div class="q-item"><div class="q-val" id="qSyncing" style="color:#00d4ff">0</div><div class="q-lbl">SYNCING</div></div>
+    <div class="q-item"><div class="q-val" id="qSettledCount" style="color:#00c853">0</div><div class="q-lbl">SETTLED</div></div>
+    <div class="q-item"><div class="q-val" id="qTotalNGN" style="color:#00d4ff">₦0</div><div class="q-lbl">TOTAL NGN</div></div>
+  </div>
+
+  <!-- Settlement flow -->
+  <div class="section">
+    <div class="section-hdr">⚡ SETTLEMENT RAIL — LIVE FLOW
+      <span class="badge badge-orange" id="railStatus">OFFLINE QUEUE MODE</span>
+    </div>
+    <div class="section-body">
+      <div class="settle-flow">
+        <div class="sf-node" id="sf0">🪙 OFFLINE TOKENS</div>
+        <div class="sf-arrow">→</div>
+        <div class="sf-node" id="sf1">📦 BATCH QUEUE</div>
+        <div class="sf-arrow">→</div>
+        <div class="sf-node" id="sf2">☀️ MESH HUB</div>
+        <div class="sf-arrow">→</div>
+        <div class="sf-node" id="sf3">💳 PAYSTACK API</div>
+        <div class="sf-arrow">→</div>
+        <div class="sf-node" id="sf4">🏦 ZEROPAY MFB</div>
+        <div class="sf-arrow">→</div>
+        <div class="sf-node" id="sf5">✅ SETTLEMENT</div>
+      </div>
+
+      <div class="grid2" style="gap:8px;margin-bottom:10px">
+        <button class="btn btn-orange btn-full" id="syncAllBtn" onclick="syncAll()" ontouchend="syncAll()" disabled>
+          🔒 GO ONLINE TO SYNC BATCH
+        </button>
+        <button class="btn btn-primary btn-full" onclick="showPage(1)" ontouchend="showPage(1)">
+          💳 + ADD MORE PAYMENTS
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Queue list -->
+  <div class="section">
+    <div class="section-hdr">📋 BATCH QUEUE — TRANSACTION LEDGER
+      <span class="badge badge-orange" id="batchTotalLabel">0 ITEMS</span>
+    </div>
+    <div class="queue-list-wrap" id="queueListEl">
+      <div style="text-align:center;padding:30px;color:#607080">
+        <div style="font-size:30px;margin-bottom:8px">📭</div>
+        <div style="font-size:11px">No transactions yet.<br>Go to Page 1 to process payments.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Reconciliation panel -->
+  <div class="section">
+    <div class="section-hdr">📊 RECONCILIATION REPORT</div>
+    <div class="section-body">
+      <div class="recon-row"><span class="recon-label">Total Transactions Processed</span><span class="recon-val" id="recTx">0</span></div>
+      <div class="recon-row"><span class="recon-label">Total NGN Volume</span><span class="recon-val" id="recVol">₦0.00</span></div>
+      <div class="recon-row"><span class="recon-label">ZeroPay Transaction Fee (1.5%)</span><span class="recon-val" id="recFee">₦0.00</span></div>
+      <div class="recon-row"><span class="recon-label">Net Merchant Settlement</span><span class="recon-val" id="recNet">₦0.00</span></div>
+      <div class="recon-row"><span class="recon-label">Failed / Declined Transactions</span><span class="recon-val" id="recFail" style="color:#ef5350">0</span></div>
+      <div class="recon-row"><span class="recon-label">Settlement Method</span><span class="recon-val" id="recMethod">NIBSS NIP via Paystack</span></div>
+      <div class="recon-row"><span class="recon-label">Last Sync Window</span><span class="recon-val" id="recSync">Not yet synced</span></div>
+    </div>
+  </div>
+
+  <!-- Settlement log -->
+  <div class="section">
+    <div class="section-hdr">📟 SETTLEMENT LOG</div>
+    <div class="section-body">
+      <div class="live-log" id="settleLog">
+        <div class="log-entry log-b">[SYSTEM] ZeroPay Batch Engine v3.0 — Reconciliation ready</div>
+        <div class="log-entry log-w">[WAITING] No batch sync initiated yet</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ================================================================ -->
+<!-- PAGE 3: NETWORK MONITOR -->
+<!-- ================================================================ -->
+<div class="page" id="page_3">
+
+  <!-- Ticker -->
+  <div class="ticker-wrap">
+    <div class="ticker-label">⚡ LIVE NET</div>
+    <div class="ticker-inner">
+      <div class="ticker-text" id="tickerText">
+        ZeroPay Mesh Network · 6 Nodes Online · Agenegbode ✅ Ivhioghe ✅ Fugar ✅ Uzairue ✅ Auchi ✅ Paystack HUB ✅ · Last TX: 00.0ns · Patent Pending April 2026 · BETONIQ(WEST) Ltd RC 56802
+      </div>
+    </div>
+  </div>
+
+  <!-- Network stats -->
+  <div class="net-stats">
+    <div class="ns-card">
+      <div class="ns-title">📡 NETWORK HEALTH</div>
+      <div class="ns-val" id="netHealth">100%</div>
+      <div class="ns-sub">All 6 nodes responsive</div>
+    </div>
+    <div class="ns-card">
+      <div class="ns-title">⚡ LAST PROPAGATION</div>
+      <div class="ns-val" id="lastProp">—</div>
+      <div class="ns-sub">Agenegbode → Paystack</div>
+    </div>
+    <div class="ns-card">
+      <div class="ns-title">🔋 BATTERY BACKUP</div>
+      <div class="ns-val" id="netBattery">100%</div>
+      <div class="ns-sub" id="netBattSub">Solar charging optimal</div>
+    </div>
+  </div>
+
+  <!-- Network map -->
+  <div class="section">
+    <div class="section-hdr">🗺️ EDO STATE MESH RELAY MAP — LIVE
+      <span class="badge badge-green" id="mapStatusLabel">ALL NODES ONLINE</span>
+    </div>
+    <div class="network-map" id="netMapWrap">
+      <svg class="map-svg" id="mapSvg"></svg>
+      <div class="signal-dot" id="sigDot"></div>
+    </div>
+    <div class="section-body" style="padding-top:0">
+      <div class="grid3" style="gap:8px;margin-bottom:10px">
+        <button class="btn btn-orange btn-full" onclick="fireRelay()" ontouchend="fireRelay()">⚡ FIRE RELAY</button>
+        <button class="btn btn-red btn-full" onclick="failNode()" ontouchend="failNode()">💥 FAIL NODE</button>
+        <button class="btn btn-green btn-full" onclick="resetNet()" ontouchend="resetNet()">🔄 RESET</button>
+      </div>
+      <div class="grid4" style="margin-bottom:10px">
+        <div class="btn" style="background:#0a1628;border:2px solid #1e3a5f;text-align:center;font-size:10px;cursor:pointer" onclick="setEnv('day')" ontouchend="setEnv('day')">☀️ DAY</div>
+        <div class="btn" style="background:#0a1628;border:2px solid #1e3a5f;text-align:center;font-size:10px;cursor:pointer" onclick="setEnv('night')" ontouchend="setEnv('night')">🌙 NIGHT</div>
+        <div class="btn" style="background:#0a1628;border:2px solid #1e3a5f;text-align:center;font-size:10px;cursor:pointer" onclick="setEnv('storm')" ontouchend="setEnv('storm')">⛈️ STORM</div>
+        <div class="btn" style="background:#0a1628;border:2px solid #1e3a5f;text-align:center;font-size:10px;cursor:pointer" onclick="setEnv('blackout')" ontouchend="setEnv('blackout')">🔌 BLACKOUT</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Node status grid -->
+  <div class="section">
+    <div class="section-hdr">📡 NODE STATUS BOARD</div>
+    <div class="section-body">
+      <div id="nodeStatusGrid" class="grid2" style="gap:8px"></div>
+    </div>
+  </div>
+
+  <!-- Live network log -->
+  <div class="section">
+    <div class="section-hdr">📟 NETWORK LOG — REAL TIME</div>
+    <div class="section-body">
+      <div class="live-log" id="netLog">
+        <div class="log-entry log-b">[NET] ZeroPay Solar Mesh Network v2.0 — Edo State</div>
+        <div class="log-entry log-g">[ONLINE] 6/6 nodes responsive · Coverage: 500km radius</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ============================================================
+// STATE
+// ============================================================
+let isOnline = false;
+let currentAmount = '';
+let currentScenario = 0;
+let batchQueue = [];
+let totalTx = 0;
+let failedTx = 0;
+let totalNGN = 0;
+let settledCount = 0;
+let relayRunning = false;
+let failedNodeId = null;
+
+const SCENARIOS = [
+  {label:'APPROVED TRANSACTION', icon:'✅', result:'APPROVED', ok:true, desc:'PUF verified · Balance OK · Token valid', steps:['PUF silicon fingerprint verified','ECC P-256 signature valid','Distance bounding: PASS','Token TTL: 71h 48m remaining','Balance check: SUFFICIENT','Transaction APPROVED — queued for batch sync']},
+  {label:'INSUFFICIENT FUNDS', icon:'💸', result:'DECLINED — INSUFFICIENT FUNDS', ok:false, desc:'Token valid but balance check fails', steps:['PUF silicon fingerprint verified','ECC P-256 signature valid','Distance bounding: PASS','Token TTL: 71h 48m remaining','Balance check: FAILED — ₦0 available','Transaction DECLINED']},
+  {label:'FRAUD FLAG', icon:'🚫', result:'BLOCKED — FRAUD FLAG', ok:false, desc:'Card in offline blacklist', steps:['PUF silicon fingerprint scan initiated...','BLACKLIST CHECK: Card ID found in offline fraud list','Merchant alert generated','Transaction BLOCKED — security event logged']},
+  {label:'RELAY ATTACK INTERCEPTED', icon:'⚡', result:'RELAY ATTACK BLOCKED', ok:false, desc:'Distance bounding fires at hardware level', steps:['NFC field detected...','Distance bounding protocol activated','RF round-trip time: 847ns — EXCEEDS threshold','RELAY ATTACK DETECTED — physical proximity failed','Transaction BLOCKED — hardware lockdown']},
+  {label:'TAMPERED TERMINAL', icon:'🔧', result:'HARDWARE LOCKDOWN', ok:false, desc:'PUF silicon fingerprint mismatch', steps:['PUF silicon scan initiated...','Expected fingerprint: a3f9d42c...','Received fingerprint: MISMATCH — 8e11ff03','TERMINAL INTEGRITY COMPROMISED','Hardware lockdown engaged — terminal disabled']},
+  {label:'EXPIRED TOKEN', icon:'⏰', result:'TOKEN EXPIRED — VOID', ok:false, desc:'72-hr TTL window exceeded', steps:['PUF silicon fingerprint verified','ECC P-256 signature valid','Distance bounding: PASS','Token TTL check: EXPIRED — 73h 12m elapsed','Offline token void — re-sync required','Transaction DECLINED — connectivity required']},
+  {label:'DUPLICATE TRANSACTION', icon:'♻️', result:'DOUBLE-SPEND REJECTED', ok:false, desc:'Token nonce already consumed in queue', steps:['PUF silicon fingerprint verified','ECC P-256 signature valid','Token TTL: valid','Nonce check: Token ZPT-A71F already in batch queue','DUPLICATE DETECTED — cryptographic replay prevention','Transaction REJECTED — nonce consumed']},
+  {label:'FX TRANSFER — GBP → NGN', icon:'💱', result:'FX TRANSFER QUEUED', ok:true, desc:'Cross-border GBP to NGN offline remittance', steps:['PUF verified · ECC signed · Distance bounding: PASS','FX mode detected — GBP to NGN corridor','Cached rate applied: 1 GBP = ₦1,595.40','IMTO partner route: Flutterwave selected','Offline token generated for FX batch','FX TRANSFER QUEUED — settles on next mesh sync']}
+];
+
+const NODES = [
+  {id:'agenegbode', label:'AGENEGBODE', sub:'Origin · Market Hub', icon:'🏪', x:6, y:40},
+  {id:'ivhioghe', label:'IVHIOGHE', sub:'Relay 1 · 45km', icon:'☀️', x:24, y:65},
+  {id:'fugar', label:'FUGAR', sub:'Relay 2 · 95km', icon:'☀️', x:42, y:28},
+  {id:'uzairue', label:'UZAIRUE', sub:'Relay 3 · 150km', icon:'☀️', x:60, y:62},
+  {id:'auchi', label:'AUCHI', sub:'Hub · 220km', icon:'🏙️', x:78, y:32},
+  {id:'paystack', label:'PAYSTACK', sub:'Settlement · Lagos', icon:'💳', x:92, y:60}
+];
+
+// ============================================================
+// CONNECTIVITY
+// ============================================================
+function setConn(mode) {
+  if(event) event.preventDefault();
+  isOnline = mode === 'online';
+  document.getElementById('btnOff').className = 'conn-btn' + (isOnline ? '' : ' offline-a');
+  document.getElementById('btnOn').className = 'conn-btn' + (isOnline ? ' online-a' : '');
+  document.getElementById('connText').textContent = isOnline ? 'Connected · Live settlement available' : 'No internet · PUF token mode active';
+  document.getElementById('connText').style.color = isOnline ? '#00c853' : '#ef5350';
+  document.getElementById('termBadge1').textContent = isOnline ? '◎ ONLINE' : '● OFFLINE';
+  document.getElementById('termBadge1').className = 'badge ' + (isOnline ? 'badge-green' : 'badge-red');
+  document.getElementById('tokenMode').textContent = isOnline ? 'ONLINE — Live settlement mode' : 'OFFLINE — No sync required';
+  document.getElementById('tokenMode').style.color = isOnline ? '#00c853' : '#ef5350';
+  const syncBtn = document.getElementById('syncAllBtn');
+  const pendingCount = batchQueue.filter(t=>t.status==='queued').length;
+  syncBtn.disabled = !isOnline || pendingCount === 0;
+  syncBtn.textContent = isOnline ? (pendingCount > 0 ? '⚡ SYNC BATCH — SETTLE ALL (' + pendingCount + ')' : '✅ QUEUE EMPTY') : '🔒 GO ONLINE TO SYNC BATCH';
+  document.getElementById('railStatus').textContent = isOnline ? 'LIVE SETTLEMENT MODE' : 'OFFLINE QUEUE MODE';
+  document.getElementById('railStatus').className = 'badge ' + (isOnline ? 'badge-green' : 'badge-orange');
+  tLog('termLog', isOnline ? 'b' : 'o', '[NETWORK] Mode: ' + (isOnline ? 'ONLINE — Live settlement active' : 'OFFLINE — Batch queue active'));
+}
+
+// ============================================================
+// PAGE NAVIGATION
+// ============================================================
+function showPage(n) {
+  if(event) event.preventDefault();
+  [1,2,3].forEach(i => {
+    document.getElementById('page_'+i).classList.toggle('active', i===n);
+    document.getElementById('ptab_'+i).classList.toggle('active', i===n);
+  });
+  if(n===2) renderQueue();
+  if(n===3) { buildNetMap(); buildNodeStatusGrid(); }
+}
+
+// ============================================================
+// NUMPAD
+// ============================================================
+function np(k) {
+  if(event) event.preventDefault();
+  if(k==='C') currentAmount='';
+  else if(k==='D') currentAmount=currentAmount.slice(0,-1);
+  else if(k==='.' && currentAmount.includes('.')) return;
+  else if(currentAmount.length < 9) currentAmount += k;
+  const val = parseFloat(currentAmount)||0;
+  document.getElementById('amountBig').textContent = '₦ ' + val.toLocaleString('en-NG',{minimumFractionDigits:2});
+}
+
+// ============================================================
+// SCENARIO
+// ============================================================
+function setScenario(i) {
+  if(event) event.preventDefault();
+  currentScenario = i;
+  document.getElementById('scenarioLabel').textContent = SCENARIOS[i].label;
+}
+
+// ============================================================
+// TAP CARD / PROCESS PAYMENT
+// ============================================================
+function tapCard() {
+  if(event) event.preventDefault();
+  const val = parseFloat(currentAmount)||0;
+  if(val <= 0) { tLog('termLog','r','[ERROR] Enter amount before tapping card'); return; }
+
+  const sc = SCENARIOS[currentScenario];
+  const ring = document.getElementById('nfcRing');
+  const screen = document.getElementById('termScreen');
+  const btn = document.getElementById('tapBtn');
+  const resultBox = document.getElementById('txResultBox');
+
+  btn.disabled = true;
+  ring.className = 'nfc-ring tapping';
+  ring.textContent = '📡';
+  screen.className = 'terminal-screen active-t';
+  resultBox.innerHTML = '<div class="tx-result proc">⚡ PROCESSING...</div>';
+
+  tLog('termLog','b','[NFC] Card tap detected · Amount: ₦' + val.toLocaleString('en-NG',{minimumFractionDigits:2}));
+
+  let step = 0;
+  function runStep() {
+    if(step < sc.steps.length) {
+      tLog('termLog', step < sc.steps.length-1 ? 'o' : (sc.ok ? 'g' : 'r'), '[' + (step+1) + '] ' + sc.steps[step]);
+      step++;
+      setTimeout(runStep, 500);
+    } else {
+      finalise(sc, val);
+    }
+  }
+  setTimeout(runStep, 300);
+}
+
+function finalise(sc, val) {
+  const ring = document.getElementById('nfcRing');
+  const screen = document.getElementById('termScreen');
+  const btn = document.getElementById('tapBtn');
+  const resultBox = document.getElementById('txResultBox');
+  const fee = val * 0.015;
+  const net = val - fee;
+  const ref = 'ZP' + Date.now().toString(36).toUpperCase().slice(-6);
+
+  if(sc.ok) {
+    ring.className = 'nfc-ring approved';
+    ring.textContent = '✅';
+    screen.className = 'terminal-screen success-t';
+    resultBox.innerHTML = '<div class="tx-result ok">' + sc.result + '</div>';
+    totalTx++;
+    totalNGN += val;
+    batchQueue.push({ref, amount:val, fee, net, scenario:sc.label, mode:isOnline?'online':'offline', time:new Date().toLocaleTimeString(), status:isOnline?'settled':'queued', icon:sc.icon});
+    updateGlobals();
+    if(isOnline) { settledCount++; sLog('g','[LIVE] ₦'+val.toLocaleString('en-NG',{minimumFractionDigits:2})+' settled instantly · Ref: '+ref); }
+    else { sLog('o','[QUEUED] ₦'+val.toLocaleString('en-NG',{minimumFractionDigits:2})+' added to batch · Ref: '+ref); }
+    tLog('termLog','g','[SUCCESS] Ref: '+ref+' · Status: '+(isOnline?'SETTLED LIVE':'QUEUED FOR BATCH'));
+  } else {
+    ring.className = 'nfc-ring rejected';
+    ring.textContent = '❌';
+    screen.className = 'terminal-screen error-t';
+    resultBox.innerHTML = '<div class="tx-result fail">' + sc.result + '</div>';
+    failedTx++;
+    document.getElementById('recFail').textContent = failedTx;
+  }
+
+  setTimeout(() => {
+    ring.className='nfc-ring'; ring.textContent='📱';
+    screen.className='terminal-screen';
+    resultBox.innerHTML='';
+    btn.disabled=false;
+    currentAmount='';
+    document.getElementById('amountBig').textContent='₦ 0.00';
+    // Regenerate token
+    document.getElementById('tokenId').textContent='ZPT-'+Math.random().toString(36).substring(2,6).toUpperCase()+'-'+Math.random().toString(36).substring(2,6).toUpperCase();
+    document.getElementById('tokenSig').textContent=Math.random().toString(16).substring(2,6)+'...'+Math.random().toString(16).substring(2,6);
+  }, 2500);
+}
+
+// ============================================================
+// BATCH QUEUE RENDER
+// ============================================================
+function renderQueue() {
+  const el = document.getElementById('queueListEl');
+  const pending = batchQueue.filter(t=>t.status==='queued').length;
+  const syncing = batchQueue.filter(t=>t.status==='syncing').length;
+  const settled = batchQueue.filter(t=>t.status==='settled').length;
+  document.getElementById('qPending').textContent = pending;
+  document.getElementById('qSyncing').textContent = syncing;
+  document.getElementById('qSettledCount').textContent = settled;
+  document.getElementById('qTotalNGN').textContent = '₦'+totalNGN.toLocaleString('en-NG',{maximumFractionDigits:0});
+  document.getElementById('batchTotalLabel').textContent = batchQueue.length + ' ITEMS';
+  document.getElementById('qBadge').textContent = pending;
+  document.getElementById('recTx').textContent = totalTx;
+  document.getElementById('recVol').textContent = '₦'+totalNGN.toLocaleString('en-NG',{minimumFractionDigits:2});
+  const totalFee = totalNGN * 0.015;
+  document.getElementById('recFee').textContent = '₦'+totalFee.toLocaleString('en-NG',{minimumFractionDigits:2});
+  document.getElementById('recNet').textContent = '₦'+(totalNGN-totalFee).toLocaleString('en-NG',{minimumFractionDigits:2});
+
+  if(batchQueue.length === 0) {
+    el.innerHTML = '<div style="text-align:center;padding:30px;color:#607080"><div style="font-size:30px;margin-bottom:8px">📭</div><div style="font-size:11px">No transactions yet.<br>Go to Page 1 to process payments.</div></div>';
+    return;
+  }
+  el.innerHTML = '';
+  batchQueue.slice().reverse().forEach(tx => {
+    const cls = tx.status==='syncing' ? 'qi syncing-qi' : tx.status==='settled' ? 'qi settled-qi' : 'qi';
+    const stBadge = tx.status==='queued' ? '<span class="badge badge-orange">QUEUED</span>' : tx.status==='syncing' ? '<span class="badge badge-blue">SYNCING</span>' : '<span class="badge badge-green">SETTLED</span>';
+    const div = document.createElement('div');
+    div.className = cls;
+    div.id = 'qi_'+tx.ref;
+    div.innerHTML = `<div class="qi-icon">${tx.icon}</div><div class="qi-info"><div class="qi-title">${tx.scenario}</div><div class="qi-detail">Ref: ${tx.ref} · ${tx.time} · ${tx.mode.toUpperCase()}</div></div><div class="qi-right"><div class="qi-amount">₦${tx.amount.toLocaleString('en-NG',{minimumFractionDigits:0})}</div><div class="qi-ngn">Net: ₦${tx.net.toLocaleString('en-NG',{minimumFractionDigits:0})}</div>${stBadge}</div>`;
+    el.appendChild(div);
+  });
+
+  const syncBtn = document.getElementById('syncAllBtn');
+  const pendingCount = batchQueue.filter(t=>t.status==='queued').length;
+  syncBtn.disabled = !isOnline || pendingCount === 0;
+  syncBtn.textContent = isOnline ? (pendingCount > 0 ? '⚡ SYNC BATCH — SETTLE ALL (' + pendingCount + ')' : '✅ ALL SETTLED') : '🔒 GO ONLINE TO SYNC BATCH';
+}
+
+// ============================================================
+// SYNC ALL
+// ============================================================
+function syncAll() {
+  if(event) event.preventDefault();
+  if(!isOnline) return;
+  const pending = batchQueue.filter(t=>t.status==='queued');
+  if(!pending.length) return;
+  sLog('o','[SYNC] Initiating batch sync · '+pending.length+' transactions → Paystack');
+  // Animate settlement flow
+  animateSettleFlow();
+  pending.forEach((tx,i) => {
+    tx.status='syncing';
+    setTimeout(() => {
+      tx.status='settled';
+      settledCount++;
+      sLog('g','[SETTLED] Ref: '+tx.ref+' · ₦'+tx.amount.toLocaleString('en-NG',{minimumFractionDigits:0})+' → Merchant wallet');
+      updateGlobals();
+      renderQueue();
+    }, (i+1)*700);
+  });
+  setTimeout(() => {
+    document.getElementById('recSync').textContent = new Date().toLocaleTimeString()+' — '+pending.length+' transactions';
+    sLog('g','[BATCH COMPLETE] All '+pending.length+' transactions settled via NIBSS NIP · Paystack confirmed');
+  }, (pending.length+1)*700);
+}
+
+function animateSettleFlow() {
+  const nodes = ['sf0','sf1','sf2','sf3','sf4','sf5'];
+  nodes.forEach(n => { document.getElementById(n).className='sf-node'; });
+  nodes.forEach((n,i) => {
+    setTimeout(() => {
+      if(i>0) document.getElementById(nodes[i-1]).className='sf-node sf-done';
+      document.getElementById(n).className='sf-node sf-active';
+      if(i===nodes.length-1) { setTimeout(()=>{ document.getElementById(n).className='sf-node sf-done'; },600); }
+    }, i*500);
+  });
+}
+
+// ============================================================
+// NETWORK MAP
+// ============================================================
+function buildNetMap() {
+  const wrap = document.getElementById('netMapWrap');
+  wrap.querySelectorAll('.map-node').forEach(n=>n.remove());
+  const W = wrap.offsetWidth || 360, H = 300;
+  NODES.forEach(n => {
+    const el = document.createElement('div');
+    el.className = 'map-node'; el.id = 'mn_'+n.id;
+    el.style.left = n.x+'%'; el.style.top = n.y+'%'; el.style.position='absolute';
+    el.style.transform='translate(-50%,-50%)';
+    const failed = failedNodeId === n.id;
+    el.innerHTML = `<div class="mn-circle ${failed?'mn-fail':'mn-idle'}" id="mc_${n.id}">${n.icon}</div><div class="mn-label">${n.label}</div><div class="mn-status" id="ms_${n.id}" style="color:${failed?'#ef5350':'#607080'}">${failed?'❌ OFFLINE':'● READY'}</div>`;
+    wrap.appendChild(el);
+  });
+  buildMapLines(W,H);
+}
+
+function buildMapLines(W,H) {
+  const svg = document.getElementById('mapSvg');
+  svg.innerHTML='';
+  for(let i=0;i<NODES.length-1;i++) {
+    const skip = (failedNodeId === NODES[i+1].id);
+    const a=NODES[i],b=NODES[i+1];
+    const line=document.createElementNS('http://www.w3.org/2000/svg','line');
+    line.setAttribute('x1',a.x/100*W); line.setAttribute('y1',a.y/100*H);
+    line.setAttribute('x2',b.x/100*W); line.setAttribute('y2',b.y/100*H);
+    line.setAttribute('stroke',skip?'#c62828':'#1e3a5f');
+    line.setAttribute('stroke-width','2');
+    line.setAttribute('stroke-dasharray',skip?'4,4':'6,3');
+    line.id='ml_'+i; svg.appendChild(line);
+  }
+}
+
+function buildNodeStatusGrid() {
+  const grid = document.getElementById('nodeStatusGrid');
+  grid.innerHTML='';
+  NODES.forEach(n => {
+    const failed = failedNodeId === n.id;
+    const div = document.createElement('div');
+    div.className='stat-card';
+    div.innerHTML=`<div class="sc-val" style="font-size:12px">${n.icon} ${n.label}</div><div class="sc-sub" style="color:${failed?'#ef5350':'#00c853'}">${failed?'❌ OFFLINE':'✅ ONLINE'}</div><div class="sc-lbl">${n.sub}</div>`;
+    grid.appendChild(div);
+  });
+}
+
+function setNodeState(id, state) {
+  const circle=document.getElementById('mc_'+id);
+  const status=document.getElementById('ms_'+id);
+  if(!circle) return;
+  circle.className='mn-circle '+(state==='active'?'mn-active':state==='done'?'mn-done':state==='fail'?'mn-fail':'mn-idle');
+  if(status) {
+    status.textContent=state==='active'?'⚡ RELAYING':state==='done'?'✅ RELAYED':state==='fail'?'❌ FAILED':'● READY';
+    status.style.color=state==='done'?'#00c853':state==='active'?'#ffa500':state==='fail'?'#ef5350':'#607080';
+  }
+}
+
+function movePulse(fromIdx, toIdx, cb) {
+  const wrap=document.getElementById('netMapWrap');
+  const W=wrap.offsetWidth||360, H=300;
+  const dot=document.getElementById('sigDot');
+  const a=NODES[fromIdx],b=NODES[toIdx];
+  const x1=a.x/100*W-5, y1=a.y/100*H-5;
+  const x2=b.x/100*W-5, y2=b.y/100*H-5;
+  dot.style.left=x1+'px'; dot.style.top=y1+'px'; dot.style.display='block';
+  const dur=650, start=performance.now();
+  function anim(now) {
+    const t=Math.min((now-start)/dur,1);
+    dot.style.left=(x1+(x2-x1)*t)+'px'; dot.style.top=(y1+(y2-y1)*t)+'px';
+    if(t<1) requestAnimationFrame(anim);
+    else { dot.style.display='none'; cb&&cb(); }
+  }
+  requestAnimationFrame(anim);
+}
+
+function fireRelay() {
+  if(event) event.preventDefault();
+  if(relayRunning) return;
+  relayRunning=true;
+  let nanoTotal=0, hopIdx=0;
+  const hopTimes=[18.4,22.1,19.8,21.3,24.6];
+  NODES.forEach(n=>setNodeState(n.id,'idle'));
+  document.getElementById('lastProp').textContent='—';
+  nLog('o','[RELAY] Transaction fired from Agenegbode Market');
+  setNodeState('agenegbode','active');
+
+  function doHop() {
+    if(hopIdx>=NODES.length-1) {
+      relayRunning=false;
+      document.getElementById('lastProp').textContent=nanoTotal.toFixed(2)+'ns';
+      nLog('g','[SETTLED] Full relay complete · '+nanoTotal.toFixed(2)+'ns · Paystack confirmed');
+      return;
+    }
+    const failed = failedNodeId === NODES[hopIdx+1].id;
+    if(failed && hopIdx < NODES.length-2) {
+      nLog('r','[FAIL] Node '+NODES[hopIdx+1].label+' OFFLINE — rerouting...');
+      setNodeState(NODES[hopIdx+1].id,'fail');
+      setTimeout(()=>{ hopIdx++; doHop(); }, 700);
+      return;
+    }
+    movePulse(hopIdx, hopIdx+1, ()=>{
+      const ns=hopTimes[hopIdx]; nanoTotal+=ns;
+      setNodeState(NODES[hopIdx].id,'done');
+      setNodeState(NODES[hopIdx+1].id,hopIdx===NODES.length-2?'done':'active');
+      const line=document.getElementById('ml_'+hopIdx);
+      if(line){line.setAttribute('stroke','#ffa500');line.setAttribute('stroke-dasharray','none');}
+      nLog('b','[HOP '+(hopIdx+1)+'] '+NODES[hopIdx].label+'→'+NODES[hopIdx+1].label+' · '+ns+'ns');
+      hopIdx++; setTimeout(doHop,700);
+    });
+  }
+  setTimeout(doHop,400);
+}
+
+function failNode() {
+  if(event) event.preventDefault();
+  const opts=['ivhioghe','fugar','uzairue'];
+  failedNodeId=opts[Math.floor(Math.random()*opts.length)];
+  document.getElementById('netHealth').textContent='83%';
+  document.getElementById('mapStatusLabel').textContent='NODE FAILURE DETECTED';
+  document.getElementById('mapStatusLabel').className='badge badge-red';
+  buildNetMap(); buildNodeStatusGrid();
+  nLog('r','[ALERT] Node '+failedNodeId.toUpperCase()+' is OFFLINE');
+  nLog('o','[MESH] Auto-rerouting activated · Alternate path found');
+  nLog('g','[RESILIENCE] Payment capability maintained');
+}
+
+function resetNet() {
+  if(event) event.preventDefault();
+  failedNodeId=null; relayRunning=false;
+  document.getElementById('netHealth').textContent='100%';
+  document.getElementById('mapStatusLabel').textContent='ALL NODES ONLINE';
+  document.getElementById('mapStatusLabel').className='badge badge-green';
+  buildNetMap(); buildNodeStatusGrid();
+  nLog('g','[RESET] All nodes restored · Network healthy');
+}
+
+function setEnv(env) {
+  if(event) event.preventDefault();
+  const configs={
+    day:{batt:'100%',sub:'Solar charging optimal',battColor:'#00c853'},
+    night:{batt:'68%',sub:'Battery mode · 48hrs remaining',battColor:'#ffa500'},
+    storm:{batt:'45%',sub:'Storm mode · LoRa signal boosted',battColor:'#ffa500'},
+    blackout:{batt:'22%',sub:'Grid blackout · Battery only',battColor:'#ef5350'}
+  };
+  const c=configs[env];
+  document.getElementById('netBattery').textContent=c.batt;
+  document.getElementById('netBattery').style.color=c.battColor;
+  document.getElementById('netBattSub').textContent=c.sub;
+  const msgs={day:'Solar charging resumed · All nodes optimal',night:'Night mode: PUF tokens operational · 48hrs battery',storm:'Storm mode: LoRa 915MHz rain-hardened · Signal maintained',blackout:'BLACKOUT: 72-hr token TTL = 72-hr battery. By design.'};
+  nLog(env==='day'?'g':env==='blackout'?'r':'o','[ENV] '+msgs[env]);
+}
+
+// ============================================================
+// HELPERS
+// ============================================================
+function updateGlobals() {
+  document.getElementById('gTx').textContent=totalTx;
+  document.getElementById('gVol').textContent='₦'+totalNGN.toLocaleString('en-NG',{maximumFractionDigits:0});
+  document.getElementById('gQueue').textContent=batchQueue.filter(t=>t.status==='queued').length;
+  document.getElementById('gSettled').textContent=settledCount;
+  document.getElementById('qBadge').textContent=batchQueue.filter(t=>t.status==='queued').length;
+}
+
+function tLog(id,cls,msg) {
+  const box=document.getElementById(id);
+  if(!box) return;
+  const el=document.createElement('div');
+  el.className='log-entry log-'+cls;
+  el.textContent=new Date().toLocaleTimeString()+' '+msg;
+  box.appendChild(el); box.scrollTop=box.scrollHeight;
+}
+function sLog(cls,msg){tLog('settleLog',cls,msg);}
+function nLog(cls,msg){tLog('netLog',cls,msg);}
+
+// TTL countdown
+function startTTL() {
+  let secs = 71*3600+48*60+33;
+  setInterval(()=>{
+    if(--secs<0) secs=72*3600;
+    const h=Math.floor(secs/3600), m=Math.floor((secs%3600)/60), s=secs%60;
+    const str=String(h).padStart(2,'0')+':'+String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');
+    document.getElementById('tokenTtl').textContent=str;
+    document.getElementById('ttlShort').textContent=h+'h '+m+'m';
+  },1000);
+}
+
+window.addEventListener('load',()=>{
+  startTTL();
+  buildNetMap();
+  buildNodeStatusGrid();
+  window.addEventListener('resize',()=>{ buildNetMap(); });
+});
+</script>
+</body>
+</html>
