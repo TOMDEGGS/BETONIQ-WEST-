@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>BETONIQ INVEST — Investor Presentation</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#0a1628;color:#fff;height:100vh;display:flex;flex-direction:column;overflow:hidden}
+
+/* HEADER */
+#hdr{background:rgba(0,0,0,.7);border-bottom:2px solid #00d4ff;padding:8px 18px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;min-height:52px}
+.brand{font-size:18px;font-weight:900;letter-spacing:1px;color:#00d4ff}
+.brand-sub{font-size:9px;opacity:.55;margin-top:2px;color:#aaa}
+.hdr-right{text-align:right}
+.slide-count{font-size:16px;font-weight:900;color:#00d4ff}
+.voice-badge{font-size:8px;opacity:.5;margin-top:2px}
+
+/* PROGRESS */
+#prog-wrap{height:4px;background:rgba(255,255,255,.08);flex-shrink:0}
+#prog{height:100%;width:6.67%;background:#00d4ff;transition:width .6s,background .5s}
+
+/* MAIN AREA — 2 columns */
+#main{flex:1;display:flex;min-height:0;overflow:hidden}
+
+/* LEFT — canvas animation */
+#anim-col{width:52%;position:relative;overflow:hidden;border-right:1px solid rgba(255,255,255,.06)}
+canvas{position:absolute;top:0;left:0;width:100%;height:100%}
+/* Bright overlay so canvas content is ALWAYS visible */
+#anim-col::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;pointer-events:none;z-index:1}
+
+/* RIGHT — text content */
+#text-col{width:48%;display:flex;flex-direction:column;justify-content:center;padding:28px 32px;overflow-y:auto;background:rgba(0,0,0,.45);border-left:1px solid rgba(255,255,255,.04)}
+.snum{font-size:10px;font-weight:700;letter-spacing:4px;opacity:.4;margin-bottom:8px}
+.stitle{font-size:22px;font-weight:900;line-height:1.25;margin-bottom:14px}
+.stxt{font-size:13px;line-height:1.9;color:rgba(255,255,255,.82)}
+.play-wrap{margin-top:18px}
+.play-btn{display:inline-flex;align-items:center;gap:10px;border:2px solid;border-radius:28px;padding:10px 22px;font-size:11px;font-weight:800;cursor:pointer;transition:all .3s;background:rgba(0,0,0,.4);letter-spacing:.5px}
+.play-btn:hover{transform:scale(1.04)}
+.play-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.play-dot.pulse{animation:pd .6s ease-in-out infinite}
+@keyframes pd{0%,100%{transform:scale(1)}50%{transform:scale(.3)}}
+
+/* THUMBNAILS */
+#thumbs{background:rgba(0,0,0,.85);border-top:1px solid rgba(255,255,255,.06);padding:5px 10px;display:flex;overflow-x:auto;gap:5px;flex-shrink:0;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.2) transparent}
+.th{padding:5px 12px;border-radius:6px;border:1.5px solid rgba(255,255,255,.1);font-size:8px;font-weight:700;cursor:pointer;white-space:nowrap;color:rgba(255,255,255,.35);transition:all .25s}
+.th.active{border-color:currentColor;color:inherit;background:rgba(255,255,255,.06)}
+.th:hover{color:rgba(255,255,255,.7)}
+
+/* CONTROLS */
+#ctrl{background:rgba(0,0,0,.9);border-top:1px solid rgba(255,255,255,.05);padding:8px 16px;display:flex;align-items:center;gap:8px;flex-shrink:0;flex-wrap:wrap}
+.cbtn{background:rgba(255,255,255,.07);border:1.5px solid rgba(255,255,255,.15);border-radius:8px;color:#fff;font-size:11px;font-weight:700;padding:9px 16px;cursor:pointer;font-family:inherit;transition:all .2s}
+.cbtn:hover{background:rgba(255,255,255,.14)}
+#btnMain{border:none;padding:10px 28px;font-size:12px;font-weight:900;color:#000;border-radius:10px}
+#ndots{flex:1;display:flex;justify-content:center;gap:5px;align-items:center;flex-wrap:wrap}
+.ndot{width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,.12);cursor:pointer;transition:all .3s}
+.ndot.active{transform:scale(1.8)}
+
+@media(max-width:768px){
+  #main{flex-direction:column}
+  #anim-col{width:100%;height:220px}
+  #text-col{width:100%;padding:14px 16px}
+  .stitle{font-size:16px}
+  .stxt{font-size:11.5px}
+}
+</style>
+</head>
+<body>
+
+<div id="hdr">
+  <div>
+    <div class="brand" id="brandEl">🏗️ BETONIQ INVEST</div>
+    <div class="brand-sub">AI-Powered Real Estate Investment Intelligence · 47 Parameters · 11 Countries · $5.1B Pipeline</div>
+    <div class="brand-sub" style="font-size:7px;opacity:.25">© BETONIQ(WEST) Ltd RC 56802 · Abuja, FCT Nigeria · STRICTLY CONFIDENTIAL — NOT FOR DISTRIBUTION</div>
+  </div>
+  <div class="hdr-right">
+    <div class="slide-count" id="sCount">1 / 15</div>
+    <div class="voice-badge">🎙️ OpenAI Shimmer · GitHub Hosted</div>
+  </div>
+</div>
+
+<div id="prog-wrap"><div id="prog"></div></div>
+
+<div id="main">
+  <div id="anim-col"><canvas id="cvs"></canvas></div>
+  <div id="text-col">
+    <div class="snum" id="sNum">SLIDE 01 / 15</div>
+    <div class="stitle" id="sTitle" style="color:#00d4ff">Loading...</div>
+    <div class="stxt" id="sTxt">Loading presentation...</div>
+    <div class="play-wrap">
+      <div class="play-btn" id="playPill" onclick="togglePlay()">
+        <div class="play-dot" id="playDot" style="background:#00d4ff"></div>
+        <span id="playTxt">▶ PLAY — OpenAI Shimmer professional voice</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="thumbs"></div>
+
+<div id="ctrl">
+  <button class="cbtn" onclick="go(-1)">◀ PREV</button>
+  <button class="cbtn" id="btnMain" onclick="togglePlay()" style="background:linear-gradient(135deg,#00d4ff,#0070ff)">▶ PLAY</button>
+  <button class="cbtn" onclick="go(1)">NEXT ▶</button>
+  <button class="cbtn" id="btnAuto" onclick="toggleAuto()">AUTO: OFF</button>
+  <div id="ndots"></div>
+</div>
+
+<script>
+const SLIDES=["1.4 billion people globally have no access to formal financial services. In Nigeria alone \u2014 38 million. $26 billion in remittances flows in annually. Almost none goes into verified real estate investment. The infrastructure does not exist. Until now.", "David is a Nigerian engineer in Manchester earning \u00a365,000. He watches Lagos property triple in 10 years. Every time he tries to invest \u2014 no verified data, no IRR, no compliance proof. Just a bank account number. His cousin lost \u00a312,000. The developer vanished.", "BETONIQ INVEST is the world's first AI-powered real estate investment intelligence platform for African and emerging markets. 70 live projects. 11 countries. $5.1 billion verified pipeline. Average AI score: 89 out of 100. Average projected ROI: 29 percent.", "Every project is evaluated across 47 parameters before any investor sees it. Location intelligence. Developer track record. Regulatory compliance. NPV, IRR, break-even \u2014 all independently calculated. A score below 75 means the project never gets listed. No exceptions.", "AI Score: 87 out of 100. Projected ROI: 28 percent. Net Present Value: $198,000 USD. IRR: 31 percent. Certificate of Occupancy: verified. Developer: 4 completed projects, zero litigation. Break-even: 18 months. David trusts what he sees for the first time.", "Step one \u2014 KYC verified in under 24 hours. Step two \u2014 David commits \u00a315,000. Step three \u2014 smart contract signed and encrypted. Step four \u2014 capital released in 5 milestones, never a lump sum. Step five \u2014 \u00a34,200 returned. Exactly 28 percent as projected.", "Nigerian banks charge Emmanuel 22 percent interest. Unviable. He lists on BETONIQ INVEST. Within 60 days, investors from UK, US, Canada, and UAE commit $280,000. Blended cost of capital: 14 percent. Project proceeds. 12 Nigerian families get homes.", "One: Nigerian diaspora \u2014 UK, US, Canada. Two: African high net worth individuals. Three: institutional investors and family offices. Four: impact and ESG investors. Minimum investment: $10,000 USD. Quarterly performance reports for every investor.", "Nigeria: 45 projects. Ghana: 8. Kenya: 5. South Africa: 4. UK: 3. UAE: 2. Total pipeline: $5.1 billion across 70 curated and verified projects. Target by Q4 2026: 500 projects across 25 countries.", "Tier one: developer listing fees from $5,000 to $50,000. Tier two: success fees at 1.5 to 3 percent per deal. Tier three: investor subscriptions from $49 per month. Gross margin: 72 percent. High margin. Scalable. Recurring.", "2026: $3.1 million. 2027: $16 million. 2028: $55 million. Gross margin maintained at 72 percent across all three phases. BETONIQ INVEST becomes the Bloomberg terminal of African real estate by 2028.", "BETONIQ INVEST is live right now. Investor registrations active. AI scoring engine running in real time. Compliance verification operational. Subscription billing live. 11 entity types. 6 backend functions. Investors can register and commit capital today.", "Gate one: AI composite score minimum 75 out of 100 across all 47 parameters. Gate two: compliance panel reviews Certificate of Occupancy, building permits, and AML status. Score below 80 means rejection. Both gates must pass. No exceptions. Ever.", "Seeking $4.5 million at a pre-money valuation of $25 million \u2014 18 percent equity. Product development: $1.2M. Market expansion: $1.5M. Investor acquisition: $800K. Operations: $1M. Projected 3x return at Series A in 18 months.", "70 live projects. 11 countries. $5.1 billion pipeline. 29 percent average target ROI. A 47-parameter AI engine no competitor can replicate. A fully operational platform generating revenue today. Join us. Build the future of African real estate investment together."];
+const TITLES=["47 Million Locked Out", "Meet David \u2014 The Locked-Out Investor", "BETONIQ INVEST \u2014 The Platform", "The 47-Parameter AI Engine", "Live Example \u2014 Katampe Terrace Abuja", "5-Step Capital Protection", "For Developers \u2014 Emmanuel's Story", "Four Investor Categories", "11 Countries \u2014 $5.1B Pipeline", "Revenue Model \u2014 72% Gross Margin", "$55M Revenue \u2014 Three-Phase Growth", "Platform Live and Operational Today", "Two-Gate Compliance \u2014 No Exceptions", "Pre-Series A \u2014 $4.5M at $25M Valuation", "The Bloomberg of African Real Estate"];
+const IDS=["globe", "david", "platform", "engine", "katampe", "steps", "developer", "investors", "pipeline", "revenue", "growth", "ops", "compliance", "funding", "finale"];
+const ACCENTS=["#00d4ff", "#ff6b9d", "#00e676", "#ea80fc", "#40c4ff", "#b388ff", "#ffab40", "#ff4081", "#69f0ae", "#ffd740", "#ff6d00", "#00e5ff", "#d500f9", "#76ff03", "#ffd740"];
+const BGS=["linear-gradient(135deg,#0a1628 0%,#0d2545 50%,#0a3060 100%)", "linear-gradient(135deg,#1a0830 0%,#2d0a50 50%,#1a0535 100%)", "linear-gradient(135deg,#001a0a 0%,#003820 50%,#005530 100%)", "linear-gradient(135deg,#150030 0%,#280050 50%,#1a0040 100%)", "linear-gradient(135deg,#001428 0%,#002a50 50%,#003870 100%)", "linear-gradient(135deg,#100025 0%,#200045 50%,#150030 100%)", "linear-gradient(135deg,#1a0800 0%,#301200 50%,#401800 100%)", "linear-gradient(135deg,#1a0025 0%,#2d0040 50%,#1a0030 100%)", "linear-gradient(135deg,#001a10 0%,#003520 50%,#004a2a 100%)", "linear-gradient(135deg,#1a0d00 0%,#2d1800 50%,#402500 100%)", "linear-gradient(135deg,#1a0500 0%,#2d0a00 50%,#401200 100%)", "linear-gradient(135deg,#001520 0%,#002a40 50%,#003a55 100%)", "linear-gradient(135deg,#150020 0%,#250038 50%,#150028 100%)", "linear-gradient(135deg,#041800 0%,#083000 50%,#0a4000 100%)", "linear-gradient(135deg,#1a1200 0%,#2d2000 50%,#403000 100%)"];
+const AUDIOS=["https://raw.githubusercontent.com/TOMDEGGS/BETONIQ-WEST-/main/betoniq_audio/slide_01.mp3", "https://raw.githubusercontent.com/TOMDEGGS/BETONIQ-WEST-/main/betoniq_audio/slide_02.mp3", "https://raw.githubusercontent.com/TOMDEGGS/BETONIQ-WEST-/main/betoniq_audio/slide_03.mp3", "https://raw.githubusercontent.com/TOMDEGGS/BETONIQ-WEST-/main/betoniq_audio/slide_04.mp3", "https://raw.githubusercontent.com/TOMDEGGS/BETONIQ-WEST-/main/betoniq_audio/slide_05.mp3", "https://raw.githubusercontent.com/TOMDEGGS/BETONIQ-WEST-/main/betoniq_audio/slide_06.mp3", "https://raw.githubusercontent.com/TOMDEGGS/BETONIQ-WEST-/main/betoniq_audio/slide_07.mp3", "https://raw.githubusercontent.com/TOMDEGGS/BETONIQ-WEST-/main/betoniq_audio/slide_08.mp3", "https://raw.githubusercontent.com/TOMDEGGS/BETONIQ-WEST-/main/betoniq_audio/slide_09.mp3", "https://raw.githubusercontent.com/TOMDEGGS/BETONIQ-WEST-/main/betoniq_audio/slide_10.mp3", "https://raw.githubusercontent.com/TOMDEGGS/BETONIQ-WEST-/main/betoniq_audio/slide_11.mp3", "https://raw.githubusercontent.com/TOMDEGGS/BETONIQ-WEST-/main/betoniq_audio/slide_12.mp3", "https://raw.githubusercontent.com/TOMDEGGS/BETONIQ-WEST-/main/betoniq_audio/slide_13.mp3", "https://raw.githubusercontent.com/TOMDEGGS/BETONIQ-WEST-/main/betoniq_audio/slide_14.mp3", "https://raw.githubusercontent.com/TOMDEGGS/BETONIQ-WEST-/main/betoniq_audio/slide_15.mp3"];
+const N=15;
+let cur=0,playing=false,autoPlay=false,T=0;
+
+// Canvas setup
+const cvs=document.getElementById('cvs');
+const ctx=cvs.getContext('2d');
+function resize(){const col=document.getElementById('anim-col');cvs.width=col.offsetWidth||640;cvs.height=col.offsetHeight||480;}
+window.addEventListener('resize',()=>{resize();});
+resize();
+
+// Build thumbnails and nav dots
+const thumbsEl=document.getElementById('thumbs');
+const ndotsEl=document.getElementById('ndots');
+TITLES.forEach((t,i)=>{
+  const th=document.createElement('div');th.className='th'+(i===0?' active':'');th.id='th'+i;
+  th.textContent=(i+1)+'. '+t.split(' — ')[0].substring(0,18);th.onclick=()=>jump(i);
+  thumbsEl.appendChild(th);
+  const nd=document.createElement('div');nd.className='ndot'+(i===0?' active':'');nd.id='nd'+i;
+  nd.onclick=()=>jump(i);ndotsEl.appendChild(nd);
+});
+
+// ═══ ANIMATION SYSTEM ═══
+function animFrame(){
+  T+=0.016;
+  const W=cvs.width,H=cvs.height;
+  // Clear and set base bg
+  ctx.clearRect(0,0,W,H);
+  // Draw bright slide-specific background
+  drawBg(BGS[cur],W,H);
+  // Draw the slide-specific animation
+  const fns={
+    globe:anim_globe,david:anim_david,platform:anim_platform,engine:anim_engine,
+    katampe:anim_katampe,steps:anim_steps,developer:anim_developer,investors:anim_investors,
+    pipeline:anim_pipeline,revenue:anim_revenue,growth:anim_growth,ops:anim_ops,
+    compliance:anim_compliance,funding:anim_funding,finale:anim_finale
+  };
+  if(fns[IDS[cur]])fns[IDS[cur]](T,W,H,ACCENTS[cur]);
+  requestAnimationFrame(animFrame);
+}
+
+function drawBg(bg,W,H){
+  // Parse gradient and draw it
+  const grad=ctx.createLinearGradient(0,0,W,H);
+  if(bg.includes('#0a1628')||bg.includes('#0d2545')){grad.addColorStop(0,'#0a1628');grad.addColorStop(1,'#103060');}
+  else if(bg.includes('#1a0830')){grad.addColorStop(0,'#1a0830');grad.addColorStop(1,'#2d0a50');}
+  else if(bg.includes('#001a0a')){grad.addColorStop(0,'#001a0a');grad.addColorStop(1,'#005530');}
+  else if(bg.includes('#150030')){grad.addColorStop(0,'#150030');grad.addColorStop(1,'#1a0040');}
+  else if(bg.includes('#001428')){grad.addColorStop(0,'#001428');grad.addColorStop(1,'#003870');}
+  else if(bg.includes('#100025')){grad.addColorStop(0,'#100025');grad.addColorStop(1,'#150030');}
+  else if(bg.includes('#1a0800')){grad.addColorStop(0,'#1a0800');grad.addColorStop(1,'#401800');}
+  else if(bg.includes('#1a0025')){grad.addColorStop(0,'#1a0025');grad.addColorStop(1,'#1a0030');}
+  else if(bg.includes('#001a10')){grad.addColorStop(0,'#001a10');grad.addColorStop(1,'#004a2a');}
+  else if(bg.includes('#1a0d00')){grad.addColorStop(0,'#1a0d00');grad.addColorStop(1,'#402500');}
+  else if(bg.includes('#1a0500')){grad.addColorStop(0,'#1a0500');grad.addColorStop(1,'#401200');}
+  else if(bg.includes('#001520')){grad.addColorStop(0,'#001520');grad.addColorStop(1,'#003a55');}
+  else if(bg.includes('#150020')){grad.addColorStop(0,'#150020');grad.addColorStop(1,'#150028');}
+  else if(bg.includes('#041800')){grad.addColorStop(0,'#041800');grad.addColorStop(1,'#0a4000');}
+  else{grad.addColorStop(0,'#1a1200');grad.addColorStop(1,'#403000');}
+  ctx.fillStyle=grad;ctx.fillRect(0,0,W,H);
+  // Subtle grid
+  ctx.strokeStyle='rgba(255,255,255,.025)';ctx.lineWidth=.5;
+  for(let x=0;x<W;x+=W/20){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,H);ctx.stroke();}
+  for(let y=0;y<H;y+=H/14){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(W,y);ctx.stroke();}
+}
+
+// ═══ SLIDE 1: GLOBE ═══
+function anim_globe(t,W,H,acc){
+  const cx=W/2,cy=H*.44,R=Math.min(W,H)*.3;
+  // Glow halo
+  const halo=ctx.createRadialGradient(cx,cy,R*.3,cx,cy,R*1.6);
+  halo.addColorStop(0,acc+'28');halo.addColorStop(1,'transparent');
+  ctx.fillStyle=halo;ctx.fillRect(0,0,W,H);
+  // Globe body
+  const g=ctx.createRadialGradient(cx-R*.25,cy-R*.2,R*.05,cx,cy,R);
+  g.addColorStop(0,'#1e5fcc');g.addColorStop(.5,'#0d3a8a');g.addColorStop(1,'#061a45');
+  ctx.beginPath();ctx.arc(cx,cy,R,0,Math.PI*2);ctx.fillStyle=g;ctx.fill();
+  // Lat lines
+  ctx.strokeStyle='rgba(100,200,255,.2)';ctx.lineWidth=.8;
+  for(let lat=-70;lat<=70;lat+=18){
+    const ry=Math.sin(lat*Math.PI/180)*R,rx=Math.cos(lat*Math.PI/180)*R;
+    ctx.beginPath();ctx.ellipse(cx,cy+ry,rx,rx*.28,0,0,Math.PI*2);ctx.stroke();
+  }
+  // Lon lines
+  for(let lon=0;lon<180;lon+=20){
+    const a=(lon+t*12)*Math.PI/180;
+    ctx.strokeStyle='rgba(100,200,255,.15)';ctx.beginPath();ctx.arc(cx,cy,R,a,a+Math.PI);ctx.stroke();
+  }
+  // Africa highlight
+  ctx.shadowColor='#00e676';ctx.shadowBlur=20;
+  ctx.fillStyle='#00c853';ctx.beginPath();ctx.ellipse(cx+R*.08,cy,R*.16,R*.28,.15,0,Math.PI*2);ctx.fill();
+  ctx.shadowBlur=0;
+  // Satellite ring
+  ctx.strokeStyle=acc+'33';ctx.lineWidth=1;ctx.beginPath();ctx.ellipse(cx,cy,R*1.25,R*.38,0,0,Math.PI*2);ctx.stroke();
+  // Money packets flying in
+  const routes=[[.14,.18,cx,cy,acc],[.82,.15,cx,cy,'#ff9800'],[.12,.72,cx,cy,'#00e676'],[.88,.6,cx,cy,'#ea80fc'],[.45,.08,cx,cy,'#ffd740']];
+  routes.forEach(([ox,oy,tx2,ty,rc],i)=>{
+    const f=((t*.5+i*.2))%1;
+    const px=ox*W+(tx2-ox*W)*f,py=oy*H+(ty-oy*H)*f;
+    // Trail
+    ctx.strokeStyle=rc+'66';ctx.lineWidth=1.5;
+    ctx.beginPath();ctx.moveTo(ox*W,oy*H);ctx.lineTo(px,py);ctx.stroke();
+    ctx.beginPath();ctx.arc(px,py,4+2*Math.sin(t*5+i),0,Math.PI*2);
+    ctx.fillStyle=rc;ctx.shadowColor=rc;ctx.shadowBlur=12;ctx.fill();ctx.shadowBlur=0;
+    // Flag emoji
+    const flags=['🇬🇧','🇺🇸','🇩🇪','🇦🇪','🇨🇦'];
+    ctx.font='14px Arial';ctx.textAlign='center';ctx.fillStyle='#fff';ctx.fillText(flags[i],ox*W,oy*H-6);
+  });
+  // Stats at bottom — LARGE AND BRIGHT
+  ctx.fillStyle=acc;ctx.shadowColor=acc;ctx.shadowBlur=10;
+  ctx.font=`bold ${Math.min(W*.055,22)}px Segoe UI`;ctx.textAlign='center';
+  ctx.fillText('1.4 BILLION UNBANKED GLOBALLY',cx,H*.86);ctx.shadowBlur=0;
+  ctx.fillStyle='rgba(255,200,50,.9)';ctx.font=`bold ${Math.min(W*.042,17)}px Segoe UI`;
+  ctx.fillText('38 MILLION IN NIGERIA · $26B REMITTANCES · 0% INTO REAL ESTATE',cx,H*.93);
+  const cnt=1400000000+Math.floor(t*500);
+  ctx.fillStyle='rgba(255,255,255,.4)';ctx.font='10px Segoe UI';
+  ctx.fillText('Live count: '+cnt.toLocaleString(),cx,H*.99);
+}
+
+// ═══ SLIDE 2: DAVID ═══
+function anim_david(t,W,H,acc){
+  const cx=W/2;
+  // Animated buildings LEFT (Manchester)
+  [[.02,.55,.1,.45],[.12,.6,.08,.4],[.2,.5,.1,.5]].forEach(([bx,by,bw,bh],bi)=>{
+    ctx.fillStyle='#1a0028';ctx.fillRect(bx*W,by*H,bw*W,bh*H);
+    for(let r=0;r<4;r++)for(let c=0;c<3;c++){
+      const lit=Math.sin(t*.8+r*1.4+c*2+bi*3)>.0;
+      ctx.fillStyle=lit?'rgba(255,210,60,.85)':'rgba(10,0,20,.6)';
+      ctx.fillRect((bx+.01+c*(bw*.28))*W,(by+.06+r*.22*bh)*H,bw*.22*W,bh*.17*H);
+    }
+    ctx.fillStyle='#aaa';ctx.font='8px Arial';ctx.textAlign='center';ctx.fillText('🇬🇧',bx*W+bw*W/2,by*H-4);
+  });
+  // Buildings RIGHT (Abuja)
+  [[.7,.53,.1,.47],[.8,.6,.08,.4],[.88,.5,.1,.5]].forEach(([bx,by,bw,bh],bi)=>{
+    ctx.fillStyle='#001808';ctx.fillRect(bx*W,by*H,bw*W,bh*H);
+    for(let r=0;r<4;r++)for(let c=0;c<3;c++){
+      const lit=Math.sin(t*.6+r+c*1.8+bi*2.5)>.1;
+      ctx.fillStyle=lit?'rgba(80,255,120,.85)':'rgba(0,10,3,.6)';
+      ctx.fillRect((bx+.01+c*(bw*.28))*W,(by+.06+r*.22*bh)*H,bw*.22*W,bh*.17*H);
+    }
+    ctx.fillStyle='#aaa';ctx.font='8px Arial';ctx.textAlign='center';ctx.fillText('🇳🇬',bx*W+bw*W/2,by*H-4);
+  });
+  // David — centre — VISIBLE person silhouette
+  const pulse=1+.04*Math.sin(t*2.5);
+  ctx.save();ctx.translate(cx,H*.52);ctx.scale(pulse,pulse);
+  ctx.fillStyle='#ffd54f';ctx.beginPath();ctx.arc(0,-52,22,0,Math.PI*2);ctx.fill();
+  ctx.strokeStyle='#e53935';ctx.lineWidth=3;ctx.beginPath();ctx.arc(0,-52,25+5*Math.sin(t*4),0,Math.PI*2);ctx.stroke();
+  ctx.fillStyle='#e67e22';ctx.fillRect(-17,-30,34,44);
+  ctx.fillStyle='#d35400';ctx.fillRect(-33,-25,15,36);ctx.fillRect(17,-25,15,36);
+  ctx.fillRect(-13,14,12,30);ctx.fillRect(2,14,12,30);
+  ctx.restore();
+  // BLOCKED sign — pulsing red
+  const bpulse=.85+.15*Math.sin(t*4);
+  ctx.save();ctx.translate(W*.3,H*.55);ctx.scale(bpulse,bpulse);
+  ctx.fillStyle='rgba(255,82,82,.15)';ctx.beginPath();ctx.arc(0,0,32,0,Math.PI*2);ctx.fill();
+  ctx.strokeStyle='#ff5252';ctx.lineWidth=5;ctx.shadowColor='#ff5252';ctx.shadowBlur=18;
+  ctx.beginPath();ctx.moveTo(-20,-20);ctx.lineTo(20,20);ctx.stroke();
+  ctx.beginPath();ctx.moveTo(20,-20);ctx.lineTo(-20,20);ctx.stroke();ctx.shadowBlur=0;
+  ctx.restore();
+  ctx.fillStyle='#ff5252';ctx.font='bold 10px Segoe UI';ctx.textAlign='center';ctx.fillText('£12,000 LOST',W*.3,H*.7);
+  // Question marks bouncing
+  ['?','?','?'].forEach((q,i)=>{
+    const qx=cx+60*Math.cos(t*.6+i*2.1),qy=H*.38+28*Math.sin(t*.9+i*1.5);
+    ctx.fillStyle=acc;ctx.shadowColor=acc;ctx.shadowBlur=10;
+    ctx.font=`bold ${20+6*Math.abs(Math.sin(t+i))}px Arial`;ctx.textAlign='center';ctx.fillText('?',qx,qy);
+    ctx.shadowBlur=0;
+  });
+  ctx.fillStyle=acc;ctx.font=`bold ${Math.min(W*.038,15)}px Segoe UI`;ctx.textAlign='center';
+  ctx.fillText('$26B DIASPORA CAPITAL — LOCKED OUT EVERY YEAR',cx,H*.9);
+}
+
+// ═══ SLIDE 3: PLATFORM ═══
+function anim_platform(t,W,H,acc){
+  const cx=W/2,cy=H*.47;
+  // Hex background grid
+  const hR=20;ctx.strokeStyle='rgba(0,230,118,.08)';ctx.lineWidth=.7;
+  for(let row=0;row<H/hR+3;row++)for(let col=0;col<W/(hR*1.73)+3;col++){
+    const hx=(col*hR*1.73)+(row%2)*hR*.865,hy=row*hR*1.5;
+    ctx.beginPath();for(let k=0;k<6;k++){const a=k*Math.PI/3;ctx.lineTo(hx+hR*.85*Math.cos(a),hy+hR*.85*Math.sin(a));}ctx.closePath();ctx.stroke();
+  }
+  // Central hub pulsing
+  const hp=1+.07*Math.sin(t*2.8);
+  const hg=ctx.createRadialGradient(cx,cy,4,cx,cy,46);
+  hg.addColorStop(0,'#a5ffca');hg.addColorStop(.5,'#00e676');hg.addColorStop(1,'#007740');
+  ctx.beginPath();ctx.arc(cx,cy,46*hp,0,Math.PI*2);ctx.fillStyle=hg;ctx.shadowColor='#00e676';ctx.shadowBlur=30;ctx.fill();ctx.shadowBlur=0;
+  [1,2,3].forEach(r=>{ctx.beginPath();ctx.arc(cx,cy,46+r*22+8*Math.sin(t*2-r*.5),0,Math.PI*2);ctx.strokeStyle=`rgba(0,230,118,${.09/r})`;ctx.lineWidth=2;ctx.stroke();});
+  ctx.fillStyle='#000';ctx.font='bold 8px Segoe UI';ctx.textAlign='center';ctx.fillText('BETONIQ',cx,cy-5);ctx.fillText('INVEST',cx,cy+7);
+  // 6 spoke nodes
+  const nodes=[{l:'70',s:'PROJECTS',c:'#ffd740'},{l:'11',s:'COUNTRIES',c:'#40c4ff'},{l:'$5.1B',s:'PIPELINE',c:'#ff9800'},{l:'89/100',s:'AI SCORE',c:'#ea80fc'},{l:'29%',s:'AVG ROI',c:'#ff6b9d'},{l:'72%',s:'MARGIN',c:'#69f0ae'}];
+  const R=Math.min(W,H)*.34;
+  nodes.forEach((nd,i)=>{
+    const a=(i/nodes.length)*Math.PI*2+t*.11;
+    const nx=cx+Math.cos(a)*R,ny=cy+Math.sin(a)*R;
+    ctx.strokeStyle=nd.c+'44';ctx.lineWidth=1.5;ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(nx,ny);ctx.stroke();
+    const df=((t*.65+i*.17))%1;
+    const dpx=cx+(nx-cx)*df,dpy=cy+(ny-cy)*df;
+    ctx.beginPath();ctx.arc(dpx,dpy,4,0,Math.PI*2);ctx.fillStyle=nd.c;ctx.shadowColor=nd.c;ctx.shadowBlur=10;ctx.fill();ctx.shadowBlur=0;
+    ctx.beginPath();ctx.arc(nx,ny,26,0,Math.PI*2);ctx.fillStyle=nd.c+'18';ctx.fill();
+    ctx.beginPath();ctx.arc(nx,ny,20,0,Math.PI*2);ctx.fillStyle=nd.c;ctx.shadowColor=nd.c;ctx.shadowBlur=12;ctx.fill();ctx.shadowBlur=0;
+    ctx.fillStyle='#000';ctx.font='bold 8px Segoe UI';ctx.textAlign='center';ctx.fillText(nd.l,nx,ny-1);
+    ctx.font='6px Segoe UI';ctx.fillText(nd.s,nx,ny+9);
+  });
+  ctx.fillStyle=acc;ctx.font=`bold ${Math.min(W*.038,15)}px Segoe UI`;ctx.textAlign='center';
+  ctx.fillText('AFRICA'S FIRST AI-POWERED RE INVESTMENT INTELLIGENCE PLATFORM',cx,H*.92);
+}
+
+// ═══ SLIDE 4: AI ENGINE ═══
+function anim_engine(t,W,H,acc){
+  const lxs=[W*.08,W*.3,W*.56,W*.8];
+  const layers=[[H*.12,H*.24,H*.37,H*.5,H*.63,H*.76,H*.88],[H*.2,H*.33,H*.47,H*.61,H*.74],[H*.28,H*.47,H*.67],[H*.42,H*.57]];
+  const lCols=['#00b0ff','#ea80fc','#69f0ae','#ffd740'];
+  layers.forEach((lyr,li)=>{
+    if(li<layers.length-1)lyr.forEach(n1=>{
+      layers[li+1].forEach(n2=>{
+        const act=Math.sin(t*2.5+n1*.012+n2*.007+li*1.3)>.05;
+        ctx.strokeStyle=act?lCols[li]+'aa':'rgba(255,255,255,.04)';ctx.lineWidth=act?1.8:.5;
+        if(act){ctx.shadowColor=lCols[li];ctx.shadowBlur=5;}
+        ctx.beginPath();ctx.moveTo(lxs[li],n1);ctx.lineTo(lxs[li+1],n2);ctx.stroke();ctx.shadowBlur=0;
+      });
+    });
+    lyr.forEach((ny,ni)=>{
+      const act=Math.sin(t*1.8+ny*.015+li+ni*.7)>.15;
+      ctx.beginPath();ctx.arc(lxs[li],ny,act?9:6,0,Math.PI*2);
+      ctx.fillStyle=act?lCols[li]:lCols[li]+'2a';
+      if(act){ctx.shadowColor=lCols[li];ctx.shadowBlur=14;}ctx.fill();ctx.shadowBlur=0;
+    });
+  });
+  const params=['LOCATION','NPV','IRR','C of O','DEMAND','TRACK REC','AML STATUS'];
+  params.forEach((p,i)=>{ctx.fillStyle='rgba(200,220,255,.5)';ctx.font='bold 7.5px Segoe UI';ctx.textAlign='right';ctx.fillText(p,lxs[0]-10,layers[0][i]+3);});
+  // Live score
+  const score=Math.round(75+20*Math.abs(Math.sin(t*.35)));
+  const sc=score>=85?'#00e676':score>=75?'#ffd740':'#ff5252';
+  ctx.fillStyle=sc;ctx.shadowColor=sc;ctx.shadowBlur=25;
+  ctx.font=`bold ${Math.min(W*.17,64)}px Segoe UI`;ctx.textAlign='center';ctx.fillText(score,W*.88,H*.52);ctx.shadowBlur=0;
+  ctx.fillStyle='rgba(255,255,255,.55)';ctx.font='10px Segoe UI';ctx.fillText('/100',W*.88,H*.62);
+  ctx.fillStyle=sc;ctx.font='bold 10px Segoe UI';ctx.fillText(score>=75?'✓ LISTED':'✗ REJECT',W*.88,H*.72);
+  ctx.fillStyle=acc;ctx.font=`bold ${Math.min(W*.034,14)}px Segoe UI`;ctx.textAlign='center';
+  ctx.fillText('47 PARAMETERS · LIVE SCORING · BELOW 75 = REJECTED',W/2,H*.93);
+}
+
+// ═══ SLIDE 5: KATAMPE ═══
+function anim_katampe(t,W,H,acc){
+  const cx=W/2;
+  const bW=W*.5,bH=H*.42,bX=(W-bW)/2,bY=H*.04;
+  const bg=ctx.createLinearGradient(bX,bY,bX,bY+bH);bg.addColorStop(0,'#1565c0');bg.addColorStop(1,'#0d47a1');
+  ctx.fillStyle=bg;ctx.shadowColor='#1e88e5';ctx.shadowBlur=20;ctx.fillRect(bX,bY,bW,bH);ctx.shadowBlur=0;
+  // Windows
+  for(let r=0;r<5;r++)for(let c=0;c<6;c++){
+    const lit=Math.sin(t*1.1+r*1.5+c*2)>-.15;
+    ctx.fillStyle=lit?'rgba(255,220,80,.9)':'rgba(5,20,60,.7)';
+    ctx.fillRect(bX+10+c*(bW-20)/6.5,bY+10+r*(bH-20)/5.5,(bW-20)/7.5,(bH-20)/6.5);
+  }
+  // AI badge
+  const bp=1+.06*Math.sin(t*3);
+  ctx.save();ctx.translate(bX+bW+10,bY+22);ctx.scale(bp,bp);
+  ctx.beginPath();ctx.arc(0,0,28,0,Math.PI*2);ctx.fillStyle='#00e676';ctx.shadowColor='#00e676';ctx.shadowBlur=22;ctx.fill();ctx.shadowBlur=0;
+  ctx.fillStyle='#000';ctx.font='bold 15px Segoe UI';ctx.textAlign='center';ctx.fillText('87',0,-2);ctx.font='7px Segoe UI';ctx.fillText('/100',0,10);
+  ctx.restore();
+  // Data table rows appearing
+  const rows=[['AI Score','87 / 100','🟢'],['Projected ROI','28%','🟢'],['NPV','$198,000','🟢'],['IRR','31%','🟢'],['Break-Even','18 months','🟢'],['C of O Status','Verified ✓','🟢'],['Compliance','92 / 100','🟢']];
+  const vis=Math.min(rows.length,Math.floor(t*.7)+1);
+  const tY=H*.54,rH=(H*.38)/rows.length;
+  // Table header
+  ctx.fillStyle='rgba(255,255,255,.06)';ctx.fillRect(6,tY-16,W-12,16);
+  ctx.fillStyle=acc;ctx.font='bold 8.5px Segoe UI';ctx.textAlign='left';ctx.fillText('PARAMETER',14,tY-5);
+  ctx.textAlign='center';ctx.fillText('VALUE',W*.65,tY-5);ctx.textAlign='right';ctx.fillText('STATUS',W-12,tY-5);
+  rows.slice(0,vis).forEach((row,i)=>{
+    const ry=tY+i*rH;const alpha=Math.min(1,(t*.7-i)*.8);
+    ctx.fillStyle=i%2===0?`rgba(255,255,255,${.04*alpha})`:`rgba(0,0,0,${.15*alpha})`;ctx.fillRect(6,ry,W-12,rH-1);
+    ctx.fillStyle=`rgba(180,210,255,${alpha})`;ctx.font='bold 9px Segoe UI';ctx.textAlign='left';ctx.fillText(row[0],14,ry+rH*.68);
+    ctx.fillStyle=`rgba(255,255,255,${alpha})`;ctx.textAlign='center';ctx.fillText(row[1],W*.65,ry+rH*.68);
+    ctx.textAlign='right';ctx.font='11px Arial';ctx.fillText(row[2],W-10,ry+rH*.68);
+  });
+  ctx.fillStyle=acc;ctx.font=`bold ${Math.min(W*.035,14)}px Segoe UI`;ctx.textAlign='center';
+  ctx.fillText('KATAMPE TERRACE ABUJA — LIVE AI INVESTMENT REPORT',cx,H*.97);
+}
+
+// ═══ SLIDE 6: STEPS ═══
+function anim_steps(t,W,H,acc){
+  const cx=W/2;
+  const steps=[{l:'KYC VERIFIED',s:'Identity · AML · 24h',c:'#00b0ff'},{l:'£15,000 COMMITTED',s:'Katampe selected',c:'#7c4dff'},{l:'CONTRACT SIGNED',s:'Digital · encrypted',c:'#00e676'},{l:'MILESTONE RELEASE',s:'5 tranches — never lump sum',c:'#ff9800'},{l:'£4,200 RETURNED',s:'28% exactly as projected',c:'#ffd740'}];
+  const active=Math.floor(t*.4)%6;
+  const stepH=H*.18,padT=H*.02;
+  steps.forEach((s,i)=>{
+    const done=i<active,isAct=i===active;
+    const sy=padT+i*stepH;
+    if(i<steps.length-1){
+      const lp=done?1:isAct?Math.min(1,(t*.4-active)*.6):0;
+      ctx.strokeStyle=s.c+'55';ctx.lineWidth=2;ctx.setLineDash([4,6]);
+      ctx.beginPath();ctx.moveTo(W*.12,sy+stepH*.45);ctx.lineTo(W*.12,sy+stepH*.45+stepH*.5*lp);ctx.stroke();ctx.setLineDash([]);
+    }
+    const r=isAct?24:done?19:15;
+    ctx.beginPath();ctx.arc(W*.12,sy+stepH*.4,r,0,Math.PI*2);
+    ctx.fillStyle=isAct?s.c:done?s.c+'88':'rgba(255,255,255,.07)';
+    if(isAct){ctx.shadowColor=s.c;ctx.shadowBlur=24;}else if(done){ctx.shadowColor=s.c;ctx.shadowBlur=10;}
+    ctx.fill();ctx.shadowBlur=0;
+    if(isAct){ctx.beginPath();ctx.arc(W*.12,sy+stepH*.4,r+7+5*Math.sin(t*4),0,Math.PI*2);ctx.strokeStyle=s.c+'66';ctx.lineWidth=2;ctx.stroke();}
+    ctx.fillStyle=(done||isAct)?'#000':'rgba(255,255,255,.3)';
+    ctx.font=`bold ${isAct?12:10}px Segoe UI`;ctx.textAlign='center';ctx.fillText(done?'✓':String(i+1),W*.12,sy+stepH*.4+5);
+    const alpha=isAct?1:done?.7:.28;
+    ctx.fillStyle=`rgba(255,255,255,${alpha})`;ctx.font=`bold ${isAct?12:10}px Segoe UI`;ctx.textAlign='left';ctx.fillText(s.l,W*.22,sy+stepH*.3);
+    ctx.fillStyle=`rgba(255,255,255,${alpha*.65})`;ctx.font='9px Segoe UI';ctx.fillText(s.s,W*.22,sy+stepH*.52);
+    if(done){ctx.fillStyle=s.c;ctx.font='bold 15px Arial';ctx.textAlign='right';ctx.fillText('✓',W-.06*W,sy+stepH*.42);}
+  });
+  ctx.fillStyle='#ffd740';ctx.shadowColor='#ffd740';ctx.shadowBlur=8;ctx.font=`bold ${Math.min(W*.036,14)}px Segoe UI`;ctx.textAlign='center';
+  ctx.fillText('£4,200 ON £15,000 = 28% EXACTLY AS PROJECTED',cx,H*.96);ctx.shadowBlur=0;
+}
+
+// ═══ SLIDES 7-15: Simplified but BRIGHT ═══
+function anim_developer(t,W,H,acc){
+  const cx=W/2,cy=H*.45;
+  const lW=W*.34,lH=H*.48,lX=W*.05,lY=H*.18,rX=W*.61;
+  ctx.fillStyle='rgba(255,82,82,.1)';ctx.fillRect(lX,lY,lW,lH);
+  ctx.strokeStyle='#ff5252';ctx.lineWidth=2;ctx.shadowColor='#ff5252';ctx.shadowBlur=8;ctx.strokeRect(lX,lY,lW,lH);ctx.shadowBlur=0;
+  ctx.fillStyle='#ff6b6b';ctx.font='bold 10px Segoe UI';ctx.textAlign='center';ctx.fillText('BANK RATE',lX+lW/2,lY+22);
+  const br=22+1.5*Math.sin(t*.5);
+  ctx.fillStyle='#ff5252';ctx.shadowColor='#ff5252';ctx.shadowBlur=12;
+  ctx.font=`bold ${Math.min(lW*.32,44)}px Segoe UI`;ctx.fillText(br.toFixed(1)+'%',lX+lW/2,lY+lH*.5);ctx.shadowBlur=0;
+  ctx.fillStyle='rgba(255,255,255,.5)';ctx.font='9px Segoe UI';ctx.fillText('per annum',lX+lW/2,lY+lH*.63);
+  ctx.fillStyle='#ff5252';ctx.font='bold 10px Segoe UI';ctx.fillText('✗ UNVIABLE',lX+lW/2,lY+lH*.82);
+  const ap=((t*.5))%1;
+  ctx.strokeStyle='#ffd740';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(lX+lW,cy);ctx.lineTo(rX,cy);ctx.stroke();
+  ctx.beginPath();ctx.moveTo(rX-8,cy-5);ctx.lineTo(rX,cy);ctx.lineTo(rX-8,cy+5);ctx.fillStyle='#ffd740';ctx.fill();
+  ctx.beginPath();ctx.arc(lX+lW+ap*(rX-lX-lW),cy,5,0,Math.PI*2);ctx.fillStyle='#ffd740';ctx.shadowColor='#ffd740';ctx.shadowBlur=10;ctx.fill();ctx.shadowBlur=0;
+  ctx.fillStyle='rgba(0,230,118,.1)';ctx.fillRect(rX,lY,lW,lH);
+  ctx.strokeStyle='#00e676';ctx.lineWidth=2;ctx.shadowColor='#00e676';ctx.shadowBlur=8;ctx.strokeRect(rX,lY,lW,lH);ctx.shadowBlur=0;
+  ctx.fillStyle='#69f0ae';ctx.font='bold 10px Segoe UI';ctx.textAlign='center';ctx.fillText('BETONIQ COST',rX+lW/2,lY+22);
+  ctx.fillStyle='#00e676';ctx.shadowColor='#00e676';ctx.shadowBlur=12;
+  ctx.font=`bold ${Math.min(lW*.32,44)}px Segoe UI`;ctx.fillText('14%',rX+lW/2,lY+lH*.5);ctx.shadowBlur=0;
+  ctx.fillStyle='rgba(255,255,255,.5)';ctx.font='9px Segoe UI';ctx.fillText('blended capital',rX+lW/2,lY+lH*.63);
+  ctx.fillStyle='#00e676';ctx.font='bold 10px Segoe UI';ctx.fillText('✓ VIABLE',rX+lW/2,lY+lH*.82);
+  const flags=['🇬🇧','🇺🇸','🇨🇦','🇦🇪'];
+  flags.forEach((f,i)=>{const a=t*.7+i*1.57;ctx.font='18px Arial';ctx.textAlign='center';ctx.fillText(f,rX+lW/2+62*Math.cos(a),cy+38*Math.sin(a));});
+  ctx.fillStyle=acc;ctx.font=`bold ${Math.min(W*.034,14)}px Segoe UI`;ctx.textAlign='center';
+  ctx.fillText('$280,000 RAISED IN 60 DAYS · 12 FAMILIES HOUSED',cx,H*.93);
+}
+
+function anim_investors(t,W,H,acc){simplePulseNodes(t,W,H,acc,[{l:'DIASPORA
+NIGERIAN',c:'#00b0ff'},{l:'HNW
+AFRICA',c:'#ea80fc'},{l:'INSTITUTIONS
+FUNDS',c:'#00e676'},{l:'IMPACT
+ESG',c:'#ff9800'}],'$10,000 MIN INVESTMENT · QUARTERLY REPORTS · 4 INVESTOR CATEGORIES');}
+function anim_pipeline(t,W,H,acc){
+  const cx=W/2,cy=H*.47;
+  ctx.strokeStyle='rgba(105,240,174,.04)';ctx.lineWidth=.5;
+  for(let x=0;x<W;x+=W/14)for(let y=0;y<H;y+=H/9){ctx.beginPath();ctx.arc(x,y,.7,0,Math.PI*2);ctx.fillStyle='rgba(105,240,174,.08)';ctx.fill();}
+  const cs=[{n:'Nigeria 🇳🇬',x:.5,y:.5,c:'#ffd740',p:45,r:28},{n:'Ghana 🇬🇭',x:.44,y:.55,c:'#ff9800',p:8,r:16},{n:'Kenya 🇰🇪',x:.58,y:.55,c:'#69f0ae',p:5,r:13},{n:'S.Africa 🇿🇦',x:.53,y:.68,c:'#40c4ff',p:4,r:12},{n:'UK 🇬🇧',x:.44,y:.2,c:'#ea80fc',p:3,r:11},{n:'UAE 🇦🇪',x:.62,y:.38,c:'#ff6d00',p:2,r:10}];
+  const ng=cs[0];
+  cs.slice(1).forEach((c,i)=>{
+    const nx=c.x*W,ny=c.y*H,ngx=ng.x*W,ngy=ng.y*H;
+    ctx.strokeStyle=c.c+'44';ctx.lineWidth=1;ctx.setLineDash([3,8]);ctx.beginPath();ctx.moveTo(nx,ny);ctx.lineTo(ngx,ngy);ctx.stroke();ctx.setLineDash([]);
+    for(let p=0;p<3;p++){const pf=((t*.55+i*.18+p*.33))%1;ctx.beginPath();ctx.arc(nx+(ngx-nx)*pf,ny+(ngy-ny)*pf,3,0,Math.PI*2);ctx.fillStyle=c.c;ctx.shadowColor=c.c;ctx.shadowBlur=6;ctx.fill();ctx.shadowBlur=0;}
+  });
+  cs.forEach(c=>{const nx=c.x*W,ny=c.y*H,pr=c.r+3*Math.sin(t*2+c.x*9);ctx.beginPath();ctx.arc(nx,ny,pr,0,Math.PI*2);ctx.fillStyle=c.c;ctx.shadowColor=c.c;ctx.shadowBlur=12;ctx.fill();ctx.shadowBlur=0;ctx.fillStyle='#000';ctx.font=`bold ${Math.max(8,c.r*.55)}px Segoe UI`;ctx.textAlign='center';ctx.fillText(c.p,nx,ny+3);ctx.fillStyle=c.c;ctx.font='7px Segoe UI';ctx.fillText(c.n,nx,ny+c.r+12);});
+  ctx.fillStyle=acc;ctx.font=`bold ${Math.min(W*.035,14)}px Segoe UI`;ctx.textAlign='center';
+  ctx.fillText('70 PROJECTS · 11 COUNTRIES · $5.1B VERIFIED PIPELINE',cx,H*.93);
+}
+
+function anim_revenue(t,W,H,acc){
+  const dcx=W*.3,dcy=H*.47,dR=Math.min(W*.22,H*.28);
+  const segs=[{p:55,c:'#ff9800',l:'LISTING
+55%'},{p:30,c:'#00e676',l:'SUCCESS
+30%'},{p:15,c:'#40c4ff',l:'SUBS
+15%'}];
+  let sa=-Math.PI/2+t*.06;
+  segs.forEach(s=>{const sw=2*Math.PI*(s.p/100);ctx.beginPath();ctx.moveTo(dcx,dcy);ctx.arc(dcx,dcy,dR,sa,sa+sw);ctx.closePath();ctx.fillStyle=s.c+'cc';ctx.shadowColor=s.c;ctx.shadowBlur=6;ctx.fill();ctx.shadowBlur=0;const ma=sa+sw/2;ctx.fillStyle='#000';ctx.font='bold 9px Segoe UI';ctx.textAlign='center';s.l.split('
+').forEach((ln,j)=>ctx.fillText(ln,dcx+dR*.6*Math.cos(ma),dcy+dR*.6*Math.sin(ma)+(j-0.5)*10));sa+=sw;});
+  ctx.beginPath();ctx.arc(dcx,dcy,dR*.42,0,Math.PI*2);ctx.fillStyle='#000c20';ctx.fill();
+  ctx.fillStyle='#69f0ae';ctx.font='bold 14px Segoe UI';ctx.textAlign='center';ctx.fillText('72%',dcx,dcy+3);ctx.fillStyle='rgba(255,255,255,.5)';ctx.font='7.5px Segoe UI';ctx.fillText('MARGIN',dcx,dcy+15);
+  const bx=W*.58,bY=H*.14,bH=H*.55;const years=[{y:'2026',v:3.1,c:'#ffd740'},{y:'2027',v:16,c:'#ff9800'},{y:'2028',v:55,c:'#ff5252'}];const bW=(W*.36)/3-6;
+  years.forEach((yr,i)=>{const bxi=bx+i*(bW+6);const cur=bH*(yr.v/55)*Math.min(1,t*.45);const g=ctx.createLinearGradient(bxi,bY,bxi,bY+bH);g.addColorStop(0,yr.c);g.addColorStop(1,yr.c+'33');ctx.fillStyle=g;ctx.shadowColor=yr.c;ctx.shadowBlur=5;ctx.fillRect(bxi,bY+bH-cur,bW,cur);ctx.shadowBlur=0;ctx.fillStyle=yr.c;ctx.font='bold 9px Segoe UI';ctx.textAlign='center';ctx.fillText(yr.y,bxi+bW/2,bY+bH+14);ctx.fillText('$'+yr.v+'M',bxi+bW/2,bY+bH-cur-7);});
+  ctx.fillStyle=acc;ctx.font=`bold ${Math.min(W*.034,14)}px Segoe UI`;ctx.textAlign='center';ctx.fillText('3 REVENUE STREAMS · 72% GROSS MARGIN · FULLY SCALABLE',W/2,H*.93);
+}
+
+function anim_growth(t,W,H,acc){
+  const pL=52,pR=18,pT=28,pB=42,W2=W,H2=H;const cW=W2-pL-pR,cH=H2-pT-pB;
+  ctx.strokeStyle='rgba(255,255,255,.06)';ctx.lineWidth=.5;
+  for(let i=0;i<=4;i++){const y=pT+cH*(1-i/4);ctx.beginPath();ctx.moveTo(pL,y);ctx.lineTo(W2-pR,y);ctx.stroke();ctx.fillStyle='rgba(255,255,255,.4)';ctx.font='8px Segoe UI';ctx.textAlign='right';ctx.fillText('$'+(i*14)+'M',pL-4,y+3);}
+  const prog=Math.min(1,t*.38);const pts=[];
+  for(let x=0;x<=cW;x+=3){const f=x/cW;pts.push({x:pL+x,y:pT+cH*(1-Math.min(1,f*f*2.2))});}
+  const vis=Math.floor(pts.length*prog);
+  if(vis>1){
+    ctx.beginPath();ctx.moveTo(pL,pT+cH);pts.slice(0,vis).forEach(p=>ctx.lineTo(p.x,p.y));ctx.lineTo(pts[vis-1].x,pT+cH);ctx.closePath();
+    const ag=ctx.createLinearGradient(0,pT,0,pT+cH);ag.addColorStop(0,acc+'66');ag.addColorStop(1,acc+'08');ctx.fillStyle=ag;ctx.fill();
+    ctx.beginPath();pts.slice(0,vis).forEach((p,i)=>i?ctx.lineTo(p.x,p.y):ctx.moveTo(p.x,p.y));
+    ctx.strokeStyle=acc;ctx.lineWidth=2.5;ctx.shadowColor=acc;ctx.shadowBlur=8;ctx.stroke();ctx.shadowBlur=0;
+    const lp=pts[vis-1];ctx.beginPath();ctx.arc(lp.x,lp.y,6,0,Math.PI*2);ctx.fillStyle='#fff';ctx.shadowColor=acc;ctx.shadowBlur=15;ctx.fill();ctx.shadowBlur=0;
+    ctx.fillStyle=acc;ctx.font='bold 10px Segoe UI';ctx.textAlign='left';ctx.fillText('$'+(55*Math.pow(prog,2.2)).toFixed(1)+'M',lp.x+8,lp.y+4);
+  }
+  [[.33,'2026','$3.1M'],[.66,'2027','$16M'],[1,'2028','$55M']].forEach(([f,yr,val])=>{const x=pL+cW*f;ctx.strokeStyle='rgba(255,255,255,.1)';ctx.lineWidth=1;ctx.setLineDash([3,6]);ctx.beginPath();ctx.moveTo(x,pT);ctx.lineTo(x,pT+cH);ctx.stroke();ctx.setLineDash([]);ctx.fillStyle='rgba(255,255,255,.6)';ctx.font='bold 9px Segoe UI';ctx.textAlign='center';ctx.fillText(yr,x,pT+cH+16);ctx.fillText(val,x,pT+cH+28);});
+  ctx.fillStyle=acc;ctx.font=`bold ${Math.min(W*.033,13)}px Segoe UI`;ctx.textAlign='center';ctx.fillText('S-CURVE TO $55M · 72% GROSS MARGIN · 18-MONTH SERIES A',W/2,H*.97);
+}
+
+function anim_ops(t,W,H,acc){simplePulseNodes(t,W,H,acc,[{l:'INVESTOR
+REG',c:'#00b0ff'},{l:'AI
+SCORING',c:'#ea80fc'},{l:'COMPLIANCE',c:'#00e676'},{l:'BILLING',c:'#ff9800'},{l:'LISTINGS',c:'#ffd740'},{l:'FEASIBILITY',c:'#40c4ff'}],'ALL SYSTEMS OPERATIONAL · LIVE NOW · '+Math.floor(t*14+140)+' REQUESTS/MIN');}
+
+function simplePulseNodes(t,W,H,acc,nodes,footer){
+  const cx=W/2,cy=H*.47,R=Math.min(W,H)*.33;
+  const hg=ctx.createRadialGradient(cx,cy,4,cx,cy,42);hg.addColorStop(0,'#fff9c4');hg.addColorStop(.5,'#ffd740');hg.addColorStop(1,'#bf360c');
+  const hp=.93+.07*Math.sin(t*3);ctx.beginPath();ctx.arc(cx,cy,42*hp,0,Math.PI*2);ctx.fillStyle=hg;ctx.shadowColor='#ffa000';ctx.shadowBlur=25;ctx.fill();ctx.shadowBlur=0;
+  nodes.forEach((nd,i)=>{
+    const a=(i/nodes.length)*Math.PI*2+t*.12;const nx=cx+Math.cos(a)*R,ny=cy+Math.sin(a)*R;
+    ctx.strokeStyle=nd.c+'44';ctx.lineWidth=1.5;ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(nx,ny);ctx.stroke();
+    const df=((t*.7+i*.16))%1;ctx.beginPath();ctx.arc(cx+(nx-cx)*df,cy+(ny-cy)*df,4,0,Math.PI*2);ctx.fillStyle=nd.c;ctx.shadowColor=nd.c;ctx.shadowBlur=8;ctx.fill();ctx.shadowBlur=0;
+    ctx.beginPath();ctx.arc(nx,ny,24,0,Math.PI*2);ctx.fillStyle=nd.c+'18';ctx.fill();
+    ctx.beginPath();ctx.arc(nx,ny,18,0,Math.PI*2);ctx.fillStyle=nd.c;ctx.shadowColor=nd.c;ctx.shadowBlur=10;ctx.fill();ctx.shadowBlur=0;
+    ctx.fillStyle='#000';ctx.font='bold 6px Segoe UI';ctx.textAlign='center';nd.l.split('
+').forEach((ln,j)=>ctx.fillText(ln,nx,ny-2+j*7));
+  });
+  ctx.fillStyle='#000';ctx.font='bold 7px Segoe UI';ctx.textAlign='center';ctx.fillText('LIVE',cx,cy-3);ctx.fillText('HUB',cx,cy+7);
+  ctx.fillStyle=acc;ctx.shadowColor=acc;ctx.shadowBlur=6;ctx.font=`bold ${Math.min(W*.035,14)}px Segoe UI`;ctx.textAlign='center';ctx.fillText(footer,W/2,H*.93);ctx.shadowBlur=0;
+}
+
+function anim_compliance(t,W,H,acc){
+  const cx=W/2,cy=H*.47;
+  ctx.fillStyle='rgba(255,255,255,.04)';ctx.fillRect(6,H*.32,62,H*.34);ctx.strokeStyle='rgba(255,255,255,.2)';ctx.lineWidth=1;ctx.strokeRect(6,H*.32,62,H*.34);
+  ctx.fillStyle='rgba(255,255,255,.6)';ctx.font='bold 8.5px Segoe UI';ctx.textAlign='center';ctx.fillText('NEW',37,cy-5);ctx.fillText('PROJECT',37,cy+7);
+  const g1ok=Math.sin(t*.42)>.25;const g1c=g1ok?'#00e676':'#ff5252';
+  ctx.fillStyle=g1ok?'rgba(0,230,118,.1)':'rgba(255,82,82,.1)';ctx.fillRect(W*.27,H*.1,W*.18,H*.8);
+  ctx.strokeStyle=g1c;ctx.lineWidth=2;ctx.shadowColor=g1c;ctx.shadowBlur=10;ctx.strokeRect(W*.27,H*.1,W*.18,H*.8);ctx.shadowBlur=0;
+  ctx.fillStyle=g1c;ctx.font='bold 9px Segoe UI';ctx.textAlign='center';ctx.fillText('GATE 1',W*.36,H*.2);ctx.fillText('AI SCORE',W*.36,H*.28);
+  const g1s=g1ok?87:58;ctx.font=`bold ${Math.min(W*.09,36)}px Segoe UI`;ctx.shadowColor=g1c;ctx.shadowBlur=10;ctx.fillText(g1s,W*.36,H*.52);ctx.shadowBlur=0;
+  ctx.fillStyle='rgba(255,255,255,.5)';ctx.font='8px Segoe UI';ctx.fillText('MIN 75/100',W*.36,H*.62);
+  ctx.fillStyle=g1c;ctx.font='bold 10px Segoe UI';ctx.fillText(g1ok?'✓ PASS':'✗ REJECT',W*.36,H*.75);
+  const g2ok=g1ok&&Math.sin(t*.33+1.1)>.2;const g2c=g2ok?'#00b0ff':'#ff5252';
+  ctx.fillStyle=g2ok?'rgba(0,176,255,.1)':'rgba(255,82,82,.1)';ctx.fillRect(W*.55,H*.1,W*.18,H*.8);
+  ctx.strokeStyle=g2c;ctx.lineWidth=2;ctx.shadowColor=g2c;ctx.shadowBlur=10;ctx.strokeRect(W*.55,H*.1,W*.18,H*.8);ctx.shadowBlur=0;
+  ctx.fillStyle=g2c;ctx.font='bold 9px Segoe UI';ctx.textAlign='center';ctx.fillText('GATE 2',W*.64,H*.2);ctx.fillText('COMPLIANCE',W*.64,H*.28);
+  const g2s=g2ok?92:71;ctx.font=`bold ${Math.min(W*.09,36)}px Segoe UI`;ctx.shadowColor=g2c;ctx.shadowBlur=10;ctx.fillText(g2s,W*.64,H*.52);ctx.shadowBlur=0;
+  ctx.fillStyle='rgba(255,255,255,.5)';ctx.font='8px Segoe UI';ctx.fillText('MIN 80/100',W*.64,H*.62);
+  ctx.fillStyle=g2c;ctx.font='bold 10px Segoe UI';ctx.fillText(g2ok?'✓ PASS':'✗ REJECT',W*.64,H*.75);
+  if(g2ok){ctx.fillStyle='rgba(0,230,118,.1)';ctx.fillRect(W*.77,H*.32,W*.2,H*.34);ctx.strokeStyle='#00e676';ctx.lineWidth=2;ctx.strokeRect(W*.77,H*.32,W*.2,H*.34);ctx.fillStyle='#00e676';ctx.font='bold 9px Segoe UI';ctx.textAlign='center';ctx.fillText('LISTED',W*.87,cy-5);ctx.fillText('✓',W*.87,cy+10);}
+  ctx.fillStyle=acc;ctx.font=`bold ${Math.min(W*.033,13)}px Segoe UI`;ctx.textAlign='center';ctx.fillText('BOTH GATES MUST PASS · NO EXCEPTIONS · INVESTOR CAPITAL PROTECTED',cx,H*.95);
+}
+
+function anim_funding(t,W,H,acc){
+  const cx=W/2;
+  const lY=H*(.76-Math.min(.55,t*.085));
+  for(let i=0;i<12;i++){const px=cx+(-22+Math.random()*44),py=lY+52+Math.random()*42,ps=2+Math.random()*6;ctx.beginPath();ctx.arc(px,py,ps,0,Math.PI*2);ctx.fillStyle=['#ffd740','#ff9800','#ff5252','rgba(255,180,80,.4)'][Math.floor(Math.random()*4)];ctx.shadowColor='#ff6d00';ctx.shadowBlur=8;ctx.fill();ctx.shadowBlur=0;}
+  const rb=ctx.createLinearGradient(cx-18,lY,cx+18,lY+56);rb.addColorStop(0,'#ef5350');rb.addColorStop(1,'#b71c1c');
+  ctx.fillStyle=rb;ctx.shadowColor='#ff1744';ctx.shadowBlur=10;ctx.fillRect(cx-18,lY,36,56);ctx.shadowBlur=0;
+  ctx.fillStyle='#c62828';ctx.beginPath();ctx.moveTo(cx-18,lY);ctx.lineTo(cx+18,lY);ctx.lineTo(cx,lY-36);ctx.fill();
+  ctx.beginPath();ctx.arc(cx,lY+20,9,0,Math.PI*2);ctx.fillStyle='#1565c0';ctx.shadowColor='#40c4ff';ctx.shadowBlur=8;ctx.fill();ctx.shadowBlur=0;
+  ctx.strokeStyle='#80d8ff';ctx.lineWidth=2;ctx.stroke();
+  const funds=[{l:'Product',v:1.2,c:'#00b0ff'},{l:'Market',v:1.5,c:'#00e676'},{l:'Inv Acq',v:.8,c:'#ea80fc'},{l:'Ops',v:1.0,c:'#ffd740'}];
+  const bZone=W*.36,bW2=bZone/funds.length-6;
+  funds.forEach((f,i)=>{const bxi=W*.59+i*(bW2+6);const mxH=H*.42;const cur=mxH*(f.v/1.5)*Math.min(1,t*.5);const by=H*.52-cur;const g=ctx.createLinearGradient(bxi,by,bxi,by+cur);g.addColorStop(0,f.c);g.addColorStop(1,f.c+'33');ctx.fillStyle=g;ctx.shadowColor=f.c;ctx.shadowBlur=5;ctx.fillRect(bxi,by,bW2,cur);ctx.shadowBlur=0;ctx.fillStyle=f.c;ctx.font='bold 8.5px Segoe UI';ctx.textAlign='center';ctx.fillText('$'+f.v+'M',bxi+bW2/2,by-6);ctx.fillText(f.l,bxi+bW2/2,H*.57);});
+  ctx.fillStyle=acc;ctx.shadowColor=acc;ctx.shadowBlur=8;ctx.font=`bold ${Math.min(W*.035,14)}px Segoe UI`;ctx.textAlign='center';ctx.fillText('$4.5M · $25M PRE-MONEY · 18% EQUITY · 3× AT SERIES A',cx,H*.93);ctx.shadowBlur=0;
+}
+
+function anim_finale(t,W,H,acc){
+  const cx=W/2,cy=H*.46;
+  for(let i=0;i<18;i++){const a=(i/18)*Math.PI*2+t*.1,r=Math.min(W,H)*.44;ctx.strokeStyle=`rgba(255,215,0,${.04+.03*Math.sin(t+i)})`;ctx.lineWidth=1.5;ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(cx+Math.cos(a)*r,cy+Math.sin(a)*r);ctx.stroke();}
+  const stats=[{l:'70 PROJECTS',c:'#ffd740'},{l:'$5.1B PIPELINE',c:'#ff9800'},{l:'29% AVG ROI',c:'#ff5252'},{l:'47-PARAM AI',c:'#ea80fc'},{l:'11 COUNTRIES',c:'#00e676'},{l:'89/100 SCORE',c:'#40c4ff'}];
+  const R=Math.min(W,H)*.35;
+  stats.forEach((s,i)=>{const a=(i/stats.length)*Math.PI*2+t*.16;const sx=cx+Math.cos(a)*R,sy=cy+Math.sin(a)*R;for(let tr=1;tr<=7;tr++){const ta=a-tr*.045;ctx.beginPath();ctx.arc(cx+Math.cos(ta)*R,cy+Math.sin(ta)*R,2*(1-tr/7),0,Math.PI*2);ctx.fillStyle=s.c+Math.round((1-tr/7)*77).toString(16).padStart(2,'0');ctx.fill();}ctx.beginPath();ctx.arc(sx,sy,6,0,Math.PI*2);ctx.fillStyle=s.c;ctx.shadowColor=s.c;ctx.shadowBlur=12;ctx.fill();ctx.shadowBlur=0;ctx.fillStyle=s.c;ctx.font='bold 8.5px Segoe UI';ctx.textAlign='center';ctx.fillText(s.l,sx,sy-13);});
+  // Star
+  function star5(r1,r2,rot){ctx.beginPath();for(let i=0;i<10;i++){const r3=i%2===0?r1:r2,a=(i/5)*Math.PI+rot;i===0?ctx.moveTo(cx+Math.cos(a)*r3,cy+Math.sin(a)*r3):ctx.lineTo(cx+Math.cos(a)*r3,cy+Math.sin(a)*r3);}ctx.closePath();}
+  const sp=.92+.08*Math.sin(t*2.5);star5(66*sp,29*sp,-Math.PI/2+t*.08);
+  const sg=ctx.createRadialGradient(cx,cy,4,cx,cy,66);sg.addColorStop(0,'#fff9c4');sg.addColorStop(.4,'#ffd740');sg.addColorStop(.8,'#ff9800');sg.addColorStop(1,'#e65100');
+  ctx.fillStyle=sg;ctx.shadowColor='#ffd740';ctx.shadowBlur=30;ctx.fill();ctx.shadowBlur=0;
+  ctx.fillStyle='#000';ctx.font='bold 9px Segoe UI';ctx.textAlign='center';ctx.fillText('JOIN US',cx,cy+4);
+  ctx.fillStyle='#ffd740';ctx.shadowColor='#ffd740';ctx.shadowBlur=10;ctx.font=`bold ${Math.min(W*.036,14)}px Segoe UI`;ctx.textAlign='center';ctx.fillText('THE BLOOMBERG OF AFRICAN REAL ESTATE — INVEST TODAY',cx,H*.93);ctx.shadowBlur=0;
+}
+
+animFrame();
+
+// ═══ AUDIO ═══
+const auds=AUDIOS.map((url,i)=>{const a=new Audio();a.preload=i<3?'auto':'none';a.src=url;a.onended=()=>onEnd(i);return a;});
+function onEnd(i){playing=false;document.getElementById('btnMain').textContent='▶ PLAY';setDot('idle');if(autoPlay&&i<N-1)setTimeout(()=>{jump(i+1);playSlide(i+1);},900);else if(autoPlay)setAuto(false);}
+function stopAll(){auds.forEach(a=>{try{a.pause();a.currentTime=0;}catch(e){}});playing=false;}
+function playSlide(i){stopAll();const a=auds[i];a.preload='auto';playing=true;document.getElementById('btnMain').textContent='⏸ PAUSE';setDot('on');if(auds[i+1])auds[i+1].preload='auto';a.play().catch(()=>{playing=false;setDot('idle');document.getElementById('btnMain').textContent='▶ PLAY';});}
+function togglePlay(){if(playing){stopAll();document.getElementById('btnMain').textContent='▶ PLAY';setDot('idle');}else playSlide(cur);}
+function setAuto(v){autoPlay=v;document.getElementById('btnAuto').textContent='AUTO: '+(v?'ON ✓':'OFF');if(v&&!playing)playSlide(cur);}
+function toggleAuto(){setAuto(!autoPlay);}
+function setDot(state){const d=document.getElementById('playDot'),pt=document.getElementById('playTxt');d.className='play-dot'+(state==='on'?' pulse':'');d.style.background=ACCENTS[cur];pt.textContent=state==='on'?'🎙️ OpenAI Shimmer — playing...':'▶ PLAY — OpenAI Shimmer professional voice';}
+
+// ═══ THEME & NAVIGATION ═══
+function applyTheme(){
+  const acc=ACCENTS[cur];
+  document.getElementById('brandEl').style.color=acc;
+  document.getElementById('sCount').style.color=acc;
+  document.getElementById('sNum').style.color=acc;
+  document.getElementById('sTitle').style.color=acc;
+  document.getElementById('playDot').style.background=acc;
+  document.getElementById('playPill').style.borderColor=acc+'99';document.getElementById('playPill').style.color=acc;
+  document.getElementById('prog').style.background=acc;document.getElementById('prog').style.width=(((cur+1)/N)*100)+'%';
+  document.getElementById('btnMain').style.background=`linear-gradient(135deg,${acc},${ACCENTS[(cur+2)%N]})`;
+  TITLES.forEach((_,i)=>{
+    const th=document.getElementById('th'+i),nd=document.getElementById('nd'+i);
+    if(!th||!nd)return;
+    th.className='th'+(i===cur?' active':'');th.style.color=i===cur?ACCENTS[i]:'';
+    nd.className='ndot'+(i===cur?' active':'');nd.style.background=i===cur?ACCENTS[i]:'rgba(255,255,255,.12)';nd.style.transform=i===cur?'scale(1.8)':'scale(1)';
+  });
+  document.getElementById('th'+cur)?.scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'});
+}
+function updateUI(){
+  document.getElementById('sCount').textContent=(cur+1)+' / '+N;
+  document.getElementById('sNum').textContent='SLIDE '+String(cur+1).padStart(2,'0')+' / '+N;
+  document.getElementById('sTitle').textContent=TITLES[cur];
+  document.getElementById('sTxt').textContent=SLIDES[cur];
+  document.getElementById('btnMain').textContent='▶ PLAY';
+  setDot('idle');applyTheme();T=0;
+}
+function go(d){const n=Math.max(0,Math.min(N-1,cur+d));if(n===cur)return;const wasOn=playing||autoPlay;jump(n);if(wasOn)playSlide(n);}
+function jump(idx){stopAll();cur=idx;updateUI();}
+updateUI();
+document.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key===' '){e.preventDefault();go(1);}else if(e.key==='ArrowLeft'){e.preventDefault();go(-1);}else if(e.key.toLowerCase()==='p')togglePlay();else if(e.key.toLowerCase()==='a')toggleAuto();});
+let tx=0;document.addEventListener('touchstart',e=>tx=e.touches[0].clientX,{passive:true});
+document.addEventListener('touchend',e=>{if(Math.abs(e.changedTouches[0].clientX-tx)>55)go(e.changedTouches[0].clientX<tx?1:-1);},{passive:true});
+</script>
+</body>
+</html>
