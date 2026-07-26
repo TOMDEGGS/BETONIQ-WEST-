@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<title>ZeroPay — 20-Slide Investor Presentation</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#050d1a;color:#fff;height:100vh;overflow:hidden;display:flex;flex-direction:column}
+.hdr{background:#0a1628;border-bottom:2px solid #00d4ff;padding:8px 20px;display:flex;justify-content:space-between;align-items:center;flex-shrink:0}
+.hdr-left .logo{font-size:1.2rem;font-weight:800;color:#00d4ff;letter-spacing:2px}
+.hdr-left .sub{font-size:0.62rem;color:#aaa;margin-top:2px}
+.hdr-right{text-align:right;font-size:0.7rem;color:#ccc}
+.hdr-right .cnt{font-size:1.1rem;font-weight:700;color:#fff}
+.main{display:flex;flex:1;overflow:hidden}
+.vis{width:52%;position:relative;overflow:hidden}
+.vis canvas{position:absolute;top:0;left:0;width:100%;height:100%}
+.vis .stats-overlay{position:absolute;bottom:16px;left:16px;right:16px;display:flex;gap:10px}
+.stat-box{flex:1;background:rgba(0,0,0,0.7);border:1px solid;border-radius:8px;padding:8px 10px;text-align:center}
+.stat-val{font-size:1.5rem;font-weight:900;line-height:1}
+.stat-lbl{font-size:0.58rem;color:#ccc;margin-top:3px;text-transform:uppercase;letter-spacing:1px}
+.panel{width:48%;background:#070f1e;display:flex;flex-direction:column;justify-content:center;padding:28px 30px;border-left:1px solid #0f2040}
+.slide-num{font-size:0.65rem;color:#666;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px}
+.slide-title{font-size:1.5rem;font-weight:800;line-height:1.2;margin-bottom:14px}
+.slide-text{font-size:0.82rem;line-height:1.65;color:#ccd6e8;flex:1}
+.play-btn{margin-top:18px;background:transparent;border:1.5px solid #555;color:#fff;padding:10px 18px;border-radius:24px;cursor:pointer;font-size:0.8rem;display:flex;align-items:center;gap:8px;width:fit-content;transition:all 0.2s}
+.play-btn:hover{border-color:#00d4ff;color:#00d4ff}
+.play-dot{width:8px;height:8px;border-radius:50%;background:#00d4ff}
+.footer{background:#000;padding:10px;display:flex;justify-content:center;gap:10px;flex-shrink:0}
+.btn{background:transparent;border:1px solid #333;color:#aaa;padding:7px 18px;border-radius:20px;cursor:pointer;font-size:0.8rem;transition:all 0.2s}
+.btn:hover{border-color:#00d4ff;color:#00d4ff}
+.btn.active{background:#00d4ff;border-color:#00d4ff;color:#000;font-weight:700}
+.progress{height:3px;background:#111;flex-shrink:0}
+.progress-bar{height:100%;background:#00d4ff;transition:width 0.4s ease}
+</style>
+</head>
+<body>
+<div class="hdr">
+  <div class="hdr-left">
+    <div class="logo">⚡ ZEROPAY</div>
+    <div class="sub">World-First Offline NFC Payment · Patent Pending April 2026 · 20-Slide Investor Presentation</div>
+    <div class="sub">© BETONIQ(WEST) Ltd RC 56802 · Abuja FCT · STRICTLY CONFIDENTIAL</div>
+  </div>
+  <div class="hdr-right">
+    <div class="cnt" id="hdr-cnt">1 / 20</div>
+    <div>OpenAI Shimmer · Professional Voice</div>
+  </div>
+</div>
+<div class="progress"><div class="progress-bar" id="prog" style="width:5%"></div></div>
+<div class="main">
+  <div class="vis" id="vis">
+    <canvas id="cvs"></canvas>
+    <div class="stats-overlay" id="stats-overlay">
+      <div class="stat-box" id="sb1">
+        <div class="stat-val" id="sv1">—</div>
+        <div class="stat-lbl" id="sl1">—</div>
+      </div>
+      <div class="stat-box" id="sb2">
+        <div class="stat-val" id="sv2">—</div>
+        <div class="stat-lbl" id="sl2">—</div>
+      </div>
+    </div>
+  </div>
+  <div class="panel">
+    <div class="slide-num" id="slide-num">SLIDE 01 / 20</div>
+    <div class="slide-title" id="slide-title">Loading...</div>
+    <div class="slide-text" id="slide-text"></div>
+    <button class="play-btn" id="play-btn" onclick="playAudio()">
+      <span class="play-dot" id="dot"></span>
+      <span id="play-label">▶ PLAY — OpenAI Shimmer professional voice</span>
+    </button>
+  </div>
+</div>
+<div class="footer">
+  <button class="btn" onclick="prevSlide()">◀ PREV</button>
+  <button class="btn" id="play-footer" onclick="playAudio()">▶ PLAY</button>
+  <button class="btn" onclick="nextSlide()">NEXT ▶</button>
+  <button class="btn" id="auto-btn" onclick="toggleAuto()">AUTO: OFF</button>
+</div>
+
+<script>
+const SLIDES = [{"id": "chidi", "title": "Meet Chidi \u2014 The Lagos Trader", "accent": "#00d4ff", "bg": "linear-gradient(160deg,#0a1628 0%,#0d2137 50%,#0a1628 100%)", "icon": "\ud83d\udc68\u200d\ud83d\udcbc", "stat1": "38M", "stat1_label": "Nigerians Excluded", "stat2": "1.4B", "stat2_label": "Globally Unbanked", "text": "Chidi runs a thriving electronics shop in Lagos. Every evening he must count naira by hand, walk to a bank branch and wait. No terminal. No card reader. No record. Meet the 38 million Nigerians locked out of the digital economy. ZeroPay exists for Chidi.", "audio": "https://raw.githubusercontent.com/TOMDEGGS/BETONIQ-WEST-/main/betoniq_audio/slide_01.mp3"}, {"id": "problem", "title": "The $26 Billion Problem", "accent": "#ff4444", "bg": "linear-gradient(160deg,#1a0a0a 0%,#2a0f0f 50%,#1a0a0a 100%)", "icon": "\ud83d\udcb8", "stat1": "$26B", "stat1_label": "Annual Nigeria Remittances", "stat2": "72%", "stat2_label": "Never Reach Beneficiaries", "text": "$26 billion flows into Nigeria each year in remittances. Over 72 percent of that capital never reaches the intended recipient in full. Fees eat 8 to 15 percent. Agents steal. Banks delay. Crypto is unstable. There is no trusted infrastructure. Until ZeroPay.", "audio": "https://raw.githubusercontent.com/TOMDEGGS/BETONIQ-WEST-/main/betoniq_audio/slide_02.mp3"}, {"id": "solution", "title": "ZeroPay \u2014 The Protocol Layer", "accent": "#00ff88", "bg": "linear-gradient(160deg,#071a0e 0%,#0d2b19 50%,#071a0e 100%)", "icon": "\u26a1", "stat1": "5-Layer", "stat1_label": "Security Stack", "stat2": "72hr", "stat2_label": "Offline Capability", "text": "ZeroPay is not another app. It is a hardware-embedded protocol layer that sits below every existing payment system. PUF silicon chips inside each terminal create unclonable cryptographic identities. Payments work offline for 72 hours. No internet. No bank. No problem.", "audio": "https://raw.githubusercontent.com/TOMDEGGS/BETONIQ-WEST-/main/betoniq_audio/slide_03.mp3"}, {"id": "puf", "title": "PUF Technology \u2014 The Unforgeable Key", "accent": "#a855f7", "bg": "linear-gradient(160deg,#120a1a 0%,#1e1030 50%,#120a1a 100%)", "icon": "\ud83d\udd10", "stat1": "2^256", "stat1_label": "Key Space", "stat2": "0%", "stat2_label": "Cloning Success Rate", "text": "Physical Unclonable Functions exploit nanoscale silicon variations unique to every chip \u2014 like a fingerprint in hardware. No two PUF terminals produce the same cryptographic response. You cannot clone it. You cannot spoof it. Even the manufacturer cannot duplicate it. This is what makes ZeroPay uncounterfeitable.", "audio": "https://raw.githubusercontent.com/TOMDEGGS/BETONIQ-WEST-/main/betoniq_audio/slide_04.mp3"}, {"id": "offline", "title": "Offline-First Architecture", "accent": "#f59e0b", "bg": "linear-gradient(160deg,#1a1200 0%,#2a1e00 50%,#1a1200 100%)", "icon": "\ud83d\udce1", "stat1": "72hr", "stat1_label": "Offline TTL", "stat2": "100%", "stat2_label": "Transaction Integrity", "text": "When the internet goes down, ZeroPay keeps trading. Pre-signed cryptographic tokens are loaded onto each terminal. Every offline transaction creates an immutable record. When connectivity returns, the Solar Mesh Hub batch-reconciles every single transaction with Paystack in under 3 seconds.", "audio": "https://raw.githubusercontent.com/TOMDEGGS/BETONIQ-WEST-/main/betoniq_audio/slide_05.mp3"}, {"id": "mesh", "title": "Solar Mesh Hub \u2014 The Backbone", "accent": "#06b6d4", "bg": "linear-gradient(160deg,#030f14 0%,#051a22 50%,#030f14 100%)", "icon": "\ud83c\udf10", "stat1": "50km", "stat1_label": "Mesh Relay Range", "stat2": "6-hop", "stat2_label": "Max Settlement Path", "text": "The Solar Mesh Hub is a solar-powered relay node with a 72-hour supercapacitor backup. Every hub bridges ZeroPay terminals to the Paystack settlement rail via encrypted mesh relay. No cellular tower required. Rural Edo State. Remote Borno. The Sahara border. All connected.", "audio": "https://raw.githubusercontent.com/TOMDEGGS/BETONIQ-WEST-/main/betoniq_audio/slide_06.mp3"}, {"id": "security", "title": "5-Layer Security Gauntlet", "accent": "#ef4444", "bg": "linear-gradient(160deg,#1a0505 0%,#2d0808 50%,#1a0505 100%)", "icon": "\ud83d\udee1\ufe0f", "stat1": "5", "stat1_label": "Security Layers", "stat2": "0", "stat2_label": "Successful Breaches", "text": "Layer 1: PUF hardware identity \u2014 unclonable silicon. Layer 2: ECC P-256 digital signing \u2014 every packet signed. Layer 3: Distance Bounding Protocol \u2014 relay attacks impossible. Layer 4: Offline Cryptographic Tokens \u2014 72-hour TTL. Layer 5: Solar Mesh encryption \u2014 end-to-end AES-256. Each layer independent. All five together: impenetrable.", "audio": "https://raw.githubusercontent.com/TOMDEGGS/BETONIQ-WEST-/main/betoniq_audio/slide_07.mp3"}, {"id": "fx", "title": "147-Currency FX Engine", "accent": "#10b981", "bg": "linear-gradient(160deg,#041a10 0%,#062b1a 50%,#041a10 100%)", "icon": "\ud83d\udcb1", "stat1": "147", "stat1_label": "Currencies Supported", "stat2": "<0.5%", "stat2_label": "FX Spread", "text": "ZeroPay integrates a real-time 147-currency FX engine that caches exchange rates onto every terminal during the last sync. A British Nigerian sending \u00a3500 home enters the amount in GBP. The terminal confirms the exact naira equivalent before the NFC tap. No hidden fees. No surprise rates. Transparency built into hardware.", "audio": "https://raw.githubusercontent.com/TOMDEGGS/BETONIQ-WEST-/main/betoniq_audio/slide_08.mp3"}, {"id": "market", "title": "The Market Opportunity", "accent": "#f97316", "bg": "linear-gradient(160deg,#1a0a00 0%,#2d1400 50%,#1a0a00 100%)", "icon": "\ud83d\udcca", "stat1": "$5.1B", "stat1_label": "Nigeria Fintech TAM", "stat2": "$847B", "stat2_label": "Global Unbanked Market", "text": "Nigeria's fintech market is valued at $5.1 billion and growing at 24 percent annually. The global unbanked population represents an $847 billion untapped market. ZeroPay targets Year 1 deployment across 11 Nigerian states, expanding to West Africa in Year 2 and MENA in Year 3. First-mover advantage is available for 18 months.", "audio": "https://raw.githubusercontent.com/TOMDEGGS/BETONIQ-WEST-/main/betoniq_audio/slide_09.mp3"}, {"id": "traction", "title": "Traction & Validation", "accent": "#84cc16", "bg": "linear-gradient(160deg,#0c1a02 0%,#152b04 50%,#0c1a02 100%)", "icon": "\ud83d\ude80", "stat1": "RC 56802", "stat1_label": "CAC Registered", "stat2": "Apr 2026", "stat2_label": "Patent Pending", "text": "BETONIQ(WEST) Ltd is CAC-registered in Abuja, FCT, Nigeria. ZeroPay patent filed April 2026 \u2014 covering the PUF-offline-mesh architecture. Paystack Merchant Agreement signed July 2026. Speedinvest Vienna has formally requested a full application. MSc NFC technology \u2014 University of Gloucestershire 2011 \u2014 15 years of research commercialised.", "audio": "https://raw.githubusercontent.com/TOMDEGGS/BETONIQ-WEST-/main/betoniq_audio/slide_10.mp3"}, {"id": "paystack", "title": "Paystack \u2014 The Settlement Rail", "accent": "#00d4ff", "bg": "linear-gradient(160deg,#001a28 0%,#002a40 50%,#001a28 100%)", "icon": "\ud83c\udfe6", "stat1": "Signed", "stat1_label": "Merchant Agreement", "stat2": "Jul 2026", "stat2_label": "Partnership Active", "text": "ZeroPay uses Paystack not as a merchant but as its protocol-layer settlement rail. Paystack MFB holds the float. Paystack API processes the reconciliation. ZeroPay's hardware generates the transaction. This is a unique B2B infrastructure partnership \u2014 not a standard payment gateway integration. Paystack processes $1.2 billion monthly. ZeroPay routes into that rail.", "audio": "https://raw.githubusercontent.com/TOMDEGGS/BETONIQ-WEST-/main/betoniq_audio/slide_11.mp3"}, {"id": "revenue", "title": "Revenue Model", "accent": "#fbbf24", "bg": "linear-gradient(160deg,#1a1200 0%,#2a1c00 50%,#1a1200 100%)", "icon": "\ud83d\udcb0", "stat1": "\u20a63M/day", "stat1_label": "Year 1 Target Volume", "stat2": "1.2%", "stat2_label": "Transaction Fee", "text": "ZeroPay earns 1.2 percent on every settled transaction. Year 1 target: \u20a63 million naira in daily transaction volume across 500 merchant terminals. Year 2: \u20a625 million daily across 4,000 terminals and 3 West African markets. Year 3: $55 million USD annual revenue across 11 countries. Terminal hardware leased at \u20a615,000 per month.", "audio": "https://raw.githubusercontent.com/TOMDEGGS/BETONIQ-WEST-/main/betoniq_audio/slide_12.mp3"}, {"id": "team", "title": "The Founding Team", "accent": "#ec4899", "bg": "linear-gradient(160deg,#1a0514 0%,#2d0920 50%,#1a0514 100%)", "icon": "\ud83d\udc68\u200d\ud83d\udd2c", "stat1": "15yrs", "stat1_label": "Research Commercialised", "stat2": "2011", "stat2_label": "MSc NFC Top Graduate", "text": "Tom Ugbodaga \u2014 MSc NFC for Contactless Technology in Financial Transactions, University of Gloucestershire 2011, top graduate. MSc Computer Security Systems. BSc Physics Nigeria. 15 years of NFC research applied to solving the unbanked crisis. BETONIQ(WEST) Ltd headquartered in Abuja, Nigeria. Launching September 30, 2026.", "audio": "https://raw.githubusercontent.com/TOMDEGGS/BETONIQ-WEST-/main/betoniq_audio/slide_13.mp3"}, {"id": "raise", "title": "The Ask \u2014 $4.5M Pre-Series A", "accent": "#f43f5e", "bg": "linear-gradient(160deg,#1a0208 0%,#2d040f 50%,#1a0208 100%)", "icon": "\ud83c\udfaf", "stat1": "$4.5M", "stat1_label": "Pre-Series A Target", "stat2": "18mo", "stat2_label": "Runway", "text": "Raising $4.5 million USD Pre-Series A. Use of funds: 40 percent hardware manufacturing \u2014 first 500 PUF terminals. 30 percent regulatory licensing across 3 markets. 20 percent engineering \u2014 firmware and mesh software. 10 percent commercial deployment \u2014 sales and operations. 18-month runway to Series A at $20M valuation.", "audio": "https://raw.githubusercontent.com/TOMDEGGS/BETONIQ-WEST-/main/betoniq_audio/slide_14.mp3"}, {"id": "roadmap", "title": "12-Month Deployment Roadmap", "accent": "#8b5cf6", "bg": "linear-gradient(160deg,#0e0514 0%,#180a22 50%,#0e0514 100%)", "icon": "\ud83d\uddfa\ufe0f", "stat1": "Q4 2026", "stat1_label": "Nigeria Launch", "stat2": "Q3 2027", "stat2_label": "West Africa Expansion", "text": "Q4 2026: 500 terminals live across Abuja, Lagos, and Edo State. Paystack settlement active. Q1 2027: CBN regulatory approval confirmed. Mesh Hub network \u2014 50 relay nodes. Q2 2027: Series A raise. Q3 2027: Ghana and Kenya deployment. Q4 2027: UAE remittance corridor live. $55M revenue trajectory by Year 3.", "audio": "https://raw.githubusercontent.com/TOMDEGGS/BETONIQ-WEST-/main/betoniq_audio/slide_15.mp3"}, {"id": "betoniq", "title": "BETONIQ INVEST \u2014 The Parallel Platform", "accent": "#f97316", "bg": "linear-gradient(160deg,#1a0c00 0%,#2d1500 50%,#1a0c00 100%)", "icon": "\ud83c\udfd7\ufe0f", "stat1": "$5.1B", "stat1_label": "Real Estate Pipeline", "stat2": "47", "stat2_label": "AI Parameters", "text": "BETONIQ INVEST is the sister platform \u2014 AI-powered real estate investment intelligence for the African diaspora. 47 AI parameters score every project across 11 countries. Diaspora investors access verified projects from the UK, UAE, Canada, and the US. ZeroPay handles all settlement. BETONIQ INVEST handles all deal flow. One ecosystem. Two products.", "audio": "https://raw.githubusercontent.com/TOMDEGGS/BETONIQ-WEST-/main/betoniq_audio/slide_16.mp3"}, {"id": "ecosystem", "title": "The Full Ecosystem", "accent": "#06b6d4", "bg": "linear-gradient(160deg,#030f1a 0%,#041a28 50%,#030f1a 100%)", "icon": "\ud83c\udf0d", "stat1": "2-in-1", "stat1_label": "Payment + Investment", "stat2": "11", "stat2_label": "Target Countries", "text": "ZeroPay and BETONIQ INVEST share one infrastructure. ZeroPay moves the money. BETONIQ INVEST deploys it into real estate. A farmer in Edo State taps NFC to receive his daughter's UK remittance. That same daughter in London uses BETONIQ INVEST to buy equity in an Abuja apartment. One ecosystem. One mission. 1.4 billion people served.", "audio": "https://raw.githubusercontent.com/TOMDEGGS/BETONIQ-WEST-/main/betoniq_audio/slide_17.mp3"}, {"id": "why_now", "title": "Why Now \u2014 The 18-Month Window", "accent": "#ef4444", "bg": "linear-gradient(160deg,#1a0000 0%,#2d0404 50%,#1a0000 100%)", "icon": "\u23f0", "stat1": "18mo", "stat1_label": "First-Mover Window", "stat2": "2026", "stat2_label": "CBN PUF Framework Open", "text": "Nigeria's Central Bank released its PUF-compatible terminal framework in January 2026. No competitor has filed a PUF patent for offline NFC payment. Moniepoint, Flutterwave, and Paystack all operate online-only. The regulatory window and the competitive gap exist simultaneously \u2014 for exactly 18 months. This is the moment.", "audio": "https://raw.githubusercontent.com/TOMDEGGS/BETONIQ-WEST-/main/betoniq_audio/slide_18.mp3"}, {"id": "partners", "title": "Strategic Partners & Pipeline", "accent": "#10b981", "bg": "linear-gradient(160deg,#021a0e 0%,#032b16 50%,#021a0e 100%)", "icon": "\ud83e\udd1d", "stat1": "5+", "stat1_label": "Active VC Conversations", "stat2": "3", "stat2_label": "Corporate Partners Engaged", "text": "Active VC conversations: Speedinvest Vienna, Techstars Anywhere, Atomico, Algebra Ventures, Onafriq. Corporate partnerships: Paystack (signed), Africa Fintech Foundry (application live), Gates Foundation (concept note submitted). Grant pipeline: $8.7M USD across 8 active applications. Every door is open. We need the key.", "audio": "https://raw.githubusercontent.com/TOMDEGGS/BETONIQ-WEST-/main/betoniq_audio/slide_19.mp3"}, {"id": "close", "title": "Join Us \u2014 The World Is Watching", "accent": "#fbbf24", "bg": "linear-gradient(160deg,#0d0d00 0%,#1a1a00 50%,#0d0d00 100%)", "icon": "\u2b50", "stat1": "$4.5M", "stat1_label": "Pre-Series A", "stat2": "Sep 2026", "stat2_label": "Launch Date", "text": "The world's first unclonable offline NFC payment terminal. Patent-pending hardware. 5-layer security. 72-hour offline capability. 147-currency FX. Solar Mesh relay network. Paystack settlement rail. BETONIQ INVEST deal flow. $8.7 million in active grant applications. Launching September 30, 2026. We are not asking for permission. We are asking for $4.5 million to change the world.", "audio": "https://raw.githubusercontent.com/TOMDEGGS/BETONIQ-WEST-/main/betoniq_audio/slide_20.mp3"}];
+let cur = 0, audio = null, autoMode = false, autoTimer = null, animFrame = null, t = 0;
+
+function updateUI() {
+  const s = SLIDES[cur];
+  document.getElementById('hdr-cnt').textContent = (cur+1) + ' / 20';
+  document.getElementById('slide-num').textContent = 'SLIDE ' + String(cur+1).padStart(2,'0') + ' / 20';
+  document.getElementById('slide-title').textContent = s.title;
+  document.getElementById('slide-title').style.color = s.accent;
+  document.getElementById('slide-text').textContent = s.text;
+  document.getElementById('prog').style.width = ((cur+1)/20*100) + '%';
+  // stats
+  document.getElementById('sv1').textContent = s.stat1;
+  document.getElementById('sv1').style.color = s.accent;
+  document.getElementById('sl1').textContent = s.stat1_label;
+  document.getElementById('sb1').style.borderColor = s.accent + '66';
+  document.getElementById('sv2').textContent = s.stat2;
+  document.getElementById('sv2').style.color = s.accent;
+  document.getElementById('sl2').textContent = s.stat2_label;
+  document.getElementById('sb2').style.borderColor = s.accent + '66';
+  // canvas bg
+  document.getElementById('vis').style.background = s.bg;
+  // play dot
+  document.getElementById('dot').style.background = s.accent;
+  // reset play label
+  document.getElementById('play-label').textContent = '▶ PLAY — OpenAI Shimmer professional voice';
+  // animate
+  if(animFrame) cancelAnimationFrame(animFrame);
+  t = 0;
+  drawCanvas();
+}
+
+const canvas = document.getElementById('cvs');
+const ctx = canvas.getContext('2d');
+
+function resizeCanvas() {
+  canvas.width = canvas.offsetWidth;
+  canvas.height = canvas.offsetHeight;
+}
+window.addEventListener('resize', resizeCanvas);
+setTimeout(resizeCanvas, 100);
+
+// Unique animations per slide type
+const ANIM_MAP = {
+  'chidi': drawChidi,
+  'problem': drawProblem,
+  'solution': drawSolution,
+  'puf': drawPuf,
+  'offline': drawOffline,
+  'mesh': drawMesh,
+  'security': drawSecurity,
+  'fx': drawFX,
+  'market': drawMarket,
+  'traction': drawTraction,
+  'paystack': drawPaystack,
+  'revenue': drawRevenue,
+  'team': drawTeam,
+  'raise': drawRaise,
+  'roadmap': drawRoadmap,
+  'betoniq': drawBetoniq,
+  'ecosystem': drawEcosystem,
+  'why_now': drawWhyNow,
+  'partners': drawPartners,
+  'close': drawClose
+};
+
+function drawCanvas() {
+  resizeCanvas();
+  const s = SLIDES[cur];
+  const fn = ANIM_MAP[s.id];
+  if(fn) fn();
+  t += 0.016;
+  animFrame = requestAnimationFrame(drawCanvas);
+}
+
+const W = ()=>canvas.width, H = ()=>canvas.height;
+
+function hex(c) { return c; }
+
+function drawChidi() {
+  const w=W(),h=H(),ac='#00d4ff';
+  ctx.clearRect(0,0,w,h);
+  // Pulsing person silhouette center
+  const cx=w/2,cy=h*0.38;
+  // head
+  const pulse = 1 + 0.05*Math.sin(t*2);
+  ctx.beginPath(); ctx.arc(cx, cy-60*pulse, 28*pulse, 0, Math.PI*2);
+  ctx.fillStyle=ac+'33'; ctx.fill();
+  ctx.strokeStyle=ac; ctx.lineWidth=2; ctx.stroke();
+  // body
+  ctx.beginPath(); ctx.moveTo(cx,cy-32); ctx.lineTo(cx,cy+50);
+  ctx.strokeStyle=ac; ctx.lineWidth=3; ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(cx-30,cy); ctx.lineTo(cx+30,cy);
+  ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(cx,cy+50); ctx.lineTo(cx-20,cy+90);
+  ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(cx,cy+50); ctx.lineTo(cx+20,cy+90);
+  ctx.stroke();
+  // floating naira notes
+  for(let i=0;i<6;i++) {
+    const ang = t*0.5 + i*Math.PI/3;
+    const r = 80 + 20*Math.sin(t+i);
+    const nx = cx + r*Math.cos(ang);
+    const ny = cy + r*Math.sin(ang)*0.5;
+    ctx.fillStyle='#fbbf24';
+    ctx.font='bold 16px Arial';
+    ctx.fillText('₦',nx,ny);
+  }
+  // question marks bouncing
+  ['?','?','?'].forEach((q,i)=>{
+    const x = cx-80+i*80;
+    const y = h*0.65 + 20*Math.sin(t*1.5+i);
+    ctx.fillStyle='#ff4444';
+    ctx.font='bold 28px Arial';
+    ctx.fillText(q,x,y);
+  });
+  // icon large
+  ctx.font='60px Arial'; ctx.fillStyle='#ffffff22';
+  ctx.fillText('👨‍💼',cx-30,h*0.18);
+}
+
+function drawProblem() {
+  const w=W(),h=H(),ac='#ff4444';
+  ctx.clearRect(0,0,w,h);
+  // Falling money being eaten
+  for(let i=0;i<8;i++) {
+    const x = (i/8)*w + 20;
+    const y = ((t*60+i*80)%h);
+    ctx.fillStyle='#fbbf24';
+    ctx.font='bold 14px Arial';
+    ctx.fillText('$',x,y);
+  }
+  // Big percent eaten graphic
+  const cx=w/2,cy=h/2;
+  ctx.beginPath(); ctx.arc(cx,cy,70,0,Math.PI*2);
+  ctx.strokeStyle=ac+'44'; ctx.lineWidth=12; ctx.stroke();
+  // Eaten portion
+  const eaten = (Math.sin(t*0.5)*0.1 + 0.72) * Math.PI*2;
+  ctx.beginPath(); ctx.arc(cx,cy,70,-Math.PI/2,-Math.PI/2+eaten);
+  ctx.strokeStyle=ac; ctx.lineWidth=12; ctx.stroke();
+  ctx.fillStyle='#fff'; ctx.font='bold 22px Arial'; ctx.textAlign='center';
+  ctx.fillText('72%',cx,cy+6);
+  ctx.font='11px Arial'; ctx.fillStyle='#aaa';
+  ctx.fillText('LOST',cx,cy+22);
+  ctx.textAlign='left';
+}
+
+function drawSolution() {
+  const w=W(),h=H(),ac='#00ff88';
+  ctx.clearRect(0,0,w,h);
+  // Protocol stack layers
+  const layers=['PUF Hardware','Offline Token','Mesh Hub Relay','Paystack API','MFB Settle'];
+  layers.forEach((l,i)=>{
+    const y = h*0.2 + i*50;
+    const active = Math.floor(t*1.5)%5===i;
+    ctx.fillStyle = active ? ac+'44' : '#ffffff11';
+    ctx.strokeStyle = active ? ac : '#333';
+    ctx.lineWidth=1.5;
+    roundRect(ctx,w*0.1,y,w*0.8,36,6);
+    ctx.fill(); ctx.stroke();
+    ctx.fillStyle = active ? ac : '#888';
+    ctx.font = active ? 'bold 13px Arial' : '12px Arial';
+    ctx.textAlign='center';
+    ctx.fillText(l, w/2, y+22);
+    ctx.textAlign='left';
+    // Arrow
+    if(i<4){
+      ctx.strokeStyle=ac+'66'; ctx.lineWidth=1;
+      ctx.beginPath(); ctx.moveTo(w/2,y+36); ctx.lineTo(w/2,y+50); ctx.stroke();
+    }
+  });
+}
+
+function drawPuf() {
+  const w=W(),h=H(),ac='#a855f7';
+  ctx.clearRect(0,0,w,h);
+  // Silicon chip
+  const cx=w/2,cy=h/2-20;
+  ctx.fillStyle='#1a0a2a'; ctx.strokeStyle=ac; ctx.lineWidth=2;
+  roundRect(ctx,cx-60,cy-60,120,120,8); ctx.fill(); ctx.stroke();
+  // Circuit lines
+  for(let i=0;i<5;i++){
+    ctx.strokeStyle=ac+'66'; ctx.lineWidth=1;
+    ctx.beginPath(); ctx.moveTo(cx-60,cy-40+i*20); ctx.lineTo(cx-80,cy-40+i*20); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(cx+60,cy-40+i*20); ctx.lineTo(cx+80,cy-40+i*20); ctx.stroke();
+  }
+  // PUF text
+  ctx.fillStyle=ac; ctx.font='bold 20px monospace'; ctx.textAlign='center';
+  ctx.fillText('PUF',cx,cy-10);
+  ctx.font='10px monospace'; ctx.fillStyle='#888';
+  ctx.fillText('SILICON ID',cx,cy+8);
+  // Key bits flowing
+  for(let i=0;i<12;i++){
+    const ang = t*0.8 + i*Math.PI/6;
+    const r = 90+20*Math.sin(t+i);
+    ctx.fillStyle = Math.round(t*4+i)%2===0 ? ac : '#fff';
+    ctx.font='bold 11px monospace';
+    ctx.fillText(Math.round(t*3+i)%2,cx+r*Math.cos(ang)-4,cy+r*Math.sin(ang));
+  }
+  ctx.textAlign='left';
+}
+
+function drawOffline() {
+  const w=W(),h=H(),ac='#f59e0b';
+  ctx.clearRect(0,0,w,h);
+  // Token TTL countdown
+  const ttl = 72 - (t*2)%72;
+  const ang = (ttl/72)*Math.PI*2;
+  const cx=w/2,cy=h*0.4;
+  ctx.beginPath(); ctx.arc(cx,cy,65,0,Math.PI*2);
+  ctx.strokeStyle='#333'; ctx.lineWidth=10; ctx.stroke();
+  ctx.beginPath(); ctx.arc(cx,cy,65,-Math.PI/2,-Math.PI/2+ang);
+  ctx.strokeStyle=ac; ctx.lineWidth=10; ctx.stroke();
+  ctx.fillStyle='#fff'; ctx.font='bold 28px Arial'; ctx.textAlign='center';
+  ctx.fillText(Math.round(ttl)+'h',cx,cy+8);
+  ctx.font='11px Arial'; ctx.fillStyle='#aaa';
+  ctx.fillText('TOKEN TTL',cx,cy+26);
+  // No wifi symbol
+  ctx.fillStyle='#ff4444'; ctx.font='32px Arial';
+  ctx.fillText('📵',cx-16,h*0.7);
+  ctx.fillStyle='#00ff88'; ctx.font='11px Arial';
+  ctx.fillText('OFFLINE — TOKENS ACTIVE',cx-55,h*0.78);
+  ctx.textAlign='left';
+}
+
+function drawMesh() {
+  const w=W(),h=H(),ac='#06b6d4';
+  ctx.clearRect(0,0,w,h);
+  const nodes=[
+    {x:w*0.2,y:h*0.25,label:'Abuja Hub'},
+    {x:w*0.5,y:h*0.2,label:'Relay 1'},
+    {x:w*0.8,y:h*0.3,label:'Relay 2'},
+    {x:w*0.15,y:h*0.6,label:'Terminal A'},
+    {x:w*0.45,y:h*0.65,label:'Terminal B'},
+    {x:w*0.75,y:h*0.6,label:'Paystack'},
+  ];
+  const edges=[[0,1],[1,2],[0,3],[1,4],[2,5],[3,4],[4,5]];
+  edges.forEach(([a,b])=>{
+    const na=nodes[a],nb=nodes[b];
+    ctx.strokeStyle=ac+'44'; ctx.lineWidth=1.5;
+    ctx.beginPath(); ctx.moveTo(na.x,na.y); ctx.lineTo(nb.x,nb.y); ctx.stroke();
+    // packet
+    const pf = (t*0.7+a*0.3)%1;
+    const px=na.x+(nb.x-na.x)*pf;
+    const py=na.y+(nb.y-na.y)*pf;
+    ctx.beginPath(); ctx.arc(px,py,4,0,Math.PI*2);
+    ctx.fillStyle=ac; ctx.fill();
+  });
+  nodes.forEach((n,i)=>{
+    const r = i===0?14:i===5?14:10;
+    ctx.beginPath(); ctx.arc(n.x,n.y,r,0,Math.PI*2);
+    ctx.fillStyle = i===0||i===5 ? ac+'66':'#1a3a4a';
+    ctx.fill();
+    ctx.strokeStyle=ac; ctx.lineWidth=2; ctx.stroke();
+    ctx.fillStyle='#fff'; ctx.font='9px Arial'; ctx.textAlign='center';
+    ctx.fillText(n.label,n.x,n.y+r+12);
+    ctx.textAlign='left';
+  });
+}
+
+function drawSecurity() {
+  const w=W(),h=H(),ac='#ef4444';
+  ctx.clearRect(0,0,w,h);
+  const layers=['PUF Silicon','ECC P-256 Sign','Distance Bounding','Offline Tokens','AES-256 Mesh'];
+  const active = Math.floor(t*1.2)%5;
+  layers.forEach((l,i)=>{
+    const y=h*0.15+i*48;
+    const ok = i<active || (i===active && Math.sin(t*4)>0);
+    ctx.fillStyle = ok?'#00ff8822':'#ff000011';
+    ctx.strokeStyle = ok?'#00ff88':ac+'88';
+    ctx.lineWidth=1.5;
+    roundRect(ctx,w*0.12,y,w*0.76,36,6); ctx.fill(); ctx.stroke();
+    ctx.fillStyle=ok?'#00ff88':'#888';
+    ctx.font='bold 12px Arial'; ctx.textAlign='center';
+    ctx.fillText((ok?'✓ ':'⏳ ')+l,w/2,y+22);
+    ctx.textAlign='left';
+  });
+  ctx.fillStyle='#00ff88'; ctx.font='bold 14px Arial'; ctx.textAlign='center';
+  ctx.fillText('LAYER '+(active+1)+' ACTIVE',w/2,h*0.9);
+  ctx.textAlign='left';
+}
+
+function drawFX() {
+  const w=W(),h=H(),ac='#10b981';
+  ctx.clearRect(0,0,w,h);
+  const pairs=[['GBP','₦','£500','₦950,000'],['USD','₦','$400','₦620,000'],['AED','₦','د.إ1,000','₦420,000'],['EUR','₦','€450','₦820,000']];
+  const ai = Math.floor(t*0.5)%pairs.length;
+  pairs.forEach(([from,to,amtF,amtT],i)=>{
+    const y=h*0.2+i*55;
+    const active=i===ai;
+    ctx.fillStyle=active?ac+'22':'#ffffff08';
+    ctx.strokeStyle=active?ac:'#333';
+    ctx.lineWidth=active?2:1;
+    roundRect(ctx,w*0.05,y,w*0.9,44,6); ctx.fill(); ctx.stroke();
+    ctx.fillStyle=active?'#fff':'#888';
+    ctx.font=active?'bold 13px Arial':'12px Arial'; ctx.textAlign='left';
+    ctx.fillText(from+' → '+to+' : '+amtF+' = '+amtT,w*0.1,y+26);
+    if(active){
+      ctx.fillStyle=ac; ctx.font='10px Arial';
+      ctx.fillText('LIVE RATE CACHED',w*0.65,y+14);
+    }
+  });
+  ctx.textAlign='center';
+  ctx.fillStyle=ac; ctx.font='bold 16px Arial';
+  ctx.fillText('147 Currencies · <0.5% Spread',w/2,h*0.88);
+  ctx.textAlign='left';
+}
+
+function drawMarket() {
+  const w=W(),h=H(),ac='#f97316';
+  ctx.clearRect(0,0,w,h);
+  const bars=[['Nigeria TAM','$5.1B',0.6],['W.Africa','$12.4B',0.85],['Global','$847B',1.0]];
+  bars.forEach(([label,val,pct],i)=>{
+    const y=h*0.2+i*70;
+    const maxW=w*0.75;
+    const bw=maxW*pct*(Math.min(t*0.5,1));
+    ctx.fillStyle='#ffffff11';
+    roundRect(ctx,w*0.12,y,maxW,36,4); ctx.fill();
+    ctx.fillStyle=ac+(i===2?'ff':i===1?'aa':'66');
+    roundRect(ctx,w*0.12,y,Math.min(bw,maxW),36,4); ctx.fill();
+    ctx.fillStyle='#fff'; ctx.font='bold 13px Arial'; ctx.textAlign='left';
+    ctx.fillText(label,w*0.14,y+23);
+    ctx.fillStyle=ac; ctx.textAlign='right';
+    ctx.fillText(val,w*0.87+maxW*0.01,y+23);
+    ctx.textAlign='left';
+  });
+  ctx.fillStyle='#fff'; ctx.font='11px Arial';
+  ctx.fillText('24% annual growth · First-mover advantage available',w*0.1,h*0.82);
+}
+
+function drawTraction() {
+  const w=W(),h=H(),ac='#84cc16';
+  ctx.clearRect(0,0,w,h);
+  const items=[
+    ['RC 56802','CAC Registered · Abuja FCT','✓'],
+    ['Patent','PUF+Offline+Mesh · April 2026','✓'],
+    ['Paystack','Merchant Agreement Signed Jul 2026','✓'],
+    ['Speedinvest','Typeform Application Requested','→'],
+    ['Launch','September 30, 2026','⏳'],
+  ];
+  items.forEach(([title,sub,status],i)=>{
+    const y=h*0.12+i*58;
+    const done=status==='✓';
+    ctx.fillStyle=done?ac+'22':'#ffffff08';
+    ctx.strokeStyle=done?ac:'#444';
+    ctx.lineWidth=1.5;
+    roundRect(ctx,w*0.06,y,w*0.88,44,6); ctx.fill(); ctx.stroke();
+    ctx.fillStyle=done?ac:'#fbbf24';
+    ctx.font='bold 18px Arial'; ctx.textAlign='left';
+    ctx.fillText(status,w*0.1,y+28);
+    ctx.fillStyle='#fff'; ctx.font='bold 12px Arial';
+    ctx.fillText(title,w*0.2,y+18);
+    ctx.fillStyle='#aaa'; ctx.font='10px Arial';
+    ctx.fillText(sub,w*0.2,y+34);
+  });
+}
+
+function drawPaystack() {
+  const w=W(),h=H(),ac='#00d4ff';
+  ctx.clearRect(0,0,w,h);
+  // ZeroPay → Paystack flow
+  const cx=w/2;
+  // ZeroPay box
+  ctx.fillStyle='#0a2a3a'; ctx.strokeStyle=ac; ctx.lineWidth=2;
+  roundRect(ctx,cx-180,h*0.2,150,50,8); ctx.fill(); ctx.stroke();
+  ctx.fillStyle=ac; ctx.font='bold 14px Arial'; ctx.textAlign='center';
+  ctx.fillText('ZeroPay',cx-105,h*0.2+30);
+  // Arrow with packet
+  const pf=(t*0.8)%1;
+  ctx.strokeStyle=ac; ctx.lineWidth=2;
+  ctx.beginPath(); ctx.moveTo(cx-30,h*0.225); ctx.lineTo(cx+30,h*0.225); ctx.stroke();
+  ctx.beginPath(); ctx.arc(cx-30+60*pf,h*0.225,5,0,Math.PI*2);
+  ctx.fillStyle=ac; ctx.fill();
+  // Paystack box
+  ctx.fillStyle='#001a0a'; ctx.strokeStyle='#00c853'; ctx.lineWidth=2;
+  roundRect(ctx,cx+30,h*0.2,150,50,8); ctx.fill(); ctx.stroke();
+  ctx.fillStyle='#00c853'; ctx.font='bold 14px Arial';
+  ctx.fillText('Paystack MFB',cx+105,h*0.2+30);
+  // Stats below
+  ctx.fillStyle='#fff'; ctx.font='12px Arial'; ctx.textAlign='center';
+  ctx.fillText('$1.2B monthly volume · Settlement in <3s',cx,h*0.55);
+  ctx.fillStyle=ac; ctx.font='bold 11px Arial';
+  ctx.fillText('SIGNED JULY 2026 · PROTOCOL-LAYER PARTNER',cx,h*0.65);
+  ctx.textAlign='left';
+}
+
+function drawRevenue() {
+  const w=W(),h=H(),ac='#fbbf24';
+  ctx.clearRect(0,0,w,h);
+  const bars=[['Yr 1','₦3M/day',0.15],['Yr 2','₦25M/day',0.55],['Yr 3','$55M/yr',1.0]];
+  bars.forEach(([yr,val,pct],i)=>{
+    const bh=(h*0.55)*pct*(Math.min(t*0.4,1));
+    const x=w*0.15+i*(w*0.25);
+    const y=h*0.75-bh;
+    const grad=ctx.createLinearGradient(0,y,0,h*0.75);
+    grad.addColorStop(0,ac); grad.addColorStop(1,ac+'44');
+    ctx.fillStyle=grad;
+    roundRect(ctx,x,y,w*0.18,bh,4); ctx.fill();
+    ctx.fillStyle='#fff'; ctx.font='bold 13px Arial'; ctx.textAlign='center';
+    ctx.fillText(yr,x+w*0.09,h*0.8);
+    ctx.fillStyle=ac; ctx.font='11px Arial';
+    ctx.fillText(val,x+w*0.09,y-8);
+  });
+  ctx.textAlign='left';
+  ctx.strokeStyle='#333'; ctx.lineWidth=1;
+  ctx.beginPath(); ctx.moveTo(w*0.08,h*0.75); ctx.lineTo(w*0.92,h*0.75); ctx.stroke();
+}
+
+function drawTeam() {
+  const w=W(),h=H(),ac='#ec4899';
+  ctx.clearRect(0,0,w,h);
+  const cx=w/2,cy=h*0.38;
+  // Person
+  ctx.beginPath(); ctx.arc(cx,cy-40,35,0,Math.PI*2);
+  ctx.fillStyle=ac+'22'; ctx.fill();
+  ctx.strokeStyle=ac; ctx.lineWidth=2; ctx.stroke();
+  ctx.fillStyle='#fff'; ctx.font='bold 22px Arial'; ctx.textAlign='center';
+  ctx.fillText('TU',cx,cy-32);
+  // Credentials floating
+  const creds=['MSc NFC 2011','MSc Security','BSc Physics','15yr Research','Patent 2026'];
+  creds.forEach((c,i)=>{
+    const ang = t*0.4 + i*Math.PI*2/5;
+    const r=100;
+    const x=cx+r*Math.cos(ang);
+    const y=cy+r*Math.sin(ang);
+    ctx.fillStyle=ac+'aa'; ctx.font='9px Arial';
+    ctx.fillText(c,x-20,y);
+  });
+  ctx.fillStyle=ac; ctx.font='bold 14px Arial';
+  ctx.fillText('Tom Ugbodaga — Founder',cx,h*0.72);
+  ctx.fillStyle='#aaa'; ctx.font='11px Arial';
+  ctx.fillText('BETONIQ(WEST) Ltd · RC 56802 · Abuja',cx,h*0.8);
+  ctx.textAlign='left';
+}
+
+function drawRaise() {
+  const w=W(),h=H(),ac='#f43f5e';
+  ctx.clearRect(0,0,w,h);
+  // Rocket
+  const ry = h*0.6 - (t*30)%(h*0.5);
+  ctx.font='52px Arial'; ctx.fillText('🚀',w/2-26,ry);
+  // Exhaust
+  for(let i=0;i<8;i++){
+    ctx.beginPath(); ctx.arc(w/2+(Math.random()-0.5)*20,ry+60+i*8,3+Math.random()*4,0,Math.PI*2);
+    ctx.fillStyle="rgba(255,"+(100+i*15)+",0,"+(0.8-i*0.1)+")"; ctx.fill();
+  }
+  // Use of funds bars
+  const uses=[['Hardware 40%',0.4],['Regulatory 30%',0.3],['Engineering 20%',0.2],['Commercial 10%',0.1]];
+  uses.forEach(([label,pct],i)=>{
+    const y=h*0.12+i*38;
+    const bw=(w*0.45)*pct*(Math.min(t*0.5,1));
+    ctx.fillStyle='#ffffff11'; roundRect(ctx,w*0.07,y,w*0.45,26,4); ctx.fill();
+    ctx.fillStyle=ac+(i===0?'ff':i===1?'cc':i===2?'88':'55');
+    roundRect(ctx,w*0.07,y,bw,26,4); ctx.fill();
+    ctx.fillStyle='#fff'; ctx.font='11px Arial'; ctx.textAlign='left';
+    ctx.fillText(label,w*0.1,y+17);
+  });
+  ctx.textAlign='center';
+  ctx.fillStyle=ac; ctx.font='bold 20px Arial';
+  ctx.fillText('$4.5M PRE-SERIES A',w/2+w*0.15,h*0.55);
+}
+
+function drawRoadmap() {
+  const w=W(),h=H(),ac='#8b5cf6';
+  ctx.clearRect(0,0,w,h);
+  const milestones=[
+    {q:'Q4 2026',label:'500 Terminals Live',y:h*0.18},
+    {q:'Q1 2027',label:'CBN Approval',y:h*0.34},
+    {q:'Q2 2027',label:'Series A',y:h*0.50},
+    {q:'Q3 2027',label:'Ghana + Kenya',y:h*0.66},
+    {q:'Q4 2027',label:'UAE Corridor Live',y:h*0.82},
+  ];
+  // Timeline line
+  ctx.strokeStyle=ac+'44'; ctx.lineWidth=2;
+  ctx.beginPath(); ctx.moveTo(w*0.2,h*0.18); ctx.lineTo(w*0.2,h*0.82); ctx.stroke();
+  const active=Math.floor(t*0.8)%5;
+  milestones.forEach((m,i)=>{
+    const done=i<=active;
+    ctx.beginPath(); ctx.arc(w*0.2,m.y,8,0,Math.PI*2);
+    ctx.fillStyle=done?ac:'#1a1a2a'; ctx.fill();
+    ctx.strokeStyle=ac; ctx.lineWidth=2; ctx.stroke();
+    ctx.fillStyle=done?'#fff':'#555';
+    ctx.font=done?'bold 12px Arial':'11px Arial'; ctx.textAlign='left';
+    ctx.fillText(m.q,w*0.25,m.y-4);
+    ctx.fillStyle=done?ac:'#555'; ctx.font='11px Arial';
+    ctx.fillText(m.label,w*0.25,m.y+12);
+  });
+  ctx.textAlign='left';
+}
+
+function drawBetoniq() {
+  const w=W(),h=H(),ac='#f97316';
+  ctx.clearRect(0,0,w,h);
+  // AI scoring engine visualization
+  const cx=w/2,cy=h/2;
+  ctx.beginPath(); ctx.arc(cx,cy,60,0,Math.PI*2);
+  ctx.fillStyle=ac+'22'; ctx.fill();
+  ctx.strokeStyle=ac; ctx.lineWidth=2; ctx.stroke();
+  ctx.fillStyle=ac; ctx.font='bold 14px monospace'; ctx.textAlign='center';
+  ctx.fillText('AI',cx,cy-4);
+  ctx.font='10px Arial'; ctx.fillStyle='#aaa';
+  ctx.fillText('SCORE',cx,cy+14);
+  // Parameters orbiting
+  const score = 72 + 15*Math.sin(t*0.5);
+  ctx.fillStyle='#fff'; ctx.font='bold 18px Arial';
+  ctx.fillText(Math.round(score)+'/100',cx,cy+50);
+  for(let i=0;i<6;i++){
+    const ang=t*0.5+i*Math.PI/3;
+    const r=110;
+    const x=cx+r*Math.cos(ang);
+    const y=cy+r*Math.sin(ang);
+    ctx.beginPath(); ctx.arc(x,y,14,0,Math.PI*2);
+    ctx.fillStyle=ac+'33'; ctx.fill();
+    ctx.strokeStyle=ac+'88'; ctx.lineWidth=1; ctx.stroke();
+    ctx.fillStyle='#fff'; ctx.font='8px Arial';
+    ctx.fillText(['ROI','NPV','KYC','IRR','LTV','DCF'][i],x-8,y+4);
+    ctx.strokeStyle=ac+'33'; ctx.lineWidth=1;
+    ctx.beginPath(); ctx.moveTo(cx+60*Math.cos(ang),cy+60*Math.sin(ang));
+    ctx.lineTo(x-14*Math.cos(ang),y-14*Math.sin(ang)); ctx.stroke();
+  }
+  ctx.textAlign='left';
+}
+
+function drawEcosystem() {
+  const w=W(),h=H(),ac='#06b6d4';
+  ctx.clearRect(0,0,w,h);
+  // Two hubs connected
+  const hubs=[{x:w*0.25,y:h/2,label:'ZeroPay',sub:'Payments'},{x:w*0.75,y:h/2,label:'BETONIQ',sub:'Investments'}];
+  hubs.forEach((hub,i)=>{
+    ctx.beginPath(); ctx.arc(hub.x,hub.y,45,0,Math.PI*2);
+    ctx.fillStyle=ac+'22'; ctx.fill();
+    ctx.strokeStyle=ac; ctx.lineWidth=2; ctx.stroke();
+    ctx.fillStyle='#fff'; ctx.font='bold 12px Arial'; ctx.textAlign='center';
+    ctx.fillText(hub.label,hub.x,hub.y-4);
+    ctx.fillStyle=ac; ctx.font='10px Arial';
+    ctx.fillText(hub.sub,hub.x,hub.y+14);
+  });
+  // Connection
+  const pf=(Math.sin(t)*0.5+0.5);
+  ctx.strokeStyle=ac+'44'; ctx.lineWidth=2;
+  ctx.beginPath(); ctx.moveTo(w*0.25+45,h/2); ctx.lineTo(w*0.75-45,h/2); ctx.stroke();
+  ctx.beginPath(); ctx.arc(w*0.25+45+(w*0.5-90)*pf,h/2,6,0,Math.PI*2);
+  ctx.fillStyle=ac; ctx.fill();
+  // Globe below
+  ctx.fillStyle='#fff'; ctx.font='12px Arial'; ctx.textAlign='center';
+  ctx.fillText('1.4 Billion People Served · 11 Countries',w/2,h*0.8);
+  ctx.textAlign='left';
+}
+
+function drawWhyNow() {
+  const w=W(),h=H(),ac='#ef4444';
+  ctx.clearRect(0,0,w,h);
+  // Countdown clock visual
+  const cx=w/2,cy=h*0.38;
+  const elapsed=(t*2)%100/100;
+  ctx.beginPath(); ctx.arc(cx,cy,65,0,Math.PI*2);
+  ctx.strokeStyle='#222'; ctx.lineWidth=10; ctx.stroke();
+  ctx.beginPath(); ctx.arc(cx,cy,65,-Math.PI/2,-Math.PI/2+(1-elapsed)*Math.PI*2);
+  ctx.strokeStyle=ac; ctx.lineWidth=10; ctx.stroke();
+  ctx.fillStyle='#fff'; ctx.font='bold 22px Arial'; ctx.textAlign='center';
+  ctx.fillText('18mo',cx,cy+6);
+  ctx.font='10px Arial'; ctx.fillStyle='#aaa';
+  ctx.fillText('WINDOW',cx,cy+24);
+  // competitors
+  ['Moniepoint','Flutterwave','Paystack'].forEach((c,i)=>{
+    const x=w*0.1+i*(w*0.28);
+    ctx.fillStyle='#ffffff11';
+    roundRect(ctx,x,h*0.7,w*0.22,36,6); ctx.fill();
+    ctx.strokeStyle='#333'; ctx.lineWidth=1; ctx.stroke();
+    ctx.fillStyle='#666'; ctx.font='11px Arial'; ctx.textAlign='center';
+    ctx.fillText(c,x+w*0.11,h*0.7+22);
+    ctx.fillStyle=ac; ctx.font='9px Arial';
+    ctx.fillText('ONLINE ONLY',x+w*0.11,h*0.7+34);
+  });
+  ctx.textAlign='left';
+}
+
+function drawPartners() {
+  const w=W(),h=H(),ac='#10b981';
+  ctx.clearRect(0,0,w,h);
+  const partners=['Speedinvest','Techstars','Atomico','Paystack','Gates Fdn','Onafriq'];
+  partners.forEach((p,i)=>{
+    const ang=t*0.4+i*Math.PI/3;
+    const r=95;
+    const cx=w/2,cy=h/2;
+    const x=cx+r*Math.cos(ang);
+    const y=cy+r*Math.sin(ang);
+    ctx.beginPath(); ctx.arc(x,y,28,0,Math.PI*2);
+    ctx.fillStyle=ac+'22'; ctx.fill();
+    ctx.strokeStyle=ac; ctx.lineWidth=1.5; ctx.stroke();
+    ctx.fillStyle='#fff'; ctx.font='8px Arial'; ctx.textAlign='center';
+    ctx.fillText(p,x,y+3);
+    ctx.strokeStyle=ac+'33'; ctx.lineWidth=1;
+    ctx.beginPath(); ctx.moveTo(cx,cy); ctx.lineTo(x-28*Math.cos(ang),y-28*Math.sin(ang)); ctx.stroke();
+  });
+  ctx.beginPath(); ctx.arc(w/2,h/2,22,0,Math.PI*2);
+  ctx.fillStyle=ac+'44'; ctx.fill();
+  ctx.strokeStyle=ac; ctx.lineWidth=2; ctx.stroke();
+  ctx.fillStyle='#fff'; ctx.font='bold 9px Arial'; ctx.textAlign='center';
+  ctx.fillText('ZP',w/2,h/2+4);
+  ctx.textAlign='left';
+}
+
+function drawClose() {
+  const w=W(),h=H(),ac='#fbbf24';
+  ctx.clearRect(0,0,w,h);
+  // Star burst
+  const cx=w/2,cy=h*0.42;
+  for(let i=0;i<12;i++){
+    const ang=t*0.5+i*Math.PI/6;
+    const r1=30,r2=80+20*Math.sin(t*2+i);
+    ctx.strokeStyle=ac+(i%2===0?'ff':'66'); ctx.lineWidth=1.5;
+    ctx.beginPath();
+    ctx.moveTo(cx+r1*Math.cos(ang),cy+r1*Math.sin(ang));
+    ctx.lineTo(cx+r2*Math.cos(ang),cy+r2*Math.sin(ang));
+    ctx.stroke();
+  }
+  ctx.beginPath(); ctx.arc(cx,cy,28,0,Math.PI*2);
+  ctx.fillStyle=ac+'44'; ctx.fill();
+  ctx.strokeStyle=ac; ctx.lineWidth=2; ctx.stroke();
+  ctx.fillStyle='#fff'; ctx.font='bold 13px Arial'; ctx.textAlign='center';
+  ctx.fillText('ZP',cx,cy+5);
+  // Orbiting stats
+  const stats=['$4.5M','Sep 2026','147 FX','5-Layer','PUF','72hr'];
+  stats.forEach((s,i)=>{
+    const ang=t*0.6+i*Math.PI/3;
+    const r=120;
+    const x=cx+r*Math.cos(ang);
+    const y=cy+r*Math.sin(ang);
+    ctx.fillStyle=ac; ctx.font='bold 11px Arial';
+    ctx.fillText(s,x-15,y);
+  });
+  ctx.fillStyle='#fff'; ctx.font='bold 14px Arial';
+  ctx.fillText('The World is Watching',cx,h*0.85);
+  ctx.textAlign='left';
+}
+
+function roundRect(ctx,x,y,w,h,r){
+  ctx.beginPath();
+  ctx.moveTo(x+r,y);
+  ctx.lineTo(x+w-r,y);
+  ctx.quadraticCurveTo(x+w,y,x+w,y+r);
+  ctx.lineTo(x+w,y+h-r);
+  ctx.quadraticCurveTo(x+w,y+h,x+w-r,y+h);
+  ctx.lineTo(x+r,y+h);
+  ctx.quadraticCurveTo(x,y+h,x,y+h-r);
+  ctx.lineTo(x,y+r);
+  ctx.quadraticCurveTo(x,y,x+r,y);
+  ctx.closePath();
+}
+
+function playAudio(){
+  const s=SLIDES[cur];
+  if(audio){audio.pause();audio=null;}
+  if(s.audio){
+    audio=new Audio(s.audio);
+    audio.play().catch(()=>{});
+    document.getElementById('play-label').textContent='⏸ Playing...';
+    audio.onended=()=>{document.getElementById('play-label').textContent='▶ PLAY — OpenAI Shimmer professional voice'; if(autoMode) setTimeout(nextSlide,1500);};
+  }
+}
+
+function nextSlide(){if(cur<19){cur++;updateUI();if(autoMode)playAudio();}}
+function prevSlide(){if(cur>0){cur--;updateUI();if(autoMode)playAudio();}}
+function toggleAuto(){autoMode=!autoMode;document.getElementById('auto-btn').textContent='AUTO: '+(autoMode?'ON':'OFF');if(autoMode)playAudio();}
+
+// Keyboard nav
+document.addEventListener('keydown',e=>{if(e.key==='ArrowRight')nextSlide();if(e.key==='ArrowLeft')prevSlide();});
+
+// Touch/swipe
+let tx=0;
+document.addEventListener('touchstart',e=>{tx=e.touches[0].clientX;},{passive:true});
+document.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-tx;if(Math.abs(dx)>40){if(dx<0)nextSlide();else prevSlide();}},{passive:true});
+
+// Init
+window.addEventListener('load',()=>{setTimeout(()=>{resizeCanvas();updateUI();},200);});
+</script>
+</body>
+</html>
