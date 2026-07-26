@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<title>BETONIQ INVEST — AI Real Estate Investment Platform</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#050d1a;color:#e8ecf0;height:100vh;overflow:hidden;display:flex;flex-direction:column}
+.hdr{background:linear-gradient(135deg,#0d1b3e,#1a2a4e);padding:9px 18px;display:flex;align-items:center;justify-content:space-between;border-bottom:3px solid #ffa500;flex-shrink:0;box-shadow:0 2px 10px rgba(0,0,0,.5)}
+.brand-name{font-size:19px;font-weight:900;color:#ffa500;letter-spacing:1.5px}
+.brand-sub{font-size:10px;color:#90a4b7;margin-top:1px}
+.brand-legal{font-size:8px;color:#607080;margin-top:2px}
+.hdr-right{text-align:right}
+.slide-counter{font-size:13px;color:#ffa500;font-weight:900}
+.ai-badge{font-size:9px;color:#00d4ff;margin-top:2px}
+.progress-bar{height:5px;background:#0d1b3e;flex-shrink:0}
+.progress-fill{height:100%;background:linear-gradient(90deg,#ffa500,#ff6f00,#ffd54f);transition:width .6s ease;box-shadow:0 0 8px rgba(255,165,0,.5)}
+.slide-wrap{flex:1;position:relative;overflow:hidden}
+.slide{display:none;flex-direction:column;justify-content:center;align-items:center;padding:28px 44px;text-align:center;position:absolute;inset:0;opacity:0;transition:opacity .5s ease}
+.slide.active{display:flex;opacity:1}
+.slide-icon{font-size:58px;margin-bottom:12px;filter:drop-shadow(0 0 16px rgba(255,165,0,.5))}
+.slide-num{font-size:10px;font-weight:700;letter-spacing:3px;color:#607080;margin-bottom:7px}
+.slide-title{font-size:23px;font-weight:900;color:#ffa500;margin-bottom:13px;line-height:1.25}
+.slide-text{font-size:13.5px;line-height:1.8;max-width:800px;color:#cdd6e0}
+.narr-status{margin-top:14px;background:rgba(255,165,0,.07);border:1px solid rgba(255,165,0,.2);border-radius:10px;padding:9px 18px;font-size:11px;color:#ffa500;max-width:680px;display:flex;align-items:center;gap:8px}
+.narr-dot{width:9px;height:9px;border-radius:50%;background:#ffa500;flex-shrink:0;transition:all .3s}
+.narr-dot.speaking{animation:blink .5s ease-in-out infinite}
+@keyframes blink{0%,100%{background:#00d4ff;box-shadow:0 0 8px #00d4ff}50%{background:#0040ff;box-shadow:none}}
+.thumb-strip{background:#030a14;border-top:1px solid #1e3a5f;display:flex;overflow-x:auto;padding:5px 8px;gap:5px;flex-shrink:0;scrollbar-width:thin}
+.thumb{border-radius:6px;border:2px solid #1e3a5f;padding:5px 9px;font-size:9px;font-weight:700;cursor:pointer;white-space:nowrap;transition:all .25s;flex-shrink:0;color:#607080}
+.thumb:hover{border-color:#ffa50055;color:#ffa500}
+.thumb.active{border-color:#ffa500;color:#ffa500;background:rgba(255,165,0,.1)}
+.thumb.done{border-color:#ffa50033;color:#ffa50066}
+.controls{background:#030a14;border-top:2px solid #1e3a5f;padding:10px 18px;display:flex;align-items:center;gap:10px;flex-shrink:0;flex-wrap:wrap}
+.btn{background:#0d1b3e;border:1.5px solid #1e3a5f;border-radius:8px;color:#cdd6e0;font-size:11px;font-weight:700;padding:9px 14px;cursor:pointer;transition:all .2s;white-space:nowrap;touch-action:manipulation}
+.btn:hover{background:#1e3a5f;border-color:#ffa500;color:#ffa500}
+.btn:active{transform:scale(.95)}
+.btn-play{background:linear-gradient(135deg,#e65100,#ffa500);border:none;color:#fff;font-size:13px;font-weight:900;padding:10px 24px;border-radius:10px;box-shadow:0 2px 12px rgba(255,120,0,.4)}
+.btn-play:hover{background:linear-gradient(135deg,#ff6f00,#ffd54f)}
+.dots{flex:1;display:flex;justify-content:center;gap:5px;flex-wrap:wrap}
+.dot{width:9px;height:9px;border-radius:50%;background:#1e3a5f;cursor:pointer;transition:all .25s;touch-action:manipulation}
+.dot.active{background:#ffa500;transform:scale(1.5);box-shadow:0 0 6px rgba(255,165,0,.6)}
+.dot.done{background:rgba(255,165,0,.35)}
+.voice-badge{background:#ffa50015;border:1px solid #ffa50040;border-radius:6px;padding:4px 8px;font-size:9px;color:#ffa500;text-align:center}
+@media(max-width:640px){
+  .slide{padding:18px 16px}
+  .slide-icon{font-size:42px}
+  .slide-title{font-size:17px}
+  .slide-text{font-size:12px;line-height:1.7}
+  .btn{padding:8px 10px;font-size:10px}
+  .btn-play{padding:10px 18px;font-size:12px}
+}
+</style>
+</head>
+<body>
+<div class="hdr">
+  <div>
+    <div class="brand-name">🏗️ BETONIQ INVEST</div>
+    <div class="brand-sub">AI-Powered Real Estate Investment Intelligence</div>
+    <div class="brand-legal">© BETONIQ(WEST) Ltd RC 56802 · Abuja, FCT, Nigeria · Confidential · Not for Distribution</div>
+  </div>
+  <div class="hdr-right">
+    <div class="slide-counter">Slide <span id="sCurr">1</span> / 15</div>
+    <div class="ai-badge">47-Parameter AI · OpenAI Shimmer Voice</div>
+  </div>
+</div>
+<div class="progress-bar"><div class="progress-fill" id="prog" style="width:6.67%"></div></div>
+<div class="slide-wrap" id="slideWrap"></div>
+<div class="thumb-strip" id="thumbStrip"></div>
+<div class="controls">
+  <button class="btn" onclick="go(-1)">◀ PREV</button>
+  <button class="btn btn-play" id="playBtn" onclick="togglePlay()">▶ PLAY</button>
+  <button class="btn" onclick="go(1)">NEXT ▶</button>
+  <button class="btn" id="autoBtn" onclick="toggleAuto()" style="font-size:10px;padding:7px 11px">AUTO: OFF</button>
+  <div class="dots" id="dots"></div>
+  <div class="voice-badge">🎙️ OpenAI Shimmer<br>Professional Female</div>
+</div>
+<script>
+const SLIDES=["There are 1.4 billion people globally who have no reliable access to formal financial services. In Nigeria alone, 38 million people are excluded from the banking system. But this story is not just about the unbanked \u2014 it is about the under-invested. Every year, 47 million Nigerians in the diaspora want to invest back home. $26 billion in remittances flows into Nigeria annually \u2014 but almost none of it goes into verified, structured real estate investment. The infrastructure does not exist. Until now.", "Meet David. A Nigerian software engineer in Manchester, earning \u00a365,000 a year. He has watched his parents' property in Lekki triple in value over 10 years. He knows Nigeria delivers 29% average returns. He finds a project in Katampe, Abuja \u2014 but there is no ROI projection, no NPV, no IRR. Just a brochure and a bank account number. His cousin invested \u00a312,000 in a Lekki development. The project was never built. The developer disappeared. The money is gone. David does nothing. Nigeria loses the capital. Everyone loses.", "BETONIQ INVEST is an AI-powered real estate investment platform built to bridge global capital to verified African real estate opportunities. Built by Tom Ugbodaga \u2014 physicist, cybersecurity specialist, inventor of ZeroPay. Masters in NFC for Contactless Technology, University of Gloucestershire 2011 \u2014 Best Result in Cohort. 70 curated projects. 11 countries. $5.1 billion pipeline. Average AI score: 89/100. Average projected ROI: 29%.", "Every project is scored across 47 distinct parameters. Location Intelligence: population density, urbanisation rate, employment hubs, infrastructure pipelines. Developer Track Record: company registration, project completions, litigation history. Regulatory Compliance: Certificate of Occupancy, building permits, environmental assessments. Financial Viability: NPV, IRR, break-even, payback period \u2014 all independently calculated. Market Demand: absorption rates, competing supply, rental yield, buyer demographics. 47 parameters. One score. Complete clarity.", "David filters \u2014 Nigeria, \u00a310,000\u2013\u00a320,000, ROI above 25%. Three projects appear. Katampe Terrace, Abuja. AI Score: 87/100. Projected ROI: 28%. NPV: $198,000. IRR: 31%. Regulatory status: green \u2014 Certificate of Occupancy verified. Developer: 4 completed projects, zero litigation. Break-even: 18 months. David reads the full feasibility study \u2014 generated by the platform, not the developer. For the first time in three years, David trusts what he is looking at.", "Step 1 \u2014 KYC & Accreditation: identity verified against international AML databases in under 24 hours. Step 2 \u2014 Investment Commitment: David selects Katampe Terrace, commits \u00a315,000. Step 3 \u2014 Smart Contract: legally binding, digitally signed, timestamped, encrypted, stored. Step 4 \u2014 Protected Fund Release: capital released in tranches tied to construction milestones \u2014 never a lump sum. Step 5 \u2014 Verified Returns: Katampe Terrace completes in 22 months. David's return: \u00a34,200 \u2014 exactly 28% as projected.", "Meet Emmanuel. Developer in Abuja. CAC registered. Planning permission granted. Site cleared in Gwarinpa. 12 residential units. AI Score: 91/100. Nigerian banks offer him 22% construction finance \u2014 financially unviable. Emmanuel lists on BETONIQ INVEST. Within 60 days, four investors from UK, US, Canada, and UAE commit a combined $280,000. Blended cost of capital: 14%. Viable. Profitable. Scalable. Without BETONIQ INVEST, Emmanuel's project never gets built. With it, 12 Nigerian families have homes.", "BETONIQ INVEST targets four investor categories. One: Nigerian diaspora in the UK, US, and Canada seeking verified home-country exposure. Two: African high net worth individuals seeking structured, scored investment opportunities. Three: institutional investors and family offices seeking African emerging market allocation. Four: international impact investors seeking African infrastructure and housing exposure. Minimum investment: $10,000 USD. No maximum. Quarterly digital performance reports for every investor.", "BETONIQ INVEST operates across Nigeria, Ghana, Kenya, South Africa, UK, UAE, US, Canada, Germany, France, and Australia. Nigeria: 45 projects. Ghana: 8. Kenya: 5. South Africa: 4. UK: 3. UAE: 2. Six additional markets in compliance review. Total verified pipeline: $5.1 billion across 70 projects. Every project has passed the 47-parameter AI scoring and achieved a minimum feasibility score of 75 out of 100. Target by Q4 2026: 500 projects across 25 countries.", "Three revenue streams. Tier one \u2014 Developer Listing Fees: $5,000 to $50,000 per project depending on tier \u2014 Basic, Premium, or Enterprise. Tier two \u2014 Success Fees: 1.5 to 3 percent on each completed investment transaction. Tier three \u2014 Investor Subscriptions: premium AI reports and portfolio analytics from $49 per month. Gross margin across all three streams: 72 percent. High-margin. Scalable. Software-as-a-service applied to real estate.", "Phase one 2026: 70 projects, $2.5M developer listing revenue, $180K subscription revenue. Phase two 2027: 250 projects, $12M developer listing revenue, $850K subscription revenue. Phase three 2028: 500 projects, $35M developer listing revenue, $4.5M subscription revenue. Total three-year projected revenue: $55 million. Gross margin: 72 percent. BETONIQ INVEST will be the Bloomberg of African real estate investment by 2028.", "BETONIQ INVEST is not a concept. It is fully operational today. Live investor registrations. Real-time AI scoring calculations. Compliance document verification. Subscription billing. 11 entity types, 6 backend functions, and a real-time AI scoring API. Investors can register, browse projects, view AI scores, access feasibility studies, and initiate enquiries right now. Enterprise-grade infrastructure. No traditional engineering team required.", "Every project undergoes two-gate approval. Gate one \u2014 AI Scoring: minimum 75 out of 100 across all 47 parameters. Gate two \u2014 Compliance Panel: independent review of Certificate of Occupancy, building permits, environmental impact assessment, AML checks, and investor accreditation. Compliance score below 80 \u2014 project rejected. Both gates must pass. This two-gate system is what makes BETONIQ INVEST uniquely trusted by institutional investors.", "BETONIQ INVEST is seeking $4.5 million US dollars in Pre-Series A at a pre-money valuation of $25 million \u2014 18 percent equity. Product development $1.2M. Market expansion $1.5M. Investor acquisition $800K. Operations $1M. Projected return at Series A in 18 months: 3 times on a $75 million post-money valuation.", "BETONIQ INVEST is the world's first AI-powered real estate investment selection platform for African and emerging markets. 70 live projects. 11 countries. $5.1 billion pipeline. 29 percent average target return on investment. A 47-parameter AI scoring engine that no competitor can replicate. A fully operational platform with live registrations, compliance verification, and real-time scoring. We are not pitching a concept. We are presenting a live platform seeking growth capital to scale to 500 projects, 25 countries, and the institutional-grade investment marketplace that African real estate deserves. Join us."];
+const TITLES=["The Problem \u2014 47 Million Missed Investments", "Meet David \u2014 The Diaspora Investor Locked Out", "Introducing BETONIQ INVEST", "The 47-Parameter AI Scoring Engine", "Live Example \u2014 Katampe Terrace, Abuja", "The Investment Process \u2014 Five Protected Steps", "For Developers \u2014 Access Global Capital", "Four Investor Categories", "11 Countries \u2014 $5.1 Billion Pipeline", "Three-Tier Revenue Model", "Three-Phase Growth \u2014 $55M Revenue", "Platform \u2014 Live and Fully Operational", "Regulatory & Compliance \u2014 Two-Gate System", "Pre-Series A \u2014 $4.5M at $25M Valuation", "The Opportunity \u2014 Join Us"];
+const ICONS=["\ud83c\udf0d", "\ud83d\udc68\u200d\ud83d\udcbc", "\ud83c\udfd7\ufe0f", "\ud83e\udd16", "\ud83c\udfe2", "\u2705", "\ud83d\udc77", "\ud83d\udcbc", "\ud83d\uddfa\ufe0f", "\ud83d\udcb0", "\ud83d\udcc8", "\ud83d\udda5\ufe0f", "\u2696\ufe0f", "\ud83d\ude80", "\u2b50"];
+const COLORS=["#1a237e", "#0d47a1", "#4a148c", "#1b5e20", "#004d40", "#006064", "#e65100", "#880e4f", "#0277bd", "#2e7d32", "#c62828", "#1565c0", "#4527a0", "#00695c", "#b71c1c"];
+const AUDIO_URLS=["https://raw.githubusercontent.com/TOMDEGGS/BETONIQ-WEST-/main/betoniq_audio/slide_01.mp3", "https://raw.githubusercontent.com/TOMDEGGS/BETONIQ-WEST-/main/betoniq_audio/slide_02.mp3", "https://raw.githubusercontent.com/TOMDEGGS/BETONIQ-WEST-/main/betoniq_audio/slide_03.mp3", "https://raw.githubusercontent.com/TOMDEGGS/BETONIQ-WEST-/main/betoniq_audio/slide_04.mp3", "https://raw.githubusercontent.com/TOMDEGGS/BETONIQ-WEST-/main/betoniq_audio/slide_05.mp3", "https://raw.githubusercontent.com/TOMDEGGS/BETONIQ-WEST-/main/betoniq_audio/slide_06.mp3", "https://raw.githubusercontent.com/TOMDEGGS/BETONIQ-WEST-/main/betoniq_audio/slide_07.mp3", "https://raw.githubusercontent.com/TOMDEGGS/BETONIQ-WEST-/main/betoniq_audio/slide_08.mp3", "https://raw.githubusercontent.com/TOMDEGGS/BETONIQ-WEST-/main/betoniq_audio/slide_09.mp3", "https://raw.githubusercontent.com/TOMDEGGS/BETONIQ-WEST-/main/betoniq_audio/slide_10.mp3", "https://raw.githubusercontent.com/TOMDEGGS/BETONIQ-WEST-/main/betoniq_audio/slide_11.mp3", "https://raw.githubusercontent.com/TOMDEGGS/BETONIQ-WEST-/main/betoniq_audio/slide_12.mp3", "https://raw.githubusercontent.com/TOMDEGGS/BETONIQ-WEST-/main/betoniq_audio/slide_13.mp3", "https://raw.githubusercontent.com/TOMDEGGS/BETONIQ-WEST-/main/betoniq_audio/slide_14.mp3", "https://raw.githubusercontent.com/TOMDEGGS/BETONIQ-WEST-/main/betoniq_audio/slide_15.mp3"];
+const TOTAL=15;
+
+let cur=0,playing=false,autoAdvance=false;
+let audEls=[];
+
+// Build slides
+const wrap=document.getElementById('slideWrap');
+const dotsEl=document.getElementById('dots');
+const thumbsEl=document.getElementById('thumbStrip');
+
+SLIDES.forEach((text,i)=>{
+  const s=document.createElement('div');
+  s.className='slide'+(i===0?' active':'');
+  s.id='sl'+i;
+  s.style.background=`linear-gradient(160deg,${COLORS[i]}28 0%,#050d1a 70%)`;
+  s.innerHTML=`
+    <div class="slide-icon">${ICONS[i]}</div>
+    <div class="slide-num">${String(i+1).padStart(2,'0')} / 15</div>
+    <div class="slide-title">${TITLES[i]}</div>
+    <div class="slide-text">${text}</div>
+    <div class="narr-status" id="ns${i}">
+      <div class="narr-dot" id="nd${i}"></div>
+      <span id="nt${i}">Press ▶ PLAY for professional OpenAI Shimmer narration</span>
+    </div>`;
+  wrap.appendChild(s);
+
+  const d=document.createElement('div');
+  d.className='dot'+(i===0?' active':'');
+  d.id='dt'+i; d.title=TITLES[i]; d.onclick=()=>jumpTo(i);
+  dotsEl.appendChild(d);
+
+  const t=document.createElement('div');
+  t.className='thumb'+(i===0?' active':'');
+  t.id='th'+i;
+  t.textContent=(i+1)+'. '+TITLES[i].split('—')[0].trim();
+  t.onclick=()=>jumpTo(i);
+  thumbsEl.appendChild(t);
+});
+
+// Pre-create Audio elements
+AUDIO_URLS.forEach((url,i)=>{
+  const a=new Audio();
+  a.preload='none';
+  a.src=url;
+  a.onended=()=>onAudioEnd(i);
+  a.onerror=()=>onAudioError(i);
+  audEls.push(a);
+});
+
+// Preload first 3 slides
+[0,1,2].forEach(i=>{ if(audEls[i])audEls[i].preload='auto'; });
+
+function setStatus(idx,state,text){
+  const dot=document.getElementById('nd'+idx);
+  const txt=document.getElementById('nt'+idx);
+  if(!dot||!txt)return;
+  dot.className='narr-dot'+(state==='speaking'?' speaking':'');
+  if(state==='done')dot.style.background='#00c853';
+  else if(state!=='speaking')dot.style.background='#ffa500';
+  else dot.style.removeProperty('background');
+  txt.textContent=text;
+}
+
+function onAudioEnd(idx){
+  playing=false;
+  setStatus(idx,'done','✅ Narration complete — OpenAI Shimmer voice');
+  document.getElementById('playBtn').textContent='▶ PLAY';
+  if(autoAdvance&&idx<TOTAL-1){
+    setTimeout(()=>{jumpTo(idx+1);playSlide(idx+1);},900);
+  }else if(autoAdvance&&idx===TOTAL-1){
+    autoAdvance=false;
+    document.getElementById('autoBtn').textContent='AUTO: OFF';
+    document.getElementById('autoBtn').style.color='';
+  }
+}
+
+function onAudioError(idx){
+  playing=false;
+  setStatus(idx,'error','⚠ Tap PLAY again to retry');
+  document.getElementById('playBtn').textContent='▶ PLAY';
+}
+
+function stopAll(){
+  audEls.forEach(a=>{try{a.pause();a.currentTime=0;}catch(e){}} );
+  playing=false;
+}
+
+function playSlide(idx){
+  stopAll();
+  const a=audEls[idx];
+  if(!a)return;
+  a.preload='auto';
+  playing=true;
+  document.getElementById('playBtn').textContent='⏸ PAUSE';
+  setStatus(idx,'speaking','🎙️ Playing — OpenAI Shimmer professional female voice...');
+  // Preload next
+  if(audEls[idx+1])audEls[idx+1].preload='auto';
+  a.play().catch(e=>{
+    playing=false;
+    setStatus(idx,'error','⚠ Tap ▶ PLAY to start (browser audio policy)');
+    document.getElementById('playBtn').textContent='▶ PLAY';
+  });
+}
+
+function togglePlay(){
+  if(playing){stopAll();document.getElementById('playBtn').textContent='▶ PLAY';setStatus(cur,'idle','Paused — press ▶ PLAY to resume');return;}
+  playSlide(cur);
+}
+
+function toggleAuto(){
+  autoAdvance=!autoAdvance;
+  const btn=document.getElementById('autoBtn');
+  btn.textContent='AUTO: '+(autoAdvance?'ON':'OFF');
+  btn.style.color=autoAdvance?'#ffa500':'';
+  if(autoAdvance&&!playing)playSlide(cur);
+}
+
+function go(dir){
+  const next=Math.max(0,Math.min(TOTAL-1,cur+dir));
+  if(next===cur)return;
+  const wasActive=playing||autoAdvance;
+  jumpTo(next);
+  if(wasActive)playSlide(next);
+}
+
+function jumpTo(idx){
+  stopAll();
+  ['sl','dt','th'].forEach(p=>{
+    document.getElementById(p+cur)?.classList.remove('active');
+    document.getElementById(p+cur)?.classList.add('done');
+  });
+  cur=idx;
+  ['sl','dt','th'].forEach(p=>{
+    document.getElementById(p+cur)?.classList.add('active');
+    document.getElementById(p+cur)?.classList.remove('done');
+  });
+  document.getElementById('sCurr').textContent=cur+1;
+  document.getElementById('prog').style.width=(((cur+1)/TOTAL)*100)+'%';
+  document.getElementById('playBtn').textContent='▶ PLAY';
+  setStatus(cur,'idle','Press ▶ PLAY for professional OpenAI Shimmer narration');
+  document.getElementById('th'+cur)?.scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'});
+}
+
+// Keyboard
+document.addEventListener('keydown',e=>{
+  if(e.key==='ArrowRight'||e.key===' '){e.preventDefault();go(1);}
+  else if(e.key==='ArrowLeft'){e.preventDefault();go(-1);}
+  else if(e.key.toLowerCase()==='p')togglePlay();
+  else if(e.key.toLowerCase()==='a')toggleAuto();
+});
+
+// Touch swipe
+let tx=0;
+document.getElementById('slideWrap').addEventListener('touchstart',e=>tx=e.touches[0].clientX,{passive:true});
+document.getElementById('slideWrap').addEventListener('touchend',e=>{
+  if(Math.abs(e.changedTouches[0].clientX-tx)>60)go(e.changedTouches[0].clientX<tx?1:-1);
+},{passive:true});
+</script>
+</body>
+</html>
