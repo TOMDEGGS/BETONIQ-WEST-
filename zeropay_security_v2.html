@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<title>ZeroPay — 6-Vector Security Attack Demo</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100vh;overflow:hidden;font-family:'Segoe UI',Arial,sans-serif;background:#02040a;color:#fff;display:flex;flex-direction:column}
+#hdr{height:52px;flex-shrink:0;background:linear-gradient(90deg,#0a0008,#200010);border-bottom:2px solid #ff2d78;display:flex;align-items:center;justify-content:space-between;padding:0 16px}
+.logo{font-size:1.1rem;font-weight:900;color:#ff2d78;letter-spacing:2px}
+.sub{font-size:0.56rem;color:#664;margin-top:1px}
+#pgbar{height:3px;flex-shrink:0;background:#0a0006}
+#pgfill{height:100%;background:linear-gradient(90deg,#ff2d78,#ff9800);transition:width .4s}
+#main{display:flex;flex:1;min-height:0;overflow:hidden}
+#scene{width:52%;position:relative;overflow:hidden;background:#030108}
+canvas{position:absolute;inset:0;width:100%;height:100%}
+#panel{width:48%;display:flex;flex-direction:column;padding:14px 16px;overflow:hidden;border-left:1px solid #1a0010;background:#020108}
+.snum{font-size:0.56rem;letter-spacing:3px;color:#442;text-transform:uppercase;margin-bottom:5px}
+.stitle{font-size:1.15rem;font-weight:800;line-height:1.2;margin-bottom:6px}
+.sbody{font-size:0.73rem;color:#99aacc;line-height:1.6;margin-bottom:8px}
+.ltable{width:100%;border-collapse:collapse;font-size:0.67rem}
+.ltable thead tr{background:linear-gradient(90deg,rgba(255,45,120,.2),rgba(255,152,0,.1))}
+.ltable th{padding:5px 8px;text-align:left;font-weight:700;color:#ff2d78;border-bottom:1px solid #ff2d7844;font-size:0.63rem}
+.ltable td{padding:4px 8px;border-bottom:1px solid #0a0410;color:#cce}
+.ltable tr:hover td{background:rgba(255,45,120,.06)}
+.badge{display:inline-block;padding:1px 7px;border-radius:9px;font-size:0.58rem;font-weight:700}
+.bg{background:#00ff8820;color:#00ff88;border:1px solid #00ff8840}
+.br{background:#ff222220;color:#ff6666;border:1px solid #ff444440}
+.bp{background:#a855f720;color:#d4a0ff;border:1px solid #a855f740}
+.verdict{margin:8px 0;padding:8px 12px;border-radius:8px;font-size:0.78rem;font-weight:800;text-align:center;letter-spacing:1px}
+.verdict.blocked{background:#00ff8818;border:2px solid #00ff88;color:#00ff88}
+.verdict.attacking{background:#ff444418;border:2px solid #ff4444;color:#ff6666;animation:pulse-red 1s infinite}
+@keyframes pulse-red{0%,100%{opacity:1}50%{opacity:.6}}
+.pbtn{margin-top:auto;padding-top:6px;flex-shrink:0}
+.pb{background:transparent;border:1.5px solid #ff2d78;color:#ff2d78;padding:7px 16px;border-radius:18px;cursor:pointer;font-size:0.76rem;font-weight:600;font-family:inherit;transition:all .2s}
+.pb:hover{background:#ff2d7822}
+#foot{height:50px;flex-shrink:0;background:#020106;border-top:2px solid #1a0010;display:flex;align-items:center;justify-content:center;gap:6px;padding:0 8px}
+.fb{background:rgba(255,255,255,.07);border:1.5px solid rgba(255,255,255,.18);color:#ccc;padding:7px 12px;border-radius:8px;cursor:pointer;font-size:0.78rem;font-weight:600;font-family:inherit;white-space:nowrap;transition:all .2s}
+.fb:hover{background:rgba(255,45,120,.14);border-color:#ff2d78;color:#ff2d78}
+#fbplay{background:#ff2d78;color:#fff;font-weight:800;border-color:#ff2d78;padding:7px 20px}
+#fbplay:hover{background:#ff5599}
+#fbstop{background:rgba(255,50,50,.12);border-color:rgba(255,80,80,.35);color:#ff9999}
+#fbstop:hover{background:rgba(255,50,50,.25);border-color:#ff4444;color:#ff4444}
+#fbauto.on{background:#00ff8825;border-color:#00ff88;color:#00ff88}
+
+/* iOS AUDIO UNLOCK SPLASH — mobile only */
+#ios-splash{
+  display:none;
+  position:fixed;inset:0;z-index:9999;
+  background:rgba(2,5,14,.97);
+  flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;padding:30px;
+  animation:fadeIn .4s ease;
+}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+#ios-splash.show{display:flex}
+.splash-icon{font-size:64px;margin-bottom:20px;animation:bounce 1.5s infinite}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+.splash-title{font-size:1.4rem;font-weight:900;color:#ff2d78;margin-bottom:10px;letter-spacing:1px}
+.splash-sub{font-size:0.85rem;color:#99aacc;margin-bottom:30px;line-height:1.6}
+.splash-btn{
+  background:linear-gradient(135deg,#ff2d78,#00ff88);
+  color:#000;font-weight:900;font-size:1rem;
+  border:none;border-radius:28px;padding:16px 40px;
+  cursor:pointer;letter-spacing:1px;
+  box-shadow:0 0 30px rgba(0,212,255,.5);
+  animation:pulse-btn 2s infinite;
+}
+@keyframes pulse-btn{0%,100%{box-shadow:0 0 30px rgba(0,212,255,.5)}50%{box-shadow:0 0 50px rgba(0,212,255,.9),0 0 80px rgba(0,255,136,.3)}}
+.splash-lock{font-size:0.7rem;color:#445;margin-top:16px}
+
+</style>
+</head>
+<body>
+
+<div id="ios-splash">
+  <div class="splash-icon">🔊</div>
+  <div class="splash-title">TAP TO UNLOCK AUDIO</div>
+  <div class="splash-sub">iOS requires one tap to activate audio.<br>This unlocks narration for all slides.</div>
+  <button class="splash-btn" onclick="unlockAudio()">▶ UNLOCK &amp; START</button>
+  <div class="splash-lock">🔒 iOS Audio Policy · Safari · ZeroPay Secure Demo</div>
+</div>
+
+<div id="hdr">
+  <div>
+    <div class="logo">🛡️ ZEROPAY — SECURITY COMMAND CENTER</div>
+    <div class="sub">6 Live Attack Vector Simulations · 5-Layer Defence · Patent-Pending Architecture · RC 56802 STRICTLY CONFIDENTIAL</div>
+  </div>
+  <div style="text-align:right">
+    <div style="font-size:1rem;font-weight:700;color:#ff2d78" id="hcnt">1 / 6</div>
+    <div style="font-size:0.58rem;color:#888">Live 3D Simulation</div>
+  </div>
+</div>
+<div id="pgbar"><div id="pgfill" style="width:16.67%"></div></div>
+<div id="main">
+  <div id="scene"><canvas id="cvs"></canvas></div>
+  <div id="panel">
+    <div class="snum" id="snum">ATTACK VECTOR 01 / 06</div>
+    <div class="stitle" id="stitle"></div>
+    <div class="sbody" id="sbody"></div>
+    <div id="verdict-box"></div>
+    <div id="tbl"></div>
+    <div class="pbtn">
+      <button class="pb" id="pbtn" onclick="togglePlay()">▶ PLAY NARRATION</button>
+    </div>
+  </div>
+</div>
+<div id="foot">
+  <button class="fb" onclick="nav(-1)">◀ PREV</button>
+  <button class="fb" id="fbplay" onclick="togglePlay()">▶ PLAY</button>
+  <button class="fb" id="fbstop" onclick="stopAudio()">⏹ STOP</button>
+  <button class="fb" onclick="nav(1)">NEXT ▶</button>
+  <button class="fb" id="fbauto" onclick="toggleAuto()">AUTO: OFF</button>
+</div>
+<audio id="aud" onended="onEnd()"></audio>
+
+<script>
+const ZP_AUDIO="https://raw.githubusercontent.com/TOMDEGGS/BETONIQ-WEST-/main/zeropay_audio";
+const ATTACKS=[
+  { accent:"#ff4444",
+    title:"Attack 1 — Relay / Man-in-the-Middle",
+    body:"An attacker places a covert relay device between customer and terminal. It intercepts the NFC signal and forwards it to a rogue terminal 200m away, attempting to hijack the transaction.",
+    verdict:"BLOCKED — Distance Bounding rejects in 0.0008ms",
+    table:{ h:["Defence Layer","Method","Result"], r:[["Distance Bounding","RTT threshold 10ns","🟢 Relay adds 1,000,000ns — INSTANT REJECT"],["PUF Auth","Silicon fingerprint","🟢 Rogue terminal has no valid PUF cert"],["Mutual Auth","ZeroPay handshake","🟢 Handshake fails — TX never created"],["Outcome","","🟢 Zero transactions stolen"]] }
+  },
+  { accent:"#ff9800",
+    title:"Attack 2 — Device Cloning",
+    body:"Attacker steals a ZeroPay terminal. Attempts to extract the cryptographic key and clone the device onto 100 counterfeit terminals for mass fraud.",
+    verdict:"BLOCKED — PUF key is physically unclonable",
+    table:{ h:["Defence Layer","Method","Result"], r:[["PUF Silicon","Nanoscale variation","🟢 Key cannot be extracted — lives in physics"],["No Software Key","Stored in silicon","🟢 No file to copy, no key to steal"],["Clone Attempt","Any chip","🟢 Different PUF response — clone rejected by network"],["Outcome","","🟢 All 100 clones immediately refused"]] }
+  },
+  { accent:"#a855f7",
+    title:"Attack 3 — Replay Attack",
+    body:"Attacker captures an encrypted ZeroPay transaction packet and re-transmits it 100 times to drain the victim's account or double-credit the merchant.",
+    verdict:"BLOCKED — Cryptogram binding + timestamp lock",
+    table:{ h:["Defence Layer","Method","Result"], r:[["Context Binding","Merchant ID + Terminal ID","🟢 Cryptogram tied to exact transaction context"],["Timestamp Lock","Microsecond precision","🟢 Replayed packet timestamp already expired"],["Nonce Injection","One-time random value","🟢 Nonce already consumed — second use rejected"],["Outcome","","🟢 All 100 replays silently discarded"]] }
+  },
+  { accent:"#00d4ff",
+    title:"Attack 4 — Offline Token Forgery",
+    body:"Attacker attempts to create fake offline cryptographic tokens — manufacturing fraudulent payment receipts to use during network downtime when no server can verify them.",
+    verdict:"BLOCKED — ECC P-256 signature impossible to forge",
+    table:{ h:["Defence Layer","Method","Result"], r:[["ECC P-256","256-bit elliptic curve","🟢 Forge requires 2^128 operations — impossible"],["PUF Binding","Token signed by hardware","🟢 Forged token has no valid PUF signature"],["TTL Enforcement","72-hour expiry","🟢 Expired tokens auto-rejected on sync"],["Outcome","","🟢 Forged tokens rejected at reconciliation"]] }
+  },
+  { accent:"#00ff88",
+    title:"Attack 5 — Rogue Mesh Node Injection",
+    body:"Attacker deploys a rogue Solar Mesh Hub pretending to be a legitimate relay node. Attempts to intercept and modify transactions passing through the mesh network.",
+    verdict:"BLOCKED — Node certificate + chain of trust",
+    table:{ h:["Defence Layer","Method","Result"], r:[["Node Certificate","Signed by ZeroPay CA","🟢 Rogue node has no valid cert — rejected"],["AES-256 Mesh","End-to-end encryption","🟢 Traffic encrypted — rogue node sees ciphertext only"],["Chain of Trust","All nodes verified","🟢 Rogue node breaks chain — ejected from mesh"],["Outcome","","🟢 Zero transactions intercepted"]] }
+  },
+  { accent:"#ffd700",
+    title:"Attack 6 — AI / ML Anomaly Bypass",
+    body:"Sophisticated attacker studies ZeroPay's AI anomaly patterns over 6 months, then crafts a relay attack timed to mimic normal NFC latency — attempting to defeat the 4th defence layer.",
+    verdict:"BLOCKED — Multi-layer redundancy defeats any single bypass",
+    table:{ h:["Defence Layer","Method","Result"], r:[["AI Anomaly Layer","Defeated by timing attack","🟡 Partially bypassed — proceeds to Layer 1"],["Distance Bounding","Hardware RTT measurement","🟢 Physics cannot be faked — BLOCKED"],["PUF Auth","Required regardless","🟢 Attacker still has no valid PUF cert"],["Outcome","","🟢 5 independent layers mean no single bypass wins"]] }
+  }
+];
+
+let cur=0,auto=false,t=0,isPlaying=false,loadedSlide=-1;
+const cvs=document.getElementById('cvs');
+const ctx=cvs.getContext('2d');
+function W(){return cvs.width} function H(){return cvs.height}
+function resize(){const sc=document.getElementById('scene');cvs.width=sc.offsetWidth;cvs.height=sc.offsetHeight;}
+window.addEventListener('resize',resize);
+
+function glow(c,b){ctx.shadowColor=c;ctx.shadowBlur=b;}
+function noglow(){ctx.shadowBlur=0;}
+function roundR(c,x,y,w,h,r){c.beginPath();c.moveTo(x+r,y);c.lineTo(x+w-r,y);c.quadraticCurveTo(x+w,y,x+w,y+r);c.lineTo(x+w,y+h-r);c.quadraticCurveTo(x+w,y+h,x+w-r,y+h);c.lineTo(x+r,y+h);c.quadraticCurveTo(x,y+h,x,y+h-r);c.lineTo(x,y+r);c.quadraticCurveTo(x,y,x+r,y);c.closePath();}
+
+// ===== ATTACK ANIMATIONS =====
+function drawAttack0(){ // Relay attack
+  const w=W(),h=H(),cx=w/2,cy=h*.45;
+  // Customer left
+  const cg=ctx.createRadialGradient(w*.12-8,h*.38-8,2,w*.12,h*.38,28);cg.addColorStop(0,'#90caf9');cg.addColorStop(.5,'#1565c0');cg.addColorStop(1,'#0a2040');
+  ctx.beginPath();ctx.arc(w*.12,h*.38,28,0,Math.PI*2);ctx.fillStyle=cg;glow('#40c4ff',14);ctx.fill();noglow();
+  ctx.fillStyle='#fff';ctx.font='bold 9px Segoe UI';ctx.textAlign='center';ctx.fillText('CUSTOMER',w*.12,h*.38+2);ctx.fillText('DEVICE',w*.12,h*.38+12);
+  // Legitimate terminal right
+  const tg=ctx.createRadialGradient(w*.78-8,h*.38-8,2,w*.78,h*.38,28);tg.addColorStop(0,'#a5d6a7');tg.addColorStop(.5,'#2e7d32');tg.addColorStop(1,'#0a2010');
+  ctx.beginPath();ctx.arc(w*.78,h*.38,28,0,Math.PI*2);ctx.fillStyle=tg;glow('#00ff88',14);ctx.fill();noglow();
+  ctx.fillStyle='#fff';ctx.font='bold 9px Segoe UI';ctx.textAlign='center';ctx.fillText('LEGIT',w*.78,h*.38+2);ctx.fillText('TERMINAL',w*.78,h*.38+12);
+  // Attacker relay in middle
+  const phase=Math.sin(t*2)*.5+.5;
+  const rg=ctx.createRadialGradient(cx-8,h*.65-8,2,cx,h*.65,22);rg.addColorStop(0,'#ff8a80');rg.addColorStop(.5,'#c62828');rg.addColorStop(1,'#3a0000');
+  ctx.beginPath();ctx.arc(cx,h*.65,22*(1+.08*Math.sin(t*4)),0,Math.PI*2);ctx.fillStyle=rg;glow('#ff4444',18);ctx.fill();noglow();
+  ctx.fillStyle='#fff';ctx.font='bold 8px Segoe UI';ctx.textAlign='center';ctx.fillText('⚠ RELAY',cx,h*.65+2);ctx.fillText('ATTACKER',cx,h*.65+12);
+  // Intercepted signal paths
+  ctx.strokeStyle='#ff4444';ctx.lineWidth=2;ctx.setLineDash([5,5]);
+  ctx.beginPath();ctx.moveTo(w*.12+28,h*.38);ctx.lineTo(cx-22,h*.65);ctx.stroke();
+  ctx.beginPath();ctx.moveTo(cx+22,h*.65);ctx.lineTo(w*.78-28,h*.38);ctx.stroke();
+  ctx.setLineDash([]);
+  // Packet intercepted
+  const pf=(t*.6)%1;
+  ctx.beginPath();ctx.arc(w*.12+28+(cx-22-w*.12-28)*pf,h*.38+(h*.65-h*.38)*pf,6,0,Math.PI*2);
+  ctx.fillStyle=phase>.5?'#ff4444':'#ffd700';glow('#ff4444',10);ctx.fill();noglow();
+  // BLOCKED badge
+  const blocked=Math.floor(t*.8)%3;
+  if(blocked>0){
+    ctx.fillStyle='#00ff8822';roundR(ctx,cx-55,h*.18,110,32,6);ctx.fill();
+    ctx.strokeStyle='#00ff88';ctx.lineWidth=2;roundR(ctx,cx-55,h*.18,110,32,6);ctx.stroke();
+    glow('#00ff88',16);ctx.fillStyle='#00ff88';ctx.font='bold 12px Segoe UI';ctx.textAlign='center';
+    ctx.fillText('⏱ RTT EXCEEDED — BLOCKED',cx,h*.18+20);noglow();
+  }
+  // RTT meter
+  const rtt=10+Math.random()*5;
+  ctx.fillStyle='#ff4444';ctx.font='bold 9px Segoe UI';ctx.textAlign='center';
+  ctx.fillText(`ATTACKER RTT: ~1,000,000ns  |  LIMIT: 10ns`,cx,h*.88);
+  ctx.textAlign='left';
+}
+
+function drawAttack1(){ // Device cloning
+  const w=W(),h=H(),cx=w/2;
+  // Original terminal (authentic)
+  const og=ctx.createRadialGradient(w*.18-8,h*.35-8,2,w*.18,h*.35,32);og.addColorStop(0,'#ffe082');og.addColorStop(.5,'#f9a825');og.addColorStop(1,'#3e2000');
+  ctx.beginPath();ctx.arc(w*.18,h*.35,32,0,Math.PI*2);ctx.fillStyle=og;glow('#ffd700',18);ctx.fill();noglow();
+  ctx.fillStyle='#000';ctx.font='bold 9px Segoe UI';ctx.textAlign='center';ctx.fillText('GENUINE',w*.18,h*.35+2);ctx.fillText('PUF CHIP',w*.18,h*.35+12);
+  // Cloning attempt arrow
+  const pf2=(t*.4)%1;
+  ctx.strokeStyle='#ff4444';ctx.lineWidth=2;ctx.setLineDash([4,6]);
+  ctx.beginPath();ctx.moveTo(w*.18+32,h*.35);ctx.lineTo(cx-20,h*.35);ctx.stroke();ctx.setLineDash([]);
+  ctx.beginPath();ctx.arc(w*.18+32+(cx-20-w*.18-32)*pf2,h*.35,5,0,Math.PI*2);ctx.fillStyle='#ff4444';glow('#ff4444',8);ctx.fill();noglow();
+  ctx.fillStyle='#ff4444';ctx.font='bold 9px Segoe UI';ctx.textAlign='center';ctx.fillText('⚠ COPY ATTEMPT',cx,h*.22);
+  // Clone bank right — all X marks
+  const clones=6;
+  for(let i=0;i<clones;i++){
+    const cx2=w*.55+((i%3)*w*.13),cy2=h*(i<3?.25:.45);
+    ctx.beginPath();ctx.arc(cx2,cy2,16,0,Math.PI*2);ctx.fillStyle='#1a0000';glow('#ff4444',6);ctx.fill();noglow();
+    ctx.strokeStyle='#ff4444';ctx.lineWidth=1.5;ctx.beginPath();ctx.arc(cx2,cy2,16,0,Math.PI*2);ctx.stroke();
+    ctx.fillStyle='#ff4444';ctx.font='bold 12px Segoe UI';ctx.textAlign='center';ctx.fillText('✗',cx2,cy2+4);
+    ctx.fillStyle='#888';ctx.font='7px Segoe UI';ctx.fillText('CLONE '+(i+1),cx2,cy2+20);
+  }
+  // Different PUF outputs
+  for(let i=0;i<12;i++){
+    const a=t*.5+i*Math.PI/6;
+    ctx.fillStyle=i%2?'#ff4444':'#888';ctx.font='bold 9px monospace';ctx.textAlign='center';
+    ctx.fillText(Math.round(Math.sin(t*2+i)+.5),w*.18+50*Math.cos(a),h*.35+30*Math.sin(a));
+  }
+  ctx.fillStyle='#ff4444';ctx.font='bold 8px Segoe UI';ctx.textAlign='center';ctx.fillText('EACH CLONE = DIFFERENT PUF OUTPUT = REJECTED',w/2,h*.7);
+  ctx.fillStyle='#00ff88';glow('#00ff88',10);ctx.font='bold 12px Segoe UI';ctx.fillText('🛡 PHYSICALLY UNCLONABLE — SILICON-LEVEL SECURITY',w/2,h*.88);noglow();
+  ctx.textAlign='left';
+}
+
+function drawAttack2(){ // Replay attack
+  const w=W(),h=H(),cx=w/2;
+  // Original transaction packet
+  ctx.fillStyle='#00d4ff22';roundR(ctx,cx-70,h*.1,140,40,6);ctx.fill();
+  ctx.strokeStyle='#00d4ff';ctx.lineWidth=1.5;roundR(ctx,cx-70,h*.1,140,40,6);ctx.stroke();
+  ctx.fillStyle='#00d4ff';ctx.font='bold 9px Segoe UI';ctx.textAlign='center';ctx.fillText('ORIGINAL TX #A7F2 · 14:32:01.000042',cx,h*.1+24);
+  // 100 replay attempts cascading down
+  const replayCount=100;
+  for(let i=0;i<12;i++){
+    const y=h*.18+i*h*.054;
+    const alpha=Math.max(0,1-i/12);
+    const rejected=Math.floor(t*.8)%13>i;
+    ctx.fillStyle=rejected?'rgba(255,68,68,.08)':'rgba(255,152,0,.06)';
+    roundR(ctx,cx-65,y,130,36,4);ctx.fill();
+    ctx.strokeStyle=rejected?'rgba(255,68,68,.6)':'rgba(255,152,0,.4)';ctx.lineWidth=1;
+    roundR(ctx,cx-65,y,130,36,4);ctx.stroke();
+    ctx.fillStyle=rejected?'#ff6666':'#ffaa44';ctx.font='bold 8px Segoe UI';ctx.textAlign='center';
+    ctx.fillText(rejected?`✗ REPLAY #${i+1} REJECTED — NONCE USED`:`REPLAY #${i+1} · TX #A7F2`,cx,y+22);
+  }
+  ctx.fillStyle='#00ff88';glow('#00ff88',12);ctx.font='bold 12px Segoe UI';ctx.textAlign='center';
+  ctx.fillText('100 / 100 REPLAYS BLOCKED',cx,h*.9);noglow();
+  ctx.textAlign='left';
+}
+
+function drawAttack3(){ // Token forgery
+  const w=W(),h=H(),cx=w/2;
+  // ECC curve visualization
+  for(let x=-100;x<=100;x+=2){
+    const y2=x*x*x - x + 1; // y^2 = x^3 - x + 1
+    const px=cx+x*1.5, py=h*.45-Math.sqrt(Math.abs(y2))*0.15;
+    if(px>0&&px<w&&py>0&&py<h){ctx.fillStyle='rgba(168,85,247,.6)';ctx.fillRect(px,py,1.5,1.5);}
+    const py2=h*.45+Math.sqrt(Math.abs(y2))*0.15;
+    if(py2>0&&py2<h){ctx.fillStyle='rgba(168,85,247,.6)';ctx.fillRect(px,py2,1.5,1.5);}
+  }
+  ctx.fillStyle='#a855f7';ctx.font='bold 10px Segoe UI';ctx.textAlign='center';glow('#a855f7',8);
+  ctx.fillText('ECC P-256 CURVE — y² = x³ + ax + b',cx,h*.18);noglow();
+  // Attacker trying random points
+  for(let i=0;i<8;i++){
+    const af=((t*.5+i*.1))%1;
+    const ax=cx-160+af*320, ay=h*.1+h*.7*Math.random();
+    ctx.beginPath();ctx.arc(ax,ay,5,0,Math.PI*2);ctx.fillStyle='#ff4444';glow('#ff4444',6);ctx.fill();noglow();
+    ctx.fillStyle='#ff6666';ctx.font='bold 8px Segoe UI';ctx.textAlign='center';ctx.fillText('✗',ax,ay-8);
+  }
+  ctx.fillStyle='#a855f7';ctx.font='bold 9px Segoe UI';ctx.textAlign='center';
+  ctx.fillText('FORGE REQUIRES 2¹²⁸ OPERATIONS',cx,h*.72);
+  ctx.fillStyle='#888';ctx.font='8px Segoe UI';
+  ctx.fillText('~3.4 × 10³⁸ attempts · Universe age: insufficient',cx,h*.8);
+  ctx.fillStyle='#00ff88';glow('#00ff88',10);ctx.font='bold 12px Segoe UI';ctx.fillText('🛡 ECC P-256 MATHEMATICALLY UNBREAKABLE',cx,h*.9);
+  noglow();ctx.textAlign='left';
+}
+
+function drawAttack4(){ // Rogue mesh node
+  const w=W(),h=H();
+  const nodes=[{x:.15,y:.22,c:'#14b8a6',l:'Hub A',legit:true},{x:.42,y:.16,c:'#14b8a6',l:'Hub B',legit:true},{x:.7,y:.28,c:'#14b8a6',l:'Paystack',legit:true},{x:.12,y:.58,c:'#00ff88',l:'Terminal 1',legit:true},{x:.5,y:.62,c:'#ff4444',l:'ROGUE NODE',legit:false},{x:.82,y:.55,c:'#00ff88',l:'Terminal 3',legit:true}];
+  const edges=[[0,1],[1,2],[0,3],[1,4],[2,5],[3,4]];
+  edges.forEach(([a,b])=>{
+    const na=nodes[a],nb=nodes[b];
+    const rogueEdge=!na.legit||!nb.legit;
+    ctx.strokeStyle=rogueEdge?'#ff4444aa':'#14b8a644';ctx.lineWidth=rogueEdge?2:1.5;
+    if(rogueEdge)ctx.setLineDash([3,5]);
+    ctx.beginPath();ctx.moveTo(na.x*w,na.y*h);ctx.lineTo(nb.x*w,nb.y*h);ctx.stroke();
+    ctx.setLineDash([]);
+    if(!rogueEdge){const pf=((t*.6+a*.2))%1;ctx.beginPath();ctx.arc(na.x*w+(nb.x*w-na.x*w)*pf,na.y*h+(nb.y*h-na.y*h)*pf,4,0,Math.PI*2);ctx.fillStyle=na.c;glow(na.c,6);ctx.fill();noglow();}
+  });
+  nodes.forEach(n=>{
+    const nx=n.x*w,ny=n.y*h,r=n.legit?12:15;
+    const ng=ctx.createRadialGradient(nx-r*.3,ny-r*.3,1,nx,ny,r);ng.addColorStop(0,'#fff');ng.addColorStop(.3,n.c);ng.addColorStop(1,n.c+'22');
+    ctx.beginPath();ctx.arc(nx,ny,r*(1+.07*Math.sin(t*3+n.x*8)),0,Math.PI*2);ctx.fillStyle=ng;glow(n.c,n.legit?10:18);ctx.fill();noglow();
+    ctx.fillStyle=n.legit?'#000':'#fff';ctx.font='bold 7px Segoe UI';ctx.textAlign='center';ctx.fillText(n.l,nx,ny+3);
+    if(!n.legit){
+      ctx.strokeStyle='#ff4444';ctx.lineWidth=2;
+      for(let r2=r+6;r2<r+22;r2+=8){ctx.beginPath();ctx.arc(nx,ny,r2+3*Math.sin(t*5),0,Math.PI*2);ctx.strokeStyle=`rgba(255,68,68,${.6-r2/40})`;ctx.stroke();}
+      ctx.fillStyle='#ff4444';ctx.font='bold 8px Segoe UI';ctx.fillText('✗ NO CERT',nx,ny+r+14);
+    }
+  });
+  ctx.fillStyle='#00ff88';glow('#00ff88',10);ctx.font='bold 11px Segoe UI';ctx.textAlign='center';ctx.fillText('🛡 ROGUE NODE EJECTED — CHAIN OF TRUST INTACT',w/2,h*.88);noglow();ctx.textAlign='left';
+}
+
+function drawAttack5(){ // AI bypass
+  const w=W(),h=H(),cx=w/2;
+  // 4 shield layers
+  const layers=[{l:'AI Anomaly',c:'#ffd700',status:'🟡 PARTIALLY BYPASSED'},{l:'Distance Bound',c:'#00ff88',status:'🟢 BLOCKED'},{l:'PUF Auth',c:'#00d4ff',status:'🟢 BLOCKED'},{l:'ECC Sign',c:'#a855f7',status:'🟢 BLOCKED'}];
+  layers.forEach((ly,i)=>{
+    const y=h*.1+i*h*.17;
+    const active=Math.floor(t*.5)%5===i;
+    ctx.fillStyle=i===0?'#ffd70015':'#00ff8815';
+    roundR(ctx,cx-w*.38,y,w*.76,h*.13,6);ctx.fill();
+    ctx.strokeStyle=i===0?'#ffd700':'#00ff88';ctx.lineWidth=active?2:1;
+    if(active)glow(i===0?'#ffd700':'#00ff88',14);roundR(ctx,cx-w*.38,y,w*.76,h*.13,6);ctx.stroke();noglow();
+    ctx.fillStyle=i===0?'#ffd700':'#00ff88';ctx.font='bold 10px Segoe UI';ctx.textAlign='center';
+    ctx.fillText(ly.l,cx-w*.18,y+h*.07);
+    ctx.fillStyle='rgba(255,255,255,.7)';ctx.font='9px Segoe UI';ctx.fillText(ly.status,cx+w*.08,y+h*.07);
+  });
+  // Attacker arrow through layer 1, stopped at layer 2
+  const pf=Math.min(1,t*.15);
+  const targetY=h*.1+pf*h*.17*(pf<.99?1.4:1.2);
+  ctx.strokeStyle='#ff4444';ctx.lineWidth=3;glow('#ff4444',12);
+  ctx.beginPath();ctx.moveTo(cx,h*.05);ctx.lineTo(cx,Math.min(targetY,h*.28));ctx.stroke();noglow();
+  ctx.beginPath();ctx.arc(cx,Math.min(targetY,h*.28),8,0,Math.PI*2);ctx.fillStyle='#ff4444';ctx.fill();
+  ctx.fillStyle='#ff6666';ctx.font='bold 9px Segoe UI';ctx.textAlign='center';ctx.fillText('⚠ ATTACKER',cx,h*.06);
+  ctx.fillStyle='#00ff88';glow('#00ff88',12);ctx.font='bold 11px Segoe UI';ctx.textAlign='center';ctx.fillText('🛡 5 LAYERS: NO SINGLE BYPASS WINS — ALWAYS BLOCKED',cx,h*.88);noglow();
+  ctx.textAlign='left';
+}
+
+const DRAW_FNS=[drawAttack0,drawAttack1,drawAttack2,drawAttack3,drawAttack4,drawAttack5];
+
+function loop(){resize();ctx.clearRect(0,0,W(),H());if(DRAW_FNS[cur])DRAW_FNS[cur]();t+=.016;requestAnimationFrame(loop);}
+
+function buildTable(d){
+  if(!d)return '';
+  let s=`<table class="ltable"><thead><tr>`;
+  d.h.forEach(hh=>s+=`<th>${hh}</th>`);s+='</tr></thead><tbody>';
+  d.r.forEach(r=>{s+='<tr>';r.forEach((c,i)=>{
+    const lo=String(c).toLowerCase();
+    let badge='';
+    if(/🟢|blocked|reject|unbreakable|intact|stolen zero|100.*100/.test(lo))badge='bg';
+    else if(/🟡|partially/.test(lo))badge='bp';
+    else if(/✗|failed|rogue|replay|clone/.test(lo))badge='br';
+    s+=badge?`<td><span class="badge ${badge}">${c}</span></td>`:`<td>${c}</td>`;
+  });s+='</tr>';});
+  return s+'</tbody></table>';
+}
+
+function showSlide(n){
+  const s=ATTACKS[n];
+  document.getElementById('hcnt').textContent=(n+1)+' / 6';
+  document.getElementById('snum').textContent='ATTACK VECTOR '+String(n+1).padStart(2,'0')+' / 06';
+  document.getElementById('stitle').textContent=s.title;
+  document.getElementById('stitle').style.color=s.accent;
+  document.getElementById('sbody').textContent=s.body;
+  document.getElementById('tbl').innerHTML=buildTable(s.table);
+  document.getElementById('verdict-box').innerHTML=`<div class="verdict blocked">🛡️ ${s.verdict}</div>`;
+  document.getElementById('pgfill').style.width=((n+1)/6*100)+'%';
+  stopAudio();t=0;
+}
+
+function setPlayUI(p){isPlaying=p;document.getElementById('pbtn').textContent=p?'⏸ PAUSE':'▶ PLAY NARRATION';document.getElementById('fbplay').textContent=p?'⏸ PAUSE':'▶ PLAY';}
+function ensureLoaded(){const a=document.getElementById('aud');if(loadedSlide!==cur){const n=String(cur+1).padStart(2,'0');a.src=ZP_AUDIO+'/slide_'+n+'.mp3';a.load();loadedSlide=cur;}}
+function togglePlay(){const a=document.getElementById('aud');if(isPlaying){a.pause();setPlayUI(false);}else{ensureLoaded();a.play().then(()=>setPlayUI(true)).catch(e=>console.log(e));}}
+function stopAudio(){const a=document.getElementById('aud');a.pause();a.currentTime=0;loadedSlide=-1;setPlayUI(false);}
+function onEnd(){setPlayUI(false);loadedSlide=-1;if(auto&&cur<5){setTimeout(()=>{nav(1);setTimeout(()=>{ensureLoaded();document.getElementById('aud').play().then(()=>setPlayUI(true)).catch(e=>{});},500);},1200);}else if(auto&&cur===5){toggleAuto();}}
+function nav(d){const n=Math.max(0,Math.min(5,cur+d));if(n!==cur){const wasAuto=auto;stopAudio();cur=n;showSlide(cur);if(wasAuto)setTimeout(()=>{ensureLoaded();document.getElementById('aud').play().then(()=>setPlayUI(true)).catch(e=>{});},500);}}
+function toggleAuto(){auto=!auto;const b=document.getElementById('fbauto');b.textContent='AUTO: '+(auto?'ON ✓':'OFF');b.classList.toggle('on',auto);if(auto){ensureLoaded();document.getElementById('aud').play().then(()=>setPlayUI(true)).catch(e=>{});}}
+document.addEventListener('keydown',e=>{if(e.key==='ArrowRight')nav(1);if(e.key==='ArrowLeft')nav(-1);if(e.key===' '){e.preventDefault();togglePlay();}});
+let tx=0;document.addEventListener('touchstart',e=>{tx=e.touches[0].clientX;},{passive:true});
+document.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-tx;if(Math.abs(dx)>44)nav(dx<0?1:-1);},{passive:true});
+window.addEventListener('load',()=>setTimeout(()=>{resize();showSlide(0);loop();},150));
+
+// iOS Audio Unlock — fires on mobile Safari ONLY
+function isIOS(){
+  return /iphone|ipad|ipod/i.test(navigator.userAgent) ||
+    (navigator.platform==='MacIntel' && navigator.maxTouchPoints>1);
+}
+function unlockAudio(){
+  // Create and play a silent buffer to unlock iOS audio context
+  const AudioCtx=window.AudioContext||window.webkitAudioContext;
+  if(AudioCtx){
+    const ctx=new AudioCtx();
+    const buf=ctx.createBuffer(1,1,22050);
+    const src=ctx.createBufferSource();
+    src.buffer=buf; src.connect(ctx.destination); src.start(0);
+    ctx.resume();
+  }
+  // Also unlock the HTML audio element
+  const a=document.getElementById('aud');
+  if(a){ a.volume=0; a.play().then(()=>{a.pause();a.currentTime=0;a.volume=1;}).catch(()=>{}); }
+  // Hide splash
+  document.getElementById('ios-splash').classList.remove('show');
+  // Preload first slide audio in background
+  setTimeout(()=>{
+    if(typeof ensureLoaded==='function') ensureLoaded();
+  },300);
+}
+window.addEventListener('load',()=>{
+  if(isIOS()){
+    setTimeout(()=>document.getElementById('ios-splash').classList.add('show'),400);
+  }
+});
+
+</script>
+</body></html>
