@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<title>ZeroPay — Investor Presentation</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',sans-serif;background:#050d1a;color:#e0e8f0;height:100vh;overflow:hidden;display:flex;flex-direction:column}
+
+/* HEADER */
+.hdr{background:#0d1b3e;padding:8px 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:3px solid #00d4ff;flex-shrink:0}
+.brand{font-size:18px;font-weight:900;color:#00d4ff;letter-spacing:2px}
+.patent{font-size:8px;color:#ffa500;margin-top:1px}
+.slide-counter{font-size:11px;color:#90a4b7;font-weight:700}
+
+/* PROGRESS */
+.progress-bar{height:4px;background:#1e3a5f;flex-shrink:0}
+.progress-fill{height:100%;background:linear-gradient(90deg,#00d4ff,#00c853);transition:width .5s ease}
+
+/* MAIN SLIDE */
+.slide-wrap{flex:1;display:flex;flex-direction:column;overflow:hidden;position:relative}
+.slide{display:none;flex:1;flex-direction:column;justify-content:center;align-items:center;padding:30px 40px;text-align:center;position:absolute;inset:0;opacity:0;transition:opacity .4s ease}
+.slide.active{display:flex;opacity:1}
+.slide-icon{font-size:64px;margin-bottom:16px;filter:drop-shadow(0 0 20px rgba(0,212,255,.4))}
+.slide-num{font-size:10px;font-weight:700;letter-spacing:2px;margin-bottom:8px;opacity:.7}
+.slide-title{font-size:26px;font-weight:900;margin-bottom:14px;line-height:1.2}
+.slide-text{font-size:14px;line-height:1.75;max-width:780px;opacity:.88}
+
+/* NARRATION STATUS */
+.narr-box{background:rgba(0,212,255,.08);border:1px solid rgba(0,212,255,.25);border-radius:10px;padding:10px 16px;margin-top:16px;font-size:11px;color:#00d4ff;max-width:680px;line-height:1.5}
+.narr-icon{font-size:14px;margin-right:4px}
+
+/* CONTROLS */
+.controls{background:#0a1628;border-top:2px solid #1e3a5f;padding:10px 16px;display:flex;align-items:center;gap:10px;flex-shrink:0;flex-wrap:wrap}
+.ctrl-btn{background:#132340;border:1px solid #1e3a5f;border-radius:8px;color:#e0e8f0;font-size:11px;font-weight:700;padding:8px 14px;cursor:pointer;touch-action:manipulation;transition:all .2s;white-space:nowrap}
+.ctrl-btn:hover{background:#1e3a5f;border-color:#00d4ff;color:#00d4ff}
+.ctrl-btn:active{transform:scale(.96)}
+.ctrl-btn.play-btn{background:linear-gradient(135deg,#00b4db,#0083b0);border:none;color:#fff;font-size:13px;padding:10px 22px}
+.ctrl-btn.play-btn:hover{background:linear-gradient(135deg,#00d4ff,#00b4db)}
+.ctrl-btn.disabled{opacity:.35;cursor:not-allowed}
+.slide-dots{flex:1;display:flex;justify-content:center;gap:4px;flex-wrap:wrap}
+.dot{width:8px;height:8px;border-radius:50%;background:#1e3a5f;cursor:pointer;transition:all .2s;touch-action:manipulation}
+.dot.active{background:#00d4ff;transform:scale(1.4)}
+.dot.done{background:#00c85388}
+.voice-status{font-size:10px;color:#607080;text-align:right;min-width:80px}
+
+/* THUMBNAIL BAR */
+.thumb-bar{background:#050d1a;border-top:1px solid #1e3a5f;display:flex;overflow-x:auto;padding:6px 8px;gap:6px;flex-shrink:0;scrollbar-width:thin;scrollbar-color:#1e3a5f transparent}
+.thumb{border-radius:6px;border:2px solid #1e3a5f;padding:5px 8px;font-size:9px;font-weight:700;cursor:pointer;touch-action:manipulation;white-space:nowrap;transition:all .2s;flex-shrink:0}
+.thumb.active{border-color:#00d4ff;color:#00d4ff;background:#00d4ff11}
+.thumb.done{border-color:#00c85355;color:#00c853}
+
+@media(max-width:640px){
+  .slide{padding:20px 16px}
+  .slide-icon{font-size:44px;margin-bottom:10px}
+  .slide-title{font-size:18px;margin-bottom:10px}
+  .slide-text{font-size:12px;line-height:1.65}
+  .controls{gap:6px;padding:8px 10px}
+  .ctrl-btn{padding:7px 10px;font-size:10px}
+  .ctrl-btn.play-btn{padding:9px 16px;font-size:11px}
+}
+</style>
+</head>
+<body>
+
+<div class="hdr">
+  <div>
+    <div class="brand">⚡ ZEROPAY</div>
+    <div class="patent">© BETONIQ(WEST) Ltd RC 56802 · Patent Pending April 2026 · Confidential</div>
+  </div>
+  <div class="slide-counter"><span id="sCurr">1</span> / 20</div>
+</div>
+
+<div class="progress-bar"><div class="progress-fill" id="progFill" style="width:5%"></div></div>
+
+<div class="slide-wrap" id="slideWrap"></div>
+
+<div class="thumb-bar" id="thumbBar"></div>
+
+<div class="controls">
+  <button class="ctrl-btn" id="prevBtn" onclick="go(-1)">◀ PREV</button>
+  <button class="ctrl-btn play-btn" id="playBtn" onclick="togglePlay()">▶ PLAY NARRATION</button>
+  <button class="ctrl-btn" id="nextBtn" onclick="go(1)">NEXT ▶</button>
+  <div class="slide-dots" id="dotBar"></div>
+  <div class="voice-status" id="voiceStatus">Voice: Ready</div>
+</div>
+
+<script>
+const SLIDES = ["Meet Chidi. A young entrepreneur in Lagos, Nigeria. Every morning, Chidi opens his market stall in one of the busiest commercial districts on the African continent. He sells electronics, takes orders, and processes payments \u2014 all day, every day. But Lagos has a problem. Power cuts. Network outages. Internet blackouts. On bad days, Chidi's payment terminal goes dead. Customers walk away. Revenue is lost. ZeroPay was built for Chidi. And for every merchant like him across Africa and the world.", "Meet Mama Ngozi. She lives in a rural village in Enugu State, Nigeria. Her son sends money every month from the United Kingdom. But the nearest bank branch is forty kilometres away. Mobile network coverage is unreliable. And agent banking fees eat into every transfer. With ZeroPay, her son taps his phone in London. The transaction is encrypted and transmitted. And Mama Ngozi receives her funds directly \u2014 even with zero internet connectivity \u2014 through ZeroPay's offline synchronisation engine. No bank branch. No agent fee. No network required.", "This is a live ZeroPay transaction. A customer approaches a market stall. They tap their ZeroPay-enabled device to the merchant's terminal. In under 300 milliseconds, an encrypted transaction is created locally \u2014 stored securely on both devices simultaneously. No internet connection is used. No bank server is contacted. The transaction is cryptographically signed, timestamped, and locked. When connectivity is restored \u2014 minutes, hours, or even days later \u2014 ZeroPay automatically synchronises and settles with the banking system. Zero data loss. Zero failed payments. This is offline payment, solved.", "ZeroPay solves the global remittance problem. A Nigerian professional in New York City initiates a transfer to his family in a rural Nigerian village. The current system requires: a remittance operator, a receiving bank, an agent, and internet connectivity at every step. Total fees: up to twelve percent. Delivery time: one to three days. With ZeroPay, the transfer is direct. Encrypted. Offline-capable at the receiving end. Fees under one percent. Settlement in under sixty seconds when connectivity is available \u2014 and securely queued when it is not. This is how global remittance should work.", "ZeroPay is not a Nigerian product. ZeroPay is a global infrastructure platform. It was designed from first principles to operate in every environment on Earth \u2014 from the skyscrapers of Manhattan to the rural markets of West Africa. From the underground car parks of London to the fishing villages of the Niger Delta. ZeroPay works in zero connectivity environments. It works with feature phones and wearables. It works across currencies and borders. One platform. Every city on Earth. Zero internet required.", "Welcome to ZeroPay. The world's first payment system engineered to operate fully offline and fully online \u2014 simultaneously. ZeroPay was invented by Tom Ugbodaga, a physicist and computer security specialist, holder of a Master's degree in Near Field Communication for Contactless Technology in Financial Transactions from the University of Gloucestershire, England \u2014 achieving the best result in his cohort. ZeroPay is the direct commercialisation of his postgraduate research. This is not a startup idea. This is a decade of science, now live.", "One point four billion people globally remain completely unbanked. Thirty eight million in Nigeria alone. Every existing digital payment solution \u2014 Visa, Mastercard, mobile money, USSD banking \u2014 requires internet or GSM connectivity. When the network fails, commerce stops. In Nigeria, network downtime costs merchants an estimated two billion naira in lost transactions every single day. In sub-Saharan Africa, over sixty percent of rural communities have no reliable connectivity. ZeroPay solves this at the infrastructure level \u2014 not with a workaround, but with a fundamentally different architecture.", "The ZeroPay Offline Engine is the core of the platform. Here is how it works. When two ZeroPay devices communicate, they exchange encrypted transaction data directly over Near Field Communication \u2014 no server, no internet, no intermediary. The transaction is stored in a tamper-proof cryptographic vault on both devices. The offline engine manages synchronisation queues, reconciliation ledgers, and conflict resolution automatically. When connectivity is restored, all queued transactions are settled in sequence \u2014 with full audit trails, cryptographic proofs, and banking-grade compliance. The offline engine is what makes ZeroPay impossible to replicate quickly.", "Every major payment system \u2014 Visa contactless, Apple Pay, Google Pay \u2014 caps NFC transactions at a fixed limit. In the UK, the cap is one hundred pounds. In Nigeria, mobile NFC payments are capped arbitrarily. ZeroPay has no transaction cap. Using Physical Unclonable Function authentication and ECC P-256 cryptography, ZeroPay establishes a higher trust level per transaction than standard contactless systems. This means ZeroPay can process payments of any value \u2014 from five naira street food purchases to five million naira equipment procurement \u2014 with the same tap. Uncapped. Unlimited. Verified.", "Physical Unclonable Function technology is ZeroPay's hardware security foundation. Every ZeroPay chip contains microscopic silicon imperfections created during manufacturing \u2014 unique to that exact chip, like a fingerprint. These imperfections generate a cryptographic key that cannot be copied, extracted, or replicated \u2014 even by the chip manufacturer. When combined with ECC P-256 elliptic curve cryptography, every ZeroPay transaction carries a hardware-bound digital signature. No two ZeroPay devices can produce the same cryptographic output. This makes device cloning and transaction forgery physically impossible. This is bank-grade security at the silicon level.", "ZeroPay is designed for universal access. It works on smartphones \u2014 iOS and Android. It works on basic feature phones via NFC-enabled SIM cards. It works on wearables \u2014 smart watches, NFC wristbands, and payment rings. It even works on disposable burner phones with no data plan. This is critical for financial inclusion. The one point four billion unbanked are not all smartphone users. Many use basic handsets. Many have no data plan. ZeroPay reaches all of them. One platform. Every device. Every person.", "ZeroPay is Man-in-the-Middle proof. Here is the four-layer defence. Layer one \u2014 Distance Bounding: the Round Trip Time threshold is set to ten nanoseconds. A relay attack adds milliseconds. The system detects and rejects it instantly. Layer two \u2014 Mutual Authentication: a fake terminal cannot present a valid ZeroPay cryptographic certificate. The handshake fails. Transaction rejected. Layer three \u2014 Context Binding: every cryptogram is bound to the merchant identity, terminal ID, and timestamp. Replay attacks become mathematically impossible. Layer four \u2014 AI Anomaly Detection: our machine learning model detects relay latency signatures in real time and holds the transaction for verification. Four layers. Zero successful attacks.", "ZeroPay integrates with off-grid energy infrastructure. In areas with no grid power and no internet, ZeroPay terminals can operate on solar-powered mesh network hubs. These hubs provide local peer-to-peer transaction routing between ZeroPay devices within range \u2014 creating a self-contained payment micro-network. When a hub connects to internet \u2014 even briefly via satellite or mobile signal \u2014 it batch-synchronises all queued transactions to the banking system. This architecture enables ZeroPay to operate in the most remote locations on Earth \u2014 from sub-Saharan villages to disaster relief zones \u2014 with zero dependency on national grid or telecom infrastructure.", "Follow this live transaction. New York City to rural Nigeria. Step one: a Nigerian professional in Manhattan opens ZeroPay on his phone and initiates a transfer of five hundred US dollars to his mother in Kogi State. Step two: ZeroPay encrypts the transaction using ECC P-256, signs it with his device's PUF key, and transmits it to the ZeroPay network. Step three: the transaction arrives at the nearest ZeroPay mesh node in Nigeria \u2014 online or offline. Step four: Mama receives a tap notification on her ZeroPay NFC wristband. She taps to confirm. Step five: settlement confirmed. Total time: under ninety seconds. Total fee: under one percent. No bank branch. No agent. No waiting.", "ZeroPay supports every payment method in existence \u2014 and several that don't exist yet elsewhere. NFC tap-to-pay between any two ZeroPay devices. QR code payments for merchants without NFC terminals. USSD payment codes for feature phones with no data or NFC. Wearable payments \u2014 smartwatch, wristband, ring, or NFC card. Biometric confirmation via fingerprint or face ID on supported devices. And our patent-pending Offline Cryptographic Receipt system \u2014 a verifiable paper receipt with an embedded cryptographic code, scannable to confirm transaction authenticity even without internet. Six payment methods. One platform. Zero exclusions.", "The global diaspora remittance market is worth over eight hundred billion US dollars annually. Nigerians in the diaspora send over twenty four billion dollars home every year \u2014 making remittance Nigeria's largest single source of foreign exchange, exceeding oil revenue. Yet the average remittance fee globally is six point two percent. For Africa-bound transfers, it rises to eight percent. ZeroPay eliminates the intermediary chain entirely. Direct device-to-device encrypted transfers. Fees under one percent. No correspondent bank. No wire transfer delay. No agent commission. ZeroPay captures the diaspora corridor \u2014 starting with the UK-to-Nigeria route \u2014 and scales globally from day one.", "ZeroPay has no direct competitor. Visa and Mastercard require internet. M-Pesa requires GSM connectivity and a registered SIM. Apple Pay and Google Pay require smartphones and internet. Ripple and blockchain remittance require both parties to have crypto wallets and connectivity. ZeroPay requires none of these. Our competitive moat is the combination of: patent-pending PUF authentication, offline cryptographic transaction storage, uncapped NFC value transfer, and a mesh synchronisation architecture. No payment company in the world has deployed this combination. ZeroPay is eighteen months ahead of any potential competitor attempting to replicate this architecture from scratch.", "ZeroPay's agent network is the distribution engine. Across Nigeria and West Africa, ZeroPay agents are individuals and small businesses who onboard merchants, distribute terminals, and support customers. Each agent earns commission on every transaction processed through their network. This creates a self-sustaining, incentive-driven distribution model that scales without requiring ZeroPay to hire directly in every location. Phase one targets five hundred agents across Abuja, Lagos, and Kano. Phase two scales to five thousand agents across Nigeria and West Africa. Phase three deploys agent infrastructure in the United Kingdom, South Africa, and globally. The agent network is how ZeroPay reaches one million merchants.", "ZeroPay's security architecture is built to exceed international banking standards. At the hardware layer: Physical Unclonable Function chips provide device-level cryptographic identity. At the protocol layer: ISO 14443-A and B Near Field Communication governs all contactless data exchange. At the cryptographic layer: ECC P-256 elliptic curve encryption protects every transaction. At the network layer: Distance Bounding protocols and Mutual Authentication prevent interception and relay attacks. At the intelligence layer: real-time AI anomaly detection flags suspicious transaction patterns. At the compliance layer: full audit trails, cryptographic receipts, and regulatory reporting are built in natively. ZeroPay is not just secure. ZeroPay is forensically auditable.", "ZeroPay is raising four point five million US dollars in Pre-Series A funding. This capital will fund three things. First \u2014 manufacturing and deployment of ZeroPay terminals across Abuja, Lagos, and Kano in Phase one. Second \u2014 regulatory licensing through the Central Bank of Nigeria, the Financial Conduct Authority in the United Kingdom, and relevant authorities in target markets. Third \u2014 agent network recruitment and platform scaling across West Africa and the United Kingdom. ZeroPay is a fully built, technically validated, commercially ready platform. The science is proven. The market is two trillion dollars. The founder is the inventor. Join us in building the payment infrastructure for the world's unbanked. This is ZeroPay."];
+const TITLES = ["Meet Chidi \u2014 Lagos Market", "Meet Mama Ngozi \u2014 Rural Village", "Live Offline Transaction", "Global Remittance \u2014 Solved", "ZeroPay \u2014 Built for the World", "Welcome to ZeroPay", "The Problem We Solve", "The Offline Engine", "Uncapped NFC \u2014 No Limits", "PUF Silicon Security", "Works on Every Device", "MITM Attack Defence", "Solar Mesh Hub Network", "New York to Nigeria \u2014 Live Journey", "Six Payment Methods", "Diaspora Remittance Market", "No Direct Competitor", "Agent Network \u2014 Distribution Engine", "Military-Grade Security", "Pre-Series A \u2014 $4.5M"];
+const ICONS = ["\ud83c\udfea", "\ud83d\udc69\u200d\ud83d\udc66", "\ud83d\udcb3", "\ud83c\udf0d", "\ud83c\udf10", "\u26a1", "\ud83d\udcca", "\u2699\ufe0f", "\ud83d\udd13", "\ud83d\udd2c", "\ud83d\udcf1", "\ud83d\udee1\ufe0f", "\u2600\ufe0f", "\u2708\ufe0f", "\ud83d\udcb3", "\ud83d\udcb8", "\ud83c\udfc6", "\ud83d\udc65", "\ud83d\udd10", "\ud83d\ude80"];
+const COLORS = ["#0d47a1", "#1b5e20", "#1565c0", "#4a148c", "#006064", "#37474f", "#b71c1c", "#e65100", "#1a237e", "#880e4f", "#004d40", "#263238", "#f57f17", "#1565c0", "#2e7d32", "#4527a0", "#c62828", "#0277bd", "#212121", "#c62828"];
+
+let cur = 0, speaking = false, autoPlay = false, synth = window.speechSynthesis;
+let voices = [], britishVoice = null, utterance = null;
+
+// Build slides
+const wrap = document.getElementById('slideWrap');
+const dotBar = document.getElementById('dotBar');
+const thumbBar = document.getElementById('thumbBar');
+
+SLIDES.forEach((text, i) => {
+  // Slide
+  const s = document.createElement('div');
+  s.className = 'slide' + (i===0?' active':'');
+  s.id = 'slide_'+i;
+  s.style.background = 'linear-gradient(160deg, '+COLORS[i]+'22 0%, #050d1a 100%)';
+  s.innerHTML = `
+    <div class="slide-icon">${ICONS[i]}</div>
+    <div class="slide-num">SLIDE ${i+1} OF 20</div>
+    <div class="slide-title">${TITLES[i]}</div>
+    <div class="slide-text">${text}</div>
+    <div class="narr-box" id="narr_${i}"><span class="narr-icon">🔊</span><span id="ntext_${i}">Click ▶ PLAY NARRATION to hear the full audio for this slide</span></div>
+  `;
+  wrap.appendChild(s);
+
+  // Dot
+  const d = document.createElement('div');
+  d.className = 'dot' + (i===0?' active':'');
+  d.id = 'dot_'+i;
+  d.onclick = ()=>jumpTo(i);
+  dotBar.appendChild(d);
+
+  // Thumb
+  const t = document.createElement('div');
+  t.className = 'thumb' + (i===0?' active':'');
+  t.id = 'thumb_'+i;
+  t.textContent = (i+1)+'. '+TITLES[i];
+  t.onclick = ()=>jumpTo(i);
+  thumbBar.appendChild(t);
+});
+
+// Voice
+function loadVoices() {
+  voices = synth.getVoices();
+  const priority = ['Google UK English Female','Microsoft Hazel','Serena','Kate','Moira'];
+  for(const name of priority) {
+    const v = voices.find(v=>v.name.includes(name));
+    if(v){ britishVoice=v; break; }
+  }
+  if(!britishVoice) britishVoice = voices.find(v=>v.lang==='en-GB') || voices.find(v=>v.lang.startsWith('en')) || voices[0];
+  document.getElementById('voiceStatus').textContent = britishVoice ? 'Voice: '+britishVoice.name.split(' ').slice(-2).join(' ') : 'Voice: Browser default';
+}
+loadVoices();
+if(speechSynthesis.onvoiceschanged !== undefined) speechSynthesis.onvoiceschanged = loadVoices;
+
+function speak(idx) {
+  if(!synth) return;
+  synth.cancel();
+  utterance = new SpeechSynthesisUtterance(SLIDES[idx]);
+  utterance.voice = britishVoice;
+  utterance.rate = 0.88;
+  utterance.pitch = 1.0;
+  utterance.volume = 1.0;
+  utterance.onstart = ()=>{
+    speaking=true;
+    document.getElementById('playBtn').textContent='⏸ PAUSE';
+    document.getElementById('ntext_'+idx).textContent='🔊 Speaking slide '+(idx+1)+'...';
+    document.getElementById('voiceStatus').textContent='🔊 Speaking...';
+  };
+  utterance.onend = ()=>{
+    speaking=false;
+    document.getElementById('ntext_'+idx).textContent='✅ Narration complete';
+    document.getElementById('voiceStatus').textContent='✓ Done';
+    if(autoPlay && idx < SLIDES.length-1) {
+      setTimeout(()=>{ jumpTo(idx+1); speak(idx+1); }, 800);
+    } else {
+      document.getElementById('playBtn').textContent='▶ PLAY NARRATION';
+      autoPlay=false;
+    }
+  };
+  utterance.onerror = (e)=>{
+    speaking=false; autoPlay=false;
+    document.getElementById('ntext_'+idx).textContent='⚠ Voice error — try again';
+    document.getElementById('playBtn').textContent='▶ PLAY NARRATION';
+  };
+  synth.speak(utterance);
+}
+
+function togglePlay() {
+  if(speaking){ synth.cancel(); speaking=false; autoPlay=false; document.getElementById('playBtn').textContent='▶ PLAY NARRATION'; return; }
+  autoPlay=true; speak(cur);
+}
+
+function go(dir) {
+  const next = Math.max(0, Math.min(SLIDES.length-1, cur+dir));
+  if(next===cur) return;
+  jumpTo(next);
+  if(autoPlay) speak(next);
+}
+
+function jumpTo(idx) {
+  synth.cancel(); speaking=false;
+  document.getElementById('slide_'+cur).classList.remove('active');
+  document.getElementById('dot_'+cur).classList.remove('active');
+  document.getElementById('dot_'+cur).classList.add('done');
+  document.getElementById('thumb_'+cur).classList.remove('active');
+  document.getElementById('thumb_'+cur).classList.add('done');
+  cur=idx;
+  document.getElementById('slide_'+cur).classList.add('active');
+  document.getElementById('dot_'+cur).classList.add('active');
+  document.getElementById('dot_'+cur).classList.remove('done');
+  document.getElementById('thumb_'+cur).classList.add('active');
+  document.getElementById('thumb_'+cur).classList.remove('done');
+  document.getElementById('sCurr').textContent=cur+1;
+  document.getElementById('progFill').style.width=(((cur+1)/SLIDES.length)*100)+'%';
+  if(!autoPlay) document.getElementById('playBtn').textContent='▶ PLAY NARRATION';
+  document.getElementById('voiceStatus').textContent='Slide '+(cur+1)+' ready';
+  // Scroll thumb into view
+  document.getElementById('thumb_'+cur).scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'});
+}
+
+// Keyboard nav
+document.addEventListener('keydown', e=>{
+  if(e.key==='ArrowRight'||e.key===' ') go(1);
+  else if(e.key==='ArrowLeft') go(-1);
+  else if(e.key==='p'||e.key==='P') togglePlay();
+});
+</script>
+</body>
+</html>
