@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<title>BETONIQ INVEST — Investor Presentation</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter','Segoe UI',sans-serif;background:#050d1a;color:#fff;height:100vh;overflow:hidden;display:flex;flex-direction:column}
+
+/* ===== HEADER ===== */
+.hdr{padding:8px 20px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;position:relative;z-index:10}
+.brand-name{font-size:17px;font-weight:900;letter-spacing:1px}
+.brand-sub{font-size:8.5px;opacity:.75;margin-top:1px;letter-spacing:.3px}
+.brand-legal{font-size:7px;opacity:.5;margin-top:1px}
+.hdr-right{text-align:right}
+.slide-counter{font-size:13px;font-weight:900}
+.ai-badge{font-size:8px;opacity:.75;margin-top:1px}
+
+/* ===== PROGRESS ===== */
+.prog-bar{height:3px;flex-shrink:0;background:rgba(255,255,255,.1)}
+.prog-fill{height:100%;transition:width .6s cubic-bezier(.4,0,.2,1)}
+
+/* ===== SLIDE AREA ===== */
+.slide-wrap{flex:1;position:relative;overflow:hidden}
+canvas.bg-canvas{position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none}
+.slide-content{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px 36px;text-align:center;z-index:5}
+
+/* ===== SLIDE ICON - HUGE ===== */
+.slide-icon-wrap{position:relative;margin-bottom:16px}
+.slide-main-icon{font-size:96px;line-height:1;filter:drop-shadow(0 0 30px currentColor);animation:float 3s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-12px) scale(1.05)}}
+.icon-ring{position:absolute;inset:-20px;border-radius:50%;border:2px solid;opacity:.3;animation:spin 8s linear infinite}
+.icon-ring2{position:absolute;inset:-36px;border-radius:50%;border:1px solid;opacity:.15;animation:spin 12s linear infinite reverse}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ===== TEXT ===== */
+.slide-num{font-size:9px;font-weight:700;letter-spacing:4px;opacity:.5;margin-bottom:8px;text-transform:uppercase}
+.slide-title{font-size:28px;font-weight:900;margin-bottom:14px;line-height:1.15;max-width:700px;text-shadow:0 2px 20px rgba(0,0,0,.5)}
+.slide-text{font-size:13px;line-height:1.8;max-width:680px;opacity:.88;text-shadow:0 1px 6px rgba(0,0,0,.4)}
+
+/* ===== NARRATION PILL ===== */
+.narr-pill{margin-top:16px;border:1.5px solid;border-radius:30px;padding:7px 18px;font-size:10.5px;font-weight:700;display:flex;align-items:center;gap:8px;backdrop-filter:blur(12px);background:rgba(0,0,0,.3);cursor:pointer;transition:all .2s;letter-spacing:.3px}
+.narr-pill:hover{transform:scale(1.04)}
+.narr-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
+.narr-dot.on{animation:pulse-dot .5s ease-in-out infinite}
+@keyframes pulse-dot{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(.5);opacity:.3}}
+
+/* ===== THUMB STRIP ===== */
+.thumb-strip{background:rgba(0,0,0,.7);backdrop-filter:blur(16px);border-top:1px solid rgba(255,255,255,.08);display:flex;overflow-x:auto;padding:5px 10px;gap:5px;flex-shrink:0;scrollbar-width:thin}
+.thumb{border-radius:6px;border:1.5px solid rgba(255,255,255,.12);padding:5px 10px;font-size:8.5px;font-weight:700;cursor:pointer;white-space:nowrap;transition:all .2s;flex-shrink:0;color:rgba(255,255,255,.4)}
+.thumb:hover{color:rgba(255,255,255,.8);border-color:rgba(255,255,255,.3)}
+.thumb.active{border-color:currentColor;color:inherit;background:rgba(255,255,255,.08)}
+.thumb.done{opacity:.6}
+
+/* ===== CONTROLS ===== */
+.ctrl{background:rgba(0,0,0,.8);backdrop-filter:blur(20px);border-top:1px solid rgba(255,255,255,.06);padding:8px 18px;display:flex;align-items:center;gap:8px;flex-shrink:0;flex-wrap:wrap}
+.btn{background:rgba(255,255,255,.08);border:1.5px solid rgba(255,255,255,.15);border-radius:8px;color:#fff;font-size:10.5px;font-weight:700;padding:8px 14px;cursor:pointer;transition:all .2s;white-space:nowrap;touch-action:manipulation;font-family:inherit}
+.btn:hover{background:rgba(255,255,255,.16);border-color:rgba(255,255,255,.35)}
+.btn:active{transform:scale(.95)}
+.btn-play{font-size:12px;font-weight:900;padding:9px 24px;border-radius:10px;border:none;color:#000;letter-spacing:.5px;box-shadow:0 4px 20px rgba(0,0,0,.4)}
+.btn-play:hover{filter:brightness(1.15);box-shadow:0 6px 28px rgba(0,0,0,.5)}
+.dots{flex:1;display:flex;justify-content:center;gap:5px;flex-wrap:wrap;align-items:center}
+.dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.2);cursor:pointer;transition:all .25s;touch-action:manipulation;border:1px solid rgba(255,255,255,.15)}
+.dot.active{transform:scale(1.6);background:currentColor;border-color:currentColor}
+.dot.done{opacity:.5}
+.vbadge{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:6px;padding:4px 9px;font-size:8px;color:rgba(255,255,255,.65);text-align:center;line-height:1.5}
+
+@media(max-width:640px){
+  .slide-main-icon{font-size:64px}
+  .slide-title{font-size:18px}
+  .slide-text{font-size:11.5px;line-height:1.7}
+  .btn{padding:7px 11px;font-size:9.5px}
+  .btn-play{padding:9px 18px}
+}
+</style>
+</head>
+<body>
+
+<div class="hdr" id="hdr">
+  <div>
+    <div class="brand-name" id="brandName">🏗️ BETONIQ INVEST</div>
+    <div class="brand-sub">AI-Powered Real Estate Investment Intelligence Platform</div>
+    <div class="brand-legal">© BETONIQ(WEST) Ltd RC 56802 · Abuja, FCT, Nigeria · Strictly Confidential</div>
+  </div>
+  <div class="hdr-right">
+    <div class="slide-counter" id="sCurr">1 / 15</div>
+    <div class="ai-badge">47-Param AI · OpenAI Shimmer Voice</div>
+  </div>
+</div>
+
+<div class="prog-bar"><div class="prog-fill" id="prog" style="width:6.67%"></div></div>
+
+<div class="slide-wrap" id="slideWrap">
+  <canvas id="bgCvs" class="bg-canvas"></canvas>
+  <div class="slide-content" id="slideContent">
+    <div class="slide-icon-wrap" id="iconWrap">
+      <div class="icon-ring" id="iconRing1"></div>
+      <div class="icon-ring2" id="iconRing2"></div>
+      <div class="slide-main-icon" id="mainIcon"></div>
+    </div>
+    <div class="slide-num" id="slideNum"></div>
+    <div class="slide-title" id="slideTitle"></div>
+    <div class="slide-text" id="slideText"></div>
+    <div class="narr-pill" id="narrPill" onclick="togglePlay()">
+      <div class="narr-dot" id="narrDot"></div>
+      <span id="narrText">▶ PLAY NARRATION</span>
+    </div>
+  </div>
+</div>
+
+<div class="thumb-strip" id="thumbStrip"></div>
+
+<div class="ctrl">
+  <button class="btn" onclick="go(-1)">◀ PREV</button>
+  <button class="btn btn-play" id="playBtn" onclick="togglePlay()">▶ PLAY</button>
+  <button class="btn" onclick="go(1)">NEXT ▶</button>
+  <button class="btn" id="autoBtn" onclick="toggleAuto()" style="font-size:9px;padding:6px 10px">AUTO: OFF</button>
+  <div class="dots" id="dots"></div>
+  <div class="vbadge">🎙️ OpenAI Shimmer<br>Real AI Female Voice</div>
+</div>
+
+<script>
+const SLIDES=["There are 1.4 billion people globally with no reliable access to formal financial services. In Nigeria alone, 38 million people are excluded from the banking system. $26 billion in remittances flows into Nigeria annually \u2014 but almost none goes into verified real estate investment. The infrastructure does not exist. Until now.", "Meet David. A Nigerian software engineer in Manchester, earning \u00a365,000 a year. He knows Nigeria delivers 29% average real estate returns. He finds a project in Abuja \u2014 but there is no ROI projection, no NPV, no IRR. Just a brochure and a bank account number. His cousin invested \u00a312,000. The project was never built. The money is gone.", "BETONIQ INVEST bridges global capital to verified African real estate. Built by Tom Ugbodaga \u2014 physicist, cybersecurity specialist, inventor of ZeroPay. Masters in NFC, University of Gloucestershire 2011 \u2014 Best Result in Cohort. 70 curated projects. 11 countries. $5.1 billion pipeline. Average AI score: 89 out of 100.", "Every project is scored across 47 parameters before any investor sees it. Location Intelligence. Developer Track Record. Regulatory Compliance. Financial Viability: NPV, IRR, break-even \u2014 independently calculated. Market Demand. One composite score from 0 to 100. A score below 75 means the project never gets listed.", "AI Score: 87 out of 100. Projected ROI: 28 percent. Net Present Value: $198,000. IRR: 31 percent. Certificate of Occupancy: verified green. Developer: 4 completed projects, zero litigation. Break-even: 18 months. David reads the feasibility study \u2014 generated by the platform, not the developer. For the first time in three years, he trusts what he is looking at.", "Step one \u2014 KYC verified in under 24 hours. Step two \u2014 David commits \u00a315,000 to Katampe Terrace. Step three \u2014 Smart contract signed, timestamped, encrypted. Step four \u2014 Capital released in five construction milestones \u2014 never a lump sum. Step five \u2014 Project completes in 22 months. David receives \u00a34,200 return. Exactly 28 percent. Exactly as projected.", "Meet Emmanuel. Developer in Abuja. CAC registered. Planning permission granted. Nigerian banks offer him 22 percent interest \u2014 financially unviable. He lists on BETONIQ INVEST. Within 60 days, investors from UK, US, Canada, and UAE commit $280,000. Blended cost of capital: 14 percent. Viable. Profitable. Scalable. Without BETONIQ INVEST, Emmanuel's project never gets built.", "One: Nigerian diaspora in the UK, US, and Canada \u2014 verified home-country exposure. Two: African high net worth individuals \u2014 structured, AI-scored opportunities. Three: Institutional investors and family offices \u2014 African emerging market allocation. Four: Impact investors \u2014 housing and infrastructure in high-growth Africa. Minimum investment: ten thousand US dollars. Quarterly digital performance reports for every investor.", "Nigeria: 45 projects. Ghana: 8. Kenya: 5. South Africa: 4. United Kingdom: 3. UAE: 2. Total verified pipeline: $5.1 billion across 70 projects. Every project must achieve a minimum feasibility score of 75 out of 100. Target by Q4 2026: 500 projects across 25 countries. The Bloomberg of African real estate \u2014 built right here in Abuja.", "Tier one: Developer listing fees \u2014 $5,000 to $50,000 per project. Tier two: Success fees \u2014 1.5 to 3 percent on each completed investment transaction. Tier three: Investor subscriptions \u2014 premium AI reports from $49 per month. Gross margin across all three streams: 72 percent. High-margin. Scalable. Software-as-a-service applied to real estate.", "2026: 70 projects. $3.1 million total revenue. 2027: 250 projects. $16 million total revenue. 2028: 500 projects. $55 million total revenue. Gross margin maintained at 72 percent across all three phases. BETONIQ INVEST becomes the Bloomberg of African real estate investment by 2028.", "BETONIQ INVEST is not a concept. It is live right now. Investor registrations active. AI scoring calculating in real time. Compliance verified. Subscription billing operational. 11 entity types. 6 backend functions. Real-time AI scoring API. Investors can register, browse, score, and invest today. Enterprise-grade infrastructure. No traditional engineering team required.", "Gate one: AI score must reach 75 out of 100 across all 47 parameters. Gate two: Compliance panel independently reviews Certificate of Occupancy, building permits, environmental assessment, and anti-money laundering checks. Compliance score below 80 \u2014 project rejected. Both gates must pass. No exceptions. This is what makes BETONIQ INVEST uniquely trusted by institutional investors.", "We are seeking $4.5 million US dollars in Pre-Series A at a pre-money valuation of $25 million \u2014 18 percent equity. Product development: $1.2 million. Market expansion: $1.5 million. Investor acquisition: $800,000. Operations: $1 million. Projected return at Series A in 18 months: 3 times on a $75 million post-money valuation.", "BETONIQ INVEST is the world's first AI-powered real estate investment selection platform for African and emerging markets. 70 live projects. 11 countries. $5.1 billion pipeline. 29 percent average target return. A 47-parameter AI scoring engine no competitor can replicate. A fully operational platform seeking growth capital to scale to 500 projects, 25 countries, and the institutional-grade investment marketplace that African real estate deserves. Join us."];
+const TITLES=["The Problem \u2014 47 Million Missed Investments", "Meet David \u2014 The Diaspora Investor Locked Out", "Introducing BETONIQ INVEST", "The 47-Parameter AI Scoring Engine", "Live Example \u2014 Katampe Terrace, Abuja", "Five Steps \u2014 Capital Protected at Every Stage", "For Developers \u2014 Global Capital Unlocked", "Four Investor Categories \u2014 Global Capital Pool", "11 Countries \u2014 $5.1 Billion Pipeline", "Revenue Model \u2014 72% Gross Margin", "$55M Revenue in 3 Years", "Live Platform \u2014 Operational Today", "Two-Gate Compliance \u2014 No Exceptions", "Pre-Series A \u2014 $4.5M at $25M Valuation", "Join the Bloomberg of African Real Estate"];
+const ANIMS=["globe", "person", "platform", "ai", "building", "steps", "developer", "investors", "map", "revenue", "growth", "live", "gates", "rocket", "star"];
+const AUDIO_URLS=["https://raw.githubusercontent.com/TOMDEGGS/BETONIQ-WEST-/main/betoniq_audio/slide_01.mp3", "https://raw.githubusercontent.com/TOMDEGGS/BETONIQ-WEST-/main/betoniq_audio/slide_02.mp3", "https://raw.githubusercontent.com/TOMDEGGS/BETONIQ-WEST-/main/betoniq_audio/slide_03.mp3", "https://raw.githubusercontent.com/TOMDEGGS/BETONIQ-WEST-/main/betoniq_audio/slide_04.mp3", "https://raw.githubusercontent.com/TOMDEGGS/BETONIQ-WEST-/main/betoniq_audio/slide_05.mp3", "https://raw.githubusercontent.com/TOMDEGGS/BETONIQ-WEST-/main/betoniq_audio/slide_06.mp3", "https://raw.githubusercontent.com/TOMDEGGS/BETONIQ-WEST-/main/betoniq_audio/slide_07.mp3", "https://raw.githubusercontent.com/TOMDEGGS/BETONIQ-WEST-/main/betoniq_audio/slide_08.mp3", "https://raw.githubusercontent.com/TOMDEGGS/BETONIQ-WEST-/main/betoniq_audio/slide_09.mp3", "https://raw.githubusercontent.com/TOMDEGGS/BETONIQ-WEST-/main/betoniq_audio/slide_10.mp3", "https://raw.githubusercontent.com/TOMDEGGS/BETONIQ-WEST-/main/betoniq_audio/slide_11.mp3", "https://raw.githubusercontent.com/TOMDEGGS/BETONIQ-WEST-/main/betoniq_audio/slide_12.mp3", "https://raw.githubusercontent.com/TOMDEGGS/BETONIQ-WEST-/main/betoniq_audio/slide_13.mp3", "https://raw.githubusercontent.com/TOMDEGGS/BETONIQ-WEST-/main/betoniq_audio/slide_14.mp3", "https://raw.githubusercontent.com/TOMDEGGS/BETONIQ-WEST-/main/betoniq_audio/slide_15.mp3"];
+const THEMES=[{"bg": "#0a0e27", "accent": "#00d4ff", "sec": "#ffd700"}, {"bg": "#1a0a2e", "accent": "#ff6b9d", "sec": "#ffd700"}, {"bg": "#0a1628", "accent": "#ffa500", "sec": "#00e676"}, {"bg": "#0a2818", "accent": "#00e676", "sec": "#ffd700"}, {"bg": "#0a1a3e", "accent": "#40c4ff", "sec": "#ffd700"}, {"bg": "#1a0a3e", "accent": "#7c4dff", "sec": "#00e676"}, {"bg": "#2a0a0a", "accent": "#ff5252", "sec": "#ffd740"}, {"bg": "#1a0a28", "accent": "#ea80fc", "sec": "#40c4ff"}, {"bg": "#001a3e", "accent": "#00b0ff", "sec": "#ffd740"}, {"bg": "#0a2a10", "accent": "#69f0ae", "sec": "#ffd740"}, {"bg": "#2a0a0a", "accent": "#ff6d00", "sec": "#ffd740"}, {"bg": "#001428", "accent": "#00e5ff", "sec": "#ffd740"}, {"bg": "#1a0028", "accent": "#d500f9", "sec": "#ffd740"}, {"bg": "#002a1a", "accent": "#00e676", "sec": "#ffd740"}, {"bg": "#1a0a00", "accent": "#ffd740", "sec": "#ff6d00"}];
+const ICONS=['🌍','👨‍💼','🏗️','🤖','🏢','🛡️','👷‍♂️','💼','🗺️','💰','📈','⚡','⚖️','🚀','⭐'];
+const TOTAL=15;
+
+let cur=0,playing=false,autoAdvance=false,animT=0,animFrame=null;
+let audEls=[];
+
+// Audio elements
+AUDIO_URLS.forEach((url,i)=>{
+  const a=new Audio();a.preload='none';a.src=url;
+  a.onended=()=>onEnd(i);a.onerror=()=>onErr(i);
+  audEls.push(a);
+});
+[0,1,2].forEach(i=>audEls[i].preload='auto');
+
+// Build thumbnails + dots
+const thumbStrip=document.getElementById('thumbStrip');
+const dotsEl=document.getElementById('dots');
+TITLES.forEach((t,i)=>{
+  const th=document.createElement('div');
+  th.className='thumb'+(i===0?' active':'');
+  th.id='th'+i;th.textContent=(i+1)+'. '+t.split('—')[0].trim();
+  th.onclick=()=>jumpTo(i);thumbStrip.appendChild(th);
+  const d=document.createElement('div');
+  d.className='dot'+(i===0?' active':'');
+  d.id='dt'+i;d.title=t;d.onclick=()=>jumpTo(i);
+  dotsEl.appendChild(d);
+});
+
+// Canvas background animations
+const cvs=document.getElementById('bgCvs');
+const ctx=cvs.getContext('2d');
+function resizeCvs(){cvs.width=window.innerWidth;cvs.height=document.getElementById('slideWrap').offsetHeight;}
+window.addEventListener('resize',resizeCvs);resizeCvs();
+
+// ===== BACKGROUND PARTICLE / GEOMETRY ANIMATIONS =====
+
+function drawParticles(t, accentColor, secColor){
+  const w=cvs.width,h=cvs.height;
+  // Floating particles
+  for(let i=0;i<40;i++){
+    const px=((i*137.5+t*8+i*29)%w);
+    const py=((i*97.3+t*5)%h);
+    const sz=1.5+1.5*Math.sin(t+i);
+    const op=0.15+0.2*Math.abs(Math.sin(t*0.5+i));
+    ctx.beginPath();ctx.arc(px,py,sz,0,Math.PI*2);
+    ctx.fillStyle=i%3===0?accentColor:i%3===1?secColor:'rgba(255,255,255,0.3)';
+    ctx.globalAlpha=op;ctx.fill();ctx.globalAlpha=1;
+  }
+}
+
+function drawGlobe(t){
+  const w=cvs.width,h=cvs.height,cx=w/2,cy=h/2;
+  const theme=THEMES[0];
+  ctx.clearRect(0,0,w,h);
+  // BG gradient
+  const g=ctx.createRadialGradient(cx,cy,0,cx,cy,Math.max(w,h));
+  g.addColorStop(0,theme.bg+'ee');g.addColorStop(1,'#000010');
+  ctx.fillStyle=g;ctx.fillRect(0,0,w,h);
+  drawParticles(t,theme.accent,theme.sec);
+  // Pulsing glow rings
+  for(let i=4;i>0;i--){
+    const r=80+i*40+20*Math.sin(t*0.5);
+    ctx.beginPath();ctx.arc(cx,cy,r,0,Math.PI*2);
+    ctx.strokeStyle=theme.accent;ctx.lineWidth=0.5;ctx.globalAlpha=0.04*i;ctx.stroke();ctx.globalAlpha=1;
+  }
+  // Data streams — diagonal bright lines
+  for(let i=0;i<8;i++){
+    const startX=(i*w/8+(t*60))%w;
+    const alpha=0.04+0.06*Math.sin(t+i);
+    ctx.strokeStyle=theme.accent;ctx.lineWidth=1;ctx.globalAlpha=alpha;
+    ctx.beginPath();ctx.moveTo(startX,0);ctx.lineTo(startX-100,h);ctx.stroke();ctx.globalAlpha=1;
+  }
+  // Big stat numbers in background
+  ctx.fillStyle=theme.accent;ctx.globalAlpha=0.06;ctx.font='bold 120px Inter';ctx.textAlign='center';
+  ctx.fillText('1.4B',cx,cy+60);ctx.globalAlpha=1;
+  ctx.fillStyle=theme.sec;ctx.globalAlpha=0.04;ctx.font='bold 80px Inter';
+  ctx.fillText('$26B',cx*0.3,cy*0.6);ctx.globalAlpha=1;
+}
+
+function drawPerson(t){
+  const w=cvs.width,h=cvs.height,cx=w/2,cy=h/2;
+  const theme=THEMES[1];
+  ctx.clearRect(0,0,w,h);
+  const g=ctx.createRadialGradient(cx*.7,cy,0,cx,cy*1.5,Math.max(w,h));
+  g.addColorStop(0,theme.bg+'ff');g.addColorStop(1,'#050005');
+  ctx.fillStyle=g;ctx.fillRect(0,0,w,h);
+  drawParticles(t,theme.accent,theme.sec);
+  // Big pound sign fading
+  ctx.fillStyle='#ff6b9d';ctx.globalAlpha=0.05;ctx.font='bold 200px Inter';ctx.textAlign='center';
+  ctx.fillText('£',cx*1.6,cy+80);ctx.globalAlpha=1;
+  // Broken X symbol background
+  ctx.strokeStyle='#ff5252';ctx.lineWidth=3;ctx.globalAlpha=0.08;
+  ctx.beginPath();ctx.moveTo(cx*0.3,cy*0.3);ctx.lineTo(cx*0.9,cy*0.9);ctx.stroke();
+  ctx.beginPath();ctx.moveTo(cx*0.9,cy*0.3);ctx.lineTo(cx*0.3,cy*0.9);ctx.stroke();
+  ctx.globalAlpha=1;
+}
+
+function drawPlatform(t){
+  const w=cvs.width,h=cvs.height,cx=w/2,cy=h/2;
+  const theme=THEMES[2];
+  ctx.clearRect(0,0,w,h);
+  const g=ctx.createRadialGradient(cx,cy,0,cx,cy,Math.max(w,h));
+  g.addColorStop(0,theme.bg+'ff');g.addColorStop(1,'#000a00');
+  ctx.fillStyle=g;ctx.fillRect(0,0,w,h);
+  drawParticles(t,theme.accent,theme.sec);
+  // Hexagonal grid pattern
+  const hex_r=40;
+  for(let row=-2;row<h/hex_r+2;row++)for(let col=-2;col<w/(hex_r*1.7)+2;col++){
+    const hx=col*hex_r*1.73+(row%2?hex_r*.86:0),hy=row*hex_r*1.5;
+    const alpha=0.02+0.02*Math.sin(t*0.5+col+row);
+    ctx.strokeStyle=theme.accent;ctx.lineWidth=0.5;ctx.globalAlpha=alpha;
+    ctx.beginPath();
+    for(let k=0;k<6;k++){const a=k*Math.PI/3;ctx.lineTo(hx+hex_r*.9*Math.cos(a),hy+hex_r*.9*Math.sin(a));}
+    ctx.closePath();ctx.stroke();ctx.globalAlpha=1;
+  }
+  // Big $5.1B in background
+  ctx.fillStyle=theme.accent;ctx.globalAlpha=0.05;ctx.font='bold 110px Inter';ctx.textAlign='center';
+  ctx.fillText('$5.1B',cx,cy+50);ctx.globalAlpha=1;
+}
+
+function drawAI(t){
+  const w=cvs.width,h=cvs.height,cx=w/2,cy=h/2;
+  const theme=THEMES[3];
+  ctx.clearRect(0,0,w,h);
+  const g=ctx.createRadialGradient(cx,cy,0,cx,cy,Math.max(w,h));
+  g.addColorStop(0,theme.bg+'ff');g.addColorStop(1,'#000500');
+  ctx.fillStyle=g;ctx.fillRect(0,0,w,h);
+  // Matrix-style falling chars
+  const chars='01AIMLNPVROIIRR47';
+  for(let i=0;i<20;i++){
+    const cx2=20+i*(w-40)/20,cy2=((t*30+i*97)%h);
+    const ch=chars[(i+Math.floor(t*3+i))%chars.length];
+    ctx.fillStyle=theme.accent;ctx.globalAlpha=0.08+0.05*Math.sin(t+i);
+    ctx.font=`bold ${10+i%4*3}px monospace`;ctx.textAlign='center';
+    ctx.fillText(ch,cx2,cy2);ctx.globalAlpha=1;
+  }
+  drawParticles(t,theme.accent,theme.sec);
+  ctx.fillStyle=theme.sec;ctx.globalAlpha=0.05;ctx.font='bold 130px Inter';ctx.textAlign='center';
+  ctx.fillText('47',cx,cy+60);ctx.globalAlpha=1;
+}
+
+function drawBuilding(t){
+  const w=cvs.width,h=cvs.height,cx=w/2,cy=h/2;
+  const theme=THEMES[4];
+  ctx.clearRect(0,0,w,h);
+  const g=ctx.createLinearGradient(0,0,0,h);
+  g.addColorStop(0,theme.bg);g.addColorStop(1,'#000510');
+  ctx.fillStyle=g;ctx.fillRect(0,0,w,h);
+  // City skyline silhouette
+  ctx.fillStyle='rgba(30,80,160,0.15)';
+  const buildings=[[0,.6,.12,.45],[.1,.7,.08,.3],[.2,.55,.15,.5],[.35,.65,.1,.38],[.5,.5,.2,.55],[.7,.68,.12,.35],[.82,.58,.1,.45],[.92,.72,.08,.3]];
+  buildings.forEach(([bx,by,bw,bh])=>{ctx.fillRect(bx*w,by*h,bw*w,bh*h);});
+  // Grid overlay
+  for(let x=0;x<w;x+=60){ctx.strokeStyle=theme.accent;ctx.lineWidth=.3;ctx.globalAlpha=.04;ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,h);ctx.stroke();}
+  for(let y=0;y<h;y+=40){ctx.strokeStyle=theme.accent;ctx.lineWidth=.3;ctx.globalAlpha=.04;ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(w,y);ctx.stroke();}
+  ctx.globalAlpha=1;
+  drawParticles(t,theme.accent,theme.sec);
+}
+
+function drawSteps(t){
+  const w=cvs.width,h=cvs.height,cx=w/2,cy=h/2;
+  const theme=THEMES[5];
+  ctx.clearRect(0,0,w,h);
+  const g=ctx.createRadialGradient(cx,cy,0,cx,cy,Math.max(w,h));
+  g.addColorStop(0,theme.bg);g.addColorStop(1,'#000008');
+  ctx.fillStyle=g;ctx.fillRect(0,0,w,h);
+  // Flowing upward arrows
+  for(let i=0;i<5;i++){
+    const ax=w*(.15+i*.17),ay=(h*0.8-(t*40+i*80))%h;
+    ctx.strokeStyle=theme.accent;ctx.lineWidth=1;ctx.globalAlpha=0.06;
+    ctx.beginPath();ctx.moveTo(ax,ay+40);ctx.lineTo(ax,ay);ctx.moveTo(ax-8,ay+15);ctx.lineTo(ax,ay);ctx.lineTo(ax+8,ay+15);ctx.stroke();
+    ctx.globalAlpha=1;
+  }
+  drawParticles(t,theme.accent,theme.sec);
+  ctx.fillStyle=theme.sec;ctx.globalAlpha=0.05;ctx.font='bold 100px Inter';ctx.textAlign='right';
+  ctx.fillText('28%',w-20,cy+40);ctx.globalAlpha=1;
+}
+
+function drawDeveloper(t){
+  const w=cvs.width,h=cvs.height,cx=w/2,cy=h/2;
+  const theme=THEMES[6];
+  ctx.clearRect(0,0,w,h);
+  const g=ctx.createRadialGradient(cx,h,0,cx,cy,Math.max(w,h));
+  g.addColorStop(0,theme.bg);g.addColorStop(1,'#050000');
+  ctx.fillStyle=g;ctx.fillRect(0,0,w,h);
+  // Flying flags
+  const flags=['🇬🇧','🇺🇸','🇨🇦','🇦🇪'];
+  flags.forEach((f,i)=>{
+    const fx=cx-150+i*100;const fy=cy+80+Math.sin(t*1.5+i*1.2)*20;
+    ctx.font='30px Arial';ctx.globalAlpha=0.12;ctx.fillText(f,fx,fy);ctx.globalAlpha=1;
+  });
+  drawParticles(t,theme.accent,theme.sec);
+  ctx.fillStyle=theme.accent;ctx.globalAlpha=0.04;ctx.font='bold 160px Inter';ctx.textAlign='right';
+  ctx.fillText('22%',w*.7,cy+60);ctx.fillStyle=theme.sec;ctx.fillText('14%',w*.95,cy+60);ctx.globalAlpha=1;
+}
+
+function drawInvestors(t){
+  const w=cvs.width,h=cvs.height,cx=w/2,cy=h/2;
+  const theme=THEMES[7];
+  ctx.clearRect(0,0,w,h);
+  const g=ctx.createRadialGradient(cx,cy,0,cx,cy,Math.max(w,h));
+  g.addColorStop(0,theme.bg);g.addColorStop(1,'#04000a');
+  ctx.fillStyle=g;ctx.fillRect(0,0,w,h);
+  // Orbit rings
+  for(let i=1;i<=4;i++){
+    const r=50+i*50+10*Math.sin(t*.3+i);
+    ctx.beginPath();ctx.arc(cx,cy,r,0,Math.PI*2);
+    ctx.strokeStyle=theme.accent;ctx.lineWidth=0.5;ctx.globalAlpha=0.06;ctx.stroke();ctx.globalAlpha=1;
+  }
+  drawParticles(t,theme.accent,theme.sec);
+}
+
+function drawMap(t){
+  const w=cvs.width,h=cvs.height,cx=w/2,cy=h/2;
+  const theme=THEMES[8];
+  ctx.clearRect(0,0,w,h);
+  const g=ctx.createLinearGradient(0,0,w,h);
+  g.addColorStop(0,theme.bg);g.addColorStop(1,'#000014');
+  ctx.fillStyle=g;ctx.fillRect(0,0,w,h);
+  // Grid (like a map)
+  for(let x=0;x<w;x+=w/12){ctx.strokeStyle=theme.accent;ctx.lineWidth=.4;ctx.globalAlpha=.06;ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,h);ctx.stroke();}
+  for(let y=0;y<h;y+=h/8){ctx.strokeStyle=theme.accent;ctx.lineWidth=.4;ctx.globalAlpha=.06;ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(w,y);ctx.stroke();}
+  ctx.globalAlpha=1;
+  drawParticles(t,theme.accent,theme.sec);
+  ctx.fillStyle=theme.sec;ctx.globalAlpha=0.04;ctx.font='bold 110px Inter';ctx.textAlign='center';
+  ctx.fillText('11',cx*.5,cy+50);ctx.globalAlpha=1;
+}
+
+function drawRevenue(t){
+  const w=cvs.width,h=cvs.height,cx=w/2,cy=h/2;
+  const theme=THEMES[9];
+  ctx.clearRect(0,0,w,h);
+  const g=ctx.createRadialGradient(cx,h,0,cx,cy,Math.max(w,h));
+  g.addColorStop(0,theme.bg);g.addColorStop(1,'#000300');
+  ctx.fillStyle=g;ctx.fillRect(0,0,w,h);
+  drawParticles(t,theme.accent,theme.sec);
+  ctx.fillStyle=theme.accent;ctx.globalAlpha=0.05;ctx.font='bold 130px Inter';ctx.textAlign='center';
+  ctx.fillText('72%',cx,cy+50);ctx.globalAlpha=1;
+}
+
+function drawGrowth(t){
+  const w=cvs.width,h=cvs.height,cx=w/2,cy=h/2;
+  const theme=THEMES[10];
+  ctx.clearRect(0,0,w,h);
+  const g=ctx.createLinearGradient(0,h,0,0);
+  g.addColorStop(0,theme.bg);g.addColorStop(1,'#050000');
+  ctx.fillStyle=g;ctx.fillRect(0,0,w,h);
+  // Rising chart lines
+  for(let i=0;i<5;i++){
+    const startX=w*.1+i*w*.15;
+    ctx.strokeStyle=['#ffd740','#ff6d00','#ff4444','#ffa500','#ff6b6b'][i];
+    ctx.lineWidth=1;ctx.globalAlpha=0.08;
+    ctx.beginPath();ctx.moveTo(startX,h*.9);ctx.quadraticCurveTo(startX+40,h*.5,startX+80,h*.1);ctx.stroke();
+    ctx.globalAlpha=1;
+  }
+  drawParticles(t,theme.accent,theme.sec);
+  ctx.fillStyle=theme.accent;ctx.globalAlpha=0.05;ctx.font='bold 110px Inter';ctx.textAlign='center';
+  ctx.fillText('$55M',cx,cy+50);ctx.globalAlpha=1;
+}
+
+function drawLive(t){
+  const w=cvs.width,h=cvs.height,cx=w/2,cy=h/2;
+  const theme=THEMES[11];
+  ctx.clearRect(0,0,w,h);
+  const g=ctx.createRadialGradient(cx,cy,0,cx,cy,Math.max(w,h));
+  g.addColorStop(0,theme.bg);g.addColorStop(1,'#000004');
+  ctx.fillStyle=g;ctx.fillRect(0,0,w,h);
+  // Pulsing live rings
+  for(let i=0;i<6;i++){
+    const r=30+i*60+20*Math.abs(Math.sin(t*1.5+i*.5));
+    ctx.beginPath();ctx.arc(cx,cy,r,0,Math.PI*2);
+    ctx.strokeStyle=theme.accent;ctx.lineWidth=1;ctx.globalAlpha=0.04+0.03*Math.sin(t*2+i);ctx.stroke();ctx.globalAlpha=1;
+  }
+  drawParticles(t,theme.accent,theme.sec);
+  ctx.fillStyle=theme.accent;ctx.globalAlpha=0.05;ctx.font='bold 100px Inter';ctx.textAlign='center';
+  ctx.fillText('LIVE',cx,cy+40);ctx.globalAlpha=1;
+}
+
+function drawGates(t){
+  const w=cvs.width,h=cvs.height,cx=w/2,cy=h/2;
+  const theme=THEMES[12];
+  ctx.clearRect(0,0,w,h);
+  const g=ctx.createRadialGradient(cx,cy,0,cx,cy,Math.max(w,h));
+  g.addColorStop(0,theme.bg);g.addColorStop(1,'#040000');
+  ctx.fillStyle=g;ctx.fillRect(0,0,w,h);
+  drawParticles(t,theme.accent,theme.sec);
+  // Shield shapes
+  for(let i=0;i<3;i++){
+    const sx=cx+(-1+i)*200, sy=cy, sr=60+i*10;
+    ctx.fillStyle=theme.accent;ctx.globalAlpha=0.03;
+    ctx.beginPath();ctx.arc(sx,sy,sr,0,Math.PI*2);ctx.fill();ctx.globalAlpha=1;
+  }
+}
+
+function drawRocket(t){
+  const w=cvs.width,h=cvs.height,cx=w/2,cy=h/2;
+  const theme=THEMES[13];
+  ctx.clearRect(0,0,w,h);
+  const g=ctx.createRadialGradient(cx,cy,0,cx,cy,Math.max(w,h));
+  g.addColorStop(0,theme.bg);g.addColorStop(1,'#000200');
+  ctx.fillStyle=g;ctx.fillRect(0,0,w,h);
+  // Stars
+  for(let i=0;i<60;i++){
+    const sx=((i*137+t*3+i*73)%w),sy=((i*83+i*23)%h);
+    ctx.beginPath();ctx.arc(sx,sy,0.8+0.8*Math.sin(t+i),0,Math.PI*2);
+    ctx.fillStyle='#fff';ctx.globalAlpha=0.2+0.3*Math.sin(t*2+i);ctx.fill();ctx.globalAlpha=1;
+  }
+  drawParticles(t,theme.accent,theme.sec);
+  ctx.fillStyle=theme.accent;ctx.globalAlpha=0.05;ctx.font='bold 100px Inter';ctx.textAlign='center';
+  ctx.fillText('$4.5M',cx,cy+40);ctx.globalAlpha=1;
+}
+
+function drawStar(t){
+  const w=cvs.width,h=cvs.height,cx=w/2,cy=h/2;
+  const theme=THEMES[14];
+  ctx.clearRect(0,0,w,h);
+  const g=ctx.createRadialGradient(cx,cy,0,cx,cy,Math.max(w,h));
+  g.addColorStop(0,theme.bg);g.addColorStop(1,'#030200');
+  ctx.fillStyle=g;ctx.fillRect(0,0,w,h);
+  // Radiating golden lines
+  for(let i=0;i<16;i++){
+    const a=(i/16)*Math.PI*2+t*.15;
+    const r=Math.min(w,h)*.5;
+    ctx.strokeStyle=theme.accent;ctx.lineWidth=1;ctx.globalAlpha=0.04+0.02*Math.sin(t+i);
+    ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(cx+Math.cos(a)*r,cy+Math.sin(a)*r);ctx.stroke();ctx.globalAlpha=1;
+  }
+  // Stars
+  for(let i=0;i<50;i++){
+    const sx=((i*137+t*2)%w),sy=((i*83)%h);
+    ctx.beginPath();ctx.arc(sx,sy,.8+.5*Math.sin(t+i),0,Math.PI*2);
+    ctx.fillStyle='#ffd740';ctx.globalAlpha=0.15+0.15*Math.sin(t*3+i);ctx.fill();ctx.globalAlpha=1;
+  }
+  drawParticles(t,theme.accent,theme.sec);
+}
+
+const ANIM_FNS={globe:drawGlobe,person:drawPerson,platform:drawPlatform,ai:drawAI,building:drawBuilding,steps:drawSteps,developer:drawDeveloper,investors:drawInvestors,map:drawMap,revenue:drawRevenue,growth:drawGrowth,live:drawLive,gates:drawGates,rocket:drawRocket,star:drawStar};
+
+function runAnim(){
+  animT+=.014;
+  ctx.clearRect(0,0,cvs.width,cvs.height);
+  if(ANIM_FNS[ANIMS[cur]])ANIM_FNS[ANIMS[cur]](animT);
+  animFrame=requestAnimationFrame(runAnim);
+}
+
+// === UI UPDATE ===
+function applyTheme(idx){
+  const th=THEMES[idx];
+  const hdr=document.getElementById('hdr');
+  const sc=document.getElementById('slideContent');
+  // Header
+  hdr.style.background=`linear-gradient(135deg,${th.bg}ee,${th.bg}cc)`;
+  hdr.style.borderBottom=`2px solid ${th.accent}55`;
+  document.getElementById('brandName').style.color=th.accent;
+  document.getElementById('sCurr').style.color=th.accent;
+  // Icon rings
+  document.getElementById('iconRing1').style.borderColor=th.accent;
+  document.getElementById('iconRing2').style.borderColor=th.sec;
+  // Narration pill
+  const pill=document.getElementById('narrPill');
+  pill.style.borderColor=th.accent+'88';
+  pill.style.color=th.accent;
+  // Play button
+  const pb=document.getElementById('playBtn');
+  pb.style.background=`linear-gradient(135deg,${th.accent},${th.sec})`;
+  // Progress
+  document.getElementById('prog').style.background=th.accent;
+  // Dots
+  document.querySelectorAll('.dot.active').forEach(d=>d.style.background=th.accent);
+  // Thumbs
+  TITLES.forEach((_,i)=>{
+    const th2=document.getElementById('th'+i);
+    if(th2)th2.style.color=i===idx?THEMES[i].accent:'';
+  });
+}
+
+function setStatus(state,text){
+  const dot=document.getElementById('narrDot');
+  const txt=document.getElementById('narrText');
+  const theme=THEMES[cur];
+  dot.className='narr-dot'+(state==='speaking'?' on':'');
+  dot.style.background=state==='speaking'?'#fff':state==='done'?'#00e676':theme.accent;
+  if(state==='speaking')dot.style.boxShadow='0 0 8px #fff';
+  else dot.style.boxShadow='none';
+  txt.textContent=text;
+}
+
+function updateUI(){
+  const theme=THEMES[cur];
+  document.getElementById('sCurr').textContent=(cur+1)+' / '+TOTAL;
+  document.getElementById('slideNum').textContent='SLIDE '+String(cur+1).padStart(2,'0')+' / '+TOTAL;
+  document.getElementById('slideNum').style.color=theme.accent;
+  document.getElementById('slideTitle').textContent=TITLES[cur];
+  document.getElementById('slideTitle').style.color=theme.accent;
+  document.getElementById('slideText').textContent=SLIDES[cur];
+  document.getElementById('mainIcon').textContent=ICONS[cur];
+  document.getElementById('prog').style.width=(((cur+1)/TOTAL)*100)+'%';
+  TITLES.forEach((_,i)=>{
+    const th=document.getElementById('th'+i),dt=document.getElementById('dt'+i);
+    if(th){th.className='thumb'+(i===cur?' active':i<cur?' done':'');if(i===cur)th.style.color=THEMES[i].accent;else th.style.color='';}
+    if(dt){dt.className='dot'+(i===cur?' active':i<cur?' done':'');if(i===cur){dt.style.background=THEMES[i].accent;dt.style.borderColor=THEMES[i].accent;}else{dt.style.background='';dt.style.borderColor='';}}
+  });
+  document.getElementById('th'+cur)?.scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'});
+  applyTheme(cur);
+  setStatus('idle','▶ PLAY NARRATION');
+  document.getElementById('playBtn').textContent='▶ PLAY';
+}
+
+// === AUDIO ===
+function onEnd(idx){
+  playing=false;setStatus('done','✅ Complete — OpenAI Shimmer');
+  document.getElementById('playBtn').textContent='▶ PLAY';
+  if(autoAdvance&&idx<TOTAL-1){setTimeout(()=>{jumpTo(idx+1);playSlide(idx+1);},800);}
+  else if(autoAdvance&&idx===TOTAL-1){autoAdvance=false;document.getElementById('autoBtn').textContent='AUTO: OFF';}
+}
+function onErr(idx){playing=false;setStatus('error','⚠ Tap PLAY again');document.getElementById('playBtn').textContent='▶ PLAY';}
+function stopAll(){audEls.forEach(a=>{try{a.pause();a.currentTime=0;}catch(e){}});playing=false;}
+function playSlide(idx){
+  stopAll();const a=audEls[idx];if(!a)return;
+  a.preload='auto';playing=true;
+  document.getElementById('playBtn').textContent='⏸ PAUSE';
+  setStatus('speaking','🎙️ OpenAI Shimmer · playing...');
+  if(audEls[idx+1])audEls[idx+1].preload='auto';
+  a.play().catch(()=>{playing=false;setStatus('error','⚠ Tap ▶ PLAY (browser policy)');document.getElementById('playBtn').textContent='▶ PLAY';});
+}
+function togglePlay(){
+  if(playing){stopAll();document.getElementById('playBtn').textContent='▶ PLAY';setStatus('idle','▶ PLAY NARRATION');return;}
+  playSlide(cur);
+}
+function toggleAuto(){
+  autoAdvance=!autoAdvance;
+  document.getElementById('autoBtn').textContent='AUTO: '+(autoAdvance?'ON':'OFF');
+  document.getElementById('autoBtn').style.background=autoAdvance?'rgba(255,255,255,.15)':'';
+  if(autoAdvance&&!playing)playSlide(cur);
+}
+function go(dir){const next=Math.max(0,Math.min(TOTAL-1,cur+dir));if(next===cur)return;const was=playing||autoAdvance;jumpTo(next);if(was)playSlide(next);}
+function jumpTo(idx){stopAll();cur=idx;animT=0;updateUI();}
+
+updateUI();runAnim();
+
+document.addEventListener('keydown',e=>{
+  if(e.key==='ArrowRight'||e.key===' '){e.preventDefault();go(1);}
+  else if(e.key==='ArrowLeft'){e.preventDefault();go(-1);}
+  else if(e.key.toLowerCase()==='p')togglePlay();
+  else if(e.key.toLowerCase()==='a')toggleAuto();
+});
+let tx=0;
+document.getElementById('slideWrap').addEventListener('touchstart',e=>tx=e.touches[0].clientX,{passive:true});
+document.getElementById('slideWrap').addEventListener('touchend',e=>{if(Math.abs(e.changedTouches[0].clientX-tx)>60)go(e.changedTouches[0].clientX<tx?1:-1);},{passive:true});
+</script>
+</body>
+</html>
