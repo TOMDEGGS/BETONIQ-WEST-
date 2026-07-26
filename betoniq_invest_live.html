@@ -1,0 +1,1039 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<title>BETONIQ INVEST — Live Investor Presentation</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#050818;color:#fff;height:100vh;overflow:hidden;display:flex;flex-direction:column}
+.hdr{padding:8px 20px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;border-bottom:2px solid;transition:border-color .5s}
+.brand-name{font-size:17px;font-weight:900;letter-spacing:1px;transition:color .5s}
+.brand-sub{font-size:8.5px;opacity:.7;margin-top:1px}
+.brand-legal{font-size:7px;opacity:.4;margin-top:1px}
+.slide-counter{font-size:13px;font-weight:900;transition:color .5s}
+.ai-badge{font-size:8px;opacity:.6;text-align:right}
+.prog-bar{height:3px;background:rgba(255,255,255,.08);flex-shrink:0}
+.prog-fill{height:100%;transition:width .6s ease,background .5s}
+/* LAYOUT: left panel (animation) + right panel (text) */
+.main-wrap{flex:1;display:flex;overflow:hidden;min-height:0}
+.anim-col{width:55%;flex-shrink:0;position:relative;overflow:hidden;border-right:1px solid rgba(255,255,255,.05)}
+canvas{position:absolute;top:0;left:0;width:100%;height:100%}
+.text-col{flex:1;display:flex;flex-direction:column;justify-content:center;padding:24px 28px;overflow-y:auto}
+.slide-num{font-size:9px;font-weight:700;letter-spacing:3px;opacity:.5;margin-bottom:8px;transition:color .5s}
+.slide-title{font-size:21px;font-weight:900;margin-bottom:14px;line-height:1.2;transition:color .5s}
+.slide-text{font-size:12.5px;line-height:1.8;opacity:.85}
+.narr-pill{margin-top:14px;border:1.5px solid;border-radius:24px;padding:7px 16px;font-size:10px;font-weight:700;display:flex;align-items:center;gap:7px;cursor:pointer;transition:all .3s;letter-spacing:.3px;background:rgba(0,0,0,.3)}
+.narr-pill:hover{transform:scale(1.03)}
+.ndot{width:8px;height:8px;border-radius:50%;flex-shrink:0;transition:background .3s}
+.ndot.on{animation:ndot-pulse .5s ease-in-out infinite}
+@keyframes ndot-pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(.4);opacity:.3}}
+.thumb-strip{background:rgba(0,0,0,.7);border-top:1px solid rgba(255,255,255,.06);display:flex;overflow-x:auto;padding:4px 8px;gap:4px;flex-shrink:0;scrollbar-width:thin}
+.thumb{border-radius:5px;border:1.5px solid rgba(255,255,255,.1);padding:4px 9px;font-size:8px;font-weight:700;cursor:pointer;white-space:nowrap;transition:all .2s;flex-shrink:0;color:rgba(255,255,255,.35)}
+.thumb:hover{color:rgba(255,255,255,.7);border-color:rgba(255,255,255,.25)}
+.thumb.active{border-color:currentColor;background:rgba(255,255,255,.06)}
+.ctrl{background:rgba(0,0,0,.85);border-top:1px solid rgba(255,255,255,.05);padding:8px 16px;display:flex;align-items:center;gap:8px;flex-shrink:0;flex-wrap:wrap}
+.btn{background:rgba(255,255,255,.07);border:1.5px solid rgba(255,255,255,.15);border-radius:7px;color:#fff;font-size:10.5px;font-weight:700;padding:8px 13px;cursor:pointer;transition:all .2s;white-space:nowrap;font-family:inherit}
+.btn:hover{background:rgba(255,255,255,.15);border-color:rgba(255,255,255,.3)}
+.btn:active{transform:scale(.95)}
+.btn-play{font-size:12px;font-weight:900;padding:9px 22px;border-radius:9px;border:none;color:#000;transition:background .5s,box-shadow .3s}
+.dots{flex:1;display:flex;justify-content:center;gap:4px;flex-wrap:wrap;align-items:center}
+.dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.15);cursor:pointer;transition:all .25s;border:1px solid rgba(255,255,255,.1)}
+.dot.active{transform:scale(1.6)}
+.dot.done{opacity:.45}
+.vbadge{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:5px;padding:3px 8px;font-size:8px;color:rgba(255,255,255,.5);text-align:center;line-height:1.5}
+@media(max-width:768px){
+  .main-wrap{flex-direction:column}
+  .anim-col{width:100%;height:220px}
+  .text-col{padding:14px 16px}
+  .slide-title{font-size:16px}
+  .slide-text{font-size:11.5px}
+}
+</style>
+</head>
+<body>
+<div class="hdr" id="hdr">
+  <div>
+    <div class="brand-name" id="brandName">🏗️ BETONIQ INVEST</div>
+    <div class="brand-sub">AI-Powered Real Estate Investment Intelligence Platform</div>
+    <div class="brand-legal">© BETONIQ(WEST) Ltd RC 56802 · Abuja, Nigeria · Confidential</div>
+  </div>
+  <div>
+    <div class="slide-counter" id="sCount">1 / 15</div>
+    <div class="ai-badge">47-Param AI · OpenAI Shimmer Voice · Live Animations</div>
+  </div>
+</div>
+<div class="prog-bar"><div class="prog-fill" id="prog" style="width:6.67%"></div></div>
+<div class="main-wrap">
+  <div class="anim-col" id="animCol">
+    <canvas id="cvs"></canvas>
+  </div>
+  <div class="text-col">
+    <div class="slide-num" id="sNum">01 / 15</div>
+    <div class="slide-title" id="sTitle"></div>
+    <div class="slide-text" id="sText"></div>
+    <div class="narr-pill" id="narrPill" onclick="togglePlay()">
+      <div class="ndot" id="ndot"></div>
+      <span id="ntext">▶ PLAY NARRATION — OpenAI Shimmer voice</span>
+    </div>
+  </div>
+</div>
+<div class="thumb-strip" id="thumbStrip"></div>
+<div class="ctrl">
+  <button class="btn" onclick="go(-1)">◀ PREV</button>
+  <button class="btn btn-play" id="playBtn" onclick="togglePlay()">▶ PLAY</button>
+  <button class="btn" onclick="go(1)">NEXT ▶</button>
+  <button class="btn" id="autoBtn" onclick="toggleAuto()" style="font-size:9px;padding:6px 10px">AUTO: OFF</button>
+  <div class="dots" id="dots"></div>
+  <div class="vbadge">🎙️ OpenAI Shimmer<br>Real AI Female Voice</div>
+</div>
+
+<script>
+const SLIDES=["There are 1.4 billion people globally with no reliable access to formal financial services. In Nigeria alone, 38 million people are excluded from the banking system. $26 billion in remittances flows into Nigeria annually \u2014 but almost none goes into verified real estate investment. The infrastructure does not exist. Until now.", "Meet David. A Nigerian software engineer in Manchester, earning \u00a365,000 a year. He knows Nigeria delivers 29% average real estate returns. He finds a project in Abuja \u2014 but there is no ROI projection, no NPV, no IRR. Just a brochure and a bank account. His cousin invested \u00a312,000. The developer disappeared. The money is gone.", "BETONIQ INVEST bridges global capital to verified African real estate. Built by Tom Ugbodaga \u2014 physicist, cybersecurity specialist, inventor of ZeroPay. Masters in NFC, University of Gloucestershire 2011 \u2014 Best Result in Cohort. 70 curated projects. 11 countries. $5.1 billion pipeline. Average AI score: 89 out of 100. Average projected ROI: 29 percent.", "Every project is scored across 47 parameters before any investor sees it. Location Intelligence. Developer Track Record. Regulatory Compliance. Financial Viability: NPV, IRR, break-even \u2014 independently calculated. Market Demand. One composite score from 0 to 100. A score below 75 means the project never gets listed.", "AI Score: 87 out of 100. Projected ROI: 28 percent. Net Present Value: $198,000. IRR: 31 percent. Certificate of Occupancy: verified green. Developer: 4 completed projects, zero litigation. Break-even: 18 months. For the first time in three years, David trusts what he is looking at.", "Step one \u2014 KYC verified in under 24 hours. Step two \u2014 David commits \u00a315,000. Step three \u2014 Smart contract signed, encrypted, stored. Step four \u2014 Capital released in five milestones \u2014 never a lump sum. Step five \u2014 Project completes. Return: \u00a34,200 \u2014 exactly 28 percent as projected.", "Nigerian banks offer Emmanuel 22 percent interest \u2014 unviable. He lists on BETONIQ INVEST. Within 60 days, investors from UK, US, Canada, and UAE commit $280,000. Blended cost of capital: 14 percent. Viable. Profitable. Scalable. 12 Nigerian families get homes.", "One: Nigerian diaspora \u2014 UK, US, Canada. Two: African high net worth individuals. Three: institutional investors and family offices. Four: impact investors. Minimum: $10,000 USD. Quarterly digital performance reports for every investor.", "Nigeria: 45 projects. Ghana: 8. Kenya: 5. South Africa: 4. UK: 3. UAE: 2. Total pipeline: $5.1 billion across 70 projects. Target by Q4 2026: 500 projects across 25 countries.", "Tier one: developer listing fees \u2014 $5,000 to $50,000. Tier two: success fees \u2014 1.5 to 3 percent per deal. Tier three: investor subscriptions from $49 per month. Gross margin: 72 percent. High-margin. Scalable.", "2026: $3.1 million. 2027: $16 million. 2028: $55 million. Gross margin 72 percent maintained across all three phases. BETONIQ INVEST becomes the Bloomberg of African real estate by 2028.", "BETONIQ INVEST is live right now. Investor registrations active. AI scoring real-time. Compliance verified. Subscription billing operational. 11 entity types. 6 backend functions. Investors can register and invest today.", "Gate one: AI score minimum 75 out of 100 across 47 parameters. Gate two: compliance panel reviews Certificate of Occupancy, building permits, and AML checks. Score below 80 \u2014 project rejected. Both gates must pass. No exceptions.", "Seeking $4.5 million at a pre-money valuation of $25 million \u2014 18 percent equity. Product development: $1.2M. Market expansion: $1.5M. Investor acquisition: $800K. Operations: $1M. Projected 3x return at Series A in 18 months.", "70 live projects. 11 countries. $5.1 billion pipeline. 29 percent average target ROI. A 47-parameter AI scoring engine no competitor can replicate. A fully operational platform. Seeking growth capital to scale to 500 projects and 25 countries. Join us."];
+const TITLES=["The Problem \u2014 47 Million Missed Investments", "Meet David \u2014 The Diaspora Investor Locked Out", "Introducing BETONIQ INVEST", "The 47-Parameter AI Scoring Engine", "Live Example \u2014 Katampe Terrace, Abuja", "Five Steps \u2014 Capital Protected at Every Stage", "For Developers \u2014 Global Capital Unlocked", "Four Investor Categories", "11 Countries \u2014 $5.1 Billion Pipeline", "Revenue Model \u2014 72% Gross Margin", "$55M Revenue \u2014 Three-Phase Growth", "Platform \u2014 Live and Operational Today", "Two-Gate Compliance \u2014 No Exceptions", "Pre-Series A \u2014 $4.5M at $25M Valuation", "Join the Bloomberg of African Real Estate"];
+const ANIMS=["globe", "person", "stats", "ai", "scorecard", "steps", "developer", "investors", "map", "revenue", "growth", "live", "gates", "funding", "finale"];
+const AUDIO_URLS=["https://raw.githubusercontent.com/TOMDEGGS/BETONIQ-WEST-/main/betoniq_audio/slide_01.mp3", "https://raw.githubusercontent.com/TOMDEGGS/BETONIQ-WEST-/main/betoniq_audio/slide_02.mp3", "https://raw.githubusercontent.com/TOMDEGGS/BETONIQ-WEST-/main/betoniq_audio/slide_03.mp3", "https://raw.githubusercontent.com/TOMDEGGS/BETONIQ-WEST-/main/betoniq_audio/slide_04.mp3", "https://raw.githubusercontent.com/TOMDEGGS/BETONIQ-WEST-/main/betoniq_audio/slide_05.mp3", "https://raw.githubusercontent.com/TOMDEGGS/BETONIQ-WEST-/main/betoniq_audio/slide_06.mp3", "https://raw.githubusercontent.com/TOMDEGGS/BETONIQ-WEST-/main/betoniq_audio/slide_07.mp3", "https://raw.githubusercontent.com/TOMDEGGS/BETONIQ-WEST-/main/betoniq_audio/slide_08.mp3", "https://raw.githubusercontent.com/TOMDEGGS/BETONIQ-WEST-/main/betoniq_audio/slide_09.mp3", "https://raw.githubusercontent.com/TOMDEGGS/BETONIQ-WEST-/main/betoniq_audio/slide_10.mp3", "https://raw.githubusercontent.com/TOMDEGGS/BETONIQ-WEST-/main/betoniq_audio/slide_11.mp3", "https://raw.githubusercontent.com/TOMDEGGS/BETONIQ-WEST-/main/betoniq_audio/slide_12.mp3", "https://raw.githubusercontent.com/TOMDEGGS/BETONIQ-WEST-/main/betoniq_audio/slide_13.mp3", "https://raw.githubusercontent.com/TOMDEGGS/BETONIQ-WEST-/main/betoniq_audio/slide_14.mp3", "https://raw.githubusercontent.com/TOMDEGGS/BETONIQ-WEST-/main/betoniq_audio/slide_15.mp3"];
+const BKGS=["#050818", "#0d0520", "#0a1200", "#001a08", "#001428", "#160530", "#1a0500", "#0a001a", "#001028", "#002810", "#1a0800", "#001020", "#1a0014", "#001a14", "#1a1000"];
+const ACCENTS=["#00d4ff", "#ff6b9d", "#00e676", "#69f0ae", "#40c4ff", "#b388ff", "#ff5252", "#ea80fc", "#40c4ff", "#69f0ae", "#ffd740", "#00e5ff", "#d500f9", "#00e676", "#ffd740"];
+const TOTAL=15;
+let cur=0,playing=false,autoAdvance=false,T=0,raf=null;
+let audEls=[];
+AUDIO_URLS.forEach((url,i)=>{const a=new Audio();a.preload='none';a.src=url;a.onended=()=>onEnd(i);a.onerror=()=>onErr(i);audEls.push(a);});
+[0,1,2].forEach(i=>audEls[i].preload='auto');
+
+const cvs=document.getElementById('cvs');
+const ctx=cvs.getContext('2d');
+function resize(){const col=document.getElementById('animCol');cvs.width=col.offsetWidth;cvs.height=col.offsetHeight;}
+window.addEventListener('resize',resize);resize();
+
+const ts=document.getElementById('thumbStrip');
+const dotsEl=document.getElementById('dots');
+TITLES.forEach((t,i)=>{
+  const th=document.createElement('div');th.className='thumb'+(i===0?' active':'');th.id='th'+i;
+  th.textContent=(i+1)+'. '+t.split('—')[0].trim();th.onclick=()=>jumpTo(i);ts.appendChild(th);
+  const d=document.createElement('div');d.className='dot'+(i===0?' active':'');d.id='dt'+i;d.onclick=()=>jumpTo(i);dotsEl.appendChild(d);
+});
+
+// ==================== LIVE ANIMATION LIBRARY ====================
+// Each animation tells a data story with real moving elements
+
+function anim_globe(t){
+  const W=cvs.width,H=cvs.height,cx=W/2,cy=H/2;
+  ctx.clearRect(0,0,W,H);
+  ctx.fillStyle=BKGS[0];ctx.fillRect(0,0,W,H);
+  
+  // LIVE COUNTER — 1.4 billion ticking up
+  const unbanked=1400000000+Math.floor(t*1000);
+  ctx.fillStyle='rgba(0,212,255,0.06)';ctx.font=`bold ${Math.min(W*.22,90)}px Segoe UI`;ctx.textAlign='center';
+  ctx.fillText('1.4B',cx,cy*.6);
+  
+  // Spinning globe made of latitude/longitude lines
+  const R=Math.min(W,H)*.28;
+  const glow=ctx.createRadialGradient(cx,cy,R*.1,cx,cy,R);
+  glow.addColorStop(0,'#1e4080');glow.addColorStop(.7,'#0a2050');glow.addColorStop(1,'#030f28');
+  ctx.beginPath();ctx.arc(cx,cy,R,0,Math.PI*2);ctx.fillStyle=glow;ctx.fill();
+  
+  // Latitude rings
+  ctx.strokeStyle='rgba(0,200,255,0.18)';ctx.lineWidth=1;
+  for(let lat=-75;lat<=75;lat+=15){
+    const ry=R*Math.sin(lat*Math.PI/180),rx=R*Math.cos(lat*Math.PI/180);
+    ctx.beginPath();ctx.ellipse(cx,cy+ry,rx,rx*.3,0,0,Math.PI*2);ctx.stroke();
+  }
+  // Longitude arcs rotating
+  for(let lon=0;lon<180;lon+=20){
+    const a=(lon+t*18)*Math.PI/180;
+    ctx.beginPath();ctx.arc(cx,cy,R,a,a+Math.PI);ctx.stroke();
+  }
+  
+  // Africa — bright glowing green
+  ctx.shadowColor='#00e676';ctx.shadowBlur=20;
+  ctx.fillStyle='#00e676';
+  ctx.beginPath();ctx.ellipse(cx+R*.12,cy-R*.04,R*.2,R*.32,0.25,0,Math.PI*2);ctx.fill();
+  ctx.shadowBlur=0;
+  
+  // LIVE money packets flying from diaspora to Africa
+  const routes=[[.15,.25],[.2,.15],[.18,.32],[.82,.2],[.78,.35]];
+  routes.forEach((r,i)=>{
+    const sx=r[0]*W,sy=r[1]*H;
+    const prog=(t*.4+i*.2)%1;
+    const px=sx+(cx-sx)*prog,py=sy+(cy-py*.1+sy*.1)*prog;
+    // trail
+    ctx.strokeStyle=`rgba(255,200,0,${0.3*(1-prog)})`;ctx.lineWidth=1.5;
+    ctx.beginPath();ctx.moveTo(sx,sy);ctx.lineTo(px,py);ctx.stroke();
+    // packet
+    ctx.beginPath();ctx.arc(px,py,5,0,Math.PI*2);
+    ctx.fillStyle=`rgba(255,215,0,${0.8+0.2*Math.sin(t*5+i)})`;
+    ctx.shadowColor='#ffd700';ctx.shadowBlur=10;ctx.fill();ctx.shadowBlur=0;
+    // origin flag
+    const flags=['🇬🇧','🇺🇸','🇨🇦','🇦🇪','🇩🇪'];
+    ctx.font='16px Arial';ctx.textAlign='center';ctx.fillText(flags[i],sx,sy-8);
+  });
+  
+  // Live stat counters
+  ctx.fillStyle='#00d4ff';ctx.font='bold 12px Segoe UI';ctx.textAlign='center';
+  ctx.fillText('UNBANKED: '+unbanked.toLocaleString(),cx,H-48);
+  ctx.fillStyle='rgba(255,255,255,.6)';ctx.font='10px Segoe UI';
+  ctx.fillText('$26B REMITTANCES · 0% IN VERIFIED RE INVESTMENT',cx,H-30);
+  ctx.fillText('BETONIQ INVEST SOLVES THIS NOW',cx,H-14);
+}
+
+function anim_person(t){
+  const W=cvs.width,H=cvs.height,cx=W/2,cy=H/2;
+  ctx.clearRect(0,0,W,H);ctx.fillStyle=BKGS[1];ctx.fillRect(0,0,W,H);
+  
+  // Manchester skyline left
+  ctx.fillStyle='rgba(255,107,157,0.12)';
+  [[0,.6,.1,.42],[.08,.65,.08,.37],[.16,.58,.1,.45],[.26,.62,.08,.4]].forEach(([bx,by,bw,bh])=>ctx.fillRect(bx*W,by*H,bw*W,bh*H));
+  
+  // Abuja skyline right (greener)
+  ctx.fillStyle='rgba(0,230,118,0.12)';
+  [[.62,.58,.1,.45],[.72,.63,.08,.4],[.8,.55,.1,.48],[.9,.62,.08,.4]].forEach(([bx,by,bw,bh])=>ctx.fillRect(bx*W,by*H,bw*W,bh*H));
+  
+  // David figure — pulsing
+  const pulse=1+0.03*Math.sin(t*2);
+  ctx.save();ctx.translate(cx*.55,cy*.8);ctx.scale(pulse,pulse);
+  ctx.fillStyle='#ffd54f';
+  ctx.beginPath();ctx.arc(0,-40,18,0,Math.PI*2);ctx.fill(); // head
+  ctx.fillRect(-14,-22,28,40); // body
+  ctx.fillRect(-26,-18,13,30); // left arm
+  ctx.fillRect(13,-18,13,30); // right arm
+  ctx.fillRect(-12,16,11,26); // left leg
+  ctx.fillRect(1,16,11,26); // right leg
+  ctx.restore();
+  
+  // BLOCKED money — animated red X pulsing
+  const blockPulse=0.8+0.2*Math.sin(t*3);
+  ctx.save();ctx.translate(cx*.25,cy*.9);ctx.scale(blockPulse,blockPulse);
+  ctx.strokeStyle='#ff5252';ctx.lineWidth=4;ctx.shadowColor='#ff5252';ctx.shadowBlur=12;
+  ctx.beginPath();ctx.moveTo(-20,-20);ctx.lineTo(20,20);ctx.stroke();
+  ctx.beginPath();ctx.moveTo(20,-20);ctx.lineTo(-20,20);ctx.stroke();
+  ctx.shadowBlur=0;
+  ctx.fillStyle='rgba(255,82,82,.15)';ctx.beginPath();ctx.arc(0,0,28,0,Math.PI*2);ctx.fill();
+  ctx.fillStyle='#ff5252';ctx.font='bold 10px Segoe UI';ctx.textAlign='center';ctx.fillText('£12,000',0,38);ctx.fillText('LOST',0,51);
+  ctx.restore();
+  
+  // QUESTION MARKS bouncing around David
+  ['?','?','?'].forEach((q,i)=>{
+    const qx=cx*.55+60*Math.cos(t*.8+i*2.1),qy=cy*.8-50+20*Math.sin(t*1.2+i*1.5);
+    const qScale=0.7+0.3*Math.sin(t*2+i);
+    ctx.fillStyle=`rgba(255,107,157,${0.6+0.4*Math.sin(t+i)})`;
+    ctx.font=`bold ${Math.round(24*qScale)}px Segoe UI`;ctx.textAlign='center';
+    ctx.shadowColor='#ff6b9d';ctx.shadowBlur=8;ctx.fillText(q,qx,qy);ctx.shadowBlur=0;
+  });
+  
+  // Live poverty counter ticking
+  ctx.fillStyle='#ff6b9d';ctx.font='bold 11px Segoe UI';ctx.textAlign='center';
+  ctx.fillText('DIASPORA INVESTING BLIND: '+(47000000+Math.floor(t*100)).toLocaleString()+' CASES/YEAR',cx,H-30);
+  ctx.fillStyle='rgba(255,255,255,.5)';ctx.font='9px Segoe UI';
+  ctx.fillText('BETONIQ INVEST GIVES DAVID VERIFIED DATA FOR THE FIRST TIME',cx,H-14);
+}
+
+function anim_stats(t){
+  const W=cvs.width,H=cvs.height,cx=W/2;
+  ctx.clearRect(0,0,W,H);ctx.fillStyle=BKGS[2];ctx.fillRect(0,0,W,H);
+  
+  // LIVE STAT COUNTERS — numbers counting up
+  const stats=[
+    {label:'LIVE PROJECTS',val:70,unit:'',target:70,color:'#ffa500'},
+    {label:'COUNTRIES',val:11,unit:'',target:11,color:'#00e676'},
+    {label:'PIPELINE VALUE',val:5.1,unit:'B',target:5.1,color:'#40c4ff'},
+    {label:'AVG AI SCORE',val:89,unit:'/100',target:89,color:'#ea80fc'},
+    {label:'AVG PROJ ROI',val:29,unit:'%',target:29,color:'#ffd740'},
+    {label:'MIN COMPLIANCE',val:80,unit:'/100',target:80,color:'#69f0ae'}
+  ];
+  
+  const cardW=(W-40)/3,cardH=(H-60)/2;
+  stats.forEach((s,i)=>{
+    const col=i%3,row=Math.floor(i/3);
+    const cx2=20+col*(cardW+6)+cardW/2,cy2=20+row*(cardH+6)+cardH/2;
+    
+    // Card background with pulse
+    const pulseAlpha=0.08+0.04*Math.sin(t*2+i);
+    ctx.fillStyle=s.color.replace(')',`, ${pulseAlpha})`).replace('rgb','rgba');
+    if(!s.color.startsWith('rgba')){
+      // parse hex
+      const r=parseInt(s.color.slice(1,3),16),g=parseInt(s.color.slice(3,5),16),b=parseInt(s.color.slice(5,7),16);
+      ctx.fillStyle=`rgba(${r},${g},${b},${pulseAlpha})`;
+    }
+    ctx.beginPath();ctx.roundRect(cx2-cardW/2+3,cy2-cardH/2+3,cardW-6,cardH-6,10);ctx.fill();
+    ctx.strokeStyle=s.color+'66';ctx.lineWidth=1.5;ctx.stroke();
+    
+    // Animated value — counts up from 0
+    const progress=Math.min(1,t*.5);
+    const displayVal=s.val*progress;
+    const displayStr=s.val<10?displayVal.toFixed(1):Math.round(displayVal).toString();
+    
+    ctx.fillStyle=s.color;ctx.shadowColor=s.color;ctx.shadowBlur=12;
+    ctx.font=`bold ${Math.min(cardW*.32,36)}px Segoe UI`;ctx.textAlign='center';
+    ctx.fillText(displayStr+s.unit,cx2,cy2+6);ctx.shadowBlur=0;
+    
+    ctx.fillStyle='rgba(255,255,255,.6)';ctx.font=`bold ${Math.min(cardW*.09,10)}px Segoe UI`;
+    ctx.fillText(s.label,cx2,cy2-cardH*.25);
+    
+    // Progress ring
+    const angle=-Math.PI/2;
+    ctx.beginPath();ctx.arc(cx2,cy2-cardH*.1,cardH*.12,angle,angle+Math.PI*2*progress);
+    ctx.strokeStyle=s.color+'44';ctx.lineWidth=3;ctx.stroke();
+  });
+  
+  ctx.fillStyle='#ffa500';ctx.font='bold 10px Segoe UI';ctx.textAlign='center';
+  ctx.fillText('BETONIQ INVEST — LIVE OPERATIONAL METRICS — Q3 2026',cx,H-10);
+}
+
+function anim_ai(t){
+  const W=cvs.width,H=cvs.height,cx=W/2,cy=H/2;
+  ctx.clearRect(0,0,W,H);ctx.fillStyle=BKGS[3];ctx.fillRect(0,0,W,H);
+  
+  // PROJECT enters left, gets SCORED, exits right
+  const flowX=(t*60)%W;
+  
+  // Input box (project data)
+  if(flowX<W*.3){
+    ctx.fillStyle='rgba(255,255,255,.06)';ctx.fillRect(10,cy-50,110,100);ctx.strokeStyle='rgba(255,255,255,.2)';ctx.lineWidth=1;ctx.strokeRect(10,cy-50,110,100);
+    ctx.fillStyle='rgba(255,255,255,.7)';ctx.font='bold 9px Segoe UI';ctx.textAlign='center';
+    ['LOCATION','NPV','IRR','C of O','DEMAND','SUPPLY','TRACK REC'].forEach((l,i)=>ctx.fillText(l,65,cy-35+i*14));
+  }
+  
+  // Neural network — LIVE activating neurons
+  const layers=[
+    [cy-70,cy-35,cy,cy+35,cy+70],
+    [cy-55,cy-20,cy+15,cy+50],
+    [cy-40,cy,cy+40],
+    [cy-20,cy+20]
+  ];
+  const lxs=[W*.18,W*.36,W*.54,W*.72];
+  const lColors=['#00b0ff','#00e676','#ea80fc','#ffd740'];
+  
+  layers.forEach((lyr,li)=>{
+    if(li<layers.length-1){
+      lyr.forEach(n1=>layers[li+1].forEach(n2=>{
+        const active=Math.sin(t*3+n1*.01+n2*.01+li)>0.1;
+        ctx.strokeStyle=active?lColors[li]+'88':'rgba(255,255,255,.06)';
+        ctx.lineWidth=active?1.5:.6;
+        if(active){ctx.shadowColor=lColors[li];ctx.shadowBlur=3;}
+        ctx.beginPath();ctx.moveTo(lxs[li],n1);ctx.lineTo(lxs[li+1],n2);ctx.stroke();
+        ctx.shadowBlur=0;
+      }));
+    }
+    lyr.forEach((ny,ni)=>{
+      const active=Math.sin(t*2+ny*.01+li+ni)>.2;
+      const r=active?9:6;
+      ctx.beginPath();ctx.arc(lxs[li],ny,r,0,Math.PI*2);
+      ctx.fillStyle=active?lColors[li]:lColors[li]+'33';
+      if(active){ctx.shadowColor=lColors[li];ctx.shadowBlur=12;}ctx.fill();ctx.shadowBlur=0;
+    });
+  });
+  
+  // LIVE SCORE OUTPUT — ticking
+  const score=Math.round(75+18*Math.abs(Math.sin(t*.4)));
+  const scoreColor=score>=85?'#00e676':score>=75?'#ffd740':'#ff5252';
+  ctx.fillStyle=scoreColor;ctx.shadowColor=scoreColor;ctx.shadowBlur=20;
+  ctx.font=`bold ${Math.min(W*.13,52)}px Segoe UI`;ctx.textAlign='center';
+  ctx.fillText(score,W*.88,cy+12);ctx.shadowBlur=0;
+  ctx.fillStyle='rgba(255,255,255,.5)';ctx.font='9px Segoe UI';ctx.fillText('/100',W*.88,cy+30);
+  ctx.fillStyle=scoreColor;ctx.font='bold 9px Segoe UI';
+  ctx.fillText(score>=75?'✓ LISTED':'✗ REJECTED',W*.88,cy+50);
+  
+  // Parameter count
+  ctx.fillStyle='#69f0ae';ctx.font='bold 10px Segoe UI';ctx.textAlign='center';
+  ctx.fillText('47 PARAMETERS EVALUATED IN REAL TIME',cx,H-14);
+}
+
+function anim_scorecard(t){
+  const W=cvs.width,H=cvs.height,cx=W/2;
+  ctx.clearRect(0,0,W,H);ctx.fillStyle=BKGS[4];ctx.fillRect(0,0,W,H);
+  
+  // Building illustration top
+  const bW=W*.35,bH=H*.32,bX=(W-bW)/2,bY=H*.05;
+  const bGrad=ctx.createLinearGradient(bX,bY,bX+bW,bY+bH);
+  bGrad.addColorStop(0,'#1565c0');bGrad.addColorStop(1,'#0d47a1');
+  ctx.fillStyle=bGrad;ctx.fillRect(bX,bY,bW,bH);
+  // Animated windows
+  for(let r=0;r<5;r++)for(let c=0;c<5;c++){
+    const lit=Math.sin(t*1.5+r+c*2)>-.1;
+    ctx.fillStyle=lit?'rgba(255,220,100,.9)':'rgba(10,30,80,.6)';
+    ctx.fillRect(bX+8+c*(bW-16)/5,bY+10+r*(bH-20)/5,(bW-16)/6,(bH-20)/6);
+  }
+  // Score badge on building
+  ctx.fillStyle='#00e676';ctx.shadowColor='#00e676';ctx.shadowBlur=20;
+  ctx.beginPath();ctx.arc(bX+bW+20,bY+25,24,0,Math.PI*2);ctx.fill();ctx.shadowBlur=0;
+  ctx.fillStyle='#000';ctx.font='bold 14px Segoe UI';ctx.textAlign='center';ctx.fillText('87',bX+bW+20,bY+22);
+  ctx.font='8px Segoe UI';ctx.fillText('/100',bX+bW+20,bY+33);
+  
+  // Live data table rows appearing one by one
+  const rows=[
+    ['AI Composite Score','87 / 100','🟢'],['Projected ROI','28%','🟢'],['Net Present Value','$198,000','🟢'],
+    ['Internal Rate of Return','31%','🟢'],['Break-Even','18 months','🟢'],['Compliance Score','92 / 100','🟢'],
+    ['C of O Status','Verified','🟢'],['Location Score','88 / 100','🟢']
+  ];
+  const visibleRows=Math.min(rows.length,Math.floor(t*.8)+1);
+  const tableY=H*.42,rowH=(H*.52)/rows.length;
+  
+  rows.slice(0,visibleRows).forEach((row,i)=>{
+    const ry=tableY+i*rowH;
+    const alpha=Math.min(1,(t*.8-i)*.8);
+    ctx.fillStyle=`rgba(255,255,255,${.04*alpha})`;
+    ctx.fillRect(10,ry,W-20,rowH-2);
+    if(i===visibleRows-1){ctx.strokeStyle=`rgba(64,196,255,${alpha*.5})`;ctx.lineWidth=1;ctx.strokeRect(10,ry,W-20,rowH-2);}
+    ctx.fillStyle=`rgba(144,202,249,${alpha})`;ctx.font=`bold ${Math.min(11,W*.025)}px Segoe UI`;ctx.textAlign='left';ctx.fillText(row[0],16,ry+rowH*.65);
+    ctx.fillStyle=`rgba(255,255,255,${alpha})`;ctx.textAlign='center';ctx.fillText(row[1],W*.65,ry+rowH*.65);
+    ctx.textAlign='right';ctx.fillText(row[2],W-14,ry+rowH*.65);
+  });
+  
+  ctx.fillStyle='#40c4ff';ctx.font='bold 10px Segoe UI';ctx.textAlign='center';
+  ctx.fillText('KATAMPE TERRACE, ABUJA — BETONIQ INVEST AI REPORT',cx,H-10);
+}
+
+function anim_steps(t){
+  const W=cvs.width,H=cvs.height,cx=W/2;
+  ctx.clearRect(0,0,W,H);ctx.fillStyle=BKGS[5];ctx.fillRect(0,0,W,H);
+  
+  const steps=[
+    {label:'KYC VERIFIED',sub:'Identity checked · AML cleared · 24hrs',color:'#00b0ff'},
+    {label:'£15,000 COMMITTED',sub:'Katampe Terrace selected',color:'#7c4dff'},
+    {label:'CONTRACT SIGNED',sub:'Digital · encrypted · timestamped',color:'#00e676'},
+    {label:'MILESTONE RELEASE',sub:'5 tranches · never lump sum',color:'#ff9800'},
+    {label:'£4,200 RETURNED',sub:'28% exactly as projected',color:'#ffd740'}
+  ];
+  
+  // Animated progress — which step is active
+  const activeStep=Math.floor(t*.5)%6;
+  
+  steps.forEach((s,i)=>{
+    const done=i<activeStep,active=i===activeStep;
+    const stepH=H*.16,stepY=H*.04+i*stepH;
+    
+    // Connector line
+    if(i<steps.length-1){
+      const lineProgress=done?1:active?(t*.5-activeStep)*.8:0;
+      ctx.strokeStyle=steps[i].color+'44';ctx.lineWidth=2;ctx.setLineDash([4,6]);
+      ctx.beginPath();ctx.moveTo(W*.12,stepY+stepH*.5);ctx.lineTo(W*.12,stepY+stepH*.9*lineProgress+stepH*.5);ctx.stroke();
+      ctx.setLineDash([]);
+    }
+    
+    // Step circle
+    const r=active?22:done?18:15;
+    ctx.beginPath();ctx.arc(W*.12,stepY+stepH*.4,r,0,Math.PI*2);
+    if(active){ctx.fillStyle=s.color;ctx.shadowColor=s.color;ctx.shadowBlur=20;}
+    else if(done){ctx.fillStyle=s.color+'88';ctx.shadowColor=s.color;ctx.shadowBlur=8;}
+    else ctx.fillStyle='rgba(255,255,255,.08)';
+    ctx.fill();ctx.shadowBlur=0;
+    
+    if(active){// outer ring pulse
+      ctx.beginPath();ctx.arc(W*.12,stepY+stepH*.4,r+8+5*Math.sin(t*4),0,Math.PI*2);
+      ctx.strokeStyle=s.color+'44';ctx.lineWidth=2;ctx.stroke();
+    }
+    
+    ctx.fillStyle=done||active?'#000':'rgba(255,255,255,.4)';
+    ctx.font=`bold ${active?12:10}px Segoe UI`;ctx.textAlign='center';
+    ctx.fillText(done?'✓':String(i+1),W*.12,stepY+stepH*.4+5);
+    
+    // Label
+    const labelAlpha=done?0.7:active?1:0.3;
+    ctx.fillStyle=`rgba(255,255,255,${labelAlpha})`;
+    ctx.font=`bold ${active?12:10}px Segoe UI`;ctx.textAlign='left';
+    ctx.fillText(s.label,W*.2,stepY+stepH*.35);
+    ctx.fillStyle=`rgba(255,255,255,${labelAlpha*.6})`;ctx.font='9px Segoe UI';
+    ctx.fillText(s.sub,W*.2,stepY+stepH*.55);
+    
+    if(done){
+      ctx.fillStyle=s.color;ctx.font='bold 14px Arial';ctx.textAlign='right';ctx.fillText('✓',W-.12*W,stepY+stepH*.4+5);
+    }
+  });
+  
+  ctx.fillStyle='#ffd740';ctx.font='bold 10px Segoe UI';ctx.textAlign='center';
+  ctx.fillText('£4,200 RETURN ON £15,000  =  28%  EXACTLY AS PROJECTED',cx,H-10);
+}
+
+function anim_developer(t){
+  const W=cvs.width,H=cvs.height,cx=W/2;
+  ctx.clearRect(0,0,W,H);ctx.fillStyle=BKGS[6];ctx.fillRect(0,0,W,H);
+  
+  // BEFORE side — red
+  const lW=W*.38,lX=W*.04;
+  ctx.fillStyle='rgba(255,82,82,.08)';ctx.fillRect(lX,H*.12,lW,H*.6);
+  ctx.strokeStyle='#ff5252';ctx.lineWidth=2;ctx.strokeRect(lX,H*.12,lW,H*.6);
+  ctx.fillStyle='#ff5252';ctx.font='bold 11px Segoe UI';ctx.textAlign='center';
+  ctx.fillText('BANK RATE',lX+lW/2,H*.2);
+  // Animated % ticking
+  const bankRate=22+2*Math.sin(t*.5);
+  ctx.fillStyle='#ff6b6b';ctx.shadowColor='#ff5252';ctx.shadowBlur=15;
+  ctx.font=`bold ${Math.min(lW*.25,44)}px Segoe UI`;
+  ctx.fillText(bankRate.toFixed(1)+'%',lX+lW/2,H*.42);ctx.shadowBlur=0;
+  ctx.fillStyle='rgba(255,255,255,.5)';ctx.font='9px Segoe UI';ctx.fillText('interest p.a.',lX+lW/2,H*.5);
+  ctx.fillStyle='#ff5252';ctx.font='bold 10px Segoe UI';ctx.fillText('UNVIABLE ✗',lX+lW/2,H*.62);
+  
+  // Arrow with live moving money packet
+  const progress=(t*.5)%1;
+  ctx.strokeStyle='#ffd740';ctx.lineWidth=2.5;
+  ctx.beginPath();ctx.moveTo(W*.45,H*.42);ctx.lineTo(W*.55,H*.42);ctx.stroke();
+  ctx.beginPath();ctx.moveTo(W*.52,H*.39);ctx.lineTo(W*.55,H*.42);ctx.lineTo(W*.52,H*.45);ctx.fillStyle='#ffd740';ctx.fill();
+  // Moving dot
+  ctx.beginPath();ctx.arc(W*.45+progress*(W*.1),H*.42,5,0,Math.PI*2);
+  ctx.fillStyle='#ffd740';ctx.shadowColor='#ffd740';ctx.shadowBlur=10;ctx.fill();ctx.shadowBlur=0;
+  ctx.fillStyle='#ffd740';ctx.font='bold 8px Segoe UI';ctx.textAlign='center';ctx.fillText('BETONIQ',cx,H*.36);
+  
+  // AFTER side — green
+  const rX=W*.58;
+  ctx.fillStyle='rgba(0,230,118,.08)';ctx.fillRect(rX,H*.12,lW,H*.6);
+  ctx.strokeStyle='#00e676';ctx.lineWidth=2;ctx.strokeRect(rX,H*.12,lW,H*.6);
+  ctx.fillStyle='#69f0ae';ctx.font='bold 11px Segoe UI';ctx.textAlign='center';
+  ctx.fillText('BLENDED COST',rX+lW/2,H*.2);
+  ctx.fillStyle='#00e676';ctx.shadowColor='#00e676';ctx.shadowBlur=15;
+  ctx.font=`bold ${Math.min(lW*.25,44)}px Segoe UI`;
+  ctx.fillText('14%',rX+lW/2,H*.42);ctx.shadowBlur=0;
+  ctx.fillStyle='rgba(255,255,255,.5)';ctx.font='9px Segoe UI';ctx.fillText('of capital',rX+lW/2,H*.5);
+  ctx.fillStyle='#00e676';ctx.font='bold 10px Segoe UI';ctx.fillText('VIABLE ✓',rX+lW/2,H*.62);
+  
+  // Investor flags orbiting the green box
+  const flags=['🇬🇧','🇺🇸','🇨🇦','🇦🇪'];
+  flags.forEach((f,i)=>{
+    const a=t*.6+i*Math.PI/2;
+    const fx=rX+lW/2+55*Math.cos(a),fy=H*.5+30*Math.sin(a);
+    ctx.font='20px Arial';ctx.textAlign='center';ctx.fillText(f,fx,fy);
+  });
+  
+  ctx.fillStyle='#ffd740';ctx.font='bold 10px Segoe UI';ctx.textAlign='center';
+  ctx.fillText('$280,000 RAISED IN 60 DAYS · 12 FAMILIES HOUSED',cx,H-10);
+}
+
+function anim_investors(t){
+  const W=cvs.width,H=cvs.height,cx=W/2,cy=H/2;
+  ctx.clearRect(0,0,W,H);ctx.fillStyle=BKGS[7];ctx.fillRect(0,0,W,H);
+  
+  // Four investor nodes orbiting centre hub
+  const cats=[
+    {l:'DIASPORA',s:'UK · US · Canada',c:'#00b0ff',count:'47M potential'},
+    {l:'HNW AFRICA',s:'High Net Worth',c:'#ea80fc',count:'$180B wealth'},
+    {l:'INSTITUTIONS',s:'Funds · Family Office',c:'#00e676',count:'$2.3T AUM'},
+    {l:'IMPACT ESG',s:'SDG · Global',c:'#ff9800',count:'$35B seeking'}
+  ];
+  
+  const R=Math.min(W,H)*.3;
+  
+  cats.forEach((cat,i)=>{
+    const baseAngle=i*(Math.PI/2);
+    const a=baseAngle+t*.15; // slowly orbiting
+    const nx=cx+Math.cos(a)*R,ny=cy+Math.sin(a)*R;
+    
+    // Trail
+    for(let j=1;j<=8;j++){
+      const ta=baseAngle+t*.15-j*.06;
+      const tx=cx+Math.cos(ta)*R,ty=cy+Math.sin(ta)*R;
+      ctx.beginPath();ctx.arc(tx,ty,3*(1-j/8),0,Math.PI*2);
+      ctx.fillStyle=cat.c+Math.round((1-j/8)*88).toString(16).padStart(2,'0');ctx.fill();
+    }
+    
+    // Connection to hub
+    ctx.strokeStyle=cat.c+'44';ctx.lineWidth=1.5;
+    ctx.beginPath();ctx.moveTo(nx,ny);ctx.lineTo(cx,cy);ctx.stroke();
+    
+    // Money packet moving to hub
+    const pf=(t*.6+i*.25)%1;
+    const px=nx+(cx-nx)*pf,py=ny+(cy-ny)*pf;
+    ctx.beginPath();ctx.arc(px,py,5,0,Math.PI*2);
+    ctx.fillStyle=cat.c;ctx.shadowColor=cat.c;ctx.shadowBlur=10;ctx.fill();ctx.shadowBlur=0;
+    
+    // Node
+    ctx.beginPath();ctx.arc(nx,ny,28,0,Math.PI*2);
+    ctx.fillStyle=cat.c+'22';ctx.fill();
+    ctx.beginPath();ctx.arc(nx,ny,20,0,Math.PI*2);
+    ctx.fillStyle=cat.c;ctx.shadowColor=cat.c;ctx.shadowBlur=12;ctx.fill();ctx.shadowBlur=0;
+    ctx.fillStyle='#000';ctx.font='bold 7px Segoe UI';ctx.textAlign='center';ctx.fillText(cat.l,nx,ny-2);ctx.fillText(cat.s,nx,ny+8);
+    
+    // Market size label
+    ctx.fillStyle=cat.c;ctx.font='7px Segoe UI';ctx.textAlign='center';
+    const lx=cx+(Math.cos(a)*R*1.5),ly=cy+(Math.sin(a)*R*1.5);
+    ctx.fillText(cat.count,lx,ly);
+  });
+  
+  // Central hub — pulsing
+  const hpulse=1+.08*Math.sin(t*3);
+  ctx.beginPath();ctx.arc(cx,cy,36*hpulse,0,Math.PI*2);
+  const hg=ctx.createRadialGradient(cx,cy,5,cx,cy,36);
+  hg.addColorStop(0,'#ffd54f');hg.addColorStop(.7,'#ffa500');hg.addColorStop(1,'#e65100');
+  ctx.fillStyle=hg;ctx.shadowColor='#ffa500';ctx.shadowBlur=25;ctx.fill();ctx.shadowBlur=0;
+  ctx.fillStyle='#000';ctx.font='bold 8px Segoe UI';ctx.textAlign='center';ctx.fillText('BETONIQ',cx,cy-4);ctx.fillText('INVEST',cx,cy+8);
+  
+  ctx.fillStyle='#ea80fc';ctx.font='bold 10px Segoe UI';ctx.textAlign='center';
+  ctx.fillText('MIN $10,000 · GLOBAL CAPITAL FLOWING IN NOW',cx,H-10);
+}
+
+function anim_map(t){
+  const W=cvs.width,H=cvs.height,cx=W/2,cy=H/2;
+  ctx.clearRect(0,0,W,H);ctx.fillStyle=BKGS[8];ctx.fillRect(0,0,W,H);
+  
+  // Map grid
+  ctx.strokeStyle='rgba(64,196,255,.06)';ctx.lineWidth=.5;
+  for(let x=0;x<W;x+=W/12){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,H);ctx.stroke();}
+  for(let y=0;y<H;y+=H/8){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(W,y);ctx.stroke();}
+  
+  const cns=[
+    {n:'Nigeria',x:.49,y:.49,c:'#ffd740',p:45,r:24},
+    {n:'Ghana',x:.44,y:.52,c:'#ff9800',p:8,r:14},
+    {n:'Kenya',x:.57,y:.52,c:'#69f0ae',p:5,r:12},
+    {n:'S.Africa',x:.53,y:.66,c:'#40c4ff',p:4,r:11},
+    {n:'UK',x:.45,y:.19,c:'#ea80fc',p:3,r:10},
+    {n:'UAE',x:.60,y:.38,c:'#ff6d00',p:2,r:9},
+    {n:'USA',x:.19,y:.31,c:'#69f0ae',p:2,r:9},
+    {n:'Canada',x:.17,y:.21,c:'#40c4ff',p:1,r:8}
+  ];
+  
+  const ng=cns[0];
+  // Live remittance flows
+  cns.slice(1).forEach((c,i)=>{
+    const nx=cx+(c.x-.5)*W*.9,ny=cy+(c.y-.5)*H*.9;
+    const ngx=cx+(ng.x-.5)*W*.9,ngy=cy+(ng.y-.5)*H*.9;
+    
+    // Dashed route
+    ctx.strokeStyle=c.c+'33';ctx.lineWidth=1;ctx.setLineDash([3,7]);
+    ctx.beginPath();ctx.moveTo(nx,ny);ctx.lineTo(ngx,ngy);ctx.stroke();ctx.setLineDash([]);
+    
+    // Multiple packets flowing on each route
+    for(let p=0;p<3;p++){
+      const pf=((t*.5+i*.2+p*.33))%1;
+      const px=nx+(ngx-nx)*pf,py=ny+(ngy-ny)*pf;
+      ctx.beginPath();ctx.arc(px,py,3,0,Math.PI*2);
+      ctx.fillStyle=c.c;ctx.shadowColor=c.c;ctx.shadowBlur=6;ctx.fill();ctx.shadowBlur=0;
+    }
+  });
+  
+  // Country nodes — pulsing
+  cns.forEach(c=>{
+    const nx=cx+(c.x-.5)*W*.9,ny=cy+(c.y-.5)*H*.9;
+    // Pulse ring
+    const pr=c.r*1.5+5*Math.sin(t*2+c.x*10);
+    ctx.beginPath();ctx.arc(nx,ny,pr,0,Math.PI*2);ctx.fillStyle=c.c+'15';ctx.fill();
+    ctx.beginPath();ctx.arc(nx,ny,c.r,0,Math.PI*2);
+    ctx.fillStyle=c.c;ctx.shadowColor=c.c;ctx.shadowBlur=10;ctx.fill();ctx.shadowBlur=0;
+    ctx.fillStyle='#000';ctx.font=`bold ${Math.max(8,c.r*.55)}px Segoe UI`;ctx.textAlign='center';ctx.fillText(c.p,nx,ny+4);
+    ctx.fillStyle=c.c;ctx.font='7.5px Segoe UI';ctx.fillText(c.n,nx,ny+c.r+11);
+  });
+  
+  // Live deal counter
+  const deals=70+Math.floor(t*.1);
+  ctx.fillStyle='#40c4ff';ctx.font='bold 10px Segoe UI';ctx.textAlign='center';
+  ctx.fillText('LIVE PIPELINE: '+deals+' PROJECTS ACROSS 11 COUNTRIES · $5.1B VALUE',cx,H-10);
+}
+
+function anim_revenue(t){
+  const W=cvs.width,H=cvs.height,cx=W/2;
+  ctx.clearRect(0,0,W,H);ctx.fillStyle=BKGS[9];ctx.fillRect(0,0,W,H);
+  
+  // LIVE DONUT CHART — rotating
+  const total=100,segments=[
+    {pct:55,color:'#ffa500',label:'LISTING FEES','val':'$35M target'},
+    {pct:30,color:'#00e676',label:'SUCCESS FEES','val':'$16.5M target'},
+    {pct:15,color:'#40c4ff',label:'SUBSCRIPTIONS','val':'$4.5M target'}
+  ];
+  const R=Math.min(W*.28,H*.35),cx2=W*.35,cy2=H*.5;
+  let startA=-Math.PI/2+t*.05; // slow rotation
+  segments.forEach(s=>{
+    const sweep=2*Math.PI*(s.pct/100);
+    ctx.beginPath();ctx.moveTo(cx2,cy2);ctx.arc(cx2,cy2,R,startA,startA+sweep);ctx.closePath();
+    ctx.fillStyle=s.color+'cc';ctx.shadowColor=s.color;ctx.shadowBlur=8;ctx.fill();ctx.shadowBlur=0;
+    // Label on slice
+    const midA=startA+sweep/2;
+    const lx=cx2+R*.65*Math.cos(midA),ly=cy2+R*.65*Math.sin(midA);
+    ctx.fillStyle='#fff';ctx.font='bold 10px Segoe UI';ctx.textAlign='center';ctx.fillText(s.pct+'%',lx,ly);
+    startA+=sweep;
+  });
+  // Donut hole
+  ctx.beginPath();ctx.arc(cx2,cy2,R*.45,0,Math.PI*2);ctx.fillStyle=BKGS[9];ctx.fill();
+  ctx.fillStyle='#69f0ae';ctx.font='bold 14px Segoe UI';ctx.textAlign='center';ctx.fillText('72%',cx2,cy2+2);
+  ctx.font='8px Segoe UI';ctx.fillStyle='rgba(255,255,255,.6)';ctx.fillText('MARGIN',cx2,cy2+15);
+  
+  // Revenue bars with live values ticking
+  const barX=W*.58,barY=H*.15,barW=W*.36,barH=H*.65;
+  const years=[{y:'2026',rev:3.1},{y:'2027',rev:16},{y:'2028',rev:55}];
+  years.forEach((yr,i)=>{
+    const bx=barX+i*(barW/3+4),bw=barW/3-4;
+    const targetH=barH*(yr.rev/55);
+    const currentH=targetH*Math.min(1,t*.5);
+    const by=barY+barH-currentH;
+    const g=ctx.createLinearGradient(bx,by,bx,by+currentH);
+    g.addColorStop(0,['#ffd740','#ff9800','#ff5252'][i]);
+    g.addColorStop(1,['#ff9800','#ff5252','#b71c1c'][i]);
+    ctx.fillStyle=g;ctx.shadowColor=['#ffd740','#ff9800','#ff5252'][i];ctx.shadowBlur=8;
+    ctx.fillRect(bx,by,bw,currentH);ctx.shadowBlur=0;
+    ctx.fillStyle=['#ffd740','#ff9800','#ff5252'][i];ctx.font='bold 9.5px Segoe UI';ctx.textAlign='center';
+    ctx.fillText(yr.y,bx+bw/2,barY+barH+14);
+    ctx.fillText('$'+yr.rev+'M',bx+bw/2,by-5);
+  });
+  
+  ctx.fillStyle='#69f0ae';ctx.font='bold 10px Segoe UI';ctx.textAlign='center';
+  ctx.fillText('3-YEAR REVENUE: $55M · GROSS MARGIN: 72% · HIGH-MARGIN SAAS',cx,H-10);
+}
+
+function anim_growth(t){
+  const W=cvs.width,H=cvs.height,cx=W/2;
+  ctx.clearRect(0,0,W,H);ctx.fillStyle=BKGS[10];ctx.fillRect(0,0,W,H);
+  
+  // Live animated growth chart
+  const padL=50,padR=20,padT=30,padB=40;
+  const chartW=W-padL-padR,chartH=H-padT-padB;
+  
+  // Grid
+  ctx.strokeStyle='rgba(255,255,255,.06)';ctx.lineWidth=.5;
+  for(let i=0;i<=4;i++){
+    const y=padT+chartH*(1-i/4);
+    ctx.beginPath();ctx.moveTo(padL,y);ctx.lineTo(W-padR,y);ctx.stroke();
+    ctx.fillStyle='rgba(255,255,255,.4)';ctx.font='8px Segoe UI';ctx.textAlign='right';
+    ctx.fillText('$'+(i*14)+'M',padL-4,y+3);
+  }
+  
+  // Animated S-curve growing over time
+  const points=[];
+  for(let x=0;x<=chartW;x+=5){
+    const xFrac=x/chartW;
+    const yVal=55*Math.pow(xFrac,2.2);
+    const yPos=padT+chartH*(1-Math.min(1,yVal/55));
+    points.push({x:padL+x,y:yPos});
+  }
+  const progress=Math.min(1,t*.35);
+  const visPoints=Math.floor(points.length*progress);
+  
+  if(visPoints>1){
+    // Fill area
+    ctx.beginPath();ctx.moveTo(padL,padT+chartH);
+    points.slice(0,visPoints).forEach(p=>ctx.lineTo(p.x,p.y));
+    ctx.lineTo(points[visPoints-1].x,padT+chartH);ctx.closePath();
+    const areaGrad=ctx.createLinearGradient(0,padT,0,padT+chartH);
+    areaGrad.addColorStop(0,'rgba(255,100,0,.3)');areaGrad.addColorStop(1,'rgba(255,100,0,.02)');
+    ctx.fillStyle=areaGrad;ctx.fill();
+    
+    // Line
+    ctx.beginPath();points.slice(0,visPoints).forEach((p,i)=>i===0?ctx.moveTo(p.x,p.y):ctx.lineTo(p.x,p.y));
+    ctx.strokeStyle='#ff6d00';ctx.lineWidth=2.5;ctx.shadowColor='#ff6d00';ctx.shadowBlur=8;ctx.stroke();ctx.shadowBlur=0;
+    
+    // Current point glow
+    const lp=points[visPoints-1];
+    ctx.beginPath();ctx.arc(lp.x,lp.y,6,0,Math.PI*2);
+    ctx.fillStyle='#ffd740';ctx.shadowColor='#ffd740';ctx.shadowBlur=15;ctx.fill();ctx.shadowBlur=0;
+    
+    // Revenue label
+    const curRev=(55*Math.pow(progress,2.2)).toFixed(1);
+    ctx.fillStyle='#ffd740';ctx.font='bold 11px Segoe UI';ctx.textAlign='left';
+    ctx.fillText('$'+curRev+'M',lp.x+8,lp.y+4);
+  }
+  
+  // Phase markers
+  [[.33,'2026','$3.1M'],[.66,'2027','$16M'],[1,'2028','$55M']].forEach(([frac,yr,val])=>{
+    const x=padL+chartW*frac;
+    ctx.strokeStyle='rgba(255,255,255,.15)';ctx.lineWidth=1;ctx.setLineDash([3,5]);
+    ctx.beginPath();ctx.moveTo(x,padT);ctx.lineTo(x,padT+chartH);ctx.stroke();ctx.setLineDash([]);
+    ctx.fillStyle='rgba(255,255,255,.6)';ctx.font='bold 9px Segoe UI';ctx.textAlign='center';
+    ctx.fillText(yr,x,padT+chartH+16);ctx.fillText(val,x,padT+chartH+28);
+  });
+  
+  ctx.fillStyle='#ffd740';ctx.font='bold 10px Segoe UI';ctx.textAlign='center';
+  ctx.fillText('CUMULATIVE REVENUE TRAJECTORY TO $55M · 72% GROSS MARGIN',cx,H-4);
+}
+
+function anim_live(t){
+  const W=cvs.width,H=cvs.height,cx=W/2,cy=H/2;
+  ctx.clearRect(0,0,W,H);ctx.fillStyle=BKGS[11];ctx.fillRect(0,0,W,H);
+  
+  // Live system status nodes — data packets flowing
+  const systems=[
+    {l:'INVESTOR
+REG',x:.15,y:.22,c:'#00b0ff',active:true,count:Math.floor(t*0.8)},
+    {l:'AI SCORING',x:.5,y:.1,c:'#ea80fc',active:true,count:Math.floor(t*1.5)},
+    {l:'COMPLIANCE',x:.85,y:.22,c:'#00e676',active:true,count:Math.floor(t*0.6)},
+    {l:'BILLING',x:.85,y:.72,c:'#ff9800',active:true,count:Math.floor(t*0.4)},
+    {l:'LISTINGS
+PORTAL',x:.5,y:.85,c:'#ffd740',active:true,count:Math.floor(t*0.9)},
+    {l:'FEASIBILITY
+REPORTS',x:.15,y:.72,c:'#40c4ff',active:true,count:Math.floor(t*0.7)}
+  ];
+  
+  // Hub
+  const hpulse=0.95+0.05*Math.sin(t*4);
+  
+  systems.forEach((sys,i)=>{
+    const nx=cx+(sys.x-.5)*W*.85,ny=cy+(sys.y-.5)*H*.85;
+    
+    // Connection to hub
+    ctx.strokeStyle=sys.c+'33';ctx.lineWidth=1.5;
+    ctx.beginPath();ctx.moveTo(nx,ny);ctx.lineTo(cx,cy);ctx.stroke();
+    
+    // Multiple live packets
+    for(let p=0;p<4;p++){
+      const pf=((t*.8+i*.18+p*.25))%1;
+      const px=nx+(cx-nx)*pf,py=ny+(cy-ny)*pf;
+      ctx.beginPath();ctx.arc(px,py,2.5+Math.sin(t*3+p)*.5,0,Math.PI*2);
+      ctx.fillStyle=sys.c;ctx.shadowColor=sys.c;ctx.shadowBlur=6;ctx.fill();ctx.shadowBlur=0;
+    }
+    
+    // Node with live counter
+    const nr=22;
+    ctx.beginPath();ctx.arc(nx,ny,nr,0,Math.PI*2);
+    ctx.fillStyle=sys.c+'22';ctx.fill();
+    ctx.beginPath();ctx.arc(nx,ny,nr-4,0,Math.PI*2);
+    ctx.fillStyle=sys.c;ctx.shadowColor=sys.c;ctx.shadowBlur=12;ctx.fill();ctx.shadowBlur=0;
+    ctx.fillStyle='#000';ctx.font='bold 6px Segoe UI';ctx.textAlign='center';
+    sys.l.split('\n').forEach((ln,j)=>ctx.fillText(ln,nx,ny-3+j*8));
+    
+    // Live counter
+    ctx.fillStyle=sys.c;ctx.font='bold 8px Segoe UI';ctx.textAlign='center';ctx.fillText(sys.count,nx,ny+nr+11);
+  });
+  
+  // Central hub
+  ctx.beginPath();ctx.arc(cx,cy,36*hpulse,0,Math.PI*2);
+  const hg=ctx.createRadialGradient(cx,cy,5,cx,cy,36);
+  hg.addColorStop(0,'#ffd54f');hg.addColorStop(.8,'#ff6f00');hg.addColorStop(1,'#e65100');
+  ctx.fillStyle=hg;ctx.shadowColor='#ffa500';ctx.shadowBlur=25;ctx.fill();ctx.shadowBlur=0;
+  
+  // Outer pulse rings
+  for(let r=1;r<=3;r++){
+    const pr=36+r*20+10*Math.sin(t*2-r*.5);
+    ctx.beginPath();ctx.arc(cx,cy,pr,0,Math.PI*2);
+    ctx.strokeStyle=`rgba(255,165,0,${.1/r})`;ctx.lineWidth=2;ctx.stroke();
+  }
+  
+  ctx.fillStyle='#000';ctx.font='bold 8px Segoe UI';ctx.textAlign='center';ctx.fillText('LIVE',cx,cy-4);ctx.fillText('NOW',cx,cy+7);
+  
+  ctx.fillStyle='#00e676';ctx.shadowColor='#00e676';ctx.shadowBlur=8;
+  ctx.font='bold 10px Segoe UI';ctx.textAlign='center';
+  ctx.fillText('● ALL '+systems.length+' SYSTEMS OPERATIONAL · '+(Math.floor(t*12)+140)+' REQUESTS/MIN',cx,H-10);
+  ctx.shadowBlur=0;
+}
+
+function anim_gates(t){
+  const W=cvs.width,H=cvs.height,cx=W/2;
+  ctx.clearRect(0,0,W,H);ctx.fillStyle=BKGS[12];ctx.fillRect(0,0,W,H);
+  
+  // Project flows left to right through two gates
+  const flowX=(t*45)%(W+60)-30;
+  
+  // Input project
+  ctx.fillStyle='rgba(255,255,255,.06)';ctx.fillRect(5,H*.35,60,H*.3);
+  ctx.strokeStyle='rgba(255,255,255,.15)';ctx.lineWidth=1;ctx.strokeRect(5,H*.35,60,H*.3);
+  ctx.fillStyle='rgba(255,255,255,.5)';ctx.font='bold 8px Segoe UI';ctx.textAlign='center';ctx.fillText('NEW',35,H*.47);ctx.fillText('PROJECT',35,H*.55);
+  
+  // Flow arrow
+  if(flowX>65&&flowX<W*.38){
+    ctx.beginPath();ctx.arc(flowX,H*.5,6,0,Math.PI*2);
+    ctx.fillStyle='#fff';ctx.shadowColor='#fff';ctx.shadowBlur=10;ctx.fill();ctx.shadowBlur=0;
+  }
+  
+  // Gate 1 — AI
+  const g1pass=Math.sin(t*.4)>.3;
+  const g1color=g1pass?'#00e676':'#ff5252';
+  ctx.fillStyle=g1pass?'rgba(0,230,118,.1)':'rgba(255,82,82,.1)';
+  ctx.fillRect(W*.34,H*.15,W*.14,H*.7);
+  ctx.strokeStyle=g1color;ctx.lineWidth=2;ctx.shadowColor=g1color;ctx.shadowBlur=8;
+  ctx.strokeRect(W*.34,H*.15,W*.14,H*.7);ctx.shadowBlur=0;
+  ctx.fillStyle=g1color;ctx.font='bold 9px Segoe UI';ctx.textAlign='center';
+  ctx.fillText('GATE 1',W*.41,H*.24);ctx.fillText('AI SCORE',W*.41,H*.32);
+  const g1score=g1pass?87:62;
+  ctx.font=`bold ${Math.min(W*.07,30)}px Segoe UI`;ctx.shadowColor=g1color;ctx.shadowBlur=10;ctx.fillText(g1score,W*.41,H*.5);ctx.shadowBlur=0;
+  ctx.font='8px Segoe UI';ctx.fillStyle='rgba(255,255,255,.5)';ctx.fillText('MIN 75/100',W*.41,H*.58);
+  ctx.fillStyle=g1color;ctx.font='bold 9px Segoe UI';ctx.fillText(g1pass?'✓ PASS':'✗ REJECT',W*.41,H*.68);
+  
+  // Mid flow
+  if(g1pass&&flowX>W*.48&&flowX<W*.62){
+    ctx.beginPath();ctx.arc(flowX,H*.5,6,0,Math.PI*2);
+    ctx.fillStyle='#00e676';ctx.shadowColor='#00e676';ctx.shadowBlur=10;ctx.fill();ctx.shadowBlur=0;
+  }
+  
+  // Gate 2 — Compliance
+  const g2pass=g1pass&&Math.sin(t*.3+1)>.2;
+  const g2color=g2pass?'#00b0ff':'#ff5252';
+  ctx.fillStyle=g2pass?'rgba(0,176,255,.1)':'rgba(255,82,82,.1)';
+  ctx.fillRect(W*.62,H*.15,W*.14,H*.7);
+  ctx.strokeStyle=g2color;ctx.lineWidth=2;ctx.shadowColor=g2color;ctx.shadowBlur=8;
+  ctx.strokeRect(W*.62,H*.15,W*.14,H*.7);ctx.shadowBlur=0;
+  ctx.fillStyle=g2color;ctx.font='bold 9px Segoe UI';ctx.textAlign='center';
+  ctx.fillText('GATE 2',W*.69,H*.24);ctx.fillText('COMPLIANCE',W*.69,H*.32);
+  const g2score=g2pass?92:74;
+  ctx.font=`bold ${Math.min(W*.07,30)}px Segoe UI`;ctx.shadowColor=g2color;ctx.shadowBlur=10;ctx.fillText(g2score,W*.69,H*.5);ctx.shadowBlur=0;
+  ctx.font='8px Segoe UI';ctx.fillStyle='rgba(255,255,255,.5)';ctx.fillText('MIN 80/100',W*.69,H*.58);
+  ctx.fillStyle=g2color;ctx.font='bold 9px Segoe UI';ctx.fillText(g2pass?'✓ PASS':'✗ REJECT',W*.69,H*.68);
+  
+  // Output
+  if(g2pass){
+    ctx.fillStyle='rgba(0,230,118,.12)';ctx.fillRect(W*.8,H*.35,W*.17,H*.3);
+    ctx.strokeStyle='#00e676';ctx.lineWidth=2;ctx.strokeRect(W*.8,H*.35,W*.17,H*.3);
+    ctx.fillStyle='#00e676';ctx.font='bold 9px Segoe UI';ctx.textAlign='center';ctx.fillText('LISTED ✓',W*.885,H*.52);
+  }
+  
+  ctx.fillStyle='#d500f9';ctx.font='bold 10px Segoe UI';ctx.textAlign='center';
+  ctx.fillText('BOTH GATES MUST PASS · NO EXCEPTIONS · ZERO COMPROMISE',cx,H-10);
+}
+
+function anim_funding(t){
+  const W=cvs.width,H=cvs.height,cx=W/2;
+  ctx.clearRect(0,0,W,H);ctx.fillStyle=BKGS[13];ctx.fillRect(0,0,W,H);
+  
+  // Rocket launching
+  const launchY=H*(.75-Math.min(.6,t*.08));
+  const ry=launchY;
+  
+  // Flame — animated
+  for(let i=0;i<4;i++){
+    const fw=10+i*6+Math.random()*6,fy=ry+48+Math.random()*16;
+    ctx.fillStyle=['#ffd740','#ff9800','#ff5252','#ffa500'][i];
+    ctx.shadowColor='#ff6d00';ctx.shadowBlur=15;
+    ctx.beginPath();ctx.moveTo(cx-fw/2,ry+44);ctx.lineTo(cx+fw/2,ry+44);ctx.lineTo(cx,fy);ctx.fill();
+    ctx.shadowBlur=0;
+  }
+  
+  // Rocket body
+  const rW=40,rH=50;
+  const bg=ctx.createLinearGradient(cx-rW/2,ry,cx+rW/2,ry+rH);
+  bg.addColorStop(0,'#ef5350');bg.addColorStop(1,'#b71c1c');
+  ctx.fillStyle=bg;ctx.shadowColor='#ff1744';ctx.shadowBlur=12;ctx.fillRect(cx-rW/2,ry,rW,rH);ctx.shadowBlur=0;
+  // Nose
+  ctx.beginPath();ctx.moveTo(cx-rW/2,ry);ctx.lineTo(cx+rW/2,ry);ctx.lineTo(cx,ry-36);ctx.fill();
+  // Window
+  ctx.beginPath();ctx.arc(cx,ry+18,11,0,Math.PI*2);ctx.fillStyle='#1565c0';ctx.shadowColor='#40c4ff';ctx.shadowBlur=8;ctx.fill();ctx.shadowBlur=0;
+  ctx.strokeStyle='#80d8ff';ctx.lineWidth=2;ctx.stroke();
+  // Fins
+  ctx.fillStyle='#c62828';
+  ctx.beginPath();ctx.moveTo(cx-rW/2,ry+30);ctx.lineTo(cx-rW/2-16,ry+44);ctx.lineTo(cx-rW/2,ry+44);ctx.fill();
+  ctx.beginPath();ctx.moveTo(cx+rW/2,ry+30);ctx.lineTo(cx+rW/2+16,ry+44);ctx.lineTo(cx+rW/2,ry+44);ctx.fill();
+  
+  // Use of funds — bars appearing
+  const funds=[{l:'Product Dev','v':1.2,'c':'#00b0ff'},{l:'Market Exp','v':1.5,'c':'#00e676'},{l:'Inv Acquisition','v':.8,'c':'#ea80fc'},{l:'Operations','v':1.0,'c':'#ffd740'}];
+  const barW=(W*.45)/funds.length-6;
+  funds.forEach((f,i)=>{
+    const bx=W*.52+i*(barW+6),maxH=H*.35;
+    const bH=Math.min(maxH,maxH*(f.v/1.5)*Math.min(1,t*.5));
+    const by=H*.55-bH;
+    const g=ctx.createLinearGradient(bx,by,bx,by+bH);g.addColorStop(0,f.c);g.addColorStop(1,f.c+'44');
+    ctx.fillStyle=g;ctx.shadowColor=f.c;ctx.shadowBlur=6;ctx.fillRect(bx,by,barW,bH);ctx.shadowBlur=0;
+    ctx.fillStyle=f.c;ctx.font='bold 8px Segoe UI';ctx.textAlign='center';
+    ctx.fillText('$'+f.v+'M',bx+barW/2,by-6);ctx.fillText(f.l,bx+barW/2,H*.6);
+  });
+  
+  ctx.fillStyle='#00e676';ctx.font='bold 11px Segoe UI';ctx.textAlign='center';
+  ctx.fillText('$4.5M · $25M PRE-MONEY · 18% EQUITY · 3× AT SERIES A IN 18 MONTHS',cx,H-10);
+}
+
+function anim_finale(t){
+  const W=cvs.width,H=cvs.height,cx=W/2,cy=H/2;
+  ctx.clearRect(0,0,W,H);ctx.fillStyle=BKGS[14];ctx.fillRect(0,0,W,H);
+  
+  // Rotating golden rays
+  for(let i=0;i<16;i++){
+    const a=(i/16)*Math.PI*2+t*.15;
+    const r=Math.min(W,H)*.45;
+    const alpha=.06+.04*Math.sin(t*2+i);
+    ctx.strokeStyle=`rgba(255,215,0,${alpha})`;ctx.lineWidth=2;
+    ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(cx+Math.cos(a)*r,cy+Math.sin(a)*r);ctx.stroke();
+  }
+  
+  // Orbiting stats
+  const statItems=[
+    {l:'70 PROJECTS',c:'#ffd740'},{l:'$5.1B PIPELINE',c:'#ff9800'},{l:'29% AVG ROI',c:'#ff5252'},
+    {l:'47-PARAM AI',c:'#ea80fc'},{l:'11 COUNTRIES',c:'#00e676'},{l:'89/100 AVG SCORE',c:'#40c4ff'}
+  ];
+  const orbitR=Math.min(W,H)*.37;
+  statItems.forEach((s,i)=>{
+    const a=(i/statItems.length)*Math.PI*2+t*.2;
+    const sx=cx+Math.cos(a)*orbitR,sy=cy+Math.sin(a)*orbitR;
+    // Trail
+    for(let tr=1;tr<=5;tr++){
+      const ta=a-tr*.04;
+      const tx=cx+Math.cos(ta)*orbitR,ty=cy+Math.sin(ta)*orbitR;
+      ctx.beginPath();ctx.arc(tx,ty,2*(1-tr/5),0,Math.PI*2);
+      ctx.fillStyle=s.c+Math.round((1-tr/5)*88).toString(16).padStart(2,'0');ctx.fill();
+    }
+    ctx.beginPath();ctx.arc(sx,sy,6,0,Math.PI*2);
+    ctx.fillStyle=s.c;ctx.shadowColor=s.c;ctx.shadowBlur=12;ctx.fill();ctx.shadowBlur=0;
+    ctx.fillStyle=s.c;ctx.font='bold 9px Segoe UI';ctx.textAlign='center';ctx.fillText(s.l,sx,sy-12);
+  });
+  
+  // Pulsing central star
+  function drawStar5(r1,r2,rot){
+    ctx.beginPath();
+    for(let i=0;i<10;i++){const r=i%2===0?r1:r2,a=(i/5)*Math.PI+rot;i===0?ctx.moveTo(cx+Math.cos(a)*r,cy+Math.sin(a)*r):ctx.lineTo(cx+Math.cos(a)*r,cy+Math.sin(a)*r);}
+    ctx.closePath();
+  }
+  const sp=.92+.08*Math.sin(t*2.5);
+  drawStar5(65*sp,30*sp,-Math.PI/2+t*.08);
+  const sg=ctx.createRadialGradient(cx,cy,5,cx,cy,65);
+  sg.addColorStop(0,'#fff9c4');sg.addColorStop(.4,'#ffd740');sg.addColorStop(.8,'#ffa500');sg.addColorStop(1,'#ff6f00');
+  ctx.fillStyle=sg;ctx.shadowColor='#ffd740';ctx.shadowBlur=30;ctx.fill();ctx.shadowBlur=0;
+  ctx.fillStyle='#000';ctx.font='bold 11px Segoe UI';ctx.textAlign='center';ctx.fillText('JOIN US',cx,cy+5);
+  
+  ctx.fillStyle='#ffd740';ctx.shadowColor='#ffd740';ctx.shadowBlur=8;ctx.font='bold 11px Segoe UI';ctx.textAlign='center';
+  ctx.fillText('THE BLOOMBERG OF AFRICAN REAL ESTATE — INVEST NOW',cx,H-10);ctx.shadowBlur=0;
+}
+
+const ANIM_FNS={globe:anim_globe,person:anim_person,stats:anim_stats,ai:anim_ai,scorecard:anim_scorecard,steps:anim_steps,developer:anim_developer,investors:anim_investors,map:anim_map,revenue:anim_revenue,growth:anim_growth,live:anim_live,gates:anim_gates,funding:anim_funding,finale:anim_finale};
+
+function runAnim(){
+  T+=.016;
+  ctx.clearRect(0,0,cvs.width,cvs.height);
+  if(ANIM_FNS[ANIMS[cur]])ANIM_FNS[ANIMS[cur]](T);
+  raf=requestAnimationFrame(runAnim);
+}
+
+// Status
+function setStatus(state,text){
+  const dot=document.getElementById('ndot');const ntxt=document.getElementById('ntext');
+  dot.className='ndot'+(state==='speaking'?' on':'');
+  dot.style.background=state==='done'?'#00e676':state==='speaking'?'#fff':ACCENTS[cur];
+  ntxt.textContent=text;
+}
+
+function onEnd(i){playing=false;setStatus('done','✅ Narration complete — OpenAI Shimmer');document.getElementById('playBtn').textContent='▶ PLAY';if(autoAdvance&&i<TOTAL-1)setTimeout(()=>{jumpTo(i+1);playSlide(i+1);},850);else if(autoAdvance){autoAdvance=false;document.getElementById('autoBtn').textContent='AUTO: OFF';}}
+function onErr(i){playing=false;setStatus('error','⚠ Tap PLAY again');document.getElementById('playBtn').textContent='▶ PLAY';}
+function stopAll(){audEls.forEach(a=>{try{a.pause();a.currentTime=0;}catch(e){}});playing=false;}
+function playSlide(i){stopAll();const a=audEls[i];if(!a)return;a.preload='auto';playing=true;document.getElementById('playBtn').textContent='⏸ PAUSE';setStatus('speaking','🎙️ OpenAI Shimmer professional female narration playing...');if(audEls[i+1])audEls[i+1].preload='auto';a.play().catch(()=>{playing=false;setStatus('error','⚠ Tap ▶ PLAY (browser audio policy)');document.getElementById('playBtn').textContent='▶ PLAY';});}
+function togglePlay(){if(playing){stopAll();document.getElementById('playBtn').textContent='▶ PLAY';setStatus('idle','▶ PLAY NARRATION — OpenAI Shimmer voice');return;}playSlide(cur);}
+function toggleAuto(){autoAdvance=!autoAdvance;document.getElementById('autoBtn').textContent='AUTO: '+(autoAdvance?'ON':'OFF');document.getElementById('autoBtn').style.background=autoAdvance?'rgba(255,255,255,.12)':'';if(autoAdvance&&!playing)playSlide(cur);}
+
+function applyTheme(){
+  const acc=ACCENTS[cur],bg=BKGS[cur];
+  document.getElementById('hdr').style.background=bg;
+  document.getElementById('hdr').style.borderBottom=`2px solid ${acc}55`;
+  document.getElementById('brandName').style.color=acc;
+  document.getElementById('sCount').style.color=acc;
+  document.getElementById('sNum').style.color=acc;
+  document.getElementById('sTitle').style.color=acc;
+  document.getElementById('narrPill').style.borderColor=acc+'88';
+  document.getElementById('narrPill').style.color=acc;
+  document.getElementById('ndot').style.background=acc;
+  document.getElementById('playBtn').style.background=`linear-gradient(135deg,${acc},${ACCENTS[(cur+1)%TOTAL]})`;
+  document.getElementById('prog').style.background=acc;
+  document.getElementById('prog').style.width=(((cur+1)/TOTAL)*100)+'%';
+  ['th','dt'].forEach(pfx=>TITLES.forEach((_,i)=>{
+    const el=document.getElementById(pfx+i);if(!el)return;
+    el.className=(pfx==='th'?'thumb':'dot')+(i===cur?' active':i<cur?' done':'');
+    if(i===cur){el.style.color=ACCENTS[i];if(pfx==='dt')el.style.background=ACCENTS[i];}
+    else{el.style.color='';if(pfx==='dt')el.style.background='';}
+  }));
+  document.getElementById('th'+cur)?.scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'});
+}
+
+function updateUI(){
+  document.getElementById('sCount').textContent=(cur+1)+' / '+TOTAL;
+  document.getElementById('sNum').textContent='SLIDE '+String(cur+1).padStart(2,'0')+' / '+TOTAL;
+  document.getElementById('sTitle').textContent=TITLES[cur];
+  document.getElementById('sText').textContent=SLIDES[cur];
+  document.getElementById('playBtn').textContent='▶ PLAY';
+  setStatus('idle','▶ PLAY NARRATION — OpenAI Shimmer voice');
+  applyTheme();
+}
+
+function go(dir){const next=Math.max(0,Math.min(TOTAL-1,cur+dir));if(next===cur)return;const was=playing||autoAdvance;jumpTo(next);if(was)playSlide(next);}
+function jumpTo(idx){stopAll();cur=idx;T=0;updateUI();}
+
+updateUI();runAnim();
+
+document.addEventListener('keydown',e=>{
+  if(e.key==='ArrowRight'||e.key===' '){e.preventDefault();go(1);}
+  else if(e.key==='ArrowLeft'){e.preventDefault();go(-1);}
+  else if(e.key.toLowerCase()==='p')togglePlay();
+  else if(e.key.toLowerCase()==='a')toggleAuto();
+});
+let tx=0;
+document.getElementById('main-wrap'||'animCol').addEventListener('touchstart',e=>tx=e.touches[0].clientX,{passive:true});
+document.getElementById('animCol').addEventListener('touchend',e=>{if(Math.abs(e.changedTouches[0].clientX-tx)>60)go(e.changedTouches[0].clientX<tx?1:-1);},{passive:true});
+</script>
+</body>
+</html>
