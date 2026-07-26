@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<title>BETONIQ INVEST — AI Real Estate Intelligence Platform</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',sans-serif;background:#050d1a;color:#e0e8f0;height:100vh;overflow:hidden;display:flex;flex-direction:column}
+.hdr{background:#0d1b3e;padding:8px 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:3px solid #ffa500;flex-shrink:0}
+.brand{font-size:17px;font-weight:900;color:#ffa500;letter-spacing:1px}
+.brand2{font-size:11px;color:#90a4b7;margin-top:1px}
+.patent{font-size:8px;color:#00d4ff;margin-top:1px}
+.slide-counter{font-size:11px;color:#90a4b7;font-weight:700}
+.progress-bar{height:4px;background:#1e3a5f;flex-shrink:0}
+.progress-fill{height:100%;background:linear-gradient(90deg,#ffa500,#ff6f00);transition:width .5s ease}
+.slide-wrap{flex:1;display:flex;flex-direction:column;overflow:hidden;position:relative}
+.slide{display:none;flex:1;flex-direction:column;justify-content:center;align-items:center;padding:30px 40px;text-align:center;position:absolute;inset:0;opacity:0;transition:opacity .4s ease}
+.slide.active{display:flex;opacity:1}
+.slide-icon{font-size:60px;margin-bottom:14px;filter:drop-shadow(0 0 20px rgba(255,165,0,.4))}
+.slide-num{font-size:10px;font-weight:700;letter-spacing:2px;margin-bottom:8px;opacity:.7}
+.slide-title{font-size:24px;font-weight:900;margin-bottom:14px;line-height:1.2;color:#ffa500}
+.slide-text{font-size:14px;line-height:1.75;max-width:780px;opacity:.88}
+.narr-box{background:rgba(255,165,0,.08);border:1px solid rgba(255,165,0,.25);border-radius:10px;padding:10px 16px;margin-top:16px;font-size:11px;color:#ffa500;max-width:680px;line-height:1.5}
+.controls{background:#0a1628;border-top:2px solid #1e3a5f;padding:10px 16px;display:flex;align-items:center;gap:10px;flex-shrink:0;flex-wrap:wrap}
+.ctrl-btn{background:#132340;border:1px solid #1e3a5f;border-radius:8px;color:#e0e8f0;font-size:11px;font-weight:700;padding:8px 14px;cursor:pointer;touch-action:manipulation;transition:all .2s;white-space:nowrap}
+.ctrl-btn:hover{background:#1e3a5f;border-color:#ffa500;color:#ffa500}
+.ctrl-btn:active{transform:scale(.96)}
+.ctrl-btn.play-btn{background:linear-gradient(135deg,#ffa500,#ff6f00);border:none;color:#fff;font-size:13px;padding:10px 22px}
+.ctrl-btn.play-btn:hover{background:linear-gradient(135deg,#ffb300,#ffa500)}
+.slide-dots{flex:1;display:flex;justify-content:center;gap:4px;flex-wrap:wrap}
+.dot{width:8px;height:8px;border-radius:50%;background:#1e3a5f;cursor:pointer;transition:all .2s;touch-action:manipulation}
+.dot.active{background:#ffa500;transform:scale(1.4)}
+.dot.done{background:#ffa50055}
+.voice-status{font-size:10px;color:#607080;text-align:right;min-width:80px}
+.thumb-bar{background:#050d1a;border-top:1px solid #1e3a5f;display:flex;overflow-x:auto;padding:6px 8px;gap:6px;flex-shrink:0;scrollbar-width:thin}
+.thumb{border-radius:6px;border:2px solid #1e3a5f;padding:5px 8px;font-size:9px;font-weight:700;cursor:pointer;touch-action:manipulation;white-space:nowrap;transition:all .2s;flex-shrink:0}
+.thumb.active{border-color:#ffa500;color:#ffa500;background:#ffa50011}
+.thumb.done{border-color:#ffa50044;color:#ffa500}
+@media(max-width:640px){
+  .slide{padding:20px 16px}
+  .slide-icon{font-size:42px;margin-bottom:10px}
+  .slide-title{font-size:17px;margin-bottom:10px}
+  .slide-text{font-size:12px;line-height:1.65}
+  .controls{gap:6px;padding:8px 10px}
+  .ctrl-btn{padding:7px 10px;font-size:10px}
+  .ctrl-btn.play-btn{padding:9px 16px;font-size:11px}
+}
+</style>
+</head>
+<body>
+<div class="hdr">
+  <div>
+    <div class="brand">🏗️ BETONIQ INVEST</div>
+    <div class="brand2">AI-Powered Real Estate Investment Platform</div>
+    <div class="patent">© BETONIQ(WEST) Ltd RC 56802 · Confidential · Not for Distribution</div>
+  </div>
+  <div class="slide-counter"><span id="sCurr">1</span> / 18</div>
+</div>
+<div class="progress-bar"><div class="progress-fill" id="progFill" style="width:5.5%"></div></div>
+<div class="slide-wrap" id="slideWrap"></div>
+<div class="thumb-bar" id="thumbBar"></div>
+<div class="controls">
+  <button class="ctrl-btn" onclick="go(-1)">◀ PREV</button>
+  <button class="ctrl-btn play-btn" id="playBtn" onclick="togglePlay()">▶ PLAY NARRATION</button>
+  <button class="ctrl-btn" onclick="go(1)">NEXT ▶</button>
+  <div class="slide-dots" id="dotBar"></div>
+  <div class="voice-status" id="voiceStatus">Voice: Ready</div>
+</div>
+<script>
+const SLIDES=["Across the world, 1.4 billion people remain unbanked. And 38 million of them are in Nigeria alone. But here is the paradox \u2014 Nigeria is one of the fastest-growing real estate markets on the continent. Billions in property value. Thousands of new developments. And almost no institutional mechanism to connect global capital with verified African real estate opportunities. BETONIQ INVEST was built to solve that. The world's first AI-powered real estate investment selection platform for African and emerging-market property.", "The African real estate market is growing at 6.1 percent annually. By 2030, sub-Saharan Africa will need 150 million new housing units. Nigeria alone has a housing deficit of 28 million units. Foreign direct investment into African real estate has tripled in the last decade. And yet \u2014 less than 2 percent of global institutional real estate investment flows into Africa. The reason is not a lack of opportunity. The reason is a lack of verified, rated, bankable investment data. BETONIQ INVEST provides exactly that.", "BETONIQ INVEST is not a listings platform. It is an AI-powered investment intelligence engine. Every property in the BETONIQ portfolio is scored across 47 parameters \u2014 spanning macroeconomic factors, regulatory compliance, feasibility metrics, location analysis, and investor fit. No other platform scores African real estate at this level of granularity. BETONIQ INVEST gives global investors the same quality of data they would expect from a Savills or JLL report \u2014 built specifically for emerging markets.", "The BETONIQ AI scoring engine evaluates every investment across three layers. The macro layer: GDP growth rate, inflation rate, interest rate, political stability score, foreign direct investment index, urbanisation rate, and regulatory environment score. The project layer: location score, market demand index, construction cost per square metre, projected revenue, net present value, internal rate of return, payback period, ROI, feasibility score, and compliance score. The investor layer: risk appetite match, investment horizon alignment, preferred region fit, accreditation status check, and investment preference alignment. 47 parameters. One score. Complete clarity.", "BETONIQ INVEST currently holds 70 curated projects across 11 countries, representing a combined pipeline of 5.1 billion US dollars. Our average target return on investment is 29 percent. Our average investment period is 24 months. Every project in the portfolio has passed our 47-parameter AI scoring process and achieved a minimum feasibility score of 75 out of 100. We do not list every project. We list the right projects \u2014 the ones that meet our standard.", "Every project on BETONIQ INVEST undergoes mandatory regulatory compliance verification before listing. Our compliance framework covers company registration and local licensing, planning permission and building approvals, environmental impact assessment, anti-money laundering and Know Your Customer verification, and investor accreditation status. In addition to AI scoring, each project is reviewed by our compliance panel and assigned a compliance score from 0 to 100. Projects below 80 do not receive investment listing approval.", "BETONIQ INVEST connects four types of capital to African real estate. Diaspora investors \u2014 Africans in the UK, UAE, USA, and Canada who want to invest in their home countries with professional due diligence and legal protection. Family offices \u2014 high net worth individuals and multi-generational wealth management offices seeking emerging market exposure. Institutional investors \u2014 real estate funds, pension funds, and sovereign wealth vehicles seeking African allocations. And corporate treasury \u2014 companies seeking capital preservation and yield in high-growth emerging market assets.", "BETONIQ INVEST operates a transparent, three-tier revenue model. Tier one: developer listing fees. Developers pay a listing fee ranging from $5,000 to $50,000 depending on the listing tier \u2014 Basic, Premium, or Enterprise. Tier two: success fees. On each completed investment transaction, BETONIQ charges a success fee of 1.5 to 3 percent of the investment value. Tier three: investor subscriptions. Investors can access premium AI reports, portfolio analytics, and compliance documents through monthly subscription plans starting at $49 per month.", "BETONIQ INVEST is fully operational. The platform is live at BETONIQ INVEST on the web. Investors can register, browse projects, view AI scores, access feasibility studies, and initiate investment enquiries today. The backend is fully powered \u2014 11 entity types, 6 backend functions, and a real-time AI scoring API. The compliance engine is live. The investor CRM is operational. The platform processes investor registrations, lead captures, and subscription activations in real time.", "Let us look at a live example. Katampe Terrace, Abuja FCT, Nigeria. AI demand score: 87 out of 100. Projected ROI: 28 percent. Net present value: $198,000. Investment period: 18 months. Minimum investment: $15,000. Equity available: 35 percent. Compliance score: 92 out of 100. Location score: 88. Market demand score: 91. Katampe Terrace is a residential mixed-use development in one of Abuja's fastest-growing suburbs, with planning approval granted and foundation work complete. This is the quality standard for every project on BETONIQ INVEST.", "BETONIQ INVEST's AI engine is trained on 15 years of African real estate market data, IMF macroeconomic indicators, World Bank urban development statistics, and proprietary transaction data from Nigeria, Ghana, Kenya, South Africa, and the UAE. The model runs a multi-layer regression analysis combining NPV calculation, IRR projection, location demand scoring, and regulatory risk weighting. The result is a single composite score from 0 to 100 \u2014 comparable to a Moody's credit rating for real estate investment. No other platform in Africa provides this level of automated investment intelligence.", "The African diaspora sent over 50 billion US dollars in remittances to sub-Saharan Africa in 2023. Less than 3 percent of that capital was directed into structured real estate investment. BETONIQ INVEST captures that opportunity by providing diaspora investors with a regulated, AI-verified, low-minimum-entry pathway into African property. Our diaspora investor programme accepts investments from $5,000 USD. Legal documentation is provided in English. Quarterly performance reports are delivered digitally. Repatriation of capital and returns is structured through our banking partners. We bring professional investment infrastructure to diaspora capital for the first time.", "BETONIQ INVEST is built on the same infrastructure as ZeroPay \u2014 the BETONIQ(WEST) enterprise stack on Base44. This gives us institutional-grade reliability, real-time data processing, and global scalability without a traditional engineering team. Our platform handles concurrent investor registrations, live AI scoring calculations, compliance document processing, and subscription billing simultaneously. As we scale from 70 to 500 projects and from hundreds to thousands of investors, the infrastructure scales with us \u2014 without additional engineering overhead.", "BETONIQ INVEST operates across 11 countries today. Nigeria \u2014 primary market, 45 projects listed. Ghana \u2014 8 projects. Kenya \u2014 5 projects. South Africa \u2014 4 projects. United Kingdom \u2014 3 projects. United Arab Emirates \u2014 2 projects. And 6 additional West African and East African markets in compliance review. Our target by Q4 2026 is 500 projects across 25 countries, with institutional partnership agreements in place in Nigeria, Ghana, Kenya, UAE, and the UK. BETONIQ INVEST will be the Bloomberg of African real estate investment.", "The BETONIQ INVEST commercial model is structured around three growth phases. Phase one \u2014 2026: Nigerian market launch, 70 projects, $2.5 million developer listing revenue, $180,000 subscription revenue. Phase two \u2014 2027: West Africa and East Africa expansion, 250 projects, $12 million developer listing revenue, $850,000 subscription revenue. Phase three \u2014 2028: UK and UAE diaspora institutional programme, 500 projects, $35 million developer listing revenue, $4.5 million subscription revenue. Total projected three-year revenue: $55 million. Gross margin: 72 percent.", "BETONIQ INVEST is seeking $4.5 million US dollars in Pre-Series A investment. The use of funds is structured across four categories. Product development \u2014 $1.2 million: AI engine enhancement, mobile application, API partner integrations. Market expansion \u2014 $1.5 million: Nigeria, Ghana, and Kenya developer partnerships and compliance registration. Investor acquisition \u2014 $800,000: diaspora marketing, institutional investor relations, and partnership events. Operations \u2014 $1 million: team, compliance, legal, and banking infrastructure. We are offering 18 percent equity in BETONIQ(WEST) Ltd at a pre-money valuation of $25 million.", "Tom Ugbodaga is the founder and managing director of BETONIQ(WEST) Ltd. Physicist. Computer security specialist. Master's degree in NFC for Contactless Technology in Financial Transactions from the University of Gloucestershire \u2014 top graduate in his cohort. Tom has spent 15 years studying, designing, and building financial infrastructure for environments that traditional systems cannot reach. BETONIQ INVEST and ZeroPay are the two commercial products born from that research. BETONIQ(WEST) Ltd is registered in Nigeria \u2014 CAC number 56802 \u2014 with a UK entity in formation.", "BETONIQ INVEST is the world's first AI-powered real estate investment selection platform for African and emerging markets. We have 70 live projects. 11 countries. A $5.1 billion pipeline. A 29 percent average target ROI. A 47-parameter AI scoring engine that no competitor can replicate. A fully operational platform with live investor registrations, compliance verification, and real-time AI scoring. We are not pitching a concept. We are presenting a live, operational platform seeking growth capital to scale to the 500-project, 25-country, institutional-grade investment marketplace that African real estate deserves. Join us."];
+const TITLES=["The African Opportunity", "The Market Gap", "AI Investment Intelligence \u2014 Not a Listings Site", "The 47-Parameter Scoring Engine", "Current Portfolio \u2014 $5.1B Pipeline", "Regulatory Compliance Verification", "Four Types of Capital", "Three-Tier Revenue Model", "Platform \u2014 Live and Operational", "Live Example \u2014 Katampe Terrace, Abuja", "AI Training & Methodology", "Diaspora Capital \u2014 $50B Opportunity", "Enterprise Infrastructure", "11 Countries Today \u2014 25 by 2026", "Three-Phase Commercial Model", "Pre-Series A \u2014 $4.5M Ask", "The Founder \u2014 Tom Ugbodaga", "The Opportunity \u2014 Join Us"];
+const ICONS=["\ud83c\udf0d", "\ud83d\udcca", "\ud83e\udd16", "\u2699\ufe0f", "\ud83c\udfd7\ufe0f", "\u2705", "\ud83d\udcbc", "\ud83d\udcb0", "\ud83d\udda5\ufe0f", "\ud83c\udfe2", "\ud83e\udde0", "\ud83c\udf10", "\ud83d\udd27", "\ud83d\uddfa\ufe0f", "\ud83d\udcc8", "\ud83d\ude80", "\ud83d\udc64", "\u2b50"];
+const COLORS=["#1a237e", "#0d47a1", "#1b5e20", "#4a148c", "#004d40", "#006064", "#880e4f", "#e65100", "#1565c0", "#2e7d32", "#1a237e", "#6a1b9a", "#37474f", "#0277bd", "#c62828", "#4527a0", "#212121", "#c62828"];
+let cur=0,speaking=false,autoPlay=false,synth=window.speechSynthesis,voices=[],britishVoice=null,utterance=null;
+const wrap=document.getElementById('slideWrap');
+const dotBar=document.getElementById('dotBar');
+const thumbBar=document.getElementById('thumbBar');
+SLIDES.forEach((text,i)=>{
+  const s=document.createElement('div');
+  s.className='slide'+(i===0?' active':'');
+  s.id='slide_'+i;
+  s.style.background='linear-gradient(160deg,'+COLORS[i]+'22 0%,#050d1a 100%)';
+  s.innerHTML=`<div class="slide-icon">${ICONS[i]}</div><div class="slide-num">SLIDE ${i+1} OF 18</div><div class="slide-title">${TITLES[i]}</div><div class="slide-text">${text}</div><div class="narr-box" id="narr_${i}">🔊 <span id="ntext_${i}">Click ▶ PLAY NARRATION to hear the full audio for this slide</span></div>`;
+  wrap.appendChild(s);
+  const d=document.createElement('div');
+  d.className='dot'+(i===0?' active':'');
+  d.id='dot_'+i;
+  d.onclick=()=>jumpTo(i);
+  dotBar.appendChild(d);
+  const t=document.createElement('div');
+  t.className='thumb'+(i===0?' active':'');
+  t.id='thumb_'+i;
+  t.textContent=(i+1)+'. '+TITLES[i];
+  t.onclick=()=>jumpTo(i);
+  thumbBar.appendChild(t);
+});
+function loadVoices(){
+  voices=synth.getVoices();
+  const priority=['Google UK English Female','Microsoft Hazel','Serena','Kate','Moira'];
+  for(const name of priority){const v=voices.find(v=>v.name.includes(name));if(v){britishVoice=v;break;}}
+  if(!britishVoice)britishVoice=voices.find(v=>v.lang==='en-GB')||voices.find(v=>v.lang.startsWith('en'))||voices[0];
+  document.getElementById('voiceStatus').textContent=britishVoice?'Voice: '+britishVoice.name.split(' ').slice(-2).join(' '):'Voice: Browser default';
+}
+loadVoices();
+if(speechSynthesis.onvoiceschanged!==undefined)speechSynthesis.onvoiceschanged=loadVoices;
+function speak(idx){
+  if(!synth)return;
+  synth.cancel();
+  utterance=new SpeechSynthesisUtterance(SLIDES[idx]);
+  utterance.voice=britishVoice;
+  utterance.rate=0.88;utterance.pitch=1.0;utterance.volume=1.0;
+  utterance.onstart=()=>{speaking=true;document.getElementById('playBtn').textContent='⏸ PAUSE';document.getElementById('ntext_'+idx).textContent='🔊 Speaking slide '+(idx+1)+'...';document.getElementById('voiceStatus').textContent='🔊 Speaking...';};
+  utterance.onend=()=>{speaking=false;document.getElementById('ntext_'+idx).textContent='✅ Narration complete';document.getElementById('voiceStatus').textContent='✓ Done';if(autoPlay&&idx<SLIDES.length-1){setTimeout(()=>{jumpTo(idx+1);speak(idx+1);},800);}else{document.getElementById('playBtn').textContent='▶ PLAY NARRATION';autoPlay=false;}};
+  utterance.onerror=()=>{speaking=false;autoPlay=false;document.getElementById('ntext_'+idx).textContent='⚠ Voice error — try again';document.getElementById('playBtn').textContent='▶ PLAY NARRATION';};
+  synth.speak(utterance);
+}
+function togglePlay(){if(speaking){synth.cancel();speaking=false;autoPlay=false;document.getElementById('playBtn').textContent='▶ PLAY NARRATION';return;}autoPlay=true;speak(cur);}
+function go(dir){const next=Math.max(0,Math.min(SLIDES.length-1,cur+dir));if(next===cur)return;jumpTo(next);if(autoPlay)speak(next);}
+function jumpTo(idx){
+  synth.cancel();speaking=false;
+  document.getElementById('slide_'+cur).classList.remove('active');
+  document.getElementById('dot_'+cur).classList.remove('active');document.getElementById('dot_'+cur).classList.add('done');
+  document.getElementById('thumb_'+cur).classList.remove('active');document.getElementById('thumb_'+cur).classList.add('done');
+  cur=idx;
+  document.getElementById('slide_'+cur).classList.add('active');
+  document.getElementById('dot_'+cur).classList.add('active');document.getElementById('dot_'+cur).classList.remove('done');
+  document.getElementById('thumb_'+cur).classList.add('active');document.getElementById('thumb_'+cur).classList.remove('done');
+  document.getElementById('sCurr').textContent=cur+1;
+  document.getElementById('progFill').style.width=(((cur+1)/SLIDES.length)*100)+'%';
+  if(!autoPlay)document.getElementById('playBtn').textContent='▶ PLAY NARRATION';
+  document.getElementById('voiceStatus').textContent='Slide '+(cur+1)+' ready';
+  document.getElementById('thumb_'+cur).scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'});
+}
+document.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key===' ')go(1);else if(e.key==='ArrowLeft')go(-1);else if(e.key==='p'||e.key==='P')togglePlay();});
+</script>
+</body>
+</html>
