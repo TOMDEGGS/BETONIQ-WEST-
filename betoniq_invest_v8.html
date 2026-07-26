@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BETONIQ INVEST — Investor Presentation</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#000;color:#fff;height:100vh;overflow:hidden}
+
+/* HEADER */
+#hdr{background:linear-gradient(90deg,#0a0a1a,#1a0a2e);padding:10px 20px;display:flex;justify-content:space-between;align-items:center;border-bottom:2px solid #00e5ff}
+.hdr-left{display:flex;align-items:center;gap:12px}
+.logo-icon{width:36px;height:36px;background:linear-gradient(135deg,#ffd700,#ff8c00);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:900;color:#000}
+.brand-title{font-size:1.3rem;font-weight:800;color:#fff;letter-spacing:1px}
+.brand-sub{font-size:0.65rem;color:#aaa;margin-top:2px}
+.hdr-right{text-align:right;font-size:0.7rem;color:#aaa}
+.slide-counter{font-size:1rem;color:#00e5ff;font-weight:700}
+
+/* MAIN */
+#main{display:flex;height:calc(100vh - 90px)}
+
+/* LEFT — ANIMATION PANEL */
+#anim-panel{width:52%;position:relative;overflow:hidden;background:#050b16}
+
+/* RIGHT — TEXT PANEL */
+#text-panel{width:48%;background:linear-gradient(160deg,#0a0a1a,#080818);padding:30px 28px;display:flex;flex-direction:column;justify-content:center;border-left:1px solid #1a1a3a}
+.slide-label{font-size:0.65rem;color:#555;text-transform:uppercase;letter-spacing:3px;margin-bottom:10px}
+.slide-title{font-size:1.5rem;font-weight:800;color:#fff;line-height:1.3;margin-bottom:14px}
+.slide-body{font-size:0.85rem;color:#ccc;line-height:1.7;flex:1}
+.play-btn{margin-top:18px;background:transparent;border:1.5px solid #00e5ff;color:#00e5ff;padding:10px 20px;border-radius:25px;cursor:pointer;font-size:0.8rem;display:flex;align-items:center;gap:8px;width:fit-content}
+.play-btn:hover{background:#00e5ff22}
+.play-dot{width:8px;height:8px;background:#00e5ff;border-radius:50%;animation:blink 1.2s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0.2}}
+
+/* DATA TABLE */
+.data-table{width:100%;border-collapse:collapse;margin:10px 0;font-size:0.72rem}
+.data-table th{background:#00e5ff22;color:#00e5ff;padding:5px 8px;text-align:left;border-bottom:1px solid #00e5ff44}
+.data-table td{padding:4px 8px;border-bottom:1px solid #1a1a3a;color:#ddd}
+.data-table tr:hover td{background:#ffffff08}
+.badge{display:inline-block;padding:2px 8px;border-radius:10px;font-size:0.65rem;font-weight:700}
+.badge-green{background:#00ff8822;color:#00ff88;border:1px solid #00ff8844}
+.badge-amber{background:#ffd70022;color:#ffd700;border:1px solid #ffd70044}
+.badge-red{background:#ff222222;color:#ff6666;border:1px solid #ff444444}
+
+/* FOOTER */
+#footer{height:48px;background:#000;border-top:1px solid #1a1a3a;display:flex;align-items:center;justify-content:center;gap:10px;padding:0 20px}
+.btn{background:transparent;border:1px solid #333;color:#aaa;padding:7px 16px;border-radius:6px;cursor:pointer;font-size:0.78rem}
+.btn:hover{border-color:#00e5ff;color:#00e5ff}
+.btn-play{background:#00e5ff;color:#000;font-weight:700}
+.btn-play:hover{background:#00ffff}
+#progress{position:absolute;bottom:0;left:0;height:3px;background:#00e5ff;transition:width 0.4s ease}
+
+/* ========== CSS ANIMATIONS PER SLIDE ========== */
+
+/* SLIDE 1 — Globe with orbiting flags */
+.s1-globe{width:200px;height:200px;border-radius:50%;background:radial-gradient(circle at 35% 40%,#1a6b3c,#0d4a2a,#051a0f);border:2px solid #00e5ff44;position:absolute;top:50%;left:50%;transform:translate(-50%,-60%);animation:globeSpin 8s linear infinite;box-shadow:0 0 40px #00e5ff33}
+@keyframes globeSpin{from{box-shadow:0 0 40px #00e5ff33}50%{box-shadow:0 0 70px #00e5ff66}to{box-shadow:0 0 40px #00e5ff33}}
+.s1-grid{position:absolute;top:50%;left:50%;transform:translate(-50%,-60%);width:200px;height:200px;border-radius:50%;overflow:hidden;animation:none}
+.s1-lat{position:absolute;width:100%;height:1px;background:#00e5ff22;top:var(--t)}
+.s1-lon{position:absolute;height:100%;width:1px;background:#00e5ff22;left:var(--l)}
+.s1-packet{position:absolute;width:10px;height:10px;border-radius:50%;background:#ffd700;box-shadow:0 0 10px #ffd700;animation:orbitPacket var(--d) linear infinite;animation-delay:var(--dl)}
+@keyframes orbitPacket{0%{top:var(--oy);left:-10px;opacity:0}10%{opacity:1}90%{opacity:1}100%{top:var(--ey);left:calc(100% + 10px);opacity:0}}
+.s1-flag{position:absolute;font-size:1.4rem;animation:flagFloat 3s ease-in-out infinite;animation-delay:var(--fd)}
+@keyframes flagFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.s1-counter{position:absolute;bottom:20%;left:50%;transform:translateX(-50%);text-align:center;font-size:0.75rem;color:#aaa}
+.s1-num{font-size:2rem;font-weight:900;color:#ff4444;text-shadow:0 0 20px #ff4444}
+.s1-label{font-size:0.7rem;color:#888;margin-top:4px}
+
+/* SLIDE 2 — David the diaspora investor */
+.s2-scene{position:absolute;width:100%;height:100%;display:flex;align-items:center;justify-content:center}
+.s2-person{font-size:5rem;animation:personPulse 2s ease-in-out infinite}
+@keyframes personPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
+.s2-q{position:absolute;font-size:2rem;animation:qFloat var(--qd) ease-in-out infinite;animation-delay:var(--ql)}
+@keyframes qFloat{0%{opacity:0;transform:translate(0,0) scale(0.5)}30%{opacity:1;transform:translate(var(--qx),var(--qy)) scale(1)}70%{opacity:1;transform:translate(var(--qx2),var(--qy2)) scale(1)}100%{opacity:0;transform:translate(var(--qx3),var(--qy3)) scale(0.5)}}
+.s2-loss{position:absolute;bottom:25%;left:50%;transform:translateX(-50%);background:#ff000022;border:1px solid #ff4444;border-radius:8px;padding:8px 20px;font-size:1rem;color:#ff4444;font-weight:700;animation:lossPulse 1.5s ease-in-out infinite;white-space:nowrap}
+@keyframes lossPulse{0%,100%{box-shadow:0 0 10px #ff444444}50%{box-shadow:0 0 30px #ff4444}}
+.s2-city{position:absolute;bottom:0;width:100%;display:flex;align-items:flex-end;justify-content:center;gap:4px}
+.s2-bld{background:linear-gradient(to top,#1a1a3a,#2a2a5a);animation:windowFlash var(--wd) steps(1) infinite;animation-delay:var(--wdl)}
+@keyframes windowFlash{0%,90%{filter:brightness(1)}91%,100%{filter:brightness(1.8)}}
+
+/* SLIDE 3 — Platform hub */
+.s3-hub{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,#00e5ff,#0066ff);display:flex;align-items:center;justify-content:center;font-size:1.5rem;animation:hubPulse 2s ease-in-out infinite;box-shadow:0 0 30px #00e5ff66}
+@keyframes hubPulse{0%,100%{box-shadow:0 0 30px #00e5ff66}50%{box-shadow:0 0 60px #00e5ffaa}}
+.s3-node{position:absolute;width:50px;height:50px;border-radius:50%;background:var(--nc);display:flex;align-items:center;justify-content:center;font-size:1rem;top:var(--ny);left:var(--nx);transform:translate(-50%,-50%);animation:nodePulse 2s ease-in-out infinite;animation-delay:var(--nd)}
+@keyframes nodePulse{0%,100%{transform:translate(-50%,-50%) scale(1)}50%{transform:translate(-50%,-50%) scale(1.1)}}
+.s3-line{position:absolute;background:linear-gradient(90deg,transparent,#00e5ff55,transparent);height:1px;transform-origin:left center;top:var(--ly);left:var(--lx);width:var(--lw);transform:rotate(var(--lr));animation:lineFlow 2s linear infinite}
+@keyframes lineFlow{0%{background:linear-gradient(90deg,transparent,#00e5ff22,transparent)}50%{background:linear-gradient(90deg,transparent,#00e5ffaa,transparent)}100%{background:linear-gradient(90deg,transparent,#00e5ff22,transparent)}}
+
+/* SLIDE 4 — Neural network AI */
+.s4-node{position:absolute;width:24px;height:24px;border-radius:50%;background:var(--nc);animation:aiPulse var(--ad) ease-in-out infinite;animation-delay:var(--adl)}
+@keyframes aiPulse{0%,100%{transform:scale(1);opacity:0.5}50%{transform:scale(1.5);opacity:1}}
+.s4-score{position:absolute;bottom:20%;left:50%;transform:translateX(-50%);text-align:center}
+.s4-score-num{font-size:3rem;font-weight:900;color:#00ff88;animation:scoreCount 3s steps(20) infinite}
+@keyframes scoreCount{0%{content:'75'}100%{}}
+.s4-label{font-size:0.8rem;color:#00ff88;margin-top:4px}
+
+/* SLIDE 5 — Building / Property */
+.s5-building{position:absolute;bottom:10%;left:50%;transform:translateX(-50%);width:140px}
+.s5-floor{height:24px;background:linear-gradient(90deg,#1a1a4a,#2a2a6a);border:1px solid #3a3a8a;margin-bottom:2px;display:flex;gap:3px;align-items:center;justify-content:center;padding:0 6px}
+.s5-window{width:12px;height:14px;background:#333;border:1px solid #444;animation:winLight var(--wl) steps(1) infinite;animation-delay:var(--wld)}
+@keyframes winLight{0%,60%{background:#333;border-color:#444}61%,100%{background:#ffd700;border-color:#ffa500;box-shadow:0 0 4px #ffd700}}
+.s5-badge{position:absolute;top:12%;right:8%;background:linear-gradient(135deg,#00ff88,#00cc66);border-radius:12px;padding:12px 16px;text-align:center;animation:badgePulse 2s ease-in-out infinite}
+@keyframes badgePulse{0%,100%{box-shadow:0 0 15px #00ff8866}50%{box-shadow:0 0 35px #00ff88aa}}
+.s5-score{font-size:2rem;font-weight:900;color:#000}
+.s5-slabel{font-size:0.6rem;color:#003322;font-weight:700}
+.s5-roof{width:160px;height:0;border-left:20px solid transparent;border-right:20px solid transparent;border-bottom:30px solid #2a2a6a;margin:0 auto}
+
+/* SLIDE 6 — Investment pipeline */
+.s6-step{position:absolute;width:50px;height:50px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.65rem;font-weight:700;text-align:center;color:#fff;border:2px solid var(--sc);background:#000;animation:stepActivate 5s ease-in-out infinite;animation-delay:var(--sd)}
+@keyframes stepActivate{0%,19%{border-color:#333;color:#555;box-shadow:none}20%,39%{border-color:var(--sc);color:#fff;box-shadow:0 0 20px var(--sc)}40%,100%{border-color:#33ff8833;color:#33ff88;box-shadow:none}}
+.s6-line{position:absolute;height:2px;background:linear-gradient(90deg,#333,var(--lc),#333);animation:lineActivate 5s ease-in-out infinite;animation-delay:var(--ld)}
+@keyframes lineActivate{0%,30%{opacity:0.2}31%,60%{opacity:1;box-shadow:0 0 8px var(--lc)}61%,100%{opacity:0.4}}
+
+/* SLIDE 7 — Rate comparison */
+.s7-left{position:absolute;left:10%;top:20%;width:35%;text-align:center}
+.s7-right{position:absolute;right:5%;top:20%;width:38%;text-align:center}
+.s7-rate{font-size:3rem;font-weight:900;animation:rateGlow 2s ease-in-out infinite}
+.s7-bank-rate{color:#ff4444;text-shadow:0 0 20px #ff4444}
+@keyframes rateGlow{0%,100%{opacity:0.8}50%{opacity:1}}
+.s7-good-rate{color:#00ff88;text-shadow:0 0 20px #00ff88}
+.s7-label{font-size:0.7rem;color:#888;margin-top:4px}
+.s7-packet{position:absolute;top:50%;font-size:1.5rem;animation:packetMove 3s linear infinite}
+@keyframes packetMove{0%{left:30%;opacity:0}20%{opacity:1}80%{opacity:1}100%{left:65%;opacity:0}}
+.s7-saving{position:absolute;bottom:25%;left:50%;transform:translateX(-50%);background:#00ff8822;border:1px solid #00ff88;border-radius:8px;padding:8px 20px;color:#00ff88;font-weight:700;font-size:0.85rem;animation:savePulse 2s infinite}
+@keyframes savePulse{0%,100%{transform:translateX(-50%) scale(1)}50%{transform:translateX(-50%) scale(1.05)}}
+
+/* SLIDE 8 — Investor orbits */
+.s8-hub{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:70px;height:70px;border-radius:50%;background:linear-gradient(135deg,#ffd700,#ff8c00);display:flex;align-items:center;justify-content:center;font-size:1.2rem;box-shadow:0 0 30px #ffd70066;animation:s8hubPulse 2s infinite}
+@keyframes s8hubPulse{0%,100%{box-shadow:0 0 30px #ffd70066}50%{box-shadow:0 0 60px #ffd700aa}}
+.s8-ring{position:absolute;top:50%;left:50%;border-radius:50%;border:1px solid var(--rc);transform:translate(-50%,-50%);animation:ringRotate var(--rd) linear infinite;animation-delay:var(--rdl)}
+@keyframes ringRotate{from{transform:translate(-50%,-50%) rotate(0)}to{transform:translate(-50%,-50%) rotate(360deg)}}
+.s8-investor{position:absolute;width:40px;height:40px;border-radius:50%;background:var(--ic);display:flex;align-items:center;justify-content:center;font-size:1rem;top:-20px;left:50%;transform:translateX(-50%)}
+
+/* SLIDE 9 — World map routes */
+.s9-map{position:absolute;width:90%;height:70%;top:15%;left:5%;background:#0a1628;border:1px solid #1a2a4a;border-radius:8px;overflow:hidden}
+.s9-dot{position:absolute;width:12px;height:12px;border-radius:50%;background:var(--dc);box-shadow:0 0 12px var(--dc);transform:translate(-50%,-50%);animation:dotPulse 2s ease-in-out infinite;animation-delay:var(--dd)}
+@keyframes dotPulse{0%,100%{transform:translate(-50%,-50%) scale(1)}50%{transform:translate(-50%,-50%) scale(1.5)}}
+.s9-route{position:absolute;height:2px;background:linear-gradient(90deg,var(--rc),transparent);transform-origin:left center;animation:routeFlow 3s linear infinite;animation-delay:var(--rd)}
+@keyframes routeFlow{0%{opacity:0.2;background-size:200% 100%;background-position:100%}50%{opacity:1}100%{opacity:0.2;background-size:200% 100%;background-position:0}}
+.s9-packet{position:absolute;width:8px;height:8px;border-radius:50%;background:#ffd700;box-shadow:0 0 8px #ffd700;animation:s9PacketMove var(--pd) linear infinite;animation-delay:var(--pdl)}
+@keyframes s9PacketMove{0%{left:var(--px1);top:var(--py1);opacity:0}10%{opacity:1}90%{opacity:1}100%{left:var(--px2);top:var(--py2);opacity:0}}
+
+/* SLIDE 10 — Revenue chart */
+.s10-chart{position:absolute;bottom:15%;left:10%;right:10%;height:65%}
+.s10-bar{position:absolute;bottom:0;border-radius:4px 4px 0 0;width:18%;background:linear-gradient(to top,var(--bc),var(--bt));animation:barGrow 1.5s ease-out both;animation-delay:var(--bd)}
+@keyframes barGrow{from{height:0;opacity:0}to{height:var(--bh);opacity:1}}
+.s10-label{position:absolute;bottom:-20px;width:100%;text-align:center;font-size:0.65rem;color:#888}
+.s10-value{position:absolute;top:-22px;width:100%;text-align:center;font-size:0.65rem;color:#fff;font-weight:700}
+.s10-axis{position:absolute;bottom:0;left:0;right:0;height:1px;background:#333}
+
+/* SLIDE 11 — Growth curve */
+.s11-svg{position:absolute;width:90%;height:70%;top:15%;left:5%}
+.s11-line-path{stroke:#00e5ff;stroke-width:3;fill:none;stroke-dasharray:600;stroke-dashoffset:600;animation:drawLine 3s ease-out forwards}
+@keyframes drawLine{to{stroke-dashoffset:0}}
+.s11-fill-path{fill:#00e5ff11;stroke:none;animation:fillArea 3s ease-out forwards;opacity:0;animation-delay:0.5s}
+@keyframes fillArea{to{opacity:1}}
+
+/* SLIDE 12 — Operations nodes */
+.s12-node{position:absolute;width:54px;height:54px;border-radius:10px;background:var(--nc);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;animation:nodeActive var(--nd) ease-in-out infinite;animation-delay:var(--ndl)}
+@keyframes nodeActive{0%,100%{filter:brightness(1);transform:scale(1)}50%{filter:brightness(1.4);transform:scale(1.05)}}
+.s12-node-icon{font-size:1.2rem}
+.s12-node-label{font-size:0.45rem;color:#fff;font-weight:700;text-align:center;line-height:1}
+.s12-counter{font-size:0.55rem;color:#00e5ff;font-weight:700}
+.s12-packet{position:absolute;width:6px;height:6px;border-radius:50%;background:#00e5ff;box-shadow:0 0 6px #00e5ff;animation:s12flow var(--fd) linear infinite;animation-delay:var(--fl)}
+@keyframes s12flow{0%{left:var(--fx1);top:var(--fy1);opacity:0}20%{opacity:1}80%{opacity:1}100%{left:var(--fx2);top:var(--fy2);opacity:0}}
+
+/* SLIDE 13 — Compliance gates */
+.s13-gate{position:absolute;width:80px;height:120px;border:2px solid var(--gc);border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;animation:gatePulse 3s ease-in-out infinite;animation-delay:var(--gd)}
+@keyframes gatePulse{0%,100%{box-shadow:0 0 10px var(--gc)44}50%{box-shadow:0 0 30px var(--gc)}}
+.s13-icon{font-size:1.8rem}
+.s13-label{font-size:0.6rem;color:#fff;font-weight:700;text-align:center}
+.s13-project{position:absolute;width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#ffd700,#ff8c00);display:flex;align-items:center;justify-content:center;font-size:1rem;animation:projectMove 4s linear infinite}
+@keyframes projectMove{0%{left:5%;top:50%;transform:translateY(-50%);opacity:0}10%{opacity:1}40%{left:28%;top:50%;transform:translateY(-50%)}60%{left:55%;top:50%;transform:translateY(-50%)}85%{left:75%;top:40%;transform:translateY(-50%)}100%{left:88%;top:40%;opacity:1}}
+.s13-pass{position:absolute;right:5%;top:35%;font-size:2rem;animation:passAppear 4s linear infinite}
+@keyframes passAppear{0%,60%{opacity:0;transform:scale(0.5)}70%,100%{opacity:1;transform:scale(1)}}
+
+/* SLIDE 14 — Rocket launch */
+.s14-rocket{position:absolute;left:50%;animation:rocketLaunch 4s ease-in-out infinite;font-size:3rem}
+@keyframes rocketLaunch{0%{bottom:10%;transform:translateX(-50%)}60%{bottom:70%;transform:translateX(-50%) rotate(-5deg)}80%{bottom:75%;transform:translateX(-50%) rotate(0)}100%{bottom:10%;transform:translateX(-50%)}}
+.s14-exhaust{position:absolute;left:50%;animation:exhaustAnim 4s ease-in-out infinite;font-size:1.5rem}
+@keyframes exhaustAnim{0%{bottom:6%;transform:translateX(-50%);opacity:1}60%{bottom:66%;transform:translateX(-50%);opacity:0.3}100%{bottom:6%;transform:translateX(-50%);opacity:1}}
+.s14-star{position:absolute;font-size:1rem;animation:starTwinkle var(--sd) ease-in-out infinite;animation-delay:var(--sdl)}
+@keyframes starTwinkle{0%,100%{opacity:0.2;transform:scale(0.8)}50%{opacity:1;transform:scale(1.2)}}
+.s14-amount{position:absolute;bottom:15%;right:8%;background:#00ff8822;border:1px solid #00ff88;border-radius:8px;padding:10px 16px;text-align:center;animation:amountPulse 2s infinite}
+@keyframes amountPulse{0%,100%{box-shadow:0 0 10px #00ff8844}50%{box-shadow:0 0 25px #00ff88}}
+.s14-raise{font-size:1.5rem;font-weight:900;color:#00ff88}
+.s14-rlabel{font-size:0.65rem;color:#00cc66}
+
+/* SLIDE 15 — Star burst */
+.s15-star{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:120px;height:120px;background:radial-gradient(circle,#ffd700,#ff8c00,transparent);border-radius:50%;animation:starBurst 2s ease-in-out infinite;display:flex;align-items:center;justify-content:center;font-size:2.5rem}
+@keyframes starBurst{0%,100%{box-shadow:0 0 30px #ffd70066,0 0 60px #ffd70033}50%{box-shadow:0 0 60px #ffd700aa,0 0 100px #ffd70066}}
+.s15-ray{position:absolute;top:50%;left:50%;height:2px;transform-origin:left center;background:linear-gradient(90deg,#ffd700,transparent);width:120px;transform:rotate(var(--ra)) translateY(-50%);animation:rayPulse 2s ease-in-out infinite;animation-delay:var(--rd)}
+@keyframes rayPulse{0%,100%{opacity:0.3;width:120px}50%{opacity:0.8;width:150px}}
+.s15-stat{position:absolute;background:#0a0a1a;border:1px solid var(--sc);border-radius:8px;padding:6px 12px;text-align:center;animation:statOrbit var(--sd) linear infinite;animation-delay:var(--sdl)}
+@keyframes statOrbit{0%{transform:rotate(var(--sr)) translateX(var(--sx)) rotate(calc(-1 * var(--sr)))}100%{transform:rotate(calc(var(--sr) + 360deg)) translateX(var(--sx)) rotate(calc(-1 * (var(--sr) + 360deg)))}}
+.s15-stat-num{font-size:1rem;font-weight:800;color:var(--sc)}
+.s15-stat-label{font-size:0.5rem;color:#888}
+
+/* PROGRESS BAR */
+#progress-bar{height:3px;background:#111;position:relative;overflow:hidden}
+#progress-fill{height:100%;background:#00e5ff;transition:width 0.5s ease}
+</style>
+</head>
+<body>
+
+<div id="hdr">
+  <div class="hdr-left">
+    <div class="logo-icon">B</div>
+    <div>
+      <div class="brand-title">BETONIQ INVEST</div>
+      <div class="brand-sub">AI-Powered Real Estate Investment Intelligence · 47 Parameters · 11 Countries · $5.1B Pipeline</div>
+      <div class="brand-sub">© BETONIQ(WEST) Ltd RC 56802 · Abuja FCT · STRICTLY CONFIDENTIAL</div>
+    </div>
+  </div>
+  <div class="hdr-right">
+    <div class="slide-counter" id="counter">1 / 15</div>
+    <div>OpenAI Shimmer · Professional Voice</div>
+  </div>
+</div>
+
+<div id="progress-bar"><div id="progress-fill" style="width:6.67%"></div></div>
+
+<div id="main">
+  <div id="anim-panel">
+    <!-- Animation injected per slide -->
+    <div id="anim-content"></div>
+  </div>
+  <div id="text-panel">
+    <div class="slide-label" id="slide-label">SLIDE 01 / 15</div>
+    <div class="slide-title" id="slide-title">Loading...</div>
+    <div class="slide-body" id="slide-body"></div>
+    <button class="play-btn" id="play-btn" onclick="playAudio()">
+      <div class="play-dot"></div>
+      ▶ PLAY — OpenAI Shimmer professional voice
+    </button>
+  </div>
+</div>
+
+<div id="footer">
+  <button class="btn" onclick="navigate(-1)">◀ PREV</button>
+  <button class="btn btn-play" onclick="playAudio()">▶ PLAY</button>
+  <button class="btn" onclick="navigate(1)">NEXT ▶</button>
+  <button class="btn" id="auto-btn" onclick="toggleAuto()">AUTO: OFF</button>
+</div>
+
+<audio id="audio-player" onended="onAudioEnd()"></audio>
+
+<script>
+const BASE = "https://raw.githubusercontent.com/TOMDEGGS/BETONIQ-WEST-/main/betoniq_audio";
+let cur = 0, autoPlay = false, autoTimer = null;
+
+const SLIDES = [
+  {
+    title: "47 Million Locked Out of Real Estate",
+    body: "1.4 billion people globally have no access to formal financial services. In Nigeria alone — 38 million. $26 billion in remittances flows in annually. Almost none goes into verified real estate investment. The infrastructure does not exist. Until now.",
+    anim: "s1"
+  },
+  {
+    title: "Meet David — The Locked-Out Investor",
+    body: "David earns £65,000 a year in Manchester. He watches Nigerian property triple in value. He has the capital. He cannot invest safely. No verified data. No regulatory protection. No NPV calculations. Just a brochure and a bank account number. This is the BETONIQ problem.",
+    table: {heads:["The Problem","Impact","Status"],rows:[["No verified developer data","£12,000 average loss","Unresolved"],["No compliance visibility","0% due diligence","Unresolved"],["No feasibility studies","0 safe deals closed","Unresolved"],["No regulated FX pathway","38M locked out","Unresolved"]]},
+    anim: "s2"
+  },
+  {
+    title: "The BETONIQ INVEST Platform",
+    body: "47-parameter AI engine. 11 countries. 324 verified projects. Real-time compliance tracking. End-to-end KYC for diaspora investors. Every project scored, stress-tested, and independently verified before it reaches the platform.",
+    table: {heads:["Feature","Status","Value"],rows:[["AI Scoring Engine","Live","47 Parameters"],["Compliance Tracker","Live","Real-time"],["FX Remittance Rail","Integration","IMTO Licensed"],["KYC/AML Module","Live","FCA-standard"]]},
+    anim: "s3"
+  },
+  {
+    title: "The AI Scoring Engine",
+    body: "Every project is evaluated across 47 independent parameters — location demand, developer track record, regulatory compliance, infrastructure, macroeconomic risk, financing structure, and 41 more. Output: a single investment intelligence score.",
+    table: {heads:["Category","Parameters","Weight"],rows:[["Location & Demand","12","28%"],["Developer Quality","9","21%"],["Regulatory/Legal","8","19%"],["Financial Structure","10","24%"],["Macro Risk","8","19%"]]},
+    anim: "s4"
+  },
+  {
+    title: "Live Project: Katampe Terrace, Abuja",
+    body: "AI Demand Score: 87/100. Projected ROI: 28%. NPV: $198,000. Break-even: 18 months. Payback period: 24 months. Compliance score: 94/100. Developer track record: 9 completed projects. All data independently verified.",
+    table: {heads:["Metric","Value","Grade"],rows:[["AI Demand Score","87 / 100","A+"],["Target ROI","28%","Exceptional"],["Net Present Value","$198,000 USD","Strong"],["Break-even","18 months","Fast"],["Compliance","94 / 100","Verified"]]},
+    anim: "s5"
+  },
+  {
+    title: "The 5-Step Investment Protection Process",
+    body: "BETONIQ INVEST does not allow any project to be listed without passing all five verification stages. Every stage is logged on-platform and available to investors in real time.",
+    table: {heads:["Step","Stage","Output"],rows:[["1","Developer Verification","CAC + Track Record Check"],["2","Regulatory Compliance","License + Legal Status"],["3","Feasibility Validation","IRR / NPV / Break-even"],["4","AI Scoring","47-Parameter Score"],["5","Investor Match","KYC-filtered Allocation"]]},
+    anim: "s6"
+  },
+  {
+    title: "Why Developers Choose BETONIQ",
+    body: "The traditional developer raises capital at 22% from Nigerian banks. BETONIQ INVEST connects them to diaspora capital at 14%. For a $2M project that is $160,000 in annual savings. Plus a verified investor base across 11 countries that traditional marketing cannot reach.",
+    table: {heads:["Source","Rate","Deal Size"],rows:[["Nigerian Bank Loan","22% p.a.","$500K max"],["Private Equity","19% p.a.","Relationship only"],["BETONIQ Diaspora","14% p.a.","$50K–$5M"],["Equity Deal","Profit Share","No interest"]]},
+    anim: "s7"
+  },
+  {
+    title: "The Investor Audience",
+    body: "Four primary investor profiles. All diaspora-connected. All underserved by existing platforms. All with capital and intent — blocked only by the absence of reliable infrastructure.",
+    table: {heads:["Profile","Location","Avg Ticket"],rows:[["Nigerian Diaspora","UK / USA / UAE","$25,000–$250,000"],["Pan-African HNW","Ghana / Kenya / SA","$50,000–$500,000"],["Institutional SWF","Abu Dhabi / Qatar","$1M–$10M"],["Impact VC Funds","London / New York","$500K–$5M"]]},
+    anim: "s8"
+  },
+  {
+    title: "11-Country Remittance Coverage",
+    body: "BETONIQ INVEST operates across 11 countries with FX remittance rails into Nigerian real estate. $26B flows annually. Currently 0% goes into verified property. We are the infrastructure that changes this.",
+    table: {heads:["Corridor","Flow (USD bn/yr)","Status"],rows:[["Nigeria–UK","$8.2B","Active"],["Nigeria–USA","$6.4B","Active"],["Nigeria–UAE","$3.1B","Active"],["Nigeria–Canada","$2.8B","Live"],["Nigeria–SA","$1.9B","Expanding"]]},
+    anim: "s9"
+  },
+  {
+    title: "Revenue Model",
+    body: "Three revenue streams: listing fees from developers, success fees on closed deals, and investor subscription plans. All three compound as transaction volume grows. The model is asset-light and scalable from day one.",
+    table: {heads:["Stream","Rate","Year 1 Target"],rows:[["Developer Listing","$2,500–$15,000","$420,000"],["Success Fee","1.5–3% of deal","$780,000"],["Investor Subscriptions","$29–$299/mo","$156,000"],["FX Commission","0.8–1.2%","$340,000"]]},
+    anim: "s10"
+  },
+  {
+    title: "3-Phase Growth Projection",
+    body: "Phase 1 Nigeria hub. Phase 2 West Africa expansion. Phase 3 global deployment. Conservative model based on 2% annual remittance capture. Even at 0.5% capture, annual revenue exceeds $55M by Year 3.",
+    table: {heads:["Phase","Timeline","Revenue Target"],rows:[["1 — Nigeria Hub","2026","$1.69M"],["2 — West Africa","2027","$12.4M"],["3 — Global Deploy","2028","$55M+"],["Exit Scenario","2030","$200M+ valuation"]]},
+    anim: "s11"
+  },
+  {
+    title: "Live Platform Operations",
+    body: "BETONIQ INVEST is not a concept. It is a live platform with real data, real AI scoring, real compliance tracking, and real investor KYC flows operating today. The infrastructure is built. We are scaling it.",
+    table: {heads:["Module","Status","Today"],rows:[["AI Engine","Live","324 projects scored"],["Compliance DB","Live","11 countries tracked"],["KYC Pipeline","Live","Active investors"],["FX Rail","Integration","IMTO partner confirmed"],["Investor Portal","Live","Real-time data"]]},
+    anim: "s12"
+  },
+  {
+    title: "Regulatory & Compliance Architecture",
+    body: "Every project passes a dual-gate compliance check. Gate 1: Nigerian regulatory clearance via CAC, LASRERA, FCT-AGIS. Gate 2: Cross-border FCA/UAE CBUAE standard for diaspora investors. Rejected at either gate — not listed. Period.",
+    table: {heads:["Gate","Body","Standard"],rows:[["Gate 1","CAC Nigeria","Company Act Compliance"],["Gate 1","LASRERA","Lagos Real Estate Authority"],["Gate 1","FCT-AGIS","Abuja Land Registry"],["Gate 2","FCA London","Diaspora Investor Protection"],["Gate 2","CBUAE","UAE Investor Standard"]]},
+    anim: "s13"
+  },
+  {
+    title: "Pre-Series A — $4.5M USD",
+    body: "We are raising $4.5M at a $25M pre-money valuation. Use of funds: $1.2M engineering, $900K regulatory licensing, $1.1M country expansion, $800K sales and partnerships, $500K reserves. 18-month runway to Series A.",
+    table: {heads:["Use of Funds","Amount","%"],rows:[["Engineering & Product","$1,200,000","27%"],["Regulatory Licensing","$900,000","20%"],["Country Expansion","$1,100,000","24%"],["Sales & Partnerships","$800,000","18%"],["Operating Reserve","$500,000","11%"]]},
+    anim: "s14"
+  },
+  {
+    title: "Why BETONIQ INVEST Wins",
+    body: "First-mover in AI-verified African real estate. 47-parameter engine with no equivalent globally. $26B remittance market with 0% current platform penetration. FCA-standard diaspora investor protection. Live platform. Real revenue. World-class team. The time is now.",
+    table: {heads:["Metric","BETONIQ","Market Average"],rows:[["Due Diligence","47 Parameters","None"],["Countries","11","1–2"],["Compliance Standard","FCA + CBN","Basic CAC only"],["ROI Visibility","Full NPV/IRR","Brochure only"],["Investor Protection","KYC + Escrow","None"]]},
+    anim: "s15"
+  }
+];
+
+const ANIMS = {
+  s1: `<div style="position:absolute;width:100%;height:100%;background:radial-gradient(ellipse at center,#0d2b0d 0%,#051205 100%);overflow:hidden">
+    <div class="s1-globe" style="width:220px;height:220px"></div>
+    <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-60%);width:220px;height:220px;border-radius:50%">
+      <div class="s1-lat" style="--t:30%"></div><div class="s1-lat" style="--t:50%"></div><div class="s1-lat" style="--t:70%"></div>
+      <div class="s1-lon" style="--l:25%"></div><div class="s1-lon" style="--l:50%"></div><div class="s1-lon" style="--l:75%"></div>
+    </div>
+    <div class="s1-flag" style="--fd:0s;top:20%;left:8%">🇬🇧</div>
+    <div class="s1-flag" style="--fd:0.3s;top:18%;left:22%">🇺🇸</div>
+    <div class="s1-flag" style="--fd:0.6s;top:15%;right:20%">🇦🇪</div>
+    <div class="s1-flag" style="--fd:0.9s;top:22%;right:8%">🇨🇦</div>
+    <div class="s1-flag" style="--fd:1.2s;bottom:30%;left:12%">🇬🇭</div>
+    <div class="s1-flag" style="--fd:1.5s;bottom:28%;right:14%">🇿🇦</div>
+    <div class="s1-packet" style="--d:2.5s;--dl:0s;--oy:28%;--ey:48%"></div>
+    <div class="s1-packet" style="--d:3s;--dl:0.5s;--oy:22%;--ey:42%"></div>
+    <div class="s1-packet" style="--d:2s;--dl:1s;--oy:19%;--ey:38%"></div>
+    <div class="s1-packet" style="--d:3.5s;--dl:1.5s;--oy:25%;--ey:45%"></div>
+    <div class="s1-counter" style="bottom:18%;left:50%;transform:translateX(-50%);text-align:center">
+      <div class="s1-num">38M</div>
+      <div class="s1-label">Nigerians Excluded from Investment</div>
+      <div class="s1-num" style="font-size:1.4rem;margin-top:8px">1.4 BILLION</div>
+      <div class="s1-label">Globally Underserved</div>
+    </div>
+  </div>`,
+
+  s2: `<div style="position:absolute;width:100%;height:100%;background:linear-gradient(160deg,#1a0a0a,#2a0505);overflow:hidden">
+    <div style="position:absolute;bottom:0;width:100%;display:flex;align-items:flex-end;justify-content:center;gap:6px;padding:0 10px">
+      <div class="s2-bld" style="height:100px;width:30px;--wd:3s;--wdl:0s"></div>
+      <div class="s2-bld" style="height:140px;width:40px;--wd:4s;--wdl:0.5s"></div>
+      <div class="s2-bld" style="height:80px;width:25px;--wd:2.5s;--wdl:1s"></div>
+      <div class="s2-bld" style="height:120px;width:35px;--wd:3.5s;--wdl:1.5s"></div>
+      <div class="s2-bld" style="height:160px;width:45px;--wd:4.5s;--wdl:0.2s"></div>
+      <div class="s2-bld" style="height:90px;width:28px;--wd:2s;--wdl:0.8s"></div>
+    </div>
+    <div class="s2-scene">
+      <div style="font-size:5rem;animation:personPulse 2s ease-in-out infinite">👤</div>
+    </div>
+    <div class="s2-q" style="--qd:4s;--ql:0s;--qx:80px;--qy:-40px;--qx2:60px;--qy2:-70px;--qx3:100px;--qy3:-100px;top:55%;left:52%">❓</div>
+    <div class="s2-q" style="--qd:3.5s;--ql:0.5s;--qx:-60px;--qy:-30px;--qx2:-80px;--qy2:-60px;--qx3:-50px;--qy3:-90px;top:55%;left:42%">❓</div>
+    <div class="s2-q" style="--qd:4.5s;--ql:1s;--qx:40px;--qy:-60px;--qx2:20px;--qy2:-90px;--qx3:50px;--qy3:-110px;top:50%;left:50%">❓</div>
+    <div class="s2-loss">⚠️ £12,000 AVERAGE LOSS — Zero Verification Available</div>
+  </div>`,
+
+  s3: `<div style="position:absolute;width:100%;height:100%;background:linear-gradient(160deg,#001a2a,#002a40);overflow:hidden">
+    <div class="s3-hub" style="font-size:1.8rem">🏗️</div>
+    <div class="s3-node" style="--nc:linear-gradient(135deg,#ff6b35,#ff4500);--ny:15%;--nx:15%;--nd:0s;font-size:1.2rem">🤖</div>
+    <div class="s3-node" style="--nc:linear-gradient(135deg,#00e5ff,#0066ff);--ny:15%;--nx:75%;--nd:0.3s">📊</div>
+    <div class="s3-node" style="--nc:linear-gradient(135deg,#00ff88,#00cc66);--ny:75%;--nx:15%;--nd:0.6s">✅</div>
+    <div class="s3-node" style="--nc:linear-gradient(135deg,#ffd700,#ff8c00);--ny:75%;--nx:75%;--nd:0.9s">💰</div>
+    <div class="s3-node" style="--nc:linear-gradient(135deg,#ff00ff,#cc00cc);--ny:10%;--nx:45%;--nd:1.2s">🌍</div>
+    <div class="s3-node" style="--nc:linear-gradient(135deg,#00ffff,#00ccaa);--ny:80%;--nx:45%;--nd:1.5s">🔐</div>
+    <div style="position:absolute;bottom:5%;left:50%;transform:translateX(-50%);font-size:0.7rem;color:#00e5ff;text-align:center;white-space:nowrap">47 Parameters · 11 Countries · 324 Verified Projects · Live Now</div>
+  </div>`,
+
+  s4: `<div style="position:absolute;width:100%;height:100%;background:linear-gradient(160deg,#001a00,#002800);overflow:hidden">
+    <div class="s4-node" style="--nc:#ff4444;--ad:1.2s;--adl:0s;top:20%;left:8%"></div>
+    <div class="s4-node" style="--nc:#ff6644;--ad:1.5s;--adl:0.2s;top:35%;left:8%"></div>
+    <div class="s4-node" style="--nc:#ff8844;--ad:1.3s;--adl:0.4s;top:50%;left:8%"></div>
+    <div class="s4-node" style="--nc:#ff4488;--ad:1.8s;--adl:0.1s;top:65%;left:8%"></div>
+    <div class="s4-node" style="--nc:#4488ff;--ad:1.4s;--adl:0.3s;top:15%;left:35%"></div>
+    <div class="s4-node" style="--nc:#4444ff;--ad:1.6s;--adl:0.5s;top:30%;left:35%"></div>
+    <div class="s4-node" style="--nc:#6644ff;--ad:1.2s;--adl:0.7s;top:45%;left:35%"></div>
+    <div class="s4-node" style="--nc:#4466ff;--ad:1.9s;--adl:0.2s;top:60%;left:35%"></div>
+    <div class="s4-node" style="--nc:#4488aa;--ad:1.7s;--adl:0.9s;top:75%;left:35%"></div>
+    <div class="s4-node" style="--nc:#00ff88;--ad:1.3s;--adl:0.4s;top:25%;left:62%"></div>
+    <div class="s4-node" style="--nc:#00cc66;--ad:1.5s;--adl:0.6s;top:45%;left:62%"></div>
+    <div class="s4-node" style="--nc:#00aa44;--ad:1.8s;--adl:0.8s;top:65%;left:62%"></div>
+    <div class="s4-node" style="--nc:#ffd700;--ad:1.1s;--adl:0.3s;top:35%;left:82%"></div>
+    <div class="s4-node" style="--nc:#ffaa00;--ad:1.6s;--adl:0.5s;top:55%;left:82%"></div>
+    <div class="s4-score">
+      <div class="s4-score-num" id="ai-score">87</div>
+      <div class="s4-label">AI INVESTMENT SCORE</div>
+      <div style="font-size:0.65rem;color:#aaa;margin-top:4px">LISTED ✅</div>
+    </div>
+  </div>`,
+
+  s5: `<div style="position:absolute;width:100%;height:100%;background:linear-gradient(160deg,#0a0a2a,#0a1a3a);overflow:hidden">
+    <div class="s5-badge">
+      <div class="s5-score">87</div>
+      <div class="s5-slabel">AI SCORE</div>
+    </div>
+    <div class="s5-building">
+      <div class="s5-roof"></div>
+      <div class="s5-floor"><div class="s5-window" style="--wl:2s;--wld:0s"></div><div class="s5-window" style="--wl:3s;--wld:0.3s"></div><div class="s5-window" style="--wl:2.5s;--wld:0.6s"></div><div class="s5-window" style="--wl:4s;--wld:0.2s"></div></div>
+      <div class="s5-floor"><div class="s5-window" style="--wl:3s;--wld:0.4s"></div><div class="s5-window" style="--wl:2s;--wld:0.7s"></div><div class="s5-window" style="--wl:3.5s;--wld:0.1s"></div><div class="s5-window" style="--wl:2.5s;--wld:0.5s"></div></div>
+      <div class="s5-floor"><div class="s5-window" style="--wl:2.5s;--wld:0.2s"></div><div class="s5-window" style="--wl:3s;--wld:0.8s"></div><div class="s5-window" style="--wl:4s;--wld:0.3s"></div><div class="s5-window" style="--wl:2s;--wld:0.6s"></div></div>
+      <div class="s5-floor"><div class="s5-window" style="--wl:3.5s;--wld:0.1s"></div><div class="s5-window" style="--wl:2s;--wld:0.4s"></div><div class="s5-window" style="--wl:3s;--wld:0.9s"></div><div class="s5-window" style="--wl:2.5s;--wld:0.2s"></div></div>
+      <div class="s5-floor"><div class="s5-window" style="--wl:2s;--wld:0.5s"></div><div class="s5-window" style="--wl:4s;--wld:0s"></div><div class="s5-window" style="--wl:3s;--wld:0.3s"></div><div class="s5-window" style="--wl:2.5s;--wld:0.7s"></div></div>
+      <div style="height:20px;background:#3a3a6a;display:flex;align-items:center;justify-content:center;font-size:0.55rem;color:#aaa">KATAMPE TERRACE · ABUJA</div>
+    </div>
+  </div>`,
+
+  s6: `<div style="position:absolute;width:100%;height:100%;background:linear-gradient(160deg,#1a0a2a,#0a0a2a);overflow:hidden">
+    <div class="s6-step" style="--sc:#00e5ff;--sd:0s;top:50%;left:5%;transform:translateY(-50%)"><span style="font-size:0.6rem">1<br>VERIFY</span></div>
+    <div class="s6-line" style="--lc:#00e5ff;--ld:1s;top:50%;left:calc(5% + 55px);width:calc(18% - 10px)"></div>
+    <div class="s6-step" style="--sc:#00ff88;--sd:1s;top:50%;left:23%;transform:translateY(-50%)"><span style="font-size:0.6rem">2<br>COMPLY</span></div>
+    <div class="s6-line" style="--lc:#00ff88;--ld:2s;top:50%;left:calc(23% + 55px);width:calc(18% - 10px)"></div>
+    <div class="s6-step" style="--sc:#ffd700;--sd:2s;top:50%;left:41%;transform:translateY(-50%)"><span style="font-size:0.6rem">3<br>SCORE</span></div>
+    <div class="s6-line" style="--lc:#ffd700;--ld:3s;top:50%;left:calc(41% + 55px);width:calc(18% - 10px)"></div>
+    <div class="s6-step" style="--sc:#ff8c00;--sd:3s;top:50%;left:59%;transform:translateY(-50%)"><span style="font-size:0.6rem">4<br>AI MATCH</span></div>
+    <div class="s6-line" style="--lc:#ff8c00;--ld:4s;top:50%;left:calc(59% + 55px);width:calc(18% - 10px)"></div>
+    <div class="s6-step" style="--sc:#ff00ff;--sd:4s;top:50%;left:77%;transform:translateY(-50%)"><span style="font-size:0.6rem">5<br>INVEST</span></div>
+    <div style="position:absolute;top:25%;left:50%;transform:translateX(-50%);font-size:1.5rem;font-weight:900;color:#fff;text-align:center;white-space:nowrap">5-Step Verified Investment Pipeline</div>
+    <div style="position:absolute;bottom:15%;left:50%;transform:translateX(-50%);font-size:0.7rem;color:#aaa;text-align:center">Every stage logged · Every stage verified · Investor-visible in real time</div>
+  </div>`,
+
+  s7: `<div style="position:absolute;width:100%;height:100%;background:linear-gradient(160deg,#1a0000,#0a1a00);overflow:hidden">
+    <div class="s7-left">
+      <div style="font-size:0.65rem;color:#888;margin-bottom:8px">TRADITIONAL BANK</div>
+      <div class="s7-rate s7-bank-rate">22%</div>
+      <div class="s7-label">Annual Interest Rate</div>
+      <div style="margin-top:12px;font-size:1.5rem">🏦</div>
+    </div>
+    <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:2rem;color:#ffd700">VS</div>
+    <div class="s7-right">
+      <div style="font-size:0.65rem;color:#888;margin-bottom:8px">BETONIQ INVEST</div>
+      <div class="s7-rate s7-good-rate">14%</div>
+      <div class="s7-label">Diaspora Capital Rate</div>
+      <div style="margin-top:12px;font-size:1.5rem">🌍</div>
+    </div>
+    <div class="s7-packet">💰</div>
+    <div class="s7-saving">✅ Developer Saves $160,000/year on a $2M Project</div>
+  </div>`,
+
+  s8: `<div style="position:absolute;width:100%;height:100%;background:linear-gradient(160deg,#0a0a1a,#1a0a2a);overflow:hidden;display:flex;align-items:center;justify-content:center">
+    <div class="s8-hub">💰</div>
+    <div class="s8-ring" style="--rc:#00e5ff44;width:180px;height:180px;--rd:8s;--rdl:0s">
+      <div class="s8-investor" style="--ic:linear-gradient(135deg,#00e5ff,#0066ff)">🇬🇧</div>
+    </div>
+    <div class="s8-ring" style="--rc:#00ff8844;width:260px;height:260px;--rd:12s;--rdl:1s">
+      <div class="s8-investor" style="--ic:linear-gradient(135deg,#00ff88,#00aa44)">🇺🇸</div>
+    </div>
+    <div class="s8-ring" style="--rc:#ffd70044;width:340px;height:340px;--rd:16s;--rdl:2s">
+      <div class="s8-investor" style="--ic:linear-gradient(135deg,#ffd700,#ff8c00)">🇦🇪</div>
+    </div>
+    <div class="s8-ring" style="--rc:#ff00ff44;width:420px;height:420px;--rd:20s;--rdl:3s">
+      <div class="s8-investor" style="--ic:linear-gradient(135deg,#ff00ff,#cc00cc)">🏛️</div>
+    </div>
+    <div style="position:absolute;bottom:8%;left:50%;transform:translateX(-50%);font-size:0.65rem;color:#888;text-align:center">Diaspora · HNW · Institutional · Impact VC</div>
+  </div>`,
+
+  s9: `<div style="position:absolute;width:100%;height:100%;background:linear-gradient(160deg,#001020,#001a30);overflow:hidden">
+    <div class="s9-map">
+      <div style="position:absolute;width:100%;height:100%;background:linear-gradient(160deg,#0a1628,#0d1f3a)"></div>
+      <div class="s9-dot" style="--dc:#00e5ff;--dd:0s;top:35%;left:18%"></div>
+      <div class="s9-dot" style="--dc:#ffd700;--dd:0.3s;top:30%;left:25%"></div>
+      <div class="s9-dot" style="--dc:#ff8c00;--dd:0.6s;top:25%;left:60%"></div>
+      <div class="s9-dot" style="--dc:#00ff88;--dd:0.9s;top:32%;left:15%"></div>
+      <div class="s9-dot" style="--dc:#ff00ff;--dd:1.2s;top:60%;left:50%;width:18px;height:18px"></div>
+      <div class="s9-dot" style="--dc:#ff4444;--dd:1.5s;top:75%;left:52%"></div>
+      <div class="s9-packet" style="--pd:3s;--pdl:0s;--px1:18%;--py1:35%;--px2:50%;--py2:60%"></div>
+      <div class="s9-packet" style="--pd:3.5s;--pdl:0.5s;--px1:25%;--py1:30%;--px2:50%;--py2:60%"></div>
+      <div class="s9-packet" style="--pd:2.8s;--pdl:1s;--px1:60%;--py1:25%;--px2:51%;--py2:61%"></div>
+      <div class="s9-packet" style="--pd:4s;--pdl:1.5s;--px1:15%;--py1:32%;--px2:50%;--py2:60%"></div>
+      <div style="position:absolute;bottom:5%;left:5%;font-size:0.6rem;color:#00e5ff">🇬🇧 UK</div>
+      <div style="position:absolute;bottom:5%;left:20%;font-size:0.6rem;color:#ffd700">🇺🇸 USA</div>
+      <div style="position:absolute;bottom:5%;left:55%;font-size:0.6rem;color:#ff8c00">🇦🇪 UAE</div>
+      <div style="position:absolute;bottom:5%;right:5%;font-size:0.6rem;color:#00ff88">🇳🇬 Nigeria Hub</div>
+    </div>
+    <div style="position:absolute;bottom:2%;left:50%;transform:translateX(-50%);font-size:0.65rem;color:#aaa">$26B annual remittance flow · 0% currently in verified property · BETONIQ changes this</div>
+  </div>`,
+
+  s10: `<div style="position:absolute;width:100%;height:100%;background:linear-gradient(160deg,#001a10,#002a18);overflow:hidden;display:flex;align-items:flex-end;padding:20px">
+    <div class="s10-chart">
+      <div class="s10-axis"></div>
+      <div class="s10-bar" style="--bc:#00e5ff;--bt:#0066ff;--bh:30%;--bd:0.3s;left:5%">
+        <div class="s10-value">$420K</div>
+        <div class="s10-label">Listing</div>
+      </div>
+      <div class="s10-bar" style="--bc:#00ff88;--bt:#00cc66;--bh:45%;--bd:0.6s;left:24%">
+        <div class="s10-value">$780K</div>
+        <div class="s10-label">Success</div>
+      </div>
+      <div class="s10-bar" style="--bc:#ffd700;--bt:#ff8c00;--bh:15%;--bd:0.9s;left:43%">
+        <div class="s10-value">$156K</div>
+        <div class="s10-label">Subscriptions</div>
+      </div>
+      <div class="s10-bar" style="--bc:#ff00ff;--bt:#cc00cc;--bh:25%;--bd:1.2s;left:62%">
+        <div class="s10-value">$340K</div>
+        <div class="s10-label">FX Commission</div>
+      </div>
+      <div class="s10-bar" style="--bc:#ff8c00;--bt:#ff4500;--bh:60%;--bd:1.5s;left:80%">
+        <div class="s10-value">$1.69M</div>
+        <div class="s10-label">Year 1 Total</div>
+      </div>
+    </div>
+  </div>`,
+
+  s11: `<div style="position:absolute;width:100%;height:100%;background:linear-gradient(160deg,#0a001a,#1a0028);overflow:hidden">
+    <svg class="s11-svg" viewBox="0 0 400 200">
+      <defs>
+        <linearGradient id="lineGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" style="stop-color:#00e5ff"/>
+          <stop offset="100%" style="stop-color:#ff00ff"/>
+        </linearGradient>
+      </defs>
+      <path class="s11-fill-path" d="M 20 180 C 80 175, 140 160, 200 130 C 260 100, 320 50, 380 20 L 380 200 L 20 200 Z" fill="url(#lineGrad)" opacity="0.15"/>
+      <path class="s11-line-path" d="M 20 180 C 80 175, 140 160, 200 130 C 260 100, 320 50, 380 20" stroke="url(#lineGrad)" stroke-width="3" fill="none"/>
+      <circle cx="20" cy="180" r="5" fill="#00e5ff"><animate attributeName="r" values="4;8;4" dur="2s" repeatCount="indefinite"/></circle>
+      <circle cx="200" cy="130" r="5" fill="#00aaff"><animate attributeName="r" values="4;8;4" dur="2s" repeatCount="indefinite" begin="0.5s"/></circle>
+      <circle cx="380" cy="20" r="5" fill="#ff00ff"><animate attributeName="r" values="4;8;4" dur="2s" repeatCount="indefinite" begin="1s"/></circle>
+      <text x="30" y="175" fill="#00e5ff" font-size="9">2026: $1.69M</text>
+      <text x="180" y="125" fill="#00aaff" font-size="9">2027: $12.4M</text>
+      <text x="335" y="18" fill="#ff00ff" font-size="9">2028: $55M+</text>
+      <text x="200" y="195" fill="#666" font-size="8" text-anchor="middle">Revenue Growth Trajectory</text>
+    </svg>
+    <div style="position:absolute;bottom:2%;left:50%;transform:translateX(-50%);font-size:0.65rem;color:#aaa;text-align:center">Conservative 2% remittance capture · 0.5% capture = $55M+ by Year 3</div>
+  </div>`,
+
+  s12: `<div style="position:absolute;width:100%;height:100%;background:linear-gradient(160deg,#001020,#001520);overflow:hidden">
+    <div class="s12-node" style="--nc:linear-gradient(135deg,#0066ff,#0044aa);top:10%;left:5%;--nd:2s;--ndl:0s">
+      <div class="s12-node-icon">🤖</div><div class="s12-node-label">AI ENGINE</div><div class="s12-counter" id="c1">324 scored</div>
+    </div>
+    <div class="s12-node" style="--nc:linear-gradient(135deg,#00aa44,#006622);top:10%;left:38%;--nd:3s;--ndl:0.3s">
+      <div class="s12-node-icon">✅</div><div class="s12-node-label">COMPLIANCE</div><div class="s12-counter">11 countries</div>
+    </div>
+    <div class="s12-node" style="--nc:linear-gradient(135deg,#ff8c00,#cc5500);top:10%;right:5%;--nd:2.5s;--ndl:0.6s">
+      <div class="s12-node-icon">🔐</div><div class="s12-node-label">KYC/AML</div><div class="s12-counter">Active</div>
+    </div>
+    <div class="s12-node" style="--nc:linear-gradient(135deg,#aa00cc,#6600aa);bottom:15%;left:5%;--nd:3.5s;--ndl:0.9s">
+      <div class="s12-node-icon">💱</div><div class="s12-node-label">FX RAIL</div><div class="s12-counter">IMTO live</div>
+    </div>
+    <div class="s12-node" style="--nc:linear-gradient(135deg,#00aacc,#006688);bottom:15%;right:5%;--nd:2s;--ndl:1.2s">
+      <div class="s12-node-icon">📱</div><div class="s12-node-label">INVESTOR PORTAL</div><div class="s12-counter">Real-time</div>
+    </div>
+    <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:70px;height:70px;border-radius:50%;background:linear-gradient(135deg,#00e5ff,#0066ff);display:flex;align-items:center;justify-content:center;font-size:1.5rem;box-shadow:0 0 30px #00e5ff66;animation:hubPulse 2s infinite">🏗️</div>
+    <div class="s12-packet" style="--fd:2s;--fl:0s;--fx1:calc(5% + 54px);--fy1:calc(10% + 27px);--fx2:50%;--fy2:50%"></div>
+    <div class="s12-packet" style="--fd:2.5s;--fl:0.5s;--fx1:calc(38% + 54px);--fy1:calc(10% + 27px);--fx2:50%;--fy2:50%"></div>
+    <div class="s12-packet" style="--fd:3s;--fl:1s;--fx1:calc(5% + 54px);--fy1:calc(85% - 54px);--fx2:50%;--fy2:50%"></div>
+  </div>`,
+
+  s13: `<div style="position:absolute;width:100%;height:100%;background:linear-gradient(160deg,#0a0020,#100030);overflow:hidden">
+    <div class="s13-gate" style="--gc:#00e5ff;--gd:0s;top:30%;left:20%;transform:translateY(-50%)">
+      <div class="s13-icon">🔒</div>
+      <div class="s13-label">GATE 1<br>Nigeria<br>Regulatory</div>
+    </div>
+    <div class="s13-gate" style="--gc:#00ff88;--gd:1s;top:30%;left:55%;transform:translateY(-50%)">
+      <div class="s13-icon">🛡️</div>
+      <div class="s13-label">GATE 2<br>FCA/CBUAE<br>Standard</div>
+    </div>
+    <div class="s13-project">🏗️</div>
+    <div class="s13-pass">✅</div>
+    <div style="position:absolute;bottom:8%;left:50%;transform:translateX(-50%);font-size:0.65rem;color:#aaa;text-align:center">Failed at Gate 1 or Gate 2 → Not Listed. Period.</div>
+  </div>`,
+
+  s14: `<div style="position:absolute;width:100%;height:100%;background:linear-gradient(160deg,#001a00,#002800);overflow:hidden">
+    <div class="s14-star" style="--sd:3s;--sdl:0s;top:10%;left:10%">⭐</div>
+    <div class="s14-star" style="--sd:2s;--sdl:0.5s;top:20%;right:15%">✨</div>
+    <div class="s14-star" style="--sd:4s;--sdl:1s;top:5%;left:60%">⭐</div>
+    <div class="s14-star" style="--sd:2.5s;--sdl:1.5s;top:15%;left:40%">✨</div>
+    <div class="s14-star" style="--sd:3.5s;--sdl:0.3s;top:8%;right:35%">⭐</div>
+    <div class="s14-exhaust">🔥</div>
+    <div class="s14-rocket">🚀</div>
+    <div class="s14-amount">
+      <div class="s14-raise">$4.5M</div>
+      <div class="s14-rlabel">PRE-SERIES A TARGET</div>
+      <div style="font-size:0.6rem;color:#aaa;margin-top:4px">$25M PRE-MONEY VALUATION</div>
+    </div>
+    <div style="position:absolute;bottom:5%;left:10%;font-size:0.65rem;color:#aaa">
+      <div style="color:#00ff88">$1.2M — Engineering</div>
+      <div style="color:#00e5ff">$900K — Licensing</div>
+      <div style="color:#ffd700">$1.1M — Expansion</div>
+      <div style="color:#ff8c00">$800K — Sales</div>
+      <div style="color:#ff00ff">$500K — Reserve</div>
+    </div>
+  </div>`,
+
+  s15: `<div style="position:absolute;width:100%;height:100%;background:radial-gradient(ellipse at center,#1a1000,#050500);overflow:hidden;display:flex;align-items:center;justify-content:center">
+    <div class="s15-star">⭐</div>
+    <div class="s15-ray" style="--ra:0deg;--rd:0s"></div>
+    <div class="s15-ray" style="--ra:30deg;--rd:0.2s"></div>
+    <div class="s15-ray" style="--ra:60deg;--rd:0.4s"></div>
+    <div class="s15-ray" style="--ra:90deg;--rd:0.6s"></div>
+    <div class="s15-ray" style="--ra:120deg;--rd:0.8s"></div>
+    <div class="s15-ray" style="--ra:150deg;--rd:1s"></div>
+    <div class="s15-ray" style="--ra:180deg;--rd:1.2s"></div>
+    <div class="s15-ray" style="--ra:210deg;--rd:1.4s"></div>
+    <div class="s15-ray" style="--ra:240deg;--rd:1.6s"></div>
+    <div class="s15-ray" style="--ra:270deg;--rd:1.8s"></div>
+    <div class="s15-ray" style="--ra:300deg;--rd:2s"></div>
+    <div class="s15-ray" style="--ra:330deg;--rd:2.2s"></div>
+    <div style="position:absolute;top:8%;left:50%;transform:translateX(-50%);font-size:0.75rem;color:#ffd700;font-weight:700;white-space:nowrap;text-align:center">BETONIQ INVEST — Why We Win</div>
+    <div style="position:absolute;top:18%;left:8%;text-align:center;font-size:0.65rem;color:#00e5ff"><div style="font-size:1.2rem;font-weight:900">47</div>Parameters</div>
+    <div style="position:absolute;top:18%;right:8%;text-align:center;font-size:0.65rem;color:#00ff88"><div style="font-size:1.2rem;font-weight:900">11</div>Countries</div>
+    <div style="position:absolute;bottom:22%;left:8%;text-align:center;font-size:0.65rem;color:#ff8c00"><div style="font-size:1.1rem;font-weight:900">$55M</div>Year 3</div>
+    <div style="position:absolute;bottom:22%;right:8%;text-align:center;font-size:0.65rem;color:#ffd700"><div style="font-size:1.1rem;font-weight:900">$4.5M</div>Raising Now</div>
+    <div style="position:absolute;bottom:8%;left:50%;transform:translateX(-50%);font-size:0.7rem;color:#aaa;text-align:center;white-space:nowrap">First-mover · World-first AI scoring · Live platform · Real revenue · World-class team</div>
+  </div>`
+};
+
+function buildTable(t) {
+  if (!t) return '';
+  let html = '<table class="data-table"><thead><tr>';
+  t.heads.forEach(h => html += `<th>${h}</th>`);
+  html += '</tr></thead><tbody>';
+  t.rows.forEach(r => {
+    html += '<tr>';
+    r.forEach((c, i) => {
+      const badge = i===2 && typeof c === 'string' ? getBadge(c) : c;
+      html += `<td>${badge}</td>`;
+    });
+    html += '</tr>';
+  });
+  return html + '</tbody></table>';
+}
+
+function getBadge(v) {
+  if (!v) return v;
+  const low = v.toLowerCase();
+  if (low.includes('live') || low.includes('active') || low.includes('verified') || low.includes('a+') || low.includes('strong') || low.includes('fast') || low.includes('exceptional') || low.includes('confirmed')) {
+    return `<span class="badge badge-green">${v}</span>`;
+  }
+  if (low.includes('integration') || low.includes('expanding') || low.includes('partial')) {
+    return `<span class="badge badge-amber">${v}</span>`;
+  }
+  if (low.includes('unresolved') || low.includes('fail') || low.includes('reject')) {
+    return `<span class="badge badge-red">${v}</span>`;
+  }
+  return v;
+}
+
+function showSlide(n) {
+  const s = SLIDES[n];
+  document.getElementById('counter').textContent = `${n+1} / ${SLIDES.length}`;
+  document.getElementById('slide-label').textContent = `SLIDE ${String(n+1).padStart(2,'0')} / ${SLIDES.length}`;
+  document.getElementById('slide-title').textContent = s.title;
+  document.getElementById('slide-body').innerHTML = s.body + buildTable(s.table || null);
+  document.getElementById('anim-content').innerHTML = ANIMS[s.anim] || '';
+  document.getElementById('progress-fill').style.width = `${((n+1)/SLIDES.length)*100}%`;
+  
+  // Animate AI score on slide 4
+  if (s.anim === 's4') {
+    let sc = 75, el = document.getElementById('ai-score');
+    if (el) {
+      let t = setInterval(() => {
+        sc += 1;
+        if (el) el.textContent = sc;
+        if (sc >= 87) clearInterval(t);
+      }, 60);
+    }
+  }
+  
+  stopAudio();
+}
+
+function playAudio() {
+  const a = document.getElementById('audio-player');
+  const n = String(cur+1).padStart(2,'0');
+  const url = `${BASE}/slide_${n}.mp3`;
+  if (a.src !== url) { a.src = url; a.load(); }
+  a.play().catch(() => {});
+  document.getElementById('play-btn').innerHTML = '<div class="play-dot"></div> ⏸ Playing...';
+}
+
+function stopAudio() {
+  const a = document.getElementById('audio-player');
+  a.pause();
+  a.src = '';
+  document.getElementById('play-btn').innerHTML = '<div class="play-dot"></div> ▶ PLAY — OpenAI Shimmer professional voice';
+}
+
+function onAudioEnd() {
+  document.getElementById('play-btn').innerHTML = '<div class="play-dot"></div> ▶ PLAY — OpenAI Shimmer professional voice';
+  if (autoPlay && cur < SLIDES.length - 1) {
+    autoTimer = setTimeout(() => { navigate(1); setTimeout(playAudio, 500); }, 1000);
+  }
+}
+
+function navigate(d) {
+  cur = Math.max(0, Math.min(SLIDES.length-1, cur+d));
+  showSlide(cur);
+}
+
+function toggleAuto() {
+  autoPlay = !autoPlay;
+  document.getElementById('auto-btn').textContent = `AUTO: ${autoPlay ? 'ON' : 'OFF'}`;
+  if (autoPlay) setTimeout(playAudio, 300);
+}
+
+// Swipe
+let tx = 0;
+document.addEventListener('touchstart', e => tx = e.touches[0].clientX);
+document.addEventListener('touchend', e => { const dx = e.changedTouches[0].clientX - tx; if (Math.abs(dx) > 40) navigate(dx < 0 ? 1 : -1); });
+document.addEventListener('keydown', e => { if (e.key==='ArrowRight') navigate(1); if (e.key==='ArrowLeft') navigate(-1); if (e.key===' ') { e.preventDefault(); playAudio(); } });
+
+showSlide(0);
+</script>
+</body></html>
