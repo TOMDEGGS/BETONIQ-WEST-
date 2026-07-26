@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<title>ZeroPay — 20-Slide Investor Presentation</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100vh;overflow:hidden;font-family:'Segoe UI',Arial,sans-serif;background:#02050e;color:#fff;display:flex;flex-direction:column}
+#hdr{height:54px;flex-shrink:0;background:linear-gradient(90deg,#050c20,#0a1435);border-bottom:2px solid #00d4ff;display:flex;align-items:center;justify-content:space-between;padding:0 16px}
+.logo{font-size:1.15rem;font-weight:900;color:#00d4ff;letter-spacing:2px}
+.sub{font-size:0.58rem;color:#667;margin-top:1px}
+.cnt{font-size:1rem;font-weight:700;color:#fff}
+.vcnt{font-size:0.6rem;color:#888;text-align:right}
+#pgbar{height:3px;flex-shrink:0;background:#050a18}
+#pgfill{height:100%;background:linear-gradient(90deg,#00d4ff,#ff2d78);transition:width .4s}
+#main{display:flex;flex:1;min-height:0;overflow:hidden}
+#scene{width:50%;position:relative;overflow:hidden}
+canvas{position:absolute;inset:0;width:100%;height:100%}
+#panel{width:50%;display:flex;flex-direction:column;padding:14px 16px;overflow:hidden;border-left:1px solid #0a1830;background:#030610}
+.snum{font-size:0.58rem;letter-spacing:3px;color:#334;text-transform:uppercase;margin-bottom:5px}
+.stitle{font-size:1.2rem;font-weight:800;line-height:1.2;margin-bottom:7px}
+.sbody{font-size:0.74rem;color:#8899bb;line-height:1.6;margin-bottom:8px}
+.ltable{width:100%;border-collapse:collapse;font-size:0.68rem}
+.ltable thead tr{background:linear-gradient(90deg,rgba(0,212,255,.2),rgba(255,45,120,.12))}
+.ltable th{padding:5px 8px;text-align:left;font-weight:700;color:#00d4ff;border-bottom:1px solid #00d4ff44;font-size:0.64rem;letter-spacing:.5px}
+.ltable td{padding:4px 8px;border-bottom:1px solid #0a1420;color:#cce}
+.ltable tr:hover td{background:rgba(0,212,255,.06)}
+.badge{display:inline-block;padding:1px 7px;border-radius:9px;font-size:0.58rem;font-weight:700}
+.bg{background:#00ff8820;color:#00ff88;border:1px solid #00ff8840}
+.by{background:#ffd70020;color:#ffd700;border:1px solid #ffd70040}
+.br{background:#ff222220;color:#ff6666;border:1px solid #ff444440}
+.bp{background:#7c4dff20;color:#b388ff;border:1px solid #7c4dff40}
+.pbtn{margin-top:auto;padding-top:8px;display:flex;align-items:center;gap:8px;flex-shrink:0}
+.pb{background:transparent;border:1.5px solid currentColor;padding:8px 16px;border-radius:20px;cursor:pointer;font-size:0.78rem;font-weight:600;font-family:inherit;white-space:nowrap;transition:all .2s}
+.dot{width:8px;height:8px;border-radius:50%;animation:blink 1.1s infinite;flex-shrink:0}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
+#foot{height:50px;flex-shrink:0;background:#020408;border-top:2px solid #0a1428;display:flex;align-items:center;justify-content:center;gap:8px;padding:0 10px}
+.fb{background:rgba(255,255,255,.07);border:1.5px solid rgba(255,255,255,.18);color:#ccc;padding:8px 16px;border-radius:8px;cursor:pointer;font-size:0.82rem;font-weight:600;font-family:inherit;white-space:nowrap;transition:all .2s}
+.fb:hover{background:rgba(0,212,255,.14);border-color:#00d4ff;color:#00d4ff}
+#fbplay{background:#00d4ff;color:#000;font-weight:800;border-color:#00d4ff;padding:8px 24px}
+#fbplay:hover{background:#33ddff}
+#fbauto.on{background:#00ff8830;border-color:#00ff88;color:#00ff88}
+</style>
+</head>
+<body>
+<div id="hdr">
+  <div>
+    <div class="logo">⚡ ZEROPAY</div>
+    <div class="sub">World-First Offline NFC Payment · Patent Pending April 2026 · 20-Slide Investor Presentation</div>
+    <div class="sub">© BETONIQ(WEST) Ltd RC 56802 · Abuja FCT · STRICTLY CONFIDENTIAL · zeropointfeild_nonwnt@zeropay.site</div>
+  </div>
+  <div>
+    <div class="cnt" id="hcnt">1 / 20</div>
+    <div class="vcnt">OpenAI Shimmer · British Voice</div>
+  </div>
+</div>
+<div id="pgbar"><div id="pgfill" style="width:5%"></div></div>
+<div id="main">
+  <div id="scene"><canvas id="cvs"></canvas></div>
+  <div id="panel">
+    <div class="snum" id="snum">SLIDE 01 / 20</div>
+    <div class="stitle" id="stitle">Loading...</div>
+    <div class="sbody" id="sbody"></div>
+    <div id="tbl"></div>
+    <div class="pbtn">
+      <span class="dot" id="dot" style="background:#00d4ff"></span>
+      <button class="pb" id="pbtn" onclick="playA()" style="color:#00d4ff">▶ PLAY — OpenAI Shimmer</button>
+    </div>
+  </div>
+</div>
+<div id="foot">
+  <button class="fb" onclick="nav(-1)">◀ PREV</button>
+  <button class="fb" id="fbplay" onclick="playA()">▶ PLAY</button>
+  <button class="fb" onclick="nav(1)">NEXT ▶</button>
+  <button class="fb" id="fbauto" onclick="toggleAuto()">AUTO: OFF</button>
+</div>
+<audio id="aud" onended="onEnd()"></audio>
+
+<script>
+const ZP_AUDIO = "https://raw.githubusercontent.com/TOMDEGGS/BETONIQ-WEST-/main/zeropay_audio";
+
+const SLIDES = [
+  { accent:"#00d4ff", title:"Meet Chidi — The Lagos Merchant",
+    body:"Every morning Chidi opens his electronics stall in Lagos. No card terminal. No digital record. Power cuts kill connectivity. When the network fails, commerce stops. 38 million Nigerians face this daily. ZeroPay was built for Chidi.",
+    tbl:{ h:["Problem","Scale","Status"], r:[["No offline payment","38M merchants","🔴 Crisis"],["Network downtime","₦2B lost/day","🔴 Critical"],["No card terminals","72% rural","🔴 Unserved"],["Agent banking fees","8–15% charge","🔴 Exploitative"],["ZeroPay Solution","All 4 solved","🟢 Live"]] }
+  },
+  { accent:"#ff2d78", title:"Meet Mama Ngozi — Rural Remittances",
+    body:"Her son sends money from the UK every month. The nearest bank is 40km away. Agent fees devour 12% of every transfer. With ZeroPay, funds arrive directly to her NFC wristband — zero internet required, zero agent fees.",
+    tbl:{ h:["Corridor","Volume USD","ZeroPay Saving"], r:[["Nigeria–UK","$8.2B/yr","Up to 11% fee"],["Nigeria–USA","$6.4B/yr","Up to 12% fee"],["Nigeria–UAE","$3.1B/yr","Up to 10% fee"],["Nigeria–Canada","$2.8B/yr","Up to 9% fee"],["All Corridors","$26B+/yr","🟢 Sub 1% target"]] }
+  },
+  { accent:"#00ff88", title:"Live ZeroPay Transaction — 300ms",
+    body:"Customer taps device to merchant terminal. An encrypted transaction is created LOCALLY — stored on both devices simultaneously. No internet. No bank server. No intermediary. When connectivity returns, ZeroPay auto-reconciles.",
+    tbl:{ h:["Step","Action","Time"], r:[["1 — NFC Tap","Device proximity detected","0ms"],["2 — PUF Auth","Silicon fingerprint verified","18ms"],["3 — ECC Sign","P-256 signature generated","24ms"],["4 — Local Store","Cryptographic receipt locked","280ms"],["5 — Confirm","Both devices confirm receipt","300ms"]] }
+  },
+  { accent:"#a855f7", title:"Remittance — NYC to Rural Nigeria",
+    body:"Nigerian professional in Manhattan initiates a $500 transfer. ZeroPay encrypts with ECC P-256, signs with PUF key, routes to nearest mesh node. Mama receives on NFC wristband. Total time: under 90 seconds. Fee: under 1%.",
+    tbl:{ h:["Method","Time","Fee","Reliability"], r:[["Western Union","2–3 days","8–12%","Online only"],["Bank Transfer","1–5 days","5–9%","Online only"],["Mobile Money","Hours","3–7%","Network needed"],["Crypto","Minutes","2–5%","Volatile rate"],["ZeroPay","<90 sec","<1%","🟢 Offline capable"]] }
+  },
+  { accent:"#f97316", title:"ZeroPay — Global Infrastructure",
+    body:"Not a Nigerian product. A global payment infrastructure. Designed for Manhattan skyscrapers AND Niger Delta fishing villages. Zero connectivity environments. Feature phones. Wearables. Every currency. Every person.",
+    tbl:{ h:["Environment","Connectivity","ZeroPay Status"], r:[["Lagos street market","No internet","🟢 Fully operational"],["Rural Borno State","No GSM","🟢 Mesh relay active"],["London Underground","Intermittent","🟢 NFC local mode"],["Dubai Airport","Full 5G","🟢 Online + offline"],["Remote Sahel region","Satellite only","🟢 Batch sync mode"]] }
+  },
+  { accent:"#00d4ff", title:"Welcome to ZeroPay — The Invention",
+    body:"The world's first payment system engineered to operate fully offline AND fully online simultaneously. Invented by Tom Ugbodaga — MSc NFC, University of Gloucestershire 2011 (Top Graduate). 15 years of research, now commercial.",
+    tbl:{ h:["Credential","Detail","Significance"], r:[["MSc NFC Tech","Gloucestershire 2011","Top Graduate"],["MSc Computer Security","Dual Masters","Deep security arch."],["BSc Physics Nigeria","First Principles","Physics-led design"],["Patent Filed","April 2026","PUF + Offline + Mesh"],["Company Reg.","RC 56802 · Abuja","CAC Registered"]] }
+  },
+  { accent:"#ff4444", title:"The 1.4 Billion Problem",
+    body:"1.4 billion people globally remain completely unbanked. 38 million in Nigeria alone. Every existing solution — Visa, Mastercard, mobile money, USSD — requires internet. When the network fails, commerce stops. ZeroPay does not.",
+    tbl:{ h:["Region","Unbanked","Connectivity"], r:[["Sub-Saharan Africa","350M","60% no reliable net"],["South/SE Asia","520M","40% rural gap"],["Latin America","220M","35% connectivity gap"],["MENA","200M","25% unbanked"],["Nigeria alone","38M","🔴 ZeroPay Priority"]] }
+  },
+  { accent:"#fbbf24", title:"The Offline Engine — How It Works",
+    body:"Two ZeroPay devices exchange encrypted data via NFC — no server, no internet. Transactions stored in a tamper-proof cryptographic vault on both devices. On reconnection, all queued transactions settle in sequence. Zero data loss.",
+    tbl:{ h:["Phase","Mechanism","Result"], r:[["Tap Event","ECC P-256 + PUF sign","Signed TX created"],["Local Storage","Cryptographic vault","Tamper-proof record"],["Offline Queue","TTL 72hr token","No expiry loss"],["Reconnection","Auto batch sync","Settlement confirmed"],["Audit Trail","Blockchain-grade log","🟢 Fully compliant"]] }
+  },
+  { accent:"#10b981", title:"Uncapped NFC — No Transaction Limits",
+    body:"Visa/Mastercard contactless caps: £100 UK, ₦20,000 Nigeria. ZeroPay: NO CAP. PUF authentication establishes higher trust per transaction. Same tap processes ₦500 street food OR ₦5,000,000 equipment procurement.",
+    tbl:{ h:["System","Cap","Auth Level"], r:[["Visa Contactless","£100 / €50","Standard NFC"],["Mastercard Tap","£100 / ₦20K","Standard NFC"],["Apple Pay","Device limit","Biometric only"],["Google Pay","Bank limit","PIN above cap"],["ZeroPay","🟢 NO CAP","PUF + ECC P-256"]] }
+  },
+  { accent:"#ec4899", title:"PUF Silicon — The Unclonable Key",
+    body:"Physical Unclonable Functions exploit microscopic silicon variations unique to each chip — like a fingerprint in hardware. No two chips produce the same cryptographic response. Cannot be copied. Cannot be spoofed. Even the manufacturer cannot duplicate it.",
+    tbl:{ h:["Attack Type","Standard NFC","ZeroPay PUF"], r:[["Device Cloning","Possible","🟢 Physically impossible"],["Key Extraction","Software attack","🟢 No extractable key"],["Relay Attack","Possible <10ms","🟢 Distance bounded"],["Replay Attack","Possible","🟢 Cryptogram binding"],["Manufacturer Dupe","Possible","🟢 Nanoscale variation"]] }
+  },
+  { accent:"#06b6d4", title:"Universal Access — Every Device",
+    body:"Smartphones — iOS and Android. Basic feature phones via NFC-enabled SIM cards. Wearables — smartwatch, NFC wristband, payment ring. Disposable burner phones. No data plan needed. One platform. Every device. Every person.",
+    tbl:{ h:["Device Type","Requirement","Population Reached"], r:[["Flagship smartphone","None","1.4B devices"],["Basic feature phone","NFC SIM","2.1B devices"],["NFC wristband","ZeroPay pairing","Mass distribution"],["Smart watch","ZeroPay app","250M devices"],["Paper NFC card","Issued by ZeroPay","🟢 Universal fallback"]] }
+  },
+  { accent:"#ef4444", title:"4-Layer MITM Attack Defence",
+    body:"Layer 1 — Distance Bounding: 10ns RTT threshold rejects relay attacks (milliseconds too slow). Layer 2 — Mutual Auth: fake terminal cannot present valid ZeroPay certificate. Layer 3 — Context Binding: cryptograms bound to merchant ID + timestamp. Layer 4 — AI Anomaly Detection: real-time relay signature detection.",
+    tbl:{ h:["Layer","Method","Blocks"], r:[["1 — Distance Bound","10ns RTT threshold","Relay attacks"],["2 — Mutual Auth","ZeroPay certificate","Fake terminals"],["3 — Context Bind","Merchant + timestamp","Replay attacks"],["4 — AI Detect","ML latency profiling","All known patterns"],["Result","🟢 0 breaches","Pentagon-grade"]] }
+  },
+  { accent:"#14b8a6", title:"Solar Mesh Hub — Off-Grid Network",
+    body:"Solar-powered relay nodes with 72-hour supercapacitor + lithium backup. Local peer-to-peer transaction routing between ZeroPay devices. When hub connects via satellite or mobile — even briefly — it batch-reconciles ALL queued transactions.",
+    tbl:{ h:["Spec","Value","Purpose"], r:[["Solar Panel","40W peak","Self-sustaining"],["Supercapacitor","72hr backup","Matches token TTL"],["Mesh Range","50km radius","Rural coverage"],["Max Hop Count","6 hops","Full reconciliation"],["Sync Speed","<3 seconds","Full batch settle"]] }
+  },
+  { accent:"#ffd700", title:"Live Journey — NYC to Kogi State",
+    body:"Step 1: Manhattan professional opens ZeroPay, initiates $500 transfer. Step 2: ECC P-256 signs with PUF key, transmitted to ZeroPay network. Step 3: arrives at Nigeria mesh node. Step 4: Mama taps NFC wristband to confirm. Total: under 90 seconds. Fee: under 1%.",
+    tbl:{ h:["Step","Action","Duration"], r:[["1 — Initiate","PUF-signed TX created","2 seconds"],["2 — Encrypt","ECC P-256 signature","Instant"],["3 — Route","Mesh node relay","12 seconds"],["4 — Deliver","NFC wristband tap","5 seconds"],["5 — Settle","Paystack confirmation","<90 seconds"]] }
+  },
+  { accent:"#8b5cf6", title:"6 Payment Methods — Zero Exclusions",
+    body:"NFC tap-to-pay. QR code payments. USSD codes for feature phones. Wearable NFC payments. Biometric confirmation. And our patent-pending Offline Cryptographic Receipt — a paper receipt with embedded cryptographic code, verifiable without internet.",
+    tbl:{ h:["Method","Requires","Offline?"], r:[["NFC Tap","ZeroPay device","🟢 Yes — primary"],["QR Code","Camera","🟢 Yes — cached"],["USSD Code","Any phone","🟢 Yes — GSM only"],["NFC Wearable","ZeroPay band","🟢 Yes — full offline"],["Biometric","Fingerprint/Face","🟡 Device-level"],["Crypto Receipt","Paper + scanner","🟢 Yes — no internet"]] }
+  },
+  { accent:"#f97316", title:"$847B Global Market — First Mover",
+    body:"Diaspora remittance market: $847 billion globally. Sub-Saharan Africa alone: $60 billion annually. Nigeria: $26 billion per year. ZeroPay targets 0.5% capture Year 1. That is $130 million in annual transaction volume from a single corridor.",
+    tbl:{ h:["Market","Size USD","ZeroPay Target"], r:[["Global Remittances","$847B/yr","0.5% → $4.2B/yr"],["Sub-Saharan Africa","$60B/yr","2% → $1.2B/yr"],["Nigeria Total","$26B/yr","5% → $1.3B/yr"],["Nigeria–UK","$8.2B/yr","🟢 Launch corridor"],["Year 1 Revenue","$1.69M","Conservative model"]] }
+  },
+  { accent:"#00ff88", title:"No Direct Competitor",
+    body:"Visa and Mastercard: online only. Moniepoint: Nigerian market, online dependent. Flutterwave: API gateway, no hardware, no offline. M-Pesa: GSM-dependent, capped. ZeroPay has ZERO direct competitors in offline NFC + PUF + Mesh architecture.",
+    tbl:{ h:["Competitor","Offline?","PUF?","Mesh?"], r:[["Visa / Mastercard","🔴 No","🔴 No","🔴 No"],["Moniepoint","🔴 No","🔴 No","🔴 No"],["Flutterwave","🔴 No","🔴 No","🔴 No"],["M-Pesa","🟡 USSD only","🔴 No","🔴 No"],["ZeroPay","🟢 Full 72hr","🟢 PUF chip","🟢 Solar mesh"]] }
+  },
+  { accent:"#ff2d78", title:"Agent Network — 500 Terminals Year 1",
+    body:"ZeroPay distributes through a licensed agent network. Year 1: 500 terminals across Abuja, Lagos, and Edo State. Agents earn commission per transaction. Terminal hardware leased at ₦15,000/month. Revenue share: 0.3% per transaction to agent.",
+    tbl:{ h:["Metric","Year 1","Year 2"], r:[["Terminals deployed","500","4,000"],["Agent commission","0.3%/tx","0.3%/tx"],["Terminal lease fee","₦15K/month","₦15K/month"],["Daily volume target","₦3M","₦25M"],["Markets active","3 cities","West Africa"]] }
+  },
+  { accent:"#7c4dff", title:"Security Architecture — FIPS 140-3",
+    body:"ZeroPay's security stack is built to exceed FIPS 140-3 and PCI DSS Level 1 requirements. PUF silicon. ECC P-256. Distance Bounding Protocol — never before implemented in an African payment terminal. CBN certification in progress.",
+    tbl:{ h:["Standard","ZeroPay Status","Comparator"], r:[["FIPS 140-3","🟢 Architecture ready","US federal grade"],["PCI DSS L1","🟢 Compliant design","Visa/MC standard"],["CBN PUF Framework","🟡 Application Q4 2026","Nigeria CBN 2026"],["ISO 20022","🟢 Settlement format","SWIFT standard"],["GDPR / NDPR","🟢 Privacy by design","Nigeria NDPR"]] }
+  },
+  { accent:"#ffd700", title:"$4.5M Pre-Series A — Join Us",
+    body:"Raising $4.5M USD at $25M pre-money valuation. Use of funds: 40% hardware manufacturing (500 PUF terminals). 30% regulatory licensing. 20% engineering. 10% operations. Launching September 30, 2026. The world is watching.",
+    tbl:{ h:["Use of Funds","Amount","%"], r:[["PUF Terminal Manufacture","$1,800,000","40%"],["Regulatory Licensing","$1,350,000","30%"],["Engineering / Firmware","$900,000","20%"],["Operations / Sales","$450,000","10%"],["TOTAL","$4,500,000","$25M valuation"]] }
+  }
+];
+
+let cur=0, auto=false, animF=0, t=0;
+const cvs=document.getElementById('cvs');
+const ctx=cvs.getContext('2d');
+function W(){return cvs.width} function H(){return cvs.height}
+function resize(){const sc=document.getElementById('scene');cvs.width=sc.offsetWidth;cvs.height=sc.offsetHeight;}
+window.addEventListener('resize',resize);
+
+// ===== 3D DRAW FUNCTIONS =====
+const DRAWS=[
+  drawChidi3D, drawMama3D, drawTx3D, drawNYC3D, drawGlobal3D,
+  drawInvention3D, drawProblem3D, drawEngine3D, drawUncapped3D, drawPUF3D,
+  drawUniversal3D, drawMITM3D, drawMesh3D, drawJourney3D, drawMethods3D,
+  drawMarket3D, drawCompetitor3D, drawAgent3D, drawSecurity3D, drawRaise3D
+];
+
+function hsl(h,s,l){return `hsl(${h},${s}%,${l}%)`}
+function glow(c,b){ctx.shadowColor=c;ctx.shadowBlur=b;}
+function noglow(){ctx.shadowBlur=0;}
+
+function drawChidi3D(){
+  const w=W(),h=H(),cx=w/2;
+  // Lagos skyline 3D
+  const blds=[[.04,.38,.12,.52,'#0a1a2a'],[.17,.42,.09,.46,'#0a1a2a'],[.27,.35,.11,.54,'#0c1e30'],[.6,.3,.12,.58,'#0a1f18'],[.73,.38,.09,.5,'#0a2015'],[.83,.32,.11,.56,'#0d2214']];
+  blds.forEach(([bx,by,bw,bh,col],idx)=>{
+    const x=bx*w,y=by*h,W2=bw*w,H2=bh*h;
+    const isLeft=idx<3;
+    ctx.fillStyle=isLeft?'#06101a':'#061512';
+    ctx.beginPath();ctx.moveTo(x+W2,y);ctx.lineTo(x+W2+10,y-10);ctx.lineTo(x+W2+10,y+H2-10);ctx.lineTo(x+W2,y+H2);ctx.fill();
+    ctx.fillStyle=col;ctx.fillRect(x,y,W2,H2);
+    for(let r=0;r<5;r++)for(let c2=0;c2<3;c2++){
+      const lit=Math.sin(t+r*1.6+c2*2.1+bx*9)>.05;
+      ctx.fillStyle=lit?(isLeft?'rgba(255,200,80,.9)':'rgba(80,255,140,.9)'):'rgba(2,6,12,.9)';
+      ctx.fillRect(x+4+c2*(W2*.26),y+6+r*(H2*.17),W2*.2,H2*.13);
+    }
+  });
+  // Person center
+  const pulse=1+.05*Math.sin(t*2.5),cy=h*.45;
+  ctx.save();ctx.translate(cx,cy);ctx.scale(pulse,pulse);
+  glow('#00d4ff',12);
+  ctx.fillStyle='#ffd54f';ctx.beginPath();ctx.arc(0,-58,20,0,Math.PI*2);ctx.fill();
+  noglow();
+  ctx.fillStyle='#e67e22';ctx.fillRect(-14,-38,28,42);ctx.fillRect(-28,-32,14,34);ctx.fillRect(14,-32,14,34);ctx.fillRect(-10,4,10,28);ctx.fillRect(0,4,10,28);
+  ctx.restore();
+  // ₦ notes floating
+  for(let i=0;i<8;i++){
+    const a=t*.4+i*Math.PI/4, r=70+15*Math.sin(t+i*1.2);
+    ctx.fillStyle='#fbbf24';glow('#fbbf24',8);
+    ctx.font='bold 16px Arial';ctx.textAlign='center';ctx.fillText('₦',cx+r*Math.cos(a),cy+r*Math.sin(a)*.5);
+    noglow();
+  }
+  ctx.fillStyle='#ff4444';glow('#ff4444',14);
+  ctx.font=`bold ${Math.min(w*.07,26)}px Segoe UI`;ctx.textAlign='center';ctx.fillText('38M',cx,h*.87);
+  noglow();ctx.fillStyle='#aaa';ctx.font='10px Segoe UI';ctx.fillText('Nigerians Locked Out · ZeroPay Changes This',cx,h*.93);
+  ctx.textAlign='left';
+}
+
+function drawMama3D(){
+  const w=W(),h=H(),cx=w/2,cy=h*.42;
+  // Globe with remittance routes
+  const R=Math.min(w,h)*.26;
+  ctx.strokeStyle='#ff2d7822';ctx.lineWidth=.6;
+  for(let la=-80;la<=80;la+=20){ctx.beginPath();ctx.ellipse(cx,cy,Math.cos(la*Math.PI/180)*R,R*.35,0,0,Math.PI*2);ctx.stroke();}
+  for(let lo=0;lo<180;lo+=20){const a=(lo+t*6)*Math.PI/180;ctx.strokeStyle=`rgba(255,45,120,.04)`;ctx.beginPath();ctx.ellipse(cx,cy,R*.5,R,a,0,Math.PI*2);ctx.stroke();}
+  const ag=ctx.createRadialGradient(cx,cy,R*.5,cx,cy,R*1.8);ag.addColorStop(0,'rgba(255,45,120,.15)');ag.addColorStop(1,'rgba(255,45,120,0)');ctx.fillStyle=ag;ctx.fillRect(0,0,w,h);
+  // Routes
+  const routes=[['🇬🇧',w*.18,h*.2,'$8.2B'],[' 🇺🇸',w*.82,h*.22,'$6.4B'],['🇦🇪',w*.78,h*.5,'$3.1B'],['🇨🇦',w*.15,h*.48,'$2.8B']];
+  routes.forEach(([flag,rx,ry,val])=>{
+    ctx.strokeStyle='#ff2d7855';ctx.lineWidth=1.5;ctx.setLineDash([5,8]);
+    ctx.beginPath();ctx.moveTo(rx,ry);ctx.lineTo(cx,cy);ctx.stroke();ctx.setLineDash([]);
+    const pf=((t*.5+(rx/w)*.3))%1;
+    ctx.beginPath();ctx.arc(rx+(cx-rx)*pf,ry+(cy-ry)*pf,5,0,Math.PI*2);
+    ctx.fillStyle='#ffd700';glow('#ffd700',8);ctx.fill();noglow();
+    ctx.font='14px Arial';ctx.textAlign='center';ctx.fillText(flag,rx,ry-4);
+    ctx.fillStyle='#ff2d78';ctx.font='bold 9px Segoe UI';ctx.fillText(val,rx,ry+14);
+  });
+  ctx.textAlign='center';ctx.fillStyle='#ff2d78';glow('#ff2d78',12);
+  ctx.font=`bold ${Math.min(w*.06,22)}px Segoe UI`;ctx.fillText('$26B',cx,h*.88);
+  noglow();ctx.fillStyle='#aaa';ctx.font='9px Segoe UI';ctx.fillText('Annual Nigeria Remittances — Trapped',cx,h*.93);
+  ctx.textAlign='left';
+}
+
+function drawTx3D(){
+  const w=W(),h=H(),cx=w/2;
+  // NFC ripple animation
+  const cy=h*.42;
+  for(let i=0;i<4;i++){
+    const r=(i*40+((t*60)%160))%160;
+    const alpha=Math.max(0,1-r/160);
+    ctx.strokeStyle=`rgba(0,212,255,${alpha*.5})`;ctx.lineWidth=2;
+    ctx.beginPath();ctx.ellipse(cx,cy,r,r*.4,0,0,Math.PI*2);ctx.stroke();
+  }
+  // Device left (customer)
+  const devY=cy-20;
+  ctx.fillStyle='#0a2a3a';ctx.strokeStyle='#00d4ff';ctx.lineWidth=2;
+  roundR(ctx,cx-100,devY-30,60,50,6);ctx.fill();ctx.stroke();
+  glow('#00d4ff',8);ctx.fillStyle='#00d4ff';ctx.font='bold 9px Segoe UI';ctx.textAlign='center';ctx.fillText('CUSTOMER',cx-70,devY-8);ctx.fillText('NFC DEVICE',cx-70,devY+8);noglow();
+  // Device right (merchant)
+  ctx.fillStyle='#0a2a20';ctx.strokeStyle='#00ff88';ctx.lineWidth=2;
+  roundR(ctx,cx+40,devY-30,60,50,6);ctx.fill();ctx.stroke();
+  glow('#00ff88',8);ctx.fillStyle='#00ff88';ctx.textAlign='center';ctx.fillText('MERCHANT',cx+70,devY-8);ctx.fillText('TERMINAL',cx+70,devY+8);noglow();
+  // Steps below
+  const steps=[{l:'PUF Auth',c:'#a855f7'},{l:'ECC Sign',c:'#00d4ff'},{l:'Local Store',c:'#00ff88'},{l:'Confirmed',c:'#ffd700'}];
+  const ap=Math.floor(t*1.2)%5;
+  steps.forEach((s,i)=>{
+    const sx=cx-120+i*80,sy=h*.72;
+    const done=i<ap||ap===4;
+    ctx.fillStyle=done?s.c+'33':'rgba(255,255,255,.05)';
+    ctx.strokeStyle=done?s.c:'#222';ctx.lineWidth=1.5;
+    roundR(ctx,sx-28,sy-16,56,32,5);ctx.fill();ctx.stroke();
+    ctx.fillStyle=done?s.c:'#444';ctx.font='bold 8px Segoe UI';ctx.textAlign='center';ctx.fillText(s.l,sx,sy+3);
+  });
+  ctx.fillStyle='#00d4ff';glow('#00d4ff',10);ctx.font='bold 16px Segoe UI';ctx.textAlign='center';ctx.fillText('300ms · ZERO INTERNET',cx,h*.9);
+  noglow();ctx.textAlign='left';
+}
+
+function drawNYC3D(){
+  const w=W(),h=H(),cx=w/2;
+  // NYC left, Nigeria right
+  [[.12,.35,.1,.56,'#0a1528','NYC 🏙️'],[.2,.42,.08,.48,'#0a1528',''],[.29,.3,.1,.58,'#0a1528','']].forEach(([bx,by,bw,bh,col,lbl])=>{
+    const x=bx*w,y=by*h,W2=bw*w,H2=bh*h;
+    ctx.fillStyle='#07101e';ctx.beginPath();ctx.moveTo(x+W2,y);ctx.lineTo(x+W2+8,y-8);ctx.lineTo(x+W2+8,y+H2-8);ctx.lineTo(x+W2,y+H2);ctx.fill();
+    ctx.fillStyle=col;ctx.fillRect(x,y,W2,H2);
+    for(let r=0;r<5;r++)for(let c=0;c<3;c++){const lit=Math.sin(t*.8+r*1.4+c*1.8+bx*7)>.1;ctx.fillStyle=lit?'rgba(255,220,80,.9)':'rgba(3,6,18,.9)';ctx.fillRect(x+3+c*(W2*.28),y+5+r*(H2*.17),W2*.21,H2*.13);}
+    if(lbl){ctx.fillStyle='#aaa';ctx.font='8px Segoe UI';ctx.textAlign='center';ctx.fillText(lbl,x+W2/2,y-12);}
+  });
+  [[.62,.38,.1,.52,'#041a0c','Lagos 🏘️'],[.73,.44,.08,.46,'#041a0c',''],[.81,.35,.1,.54,'#041a0c','']].forEach(([bx,by,bw,bh,col,lbl])=>{
+    const x=bx*w,y=by*h,W2=bw*w,H2=bh*h;
+    ctx.fillStyle='#020e08';ctx.beginPath();ctx.moveTo(x+W2,y);ctx.lineTo(x+W2+8,y-8);ctx.lineTo(x+W2+8,y+H2-8);ctx.lineTo(x+W2,y+H2);ctx.fill();
+    ctx.fillStyle=col;ctx.fillRect(x,y,W2,H2);
+    for(let r=0;r<5;r++)for(let c=0;c<3;c++){const lit=Math.sin(t*.6+r+c*2+bx*8)>.05;ctx.fillStyle=lit?'rgba(80,255,140,.9)':'rgba(0,6,2,.9)';ctx.fillRect(x+3+c*(W2*.28),y+5+r*(H2*.17),W2*.21,H2*.13);}
+    if(lbl){ctx.fillStyle='#aaa';ctx.font='8px Segoe UI';ctx.textAlign='center';ctx.fillText(lbl,x+W2/2,y-12);}
+  });
+  // Live packet traversal
+  const pf=((t*.3))%1;
+  const px=w*.4+pf*(w*.55-w*.4);
+  ctx.fillStyle='#ffd700';glow('#ffd700',12);ctx.beginPath();ctx.arc(px,h*.44,7,0,Math.PI*2);ctx.fill();noglow();
+  ctx.strokeStyle='#ffd70044';ctx.lineWidth=1.5;ctx.setLineDash([4,8]);
+  ctx.beginPath();ctx.moveTo(w*.4,h*.44);ctx.lineTo(w*.55,h*.44);ctx.stroke();ctx.setLineDash([]);
+  ctx.fillStyle='#ffd700';ctx.font='bold 9px Segoe UI';ctx.textAlign='center';ctx.fillText('<1% FEE · <90 SECONDS',cx,h*.6);
+  ctx.fillStyle='#00d4ff';glow('#00d4ff',8);ctx.font=`bold ${Math.min(w*.055,20)}px Segoe UI`;ctx.fillText('$500 USD → ₦750,000',cx,h*.88);
+  noglow();ctx.textAlign='left';
+}
+
+function drawGlobal3D(){
+  const w=W(),h=H(),cx=w/2,cy=h*.42,R=Math.min(w,h)*.3;
+  ctx.strokeStyle='#f9731622';ctx.lineWidth=.7;
+  for(let la=-80;la<=80;la+=20){ctx.beginPath();ctx.ellipse(cx,cy,Math.cos(la*Math.PI/180)*R,R*.38,0,0,Math.PI*2);ctx.stroke();}
+  for(let lo=0;lo<180;lo+=20){const a=(lo+t*5)*Math.PI/180;ctx.strokeStyle=`rgba(249,115,22,.05)`;ctx.beginPath();ctx.ellipse(cx,cy,R*.5,R,a,0,Math.PI*2);ctx.stroke();}
+  const g=ctx.createRadialGradient(cx,cy,R*.5,cx,cy,R*1.6);g.addColorStop(0,'rgba(249,115,22,.14)');g.addColorStop(1,'rgba(249,115,22,0)');ctx.fillStyle=g;ctx.fillRect(0,0,w,h);
+  [['Manhattan',w*.18,h*.2,'🏙️'],['London',w*.38,h*.16,'🏛️'],['Dubai',w*.72,h*.34,'🌆'],['Lagos',w*.46,h*.62,'🌍'],['Nairobi',w*.62,h*.6,'🌿'],['Accra',w*.41,h*.58,'🏘️']].forEach(([name,nx,ny,icon])=>{
+    ctx.beginPath();ctx.arc(nx,ny,7+3*Math.sin(t*2+nx*.01),0,Math.PI*2);ctx.fillStyle='#f97316';glow('#f97316',10);ctx.fill();noglow();
+    ctx.font='12px Arial';ctx.textAlign='center';ctx.fillText(icon,nx,ny-10);
+    ctx.fillStyle='#f97316';ctx.font='7px Segoe UI';ctx.fillText(name,nx,ny+18);
+  });
+  ctx.textAlign='center';ctx.fillStyle='#f97316';glow('#f97316',10);ctx.font=`bold ${Math.min(w*.055,20)}px Segoe UI`;ctx.fillText('ZERO INTERNET REQUIRED',cx,h*.88);
+  noglow();ctx.textAlign='left';
+}
+
+function drawInvention3D(){
+  const w=W(),h=H(),cx=w/2,cy=h*.42;
+  const R=Math.min(w,h)*.26;
+  const gg=ctx.createRadialGradient(cx-R*.3,cy-R*.3,4,cx,cy,R*1.1);gg.addColorStop(0,'#a0f8ff');gg.addColorStop(.5,'#00d4ff');gg.addColorStop(1,'#003a50');
+  ctx.beginPath();ctx.arc(cx,cy,R*(1+.04*Math.sin(t*3)),0,Math.PI*2);ctx.fillStyle=gg;glow('#00d4ff',26);ctx.fill();noglow();
+  const sp=ctx.createRadialGradient(cx-R*.35,cy-R*.35,0,cx-R*.35,cy-R*.35,R*.4);sp.addColorStop(0,'rgba(255,255,255,.7)');sp.addColorStop(1,'rgba(255,255,255,0)');ctx.beginPath();ctx.arc(cx,cy,R,0,Math.PI*2);ctx.fillStyle=sp;ctx.fill();
+  ctx.fillStyle='#000';ctx.font='bold 11px Segoe UI';ctx.textAlign='center';ctx.fillText('ZEROPAY',cx,cy-5);ctx.font='8px Segoe UI';ctx.fillText('INVENTION',cx,cy+8);
+  const creds=[{l:'MSc NFC',c:'#00d4ff'},{l:'Patent 2026',c:'#ffd700'},{l:'RC 56802',c:'#00ff88'},{l:'15 Years',c:'#a855f7'},{l:'Top Graduate',c:'#ff2d78'}];
+  creds.forEach((cr,i)=>{
+    const a=(i/5)*Math.PI*2+t*.15;
+    const nx=cx+Math.cos(a)*(R+50),ny=cy+Math.sin(a)*(R+50)*.7;
+    ctx.strokeStyle=cr.c+'44';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(cx+Math.cos(a)*R,cy+Math.sin(a)*R*.7);ctx.lineTo(nx,ny);ctx.stroke();
+    const ng=ctx.createRadialGradient(nx-4,ny-4,1,nx,ny,16);ng.addColorStop(0,'#fff');ng.addColorStop(.4,cr.c);ng.addColorStop(1,cr.c+'22');
+    ctx.beginPath();ctx.arc(nx,ny,16,0,Math.PI*2);ctx.fillStyle=ng;glow(cr.c,10);ctx.fill();noglow();
+    ctx.fillStyle='#000';ctx.font='bold 6px Segoe UI';ctx.textAlign='center';ctx.fillText(cr.l,nx,ny+2);
+  });
+  ctx.textAlign='left';
+}
+
+function drawProblem3D(){
+  const w=W(),h=H(),cx=w/2;
+  // Bar chart — unbanked by region
+  const regions=[{l:'S-S Africa',v:350,c:'#ff4444'},{l:'SE Asia',v:520,c:'#ff9800'},{l:'Lat. Am.',v:220,c:'#ffd700'},{l:'MENA',v:200,c:'#ff6b9d'},{l:'Nigeria',v:38,c:'#ff4444'}];
+  const maxV=520, bw=w*.08, gap=w*.07;
+  const chartL=cx-regions.length*gap/2;
+  regions.forEach((r,i)=>{
+    const bx=chartL+i*gap;
+    const bh=(h*.5)*(r.v/maxV)*Math.min(1,t*.4);
+    const by=h*.72-bh;
+    const g=ctx.createLinearGradient(bx,by,bx,by+bh);g.addColorStop(0,r.c);g.addColorStop(1,r.c+'33');
+    ctx.fillStyle=r.c+'44';ctx.beginPath();ctx.moveTo(bx+bw,by);ctx.lineTo(bx+bw+7,by-7);ctx.lineTo(bx+bw+7,by+bh-7);ctx.lineTo(bx+bw,by+bh);ctx.fill();
+    ctx.fillStyle=g;glow(r.c,4);ctx.fillRect(bx,by,bw,bh);noglow();
+    ctx.fillStyle=r.c;ctx.font='bold 8px Segoe UI';ctx.textAlign='center';ctx.fillText(r.v+'M',bx+bw/2,by-8);ctx.fillText(r.l,bx+bw/2,h*.78);
+  });
+  ctx.strokeStyle='rgba(255,255,255,.15)';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(chartL-10,h*.72);ctx.lineTo(chartL+regions.length*gap+10,h*.72);ctx.stroke();
+  ctx.fillStyle='#ff4444';glow('#ff4444',12);ctx.font=`bold ${Math.min(w*.065,24)}px Segoe UI`;ctx.textAlign='center';ctx.fillText('1.4 BILLION UNBANKED',cx,h*.18);
+  noglow();ctx.textAlign='left';
+}
+
+function drawEngine3D(){
+  const w=W(),h=H(),cx=w/2,cy=h*.5;
+  const layers=[{l:'NFC TAP EVENT',c:'#fbbf24'},{l:'PUF VERIFY',c:'#a855f7'},{l:'ECC P-256 SIGN',c:'#00d4ff'},{l:'CRYPTOGRAPHIC VAULT',c:'#00ff88'},{l:'AUTO BATCH SYNC',c:'#f97316'}];
+  const active=Math.floor(t*.8)%6;
+  layers.forEach((ly,i)=>{
+    const y=h*.1+i*h*.15;
+    const done=i<active,isA=i===active;
+    ctx.fillStyle=done?ly.c+'22':isA?ly.c+'33':'rgba(255,255,255,.04)';
+    ctx.strokeStyle=done?ly.c:isA?ly.c:'#1a1a2a';ctx.lineWidth=isA?2:1.5;
+    roundR(ctx,cx-w*.38,y,w*.76,h*.12,6);ctx.fill();if(isA){glow(ly.c,12);}ctx.stroke();noglow();
+    if(i<4){
+      const pf=((t*.8+i*.1))%1;
+      ctx.beginPath();ctx.arc(cx,y+h*.12+pf*(h*.03),5,0,Math.PI*2);ctx.fillStyle=ly.c;glow(ly.c,6);ctx.fill();noglow();
+    }
+    ctx.fillStyle=done?ly.c:isA?ly.c:'#555';ctx.font=`bold ${isA?12:10}px Segoe UI`;ctx.textAlign='center';
+    ctx.fillText((done?'✓ ':isA?'▶ ':'')+ly.l,cx,y+h*.07);
+  });
+  ctx.textAlign='left';
+}
+
+function drawUncapped3D(){
+  const w=W(),h=H(),cx=w/2;
+  // VS comparison 3D boxes
+  const caps=[{l:'VISA',lim:'£100 CAP',c:'#ff4444',x:.05},{l:'MC',lim:'£100 CAP',c:'#ff4444',x:.28},{l:'APPLE PAY',lim:'DEVICE LIMIT',c:'#ff9800',x:.51},{l:'ZEROPAY',lim:'NO CAP ∞',c:'#00d4ff',x:.68}];
+  caps.forEach((cp,i)=>{
+    const bx=cp.x*w,by=h*.2,bw=w*.2,bh=h*.5;
+    const isZP=i===3;
+    ctx.fillStyle=isZP?'#001a2a':'#1a0505';
+    ctx.strokeStyle=cp.c;ctx.lineWidth=isZP?2.5:1.5;
+    roundR(ctx,bx,by,bw,bh,8);ctx.fill();if(isZP){glow(cp.c,16);}ctx.stroke();noglow();
+    ctx.fillStyle=cp.c;ctx.font='bold 9px Segoe UI';ctx.textAlign='center';ctx.fillText(cp.l,bx+bw/2,by+20);
+    if(isZP){glow(cp.c,18);}
+    ctx.font=`bold ${isZP?22:16}px Segoe UI`;ctx.fillText(cp.lim.split(' ')[0],bx+bw/2,by+bh*.45);
+    noglow();
+    ctx.fillStyle='rgba(255,255,255,.5)';ctx.font='8px Segoe UI';ctx.fillText(cp.lim.split(' ').slice(1).join(' '),bx+bw/2,by+bh*.62);
+    ctx.fillStyle=isZP?cp.c:'#ff4444';ctx.font='bold 9px Segoe UI';ctx.fillText(isZP?'✓ UNLIMITED':'✗ CAPPED',bx+bw/2,by+bh*.82);
+  });
+  ctx.textAlign='left';
+}
+
+function drawPUF3D(){
+  const w=W(),h=H(),cx=w/2,cy=h*.42;
+  const chipW=140,chipH=140;
+  const chipBg=ctx.createLinearGradient(cx-chipW/2,cy-chipH/2,cx+chipW/2,cy+chipH/2);chipBg.addColorStop(0,'#1a0a2a');chipBg.addColorStop(1,'#2a1045');
+  roundR(ctx,cx-chipW/2,cy-chipH/2,chipW,chipH,10);ctx.fillStyle=chipBg;glow('#a855f7',20);ctx.fill();noglow();
+  ctx.strokeStyle='#a855f7';ctx.lineWidth=2;roundR(ctx,cx-chipW/2,cy-chipH/2,chipW,chipH,10);ctx.stroke();
+  for(let i=0;i<5;i++){
+    ctx.strokeStyle='#a855f766';ctx.lineWidth=1;
+    ctx.beginPath();ctx.moveTo(cx-chipW/2,cy-40+i*20);ctx.lineTo(cx-chipW/2-18,cy-40+i*20);ctx.stroke();
+    ctx.beginPath();ctx.moveTo(cx+chipW/2,cy-40+i*20);ctx.lineTo(cx+chipW/2+18,cy-40+i*20);ctx.stroke();
+  }
+  ctx.fillStyle='#a855f7';ctx.font='bold 16px monospace';ctx.textAlign='center';glow('#a855f7',14);ctx.fillText('PUF',cx,cy-8);noglow();
+  ctx.fillStyle='#888';ctx.font='8px monospace';ctx.fillText('UNCLONABLE SILICON',cx,cy+10);
+  for(let i=0;i<12;i++){
+    const a=t*.6+i*Math.PI/6,r=90+15*Math.sin(t+i);
+    const bit=Math.round(Math.sin(t*4.2+i*1.3)+.5);
+    ctx.fillStyle=bit?'#a855f7':'#00d4ff';ctx.font='bold 10px monospace';ctx.textAlign='center';ctx.fillText(bit,cx+r*Math.cos(a),cy+r*Math.sin(a));
+  }
+  ctx.fillStyle='#a855f7';glow('#a855f7',10);ctx.font=`bold ${Math.min(w*.05,18)}px Segoe UI`;ctx.textAlign='center';ctx.fillText('2²⁵⁶ KEY SPACE · ZERO CLONES',cx,h*.88);
+  noglow();ctx.textAlign='left';
+}
+
+function drawUniversal3D(){
+  const w=W(),h=H(),cx=w/2,cy=h*.45,R=Math.min(w,h)*.28;
+  const devices=[{l:'iOS/Android',c:'#06b6d4',i:'📱'},{l:'Feature Phone',c:'#00ff88',i:'📟'},{l:'NFC Wristband',c:'#a855f7',i:'⌚'},{l:'Smart Watch',c:'#f97316',i:'⌚'},{l:'Paper NFC',c:'#fbbf24',i:'📄'},{l:'Burner Phone',c:'#ef4444',i:'📵'}];
+  const hg=ctx.createRadialGradient(cx-8,cy-8,2,cx,cy,40);hg.addColorStop(0,'#70e8f8');hg.addColorStop(.5,'#06b6d4');hg.addColorStop(1,'#003a50');
+  ctx.beginPath();ctx.arc(cx,cy,40*(1+.05*Math.sin(t*3)),0,Math.PI*2);ctx.fillStyle=hg;glow('#06b6d4',22);ctx.fill();noglow();
+  ctx.fillStyle='#000';ctx.font='bold 8px Segoe UI';ctx.textAlign='center';ctx.fillText('ZEROPAY',cx,cy-1);ctx.fillText('HUB',cx,cy+10);
+  devices.forEach((d,i)=>{
+    const a=(i/6)*Math.PI*2+t*.12;
+    const nx=cx+Math.cos(a)*R,ny=cy+Math.sin(a)*R*.7;
+    ctx.strokeStyle=d.c+'44';ctx.lineWidth=1.5;ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(nx,ny);ctx.stroke();
+    const pf=((t*.7+i*.16))%1;ctx.beginPath();ctx.arc(cx+(nx-cx)*pf,cy+(ny-cy)*pf,4,0,Math.PI*2);ctx.fillStyle=d.c;glow(d.c,6);ctx.fill();noglow();
+    const ng=ctx.createRadialGradient(nx-4,ny-4,1,nx,ny,18);ng.addColorStop(0,'#fff');ng.addColorStop(.3,d.c);ng.addColorStop(1,d.c+'22');
+    ctx.beginPath();ctx.arc(nx,ny,18,0,Math.PI*2);ctx.fillStyle=ng;glow(d.c,10);ctx.fill();noglow();
+    ctx.font='11px Arial';ctx.textAlign='center';ctx.fillText(d.i,nx,ny-1);
+    ctx.fillStyle=d.c;ctx.font='6px Segoe UI';ctx.fillText(d.l,nx,ny+14);
+  });
+  ctx.textAlign='left';
+}
+
+function drawMITM3D(){
+  const w=W(),h=H(),cx=w/2,cy=h*.42;
+  const layers=[{l:'Layer 1 — Distance Bound',sub:'10ns RTT · Relay adds ms',c:'#ef4444'},{l:'Layer 2 — Mutual Auth',sub:'ZeroPay cert required',c:'#f97316'},{l:'Layer 3 — Context Bind',sub:'Merchant ID + Timestamp',c:'#fbbf24'},{l:'Layer 4 — AI Detect',sub:'ML latency profiling',c:'#00ff88'}];
+  const active=Math.floor(t*.7)%5;
+  layers.forEach((ly,i)=>{
+    const y=h*.1+i*h*.17;
+    const done=i<active,isA=i===active;
+    ctx.fillStyle=done?'#00ff8815':isA?ly.c+'20':'rgba(255,255,255,.03)';
+    ctx.strokeStyle=done?'#00ff88':isA?ly.c:'#1a1a2a';ctx.lineWidth=isA?2:1;
+    roundR(ctx,cx-w*.4,y,w*.8,h*.13,6);ctx.fill();if(isA){glow(ly.c,12);}ctx.stroke();noglow();
+    ctx.fillStyle=done?'#00ff88':isA?ly.c:'#555';ctx.font=`bold ${isA?12:10}px Segoe UI`;ctx.textAlign='center';
+    ctx.fillText((done?'✓ ':isA?'⚡ ':'')+ly.l,cx,y+h*.055);
+    ctx.fillStyle='rgba(255,255,255,.4)';ctx.font='9px Segoe UI';ctx.fillText(ly.sub,cx,y+h*.1);
+  });
+  ctx.fillStyle='#00ff88';glow('#00ff88',12);ctx.font='bold 13px Segoe UI';ctx.textAlign='center';ctx.fillText('🛡️ ZERO SUCCESSFUL ATTACKS',cx,h*.9);
+  noglow();ctx.textAlign='left';
+}
+
+function drawMesh3D(){
+  const w=W(),h=H();
+  const nodes=[{x:.18,y:.22,l:'Abuja Hub',r:16,c:'#14b8a6'},{x:.5,y:.18,l:'Relay 1',r:11,c:'#06b6d4'},{x:.78,y:.26,l:'Relay 2',r:11,c:'#06b6d4'},{x:.12,y:.58,l:'Terminal A',r:9,c:'#00ff88'},{x:.44,y:.62,l:'Terminal B',r:9,c:'#00ff88'},{x:.72,y:.56,l:'Terminal C',r:9,c:'#00ff88'},{x:.88,y:.38,l:'Paystack',r:14,c:'#ffd700'}];
+  const edges=[[0,1],[1,2],[2,6],[0,3],[1,4],[2,5],[3,4],[4,5],[5,6]];
+  edges.forEach(([a,b])=>{
+    const na=nodes[a],nb=nodes[b];
+    ctx.strokeStyle=na.c+'44';ctx.lineWidth=1.5;ctx.beginPath();ctx.moveTo(na.x*w,na.y*h);ctx.lineTo(nb.x*w,nb.y*h);ctx.stroke();
+    const pf=((t*.6+a*.15))%1;
+    ctx.beginPath();ctx.arc(na.x*w+(nb.x*w-na.x*w)*pf,na.y*h+(nb.y*h-na.y*h)*pf,4,0,Math.PI*2);
+    ctx.fillStyle=na.c;glow(na.c,8);ctx.fill();noglow();
+  });
+  nodes.forEach(n=>{
+    const nx=n.x*w,ny=n.y*h;
+    const ng=ctx.createRadialGradient(nx-n.r*.3,ny-n.r*.3,1,nx,ny,n.r);ng.addColorStop(0,'#fff');ng.addColorStop(.3,n.c);ng.addColorStop(1,n.c+'22');
+    ctx.beginPath();ctx.arc(nx,ny,n.r*(1+.06*Math.sin(t*3+n.x*8)),0,Math.PI*2);ctx.fillStyle=ng;glow(n.c,12);ctx.fill();noglow();
+    ctx.fillStyle='#000';ctx.font=`bold ${Math.max(6,n.r*.55)}px Segoe UI`;ctx.textAlign='center';ctx.fillText(n.l,nx,ny+3);
+  });
+  ctx.fillStyle='#14b8a6';glow('#14b8a6',8);ctx.font='bold 11px Segoe UI';ctx.textAlign='center';ctx.fillText('50km RANGE · 72hr BACKUP · <3s SETTLEMENT',w/2,h*.88);
+  noglow();ctx.textAlign='left';
+}
+
+function drawJourney3D(){
+  const w=W(),h=H(),cx=w/2;
+  const steps=[{l:'1. Initiate',sub:'PUF-signed TX',c:'#ffd700',x:.1},{l:'2. Encrypt',sub:'ECC P-256',c:'#a855f7',x:.28},{l:'3. Route',sub:'Mesh node',c:'#06b6d4',x:.5},{l:'4. Deliver',sub:'NFC wristband',c:'#00ff88',x:.72},{l:'5. Settle',sub:'Paystack confirm',c:'#f97316',x:.88}];
+  const active=Math.floor(t*.55)%6;
+  steps.forEach((s,i)=>{
+    const sx=s.x*w,sy=h*.45;
+    const done=i<active,isA=i===active;
+    const r=isA?18:done?14:11;
+    const sg=ctx.createRadialGradient(sx-r*.3,sy-r*.3,1,sx,sy,r);sg.addColorStop(0,isA?'#fff':done?s.c+'cc':'#1a1a2a');sg.addColorStop(1,isA?s.c:done?s.c+'44':'#1a1a2a');
+    ctx.beginPath();ctx.arc(sx,sy,r,0,Math.PI*2);ctx.fillStyle=sg;if(isA||done){glow(s.c,isA?18:8);}ctx.fill();noglow();
+    if(i<4){
+      ctx.strokeStyle=done?s.c+'99':'#222';ctx.lineWidth=1.5;ctx.setLineDash([4,6]);
+      ctx.beginPath();ctx.moveTo(sx+r+2,sy);ctx.lineTo(steps[i+1].x*w-11,sy);ctx.stroke();ctx.setLineDash([]);
+      if(done){const pf=((t*.7+i*.2))%1;ctx.beginPath();ctx.arc(sx+r+2+(steps[i+1].x*w-11-sx-r-2)*pf,sy,4,0,Math.PI*2);ctx.fillStyle=s.c;glow(s.c,6);ctx.fill();noglow();}
+    }
+    ctx.fillStyle=done||isA?s.c:'#444';ctx.font=`bold ${isA?9:8}px Segoe UI`;ctx.textAlign='center';ctx.fillText(s.l,sx,sy+r+14);ctx.fillStyle='rgba(255,255,255,.4)';ctx.font='7px Segoe UI';ctx.fillText(s.sub,sx,sy+r+24);
+    ctx.fillStyle=done?'#000':isA?'#000':'#555';ctx.font=`bold ${isA?11:9}px Segoe UI`;ctx.fillText(done?'✓':String(i+1),sx,sy+3);
+  });
+  ctx.fillStyle='#ffd700';glow('#ffd700',10);ctx.font='bold 13px Segoe UI';ctx.textAlign='center';ctx.fillText('<90 SECONDS · NIGERIA ← NEW YORK CITY',cx,h*.88);
+  noglow();ctx.textAlign='left';
+}
+
+function drawMethods3D(){
+  const w=W(),h=H(),cx=w/2,cy=h*.48,R=Math.min(w,h)*.3;
+  const methods=[{l:'NFC TAP',c:'#8b5cf6',i:'📲'},{l:'QR CODE',c:'#06b6d4',i:'🔲'},{l:'USSD',c:'#10b981',i:'*#'},{l:'WEARABLE',c:'#f97316',i:'⌚'},{l:'BIOMETRIC',c:'#ef4444',i:'👆'},{l:'PAPER NFC',c:'#fbbf24',i:'📄'}];
+  methods.forEach((m,i)=>{
+    const a=(i/6)*Math.PI*2+t*.1;
+    const nx=cx+Math.cos(a)*R,ny=cy+Math.sin(a)*R*.7;
+    const pf=((t*.8+i*.18))%1;
+    for(let tr=1;tr<=6;tr++){const ta=a-tr*.05;ctx.beginPath();ctx.arc(cx+Math.cos(ta)*R,cy+Math.sin(ta)*R*.7,2*(1-tr/6),0,Math.PI*2);ctx.fillStyle=m.c+Math.round((1-tr/6)*100).toString(16).padStart(2,'0');ctx.fill();}
+    ctx.beginPath();ctx.arc(nx,ny,7,0,Math.PI*2);ctx.fillStyle=m.c;glow(m.c,10);ctx.fill();noglow();
+    ctx.strokeStyle=m.c+'44';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(nx-7*Math.cos(a),ny-7*Math.sin(a));ctx.stroke();
+    const ng=ctx.createRadialGradient(nx-5,ny-5,1,nx,ny,22);ng.addColorStop(0,'#fff');ng.addColorStop(.3,m.c);ng.addColorStop(1,m.c+'22');
+    ctx.beginPath();ctx.arc(nx,ny,22,0,Math.PI*2);ctx.fillStyle=ng;glow(m.c,12);ctx.fill();noglow();
+    ctx.font='12px Arial';ctx.textAlign='center';ctx.fillText(m.i,nx,ny-1);
+    ctx.fillStyle=m.c;ctx.font='bold 7px Segoe UI';ctx.fillText(m.l,nx,ny+16);
+  });
+  const hg=ctx.createRadialGradient(cx-6,cy-6,2,cx,cy,36);hg.addColorStop(0,'#e0b4ff');hg.addColorStop(.5,'#8b5cf6');hg.addColorStop(1,'#3b0080');
+  ctx.beginPath();ctx.arc(cx,cy,36*(1+.05*Math.sin(t*3)),0,Math.PI*2);ctx.fillStyle=hg;glow('#8b5cf6',20);ctx.fill();noglow();
+  ctx.fillStyle='#000';ctx.font='bold 8px Segoe UI';ctx.textAlign='center';ctx.fillText('6 METHODS',cx,cy-2);ctx.fillText('ZERO EXCL.',cx,cy+10);
+  ctx.textAlign='left';
+}
+
+function drawMarket3D(){
+  const w=W(),h=H(),cx=w/2;
+  const segs=[{l:'Global',v:847,c:'#f97316'},{l:'S-S Africa',v:60,c:'#fbbf24'},{l:'Nigeria',v:26,c:'#ff2d78'}];
+  const R=Math.min(w*.22,h*.26);
+  let sa=-Math.PI/2+t*.05;
+  segs.forEach(s=>{
+    const sw=2*Math.PI*(s.v/933);
+    ctx.beginPath();ctx.moveTo(cx*.55,h*.45+3);ctx.arc(cx*.55,h*.45+3,R,sa,sa+sw);ctx.closePath();ctx.fillStyle=s.c+'22';ctx.fill();
+    ctx.beginPath();ctx.moveTo(cx*.55,h*.45);ctx.arc(cx*.55,h*.45,R,sa,sa+sw);ctx.closePath();ctx.fillStyle=s.c+'cc';glow(s.c,8);ctx.fill();noglow();
+    const ma=sa+sw/2;ctx.fillStyle='#000';ctx.font='bold 8px Segoe UI';ctx.textAlign='center';ctx.fillText(s.l,cx*.55+R*.65*Math.cos(ma),h*.45+R*.65*Math.sin(ma)-2);ctx.fillText('$'+s.v+'B',cx*.55+R*.65*Math.cos(ma),h*.45+R*.65*Math.sin(ma)+9);
+    sa+=sw;
+  });
+  ctx.beginPath();ctx.arc(cx*.55,h*.45,R*.42,0,Math.PI*2);ctx.fillStyle='#030610';ctx.fill();
+  ctx.fillStyle='#f97316';ctx.font='bold 14px Segoe UI';ctx.textAlign='center';ctx.fillText('$847B',cx*.55,h*.45+4);ctx.fillStyle='rgba(255,255,255,.4)';ctx.font='7px Segoe UI';ctx.fillText('TOTAL',cx*.55,h*.45+15);
+  // Targets right side
+  const tgts=[{l:'Global 0.5%','v':'$4.2B',c:'#f97316'},{l:'Africa 2%',v:'$1.2B',c:'#fbbf24'},{l:'Nigeria 5%',v:'$1.3B',c:'#ff2d78'},{l:'Yr 1 Target',v:'$1.69M',c:'#00ff88'}];
+  tgts.forEach((tg,i)=>{
+    ctx.fillStyle=tg.c+'22';roundR(ctx,cx*.85,h*.1+i*h*.18,w*.5,h*.14,6);ctx.fill();
+    ctx.strokeStyle=tg.c;ctx.lineWidth=1;roundR(ctx,cx*.85,h*.1+i*h*.18,w*.5,h*.14,6);ctx.stroke();
+    ctx.fillStyle=tg.c;ctx.font='bold 10px Segoe UI';ctx.textAlign='left';ctx.fillText(tg.l,cx*.9,h*.1+i*h*.18+h*.055);
+    ctx.textAlign='right';ctx.fillText(tg.v,cx*.85+w*.45,h*.1+i*h*.18+h*.055);
+  });
+  ctx.textAlign='left';
+}
+
+function drawCompetitor3D(){
+  const w=W(),h=H(),cx=w/2;
+  const cos=[{l:'Visa/MC',offline:'No',puf:'No',mesh:'No',c:'#ff4444'},{l:'Moniepoint',offline:'No',puf:'No',mesh:'No',c:'#ff6b00'},{l:'Flutterwave',offline:'No',puf:'No',mesh:'No',c:'#ff6b00'},{l:'M-Pesa',offline:'USSD',puf:'No',mesh:'No',c:'#fbbf24'},{l:'ZeroPay',offline:'72hr',puf:'PUF',mesh:'Solar',c:'#00d4ff'}];
+  cos.forEach((co,i)=>{
+    const bx=w*.04+i*(w*.19),by=h*.12,bw=w*.17,bh=h*.65;
+    const isZP=i===4;
+    ctx.fillStyle=isZP?'#001a2a':'#0e0808';
+    ctx.strokeStyle=co.c;ctx.lineWidth=isZP?2.5:1;
+    roundR(ctx,bx,by,bw,bh,8);ctx.fill();if(isZP){glow(co.c,16);}ctx.stroke();noglow();
+    ctx.fillStyle=co.c;ctx.font='bold 9px Segoe UI';ctx.textAlign='center';ctx.fillText(co.l,bx+bw/2,by+18);
+    [{k:'Offline',v:co.offline},{k:'PUF',v:co.puf},{k:'Mesh',v:co.mesh}].forEach(({k,v},j)=>{
+      const ok=v!=='No';const ry=by+bh*.32+j*h*.15;
+      ctx.fillStyle=ok?'#00ff8822':'rgba(255,0,0,.08)';roundR(ctx,bx+4,ry,bw-8,h*.12,4);ctx.fill();
+      ctx.strokeStyle=ok?'#00ff8844':'#ff444422';roundR(ctx,bx+4,ry,bw-8,h*.12,4);ctx.stroke();
+      ctx.fillStyle=ok?'#00ff88':'#ff4444';ctx.font='bold 8px Segoe UI';ctx.textAlign='center';ctx.fillText(ok?'✓ '+v:'✗ No',bx+bw/2,ry+h*.07);
+    });
+  });
+  ctx.textAlign='left';
+}
+
+function drawAgent3D(){
+  const w=W(),h=H(),cx=w/2,cy=h*.45;
+  const nodes=[{x:.18,y:.32,l:'Abuja',n:120,c:'#ff2d78'},{x:.5,y:.22,l:'Lagos',n:220,c:'#f97316'},{x:.8,y:.35,l:'Edo State',n:160,c:'#fbbf24'},{x:.14,y:.62,l:'Kano',n:0,c:'#06b6d4',dim:true},{x:.5,y:.65,l:'Port H.',n:0,c:'#06b6d4',dim:true},{x:.84,y:.6,l:'Onitsha',n:0,c:'#06b6d4',dim:true}];
+  nodes.forEach(n=>{
+    const nx=n.x*w,ny=n.y*h,r=n.dim?8:12+4*Math.sin(t*2+n.x*7);
+    const ng=ctx.createRadialGradient(nx-r*.3,ny-r*.3,1,nx,ny,r);ng.addColorStop(0,'#fff');ng.addColorStop(.3,n.c);ng.addColorStop(1,n.c+(n.dim?'22':'44'));
+    ctx.beginPath();ctx.arc(nx,ny,r,0,Math.PI*2);ctx.fillStyle=ng;if(!n.dim){glow(n.c,10);}ctx.fill();noglow();
+    ctx.fillStyle=n.c;ctx.font=`bold ${n.dim?7:9}px Segoe UI`;ctx.textAlign='center';ctx.fillText(n.l,nx,ny+r+11);
+    if(n.n>0){ctx.fillStyle='#fff';ctx.font='bold 7px Segoe UI';ctx.fillText(n.n+' terminals',nx,ny+r+21);}
+  });
+  [[0,1],[1,2],[0,3],[1,4],[2,5]].forEach(([a,b])=>{
+    const na=nodes[a],nb=nodes[b];
+    ctx.strokeStyle=na.dim||nb.dim?'#1a1a2a':na.c+'44';ctx.lineWidth=1.2;ctx.setLineDash(na.dim||nb.dim?[2,8]:[4,6]);
+    ctx.beginPath();ctx.moveTo(na.x*w,na.y*h);ctx.lineTo(nb.x*w,nb.y*h);ctx.stroke();ctx.setLineDash([]);
+  });
+  ctx.fillStyle='#ff2d78';glow('#ff2d78',10);ctx.font=`bold ${Math.min(w*.055,20)}px Segoe UI`;ctx.textAlign='center';ctx.fillText('500 TERMINALS · YEAR 1 TARGET',cx,h*.88);
+  noglow();ctx.textAlign='left';
+}
+
+function drawSecurity3D(){
+  const w=W(),h=H(),cx=w/2,cy=h*.45;
+  const R=Math.min(w*.26,h*.3);
+  for(let ring=0;ring<4;ring++){
+    const r=R*(1-ring*.18),ac=.15+.08*Math.sin(t*2+ring);
+    ctx.strokeStyle=`rgba(124,77,255,${ac})`;ctx.lineWidth=ring===0?2:1;
+    ctx.beginPath();ctx.ellipse(cx,cy,r,r*.5,t*.04*(ring%2===0?1:-1),0,Math.PI*2);ctx.stroke();
+  }
+  const layers=[{l:'PUF Silicon',c:'#7c4dff'},{l:'ECC P-256',c:'#00d4ff'},{l:'Dist. Bound',c:'#00ff88'},{l:'Offline TTL',c:'#f97316'},{l:'AES-256 Mesh',c:'#ffd700'}];
+  layers.forEach((l2,i)=>{
+    const a=(i/5)*Math.PI*2+t*.1;
+    const nx=cx+Math.cos(a)*R,ny=cy+Math.sin(a)*R*.5;
+    ctx.strokeStyle=l2.c+'44';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(nx,ny);ctx.stroke();
+    ctx.beginPath();ctx.arc(nx,ny,14*(1+.06*Math.sin(t*2.5+i)),0,Math.PI*2);
+    const lg=ctx.createRadialGradient(nx-5,ny-5,1,nx,ny,14);lg.addColorStop(0,'#fff');lg.addColorStop(.3,l2.c);lg.addColorStop(1,l2.c+'22');
+    ctx.fillStyle=lg;glow(l2.c,12);ctx.fill();noglow();
+    ctx.fillStyle='#000';ctx.font='bold 6px Segoe UI';ctx.textAlign='center';ctx.fillText(l2.l,nx,ny+2);
+  });
+  ctx.fillStyle='#7c4dff';glow('#7c4dff',18);ctx.font=`bold ${Math.min(w*.05,18)}px Segoe UI`;ctx.textAlign='center';ctx.fillText('FIPS 140-3 ARCHITECTURE',cx,h*.88);
+  noglow();ctx.textAlign='left';
+}
+
+function drawRaise3D(){
+  const w=W(),h=H(),cx=w/2;
+  const ry=h*(.78-Math.min(.65,t*.08));
+  for(let i=0;i<30;i++){const sx=((i*317+t*22*(1+i%3*.5))%w),sy=((i*211)%h),ss=.5+i%3*.4;ctx.fillStyle=`rgba(255,255,255,${.2+.4*(i%2)})`;ctx.beginPath();ctx.arc(sx,sy,ss,0,Math.PI*2);ctx.fill();}
+  for(let i=0;i<14;i++){const ex=cx+((i%2===0?-1:1)*(Math.random()*22)),ey=ry+55+i*9,alpha=Math.max(0,.9-i*.07);ctx.beginPath();ctx.arc(ex,ey,5+Math.random()*6,0,Math.PI*2);ctx.fillStyle=`rgba(255,${80+i*13},0,${alpha})`;ctx.fill();}
+  const rb=ctx.createLinearGradient(cx-18,ry,cx+18,ry+56);rb.addColorStop(0,'#ef5350');rb.addColorStop(1,'#b71c1c');
+  ctx.fillStyle=rb;glow('#ff1744',14);ctx.fillRect(cx-18,ry,36,56);noglow();
+  ctx.fillStyle='rgba(255,50,50,.3)';ctx.beginPath();ctx.moveTo(cx+18,ry);ctx.lineTo(cx+22,ry-4);ctx.lineTo(cx+22,ry+52);ctx.lineTo(cx+18,ry+56);ctx.fill();
+  ctx.fillStyle='#c62828';ctx.beginPath();ctx.moveTo(cx-18,ry);ctx.lineTo(cx+18,ry);ctx.lineTo(cx,ry-38);ctx.fill();
+  ctx.beginPath();ctx.arc(cx,ry+18,8,0,Math.PI*2);ctx.fillStyle='#1565c0';glow('#40c4ff',8);ctx.fill();noglow();
+  const funds=[{l:'Terminals',v:'$1.8M',c:'#00d4ff'},{l:'Regulatory',v:'$1.35M',c:'#00ff88'},{l:'Engineering',v:'$0.9M',c:'#a855f7'},{l:'Operations',v:'$0.45M',c:'#ffd700'}];
+  funds.forEach((f,i)=>{
+    const bx=w*.56+i*(w*.1+4),mh=h*.42,by=h*.5-mh*(parseFloat(f.v)/1.8)*Math.min(1,t*.52);
+    const cur2=mh*(parseFloat(f.v)/1.8)*Math.min(1,t*.52);
+    const g=ctx.createLinearGradient(bx,by,bx,by+cur2);g.addColorStop(0,f.c);g.addColorStop(1,f.c+'33');
+    ctx.fillStyle=g;glow(f.c,6);ctx.fillRect(bx,by,w*.08,cur2);noglow();
+    ctx.fillStyle=f.c;ctx.font='bold 7px Segoe UI';ctx.textAlign='center';ctx.fillText(f.v,bx+w*.04,by-7);ctx.fillText(f.l,bx+w*.04,h*.56);
+  });
+  ctx.fillStyle='#ffd700';glow('#ffd700',14);ctx.font=`bold ${Math.min(w*.06,22)}px Segoe UI`;ctx.textAlign='center';ctx.fillText('$4.5M · $25M VALUATION',cx,h*.9);
+  noglow();ctx.textAlign='left';
+}
+
+function roundR(c,x,y,w2,h2,r){c.beginPath();c.moveTo(x+r,y);c.lineTo(x+w2-r,y);c.quadraticCurveTo(x+w2,y,x+w2,y+r);c.lineTo(x+w2,y+h2-r);c.quadraticCurveTo(x+w2,y+h2,x+w2-r,y+h2);c.lineTo(x+r,y+h2);c.quadraticCurveTo(x,y+h2,x,y+h2-r);c.lineTo(x,y+r);c.quadraticCurveTo(x,y,x+r,y);c.closePath();}
+
+// ===== RENDER LOOP =====
+function loop(){resize();ctx.clearRect(0,0,W(),H());if(DRAWS[cur])DRAWS[cur]();t+=.016;animF=requestAnimationFrame(loop);}
+
+// ===== TABLE =====
+function buildTable(d){
+  if(!d)return '';
+  let s=`<table class="ltable"><thead><tr>`;
+  d.h.forEach(hd=>s+=`<th>${hd}</th>`);s+='</tr></thead><tbody>';
+  d.r.forEach(r=>{
+    s+='<tr>';
+    r.forEach((c,i)=>{
+      let badge='';
+      const lo=String(c).toLowerCase();
+      if(i===d.h.length-1||i===2){
+        if(/🟢|✅|live|active|verified|unlimited|capable|offline|pass|confirmed|sub 1|none needed|no cap|full/.test(lo))badge='bg';
+        else if(/🟡|ussd|partial|device/.test(lo))badge='by';
+        else if(/🔴|no|crisis|critical|failed|capped|online only|exploit/.test(lo))badge='br';
+        else if(/🟣|patent|puf|ecc|mesh/.test(lo))badge='bp';
+      }
+      s+=badge?`<td><span class="badge ${badge}">${c}</span></td>`:`<td>${c}</td>`;
+    });s+='</tr>';
+  });return s+'</tbody></table>';
+}
+
+// ===== SLIDE LOGIC =====
+function showSlide(n){
+  const s=SLIDES[n];
+  document.getElementById('hcnt').textContent=(n+1)+' / 20';
+  document.getElementById('snum').textContent='SLIDE '+String(n+1).padStart(2,'0')+' / 20';
+  document.getElementById('stitle').textContent=s.title;
+  document.getElementById('stitle').style.color=s.accent;
+  document.getElementById('sbody').textContent=s.body;
+  document.getElementById('tbl').innerHTML=buildTable(s.tbl);
+  document.getElementById('dot').style.background=s.accent;
+  document.getElementById('pbtn').style.color=s.accent;
+  document.getElementById('pbtn').style.borderColor=s.accent;
+  document.getElementById('pbtn').textContent='▶ PLAY — OpenAI Shimmer';
+  document.getElementById('pgfill').style.width=((n+1)/20*100)+'%';
+  stopAudio();t=0;
+}
+
+function playA(){
+  const a=document.getElementById('aud');
+  const n=String(cur+1).padStart(2,'0');
+  a.src=ZP_AUDIO+'/slide_'+n+'.mp3';a.load();a.play().catch(()=>{});
+  document.getElementById('pbtn').textContent='⏸ Playing...';
+  document.getElementById('fbplay').textContent='⏸ PAUSE';
+}
+function stopAudio(){
+  const a=document.getElementById('aud');a.pause();a.src='';
+  document.getElementById('pbtn').textContent='▶ PLAY — OpenAI Shimmer';
+  document.getElementById('fbplay').textContent='▶ PLAY';
+}
+function onEnd(){
+  stopAudio();
+  if(auto&&cur<19){setTimeout(()=>{nav(1);setTimeout(playA,600);},1200);}
+  else if(auto&&cur===19){toggleAuto();}
+}
+function nav(d){const n=Math.max(0,Math.min(19,cur+d));if(n!==cur){const wasPlay=!document.getElementById('aud').paused;cur=n;showSlide(cur);if(wasPlay||auto)setTimeout(playA,400);}}
+function toggleAuto(){
+  auto=!auto;
+  const b=document.getElementById('fbauto');
+  b.textContent='AUTO: '+(auto?'ON ✓':'OFF');
+  b.classList.toggle('on',auto);
+  if(auto)setTimeout(playA,300);
+}
+document.addEventListener('keydown',e=>{if(e.key==='ArrowRight')nav(1);if(e.key==='ArrowLeft')nav(-1);if(e.key===' '){e.preventDefault();playA();}});
+let tx=0;
+document.addEventListener('touchstart',e=>{tx=e.touches[0].clientX;},{passive:true});
+document.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-tx;if(Math.abs(dx)>44)nav(dx<0?1:-1);},{passive:true});
+window.addEventListener('load',()=>setTimeout(()=>{resize();showSlide(0);loop();},150));
+</script>
+</body>
+</html>
