@@ -5,253 +5,18 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <meta name="robots" content="noindex,nofollow">
 <title>ZeroPay — 20-Slide Investor Presentation</title>
-<style>
-*{margin:0;padding:0;box-sizing:border-box}
-html,body{height:100vh;overflow:hidden;font-family:'Segoe UI',Arial,sans-serif;background:#02050e;color:#fff;display:flex;flex-direction:column}
-#hdr{height:54px;flex-shrink:0;background:linear-gradient(90deg,#050c20,#0a1435);border-bottom:2px solid #00d4ff;display:flex;align-items:center;justify-content:space-between;padding:0 16px}
-.logo{font-size:1.15rem;font-weight:900;color:#00d4ff;letter-spacing:2px}
-.sub{font-size:0.58rem;color:#667;margin-top:1px}
-.cnt{font-size:1rem;font-weight:700;color:#fff}
-.vcnt{font-size:0.6rem;color:#888;text-align:right}
-#pgbar{height:3px;flex-shrink:0;background:#050a18}
-#pgfill{height:100%;background:linear-gradient(90deg,#00d4ff,#ff2d78);transition:width .4s}
-#main{display:flex;flex:1;min-height:0;overflow:hidden}
-#scene{width:50%;position:relative;overflow:hidden}
-canvas{position:absolute;inset:0;width:100%;height:100%}
-#panel{width:50%;display:flex;flex-direction:column;padding:14px 16px;overflow:hidden;border-left:1px solid #0a1830;background:#030610}
-.snum{font-size:0.58rem;letter-spacing:3px;color:#334;text-transform:uppercase;margin-bottom:5px}
-.stitle{font-size:1.2rem;font-weight:800;line-height:1.2;margin-bottom:7px}
-.sbody{font-size:0.74rem;color:#8899bb;line-height:1.6;margin-bottom:8px}
-.ltable{width:100%;border-collapse:collapse;font-size:0.68rem}
-.ltable thead tr{background:linear-gradient(90deg,rgba(0,212,255,.2),rgba(255,45,120,.12))}
-.ltable th{padding:5px 8px;text-align:left;font-weight:700;color:#00d4ff;border-bottom:1px solid #00d4ff44;font-size:0.64rem;letter-spacing:.5px}
-.ltable td{padding:4px 8px;border-bottom:1px solid #0a1420;color:#cce}
-.ltable tr:hover td{background:rgba(0,212,255,.06)}
-.badge{display:inline-block;padding:1px 7px;border-radius:9px;font-size:0.58rem;font-weight:700}
-.bg{background:#00ff8820;color:#00ff88;border:1px solid #00ff8840}
-.by{background:#ffd70020;color:#ffd700;border:1px solid #ffd70040}
-.br{background:#ff222220;color:#ff6666;border:1px solid #ff444440}
-.bp{background:#7c4dff20;color:#b388ff;border:1px solid #7c4dff40}
-.pbtn{margin-top:auto;padding-top:8px;display:flex;align-items:center;gap:8px;flex-shrink:0}
-.pb{background:transparent;border:1.5px solid currentColor;padding:8px 16px;border-radius:20px;cursor:pointer;font-size:0.78rem;font-weight:600;font-family:inherit;white-space:nowrap;transition:all .2s}
-.dot{width:8px;height:8px;border-radius:50%;animation:blink 1.1s infinite;flex-shrink:0}
-@keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
-#foot{height:50px;flex-shrink:0;background:#020408;border-top:2px solid #0a1428;display:flex;align-items:center;justify-content:center;gap:6px;padding:0 8px}
-.fb{background:rgba(255,255,255,.07);border:1.5px solid rgba(255,255,255,.18);color:#ccc;padding:7px 12px;border-radius:8px;cursor:pointer;font-size:0.78rem;font-weight:600;font-family:inherit;white-space:nowrap;transition:all .2s}
-.fb:hover{background:rgba(0,212,255,.14);border-color:#00d4ff;color:#00d4ff}
-#fbplay{background:#00d4ff;color:#000;font-weight:800;border-color:#00d4ff;padding:8px 24px}
-#fbplay:hover{background:#33ddff}
-#fbstop{background:rgba(255,50,50,.15);border-color:rgba(255,80,80,.4);color:#ff8888;}
-#fbstop:hover{background:rgba(255,50,50,.3);border-color:#ff4444;color:#ff4444;}
-#fbauto.on{background:#00ff8830;border-color:#00ff88;color:#00ff88}
-
-/* iOS AUDIO UNLOCK SPLASH — mobile only */
-#ios-splash{
-  display:none;
-  position:fixed;inset:0;z-index:9999;
-  background:rgba(2,5,14,.97);
-  flex-direction:column;align-items:center;justify-content:center;
-  text-align:center;padding:30px;
-  animation:fadeIn .4s ease;
-}
-@keyframes fadeIn{from{opacity:0}to{opacity:1}}
-#ios-splash.show{display:flex}
-.splash-icon{font-size:64px;margin-bottom:20px;animation:bounce 1.5s infinite}
-@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
-.splash-title{font-size:1.4rem;font-weight:900;color:#00d4ff;margin-bottom:10px;letter-spacing:1px}
-.splash-sub{font-size:0.85rem;color:#99aacc;margin-bottom:30px;line-height:1.6}
-.splash-btn{
-  background:linear-gradient(135deg,#00d4ff,#00ff88);
-  color:#000;font-weight:900;font-size:1rem;
-  border:none;border-radius:28px;padding:16px 40px;
-  cursor:pointer;letter-spacing:1px;
-  box-shadow:0 0 30px rgba(0,212,255,.5);
-  animation:pulse-btn 2s infinite;
-}
-@keyframes pulse-btn{0%,100%{box-shadow:0 0 30px rgba(0,212,255,.5)}50%{box-shadow:0 0 50px rgba(0,212,255,.9),0 0 80px rgba(0,255,136,.3)}}
-.splash-lock{font-size:0.7rem;color:#445;margin-top:16px}
-
-
-
-
-/* ===== FULL MOBILE RESPONSIVE — ALL DEVICES ===== */
-
-/* Large phones + tablets portrait (481px – 768px) */
-@media screen and (max-width: 768px) {
-  #hdr { height:auto; min-height:42px; padding:5px 10px; flex-wrap:wrap; gap:4px; }
-  .logo { font-size:0.85rem; letter-spacing:1px; }
-  .sub { font-size:0.44rem; display:none; }
-  .cnt, #hcnt { font-size:0.82rem; }
-  .vcnt { font-size:0.46rem; }
-
-  /* STACK: canvas on top, panel below */
-  #main { flex-direction:column !important; overflow-y:auto !important; }
-
-  #scene, #anim-panel {
-    width:100% !important;
-    height:35vh !important;
-    min-height:180px;
-    max-height:240px;
-    flex-shrink:0;
-  }
-  canvas { width:100% !important; height:100% !important; }
-
-  #panel, #text-panel {
-    width:100% !important;
-    height:auto !important;
-    flex:1;
-    min-height:0;
-    overflow-y:auto;
-    padding:8px 10px !important;
-    border-left:none !important;
-    border-top:1px solid #0f1832;
-    -webkit-overflow-scrolling:touch;
-  }
-
-  .snum { font-size:0.52rem; margin-bottom:3px; }
-  .stitle, .slide-title { font-size:0.92rem !important; margin-bottom:5px !important; line-height:1.2 !important; }
-  .sbody, .slide-body { font-size:0.66rem !important; line-height:1.5 !important; margin-bottom:6px !important; display:-webkit-box; -webkit-line-clamp:5; -webkit-box-orient:vertical; overflow:hidden; }
-
-  /* Tables: horizontal scroll */
-  #tbl, .tbl-wrap { overflow-x:auto; -webkit-overflow-scrolling:touch; }
-  .ltable, .data-table { font-size:0.56rem !important; min-width:320px; }
-  .ltable th, .data-table th { padding:3px 5px !important; font-size:0.52rem !important; white-space:nowrap; }
-  .ltable td, .data-table td { padding:2px 5px !important; font-size:0.56rem !important; }
-  .badge { font-size:0.5rem !important; padding:1px 4px !important; }
-
-  /* Stats grid: 2-column */
-  .stat-row { flex-wrap:wrap; gap:4px !important; }
-  .stat-box { min-width:calc(50% - 4px); padding:4px 6px !important; }
-  .stat-val { font-size:0.88rem !important; }
-  .stat-lbl { font-size:0.5rem !important; }
-
-  /* Verdict */
-  .verdict { font-size:0.6rem !important; padding:5px 8px !important; }
-
-  /* Play button */
-  .pbtn { padding-top:4px !important; }
-  .pb, .play-btn { font-size:0.68rem !important; padding:6px 12px !important; border-radius:16px !important; }
-  .dot { width:6px !important; height:6px !important; }
-
-  /* Footer: wrap naturally, compact */
-  #foot, #footer {
-    height:auto !important;
-    min-height:42px;
-    flex-wrap:wrap;
-    gap:3px !important;
-    padding:5px 6px !important;
-  }
-  .fb {
-    padding:6px 9px !important;
-    font-size:0.68rem !important;
-    border-radius:6px !important;
-    flex:1;
-    min-width:60px;
-    text-align:center;
-  }
-  #fbplay { flex:2 !important; }
-
-  /* iOS splash */
-  #ios-splash { padding:24px 16px; }
-  .splash-icon { font-size:50px; margin-bottom:14px; }
-  .splash-title { font-size:1.1rem; }
-  .splash-sub { font-size:0.72rem; margin-bottom:20px; }
-  .splash-btn { font-size:0.85rem; padding:12px 28px; }
-}
-
-/* Small phones (320px – 480px) — iPhone SE, older Androids */
-@media screen and (max-width: 480px) {
-  .logo { font-size:0.78rem; }
-  #hcnt, .cnt { font-size:0.75rem; }
-
-  #scene, #anim-panel {
-    height:30vh !important;
-    min-height:160px;
-    max-height:200px;
-  }
-
-  .stitle, .slide-title { font-size:0.84rem !important; }
-  .sbody, .slide-body { font-size:0.62rem !important; -webkit-line-clamp:4; }
-  .ltable, .data-table { font-size:0.52rem !important; }
-
-  .fb {
-    padding:5px 7px !important;
-    font-size:0.62rem !important;
-  }
-
-  .stat-val { font-size:0.82rem !important; }
-  .splash-title { font-size:1rem; }
-  .splash-btn { padding:10px 22px; font-size:0.8rem; }
-}
-
-/* Landscape phone mode */
-@media screen and (max-width: 900px) and (orientation: landscape) {
-  #main { flex-direction:row !important; }
-  #scene, #anim-panel {
-    width:45% !important;
-    height:100% !important;
-    max-height:none;
-  }
-  #panel, #text-panel {
-    width:55% !important;
-    height:100% !important;
-    overflow-y:auto;
-  }
-  .stitle { font-size:0.8rem !important; }
-  .sbody { font-size:0.6rem !important; -webkit-line-clamp:3; }
-  #foot, #footer { height:36px !important; }
-  .fb { padding:4px 8px !important; font-size:0.62rem !important; }
-}
-
-</style>
+<style>*{margin:0;padding:0;box-sizing:border-box}html,body{height:100vh;overflow:hidden;font-family:'Segoe UI',Arial,sans-serif;background:#02050e;color:#fff;display:flex;flex-direction:column}#hdr{height:54px;flex-shrink:0;background:linear-gradient(90deg,#050c20,#0a1435);border-bottom:2px solid #00d4ff;display:flex;align-items:center;justify-content:space-between;padding:0 16px}.logo{font-size:1.15rem;font-weight:900;color:#00d4ff;letter-spacing:2px}.sub{font-size:0.58rem;color:#667;margin-top:1px}.cnt{font-size:1rem;font-weight:700;color:#fff}.vcnt{font-size:0.6rem;color:#888;text-align:right}#pgbar{height:3px;flex-shrink:0;background:#050a18}#pgfill{height:100%;background:linear-gradient(90deg,#00d4ff,#ff2d78);transition:width .4s}#main{display:flex;flex:1;min-height:0;overflow:hidden}#scene{width:50%;position:relative;overflow:hidden}canvas{position:absolute;inset:0;width:100%;height:100%}#panel{width:50%;display:flex;flex-direction:column;padding:14px 16px;overflow:hidden;border-left:1px solid #0a1830;background:#030610}.snum{font-size:0.58rem;letter-spacing:3px;color:#334;text-transform:uppercase;margin-bottom:5px}.stitle{font-size:1.2rem;font-weight:800;line-height:1.2;margin-bottom:7px}.sbody{font-size:0.74rem;color:#8899bb;line-height:1.6;margin-bottom:8px}.ltable{width:100%;border-collapse:collapse;font-size:0.68rem}.ltable thead tr{background:linear-gradient(90deg,rgba(0,212,255,.2),rgba(255,45,120,.12))}.ltable th{padding:5px 8px;text-align:left;font-weight:700;color:#00d4ff;border-bottom:1px solid #00d4ff44;font-size:0.64rem;letter-spacing:.5px}.ltable td{padding:4px 8px;border-bottom:1px solid #0a1420;color:#cce}.ltable tr:hover td{background:rgba(0,212,255,.06)}.badge{display:inline-block;padding:1px 7px;border-radius:9px;font-size:0.58rem;font-weight:700}.bg{background:#00ff8820;color:#00ff88;border:1px solid #00ff8840}.by{background:#ffd70020;color:#ffd700;border:1px solid #ffd70040}.br{background:#ff222220;color:#ff6666;border:1px solid #ff444440}.bp{background:#7c4dff20;color:#b388ff;border:1px solid #7c4dff40}.pbtn{margin-top:auto;padding-top:8px;display:flex;align-items:center;gap:8px;flex-shrink:0}.pb{background:transparent;border:1.5px solid currentColor;padding:8px 16px;border-radius:20px;cursor:pointer;font-size:0.78rem;font-weight:600;font-family:inherit;white-space:nowrap;transition:all .2s}.dot{width:8px;height:8px;border-radius:50%;animation:blink 1.1s infinite;flex-shrink:0}@keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}#foot{height:50px;flex-shrink:0;background:#020408;border-top:2px solid #0a1428;display:flex;align-items:center;justify-content:center;gap:6px;padding:0 8px}.fb{background:rgba(255,255,255,.07);border:1.5px solid rgba(255,255,255,.18);color:#ccc;padding:7px 12px;border-radius:8px;cursor:pointer;font-size:0.78rem;font-weight:600;font-family:inherit;white-space:nowrap;transition:all .2s}.fb:hover{background:rgba(0,212,255,.14);border-color:#00d4ff;color:#00d4ff}#fbplay{background:#00d4ff;color:#000;font-weight:800;border-color:#00d4ff;padding:8px 24px}#fbplay:hover{background:#33ddff}#fbstop{background:rgba(255,50,50,.15);border-color:rgba(255,80,80,.4);color:#ff8888;}#fbstop:hover{background:rgba(255,50,50,.3);border-color:#ff4444;color:#ff4444;}#fbauto.on{background:#00ff8830;border-color:#00ff88;color:#00ff88}#ios-splash{display:none;position:fixed;inset:0;z-index:9999;background:rgba(2,5,14,.97);flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:30px;animation:fadeIn .4s ease;}@keyframes fadeIn{from{opacity:0}to{opacity:1}}#ios-splash.show{display:flex}.splash-icon{font-size:64px;margin-bottom:20px;animation:bounce 1.5s infinite}@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}.splash-title{font-size:1.4rem;font-weight:900;color:#00d4ff;margin-bottom:10px;letter-spacing:1px}.splash-sub{font-size:0.85rem;color:#99aacc;margin-bottom:30px;line-height:1.6}.splash-btn{background:linear-gradient(135deg,#00d4ff,#00ff88);color:#000;font-weight:900;font-size:1rem;border:none;border-radius:28px;padding:16px 40px;cursor:pointer;letter-spacing:1px;box-shadow:0 0 30px rgba(0,212,255,.5);animation:pulse-btn 2s infinite;}@keyframes pulse-btn{0%,100%{box-shadow:0 0 30px rgba(0,212,255,.5)}50%{box-shadow:0 0 50px rgba(0,212,255,.9),0 0 80px rgba(0,255,136,.3)}}.splash-lock{font-size:0.7rem;color:#445;margin-top:16px}@media screen and (max-width:768px){#hdr{height:auto;min-height:42px;padding:5px 10px;flex-wrap:wrap;gap:4px;}.logo{font-size:0.85rem;letter-spacing:1px;}.sub{font-size:0.44rem;display:none;}.cnt,#hcnt{font-size:0.82rem;}.vcnt{font-size:0.46rem;}#main{flex-direction:column !important;overflow-y:auto !important;}#scene,#anim-panel{width:100% !important;height:35vh !important;min-height:180px;max-height:240px;flex-shrink:0;}canvas{width:100% !important;height:100% !important;}#panel,#text-panel{width:100% !important;height:auto !important;flex:1;min-height:0;overflow-y:auto;padding:8px 10px !important;border-left:none !important;border-top:1px solid #0f1832;-webkit-overflow-scrolling:touch;}.snum{font-size:0.52rem;margin-bottom:3px;}.stitle,.slide-title{font-size:0.92rem !important;margin-bottom:5px !important;line-height:1.2 !important;}.sbody,.slide-body{font-size:0.66rem !important;line-height:1.5 !important;margin-bottom:6px !important;display:-webkit-box;-webkit-line-clamp:5;-webkit-box-orient:vertical;overflow:hidden;}#tbl,.tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;}.ltable,.data-table{font-size:0.56rem !important;min-width:320px;}.ltable th,.data-table th{padding:3px 5px !important;font-size:0.52rem !important;white-space:nowrap;}.ltable td,.data-table td{padding:2px 5px !important;font-size:0.56rem !important;}.badge{font-size:0.5rem !important;padding:1px 4px !important;}.stat-row{flex-wrap:wrap;gap:4px !important;}.stat-box{min-width:calc(50% - 4px);padding:4px 6px !important;}.stat-val{font-size:0.88rem !important;}.stat-lbl{font-size:0.5rem !important;}.verdict{font-size:0.6rem !important;padding:5px 8px !important;}.pbtn{padding-top:4px !important;}.pb,.play-btn{font-size:0.68rem !important;padding:6px 12px !important;border-radius:16px !important;}.dot{width:6px !important;height:6px !important;}#foot,#footer{height:auto !important;min-height:42px;flex-wrap:wrap;gap:3px !important;padding:5px 6px !important;}.fb{padding:6px 9px !important;font-size:0.68rem !important;border-radius:6px !important;flex:1;min-width:60px;text-align:center;}#fbplay{flex:2 !important;}#ios-splash{padding:24px 16px;}.splash-icon{font-size:50px;margin-bottom:14px;}.splash-title{font-size:1.1rem;}.splash-sub{font-size:0.72rem;margin-bottom:20px;}.splash-btn{font-size:0.85rem;padding:12px 28px;}}@media screen and (max-width:480px){.logo{font-size:0.78rem;}#hcnt,.cnt{font-size:0.75rem;}#scene,#anim-panel{height:30vh !important;min-height:160px;max-height:200px;}.stitle,.slide-title{font-size:0.84rem !important;}.sbody,.slide-body{font-size:0.62rem !important;-webkit-line-clamp:4;}.ltable,.data-table{font-size:0.52rem !important;}.fb{padding:5px 7px !important;font-size:0.62rem !important;}.stat-val{font-size:0.82rem !important;}.splash-title{font-size:1rem;}.splash-btn{padding:10px 22px;font-size:0.8rem;}}@media screen and (max-width:900px) and (orientation:landscape){#main{flex-direction:row !important;}#scene,#anim-panel{width:45% !important;height:100% !important;max-height:none;}#panel,#text-panel{width:55% !important;height:100% !important;overflow-y:auto;}.stitle{font-size:0.8rem !important;}.sbody{font-size:0.6rem !important;-webkit-line-clamp:3;}#foot,#footer{height:36px !important;}.fb{padding:4px 8px !important;font-size:0.62rem !important;}}</style>
 </head>
-<body>
-
-<div id="ios-splash">
-  <div class="splash-icon">🔊</div>
-  <div class="splash-title">TAP TO UNLOCK AUDIO</div>
-  <div class="splash-sub">iOS requires one tap to activate audio.<br>This unlocks narration for all slides.</div>
-  <button class="splash-btn" onclick="unlockAudio()">▶ UNLOCK &amp; START</button>
-  <div class="splash-lock">🔒 iOS Audio Policy · Safari · ZeroPay Secure Demo</div>
-</div>
-
-<div id="hdr">
-  <div>
-    <div class="logo">⚡ ZEROPAY</div>
-    <div class="sub">World-First Offline NFC Payment · Patent Pending April 2026 · 20-Slide Investor Presentation</div>
-    <div class="sub">© BETONIQ(WEST) Ltd RC 56802 · Abuja FCT · STRICTLY CONFIDENTIAL · zeropointfeild_nonwnt@zeropay.site</div>
-  </div>
-  <div>
-    <div class="cnt" id="hcnt">1 / 20</div>
-    <div class="vcnt">OpenAI Shimmer · British Voice</div>
-  </div>
+<body><div id="ios-splash"><div class="splash-icon">🔊</div><div class="splash-title">TAP TO UNLOCK AUDIO</div><div class="splash-sub">iOS requires one tap to activate audio.<br>This unlocks narration for all slides.</div><button class="splash-btn" onclick="unlockAudio()">▶ UNLOCK &amp; START</button><div class="splash-lock">🔒 iOS Audio Policy · Safari · ZeroPay Secure Demo</div>
+</div><div id="hdr"><div><div class="logo">⚡ ZEROPAY</div><div class="sub">World-First Offline NFC Payment · Patent Pending April 2026 · 20-Slide Investor Presentation</div><div class="sub">© BETONIQ(WEST) Ltd RC 56802 · Abuja FCT · STRICTLY CONFIDENTIAL · zeropointfeild_nonwnt@zeropay.site</div></div><div><div class="cnt" id="hcnt">1 / 20</div><div class="vcnt">OpenAI Shimmer · British Voice</div></div>
 </div>
 <div id="pgbar"><div id="pgfill" style="width:5%"></div></div>
-<div id="main">
-  <div id="scene"><canvas id="cvs"></canvas></div>
-  <div id="panel">
-    <div class="snum" id="snum">SLIDE 01 / 20</div>
-    <div class="stitle" id="stitle">Loading...</div>
-    <div class="sbody" id="sbody"></div>
-    <div id="tbl"></div>
-    <div class="pbtn">
-      <span class="dot" id="dot" style="background:#00d4ff"></span>
-      <button class="pb" id="pbtn" onclick="togglePlay()" style="color:#00d4ff">▶ PLAY — OpenAI Shimmer</button>
-    </div>
-  </div>
+<div id="main"><div id="scene"><canvas id="cvs"></canvas></div><div id="panel"><div class="snum" id="snum">SLIDE 01 / 20</div><div class="stitle" id="stitle">Loading...</div><div class="sbody" id="sbody"></div><div id="tbl"></div><div class="pbtn"><span class="dot" id="dot" style="background:#00d4ff"></span><button class="pb" id="pbtn" onclick="togglePlay()" style="color:#00d4ff">▶ PLAY — OpenAI Shimmer</button></div></div>
 </div>
-<div id="foot">
-  <button class="fb" onclick="nav(-1)">◀ PREV</button>
-  <button class="fb" id="fbplay" onclick="togglePlay()">▶ PLAY</button>
-  <button class="fb" id="fbstop" onclick="stopAudio()">⏹ STOP</button>
-  <button class="fb" onclick="nav(1)">NEXT ▶</button>
-  <button class="fb" id="fbauto" onclick="toggleAuto()">AUTO: OFF</button>
+<div id="foot"><button class="fb" onclick="nav(-1)">◀ PREV</button><button class="fb" id="fbplay" onclick="togglePlay()">▶ PLAY</button><button class="fb" id="fbstop" onclick="stopAudio()">⏹ STOP</button><button class="fb" onclick="nav(1)">NEXT ▶</button><button class="fb" id="fbauto" onclick="toggleAuto()">AUTO: OFF</button>
 </div>
-<audio id="aud" onended="onEnd()"></audio>
-
-<script>
+<audio id="aud" onended="onEnd()"></audio><script>
 const ZP_AUDIO = "https://raw.githubusercontent.com/TOMDEGGS/BETONIQ-WEST-/main/zeropay_audio";
-
 const SLIDES = [
   { accent:"#00d4ff", title:"Meet Chidi — The Lagos Merchant",
     body:"Every morning Chidi opens his electronics stall in Lagos. No card terminal. No digital record. Power cuts kill connectivity. When the network fails, commerce stops. 38 million Nigerians face this daily. ZeroPay was built for Chidi.",
@@ -334,14 +99,12 @@ const SLIDES = [
     tbl:{ h:["Use of Funds","Amount","%"], r:[["PUF Terminal Manufacture","$1,800,000","40%"],["Regulatory Licensing","$1,350,000","30%"],["Engineering / Firmware","$900,000","20%"],["Operations / Sales","$450,000","10%"],["TOTAL","$4,500,000","$25M valuation"]] }
   }
 ];
-
 let cur=0, auto=false, animF=0, t=0;
 const cvs=document.getElementById('cvs');
 const ctx=cvs.getContext('2d');
 function W(){return cvs.width} function H(){return cvs.height}
 function resize(){const sc=document.getElementById('scene');cvs.width=sc.offsetWidth;cvs.height=sc.offsetHeight;}
 window.addEventListener('resize',resize);
-
 // ===== 3D DRAW FUNCTIONS =====
 const DRAWS=[
   drawChidi3D, drawMama3D, drawTx3D, drawNYC3D, drawGlobal3D,
@@ -349,11 +112,9 @@ const DRAWS=[
   drawUniversal3D, drawMITM3D, drawMesh3D, drawJourney3D, drawMethods3D,
   drawMarket3D, drawCompetitor3D, drawAgent3D, drawSecurity3D, drawRaise3D
 ];
-
 function hsl(h,s,l){return `hsl(${h},${s}%,${l}%)`}
 function glow(c,b){ctx.shadowColor=c;ctx.shadowBlur=b;}
 function noglow(){ctx.shadowBlur=0;}
-
 function drawChidi3D(){
   const w=W(),h=H(),cx=w/2;
   // Lagos skyline 3D
@@ -390,7 +151,6 @@ function drawChidi3D(){
   noglow();ctx.fillStyle='#aaa';ctx.font='10px Segoe UI';ctx.fillText('Nigerians Locked Out · ZeroPay Changes This',cx,h*.93);
   ctx.textAlign='left';
 }
-
 function drawMama3D(){
   const w=W(),h=H(),cx=w/2,cy=h*.42;
   // Globe with remittance routes
@@ -415,7 +175,6 @@ function drawMama3D(){
   noglow();ctx.fillStyle='#aaa';ctx.font='9px Segoe UI';ctx.fillText('Annual Nigeria Remittances — Trapped',cx,h*.93);
   ctx.textAlign='left';
 }
-
 function drawTx3D(){
   const w=W(),h=H(),cx=w/2;
   // NFC ripple animation
@@ -449,7 +208,6 @@ function drawTx3D(){
   ctx.fillStyle='#00d4ff';glow('#00d4ff',10);ctx.font='bold 16px Segoe UI';ctx.textAlign='center';ctx.fillText('300ms · ZERO INTERNET',cx,h*.9);
   noglow();ctx.textAlign='left';
 }
-
 function drawNYC3D(){
   const w=W(),h=H(),cx=w/2;
   // NYC left, Nigeria right
@@ -477,7 +235,6 @@ function drawNYC3D(){
   ctx.fillStyle='#00d4ff';glow('#00d4ff',8);ctx.font=`bold ${Math.min(w*.055,20)}px Segoe UI`;ctx.fillText('$500 USD → ₦750,000',cx,h*.88);
   noglow();ctx.textAlign='left';
 }
-
 function drawGlobal3D(){
   const w=W(),h=H(),cx=w/2,cy=h*.42,R=Math.min(w,h)*.3;
   ctx.strokeStyle='#f9731622';ctx.lineWidth=.7;
@@ -492,7 +249,6 @@ function drawGlobal3D(){
   ctx.textAlign='center';ctx.fillStyle='#f97316';glow('#f97316',10);ctx.font=`bold ${Math.min(w*.055,20)}px Segoe UI`;ctx.fillText('ZERO INTERNET REQUIRED',cx,h*.88);
   noglow();ctx.textAlign='left';
 }
-
 function drawInvention3D(){
   const w=W(),h=H(),cx=w/2,cy=h*.42;
   const R=Math.min(w,h)*.26;
@@ -511,7 +267,6 @@ function drawInvention3D(){
   });
   ctx.textAlign='left';
 }
-
 function drawProblem3D(){
   const w=W(),h=H(),cx=w/2;
   // Bar chart — unbanked by region
@@ -531,7 +286,6 @@ function drawProblem3D(){
   ctx.fillStyle='#ff4444';glow('#ff4444',12);ctx.font=`bold ${Math.min(w*.065,24)}px Segoe UI`;ctx.textAlign='center';ctx.fillText('1.4 BILLION UNBANKED',cx,h*.18);
   noglow();ctx.textAlign='left';
 }
-
 function drawEngine3D(){
   const w=W(),h=H(),cx=w/2,cy=h*.5;
   const layers=[{l:'NFC TAP EVENT',c:'#fbbf24'},{l:'PUF VERIFY',c:'#a855f7'},{l:'ECC P-256 SIGN',c:'#00d4ff'},{l:'CRYPTOGRAPHIC VAULT',c:'#00ff88'},{l:'AUTO BATCH SYNC',c:'#f97316'}];
@@ -551,7 +305,6 @@ function drawEngine3D(){
   });
   ctx.textAlign='left';
 }
-
 function drawUncapped3D(){
   const w=W(),h=H(),cx=w/2;
   // VS comparison 3D boxes
@@ -571,7 +324,6 @@ function drawUncapped3D(){
   });
   ctx.textAlign='left';
 }
-
 function drawPUF3D(){
   const w=W(),h=H(),cx=w/2,cy=h*.42;
   const chipW=140,chipH=140;
@@ -593,7 +345,6 @@ function drawPUF3D(){
   ctx.fillStyle='#a855f7';glow('#a855f7',10);ctx.font=`bold ${Math.min(w*.05,18)}px Segoe UI`;ctx.textAlign='center';ctx.fillText('2²⁵⁶ KEY SPACE · ZERO CLONES',cx,h*.88);
   noglow();ctx.textAlign='left';
 }
-
 function drawUniversal3D(){
   const w=W(),h=H(),cx=w/2,cy=h*.45,R=Math.min(w,h)*.28;
   const devices=[{l:'iOS/Android',c:'#06b6d4',i:'📱'},{l:'Feature Phone',c:'#00ff88',i:'📟'},{l:'NFC Wristband',c:'#a855f7',i:'⌚'},{l:'Smart Watch',c:'#f97316',i:'⌚'},{l:'Paper NFC',c:'#fbbf24',i:'📄'},{l:'Burner Phone',c:'#ef4444',i:'📵'}];
@@ -612,7 +363,6 @@ function drawUniversal3D(){
   });
   ctx.textAlign='left';
 }
-
 function drawMITM3D(){
   const w=W(),h=H(),cx=w/2,cy=h*.42;
   const layers=[{l:'Layer 1 — Distance Bound',sub:'10ns RTT · Relay adds ms',c:'#ef4444'},{l:'Layer 2 — Mutual Auth',sub:'ZeroPay cert required',c:'#f97316'},{l:'Layer 3 — Context Bind',sub:'Merchant ID + Timestamp',c:'#fbbf24'},{l:'Layer 4 — AI Detect',sub:'ML latency profiling',c:'#00ff88'}];
@@ -630,7 +380,6 @@ function drawMITM3D(){
   ctx.fillStyle='#00ff88';glow('#00ff88',12);ctx.font='bold 13px Segoe UI';ctx.textAlign='center';ctx.fillText('🛡️ ZERO SUCCESSFUL ATTACKS',cx,h*.9);
   noglow();ctx.textAlign='left';
 }
-
 function drawMesh3D(){
   const w=W(),h=H();
   const nodes=[{x:.18,y:.22,l:'Abuja Hub',r:16,c:'#14b8a6'},{x:.5,y:.18,l:'Relay 1',r:11,c:'#06b6d4'},{x:.78,y:.26,l:'Relay 2',r:11,c:'#06b6d4'},{x:.12,y:.58,l:'Terminal A',r:9,c:'#00ff88'},{x:.44,y:.62,l:'Terminal B',r:9,c:'#00ff88'},{x:.72,y:.56,l:'Terminal C',r:9,c:'#00ff88'},{x:.88,y:.38,l:'Paystack',r:14,c:'#ffd700'}];
@@ -651,7 +400,6 @@ function drawMesh3D(){
   ctx.fillStyle='#14b8a6';glow('#14b8a6',8);ctx.font='bold 11px Segoe UI';ctx.textAlign='center';ctx.fillText('50km RANGE · 72hr BACKUP · <3s SETTLEMENT',w/2,h*.88);
   noglow();ctx.textAlign='left';
 }
-
 function drawJourney3D(){
   const w=W(),h=H(),cx=w/2;
   const steps=[{l:'1. Initiate',sub:'PUF-signed TX',c:'#ffd700',x:.1},{l:'2. Encrypt',sub:'ECC P-256',c:'#a855f7',x:.28},{l:'3. Route',sub:'Mesh node',c:'#06b6d4',x:.5},{l:'4. Deliver',sub:'NFC wristband',c:'#00ff88',x:.72},{l:'5. Settle',sub:'Paystack confirm',c:'#f97316',x:.88}];
@@ -673,7 +421,6 @@ function drawJourney3D(){
   ctx.fillStyle='#ffd700';glow('#ffd700',10);ctx.font='bold 13px Segoe UI';ctx.textAlign='center';ctx.fillText('<90 SECONDS · NIGERIA ← NEW YORK CITY',cx,h*.88);
   noglow();ctx.textAlign='left';
 }
-
 function drawMethods3D(){
   const w=W(),h=H(),cx=w/2,cy=h*.48,R=Math.min(w,h)*.3;
   const methods=[{l:'NFC TAP',c:'#8b5cf6',i:'📲'},{l:'QR CODE',c:'#06b6d4',i:'🔲'},{l:'USSD',c:'#10b981',i:'*#'},{l:'WEARABLE',c:'#f97316',i:'⌚'},{l:'BIOMETRIC',c:'#ef4444',i:'👆'},{l:'PAPER NFC',c:'#fbbf24',i:'📄'}];
@@ -694,7 +441,6 @@ function drawMethods3D(){
   ctx.fillStyle='#000';ctx.font='bold 8px Segoe UI';ctx.textAlign='center';ctx.fillText('6 METHODS',cx,cy-2);ctx.fillText('ZERO EXCL.',cx,cy+10);
   ctx.textAlign='left';
 }
-
 function drawMarket3D(){
   const w=W(),h=H(),cx=w/2;
   const segs=[{l:'Global',v:847,c:'#f97316'},{l:'S-S Africa',v:60,c:'#fbbf24'},{l:'Nigeria',v:26,c:'#ff2d78'}];
@@ -719,7 +465,6 @@ function drawMarket3D(){
   });
   ctx.textAlign='left';
 }
-
 function drawCompetitor3D(){
   const w=W(),h=H(),cx=w/2;
   const cos=[{l:'Visa/MC',offline:'No',puf:'No',mesh:'No',c:'#ff4444'},{l:'Moniepoint',offline:'No',puf:'No',mesh:'No',c:'#ff6b00'},{l:'Flutterwave',offline:'No',puf:'No',mesh:'No',c:'#ff6b00'},{l:'M-Pesa',offline:'USSD',puf:'No',mesh:'No',c:'#fbbf24'},{l:'ZeroPay',offline:'72hr',puf:'PUF',mesh:'Solar',c:'#00d4ff'}];
@@ -739,7 +484,6 @@ function drawCompetitor3D(){
   });
   ctx.textAlign='left';
 }
-
 function drawAgent3D(){
   const w=W(),h=H(),cx=w/2,cy=h*.45;
   const nodes=[{x:.18,y:.32,l:'Abuja',n:120,c:'#ff2d78'},{x:.5,y:.22,l:'Lagos',n:220,c:'#f97316'},{x:.8,y:.35,l:'Edo State',n:160,c:'#fbbf24'},{x:.14,y:.62,l:'Kano',n:0,c:'#06b6d4',dim:true},{x:.5,y:.65,l:'Port H.',n:0,c:'#06b6d4',dim:true},{x:.84,y:.6,l:'Onitsha',n:0,c:'#06b6d4',dim:true}];
@@ -758,7 +502,6 @@ function drawAgent3D(){
   ctx.fillStyle='#ff2d78';glow('#ff2d78',10);ctx.font=`bold ${Math.min(w*.055,20)}px Segoe UI`;ctx.textAlign='center';ctx.fillText('500 TERMINALS · YEAR 1 TARGET',cx,h*.88);
   noglow();ctx.textAlign='left';
 }
-
 function drawSecurity3D(){
   const w=W(),h=H(),cx=w/2,cy=h*.45;
   const R=Math.min(w*.26,h*.3);
@@ -780,7 +523,6 @@ function drawSecurity3D(){
   ctx.fillStyle='#7c4dff';glow('#7c4dff',18);ctx.font=`bold ${Math.min(w*.05,18)}px Segoe UI`;ctx.textAlign='center';ctx.fillText('FIPS 140-3 ARCHITECTURE',cx,h*.88);
   noglow();ctx.textAlign='left';
 }
-
 function drawRaise3D(){
   const w=W(),h=H(),cx=w/2;
   const ry=h*(.78-Math.min(.65,t*.08));
@@ -802,12 +544,9 @@ function drawRaise3D(){
   ctx.fillStyle='#ffd700';glow('#ffd700',14);ctx.font=`bold ${Math.min(w*.06,22)}px Segoe UI`;ctx.textAlign='center';ctx.fillText('$4.5M · $25M VALUATION',cx,h*.9);
   noglow();ctx.textAlign='left';
 }
-
 function roundR(c,x,y,w2,h2,r){c.beginPath();c.moveTo(x+r,y);c.lineTo(x+w2-r,y);c.quadraticCurveTo(x+w2,y,x+w2,y+r);c.lineTo(x+w2,y+h2-r);c.quadraticCurveTo(x+w2,y+h2,x+w2-r,y+h2);c.lineTo(x+r,y+h2);c.quadraticCurveTo(x,y+h2,x,y+h2-r);c.lineTo(x,y+r);c.quadraticCurveTo(x,y,x+r,y);c.closePath();}
-
 // ===== RENDER LOOP =====
 function loop(){resize();ctx.clearRect(0,0,W(),H());if(DRAWS[cur])DRAWS[cur]();t+=.016;animF=requestAnimationFrame(loop);}
-
 // ===== TABLE =====
 function buildTable(d){
   if(!d)return '';
@@ -828,7 +567,6 @@ function buildTable(d){
     });s+='</tr>';
   });return s+'</tbody></table>';
 }
-
 // ===== SLIDE LOGIC =====
 function showSlide(n){
   const s=SLIDES[n];
@@ -845,10 +583,8 @@ function showSlide(n){
   document.getElementById('pgfill').style.width=((n+1)/20*100)+'%';
   stopAudio();t=0;
 }
-
 let isPlaying=false;
 let loadedSlide=-1;
-
 function setPlayUI(playing){
   isPlaying=playing;
   const lbl=playing?'⏸ PAUSE':'▶ PLAY — OpenAI Shimmer';
@@ -856,7 +592,6 @@ function setPlayUI(playing){
   document.getElementById('pbtn').textContent=lbl;
   document.getElementById('fbplay').textContent=flbl;
 }
-
 function ensureLoaded(){
   const a=document.getElementById('aud');
   if(loadedSlide!==cur){
@@ -866,7 +601,6 @@ function ensureLoaded(){
     loadedSlide=cur;
   }
 }
-
 function togglePlay(){
   const a=document.getElementById('aud');
   if(isPlaying){
@@ -879,7 +613,6 @@ function togglePlay(){
     a.play().then(()=>setPlayUI(true)).catch(e=>{console.log('play err',e);});
   }
 }
-
 function playA(){
   const a=document.getElementById('aud');
   loadedSlide=-1; // force reload for new slide
@@ -887,7 +620,6 @@ function playA(){
   a.currentTime=0;
   a.play().then(()=>setPlayUI(true)).catch(e=>{console.log('play err',e);});
 }
-
 function stopAudio(){
   const a=document.getElementById('aud');
   a.pause();
@@ -895,14 +627,12 @@ function stopAudio(){
   loadedSlide=-1;
   setPlayUI(false);
 }
-
 function onEnd(){
   setPlayUI(false);
   loadedSlide=-1;
   if(auto&&cur<19){setTimeout(()=>{nav(1);setTimeout(playA,600);},1200);}
   else if(auto&&cur===19){toggleAuto();}
 }
-
 function nav(d){
   const n=Math.max(0,Math.min(19,cur+d));
   if(n!==cur){
@@ -925,7 +655,6 @@ let tx=0;
 document.addEventListener('touchstart',e=>{tx=e.touches[0].clientX;},{passive:true});
 document.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-tx;if(Math.abs(dx)>44)nav(dx<0?1:-1);},{passive:true});
 window.addEventListener('load',()=>setTimeout(()=>{resize();showSlide(0);loop();},150));
-
 // iOS Audio Unlock — fires on mobile Safari ONLY
 function isIOS(){
   return /iphone|ipad|ipod/i.test(navigator.userAgent) ||
@@ -956,7 +685,6 @@ window.addEventListener('load',()=>{
     setTimeout(()=>document.getElementById('ios-splash').classList.add('show'),400);
   }
 });
-
 </script>
 </body>
 </html>
