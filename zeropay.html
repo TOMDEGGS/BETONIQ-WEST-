@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ZeroPay — World's First PUF-Secured Offline Payments Platform</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#02040a;color:#fff}
+/* HEADER */
+.hdr{background:linear-gradient(135deg,#02040a 0%,#0a1428 100%);border-bottom:1px solid #0d1e35;padding:0 24px;position:sticky;top:0;z-index:200}
+.hdr-inner{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
+.logo{font-size:1.4rem;font-weight:900;color:#00d4ff;letter-spacing:3px}
+.logo span{color:#fff;font-weight:300;font-size:0.9rem;display:block;letter-spacing:1px;margin-top:1px}
+.hdr-nav{display:flex;gap:20px;align-items:center}
+.hn{font-size:0.8rem;color:#667;cursor:pointer;font-weight:600;transition:color 0.2s}
+.hn:hover,.hn.active{color:#00d4ff}
+.hdr-btn{background:#00d4ff;color:#000;padding:8px 18px;border-radius:20px;font-size:0.8rem;font-weight:800;cursor:pointer;border:none}
+/* HERO */
+.hero{min-height:85vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:60px 24px;background:radial-gradient(ellipse at 50% 30%,#0a1f3a 0%,#02040a 70%);position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%2300d4ff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")}
+.hero-content{position:relative;z-index:1;max-width:800px}
+.hero-badge{display:inline-block;background:rgba(0,212,255,0.1);border:1px solid rgba(0,212,255,0.3);color:#00d4ff;font-size:0.7rem;font-weight:700;letter-spacing:2px;padding:6px 16px;border-radius:20px;margin-bottom:24px}
+.hero h1{font-size:3rem;font-weight:900;line-height:1.1;margin-bottom:16px}
+.hero h1 span{color:#00d4ff}
+.hero p{font-size:1.1rem;color:#667;line-height:1.7;margin-bottom:32px;max-width:640px;margin-left:auto;margin-right:auto}
+.hero-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-bottom:48px}
+.hbtn{padding:14px 28px;border-radius:30px;font-size:0.9rem;font-weight:800;cursor:pointer;border:none;transition:all 0.2s}
+.hbtn-primary{background:linear-gradient(135deg,#00d4ff,#0088cc);color:#000}
+.hbtn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,212,255,0.3)}
+.hbtn-outline{background:transparent;border:1px solid #00d4ff;color:#00d4ff}
+.hbtn-outline:hover{background:rgba(0,212,255,0.1)}
+.hero-stats{display:flex;justify-content:center;gap:40px;flex-wrap:wrap}
+.hstat{text-align:center}
+.hstat-num{font-size:1.8rem;font-weight:900;color:#00d4ff}
+.hstat-lbl{font-size:0.65rem;color:#445;letter-spacing:1px;margin-top:2px}
+/* SECTIONS */
+.section{padding:80px 24px;max-width:1100px;margin:0 auto}
+.section-hdr{text-align:center;margin-bottom:48px}
+.section-tag{font-size:0.65rem;letter-spacing:3px;color:#00d4ff;font-weight:700;text-transform:uppercase;margin-bottom:10px}
+.section-title{font-size:2rem;font-weight:900;color:#fff;margin-bottom:12px}
+.section-sub{font-size:0.9rem;color:#556;max-width:560px;margin:0 auto;line-height:1.6}
+/* HOW IT WORKS */
+.steps{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px}
+.step-card{background:#070d1a;border:1px solid #0d1e35;border-radius:14px;padding:24px;position:relative;overflow:hidden;transition:border-color 0.2s}
+.step-card:hover{border-color:#00d4ff}
+.step-num{font-size:3rem;font-weight:900;color:rgba(0,212,255,0.08);position:absolute;top:12px;right:16px;line-height:1}
+.step-icon{font-size:2rem;margin-bottom:14px}
+.step-title{font-size:1rem;font-weight:800;color:#fff;margin-bottom:8px}
+.step-desc{font-size:0.78rem;color:#556;line-height:1.6}
+/* SECURITY STACK */
+.stack{display:flex;flex-direction:column;gap:0;max-width:700px;margin:0 auto}
+.stack-layer{background:#070d1a;border:1px solid #0d1e35;padding:20px 24px;display:flex;align-items:center;gap:20px;transition:all 0.2s;cursor:default}
+.stack-layer:first-child{border-radius:14px 14px 0 0}
+.stack-layer:last-child{border-radius:0 0 14px 14px}
+.stack-layer:hover{background:#0a1428;border-color:#00d4ff}
+.stack-num{width:36px;height:36px;border-radius:50%;background:rgba(0,212,255,0.1);border:1px solid rgba(0,212,255,0.3);color:#00d4ff;font-weight:900;font-size:0.9rem;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.stack-info{flex:1}
+.stack-title{font-size:0.95rem;font-weight:800;color:#fff;margin-bottom:3px}
+.stack-sub{font-size:0.72rem;color:#445;line-height:1.5}
+.stack-badge{font-size:0.62rem;font-weight:700;padding:3px 10px;border-radius:10px;background:rgba(0,212,255,0.1);color:#00d4ff;border:1px solid rgba(0,212,255,0.2);flex-shrink:0}
+.stack-arrow{color:#0d1e35;text-align:center;font-size:1.2rem;padding:4px 0;background:#02040a}
+/* USE CASES */
+.use-cases{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px}
+.uc-card{background:#070d1a;border:1px solid #0d1e35;border-radius:12px;padding:20px;transition:all 0.2s}
+.uc-card:hover{border-color:#00d4ff;transform:translateY(-2px)}
+.uc-icon{font-size:2rem;margin-bottom:12px}
+.uc-title{font-size:0.9rem;font-weight:800;color:#fff;margin-bottom:6px}
+.uc-desc{font-size:0.75rem;color:#556;line-height:1.6}
+.uc-metric{font-size:0.7rem;color:#00d4ff;font-weight:700;margin-top:10px}
+/* INVESTOR SECTION */
+.invest-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.invest-card{background:#070d1a;border:1px solid #0d1e35;border-radius:14px;padding:24px}
+.invest-val{font-size:2rem;font-weight:900;color:#00d4ff;margin-bottom:4px}
+.invest-lbl{font-size:0.75rem;color:#445;margin-bottom:12px}
+.invest-list{list-style:none}
+.invest-list li{font-size:0.78rem;color:#667;padding:5px 0;border-bottom:1px solid #0d1e35;display:flex;gap:8px}
+.invest-list li::before{content:"→";color:#00d4ff}
+/* MERCHANT FORM */
+.merchant-form{background:#070d1a;border:1px solid #0d1e35;border-radius:14px;padding:28px;max-width:600px;margin:0 auto}
+.form-group{margin-bottom:14px}
+.form-group label{font-size:0.75rem;font-weight:600;color:#667;display:block;margin-bottom:5px}
+.form-group input,.form-group select,.form-group textarea{width:100%;padding:10px 14px;background:#02040a;border:1px solid #0d1e35;border-radius:8px;color:#fff;font-size:0.8rem;outline:none}
+.form-group input:focus,.form-group select:focus{border-color:#00d4ff}
+.form-group select option{background:#070d1a;color:#fff}
+.form-submit{width:100%;padding:14px;background:linear-gradient(135deg,#00d4ff,#0088cc);color:#000;border:none;border-radius:10px;font-weight:800;font-size:0.9rem;cursor:pointer;margin-top:6px;transition:all 0.2s}
+.form-submit:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(0,212,255,0.3)}
+.success-box{background:rgba(0,212,255,0.08);border:1px solid rgba(0,212,255,0.3);border-radius:10px;padding:16px;text-align:center;color:#00d4ff;font-weight:700;display:none;margin-top:14px}
+/* DEMOS */
+.demo-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px}
+.demo-card{background:#070d1a;border:1px solid #0d1e35;border-radius:12px;overflow:hidden;transition:all 0.2s}
+.demo-card:hover{border-color:#00d4ff;transform:translateY(-2px)}
+.demo-banner{height:4px;background:linear-gradient(90deg,#00d4ff,#0055aa)}
+.demo-body{padding:18px}
+.demo-icon{font-size:1.8rem;margin-bottom:10px}
+.demo-title{font-size:0.9rem;font-weight:800;color:#fff;margin-bottom:6px}
+.demo-desc{font-size:0.72rem;color:#445;line-height:1.5;margin-bottom:14px}
+.demo-btn{display:block;background:linear-gradient(135deg,#00d4ff,#0088cc);color:#000;padding:9px;border-radius:8px;font-size:0.78rem;font-weight:800;text-align:center;text-decoration:none;cursor:pointer;border:none;width:100%}
+/* INVESTOR FORM */
+.inv-form-wrap{background:#070d1a;border:1px solid #0d1e35;border-radius:14px;padding:28px;max-width:600px;margin:0 auto}
+/* DIVIDER */
+.divider-section{background:#070d1a;border-top:1px solid #0d1e35;border-bottom:1px solid #0d1e35;padding:40px 24px;text-align:center}
+.divider-inner{max-width:700px;margin:0 auto}
+/* FOOTER */
+.footer{background:#02040a;border-top:1px solid #0d1e35;padding:40px 24px;text-align:center}
+.footer-logo{font-size:1.4rem;font-weight:900;color:#00d4ff;letter-spacing:3px;margin-bottom:8px}
+.footer-links{display:flex;gap:20px;justify-content:center;margin:16px 0;flex-wrap:wrap}
+.footer-link{font-size:0.75rem;color:#445;cursor:pointer}
+.footer-link:hover{color:#00d4ff}
+.footer-copy{font-size:0.68rem;color:#223;margin-top:8px}
+/* NAV */
+.top-nav{background:#070d1a;border-bottom:1px solid #0d1e35;padding:0 24px;display:flex;gap:0;overflow-x:auto}
+.tnav{padding:14px 16px;font-size:0.78rem;font-weight:700;cursor:pointer;color:#445;border-bottom:2px solid transparent;white-space:nowrap;transition:all 0.2s}
+.tnav.active,.tnav:hover{color:#00d4ff;border-bottom-color:#00d4ff}
+/* PULSE ANIMATION */
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.5}}
+.live-dot{width:8px;height:8px;background:#00ff88;border-radius:50%;display:inline-block;margin-right:6px;animation:pulse 2s infinite}
+/* RESPONSIVE */
+@media(max-width:600px){
+.hero h1{font-size:1.8rem}
+.hero-stats{gap:20px}
+.invest-grid{grid-template-columns:1fr}
+.hdr-nav{display:none}
+.section{padding:50px 16px}
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="hdr">
+  <div class="hdr-inner">
+    <div class="logo">ZEROPAY<span>BETONIQ(WEST) LTD · RC 56802</span></div>
+    <div class="hdr-nav">
+      <span class="hn active" onclick="goTo('home')">Home</span>
+      <span class="hn" onclick="goTo('how')">How It Works</span>
+      <span class="hn" onclick="goTo('security')">Security</span>
+      <span class="hn" onclick="goTo('demos')">Live Demos</span>
+      <span class="hn" onclick="goTo('merchant')">Merchants</span>
+      <span class="hn" onclick="goTo('investor')">Investors</span>
+    </div>
+    <button class="hdr-btn" onclick="goTo('merchant')">Get Started</button>
+  </div>
+</div>
+
+<!-- TOP NAV TABS (mobile-friendly) -->
+<div class="top-nav">
+  <div class="tnav active" onclick="goTo('home')">🏠 Home</div>
+  <div class="tnav" onclick="goTo('how')">⚙️ How It Works</div>
+  <div class="tnav" onclick="goTo('security')">🛡️ Security</div>
+  <div class="tnav" onclick="goTo('demos')">🎥 Live Demos</div>
+  <div class="tnav" onclick="goTo('merchant')">🏪 Merchants</div>
+  <div class="tnav" onclick="goTo('agent')">👤 Agents</div>
+  <div class="tnav" onclick="goTo('investor')">💰 Investors</div>
+</div>
+
+<!-- HOME -->
+<div id="home-section">
+  <div class="hero">
+    <div class="hero-content">
+      <div class="hero-badge"><span class="live-dot"></span>PATENT PENDING · APRIL 2026 · WORLD FIRST</div>
+      <h1>Payments That Work<br><span>When Nothing Else Does</span></h1>
+      <p>ZeroPay is the world's first PUF-secured, offline-first payment terminal. No internet. No power grid. No GSM signal. 1.4 billion unbanked people finally have a payment solution built for their reality.</p>
+      <div class="hero-btns">
+        <button class="hbtn hbtn-primary" onclick="goTo('demos')">▶ Watch Live Demo</button>
+        <button class="hbtn hbtn-outline" onclick="goTo('investor')">📋 Investor Deck</button>
+        <button class="hbtn hbtn-outline" onclick="goTo('merchant')">🏪 Become a Merchant</button>
+      </div>
+      <div class="hero-stats">
+        <div class="hstat"><div class="hstat-num">1.4B</div><div class="hstat-lbl">UNBANKED GLOBALLY</div></div>
+        <div class="hstat"><div class="hstat-num">38M</div><div class="hstat-lbl">UNBANKED NIGERIA</div></div>
+        <div class="hstat"><div class="hstat-num">72hrs</div><div class="hstat-lbl">OFFLINE OPERATION</div></div>
+        <div class="hstat"><div class="hstat-num">5</div><div class="hstat-lbl">SECURITY LAYERS</div></div>
+        <div class="hstat"><div class="hstat-num">$4.5M</div><div class="hstat-lbl">PRE-SERIES A ASK</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- USE CASES -->
+  <div class="section">
+    <div class="section-hdr">
+      <div class="section-tag">Real-World Impact</div>
+      <div class="section-title">Built for Every Environment</div>
+      <div class="section-sub">ZeroPay works in the harshest conditions on earth — exactly where 1.4 billion people need it most.</div>
+    </div>
+    <div class="use-cases">
+      <div class="uc-card">
+        <div class="uc-icon">🌾</div>
+        <div class="uc-title">Rural Markets</div>
+        <div class="uc-desc">Farm-gate payments in remote villages. No GSM. No grid. ZeroPay solar mesh relay delivers settlement up to 100km with zero internet.</div>
+        <div class="uc-metric">51.1km proven · Agenegbode→Auchi</div>
+      </div>
+      <div class="uc-card">
+        <div class="uc-icon">🚛</div>
+        <div class="uc-title">Logistics & Transport</div>
+        <div class="uc-desc">Truck-stop and border-crossing payments. Batch-queue transactions offline, sync automatically when connectivity returns.</div>
+        <div class="uc-metric">72-hour offline token TTL</div>
+      </div>
+      <div class="uc-card">
+        <div class="uc-icon">🏪</div>
+        <div class="uc-title">Urban Markets (Power Cuts)</div>
+        <div class="uc-desc">Lagos, Abuja, Kano — power cuts daily. ZeroPay terminals keep working through every NEPA outage. Offline queue builds. Batch sync when power returns.</div>
+        <div class="uc-metric">Solar Mesh Hub backup</div>
+      </div>
+      <div class="uc-card">
+        <div class="uc-icon">🌍</div>
+        <div class="uc-title">Diaspora Remittance</div>
+        <div class="uc-desc">Nigeria-UK, Nigeria-UAE corridors. ZeroPay offline token layer bridges the last-mile gap between IMTO partners and rural beneficiaries.</div>
+        <div class="uc-metric">₦850K+ settled offline · Kano demo</div>
+      </div>
+      <div class="uc-card">
+        <div class="uc-icon">⚡</div>
+        <div class="uc-title">Solar Mini-Grids</div>
+        <div class="uc-desc">Pay-as-you-go solar energy payments at off-grid mini-grid installations. ZeroPay integrates directly with solar operators as a revenue collection layer.</div>
+        <div class="uc-metric">PAYG energy partnership model</div>
+      </div>
+      <div class="uc-card">
+        <div class="uc-icon">🏥</div>
+        <div class="uc-title">Healthcare & NGOs</div>
+        <div class="uc-desc">Field payment collection for rural health workers, microfinance agents, and NGO distribution programs — with cryptographic proof of transaction for audit.</div>
+        <div class="uc-metric">Audit-grade cryptographic proof</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- HOW IT WORKS -->
+<div id="how-section" style="display:none">
+  <div class="section">
+    <div class="section-hdr">
+      <div class="section-tag">Technology</div>
+      <div class="section-title">How ZeroPay Works</div>
+      <div class="section-sub">A 5-step protocol layer that sits below all existing payment infrastructure — working with Paystack, not replacing it.</div>
+    </div>
+    <div class="steps">
+      <div class="step-card"><div class="step-num">1</div><div class="step-icon">💳</div><div class="step-title">PUF Hardware Terminal</div><div class="step-desc">Physical Unclonable Function silicon chip generates a unique cryptographic fingerprint per device. Cannot be cloned. Cannot be replicated. Every ZeroPay terminal has an identity that is physically impossible to forge.</div></div>
+      <div class="step-card"><div class="step-num">2</div><div class="step-icon">🔐</div><div class="step-title">ECC P-256 Signing</div><div class="step-desc">Elliptic Curve Cryptography P-256 signs every transaction. Bank-grade encryption at the point of tap. Each transaction gets a unique cryptographic signature tied to both the terminal PUF and the offline token.</div></div>
+      <div class="step-card"><div class="step-num">3</div><div class="step-icon">📡</div><div class="step-title">Distance Bounding Protocol</div><div class="step-desc">Anti-relay attack protection. The protocol verifies the physical proximity of the NFC card to the terminal in real time. Relay attacks, MITM attacks, and card cloning are mathematically impossible.</div></div>
+      <div class="step-card"><div class="step-num">4</div><div class="step-icon">🪙</div><div class="step-title">Offline Cryptographic Tokens</div><div class="step-desc">72-hour Time-To-Live tokens enable transactions with zero internet connectivity. Tokens are pre-issued, cryptographically signed, and verified locally. When connectivity returns, batch reconciliation with Paystack confirms every transaction.</div></div>
+      <div class="step-card"><div class="step-num">5</div><div class="step-icon">☀️</div><div class="step-title">Solar Mesh Hub Relay</div><div class="step-desc">Solar-powered relay nodes form a self-healing mesh network. Transactions hop node-to-node across 100km+ with zero GSM, zero internet, zero grid power. 72-hour supercapacitor + lithium backup aligns with token TTL.</div></div>
+      <div class="step-card"><div class="step-num">6</div><div class="step-icon">🏦</div><div class="step-title">Paystack Settlement Rail</div><div class="step-desc">ZeroPay is NOT a competitor to Paystack — it is the protocol layer that brings Paystack to the last mile. When connectivity returns, batch queues sync, Paystack settles, MFB holds float, IMTO handles cross-border FX.</div></div>
+    </div>
+    <div style="text-align:center;margin-top:40px;padding:24px;background:#070d1a;border:1px solid #0d1e35;border-radius:14px;max-width:700px;margin-left:auto;margin-right:auto">
+      <div style="font-size:0.75rem;color:#445;letter-spacing:2px;margin-bottom:12px;text-transform:uppercase">Full ZeroPay Stack</div>
+      <div style="font-size:0.85rem;color:#00d4ff;font-weight:700;line-height:2">PUF/ECC Terminal → Offline Token → Solar Mesh Hub → Paystack API → Licensed MFB → IMTO Partner</div>
+    </div>
+  </div>
+</div>
+
+<!-- SECURITY -->
+<div id="security-section" style="display:none">
+  <div class="section">
+    <div class="section-hdr">
+      <div class="section-tag">Security Architecture</div>
+      <div class="section-title">5-Layer Security Stack</div>
+      <div class="section-sub">ZeroPay defeats every known attack vector against NFC payment systems. Six attack types. Six defeats. Zero breaches.</div>
+    </div>
+    <div class="stack">
+      <div class="stack-layer"><div class="stack-num">L1</div><div class="stack-info"><div class="stack-title">PUF Silicon Fingerprint</div><div class="stack-sub">Physical Unclonable Function chip. Each terminal has a hardware identity that cannot be cloned, replicated, or extracted. Defeats: Device Cloning, Token Forgery.</div></div><div class="stack-badge">HARDWARE</div></div>
+      <div class="stack-arrow">↓</div>
+      <div class="stack-layer"><div class="stack-num">L2</div><div class="stack-info"><div class="stack-title">ECC P-256 Transaction Signing</div><div class="stack-sub">Bank-grade elliptic curve cryptography. Every transaction signed with a unique keypair tied to the PUF fingerprint. Defeats: Token Forgery, Replay Attacks.</div></div><div class="stack-badge">CRYPTOGRAPHIC</div></div>
+      <div class="stack-arrow">↓</div>
+      <div class="stack-layer"><div class="stack-num">L3</div><div class="stack-info"><div class="stack-title">Distance Bounding Protocol</div><div class="stack-sub">Real-time physical proximity verification. Cryptographic challenge-response within nanoseconds. Defeats: Relay Attack, Man-in-the-Middle (MITM).</div></div><div class="stack-badge">PROTOCOL</div></div>
+      <div class="stack-arrow">↓</div>
+      <div class="stack-layer"><div class="stack-num">L4</div><div class="stack-info"><div class="stack-title">Offline Cryptographic Tokens</div><div class="stack-sub">72-hour TTL signed tokens. Single-use. Verified locally without server contact. Defeats: Rogue Terminal Attack, AI Bypass attempts.</div></div><div class="stack-badge">TOKEN LAYER</div></div>
+      <div class="stack-arrow">↓</div>
+      <div class="stack-layer"><div class="stack-num">L5</div><div class="stack-info"><div class="stack-title">Solar Mesh Hub Node Verification</div><div class="stack-sub">Relay nodes verify hop-chain cryptographic integrity before propagating transactions. Rogue nodes cannot inject false settlements. Defeats: Rogue Mesh Node Attack.</div></div><div class="stack-badge">NETWORK</div></div>
+    </div>
+    <div style="margin-top:40px">
+      <div class="section-hdr" style="margin-bottom:24px">
+        <div class="section-tag">6 Attack Vectors</div>
+        <div class="section-title" style="font-size:1.4rem">ZeroPay: Zero Successful Attacks</div>
+      </div>
+      <div class="use-cases">
+        <div class="uc-card" style="border-color:#ff2d2d22"><div class="uc-icon">🔴</div><div class="uc-title">Relay / MITM Attack</div><div class="uc-desc">Attacker intercepts NFC signal between card and terminal. Distance Bounding Protocol detects the relay delay in nanoseconds. Transaction cancelled.</div><div class="uc-metric" style="color:#00ff88">✅ DEFEATED — Distance Bounding</div></div>
+        <div class="uc-card" style="border-color:#ff2d2d22"><div class="uc-icon">🔴</div><div class="uc-title">Device Cloning</div><div class="uc-desc">Attacker attempts to clone the terminal hardware. PUF fingerprint is physically unique — cloned hardware produces a different fingerprint. Rejected instantly.</div><div class="uc-metric" style="color:#00ff88">✅ DEFEATED — PUF Hardware</div></div>
+        <div class="uc-card" style="border-color:#ff2d2d22"><div class="uc-icon">🔴</div><div class="uc-title">Replay Attack</div><div class="uc-desc">Attacker captures a valid transaction and replays it. ECC signature contains a unique nonce. Replayed transaction signature fails verification immediately.</div><div class="uc-metric" style="color:#00ff88">✅ DEFEATED — ECC Nonce</div></div>
+        <div class="uc-card" style="border-color:#ff2d2d22"><div class="uc-icon">🔴</div><div class="uc-title">Token Forgery</div><div class="uc-desc">Attacker attempts to create or modify an offline token. Tokens are signed by PUF-tied keypair. Any modification breaks the signature. Forgery is mathematically impossible.</div><div class="uc-metric" style="color:#00ff88">✅ DEFEATED — PUF + ECC</div></div>
+        <div class="uc-card" style="border-color:#ff2d2d22"><div class="uc-icon">🔴</div><div class="uc-title">Rogue Mesh Node</div><div class="uc-desc">Attacker inserts a fake relay node into the mesh network. Hop-chain verification detects the unsigned node. Transaction is not propagated.</div><div class="uc-metric" style="color:#00ff88">✅ DEFEATED — Mesh Verification</div></div>
+        <div class="uc-card" style="border-color:#ff2d2d22"><div class="uc-icon">🔴</div><div class="uc-title">AI Bypass Attempt</div><div class="uc-desc">AI-generated synthetic payment patterns attempt to spoof valid transactions. PUF + Distance Bounding cannot be mimicked by software. Hardware layer is AI-proof.</div><div class="uc-metric" style="color:#00ff88">✅ DEFEATED — Hardware Layer</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- LIVE DEMOS -->
+<div id="demos-section" style="display:none">
+  <div class="section">
+    <div class="section-hdr">
+      <div class="section-tag">Live Interactive Demos</div>
+      <div class="section-title">See ZeroPay in Action</div>
+      <div class="section-sub">4 live 3D-animated demos with OpenAI Shimmer narration. Click any demo to open it in full screen.</div>
+    </div>
+    <div class="demo-grid">
+      <div class="demo-card">
+        <div class="demo-banner"></div>
+        <div class="demo-body">
+          <div class="demo-icon">⚡</div>
+          <div class="demo-title">ZeroPay — 20-Slide Investor Pitch</div>
+          <div class="demo-desc">Full investor presentation. Chidi Lagos trader story → PUF hardware → offline tokens → ₦850K Kano settlement → $4.5M ask. British Shimmer narration. 20 slides.</div>
+          <a class="demo-btn" href="https://htmlpreview.github.io/?https://raw.githubusercontent.com/TOMDEGGS/BETONIQ-WEST-/main/zeropay_investor_v5.html" target="_blank">▶ Open Live Demo</a>
+        </div>
+      </div>
+      <div class="demo-card">
+        <div class="demo-banner"></div>
+        <div class="demo-body">
+          <div class="demo-icon">🛡️</div>
+          <div class="demo-title">Security Gauntlet — 6 Attacks</div>
+          <div class="demo-desc">Live 3D animation defeating 6 real attack vectors in sequence. Relay, MITM, Device Clone, Replay, Token Forgery, Rogue Mesh, AI Bypass. Purpose-built narrations.</div>
+          <a class="demo-btn" href="https://htmlpreview.github.io/?https://raw.githubusercontent.com/TOMDEGGS/BETONIQ-WEST-/main/zeropay_security_v3.html" target="_blank">▶ Open Security Demo</a>
+        </div>
+      </div>
+      <div class="demo-card">
+        <div class="demo-banner"></div>
+        <div class="demo-body">
+          <div class="demo-icon">📡</div>
+          <div class="demo-title">Mesh Relay — 51km + 100km</div>
+          <div class="demo-desc">Live relay packet animation. Agenegbode→Auchi 51.1km, 6 hops, zero internet. Kano 100km, 12 hops, harmattan dust, ₦850K delivered. Solar-powered chain.</div>
+          <a class="demo-btn" href="https://htmlpreview.github.io/?https://raw.githubusercontent.com/TOMDEGGS/BETONIQ-WEST-/main/zeropay_mesh_relay_v3.html" target="_blank">▶ Open Mesh Demo</a>
+        </div>
+      </div>
+      <div class="demo-card">
+        <div class="demo-banner"></div>
+        <div class="demo-body">
+          <div class="demo-icon">💳</div>
+          <div class="demo-title">ZeroPay — Live Terminal Operations</div>
+          <div class="demo-desc">Interactive terminal simulation. Tap to pay. Offline queue builds. Batch sync with Paystack. Real-time cryptographic validation of every transaction state.</div>
+          <a class="demo-btn" href="https://htmlpreview.github.io/?https://raw.githubusercontent.com/TOMDEGGS/BETONIQ-WEST-/main/zeropay_demo.html" target="_blank">▶ Open Terminal Demo</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MERCHANT REGISTRATION -->
+<div id="merchant-section" style="display:none">
+  <div class="section">
+    <div class="section-hdr">
+      <div class="section-tag">Merchant Onboarding</div>
+      <div class="section-title">Accept Payments Anywhere</div>
+      <div class="section-sub">Join the ZeroPay merchant network. Get your terminal. Accept offline payments from Day 1. No internet required.</div>
+    </div>
+    <div class="steps" style="margin-bottom:40px">
+      <div class="step-card"><div class="step-num">1</div><div class="step-icon">📝</div><div class="step-title">Register Below</div><div class="step-desc">Submit your business details. Our agent contacts you within 24 hours for KYC verification and terminal assignment.</div></div>
+      <div class="step-card"><div class="step-num">2</div><div class="step-icon">✅</div><div class="step-title">KYC Verification</div><div class="step-desc">Simple ID verification and CAC document check (for businesses). Completed in 1-2 business days via our field agent network.</div></div>
+      <div class="step-card"><div class="step-num">3</div><div class="step-icon">📦</div><div class="step-title">Terminal Delivery</div><div class="step-desc">ZeroPay NFC terminal delivered to your business location. Setup takes 15 minutes. Full training provided by our field agent.</div></div>
+      <div class="step-card"><div class="step-num">4</div><div class="step-icon">💰</div><div class="step-title">Start Accepting Payments</div><div class="step-desc">Accept payments immediately. Offline queue builds automatically. Batch sync with Paystack when connectivity returns. Daily settlement to your account.</div></div>
+    </div>
+    <div class="merchant-form">
+      <h3 style="color:#00d4ff;font-size:1rem;font-weight:800;margin-bottom:6px">🏪 Merchant Registration Form</h3>
+      <p style="font-size:0.75rem;color:#445;margin-bottom:18px">Fill in your details below. A ZeroPay agent will contact you within 24 hours.</p>
+      <div class="form-group"><label>Business Name *</label><input type="text" id="m-biz" placeholder="Your business name"></div>
+      <div class="form-group"><label>Owner Full Name *</label><input type="text" id="m-owner" placeholder="Your full name"></div>
+      <div class="form-group"><label>Phone / WhatsApp *</label><input type="text" id="m-phone" placeholder="+234..."></div>
+      <div class="form-group"><label>Email Address</label><input type="email" id="m-email" placeholder="your@email.com"></div>
+      <div class="form-group"><label>State / City</label><input type="text" id="m-city" placeholder="e.g. Lagos, Abuja, Kano..."></div>
+      <div class="form-group"><label>Business Category</label>
+        <select id="m-cat">
+          <option>Select category...</option>
+          <option>Retail / General Trade</option><option>Food & Beverage</option><option>Transport / Logistics</option>
+          <option>Healthcare</option><option>Education</option><option>Agriculture</option><option>Other</option>
+        </select>
+      </div>
+      <div class="form-group"><label>Number of Terminals Needed</label>
+        <select id="m-terminals"><option>1</option><option>2-5</option><option>6-20</option><option>20+</option></select>
+      </div>
+      <button class="form-submit" onclick="submitMerchant()">📩 Submit Merchant Registration</button>
+      <div class="success-box" id="m-success">✅ Registration received! A ZeroPay agent will contact you within 24 hours to complete onboarding.</div>
+    </div>
+  </div>
+</div>
+
+<!-- AGENT SECTION -->
+<div id="agent-section" style="display:none">
+  <div class="section">
+    <div class="section-hdr">
+      <div class="section-tag">Agent Network</div>
+      <div class="section-title">Become a ZeroPay Agent</div>
+      <div class="section-sub">Earn commission by onboarding merchants and managing float in your local area. Full training provided.</div>
+    </div>
+    <div class="steps" style="margin-bottom:40px">
+      <div class="step-card"><div class="step-num">1</div><div class="step-icon">👤</div><div class="step-title">Agent Registration</div><div class="step-desc">Register as a ZeroPay agent. Minimum float balance ₦50,000 to activate your agent account. Full KYC required.</div></div>
+      <div class="step-card"><div class="step-num">2</div><div class="step-icon">🎓</div><div class="step-title">Training & Certification</div><div class="step-desc">Complete the ZeroPay agent training program. Learn terminal setup, merchant onboarding, float management, and batch reconciliation.</div></div>
+      <div class="step-card"><div class="step-num">3</div><div class="step-icon">🏪</div><div class="step-title">Onboard Merchants</div><div class="step-desc">Earn ₦2,500 per merchant successfully onboarded. Ongoing commission on every transaction processed through your merchants.</div></div>
+      <div class="step-card"><div class="step-num">4</div><div class="step-icon">💸</div><div class="step-title">Earn Commission</div><div class="step-desc">Commission on float transactions + per-merchant onboarding fee + ongoing % of merchant volume. Weekly payout to your bank account.</div></div>
+    </div>
+    <div class="merchant-form">
+      <h3 style="color:#00d4ff;font-size:1rem;font-weight:800;margin-bottom:6px">👤 Agent Registration Form</h3>
+      <p style="font-size:0.75rem;color:#445;margin-bottom:18px">Register to become a ZeroPay agent in your area.</p>
+      <div class="form-group"><label>Full Name *</label><input type="text" id="a-name" placeholder="Your full name"></div>
+      <div class="form-group"><label>Phone / WhatsApp *</label><input type="text" id="a-phone" placeholder="+234..."></div>
+      <div class="form-group"><label>Email</label><input type="email" id="a-email" placeholder="your@email.com"></div>
+      <div class="form-group"><label>State</label><input type="text" id="a-state" placeholder="e.g. Lagos State, Kano State..."></div>
+      <div class="form-group"><label>Local Government Area</label><input type="text" id="a-lga" placeholder="Your LGA"></div>
+      <div class="form-group"><label>Available Float Capital</label>
+        <select id="a-float"><option>₦50,000 – ₦100,000</option><option>₦100,000 – ₦500,000</option><option>₦500,000 – ₦1,000,000</option><option>₦1,000,000+</option></select>
+      </div>
+      <button class="form-submit" onclick="submitAgent()">📩 Register as Agent</button>
+      <div class="success-box" id="a-success">✅ Agent application received! Our team will contact you within 48 hours to complete onboarding.</div>
+    </div>
+  </div>
+</div>
+
+<!-- INVESTOR SECTION -->
+<div id="investor-section" style="display:none">
+  <div class="section">
+    <div class="section-hdr">
+      <div class="section-tag">Investment Opportunity</div>
+      <div class="section-title">Pre-Series A — $4.5M USD</div>
+      <div class="section-sub">Join the round that brings payment infrastructure to 1.4 billion unbanked people. Patent-pending. World-first. Paystack-integrated.</div>
+    </div>
+    <div class="invest-grid" style="margin-bottom:32px">
+      <div class="invest-card">
+        <div class="invest-val">$4.5M</div>
+        <div class="invest-lbl">Pre-Series A Target</div>
+        <ul class="invest-list">
+          <li>PUF hardware terminal production (1,000 units Phase 1)</li>
+          <li>Solar Mesh Hub deployment — 50 relay nodes Nigeria</li>
+          <li>Embedded C firmware development team</li>
+          <li>CBN Licensing & regulatory compliance</li>
+          <li>Paystack MFB float capital seeding</li>
+        </ul>
+      </div>
+      <div class="invest-card">
+        <div class="invest-val">$240M</div>
+        <div class="invest-lbl">Year 5 Revenue Projection</div>
+        <ul class="invest-list">
+          <li>1,000 merchants onboarded Year 1 (Nigeria)</li>
+          <li>West Africa expansion Year 2 (Ghana, Kenya)</li>
+          <li>Global emerging markets Year 3-5</li>
+          <li>Revenue: 0.5% settlement fee per transaction</li>
+          <li>IMTO cross-border FX premium layer</li>
+        </ul>
+      </div>
+      <div class="invest-card">
+        <div class="invest-val">IP Assets</div>
+        <div class="invest-lbl">Proprietary Technology</div>
+        <ul class="invest-list">
+          <li>PUF Distance Bounding Patent — April 2026</li>
+          <li>Offline Cryptographic Token Architecture</li>
+          <li>Solar Mesh Hub Relay Network Design</li>
+          <li>MSc NFC research — University of Gloucestershire 2011</li>
+          <li>15 years of NFC payment research commercialised</li>
+        </ul>
+      </div>
+      <div class="invest-card">
+        <div class="invest-val">Signed</div>
+        <div class="invest-lbl">Commercial Traction</div>
+        <ul class="invest-list">
+          <li>Paystack Merchant Agreement — July 14, 2026</li>
+          <li>Settlement rail partnership structure in negotiation</li>
+          <li>BETONIQ INVEST platform — 79 projects, $5.1B pipeline</li>
+          <li>Africa Fintech Foundry application — July 31, 2026</li>
+          <li>Speedinvest Typeform submitted — Vienna fund</li>
+        </ul>
+      </div>
+    </div>
+    <div class="inv-form-wrap">
+      <h3 style="color:#00d4ff;font-size:1rem;font-weight:800;margin-bottom:6px">💰 Investor Enquiry Form</h3>
+      <p style="font-size:0.75rem;color:#445;margin-bottom:18px">Request the full investor deck, financial model, and NDA. Response within 24 hours.</p>
+      <div class="form-group"><label>Full Name *</label><input type="text" id="i-name" placeholder="Your full name"></div>
+      <div class="form-group"><label>Fund / Organisation *</label><input type="text" id="i-fund" placeholder="Fund or company name"></div>
+      <div class="form-group"><label>Email *</label><input type="email" id="i-email" placeholder="your@fund.com"></div>
+      <div class="form-group"><label>Phone / WhatsApp</label><input type="text" id="i-phone" placeholder="+44 or +234..."></div>
+      <div class="form-group"><label>Investment Stage Interest</label>
+        <select id="i-stage"><option>Pre-Seed</option><option>Seed</option><option>Pre-Series A</option><option>Series A</option><option>Strategic Partner</option><option>Grant / Foundation</option></select>
+      </div>
+      <div class="form-group"><label>Investment Range</label>
+        <select id="i-range"><option>$50K – $250K</option><option>$250K – $1M</option><option>$1M – $4.5M</option><option>$4.5M+ (full round)</option></select>
+      </div>
+      <div class="form-group"><label>Message</label><textarea id="i-msg" rows="3" placeholder="Your questions or areas of interest..."></textarea></div>
+      <button class="form-submit" onclick="submitInvestor()">📩 Request Investor Pack + NDA</button>
+      <div class="success-box" id="i-success">✅ Request received! We will send you the full investor deck, financial model, and NDA within 24 hours. Email: zeropointfeild_nonwnt@zeropay.site</div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <div class="footer-logo">ZEROPAY</div>
+  <div style="font-size:0.75rem;color:#334;margin-bottom:4px">A product of BETONIQ(WEST) LTD · RC 56802 · Abuja, FCT, Nigeria</div>
+  <div class="footer-links">
+    <span class="footer-link" onclick="goTo('how')">How It Works</span>
+    <span class="footer-link" onclick="goTo('security')">Security</span>
+    <span class="footer-link" onclick="goTo('demos')">Live Demos</span>
+    <span class="footer-link" onclick="goTo('merchant')">Merchants</span>
+    <span class="footer-link" onclick="goTo('investor')">Investors</span>
+  </div>
+  <div class="footer-copy">Patent Pending April 2026 · MSc NFC University of Gloucestershire 2011 · Pre-Series A $4.5M USD<br>zeropointfeild_nonwnt@zeropay.site · © 2026 BETONIQ(WEST) LTD · Confidential</div>
+</div>
+
+<script>
+const SECTIONS = ['home','how','security','demos','merchant','agent','investor'];
+
+function goTo(tab){
+  SECTIONS.forEach(s=>{
+    const el=document.getElementById(s+'-section');
+    if(el) el.style.display = s===tab?'block':'none';
+  });
+  document.querySelectorAll('.hn').forEach(n=>n.classList.remove('active'));
+  document.querySelectorAll('.tnav').forEach(n=>{
+    n.classList.remove('active');
+    if(n.textContent.toLowerCase().includes(tab)||
+       (tab==='home'&&n.textContent.includes('Home'))||
+       (tab==='how'&&n.textContent.includes('How'))||
+       (tab==='security'&&n.textContent.includes('Security'))||
+       (tab==='demos'&&n.textContent.includes('Demo'))||
+       (tab==='merchant'&&n.textContent.includes('Merchant'))||
+       (tab==='agent'&&n.textContent.includes('Agent'))||
+       (tab==='investor'&&n.textContent.includes('Investor'))
+    ) n.classList.add('active');
+  });
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function submitMerchant(){
+  const biz=document.getElementById('m-biz').value;
+  const phone=document.getElementById('m-phone').value;
+  if(!biz||!phone){alert('Please enter your business name and phone number.');return;}
+  document.getElementById('m-success').style.display='block';
+  document.getElementById('m-biz').value='';
+  document.getElementById('m-phone').value='';
+}
+function submitAgent(){
+  const name=document.getElementById('a-name').value;
+  const phone=document.getElementById('a-phone').value;
+  if(!name||!phone){alert('Please enter your name and phone number.');return;}
+  document.getElementById('a-success').style.display='block';
+  document.getElementById('a-name').value='';
+  document.getElementById('a-phone').value='';
+}
+function submitInvestor(){
+  const name=document.getElementById('i-name').value;
+  const email=document.getElementById('i-email').value;
+  if(!name||!email){alert('Please enter your name and email.');return;}
+  document.getElementById('i-success').style.display='block';
+  document.getElementById('i-name').value='';
+  document.getElementById('i-email').value='';
+}
+</script>
+</body>
+</html>
