@@ -4,459 +4,325 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>BETONIQ INVEST — Pan-African Real Estate Investment Platform</title>
-<style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Segoe UI',Arial,sans-serif;background:#f4f6f9;color:#1a2332}
-/* HEADER */
-.hdr{background:linear-gradient(135deg,#0d1b3e 0%,#1a3a6e 100%);color:#fff;padding:0 24px}
-.hdr-top{display:flex;align-items:center;justify-content:space-between;padding:16px 0;border-bottom:1px solid rgba(255,255,255,0.1)}
-.logo{font-size:1.5rem;font-weight:900;color:#ffa500;letter-spacing:2px}
-.logo span{color:#fff;font-weight:300}
-.hdr-sub{font-size:0.7rem;color:#90a4c0;margin-top:2px}
-.hdr-btns{display:flex;gap:10px}
-.hbtn{padding:8px 18px;border-radius:20px;font-size:0.8rem;font-weight:700;cursor:pointer;border:none}
-.hbtn-outline{background:transparent;border:1px solid rgba(255,165,0,0.5);color:#ffa500}
-.hbtn-fill{background:#ffa500;color:#000}
-/* HERO */
-.hero{padding:40px 24px;text-align:center}
-.hero h1{font-size:2.2rem;font-weight:900;color:#fff;line-height:1.2;margin-bottom:12px}
-.hero h1 span{color:#ffa500}
-.hero p{font-size:1rem;color:#90a4c0;max-width:600px;margin:0 auto 24px;line-height:1.6}
-.stats-row{display:flex;justify-content:center;gap:32px;flex-wrap:wrap;margin-top:24px;padding-top:24px;border-top:1px solid rgba(255,255,255,0.1)}
-.stat{text-align:center}
-.stat-num{font-size:1.8rem;font-weight:900;color:#ffa500}
-.stat-lbl{font-size:0.65rem;color:#607080;letter-spacing:1px;margin-top:2px}
-/* NAV */
-.nav{background:#fff;border-bottom:1px solid #e0e8f0;padding:0 24px;display:flex;gap:0;overflow-x:auto;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,0.05)}
-.nav-item{padding:14px 18px;font-size:0.8rem;font-weight:600;cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap;color:#556}
-.nav-item.active{border-bottom-color:#ffa500;color:#ffa500}
-/* FILTERS */
-.filters{background:#fff;padding:16px 24px;border-bottom:1px solid #e0e8f0;display:flex;gap:10px;flex-wrap:wrap;align-items:center}
-.filter-btn{padding:6px 14px;border-radius:16px;border:1px solid #dde4ed;font-size:0.75rem;cursor:pointer;background:#f4f6f9;color:#445;font-weight:600;transition:all 0.2s}
-.filter-btn.active{background:#ffa500;color:#fff;border-color:#ffa500}
-.search-box{margin-left:auto;padding:7px 14px;border:1px solid #dde4ed;border-radius:20px;font-size:0.8rem;outline:none;min-width:200px}
-/* MAIN */
-.main{padding:24px;max-width:1200px;margin:0 auto}
-/* PROJECT GRID */
-.projects-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:20px}
-.project-card{background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.06);border:1px solid #e8edf5;cursor:pointer;transition:all 0.2s}
-.project-card:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,0.12);border-color:#ffa500}
-.card-banner{height:6px;background:linear-gradient(90deg,#ffa500,#ff6f00)}
-.card-body{padding:18px}
-.card-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px}
-.card-type{font-size:0.65rem;font-weight:700;letter-spacing:1px;color:#ffa500;background:#fff8ee;border:1px solid #ffd88a;padding:2px 8px;border-radius:8px}
-.card-flag{font-size:1.1rem}
-.card-title{font-size:0.95rem;font-weight:800;color:#1a2332;margin-bottom:6px;line-height:1.3}
-.card-loc{font-size:0.72rem;color:#778;margin-bottom:12px}
-.card-loc span{color:#ffa500;font-weight:600}
-.card-metrics{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px}
-.metric{background:#f8faff;border-radius:8px;padding:8px 10px}
-.metric-val{font-size:1rem;font-weight:900;color:#1a2332}
-.metric-lbl{font-size:0.62rem;color:#889;margin-top:1px}
-.metric-val.green{color:#00a86b}
-.metric-val.blue{color:#0077cc}
-.card-scores{display:flex;gap:8px;margin-bottom:14px}
-.score-bar{flex:1}
-.score-label{font-size:0.65rem;color:#778;margin-bottom:3px;display:flex;justify-content:space-between}
-.score-track{height:5px;background:#e8edf5;border-radius:3px}
-.score-fill{height:100%;border-radius:3px;background:linear-gradient(90deg,#ffa500,#ff6f00)}
-.score-fill.blue{background:linear-gradient(90deg,#0077cc,#00aaff)}
-.card-tags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
-.tag{font-size:0.62rem;padding:2px 8px;border-radius:8px;font-weight:600}
-.tag-equity{background:#e8f5e9;color:#2e7d32;border:1px solid #a5d6a7}
-.tag-status{background:#e3f2fd;color:#1565c0;border:1px solid #90caf9}
-.tag-featured{background:#fff3e0;color:#e65100;border:1px solid #ffcc80}
-.card-btns{display:flex;gap:8px}
-.cbtn{flex:1;padding:9px;border-radius:8px;font-size:0.75rem;font-weight:700;cursor:pointer;border:none;transition:all 0.2s;text-align:center}
-.cbtn-primary{background:#ffa500;color:#fff}
-.cbtn-primary:hover{background:#ff8c00}
-.cbtn-outline{background:transparent;border:1px solid #ffa500;color:#ffa500}
-.cbtn-outline:hover{background:#fff8ee}
-/* MODAL */
-.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:1000;padding:20px;overflow-y:auto}
-.modal-overlay.open{display:flex;align-items:flex-start;justify-content:center}
-.modal{background:#fff;border-radius:16px;max-width:700px;width:100%;margin:20px auto;overflow:hidden}
-.modal-header{background:linear-gradient(135deg,#0d1b3e,#1a3a6e);color:#fff;padding:24px;position:relative}
-.modal-close{position:absolute;top:16px;right:16px;background:rgba(255,255,255,0.1);border:none;color:#fff;width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:1.1rem}
-.modal-title{font-size:1.2rem;font-weight:900;color:#fff;margin-bottom:4px}
-.modal-sub{font-size:0.8rem;color:#90a4c0}
-.modal-body{padding:24px}
-.modal-section{margin-bottom:20px}
-.modal-section h3{font-size:0.8rem;font-weight:700;color:#ffa500;letter-spacing:1px;text-transform:uppercase;margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid #f0f4f8}
-.modal-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.modal-metric{background:#f8faff;border-radius:8px;padding:12px}
-.modal-metric-val{font-size:1.2rem;font-weight:900;color:#1a2332}
-.modal-metric-lbl{font-size:0.7rem;color:#778;margin-top:2px}
-.modal-desc{font-size:0.8rem;color:#445;line-height:1.7}
-.modal-highlights{list-style:none;padding:0}
-.modal-highlights li{font-size:0.8rem;color:#334;padding:6px 0;border-bottom:1px solid #f0f4f8;display:flex;align-items:flex-start;gap:8px}
-.modal-highlights li::before{content:"✦";color:#ffa500;flex-shrink:0;margin-top:1px}
-.modal-btns{display:flex;gap:10px;margin-top:20px}
-.mbtn{flex:1;padding:12px;border-radius:10px;font-size:0.85rem;font-weight:700;cursor:pointer;border:none;transition:all 0.2s}
-.mbtn-primary{background:linear-gradient(135deg,#ffa500,#ff6f00);color:#fff}
-.mbtn-outline{background:transparent;border:2px solid #ffa500;color:#ffa500}
-/* INVEST FORM */
-.invest-form{background:#f8faff;border-radius:12px;padding:20px;margin-top:16px}
-.invest-form h3{font-size:0.9rem;font-weight:800;color:#1a2332;margin-bottom:14px}
-.form-group{margin-bottom:12px}
-.form-group label{font-size:0.75rem;font-weight:600;color:#445;display:block;margin-bottom:4px}
-.form-group input,.form-group select,.form-group textarea{width:100%;padding:9px 12px;border:1px solid #dde4ed;border-radius:8px;font-size:0.8rem;outline:none;background:#fff}
-.form-group input:focus,.form-group select:focus{border-color:#ffa500}
-.form-submit{width:100%;padding:12px;background:linear-gradient(135deg,#ffa500,#ff6f00);color:#fff;border:none;border-radius:10px;font-weight:700;font-size:0.9rem;cursor:pointer;margin-top:4px}
-.success-msg{background:#e8f5e9;border:1px solid #a5d6a7;border-radius:10px;padding:14px;text-align:center;color:#2e7d32;font-weight:700;display:none}
-/* COUNTRY FLAG MAP */
-.country-flags{font-size:1.1rem}
-/* FOOTER */
-.footer{background:#0d1b3e;color:#607080;padding:24px;text-align:center;font-size:0.72rem;margin-top:40px}
-.footer-brand{color:#ffa500;font-size:1rem;font-weight:900;margin-bottom:6px}
-/* RESPONSIVE */
-@media(max-width:600px){
-.hero h1{font-size:1.5rem}
-.stats-row{gap:16px}
-.projects-grid{grid-template-columns:1fr}
-.modal-grid{grid-template-columns:1fr}
-.hdr-btns{display:none}
-.search-box{min-width:140px}
-}
-</style>
+<style>*{margin:0;padding:0;box-sizing:border-box}body{font-family:'Segoe UI',Arial,sans-serif;background:#f4f6f9;color:#1a2332}.hdr{background:linear-gradient(135deg,#0d1b3e 0%,#1a3a6e 100%);color:#fff;padding:0 24px}.hdr-top{display:flex;align-items:center;justify-content:space-between;padding:16px 0;border-bottom:1px solid rgba(255,255,255,0.1)}.logo{font-size:1.5rem;font-weight:900;color:#ffa500;letter-spacing:2px}.logo span{color:#fff;font-weight:300}.hdr-sub{font-size:0.7rem;color:#90a4c0;margin-top:2px}.hdr-btns{display:flex;gap:10px}.hbtn{padding:8px 18px;border-radius:20px;font-size:0.8rem;font-weight:700;cursor:pointer;border:none}.hbtn-outline{background:transparent;border:1px solid rgba(255,165,0,0.5);color:#ffa500}.hbtn-fill{background:#ffa500;color:#000}.hero{padding:40px 24px;text-align:center}.hero h1{font-size:2.2rem;font-weight:900;color:#fff;line-height:1.2;margin-bottom:12px}.hero h1 span{color:#ffa500}.hero p{font-size:1rem;color:#90a4c0;max-width:600px;margin:0 auto 24px;line-height:1.6}.stats-row{display:flex;justify-content:center;gap:32px;flex-wrap:wrap;margin-top:24px;padding-top:24px;border-top:1px solid rgba(255,255,255,0.1)}.stat{text-align:center}.stat-num{font-size:1.8rem;font-weight:900;color:#ffa500}.stat-lbl{font-size:0.65rem;color:#607080;letter-spacing:1px;margin-top:2px}.nav{background:#fff;border-bottom:1px solid #e0e8f0;padding:0 24px;display:flex;gap:0;overflow-x:auto;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,0.05)}.nav-item{padding:14px 18px;font-size:0.8rem;font-weight:600;cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap;color:#556}.nav-item.active{border-bottom-color:#ffa500;color:#ffa500}.filters{background:#fff;padding:16px 24px;border-bottom:1px solid #e0e8f0;display:flex;gap:10px;flex-wrap:wrap;align-items:center}.filter-btn{padding:6px 14px;border-radius:16px;border:1px solid #dde4ed;font-size:0.75rem;cursor:pointer;background:#f4f6f9;color:#445;font-weight:600;transition:all 0.2s}.filter-btn.active{background:#ffa500;color:#fff;border-color:#ffa500}.search-box{margin-left:auto;padding:7px 14px;border:1px solid #dde4ed;border-radius:20px;font-size:0.8rem;outline:none;min-width:200px}.main{padding:24px;max-width:1200px;margin:0 auto}.projects-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:20px}.project-card{background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.06);border:1px solid #e8edf5;cursor:pointer;transition:all 0.2s}.project-card:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,0.12);border-color:#ffa500}.card-banner{height:6px;background:linear-gradient(90deg,#ffa500,#ff6f00)}.card-body{padding:18px}.card-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px}.card-type{font-size:0.65rem;font-weight:700;letter-spacing:1px;color:#ffa500;background:#fff8ee;border:1px solid #ffd88a;padding:2px 8px;border-radius:8px}.card-flag{font-size:1.1rem}.card-title{font-size:0.95rem;font-weight:800;color:#1a2332;margin-bottom:6px;line-height:1.3}.card-loc{font-size:0.72rem;color:#778;margin-bottom:12px}.card-loc span{color:#ffa500;font-weight:600}.card-metrics{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px}.metric{background:#f8faff;border-radius:8px;padding:8px 10px}.metric-val{font-size:1rem;font-weight:900;color:#1a2332}.metric-lbl{font-size:0.62rem;color:#889;margin-top:1px}.metric-val.green{color:#00a86b}.metric-val.blue{color:#0077cc}.card-scores{display:flex;gap:8px;margin-bottom:14px}.score-bar{flex:1}.score-label{font-size:0.65rem;color:#778;margin-bottom:3px;display:flex;justify-content:space-between}.score-track{height:5px;background:#e8edf5;border-radius:3px}.score-fill{height:100%;border-radius:3px;background:linear-gradient(90deg,#ffa500,#ff6f00)}.score-fill.blue{background:linear-gradient(90deg,#0077cc,#00aaff)}.card-tags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}.tag{font-size:0.62rem;padding:2px 8px;border-radius:8px;font-weight:600}.tag-equity{background:#e8f5e9;color:#2e7d32;border:1px solid #a5d6a7}.tag-status{background:#e3f2fd;color:#1565c0;border:1px solid #90caf9}.tag-featured{background:#fff3e0;color:#e65100;border:1px solid #ffcc80}.card-btns{display:flex;gap:8px}.cbtn{flex:1;padding:9px;border-radius:8px;font-size:0.75rem;font-weight:700;cursor:pointer;border:none;transition:all 0.2s;text-align:center}.cbtn-primary{background:#ffa500;color:#fff}.cbtn-primary:hover{background:#ff8c00}.cbtn-outline{background:transparent;border:1px solid #ffa500;color:#ffa500}.cbtn-outline:hover{background:#fff8ee}.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:1000;padding:20px;overflow-y:auto}.modal-overlay.open{display:flex;align-items:flex-start;justify-content:center}.modal{background:#fff;border-radius:16px;max-width:700px;width:100%;margin:20px auto;overflow:hidden}.modal-header{background:linear-gradient(135deg,#0d1b3e,#1a3a6e);color:#fff;padding:24px;position:relative}.modal-close{position:absolute;top:16px;right:16px;background:rgba(255,255,255,0.1);border:none;color:#fff;width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:1.1rem}.modal-title{font-size:1.2rem;font-weight:900;color:#fff;margin-bottom:4px}.modal-sub{font-size:0.8rem;color:#90a4c0}.modal-body{padding:24px}.modal-section{margin-bottom:20px}.modal-section h3{font-size:0.8rem;font-weight:700;color:#ffa500;letter-spacing:1px;text-transform:uppercase;margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid #f0f4f8}.modal-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.modal-metric{background:#f8faff;border-radius:8px;padding:12px}.modal-metric-val{font-size:1.2rem;font-weight:900;color:#1a2332}.modal-metric-lbl{font-size:0.7rem;color:#778;margin-top:2px}.modal-desc{font-size:0.8rem;color:#445;line-height:1.7}.modal-highlights{list-style:none;padding:0}.modal-highlights li{font-size:0.8rem;color:#334;padding:6px 0;border-bottom:1px solid #f0f4f8;display:flex;align-items:flex-start;gap:8px}.modal-highlights li::before{content:"✦";color:#ffa500;flex-shrink:0;margin-top:1px}.modal-btns{display:flex;gap:10px;margin-top:20px}.mbtn{flex:1;padding:12px;border-radius:10px;font-size:0.85rem;font-weight:700;cursor:pointer;border:none;transition:all 0.2s}.mbtn-primary{background:linear-gradient(135deg,#ffa500,#ff6f00);color:#fff}.mbtn-outline{background:transparent;border:2px solid #ffa500;color:#ffa500}.invest-form{background:#f8faff;border-radius:12px;padding:20px;margin-top:16px}.invest-form h3{font-size:0.9rem;font-weight:800;color:#1a2332;margin-bottom:14px}.form-group{margin-bottom:12px}.form-group label{font-size:0.75rem;font-weight:600;color:#445;display:block;margin-bottom:4px}.form-group input,.form-group select,.form-group textarea{width:100%;padding:9px 12px;border:1px solid #dde4ed;border-radius:8px;font-size:0.8rem;outline:none;background:#fff}.form-group input:focus,.form-group select:focus{border-color:#ffa500}.form-submit{width:100%;padding:12px;background:linear-gradient(135deg,#ffa500,#ff6f00);color:#fff;border:none;border-radius:10px;font-weight:700;font-size:0.9rem;cursor:pointer;margin-top:4px}.success-msg{background:#e8f5e9;border:1px solid #a5d6a7;border-radius:10px;padding:14px;text-align:center;color:#2e7d32;font-weight:700;display:none}.country-flags{font-size:1.1rem}.footer{background:#0d1b3e;color:#607080;padding:24px;text-align:center;font-size:0.72rem;margin-top:40px}.footer-brand{color:#ffa500;font-size:1rem;font-weight:900;margin-bottom:6px}@media(max-width:600px){.hero h1{font-size:1.5rem}.stats-row{gap:16px}.projects-grid{grid-template-columns:1fr}.modal-grid{grid-template-columns:1fr}.hdr-btns{display:none}.search-box{min-width:140px}}</style>
 </head>
 <body>
-
 <div class="hdr">
-  <div class="hdr-top">
-    <div>
-      <div class="logo">BETONIQ <span>INVEST</span></div>
-      <div class="hdr-sub">AI-Powered Pan-African Real Estate Investment Platform · RC 56802</div>
-    </div>
-    <div class="hdr-btns">
-      <button class="hbtn hbtn-outline" onclick="openInvestorForm()">Investor Registration</button>
-      <button class="hbtn hbtn-fill" onclick="scrollToProjects()">Browse Projects</button>
-    </div>
-  </div>
-  <div class="hero">
-    <h1>Invest in <span>African Real Estate</span><br>Powered by AI Intelligence</h1>
-    <p>The world's first AI-scored, compliance-verified real estate investment platform for Pan-African and emerging market properties. Every project rated across 47 parameters.</p>
-    <div class="stats-row">
-      <div class="stat"><div class="stat-num" id="s-projects">79</div><div class="stat-lbl">CURATED PROJECTS</div></div>
-      <div class="stat"><div class="stat-num">11</div><div class="stat-lbl">COUNTRIES</div></div>
-      <div class="stat"><div class="stat-num">$5.1B</div><div class="stat-lbl">PIPELINE VALUE</div></div>
-      <div class="stat"><div class="stat-num">29%</div><div class="stat-lbl">AVG TARGET ROI</div></div>
-      <div class="stat"><div class="stat-num">47</div><div class="stat-lbl">AI PARAMETERS</div></div>
-    </div>
-  </div>
+<div class="hdr-top">
+<div>
+<div class="logo">BETONIQ <span>INVEST</span></div>
+<div class="hdr-sub">AI-Powered Pan-African Real Estate Investment Platform · RC 56802</div>
 </div>
-
+<div class="hdr-btns">
+<button class="hbtn hbtn-outline" onclick="openInvestorForm()">Investor Registration</button>
+<button class="hbtn hbtn-fill" onclick="scrollToProjects()">Browse Projects</button>
+</div>
+</div>
+<div class="hero">
+<h1>Invest in <span>African Real Estate</span><br>Powered by AI Intelligence</h1>
+<p>The world's first AI-scored, compliance-verified real estate investment platform for Pan-African and emerging market properties. Every project rated across 47 parameters.</p>
+<div class="stats-row">
+<div class="stat"><div class="stat-num" id="s-projects">79</div><div class="stat-lbl">CURATED PROJECTS</div></div>
+<div class="stat"><div class="stat-num">11</div><div class="stat-lbl">COUNTRIES</div></div>
+<div class="stat"><div class="stat-num">$5.1B</div><div class="stat-lbl">PIPELINE VALUE</div></div>
+<div class="stat"><div class="stat-num">29%</div><div class="stat-lbl">AVG TARGET ROI</div></div>
+<div class="stat"><div class="stat-num">47</div><div class="stat-lbl">AI PARAMETERS</div></div>
+</div>
+</div>
+</div>
 <div class="nav">
-  <div class="nav-item active" onclick="showTab('projects')">All Projects</div>
-  <div class="nav-item" onclick="showTab('featured')">Featured</div>
-  <div class="nav-item" onclick="showTab('funding')">Funding Now</div>
-  <div class="nav-item" onclick="showTab('how')">How It Works</div>
-  <div class="nav-item" onclick="showTab('contact')">Register as Investor</div>
+<div class="nav-item active" onclick="showTab('projects')">All Projects</div>
+<div class="nav-item" onclick="showTab('featured')">Featured</div>
+<div class="nav-item" onclick="showTab('funding')">Funding Now</div>
+<div class="nav-item" onclick="showTab('how')">How It Works</div>
+<div class="nav-item" onclick="showTab('contact')">Register as Investor</div>
 </div>
-
 <div class="filters" id="filters-bar">
-  <button class="filter-btn active" onclick="filterProjects('all',this)">All Countries</button>
-  <button class="filter-btn" onclick="filterProjects('Nigeria',this)">🇳🇬 Nigeria</button>
-  <button class="filter-btn" onclick="filterProjects('Kenya',this)">🇰🇪 Kenya</button>
-  <button class="filter-btn" onclick="filterProjects('Ghana',this)">🇬🇭 Ghana</button>
-  <button class="filter-btn" onclick="filterProjects('Morocco',this)">🇲🇦 Morocco</button>
-  <button class="filter-btn" onclick="filterProjects('UAE',this)">🇦🇪 UAE</button>
-  <button class="filter-btn" onclick="filterProjects('South Africa',this)">🇿🇦 S.Africa</button>
-  <button class="filter-btn" onclick="filterProjects('United Kingdom',this)">🇬🇧 UK</button>
-  <button class="filter-btn" onclick="filterType('Residential',this)">Residential</button>
-  <button class="filter-btn" onclick="filterType('Hospitality',this)">Hospitality</button>
-  <button class="filter-btn" onclick="filterType('Mixed Use',this)">Mixed Use</button>
-  <input type="text" class="search-box" id="searchBox" placeholder="Search projects..." oninput="searchProjects(this.value)">
+<button class="filter-btn active" onclick="filterProjects('all',this)">All Countries</button>
+<button class="filter-btn" onclick="filterProjects('Nigeria',this)">🇳🇬 Nigeria</button>
+<button class="filter-btn" onclick="filterProjects('Kenya',this)">🇰🇪 Kenya</button>
+<button class="filter-btn" onclick="filterProjects('Ghana',this)">🇬🇭 Ghana</button>
+<button class="filter-btn" onclick="filterProjects('Morocco',this)">🇲🇦 Morocco</button>
+<button class="filter-btn" onclick="filterProjects('UAE',this)">🇦🇪 UAE</button>
+<button class="filter-btn" onclick="filterProjects('South Africa',this)">🇿🇦 S.Africa</button>
+<button class="filter-btn" onclick="filterProjects('United Kingdom',this)">🇬🇧 UK</button>
+<button class="filter-btn" onclick="filterType('Residential',this)">Residential</button>
+<button class="filter-btn" onclick="filterType('Hospitality',this)">Hospitality</button>
+<button class="filter-btn" onclick="filterType('Mixed Use',this)">Mixed Use</button>
+<input type="text" class="search-box" id="searchBox" placeholder="Search projects..." oninput="searchProjects(this.value)">
 </div>
-
 <div class="main" id="projects-section">
-  <div class="projects-grid" id="projectsGrid"></div>
+<div class="projects-grid" id="projectsGrid"></div>
 </div>
-
 <div id="how-section" style="display:none;padding:40px 24px;max-width:900px;margin:0 auto">
-  <h2 style="font-size:1.5rem;font-weight:900;color:#0d1b3e;margin-bottom:8px">How BETONIQ INVEST Works</h2>
-  <p style="color:#556;margin-bottom:28px">Our AI engine scores every project across 47 parameters before it ever reaches your screen.</p>
-  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px">
-    <div style="background:#fff;border-radius:12px;padding:20px;border:1px solid #e8edf5">
-      <div style="font-size:1.8rem;margin-bottom:10px">🔍</div>
-      <div style="font-weight:800;color:#1a2332;margin-bottom:6px">1. Project Submission</div>
-      <div style="font-size:0.8rem;color:#556;line-height:1.6">Developers submit projects with full documentation — planning permits, feasibility studies, compliance certificates, and financial projections.</div>
-    </div>
-    <div style="background:#fff;border-radius:12px;padding:20px;border:1px solid #e8edf5">
-      <div style="font-size:1.8rem;margin-bottom:10px">🤖</div>
-      <div style="font-weight:800;color:#1a2332;margin-bottom:6px">2. AI Scoring (47 Parameters)</div>
-      <div style="font-size:0.8rem;color:#556;line-height:1.6">Our AI engine evaluates macro data, project financials, location demand, regulatory status, and investor fit. Minimum score of 75/100 required for listing.</div>
-    </div>
-    <div style="background:#fff;border-radius:12px;padding:20px;border:1px solid #e8edf5">
-      <div style="font-size:1.8rem;margin-bottom:10px">✅</div>
-      <div style="font-weight:800;color:#1a2332;margin-bottom:6px">3. Compliance Verification</div>
-      <div style="font-size:0.8rem;color:#556;line-height:1.6">Every project undergoes KYC/AML checks, planning approval verification, regulatory compliance review. Minimum compliance score 80/100.</div>
-    </div>
-    <div style="background:#fff;border-radius:12px;padding:20px;border:1px solid #e8edf5">
-      <div style="font-size:1.8rem;margin-bottom:10px">💰</div>
-      <div style="font-weight:800;color:#1a2332;margin-bottom:6px">4. Investor Match</div>
-      <div style="font-size:0.8rem;color:#556;line-height:1.6">Our system matches projects to investors by risk appetite, investment horizon, preferred region, and minimum capital. Personalized portfolio recommendations.</div>
-    </div>
-    <div style="background:#fff;border-radius:12px;padding:20px;border:1px solid #e8edf5">
-      <div style="font-size:1.8rem;margin-bottom:10px">📋</div>
-      <div style="font-weight:800;color:#1a2332;margin-bottom:6px">5. Due Diligence Package</div>
-      <div style="font-size:0.8rem;color:#556;line-height:1.6">Full feasibility study, NPV/IRR calculations, market demand analysis, and compliance certificate provided before any investment commitment.</div>
-    </div>
-    <div style="background:#fff;border-radius:12px;padding:20px;border:1px solid #e8edf5">
-      <div style="font-size:1.8rem;margin-bottom:10px">📈</div>
-      <div style="font-weight:800;color:#1a2332;margin-bottom:6px">6. Quarterly Reporting</div>
-      <div style="font-size:0.8rem;color:#556;line-height:1.6">Digital quarterly performance reports, construction updates, and financial statements delivered to all investors for full portfolio transparency.</div>
-    </div>
-  </div>
+<h2 style="font-size:1.5rem;font-weight:900;color:#0d1b3e;margin-bottom:8px">How BETONIQ INVEST Works</h2>
+<p style="color:#556;margin-bottom:28px">Our AI engine scores every project across 47 parameters before it ever reaches your screen.</p>
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px">
+<div style="background:#fff;border-radius:12px;padding:20px;border:1px solid #e8edf5">
+<div style="font-size:1.8rem;margin-bottom:10px">🔍</div>
+<div style="font-weight:800;color:#1a2332;margin-bottom:6px">1. Project Submission</div>
+<div style="font-size:0.8rem;color:#556;line-height:1.6">Developers submit projects with full documentation — planning permits, feasibility studies, compliance certificates, and financial projections.</div>
 </div>
-
+<div style="background:#fff;border-radius:12px;padding:20px;border:1px solid #e8edf5">
+<div style="font-size:1.8rem;margin-bottom:10px">🤖</div>
+<div style="font-weight:800;color:#1a2332;margin-bottom:6px">2. AI Scoring (47 Parameters)</div>
+<div style="font-size:0.8rem;color:#556;line-height:1.6">Our AI engine evaluates macro data, project financials, location demand, regulatory status, and investor fit. Minimum score of 75/100 required for listing.</div>
+</div>
+<div style="background:#fff;border-radius:12px;padding:20px;border:1px solid #e8edf5">
+<div style="font-size:1.8rem;margin-bottom:10px">✅</div>
+<div style="font-weight:800;color:#1a2332;margin-bottom:6px">3. Compliance Verification</div>
+<div style="font-size:0.8rem;color:#556;line-height:1.6">Every project undergoes KYC/AML checks, planning approval verification, regulatory compliance review. Minimum compliance score 80/100.</div>
+</div>
+<div style="background:#fff;border-radius:12px;padding:20px;border:1px solid #e8edf5">
+<div style="font-size:1.8rem;margin-bottom:10px">💰</div>
+<div style="font-weight:800;color:#1a2332;margin-bottom:6px">4. Investor Match</div>
+<div style="font-size:0.8rem;color:#556;line-height:1.6">Our system matches projects to investors by risk appetite, investment horizon, preferred region, and minimum capital. Personalized portfolio recommendations.</div>
+</div>
+<div style="background:#fff;border-radius:12px;padding:20px;border:1px solid #e8edf5">
+<div style="font-size:1.8rem;margin-bottom:10px">📋</div>
+<div style="font-weight:800;color:#1a2332;margin-bottom:6px">5. Due Diligence Package</div>
+<div style="font-size:0.8rem;color:#556;line-height:1.6">Full feasibility study, NPV/IRR calculations, market demand analysis, and compliance certificate provided before any investment commitment.</div>
+</div>
+<div style="background:#fff;border-radius:12px;padding:20px;border:1px solid #e8edf5">
+<div style="font-size:1.8rem;margin-bottom:10px">📈</div>
+<div style="font-weight:800;color:#1a2332;margin-bottom:6px">6. Quarterly Reporting</div>
+<div style="font-size:0.8rem;color:#556;line-height:1.6">Digital quarterly performance reports, construction updates, and financial statements delivered to all investors for full portfolio transparency.</div>
+</div>
+</div>
+</div>
 <div id="contact-section" style="display:none;padding:40px 24px;max-width:600px;margin:0 auto">
-  <h2 style="font-size:1.4rem;font-weight:900;color:#0d1b3e;margin-bottom:8px">Investor Registration</h2>
-  <p style="color:#556;margin-bottom:24px;font-size:0.85rem">Register your interest to access the full project portfolio, feasibility studies, compliance documents, and investment terms.</p>
-  <div id="mainInvestForm"></div>
+<h2 style="font-size:1.4rem;font-weight:900;color:#0d1b3e;margin-bottom:8px">Investor Registration</h2>
+<p style="color:#556;margin-bottom:24px;font-size:0.85rem">Register your interest to access the full project portfolio, feasibility studies, compliance documents, and investment terms.</p>
+<div id="mainInvestForm"></div>
 </div>
-
 <div class="footer">
-  <div class="footer-brand">BETONIQ INVEST</div>
-  A product of BETONIQ(WEST) LTD · RC 56802 · Abuja, FCT, Nigeria<br>
-  Pre-Series A $4.5M USD · zeropointfeild_nonwnt@zeropay.site<br>
-  © 2026 BETONIQ(WEST) LTD · Confidential · For Accredited Investors
+<div class="footer-brand">BETONIQ INVEST</div>
+A product of BETONIQ(WEST) LTD · RC 56802 · Abuja, FCT, Nigeria<br>
+Pre-Series A $4.5M USD · zeropointfeild_nonwnt@zeropay.site<br>
+© 2026 BETONIQ(WEST) LTD · Confidential · For Accredited Investors
 </div>
-
 <!-- PROJECT DETAIL MODAL -->
 <div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
-  <div class="modal" id="projectModal">
-    <div class="modal-header">
-      <button class="modal-close" onclick="closeModalBtn()">✕</button>
-      <div class="modal-title" id="m-title"></div>
-      <div class="modal-sub" id="m-sub"></div>
-    </div>
-    <div class="modal-body">
-      <div class="modal-section">
-        <h3>Investment Metrics</h3>
-        <div class="modal-grid">
-          <div class="modal-metric"><div class="modal-metric-val" id="m-roi"></div><div class="modal-metric-lbl">Target ROI</div></div>
-          <div class="modal-metric"><div class="modal-metric-val" id="m-period"></div><div class="modal-metric-lbl">Investment Period</div></div>
-          <div class="modal-metric"><div class="modal-metric-val" id="m-mininvest"></div><div class="modal-metric-lbl">Minimum Investment</div></div>
-          <div class="modal-metric"><div class="modal-metric-val" id="m-totalval"></div><div class="modal-metric-lbl">Total Project Value</div></div>
-        </div>
-      </div>
-      <div class="modal-section">
-        <h3>AI Scores</h3>
-        <div class="modal-grid">
-          <div class="modal-metric"><div class="modal-metric-val" id="m-feasibility"></div><div class="modal-metric-lbl">Feasibility Score / 100</div></div>
-          <div class="modal-metric"><div class="modal-metric-val" id="m-compliance"></div><div class="modal-metric-lbl">Compliance Score / 100</div></div>
-        </div>
-      </div>
-      <div class="modal-section">
-        <h3>Project Overview</h3>
-        <div class="modal-desc" id="m-desc"></div>
-      </div>
-      <div class="modal-section" id="m-highlights-section">
-        <h3>Key Highlights</h3>
-        <ul class="modal-highlights" id="m-highlights"></ul>
-      </div>
-      <div class="invest-form">
-        <h3>📋 Request Full Due Diligence Package</h3>
-        <p style="font-size:0.75rem;color:#556;margin-bottom:14px">Submit your details to receive the feasibility study, compliance documents, and investor application form for this project.</p>
-        <div class="form-group">
-          <label>Full Name *</label>
-          <input type="text" id="f-name" placeholder="Your full name">
-        </div>
-        <div class="form-group">
-          <label>Email Address *</label>
-          <input type="email" id="f-email" placeholder="your@email.com">
-        </div>
-        <div class="form-group">
-          <label>Phone / WhatsApp</label>
-          <input type="text" id="f-phone" placeholder="+44 or +234...">
-        </div>
-        <div class="form-group">
-          <label>Country of Residence</label>
-          <select id="f-country">
-            <option>Select country...</option>
-            <option>Nigeria</option><option>United Kingdom</option><option>United Arab Emirates</option>
-            <option>United States</option><option>Canada</option><option>Ghana</option>
-            <option>Kenya</option><option>South Africa</option><option>Other</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label>Investment Budget (USD)</label>
-          <select id="f-budget">
-            <option>Select range...</option>
-            <option>$5,000 – $25,000</option><option>$25,000 – $100,000</option>
-            <option>$100,000 – $500,000</option><option>$500,000+</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label>Message (optional)</label>
-          <textarea id="f-message" rows="2" placeholder="Any specific questions about this project..."></textarea>
-        </div>
-        <button class="form-submit" onclick="submitInquiry()">📩 Request Due Diligence Package</button>
-        <div class="success-msg" id="form-success">✅ Request received! Our team will contact you within 24 hours with the full due diligence package.</div>
-      </div>
-    </div>
-  </div>
+<div class="modal" id="projectModal">
+<div class="modal-header">
+<button class="modal-close" onclick="closeModalBtn()">✕</button>
+<div class="modal-title" id="m-title"></div>
+<div class="modal-sub" id="m-sub"></div>
 </div>
-
+<div class="modal-body">
+<div class="modal-section">
+<h3>Investment Metrics</h3>
+<div class="modal-grid">
+<div class="modal-metric"><div class="modal-metric-val" id="m-roi"></div><div class="modal-metric-lbl">Target ROI</div></div>
+<div class="modal-metric"><div class="modal-metric-val" id="m-period"></div><div class="modal-metric-lbl">Investment Period</div></div>
+<div class="modal-metric"><div class="modal-metric-val" id="m-mininvest"></div><div class="modal-metric-lbl">Minimum Investment</div></div>
+<div class="modal-metric"><div class="modal-metric-val" id="m-totalval"></div><div class="modal-metric-lbl">Total Project Value</div></div>
+</div>
+</div>
+<div class="modal-section">
+<h3>AI Scores</h3>
+<div class="modal-grid">
+<div class="modal-metric"><div class="modal-metric-val" id="m-feasibility"></div><div class="modal-metric-lbl">Feasibility Score / 100</div></div>
+<div class="modal-metric"><div class="modal-metric-val" id="m-compliance"></div><div class="modal-metric-lbl">Compliance Score / 100</div></div>
+</div>
+</div>
+<div class="modal-section">
+<h3>Project Overview</h3>
+<div class="modal-desc" id="m-desc"></div>
+</div>
+<div class="modal-section" id="m-highlights-section">
+<h3>Key Highlights</h3>
+<ul class="modal-highlights" id="m-highlights"></ul>
+</div>
+<div class="invest-form">
+<h3>📋 Request Full Due Diligence Package</h3>
+<p style="font-size:0.75rem;color:#556;margin-bottom:14px">Submit your details to receive the feasibility study, compliance documents, and investor application form for this project.</p>
+<div class="form-group">
+<label>Full Name *</label>
+<input type="text" id="f-name" placeholder="Your full name">
+</div>
+<div class="form-group">
+<label>Email Address *</label>
+<input type="email" id="f-email" placeholder="your@email.com">
+</div>
+<div class="form-group">
+<label>Phone / WhatsApp</label>
+<input type="text" id="f-phone" placeholder="+44 or +234...">
+</div>
+<div class="form-group">
+<label>Country of Residence</label>
+<select id="f-country">
+<option>Select country...</option>
+<option>Nigeria</option><option>United Kingdom</option><option>United Arab Emirates</option>
+<option>United States</option><option>Canada</option><option>Ghana</option>
+<option>Kenya</option><option>South Africa</option><option>Other</option>
+</select>
+</div>
+<div class="form-group">
+<label>Investment Budget (USD)</label>
+<select id="f-budget">
+<option>Select range...</option>
+<option>$5,000 – $25,000</option><option>$25,000 – $100,000</option>
+<option>$100,000 – $500,000</option><option>$500,000+</option>
+</select>
+</div>
+<div class="form-group">
+<label>Message (optional)</label>
+<textarea id="f-message" rows="2" placeholder="Any specific questions about this project..."></textarea>
+</div>
+<button class="form-submit" onclick="submitInquiry()">📩 Request Due Diligence Package</button>
+<div class="success-msg" id="form-success">✅ Request received! Our team will contact you within 24 hours with the full due diligence package.</div>
+</div>
+</div>
+</div>
+</div>
 <script>
 const FLAGS = {Nigeria:'🇳🇬',Kenya:'🇰🇪',Ghana:'🇬🇭',Morocco:'🇲🇦',Tanzania:'🇹🇿',Rwanda:'🇷🇼','South Africa':'🇿🇦','United Kingdom':'🇬🇧',UAE:'🇦🇪','Cape Verde':'🇨🇻',Namibia:'🇳🇦',Egypt:'🇪🇬','Ivory Coast':'🇨🇮',Senegal:'🇸🇳',Ethiopia:'🇪🇹'};
 const STATUS_COLOR = {'Under Construction':'#1565c0','Available':'#2e7d32','Funding':'#e65100','Approved':'#4527a0','Completed':'#00695c'};
-
 let ALL_PROJECTS = [];
 let currentFilter = 'all';
 let currentType = '';
 let currentSearch = '';
 let currentProject = null;
-
 function fmt(n){if(!n)return'N/A';if(n>=1e9)return'$'+(n/1e9).toFixed(1)+'B';if(n>=1e6)return'$'+(n/1e6).toFixed(1)+'M';if(n>=1e3)return'$'+(n/1e3).toFixed(0)+'K';return'$'+n.toLocaleString();}
-
 function renderCard(p){
-  const flag = FLAGS[p.country]||'🌍';
-  const sc = p.compliance_score||0;
-  const sf = p.feasibility_score||0;
-  const statusColor = STATUS_COLOR[p.status]||'#445';
-  return `<div class="project-card" onclick='openModal(${JSON.stringify(p).replace(/'/g,"&#39;")})'>
-    <div class="card-banner"></div>
-    <div class="card-body">
-      <div class="card-top">
-        <span class="card-type">${p.project_type||'Property'}</span>
-        <span class="card-flag">${flag}</span>
-      </div>
-      <div class="card-title">${p.project_name}</div>
-      <div class="card-loc"><span>${p.country}</span> · ${p.city||''}</div>
-      <div class="card-metrics">
-        <div class="metric"><div class="metric-val green">${p.target_roi_percent||'?'}%</div><div class="metric-lbl">Target ROI</div></div>
-        <div class="metric"><div class="metric-val blue">${p.investment_period_months||'?'} mo</div><div class="metric-lbl">Period</div></div>
-        <div class="metric"><div class="metric-val">${fmt(p.minimum_investment_usd)}</div><div class="metric-lbl">Min. Investment</div></div>
-        <div class="metric"><div class="metric-val">${fmt(p.total_value_usd)}</div><div class="metric-lbl">Project Value</div></div>
-      </div>
-      <div class="card-scores">
-        <div class="score-bar">
-          <div class="score-label"><span>Feasibility</span><span style="font-weight:700;color:#ffa500">${sf}/100</span></div>
-          <div class="score-track"><div class="score-fill" style="width:${sf}%"></div></div>
-        </div>
-        <div class="score-bar">
-          <div class="score-label"><span>Compliance</span><span style="font-weight:700;color:#0077cc">${sc}/100</span></div>
-          <div class="score-track"><div class="score-fill blue" style="width:${sc}%"></div></div>
-        </div>
-      </div>
-      <div class="card-tags">
-        ${p.equity_available?'<span class="tag tag-equity">Equity Available</span>':''}
-        <span class="tag tag-status" style="background:#e3f2fd;color:${statusColor}">${p.status}</span>
-        ${p.featured?'<span class="tag tag-featured">⭐ Featured</span>':''}
-      </div>
-      <div class="card-btns">
-        <button class="cbtn cbtn-primary" onclick="event.stopPropagation();openModal(${JSON.stringify(p).replace(/'/g,"&#39;")})">View Details</button>
-        <button class="cbtn cbtn-outline" onclick="event.stopPropagation();openModal(${JSON.stringify(p).replace(/'/g,"&#39;")});setTimeout(()=>document.getElementById('f-name').focus(),400)">Invest Now</button>
-      </div>
-    </div>
-  </div>`;
+const flag = FLAGS[p.country]||'🌍';
+const sc = p.compliance_score||0;
+const sf = p.feasibility_score||0;
+const statusColor = STATUS_COLOR[p.status]||'#445';
+return `<div class="project-card" onclick='openModal(${JSON.stringify(p).replace(/'/g,"&#39;")})'>
+<div class="card-banner"></div>
+<div class="card-body">
+<div class="card-top">
+<span class="card-type">${p.project_type||'Property'}</span>
+<span class="card-flag">${flag}</span>
+</div>
+<div class="card-title">${p.project_name}</div>
+<div class="card-loc"><span>${p.country}</span> · ${p.city||''}</div>
+<div class="card-metrics">
+<div class="metric"><div class="metric-val green">${p.target_roi_percent||'?'}%</div><div class="metric-lbl">Target ROI</div></div>
+<div class="metric"><div class="metric-val blue">${p.investment_period_months||'?'} mo</div><div class="metric-lbl">Period</div></div>
+<div class="metric"><div class="metric-val">${fmt(p.minimum_investment_usd)}</div><div class="metric-lbl">Min. Investment</div></div>
+<div class="metric"><div class="metric-val">${fmt(p.total_value_usd)}</div><div class="metric-lbl">Project Value</div></div>
+</div>
+<div class="card-scores">
+<div class="score-bar">
+<div class="score-label"><span>Feasibility</span><span style="font-weight:700;color:#ffa500">${sf}/100</span></div>
+<div class="score-track"><div class="score-fill" style="width:${sf}%"></div></div>
+</div>
+<div class="score-bar">
+<div class="score-label"><span>Compliance</span><span style="font-weight:700;color:#0077cc">${sc}/100</span></div>
+<div class="score-track"><div class="score-fill blue" style="width:${sc}%"></div></div>
+</div>
+</div>
+<div class="card-tags">
+${p.equity_available?'<span class="tag tag-equity">Equity Available</span>':''}
+<span class="tag tag-status" style="background:#e3f2fd;color:${statusColor}">${p.status}</span>
+${p.featured?'<span class="tag tag-featured">⭐ Featured</span>':''}
+</div>
+<div class="card-btns">
+<button class="cbtn cbtn-primary" onclick="event.stopPropagation();openModal(${JSON.stringify(p).replace(/'/g,"&#39;")})">View Details</button>
+<button class="cbtn cbtn-outline" onclick="event.stopPropagation();openModal(${JSON.stringify(p).replace(/'/g,"&#39;")});setTimeout(()=>document.getElementById('f-name').focus(),400)">Invest Now</button>
+</div>
+</div>
+</div>`;
 }
-
 function renderGrid(projects){
-  const grid = document.getElementById('projectsGrid');
-  if(!projects.length){grid.innerHTML='<div style="grid-column:1/-1;text-align:center;padding:60px;color:#778">No projects match your filter.</div>';return;}
-  grid.innerHTML = projects.map(renderCard).join('');
+const grid = document.getElementById('projectsGrid');
+if(!projects.length){grid.innerHTML='<div style="grid-column:1/-1;text-align:center;padding:60px;color:#778">No projects match your filter.</div>';return;}
+grid.innerHTML = projects.map(renderCard).join('');
 }
-
 function getFiltered(){
-  let p = ALL_PROJECTS;
-  if(currentFilter!=='all') p=p.filter(x=>x.country===currentFilter||x.country?.includes(currentFilter));
-  if(currentType) p=p.filter(x=>x.project_type===currentType);
-  if(currentSearch) p=p.filter(x=>(x.project_name+x.city+x.country+x.description||'').toLowerCase().includes(currentSearch.toLowerCase()));
-  return p;
+let p = ALL_PROJECTS;
+if(currentFilter!=='all') p=p.filter(x=>x.country===currentFilter||x.country?.includes(currentFilter));
+if(currentType) p=p.filter(x=>x.project_type===currentType);
+if(currentSearch) p=p.filter(x=>(x.project_name+x.city+x.country+x.description||'').toLowerCase().includes(currentSearch.toLowerCase()));
+return p;
 }
-
 function filterProjects(country,btn){
-  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  currentFilter=country;currentType='';
-  renderGrid(getFiltered());
+document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+btn.classList.add('active');
+currentFilter=country;currentType='';
+renderGrid(getFiltered());
 }
 function filterType(type,btn){
-  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  currentType=type;currentFilter='all';
-  renderGrid(getFiltered());
+document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+btn.classList.add('active');
+currentType=type;currentFilter='all';
+renderGrid(getFiltered());
 }
 function searchProjects(val){currentSearch=val;renderGrid(getFiltered());}
-
 function showTab(tab){
-  document.querySelectorAll('.nav-item').forEach((n,i)=>n.classList.remove('active'));
-  event.target.classList.add('active');
-  document.getElementById('projects-section').style.display='none';
-  document.getElementById('how-section').style.display='none';
-  document.getElementById('contact-section').style.display='none';
-  document.getElementById('filters-bar').style.display='none';
-  if(tab==='projects'){document.getElementById('projects-section').style.display='block';document.getElementById('filters-bar').style.display='flex';renderGrid(ALL_PROJECTS);}
-  else if(tab==='featured'){document.getElementById('projects-section').style.display='block';document.getElementById('filters-bar').style.display='flex';renderGrid(ALL_PROJECTS.filter(p=>p.featured));}
-  else if(tab==='funding'){document.getElementById('projects-section').style.display='block';document.getElementById('filters-bar').style.display='flex';renderGrid(ALL_PROJECTS.filter(p=>p.status==='Funding'));}
-  else if(tab==='how'){document.getElementById('how-section').style.display='block';}
-  else if(tab==='contact'){document.getElementById('contact-section').style.display='block';document.getElementById('mainInvestForm').innerHTML=buildContactForm();}
+document.querySelectorAll('.nav-item').forEach((n,i)=>n.classList.remove('active'));
+event.target.classList.add('active');
+document.getElementById('projects-section').style.display='none';
+document.getElementById('how-section').style.display='none';
+document.getElementById('contact-section').style.display='none';
+document.getElementById('filters-bar').style.display='none';
+if(tab==='projects'){document.getElementById('projects-section').style.display='block';document.getElementById('filters-bar').style.display='flex';renderGrid(ALL_PROJECTS);}
+else if(tab==='featured'){document.getElementById('projects-section').style.display='block';document.getElementById('filters-bar').style.display='flex';renderGrid(ALL_PROJECTS.filter(p=>p.featured));}
+else if(tab==='funding'){document.getElementById('projects-section').style.display='block';document.getElementById('filters-bar').style.display='flex';renderGrid(ALL_PROJECTS.filter(p=>p.status==='Funding'));}
+else if(tab==='how'){document.getElementById('how-section').style.display='block';}
+else if(tab==='contact'){document.getElementById('contact-section').style.display='block';document.getElementById('mainInvestForm').innerHTML=buildContactForm();}
 }
-
 function buildContactForm(){
-  return `<div class="invest-form" style="background:#fff;border:1px solid #e8edf5">
-  <div class="form-group"><label>Full Name *</label><input type="text" id="cf-name" placeholder="Your full name"></div>
-  <div class="form-group"><label>Email *</label><input type="email" id="cf-email" placeholder="your@email.com"></div>
-  <div class="form-group"><label>Phone / WhatsApp</label><input type="text" id="cf-phone" placeholder="+44 or +234..."></div>
-  <div class="form-group"><label>Country</label><select id="cf-country"><option>Nigeria</option><option>United Kingdom</option><option>UAE</option><option>United States</option><option>Canada</option><option>Other</option></select></div>
-  <div class="form-group"><label>Investor Type</label><select id="cf-type"><option>Individual / Diaspora</option><option>Family Office</option><option>Institutional</option><option>Corporate Treasury</option></select></div>
-  <div class="form-group"><label>Investment Budget</label><select id="cf-budget"><option>$5,000 – $25,000</option><option>$25,000 – $100,000</option><option>$100,000 – $500,000</option><option>$500,000+</option></select></div>
-  <div class="form-group"><label>Preferred Regions</label><input type="text" id="cf-regions" placeholder="e.g. Nigeria, Kenya, Ghana..."></div>
-  <div class="form-group"><label>Message</label><textarea id="cf-msg" rows="3" placeholder="Your investment goals or questions..."></textarea></div>
-  <button class="form-submit" onclick="submitContact()">Register as Investor</button>
-  <div class="success-msg" id="cf-success">✅ Registered! Our investor relations team will contact you within 24 hours.</div>
-  </div>`;
+return `<div class="invest-form" style="background:#fff;border:1px solid #e8edf5">
+<div class="form-group"><label>Full Name *</label><input type="text" id="cf-name" placeholder="Your full name"></div>
+<div class="form-group"><label>Email *</label><input type="email" id="cf-email" placeholder="your@email.com"></div>
+<div class="form-group"><label>Phone / WhatsApp</label><input type="text" id="cf-phone" placeholder="+44 or +234..."></div>
+<div class="form-group"><label>Country</label><select id="cf-country"><option>Nigeria</option><option>United Kingdom</option><option>UAE</option><option>United States</option><option>Canada</option><option>Other</option></select></div>
+<div class="form-group"><label>Investor Type</label><select id="cf-type"><option>Individual / Diaspora</option><option>Family Office</option><option>Institutional</option><option>Corporate Treasury</option></select></div>
+<div class="form-group"><label>Investment Budget</label><select id="cf-budget"><option>$5,000 – $25,000</option><option>$25,000 – $100,000</option><option>$100,000 – $500,000</option><option>$500,000+</option></select></div>
+<div class="form-group"><label>Preferred Regions</label><input type="text" id="cf-regions" placeholder="e.g. Nigeria, Kenya, Ghana..."></div>
+<div class="form-group"><label>Message</label><textarea id="cf-msg" rows="3" placeholder="Your investment goals or questions..."></textarea></div>
+<button class="form-submit" onclick="submitContact()">Register as Investor</button>
+<div class="success-msg" id="cf-success">✅ Registered! Our investor relations team will contact you within 24 hours.</div>
+</div>`;
 }
-
 function openModal(p){
-  currentProject=p;
-  document.getElementById('m-title').textContent=p.project_name;
-  document.getElementById('m-sub').textContent=(FLAGS[p.country]||'🌍')+' '+p.country+' · '+p.city+' · '+p.project_type;
-  document.getElementById('m-roi').textContent=(p.target_roi_percent||'?')+'%';
-  document.getElementById('m-period').textContent=(p.investment_period_months||'?')+' months';
-  document.getElementById('m-mininvest').textContent=fmt(p.minimum_investment_usd);
-  document.getElementById('m-totalval').textContent=fmt(p.total_value_usd);
-  document.getElementById('m-feasibility').textContent=(p.feasibility_score||'?')+'/100';
-  document.getElementById('m-compliance').textContent=(p.compliance_score||'?')+'/100';
-  document.getElementById('m-desc').textContent=p.description||'Full project description available upon investor registration.';
-  if(p.highlights){
-    const items=p.highlights.split('|').filter(h=>h.trim());
-    document.getElementById('m-highlights').innerHTML=items.map(h=>'<li>'+h.trim()+'</li>').join('');
-    document.getElementById('m-highlights-section').style.display='block';
-  }else{document.getElementById('m-highlights-section').style.display='none';}
-  document.getElementById('form-success').style.display='none';
-  document.getElementById('modalOverlay').classList.add('open');
+currentProject=p;
+document.getElementById('m-title').textContent=p.project_name;
+document.getElementById('m-sub').textContent=(FLAGS[p.country]||'🌍')+' '+p.country+' · '+p.city+' · '+p.project_type;
+document.getElementById('m-roi').textContent=(p.target_roi_percent||'?')+'%';
+document.getElementById('m-period').textContent=(p.investment_period_months||'?')+' months';
+document.getElementById('m-mininvest').textContent=fmt(p.minimum_investment_usd);
+document.getElementById('m-totalval').textContent=fmt(p.total_value_usd);
+document.getElementById('m-feasibility').textContent=(p.feasibility_score||'?')+'/100';
+document.getElementById('m-compliance').textContent=(p.compliance_score||'?')+'/100';
+document.getElementById('m-desc').textContent=p.description||'Full project description available upon investor registration.';
+if(p.highlights){
+const items=p.highlights.split('|').filter(h=>h.trim());
+document.getElementById('m-highlights').innerHTML=items.map(h=>'<li>'+h.trim()+'</li>').join('');
+document.getElementById('m-highlights-section').style.display='block';
+}else{document.getElementById('m-highlights-section').style.display='none';}
+document.getElementById('form-success').style.display='none';
+document.getElementById('modalOverlay').classList.add('open');
 }
 function closeModal(e){if(e.target===document.getElementById('modalOverlay'))closeModalBtn();}
 function closeModalBtn(){document.getElementById('modalOverlay').classList.remove('open');}
-
 function submitInquiry(){
-  const name=document.getElementById('f-name').value;
-  const email=document.getElementById('f-email').value;
-  if(!name||!email){alert('Please enter your name and email.');return;}
-  document.getElementById('form-success').style.display='block';
-  document.getElementById('f-name').value='';
-  document.getElementById('f-email').value='';
+const name=document.getElementById('f-name').value;
+const email=document.getElementById('f-email').value;
+if(!name||!email){alert('Please enter your name and email.');return;}
+document.getElementById('form-success').style.display='block';
+document.getElementById('f-name').value='';
+document.getElementById('f-email').value='';
 }
 function submitContact(){
-  const name=document.getElementById('cf-name').value;
-  const email=document.getElementById('cf-email').value;
-  if(!name||!email){alert('Please enter your name and email.');return;}
-  document.getElementById('cf-success').style.display='block';
+const name=document.getElementById('cf-name').value;
+const email=document.getElementById('cf-email').value;
+if(!name||!email){alert('Please enter your name and email.');return;}
+document.getElementById('cf-success').style.display='block';
 }
 function openInvestorForm(){showTab('contact');document.querySelectorAll('.nav-item')[4].classList.add('active');}
 function scrollToProjects(){document.getElementById('projects-section').scrollIntoView({behavior:'smooth'});}
-
 // LOAD PROJECTS — embedded from database
 const PROJECTS_DATA = [{"id": "6a4f886d563f7962a266c0b6", "project_name": "Tatu City — Rendeavour Master-Planned City", "city": "Tatu City, Kiambu County (near Nairobi)", "country": "Kenya", "status": "Under Construction", "total_value_usd": 3500000000, "minimum_investment_usd": 100000, "target_roi_percent": 26, "investment_period_months": 36, "compliance_score": 70, "feasibility_score": 88, "equity_available": true, "project_type": "Mixed Use", "featured": false, "highlights": "$3.5B total investment | Africa's largest new-city developer | 5,000 acres, Nairobi | Emirates Logistics tenant | Active investor dispute disclosed"}, {"id": "6a4f886d563f7962a266c0b7", "project_name": "Appolonia City — Rendeavour Ghana", "city": "Greater Accra (Appolonia)", "country": "Ghana", "status": "Under Construction", "total_value_usd": 250000000, "minimum_investment_usd": 50000, "target_roi_percent": 24, "investment_period_months": 30, "compliance_score": 87, "feasibility_score": 89, "equity_available": true, "project_type": "Mixed Use", "featured": true, "highlights": "$250M infrastructure invested | Ghana's fastest-growing new city | Min investment $50K | Active US diaspora roadshows 2026 | 88,000 planned residents"}, {"id": "6a4f886d563f7962a266c0b8", "project_name": "South Africa 8-Metro Urban Infrastructure Program", "city": "Johannesburg, Cape Town, Durban + 5 metros", "country": "South Africa", "status": "Approved", "total_value_usd": 1000000000, "minimum_investment_usd": 150000, "target_roi_percent": 18, "investment_period_months": 48, "compliance_score": 95, "feasibility_score": 90, "equity_available": false, "project_type": "Mixed Use", "featured": false, "highlights": "$1B NDB-approved loan | 8 major SA metros | Multilateral bank backed | Infrastructure-linked opportunity"}, {"id": "6a4f886d563f7962a266c0b9", "project_name": "Namibia GIPF Property Investment Program", "city": "Windhoek + national coastal corridor", "country": "Namibia", "status": "Under Construction", "total_value_usd": 75000000, "minimum_investment_usd": 50000, "target_roi_percent": 20, "investment_period_months": 30, "compliance_score": 88, "feasibility_score": 83, "equity_available": true, "project_type": "Mixed Use", "featured": false, "highlights": "$75M+ committed by Namibia's largest pension fund | Coastal property grew 10.6% YoY Q1 2026 | Windhoek + coastal corridor"}, {"id": "6a4f87dc563f7962a266c042", "project_name": "Eko Atlantic City — Lagos Master Development", "city": "Lagos (Victoria Island Annex)", "country": "Nigeria", "status": "Under Construction", "total_value_usd": 60000000000, "minimum_investment_usd": 100000, "target_roi_percent": 32, "investment_period_months": 36, "compliance_score": 90, "feasibility_score": 92, "equity_available": true, "project_type": "Mixed Use", "featured": true, "highlights": "Africa's largest coastal smart city | $60B planned investment | Chagoury family backed | Phases 3-6 active 2026 | 8.5MW power plant operational"}, {"id": "6a4f87dc563f7962a266c043", "project_name": "Rixos Morocco Resort Trilogy", "city": "Marrakech & Larache", "country": "Morocco", "status": "Under Construction", "total_value_usd": 320000000, "minimum_investment_usd": 75000, "target_roi_percent": 27, "investment_period_months": 30, "compliance_score": 89, "feasibility_score": 88, "equity_available": true, "project_type": "Hospitality", "featured": true, "highlights": "$320M signed deal | 3 flagship resorts | 2,500 direct + 3,000 indirect jobs | Publicly listed developer"}, {"id": "6a4f87dc563f7962a266c044", "project_name": "M Avenue Marrakech — NASLI Holding Flagship", "city": "Marrakech", "country": "Morocco", "status": "Available", "total_value_usd": 89000000, "minimum_investment_usd": 40000, "target_roi_percent": 24, "investment_period_months": 24, "compliance_score": 85, "feasibility_score": 84, "equity_available": true, "project_type": "Mixed Use", "featured": false, "highlights": "EUR82M flagship development | Founder-led (Nabil Slitine) | Downtown Marrakech luxury mixed-use"}, {"id": "6a4f87dc563f7962a266c045", "project_name": "Wembley Park Build-to-Rent — Quintain", "city": "Wembley, London", "country": "United Kingdom", "status": "Available", "total_value_usd": 950000000, "minimum_investment_usd": 60000, "target_roi_percent": 16, "investment_period_months": 24, "compliance_score": 93, "feasibility_score": 87, "equity_available": true, "project_type": "Residential", "featured": false, "highlights": "UK's largest build-to-rent scheme | GBP750M+ institutional pipeline | Record GBP2.2B sector investment Q2 2026"}, {"id": "6a4f87dc563f7962a266c046", "project_name": "Maasai Mara 48-Acre Eco-Lodge Land Parcel", "city": "Maasai Mara (Narok County)", "country": "Kenya", "status": "Available", "total_value_usd": 4000000, "minimum_investment_usd": 25000, "target_roi_percent": 30, "investment_period_months": 20, "compliance_score": 65, "feasibility_score": 78, "equity_available": true, "project_type": "Hospitality", "featured": false, "highlights": "48 acres inside Maasai Mara ecosystem | Tourism eco-lodge development | 30% target ROI | Entry from $25K"}, {"id": "6a4e94a77ae9a27a320c89fb", "project_name": "Maasai Mara Eco-Lodge Circuit", "city": "Narok (Maasai Mara)", "country": "Kenya", "status": "Funding", "total_value_usd": 22000000, "minimum_investment_usd": 40000, "target_roi_percent": 27, "investment_period_months": 24, "compliance_score": 82, "feasibility_score": 85, "equity_available": true, "project_type": "Hospitality", "featured": false, "highlights": "27% target ROI | Premium safari tourism segment | Eco-certification pathway"}, {"id": "6a4e94a77ae9a27a320c89fc", "project_name": "Marrakech Palm Grove Resort & Spa", "city": "Marrakech", "country": "Morocco", "status": "Available", "total_value_usd": 65000000, "minimum_investment_usd": 75000, "target_roi_percent": 22, "investment_period_months": 30, "compliance_score": 88, "feasibility_score": 90, "equity_available": true, "project_type": "Hospitality", "featured": true, "highlights": "Palm Grove luxury positioning | 90/100 feasibility score | Morocco tourism boom 2026"}, {"id": "6a4e94a77ae9a27a320c89fd", "project_name": "Red Sea Riviera Resort", "city": "Hurghada", "country": "Egypt", "status": "Available", "total_value_usd": 72000000, "minimum_investment_usd": 75000, "target_roi_percent": 24, "investment_period_months": 30, "compliance_score": 86, "feasibility_score": 89, "equity_available": true, "project_type": "Hospitality", "featured": false, "highlights": "Hurghada Red Sea location | 24% ROI target | Egypt tourism recovery 2026"}, {"id": "6a4e94a77ae9a27a320c89fe", "project_name": "Kigali Volcanoes Gateway Lodge", "city": "Musanze (Kigali Gateway)", "country": "Rwanda", "status": "Funding", "total_value_usd": 18000000, "minimum_investment_usd": 35000, "target_roi_percent": 29, "investment_period_months": 24, "compliance_score": 85, "feasibility_score": 88, "equity_available": true, "project_type": "Hospitality", "featured": true, "highlights": "29% ROI | Rwanda gorilla tourism gateway | Musanze location | Kigali hub proximity"}, {"id": "6a4e94a77ae9a27a320c89ff", "project_name": "Cape Verde Sal Island Resort", "city": "Sal Island", "country": "Cape Verde", "status": "Available", "total_value_usd": 27000000, "minimum_investment_usd": 45000, "target_roi_percent": 25, "investment_period_months": 24, "compliance_score": 83, "feasibility_score": 86, "equity_available": true, "project_type": "Hospitality", "featured": false, "highlights": "Atlantic island resort | EU-eligible investment | 25% ROI target"}, {"id": "6a4e94a77ae9a27a320c8a00", "project_name": "Calabar Tourism & Cultural Resort", "city": "Calabar", "country": "Nigeria", "status": "Available", "total_value_usd": 15000000, "minimum_investment_usd": 25000, "target_roi_percent": 32, "investment_period_months": 22, "compliance_score": 82, "feasibility_score": 85, "equity_available": true, "project_type": "Hospitality", "featured": true, "highlights": "32% ROI | Calabar tourism hub | Carnival city positioning | Entry from $25K"}, {"id": "6a4e94a77ae9a27a320c8a01", "project_name": "Obudu Mountain Resort Expansion", "city": "Obudu (Cross River)", "country": "Nigeria", "status": "Funding", "total_value_usd": 20000000, "minimum_investment_usd": 30000, "target_roi_percent": 30, "investment_period_months": 26, "compliance_score": 84, "feasibility_score": 86, "equity_available": true, "project_type": "Hospitality", "featured": false, "highlights": "30% ROI | Obudu Cattle Ranch expansion | Nigeria's highest tourist destination | Cross River State"}, {"id": "6a4e94a77ae9a27a320c89fa", "project_name": "Zanzibar Stone Town Beachfront Resort", "city": "Zanzibar City", "country": "Tanzania", "status": "Available", "total_value_usd": 38000000, "minimum_investment_usd": 50000, "target_roi_percent": 26, "investment_period_months": 30, "compliance_score": 84, "feasibility_score": 87, "equity_available": true, "project_type": "Hospitality", "featured": true, "highlights": "Zanzibar UNESCO Stone Town | 26% ROI | Beachfront luxury | East Africa tourism boom"}, {"id": "6a07e4a1b5b162df518309db", "project_name": "Katampe Terrace Residences — 9 Units", "city": "Abuja", "country": "Nigeria", "status": "Under Construction", "total_value_usd": 850000, "minimum_investment_usd": 15000, "target_roi_percent": 28, "investment_period_months": 18, "compliance_score": 88, "feasibility_score": 85, "equity_available": true, "project_type": "Residential", "featured": true, "highlights": "28% ROI | AI demand score 87/100 | NPV $198K | Katampe Abuja prime location | 18-month payback | Entry from $15K"}, {"id": "69c11d4fc3c291ae051710d5", "project_name": "London Bermondsey Boutique Residences", "city": "London", "country": "United Kingdom", "status": "Available", "total_value_usd": 96000000, "minimum_investment_usd": 200000, "target_roi_percent": 24, "investment_period_months": 32, "compliance_score": 93, "feasibility_score": 92, "equity_available": true, "project_type": "Residential", "featured": false, "highlights": "Central London Zone 2 | 24% ROI | 92/100 feasibility | Premium boutique residential"}, {"id": "69c11d4fc3c291ae051710d2", "project_name": "London Elephant & Castle Creative Hub", "city": "London", "country": "United Kingdom", "status": "Available", "total_value_usd": 165000000, "minimum_investment_usd": 300000, "target_roi_percent": 23, "investment_period_months": 40, "compliance_score": 94, "feasibility_score": 92, "equity_available": true, "project_type": "Mixed Use", "featured": false, "highlights": "£165M mixed-use hub | Creative economy anchor | Zone 1/2 boundary London"}, {"id": "69c11d4fc3c291ae051710d4", "project_name": "Sandton Convention City", "city": "Johannesburg", "country": "South Africa", "status": "Available", "total_value_usd": 130000000, "minimum_investment_usd": 350000, "target_roi_percent": 21, "investment_period_months": 38, "compliance_score": 93, "feasibility_score": 92, "equity_available": true, "project_type": "Hospitality", "featured": false, "highlights": "Sandton CBD Africa's richest sq mile | Convention hospitality | 21% ROI"}, {"id": "69c11d4fc3c291ae051710d3", "project_name": "Lagos Epe Agri-Industrial Zone", "city": "Lagos", "country": "Nigeria", "status": "Available", "total_value_usd": 68000000, "minimum_investment_usd": 100000, "target_roi_percent": 30, "investment_period_months": 36, "compliance_score": 84, "feasibility_score": 86, "equity_available": true, "project_type": "Industrial", "featured": false, "highlights": "30% ROI | Lagos-Epe corridor | Agri-industrial infrastructure | Nigeria food security play"}, {"id": "69c11d4fc3c291ae051710c9", "project_name": "Lekki Conservation Eco Residences", "city": "Lagos", "country": "Nigeria", "status": "Available", "total_value_usd": 24000000, "minimum_investment_usd": 40000, "target_roi_percent": 38, "investment_period_months": 20, "compliance_score": 90, "feasibility_score": 88, "equity_available": true, "project_type": "Residential", "featured": false, "highlights": "38% ROI highest in portfolio | Lekki eco-zone | Conservation-compliant build | Entry from $40K"}];
 // Populated by server
 window.onload = function(){
-  // Projects are injected below
-  ALL_PROJECTS = PROJECTS_DATA;
-  renderGrid(ALL_PROJECTS);
+// Projects are injected below
+ALL_PROJECTS = PROJECTS_DATA;
+renderGrid(ALL_PROJECTS);
 };
 </script>
 </body>
