@@ -17,6 +17,22 @@
 </div>
 <audio id="aud" onended="onEnd()"></audio><script>
 const ZP_AUDIO = "https://rawcdn.githack.com/TOMDEGGS/BETONIQ-WEST-/main/zeropay_audio";
+
+// PRELOAD ALL 20 SLIDES INTO BROWSER MEMORY ON PAGE LOAD
+// Prevents streaming breaks during live presentations
+const _audioCache = [];
+function preloadAllAudio(){
+  for(let i=1;i<=20;i++){
+    const n=String(i).padStart(2,'0');
+    const a=new Audio();
+    a.preload='auto';
+    a.src=ZP_AUDIO+'/slide_'+n+'.mp3';
+    a.load();
+    _audioCache[i-1]=a;
+  }
+  console.log('All 20 slides preloaded into memory');
+}
+window.addEventListener('DOMContentLoaded', preloadAllAudio);
 const SLIDES = [
   { accent:"#00d4ff", title:"Meet Chidi — The Lagos Merchant",
     body:"Every morning Chidi opens his electronics stall in Lagos. No card terminal. No digital record. Power cuts kill connectivity. When the network fails, commerce stops. 38 million Nigerians face this daily. ZeroPay was built for Chidi.",
@@ -595,8 +611,13 @@ function setPlayUI(playing){
 function ensureLoaded(){
   const a=document.getElementById('aud');
   if(loadedSlide!==cur){
-    const n=String(cur+1).padStart(2,'0');
-    a.src=ZP_AUDIO+'/slide_'+n+'.mp3';
+    // Use preloaded cache if available
+    if(_audioCache[cur] && _audioCache[cur].src){
+      a.src=_audioCache[cur].src;
+    } else {
+      const n=String(cur+1).padStart(2,'0');
+      a.src=ZP_AUDIO+'/slide_'+n+'.mp3';
+    }
     a.load();
     loadedSlide=cur;
   }
