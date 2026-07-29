@@ -17,6 +17,19 @@
 </div>
 <audio id="aud" onended="onEnd()"></audio><script>
 const AUDIO_BASE = "https://raw.githubusercontent.com/TOMDEGGS/BETONIQ-WEST-/main/betoniq_audio";
+// ===== BLOB RAM CACHE — prevents all audio breaks during presentation =====
+const _blobCache = {};
+(function preloadAll(){
+  var base = https://raw.githubusercontent.com/TOMDEGGS/BETONIQ-WEST-/main/betoniq_audio;
+  var files = ["slide_01.mp3", "slide_02.mp3", "slide_03.mp3", "slide_04.mp3", "slide_05.mp3", "slide_06.mp3", "slide_07.mp3", "slide_08.mp3", "slide_09.mp3", "slide_10.mp3", "slide_11.mp3", "slide_12.mp3", "slide_13.mp3", "slide_14.mp3", "slide_15.mp3"];
+  files.forEach(function(f){
+    fetch(base+'/'+f)
+      .then(function(r){return r.blob();})
+      .then(function(b){_blobCache[f]=URL.createObjectURL(b);console.log('cached:',f);})
+      .catch(function(e){console.warn('miss:',f);});
+  });
+})();
+
 const SLIDES = [
   { accent:"#00e5ff", title:"47 Million Locked Out of Real Estate",
     body:"1.4 billion people globally have no access to formal financial services. In Nigeria alone — 38 million. $26 billion in remittances flows annually. Almost none reaches verified real estate. The infrastructure does not exist. Until now.",
@@ -697,12 +710,12 @@ function setPlayUI(p){
   document.getElementById('fbplay').textContent=p?'⏸ PAUSE':'▶ PLAY';
 }
 function ensureLoaded(){
-  const a=document.getElementById('aud');
+  var a=document.getElementById('aud');
   if(loadedSlide!==cur){
-    const n=String(cur+1).padStart(2,'0');
-    a.src=AUDIO_BASE+'/slide_'+n+'.mp3';
-    a.load();
-    loadedSlide=cur;
+    var n=String(cur+1).padStart(2,'0');
+    var fname='slide_'+n+'.mp3';
+    a.src=(_blobCache[fname])||AUDIO_BASE+'/'+fname;
+    a.load();loadedSlide=cur;
   }
 }
 function togglePlay(){
