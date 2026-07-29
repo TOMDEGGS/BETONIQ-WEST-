@@ -18,19 +18,29 @@
 <audio id="aud" onended="onEnd()"></audio><script>
 const ZP_AUDIO = "https://rawcdn.githack.com/TOMDEGGS/BETONIQ-WEST-/main/zeropay_audio";
 
-// PRELOAD ALL 20 SLIDES INTO BROWSER MEMORY ON PAGE LOAD
-// Prevents streaming breaks during live presentations
-const _audioCache = [];
+// BLOB CACHE — download all audio once, store as RAM blob: URLs
+// Zero network dependency during presentation
+const _blobCache = new Array(20).fill(null);
+let _blobReady = 0;
 function preloadAllAudio(){
   for(let i=1;i<=20;i++){
+    const idx=i-1;
     const n=String(i).padStart(2,'0');
-    const a=new Audio();
-    a.preload='auto';
-    a.src=ZP_AUDIO+'/slide_'+n+'.mp3';
-    a.load();
-    _audioCache[i-1]=a;
+    const src=ZP_AUDIO+'/slide_'+n+'.mp3';
+    fetch(src)
+      .then(r=>r.blob())
+      .then(blob=>{
+        _blobCache[idx]=URL.createObjectURL(blob);
+        _blobReady++;
+        if(_blobReady===1){
+          // Show ready indicator when first slide is loaded
+          const el=document.getElementById('audioStatus');
+          if(el) el.textContent='▶ Audio Ready';
+        }
+        if(_blobReady===20) console.log('All 20 slides cached in RAM ✅');
+      })
+      .catch(e=>console.warn('Cache miss slide '+(idx+1),e));
   }
-  console.log('All 20 slides preloaded into memory');
 }
 window.addEventListener('DOMContentLoaded', preloadAllAudio);
 const SLIDES = [
@@ -611,12 +621,12 @@ function setPlayUI(playing){
 function ensureLoaded(){
   const a=document.getElementById('aud');
   if(loadedSlide!==cur){
-    // Use preloaded cache if available
-    if(_audioCache[cur] && _audioCache[cur].src){
-      a.src=_audioCache[cur].src;
+    // Use RAM blob: URL if ready, otherwise fallback to direct URL
+    if(_blobCache[cur]){
+      a.src=_blobCache[cur];
     } else {
       const n=String(cur+1).padStart(2,'0');
-      a.src=ZP_AUDIO+'/slide_'+n+'.mp3';
+      a.src='https://raw.githubusercontent.com/TOMDEGGS/BETONIQ-WEST-/main/zeropay_audio/slide_'+n+'.mp3';
     }
     a.load();
     loadedSlide=cur;
