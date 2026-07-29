@@ -249,6 +249,19 @@ canvas{position:absolute;inset:0;width:100%;height:100%}
 
 <script>
 const ZP_AUDIO="https://raw.githubusercontent.com/TOMDEGGS/BETONIQ-WEST-/main/zeropay_mesh_audio";
+// ===== BLOB RAM CACHE — prevents all audio breaks during presentation =====
+const _blobCache = {};
+(function preloadAll(){
+  var base = https://raw.githubusercontent.com/TOMDEGGS/BETONIQ-WEST-/main/zeropay_mesh_audio;
+  var files = ["mesh_01.mp3", "mesh_02.mp3"];
+  files.forEach(function(f){
+    fetch(base+'/'+f)
+      .then(function(r){return r.blob();})
+      .then(function(b){_blobCache[f]=URL.createObjectURL(b);console.log('cached:',f);})
+      .catch(function(e){console.warn('miss:',f);});
+  });
+})();
+
 
 const SCENARIOS=[
   { accent:"#00ff88",
@@ -448,7 +461,15 @@ function showSlide(n){
 }
 
 function setPlayUI(p){isPlaying=p;document.getElementById('pbtn').textContent=p?'⏸ PAUSE':'▶ PLAY NARRATION';document.getElementById('fbplay').textContent=p?'⏸ PAUSE':'▶ PLAY';}
-function ensureLoaded(){const a=document.getElementById('aud');if(loadedSlide!==cur){const n=String(cur+1).padStart(2,'0');a.src=ZP_AUDIO+'/mesh_'+n+'.mp3';a.load();loadedSlide=cur;}}
+function ensureLoaded(){
+  var a=document.getElementById('aud');
+  if(loadedSlide!==cur){
+    var n=String(cur+1).padStart(2,'0');
+    var fname='mesh_'+n+'.mp3';
+    a.src=(_blobCache[fname])||ZP_AUDIO+'/'+fname;
+    a.load();loadedSlide=cur;
+  }
+}
 function togglePlay(){const a=document.getElementById('aud');if(isPlaying){a.pause();setPlayUI(false);}else{ensureLoaded();a.play().then(()=>setPlayUI(true)).catch(e=>console.log(e));}}
 function stopAudio(){const a=document.getElementById('aud');a.pause();a.currentTime=0;loadedSlide=-1;setPlayUI(false);}
 function onEnd(){setPlayUI(false);loadedSlide=-1;if(auto&&cur<1){setTimeout(()=>{nav(1);setTimeout(()=>{ensureLoaded();document.getElementById('aud').play().then(()=>setPlayUI(true)).catch(e=>{});},500);},1500);}else if(auto&&cur===1){toggleAuto();}}
