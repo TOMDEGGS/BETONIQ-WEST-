@@ -16,7 +16,7 @@
 <div id="foot"><button class="fb" onclick="nav(-1)">◀ PREV</button><button class="fb" id="fbplay" onclick="togglePlay()">▶ PLAY</button><button class="fb" id="fbstop" onclick="stopAudio()">⏹ STOP</button><button class="fb" onclick="nav(1)">NEXT ▶</button><button class="fb" id="fbauto" onclick="toggleAuto()">AUTO: OFF</button>
 </div>
 <audio id="aud" onended="onEnd()"></audio><script>
-const ZP_AUDIO = "https://raw.githubusercontent.com/TOMDEGGS/BETONIQ-WEST-/main/zeropay_audio";
+const ZP_AUDIO = "https://rawcdn.githack.com/TOMDEGGS/BETONIQ-WEST-/main/zeropay_audio";
 const SLIDES = [
   { accent:"#00d4ff", title:"Meet Chidi — The Lagos Merchant",
     body:"Every morning Chidi opens his electronics stall in Lagos. No card terminal. No digital record. Power cuts kill connectivity. When the network fails, commerce stops. 38 million Nigerians face this daily. ZeroPay was built for Chidi.",
@@ -604,13 +604,13 @@ function ensureLoaded(){
 function togglePlay(){
   const a=document.getElementById('aud');
   if(isPlaying){
-    // PAUSE — keep src and currentTime intact
     a.pause();
     setPlayUI(false);
   }else{
-    // RESUME or fresh PLAY
+    loadedSlide=-1;
     ensureLoaded();
-    a.play().then(()=>setPlayUI(true)).catch(e=>{console.log('play err',e);});
+    a.currentTime=0;
+    a.play().then(()=>setPlayUI(true)).catch(e=>{console.log('play err',e);setPlayUI(false);});
   }
 }
 function playA(){
