@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ZeroPay — Offline Payments for Africa</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+  :root{
+    --black:#0a0a0a;
+    --white:#ffffff;
+    --gold:#F5A623;
+    --green:#00E676;
+    --blue:#1A73E8;
+    --card:#141414;
+    --border:#222;
+  }
+  body{background:var(--black);color:var(--white);font-family:'Inter',sans-serif;overflow-x:hidden;}
+
+  /* NAV */
+  nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:18px 40px;display:flex;justify-content:space-between;align-items:center;background:rgba(10,10,10,0.85);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);}
+  .logo{font-size:22px;font-weight:800;letter-spacing:-0.5px;}
+  .logo span{color:var(--gold);}
+  .nav-links{display:flex;gap:32px;list-style:none;}
+  .nav-links a{color:#aaa;text-decoration:none;font-size:14px;font-weight:500;transition:color 0.2s;}
+  .nav-links a:hover{color:var(--white);}
+  .nav-cta{background:var(--gold);color:var(--black);padding:10px 22px;border-radius:6px;font-weight:700;font-size:14px;text-decoration:none;transition:opacity 0.2s;}
+  .nav-cta:hover{opacity:0.85;}
+
+  /* HERO */
+  .hero{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:120px 24px 80px;position:relative;overflow:hidden;}
+  .hero::before{content:'';position:absolute;top:-200px;left:50%;transform:translateX(-50%);width:800px;height:800px;background:radial-gradient(circle,rgba(245,166,35,0.12) 0%,transparent 70%);pointer-events:none;}
+  .badge{display:inline-flex;align-items:center;gap:8px;background:#1a1400;border:1px solid rgba(245,166,35,0.4);color:var(--gold);padding:8px 18px;border-radius:100px;font-size:13px;font-weight:600;margin-bottom:28px;}
+  .badge::before{content:'';width:8px;height:8px;background:var(--gold);border-radius:50%;animation:pulse 2s infinite;}
+  @keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.3;}}
+  h1{font-size:clamp(42px,7vw,88px);font-weight:900;line-height:1.02;letter-spacing:-2px;margin-bottom:24px;}
+  h1 .gold{color:var(--gold);}
+  h1 .line2{display:block;color:#555;}
+  .hero-sub{font-size:clamp(16px,2vw,20px);color:#888;max-width:600px;margin:0 auto 40px;line-height:1.7;font-weight:400;}
+  .hero-sub strong{color:var(--white);font-weight:600;}
+  .hero-btns{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;}
+  .btn-primary{background:var(--gold);color:var(--black);padding:16px 36px;border-radius:8px;font-weight:800;font-size:16px;text-decoration:none;transition:transform 0.2s,opacity 0.2s;}
+  .btn-primary:hover{transform:translateY(-2px);opacity:0.9;}
+  .btn-secondary{background:transparent;color:var(--white);padding:16px 36px;border-radius:8px;font-weight:600;font-size:16px;text-decoration:none;border:1px solid #333;transition:border-color 0.2s;}
+  .btn-secondary:hover{border-color:#666;}
+
+  /* STATS BAR */
+  .stats-bar{background:var(--card);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:40px 24px;}
+  .stats-inner{max-width:1000px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:24px;text-align:center;}
+  .stat-num{font-size:42px;font-weight:900;color:var(--gold);letter-spacing:-1px;}
+  .stat-label{font-size:14px;color:#666;margin-top:4px;font-weight:500;}
+
+  /* HOW IT WORKS */
+  section{padding:100px 24px;}
+  .section-inner{max-width:1080px;margin:0 auto;}
+  .section-tag{font-size:12px;font-weight:700;color:var(--gold);letter-spacing:3px;text-transform:uppercase;margin-bottom:16px;}
+  .section-title{font-size:clamp(32px,5vw,52px);font-weight:800;letter-spacing:-1px;line-height:1.1;margin-bottom:16px;}
+  .section-sub{font-size:17px;color:#666;max-width:560px;line-height:1.7;}
+
+  /* STEPS */
+  .steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:2px;margin-top:60px;}
+  .step{background:var(--card);padding:40px 32px;border:1px solid var(--border);position:relative;overflow:hidden;transition:border-color 0.3s;}
+  .step:hover{border-color:#444;}
+  .step::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--gold);}
+  .step-num{font-size:64px;font-weight:900;color:#1a1a1a;line-height:1;margin-bottom:16px;}
+  .step-title{font-size:18px;font-weight:700;margin-bottom:10px;}
+  .step-desc{font-size:14px;color:#666;line-height:1.7;}
+
+  /* ARCHITECTURE */
+  .arch-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;margin-top:60px;}
+  @media(max-width:768px){.arch-grid{grid-template-columns:1fr;}}
+  .arch-layers{display:flex;flex-direction:column;gap:2px;}
+  .layer{display:flex;align-items:center;gap:16px;background:var(--card);border:1px solid var(--border);padding:20px 24px;transition:all 0.3s;}
+  .layer:hover{border-color:var(--gold);transform:translateX(6px);}
+  .layer-icon{font-size:24px;width:48px;text-align:center;}
+  .layer-name{font-weight:700;font-size:15px;}
+  .layer-desc{font-size:12px;color:#666;margin-top:2px;}
+  .arch-text h3{font-size:28px;font-weight:800;margin-bottom:16px;}
+  .arch-text p{color:#666;line-height:1.8;font-size:15px;}
+
+  /* PROBLEM / SOLUTION */
+  .ps-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:60px;}
+  @media(max-width:768px){.ps-grid{grid-template-columns:1fr;}}
+  .ps-card{padding:40px;border:1px solid var(--border);background:var(--card);}
+  .ps-card.problem{border-top:3px solid #ff4444;}
+  .ps-card.solution{border-top:3px solid var(--green);}
+  .ps-label{font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;margin-bottom:20px;}
+  .ps-card.problem .ps-label{color:#ff4444;}
+  .ps-card.solution .ps-label{color:var(--green);}
+  .ps-item{display:flex;gap:12px;margin-bottom:16px;font-size:14px;color:#aaa;line-height:1.6;}
+  .ps-item::before{content:'';flex-shrink:0;margin-top:6px;}
+  .ps-card.problem .ps-item::before{content:'✗';color:#ff4444;}
+  .ps-card.solution .ps-item::before{content:'✓';color:var(--green);}
+
+  /* TRACTION */
+  .traction-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:24px;margin-top:60px;}
+  .t-card{background:var(--card);border:1px solid var(--border);padding:36px;transition:border-color 0.3s;}
+  .t-card:hover{border-color:#444;}
+  .t-icon{font-size:32px;margin-bottom:20px;}
+  .t-title{font-size:16px;font-weight:700;margin-bottom:8px;}
+  .t-desc{font-size:14px;color:#666;line-height:1.6;}
+
+  /* CONTACT */
+  .contact{background:var(--card);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:100px 24px;text-align:center;}
+  .contact-inner{max-width:600px;margin:0 auto;}
+  .contact h2{font-size:clamp(32px,5vw,52px);font-weight:900;letter-spacing:-1px;margin-bottom:16px;}
+  .contact p{color:#666;font-size:17px;margin-bottom:40px;line-height:1.7;}
+  .contact-email{display:inline-block;background:var(--black);border:1px solid var(--border);color:var(--white);padding:16px 32px;border-radius:8px;font-size:16px;text-decoration:none;font-weight:600;transition:border-color 0.2s;}
+  .contact-email:hover{border-color:var(--gold);}
+
+  /* FOOTER */
+  footer{padding:40px 24px;text-align:center;border-top:1px solid var(--border);}
+  footer p{color:#444;font-size:13px;}
+  footer strong{color:#666;}
+
+  /* DEMO TERMINAL */
+  .demo-box{background:#0d1117;border:1px solid #30363d;border-radius:10px;padding:32px;margin-top:60px;font-family:monospace;}
+  .demo-header{display:flex;gap:8px;margin-bottom:20px;}
+  .dot{width:12px;height:12px;border-radius:50%;}
+  .dot.red{background:#ff5f57;}
+  .dot.yellow{background:#febc2e;}
+  .dot.green{background:#28c840;}
+  .demo-line{font-size:13px;line-height:2;color:#8b949e;}
+  .demo-line .cmd{color:#79c0ff;}
+  .demo-line .success{color:#56d364;}
+  .demo-line .gold{color:#e3b341;}
+  .demo-line .addr{color:#d2a8ff;}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">Zero<span>Pay</span></div>
+  <ul class="nav-links">
+    <li><a href="#how">How It Works</a></li>
+    <li><a href="#tech">Technology</a></li>
+    <li><a href="#traction">Traction</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="mailto:zeropointfeild_nonwnt@zeropay.site" class="nav-cta">Partner With Us</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div>
+    <div class="badge">Patent Pending · April 2026</div>
+    <h1>Payments work<br><span class="gold">without the internet.</span><span class="line2">Finally.</span></h1>
+    <p class="hero-sub">ZeroPay is the world's first <strong>offline-first NFC payment system</strong> — using PUF cryptographic hardware to serve <strong>38 million unbanked Nigerians</strong> with zero internet dependency.</p>
+    <div class="hero-btns">
+      <a href="mailto:zeropointfeild_nonwnt@zeropay.site" class="btn-primary">Request a Demo</a>
+      <a href="#how" class="btn-secondary">See How It Works</a>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="stats-inner">
+    <div>
+      <div class="stat-num">1.4B</div>
+      <div class="stat-label">Unbanked People Globally</div>
+    </div>
+    <div>
+      <div class="stat-num">38M</div>
+      <div class="stat-label">Unbanked Nigerians</div>
+    </div>
+    <div>
+      <div class="stat-num">$0</div>
+      <div class="stat-label">Internet Required</div>
+    </div>
+    <div>
+      <div class="stat-num">72hr</div>
+      <div class="stat-label">Offline Token TTL</div>
+    </div>
+    <div>
+      <div class="stat-num">5-Layer</div>
+      <div class="stat-label">Security Architecture</div>
+    </div>
+  </div>
+</div>
+
+<!-- PROBLEM / SOLUTION -->
+<section style="background:#000;padding:100px 24px;">
+  <div class="section-inner">
+    <div class="section-tag">The Problem</div>
+    <h2 class="section-title">Payments require internet.<br>Most of Africa doesn't have it.</h2>
+    <div class="ps-grid">
+      <div class="ps-card problem">
+        <div class="ps-label">The Problem</div>
+        <div class="ps-item">38 million Nigerians excluded from the digital economy</div>
+        <div class="ps-item">Payments fail every time network drops — markets, farms, remote clinics</div>
+        <div class="ps-item">Existing fintech requires smartphones AND stable internet</div>
+        <div class="ps-item">No solution works offline without compromising security</div>
+        <div class="ps-item">Last-mile merchants lose revenue daily due to connectivity gaps</div>
+      </div>
+      <div class="ps-card solution">
+        <div class="ps-label">The ZeroPay Solution</div>
+        <div class="ps-item">PUF hardware terminal authenticates cryptographically offline</div>
+        <div class="ps-item">Transactions sign, queue, and batch-settle when connectivity returns</div>
+        <div class="ps-item">Works on basic NFC feature phones — no smartphone required</div>
+        <div class="ps-item">5-layer security stack: more secure than standard online payments</div>
+        <div class="ps-item">Solar Mesh Hub relay extends coverage to zero-infrastructure zones</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how">
+  <div class="section-inner">
+    <div class="section-tag">How It Works</div>
+    <h2 class="section-title">Four steps.<br>Zero internet.</h2>
+    <p class="section-sub">From tap to settlement — the entire transaction lifecycle is cryptographically secured and offline-first by design.</p>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">01</div>
+        <div class="step-title">Tap to Pay</div>
+        <div class="step-desc">Customer taps NFC card or feature phone on the ZeroPay PUF terminal. No internet. No SIM required at point of sale.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <div class="step-title">Cryptographic Sign</div>
+        <div class="step-desc">PUF hardware generates a unique ECC P-256 signed token. Distance Bounding Protocol prevents relay attacks in real time.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <div class="step-title">Queue & Relay</div>
+        <div class="step-desc">Transaction queues locally. Solar Mesh Hub relays the signed packet across the mesh network — hop by hop — until connectivity is found.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">04</div>
+        <div class="step-title">Batch Settle</div>
+        <div class="step-desc">When connectivity returns, ZeroPay batch-settles directly via Paystack API. Licensed MFB holds float. IMTO handles remittance corridors.</div>
+      </div>
+    </div>
+
+    <!-- TERMINAL DEMO -->
+    <div class="demo-box">
+      <div class="demo-header">
+        <div class="dot red"></div>
+        <div class="dot yellow"></div>
+        <div class="dot green"></div>
+      </div>
+      <div class="demo-line"><span class="cmd">ZeroPay Terminal v2.1 — OFFLINE MODE ACTIVE</span></div>
+      <div class="demo-line">Network: <span style="color:#ff4444;">DISCONNECTED</span> · PUF Auth: <span class="success">VERIFIED</span></div>
+      <div class="demo-line">—</div>
+      <div class="demo-line"><span class="gold">TAP DETECTED</span> · Card: <span class="addr">****4491</span> · Amount: ₦2,500</div>
+      <div class="demo-line">ECC P-256 signing... <span class="success">TOKEN GENERATED</span></div>
+      <div class="demo-line">Distance Bounding: <span class="success">PASS</span> · Relay attack risk: <span class="success">NONE</span></div>
+      <div class="demo-line">Token queued → Mesh Relay HOP 1 → HOP 2 → <span class="success">CONNECTIVITY FOUND</span></div>
+      <div class="demo-line">Paystack API: <span class="success">SETTLEMENT CONFIRMED</span> · Ref: ZP-20260731-4491</div>
+      <div class="demo-line">—</div>
+      <div class="demo-line"><span class="success">✓ Transaction complete. Total offline time: 4h 12m.</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ARCHITECTURE -->
+<section id="tech" style="background:#000;padding:100px 24px;">
+  <div class="section-inner">
+    <div class="section-tag">Technology</div>
+    <h2 class="section-title">5-Layer security.<br>Patent-pending architecture.</h2>
+    <div class="arch-grid">
+      <div class="arch-layers">
+        <div class="layer">
+          <div class="layer-icon">🔬</div>
+          <div><div class="layer-name">PUF Silicon Hardware</div><div class="layer-desc">Physically Unclonable Function — unique device fingerprint</div></div>
+        </div>
+        <div class="layer">
+          <div class="layer-icon">🔐</div>
+          <div><div class="layer-name">ECC P-256 Signing</div><div class="layer-desc">Elliptic curve cryptography — 256-bit offline token signature</div></div>
+        </div>
+        <div class="layer">
+          <div class="layer-icon">📡</div>
+          <div><div class="layer-name">Distance Bounding</div><div class="layer-desc">Anti-relay protocol — stops man-in-the-middle attacks</div></div>
+        </div>
+        <div class="layer">
+          <div class="layer-icon">⚡</div>
+          <div><div class="layer-name">Offline Cryptographic Token</div><div class="layer-desc">72-hour TTL — works without any server contact</div></div>
+        </div>
+        <div class="layer">
+          <div class="layer-icon">☀️</div>
+          <div><div class="layer-name">Solar Mesh Hub Relay</div><div class="layer-desc">72hr battery backup — relays transactions across dead zones</div></div>
+        </div>
+      </div>
+      <div class="arch-text">
+        <h3>Built by a physicist.<br>15 years in the making.</h3>
+        <p>Tom Ugbodaga holds an MSc in Computer Systems Security — Dissertation: NFC Contactless Technology for Financial Payments (Merit Class, 2011, University of Gloucestershire).<br><br>ZeroPay is the 15-year commercialisation of that research. Every layer of the architecture was designed from first principles — not adapted from existing systems that assumed connectivity.<br><br>Patent filed: April 2026. BETONIQ WEST LTD (RC 1496603).</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRACTION -->
+<section id="traction">
+  <div class="section-inner">
+    <div class="section-tag">Traction</div>
+    <h2 class="section-title">Built. Signed. Moving.</h2>
+    <div class="traction-grid">
+      <div class="t-card">
+        <div class="t-icon">📄</div>
+        <div class="t-title">Paystack Merchant Agreement</div>
+        <div class="t-desc">Merchant agreement signed July 14, 2026. Settlement rail partnership under active scoping with channelpartnerships@paystack.com.</div>
+      </div>
+      <div class="t-card">
+        <div class="t-icon">🏛</div>
+        <div class="t-title">Incorporated 2018</div>
+        <div class="t-desc">BETONIQ WEST LTD (RC 1496603). Registered in Abuja, Nigeria. Operational since May 20, 2018.</div>
+      </div>
+      <div class="t-card">
+        <div class="t-icon">🎓</div>
+        <div class="t-title">Academic Foundation</div>
+        <div class="t-desc">Founded on 15 years of NFC research. MSc Computer Systems Security, University of Gloucestershire, 2011.</div>
+      </div>
+      <div class="t-card">
+        <div class="t-icon">🌍</div>
+        <div class="t-title">Pre-Series A Raise</div>
+        <div class="t-desc">Targeting $4.5M USD. Active applications to Speedinvest, Founders Fund Africa, FID (€3.2M), and IFC SME Accelerator ($1.5M).</div>
+      </div>
+      <div class="t-card">
+        <div class="t-icon">⚖️</div>
+        <div class="t-title">Patent Pending</div>
+        <div class="t-desc">PUF + ECC P-256 + Distance Bounding offline payment architecture filed April 2026. World-first cryptographic settlement protocol.</div>
+      </div>
+      <div class="t-card">
+        <div class="t-icon">🪖</div>
+        <div class="t-title">Executive Leadership</div>
+        <div class="t-desc">Air Vice Marshal Monday Riku Morgan (Rtd) — Executive Vice Chairman. Providing strategic governance and defence-grade security expertise.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<div class="contact" id="contact">
+  <div class="contact-inner">
+    <div class="section-tag" style="margin-bottom:16px;">Partner With Us</div>
+    <h2>Ready to bring payments<br>to the last mile?</h2>
+    <p>Whether you're an investor, MFB, fintech partner, or enterprise — we want to build with you. Reach out directly to the team.</p>
+    <a href="mailto:zeropointfeild_nonwnt@zeropay.site" class="contact-email">zeropointfeild_nonwnt@zeropay.site</a>
+    <br><br>
+    <p style="font-size:13px;color:#444;margin-top:16px;">BETONIQ WEST LTD · RC 1496603 · D26 Flat 1, 25th Street, AMAC, FCT, Abuja, Nigeria</p>
+  </div>
+</div>
+
+<footer>
+  <p><strong>ZeroPay</strong> by BETONIQ WEST LTD (RC 1496603) · Patent Pending April 2026 · zeropay.site</p>
+</footer>
+
+</body>
+</html>

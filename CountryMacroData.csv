@@ -1,0 +1,6 @@
+country,currency,gdp_growth_percent,inflation_rate_percent,interest_rate_percent,population,real_estate_market_size_usd,real_estate_growth_percent,political_stability_score,ease_of_doing_business_rank,exchange_rate_to_usd,regulatory_environment,risks
+South Africa,ZAR,2.1,5.2,8.25,62000000,1800000000000,7.8,62,84,18.5,"JSE-listed REITs, FICA compliance","Political uncertainty, load-shedding, slow growth"
+United Kingdom,GBP,1.2,3.1,4.75,68000000,9800000000000,4.8,8.8,8,0.79,"FCA, HMRC, PRA","Post-Brexit changes, high entry costs, stamp duty"
+Nigeria,NGN,3.4,28.9,24.75,220000000,2400000000000,8.5,5.5,131,1580.0,"CBN, SEC Nigeria, FIRS","Currency volatility, inflation, infrastructure gaps"
+Senegal,XOF,8.9,4.2,5.5,18000000,45000000000,11.3,7.0,123,625.0,"BCEAO, CREPMF, APIX","Smaller market, French language barrier"
+Ghana,GHS,4.7,18.4,27.0,34000000,180000000000,9.2,7.2,118,14.5,"Bank of Ghana, Ghana SEC, LUSPA","Recent IMF bailout, currency depreciation"

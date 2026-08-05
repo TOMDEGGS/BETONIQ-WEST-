@@ -1,0 +1,7 @@
+agent_id,full_name,phone,city,state,country,status,float_balance_ngn,total_transactions,daily_volume_ngn,commission_earned_ngn,merchants_onboarded,joined_date,last_activity
+AGT-001,Abiodun Folarin,+234 803 220 1144,Lagos,Lagos,Nigeria,Active,450000,3420,280000,142000,24,2025-07-01,2026-03-23
+AGT-002,Fatima Bello,+234 806 331 5520,Abuja,FCT,Nigeria,Active,320000,2810,210000,112000,18,2025-08-15,2026-03-23
+AGT-003,Emeka Okonkwo,+234 811 440 7721,Onitsha,Anambra,Nigeria,Active,560000,4120,340000,188000,31,2025-06-20,2026-03-23
+AGT-004,Hauwa Musa,+234 803 112 8890,Kano,Kano,Nigeria,Active,280000,1980,165000,87000,14,2025-09-01,2026-03-22
+AGT-005,Kofi Mensah,+233 244 771 2230,Accra,Greater Accra,Ghana,Active,190000,1240,98000,54000,9,2025-11-10,2026-03-23
+AGT-006,Yusuf Ibrahim,+234 809 554 3311,Port Harcourt,Rivers,Nigeria,Active,410000,3100,255000,128000,22,2025-07-14,2026-03-23

@@ -1,0 +1,2 @@
+project_id,total_project_cost_usd,construction_cost_usd,land_cost_usd,projected_revenue_usd,projected_profit_usd,roi_percent,irr_percent,npv_usd,break_even_months,payback_period_months,market_demand_score,location_score,financial_viability_score,overall_score,study_date
+katampe-terrace-betoniq-west,850000,580000,180000,1088000,238000,28,31,198000,14,18,87,91,85,88,2026-05-16
