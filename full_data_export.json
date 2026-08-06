@@ -1,6 +1,6 @@
 {
   "generated_at": "2026-08-06",
-  "note": "Full Base44 database export for BETONIQ WEST LTD / ZeroPay / BETONIQ INVEST. Snapshot — refresh periodically by asking the primary Base44 agent to regenerate and push.",
+  "note": "Full internal database export for BETONIQ WEST LTD / ZeroPay / BETONIQ INVEST. Snapshot — refresh periodically via the primary operational AI agent.",
   "entities": {
     "RealEstateProject": [
       {"project_name":"Tatu City — Rendeavour Master-Planned City","country":"Kenya","developer":"Rendeavour (Stephen Jennings, Founder & CEO)","status":"Under Construction","total_value_usd":3500000000,"minimum_investment_usd":100000,"target_roi_percent":26},
