@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ZeroPay — Narrated 3D Flow Deck</title>
+<style>
+  * { box-sizing: border-box; }
+  body { margin:0; font-family: 'Segoe UI', Arial, sans-serif; background:#0B1B3A; color:#1A1A1A; overflow:hidden; }
+  .stage { position:relative; width:100vw; height:100vh; }
+  .slide { position:absolute; inset:0; display:none; background:#fff; }
+  .slide.active { display:block; }
+  .slide.cover { background:#0B1B3A; }
+  .cover-img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:0.9; }
+  .cover-overlay { position:absolute; left:6%; top:38%; width:55%; background:rgba(11,27,58,0.72); padding:28px 34px; border-radius:6px; }
+  .kicker { color:#C9A227; font-weight:700; font-size:15px; letter-spacing:1px; margin-bottom:8px; }
+  .cover-title { color:#fff; font-size:40px; font-weight:800; margin-bottom:14px; }
+  .cover-sub { color:#fff; font-size:17px; opacity:0.9; }
+  .band { background:#0B1B3A; padding:22px 40px 16px; }
+  .band .kicker { margin-bottom:6px; }
+  .band .title { color:#fff; font-size:28px; font-weight:800; }
+  .body { display:flex; height:calc(100vh - 96px); padding:30px 40px; gap:30px; align-items:center; }
+  .left { flex:1.3; }
+  .right { flex:1; display:flex; justify-content:center; }
+  .right img { max-width:100%; max-height:70vh; border-radius:10px; }
+  .dtable { width:100%; border-collapse:collapse; font-size:15px; }
+  .dtable th { background:#0B1B3A; color:#fff; text-align:left; padding:10px 12px; }
+  .dtable td { padding:9px 12px; border-bottom:1px solid #eee; }
+  .dtable tr:nth-child(even) td { background:#F4F5F7; }
+  .blist { font-size:19px; line-height:1.8; padding-left:22px; }
+  .blist li { margin-bottom:10px; }
+  .controls { position:fixed; bottom:18px; left:0; right:0; display:flex; justify-content:center; gap:14px; z-index:10; }
+  .controls button { background:#C9A227; color:#0B1B3A; border:none; padding:10px 20px; border-radius:24px;
+    font-weight:700; font-size:14px; cursor:pointer; box-shadow:0 2px 8px rgba(0,0,0,0.3); }
+  .controls button:hover { background:#e0b52f; }
+  .counter { position:fixed; top:16px; right:22px; color:#fff; background:rgba(0,0,0,0.4); padding:6px 14px;
+    border-radius:16px; font-size:13px; z-index:10; }
+</style>
+</head>
+<body>
+<div class="counter" id="counter">1 / 12</div>
+<div class="stage" id="stage">
+
+        <div class="slide cover active" data-n="1">
+          <img class="cover-img" src="zeropay_3d_img/zp_cover.png" />
+          <div class="cover-overlay">
+            <div class="kicker">BETONIQ WEST LTD · RC 1496603</div>
+            <div class="cover-title">ZeroPay: Payments Work Without the Internet</div>
+            <div class="cover-sub">Offline-first payment infrastructure for Africa's 1.4 billion unbanked, powered by PUF/ECC security and solar mesh relay hubs</div>
+          </div>
+        </div>
+
+        <div class="slide " data-n="2">
+          <div class="band"><div class="kicker">The Opportunity</div><div class="title">The Connectivity Gap in African Payments</div></div>
+          <div class="body">
+            <div class="left"><table class="dtable"><thead><tr><th>Metric</th><th>Figure</th></tr></thead><tbody><tr><td>Unbanked population (global)</td><td>1.4 billion</td></tr><tr><td>Unbanked population (Nigeria)</td><td>38 million</td></tr><tr><td>Areas with unreliable connectivity (Nigeria)</td><td>~40% of landmass</td></tr><tr><td>Rural mobile network downtime (avg.)</td><td>15-30% of hours/day</td></tr><tr><td>Cash-dependent informal economy (Nigeria)</td><td>~50% of GDP</td></tr></tbody></table></div>
+            <div class="right"><img src="zeropay_3d_img/zp_send.png" /></div>
+          </div>
+        </div>
+
+        <div class="slide " data-n="3">
+          <div class="band"><div class="kicker">Deployment Corridor</div><div class="title">Potiskum to Jos: A Zero-Connectivity Trade Route</div></div>
+          <div class="body">
+            <div class="left"></div>
+            <div class="right"><img src="zeropay_3d_img/zp_map.png" /></div>
+          </div>
+        </div>
+
+        <div class="slide " data-n="4">
+          <div class="band"><div class="kicker">Step 1 of 6</div><div class="title">Customer Initiates Payment (FX)</div></div>
+          <div class="body">
+            <div class="left"><ul class='blist'><li>Sender opens the ZeroPay app or taps their NFC card/wearable at a merchant terminal</li><li>Amount entered in local currency; FX rate locked at point of initiation</li><li>No internet connection or cellular signal required at any point</li></ul></div>
+            <div class="right"><img src="zeropay_3d_img/zp_send.png" /></div>
+          </div>
+        </div>
+
+        <div class="slide " data-n="5">
+          <div class="band"><div class="kicker">Step 2 of 6</div><div class="title">PUF/ECC Terminal Signs an Offline Token</div></div>
+          <div class="body">
+            <div class="left"><ul class='blist'><li>Physically Unclonable Function (PUF) generates a hardware-unique cryptographic fingerprint</li><li>ECC P-256 elliptic curve signing creates a tamper-proof offline transaction token</li><li>Dynamic challenge generation prevents token cloning or replay</li></ul></div>
+            <div class="right"><img src="zeropay_3d_img/zp_terminal.png" /></div>
+          </div>
+        </div>
+
+        <div class="slide " data-n="6">
+          <div class="band"><div class="kicker">Step 3 of 6</div><div class="title">Offline Token Transmits via NFC</div></div>
+          <div class="body">
+            <div class="left"><ul class='blist'><li>Signed token transmits over Near-Field Communication (NFC) — no cellular data used</li><li>Compatible with burner phones, feature phones, and low-cost wearables</li><li>Distance-bounding protocol blocks relay/man-in-the-middle attacks</li></ul></div>
+            <div class="right"><img src="zeropay_3d_img/zp_nfc.png" /></div>
+          </div>
+        </div>
+
+        <div class="slide " data-n="7">
+          <div class="band"><div class="kicker">Step 4 of 6</div><div class="title">Solar Mesh Relay Hub Carries the Token Forward</div></div>
+          <div class="body">
+            <div class="left"><ul class='blist'><li>Solar-powered hub with supercapacitor + lithium battery backup runs 24/7 off-grid</li><li>Mesh network passes the token hub-to-hub toward the nearest connected point</li><li>72-hour offline token validity matches the hub's power backup window</li></ul></div>
+            <div class="right"><img src="zeropay_3d_img/zp_hub.png" /></div>
+          </div>
+        </div>
+
+        <div class="slide " data-n="8">
+          <div class="band"><div class="kicker">Step 5 of 6</div><div class="title">Recipient Receives via Burner Phone or Wearable</div></div>
+          <div class="body">
+            <div class="left"><ul class='blist'><li>Recipient taps their device against the local terminal or hub</li><li>Funds appear as a pending, cryptographically-verified balance instantly</li><li>No smartphone or data plan required to receive money</li></ul></div>
+            <div class="right"><img src="zeropay_3d_img/zp_nfc.png" /></div>
+          </div>
+        </div>
+
+        <div class="slide " data-n="9">
+          <div class="band"><div class="kicker">Step 6 of 6</div><div class="title">Reconnection Triggers Settlement</div></div>
+          <div class="body">
+            <div class="left"><ul class='blist'><li>Once any device in the chain reconnects, tokens sync automatically to the cloud</li><li>Settlement routes through Paystack API to a licensed Microfinance Bank</li><li>Cross-border transfers complete via IMTO partner integration</li></ul></div>
+            <div class="right"><img src="zeropay_3d_img/zp_sync.png" /></div>
+          </div>
+        </div>
+
+        <div class="slide " data-n="10">
+          <div class="band"><div class="kicker">The Complete Journey</div><div class="title">End-to-End Flow: Send to Receive</div></div>
+          <div class="body">
+            <div class="left"><ul class='blist'><li>1. Send (FX)  →  2. PUF/ECC Sign  →  3. NFC Transmit</li><li>4. Solar Mesh Hub  →  5. NFC Receive  →  6. Sync & Settle</li><li>Total elapsed time, fully offline: typically under 5 seconds. Settlement completes automatically upon reconnection.</li></ul></div>
+            <div class="right"><img src="zeropay_3d_img/zp_flow.png" /></div>
+          </div>
+        </div>
+
+        <div class="slide " data-n="11">
+          <div class="band"><div class="kicker">Technical Specifications</div><div class="title">Security & Performance Architecture</div></div>
+          <div class="body">
+            <div class="left"><table class="dtable"><thead><tr><th>Layer</th><th>Specification</th></tr></thead><tbody><tr><td>Hardware root of trust</td><td>Physically Unclonable Function (PUF), silicon-level</td></tr><tr><td>Cryptographic signing</td><td>ECC P-256 elliptic curve digital signature</td></tr><tr><td>Anti-relay protection</td><td>Distance-bounding protocol</td></tr><tr><td>Offline token validity</td><td>72-hour time-to-live</td></tr><tr><td>Hub power backup</td><td>Supercapacitor + lithium battery, solar-charged</td></tr><tr><td>Transmission protocol</td><td>NFC (ISO/IEC 14443), mesh relay hub-to-hub</td></tr><tr><td>Settlement rail</td><td>Paystack API to Licensed MFB to IMTO (cross-border)</td></tr><tr><td>Patent status</td><td>Patent-pending, filed April 2026</td></tr></tbody></table></div>
+            <div class="right"><img src="zeropay_3d_img/zp_terminal.png" /></div>
+          </div>
+        </div>
+
+        <div class="slide cover " data-n="12">
+          <img class="cover-img" src="zeropay_3d_img/zp_cover.png" />
+          <div class="cover-overlay">
+            <div class="kicker">BETONIQ WEST LTD · RC 1496603</div>
+            <div class="cover-title">Payments Work Without the Internet.</div>
+            <div class="cover-sub">Tom Ugbodaga — Shareholder & CEO  |  zeropointfeild_nonwnt@zeropay.site</div>
+          </div>
+        </div>
+</div>
+<div class="controls">
+  <button onclick="prevSlide()">&#8592; Prev</button>
+  <button id="playBtn" onclick="togglePlay()">&#9658; Play Narration</button>
+  <button onclick="nextSlide()">Next &#8594;</button>
+</div>
+<audio id="narration"></audio>
+<script>
+  const total = 12;
+  let current = 1;
+  const audioFiles = ["zeropay_3d_audio/slide_01.mp3", "zeropay_3d_audio/slide_02.mp3", "zeropay_3d_audio/slide_03.mp3", "zeropay_3d_audio/slide_04.mp3", "zeropay_3d_audio/slide_05.mp3", "zeropay_3d_audio/slide_06.mp3", "zeropay_3d_audio/slide_07.mp3", "zeropay_3d_audio/slide_08.mp3", "zeropay_3d_audio/slide_09.mp3", "zeropay_3d_audio/slide_10.mp3", "zeropay_3d_audio/slide_11.mp3", "zeropay_3d_audio/slide_12.mp3"];
+  const audioEl = document.getElementById('narration');
+  let isPlaying = false;
+  let autoAdvance = false;
+
+  function showSlide(n) {
+    document.querySelectorAll('.slide').forEach(s => s.classList.remove('active'));
+    document.querySelector(`.slide[data-n="${n}"]`).classList.add('active');
+    document.getElementById('counter').textContent = `${n} / ${total}`;
+    current = n;
+    if (isPlaying) playCurrentAudio();
+  }
+  function nextSlide() { if (current < total) showSlide(current + 1); }
+  function prevSlide() { if (current > 1) showSlide(current - 1); }
+
+  function playCurrentAudio() {
+    audioEl.src = audioFiles[current - 1];
+    audioEl.play().catch(()=>{});
+  }
+  function togglePlay() {
+    isPlaying = !isPlaying;
+    document.getElementById('playBtn').innerHTML = isPlaying ? '&#10074;&#10074; Pause' : '&#9658; Play Narration';
+    if (isPlaying) { autoAdvance = true; playCurrentAudio(); } else { audioEl.pause(); autoAdvance = false; }
+  }
+  audioEl.addEventListener('ended', () => {
+    if (autoAdvance && current < total) { nextSlide(); }
+    else if (autoAdvance && current === total) { isPlaying = false; autoAdvance = false;
+      document.getElementById('playBtn').innerHTML = '&#9658; Play Narration'; }
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight') nextSlide();
+    if (e.key === 'ArrowLeft') prevSlide();
+  });
+</script>
+</body>
+</html>
