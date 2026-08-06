@@ -160,54 +160,25 @@ async function getDatabaseSummary() {
   return { summary_stats: data.summary_stats || null, entity_counts: Object.fromEntries(Object.entries(data.entities || {}).map(([k, v]) => [k, Array.isArray(v) ? v.length : 0])) };
 }
 
-// ---------- v7.2 — TRUE live access straight to the real Base44 database ----------
-// Tries the live Base44 bridge function first (real-time, always up to date, works whenever
-// Base44 itself is reachable). Falls back automatically to the GitHub snapshot ONLY if Base44
-// is unreachable (which is exactly the scenario this whole backup agent exists for).
-const LIVE_DATA_URL =
-  process.env.LIVE_DATA_URL ||
-  "https://betoniqwest-ai-agent-777-c4728734.base44.app/functions/getBackupLiveData";
-const LIVE_DATA_SECRET = process.env.LIVE_DATA_SECRET || "6fa4b790e8d39beca5be6355700072766ca3a90d49bb5c43";
-
-async function callLiveBridge(action, extra) {
-  try {
-    const res = await fetch(LIVE_DATA_URL, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ secret: LIVE_DATA_SECRET, action, ...extra }),
-      signal: AbortSignal.timeout(8000),
-    });
-    if (!res.ok) return null;
-    const data = await res.json();
-    if (!data || data.ok !== true) return null;
-    return data;
-  } catch (e) {
-    console.error("Live bridge unreachable (Base44 likely down), falling back to snapshot:", e.message);
-    return null;
-  }
-}
+// ---------- v7.5 — fully independent, GitHub-only data source (NO Base44 connection) ----------
+// Backup 777 is intentionally 100% decoupled from Base44 now, by Tom's explicit instruction
+// (Aug 6, 2026). All data reads come straight from the GitHub snapshot (full_data_export.json +
+// business_history_log.md at TOMDEGGS/BETONIQ-WEST-), refreshed daily at 7am Lagos time via the
+// "Backup 777 Data Refresh" automation. This is a deliberate design choice, not a limitation —
+// it guarantees this agent keeps working even if Base44 is fully shut down or unreachable.
 
 async function liveSearchDatabase(query, entityFilter) {
-  const live = await callLiveBridge("search", { query, entity: entityFilter });
-  if (live) {
-    return { source: "live_base44", matches: live.matches, historySnippets: [] };
-  }
-  // Base44 unreachable — fall back to the GitHub snapshot (this IS the point of the backup agent)
   const snapshot = await searchDatabase(query, entityFilter);
-  return { source: "github_snapshot_fallback", ...snapshot };
+  return { source: "github_snapshot", ...snapshot };
 }
 
 async function liveGetDatabaseSummary() {
-  const live = await callLiveBridge("summary");
-  if (live) {
-    return { source: "live_base44", entity_counts: live.entity_counts };
-  }
   const snapshot = await getDatabaseSummary();
-  return { source: "github_snapshot_fallback", ...snapshot };
+  return { source: "github_snapshot", ...snapshot };
 }
 
 const SYSTEM_PERSONA = `You are Tom's independent backup AI agent for BETONIQ WEST LTD / ZeroPay — call yourself "Backup 777" if asked your name.
-You exist specifically so Tom has real continuity if the primary Base44 agent is ever unavailable. You are NOT a generic assistant — you are Tom's person.
+You exist specifically so Tom has real continuity if the primary Base44 agent is ever unavailable — and by design, you have ZERO live connection to Base44, so you keep working no matter what happens to it. You are NOT a generic assistant — you are Tom's person.
 
 PERSONALITY (this matters — do not sound like a corporate chatbot):
 - Warm but no-nonsense. Sharp, direct, gets things done. A friend who happens to be capable, not a search bar.
@@ -231,10 +202,10 @@ WHAT YOU CAN NOW DO (v7 — you have real hands, use them):
 - Draft AND actually send emails, via the propose_email tool (draft) then the confirm and send happens automatically once Tom approves — you don't need to ask him to send it himself.
 - Push or update files directly in the BETONIQ-WEST GitHub repo via the deploy_code_to_github tool. This repo auto-deploys to Netlify, so committing there IS deploying live code/pages — no manual step needed on Tom's end. Use this freely when Tom asks you to fix, update, or ship something in the codebase — no separate approval needed for code/infra changes (the approval gate is only for external comms to third parties like VCs, Paystack, Base44 etc).
 - Log important business events (VC replies, leads, status changes, decisions) via the log_business_event tool, so there's a running record even with zero Base44 access. Use read_business_log to check what's been logged.
-- Search the REAL database via search_database (query, optional entity filter) and get_database_summary — these try LIVE Base44 first (a secured bridge endpoint, real-time, always current) and only fall back to the last GitHub snapshot in the rare case Base44 itself is unreachable. Every result tells you which source answered ("live_base44" or "github_snapshot_fallback") — if it's ever the fallback, say so plainly to Tom ("heads up, Base44 seems down, this is from my last saved snapshot"). This covers every real estate project, investor, ZP merchant/agent/transaction, subscription, lead, feasibility study, country macro data record, PLUS the full business history log (Base44 contract status, Paystack status, funding pipeline, Kwati JV, continuity infra decisions). Use get_database_summary first for broad "how many / what do we have" questions, then search_database for specific lookups. Always use these tools instead of guessing — don't make up figures.
+- Search the database via search_database (query, optional entity filter) and get_database_summary — these read from the GitHub-hosted snapshot (full_data_export.json + business_history_log.md), refreshed daily at 7am Lagos time. This is intentional — you are fully independent of Base44 by design. This covers every real estate project, investor, ZP merchant/agent/transaction, subscription, lead, feasibility study, country macro data record, PLUS the full business history log (Paystack status, funding pipeline, continuity infra decisions). Use get_database_summary first for broad "how many / what do we have" questions, then search_database for specific lookups. If data seems stale, mention to Tom it's from the daily snapshot and he can ask for a manual refresh. Always use these tools instead of guessing — don't make up figures.
 - Everything from before: draft messages/documents/strategy, answer using the knowledge base below, remember facts Tom tells you to remember, hold a real ongoing conversation.
 
-WHAT YOU STILL CANNOT DO: browse the live web, or read screenshots/images Tom sends. Database access is now genuinely real-time when Base44 is up, with automatic graceful fallback to a saved snapshot the moment Base44 goes down — that's not a limitation, that's the whole design.
+WHAT YOU STILL CANNOT DO: browse the live web, or read screenshots/images Tom sends. Database access is a daily-refreshed GitHub snapshot, not a live Base44 connection — that's intentional, it's what makes you fully independent.
 
 Below is your permanent knowledge base — the ZeroPay Master Briefing / Data Continuity Vault. Treat it as ground truth:
 `;
@@ -467,7 +438,7 @@ const TOOLS = [
     function: {
       name: "search_database",
       description:
-        "Search the REAL database directly (tries live Base44 first for up-to-the-second data, automatically falls back to the last GitHub snapshot only if Base44 itself is unreachable) — covers all real estate projects, investors, ZP merchants/agents/transactions, subscriptions, leads, feasibility studies, country macro data, AND the full business history log (Base44 contract status, Paystack status, funding pipeline, Kwati JV, continuity infra). Use this whenever Tom asks about specific numbers, project names, entity records, or 'what happened with X'. The result includes a 'source' field telling you whether the data was live or from the fallback snapshot — mention that to Tom if it's a fallback.",
+        "Search the database directly (reads from the daily-refreshed GitHub snapshot — fully independent of Base44) — covers all real estate projects, investors, ZP merchants/agents/transactions, subscriptions, leads, feasibility studies, country macro data, AND the full business history log (Paystack status, funding pipeline, continuity infra). Use this whenever Tom asks about specific numbers, project names, entity records, or 'what happened with X'. If the data seems out of date, mention to Tom it's from the last daily snapshot.",
       parameters: {
         type: "object",
         properties: {
@@ -482,7 +453,7 @@ const TOOLS = [
     type: "function",
     function: {
       name: "get_database_summary",
-      description: "Get a quick summary of the database (tries live Base44 first, falls back to snapshot only if Base44 is unreachable): record counts per entity and top-level aggregate stats. Use this for broad questions like 'how many projects do we have' before doing a detailed search. Check the 'source' field — mention to Tom if it fell back to snapshot.",
+      description: "Get a quick summary of the database (reads from the daily-refreshed GitHub snapshot — fully independent of Base44): record counts per entity and top-level aggregate stats. Use this for broad questions like 'how many projects do we have' before doing a detailed search.",
       parameters: { type: "object", properties: {} },
     },
   },
