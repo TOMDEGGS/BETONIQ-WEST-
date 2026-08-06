@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<title>ZeroPay — Mesh Relay Demo: Zero Connectivity, Live Payments</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100vh;overflow:hidden;font-family:'Segoe UI',Arial,sans-serif;background:#02050a;color:#fff;display:flex;flex-direction:column}
+#hdr{height:52px;flex-shrink:0;background:linear-gradient(90deg,#020a08,#041a10);border-bottom:2px solid #00ff88;display:flex;align-items:center;justify-content:space-between;padding:0 16px}
+.logo{font-size:1.05rem;font-weight:900;color:#00ff88;letter-spacing:1px}
+.sub{font-size:0.56rem;color:#446;margin-top:1px}
+#pgbar{height:3px;flex-shrink:0;background:#020a06}
+#pgfill{height:100%;background:linear-gradient(90deg,#00ff88,#00d4ff);transition:width .4s}
+#main{display:flex;flex:1;min-height:0;overflow:hidden}
+#scene{width:55%;position:relative;overflow:hidden;background:#020508}
+canvas{position:absolute;inset:0;width:100%;height:100%}
+#panel{width:45%;display:flex;flex-direction:column;padding:12px 14px;overflow:hidden;border-left:1px solid #041a10;background:#020408}
+.snum{font-size:0.56rem;letter-spacing:3px;color:#334;text-transform:uppercase;margin-bottom:4px}
+.stitle{font-size:1.1rem;font-weight:800;line-height:1.2;margin-bottom:6px}
+.sbody{font-size:0.72rem;color:#8899bb;line-height:1.6;margin-bottom:7px}
+.stat-row{display:flex;gap:6px;margin-bottom:6px;flex-shrink:0}
+.stat-box{flex:1;background:rgba(0,255,136,.08);border:1px solid #00ff8840;border-radius:6px;padding:5px 8px;text-align:center}
+.stat-val{font-size:1.1rem;font-weight:900;color:#00ff88}
+.stat-lbl{font-size:0.58rem;color:#778;margin-top:1px}
+.ltable{width:100%;border-collapse:collapse;font-size:0.65rem}
+.ltable thead tr{background:linear-gradient(90deg,rgba(0,255,136,.18),rgba(0,212,255,.1))}
+.ltable th{padding:4px 7px;text-align:left;font-weight:700;color:#00ff88;border-bottom:1px solid #00ff8844;font-size:0.62rem}
+.ltable td{padding:3px 7px;border-bottom:1px solid #0a1420;color:#cce}
+.badge{display:inline-block;padding:1px 6px;border-radius:8px;font-size:0.58rem;font-weight:700}
+.bg{background:#00ff8820;color:#00ff88;border:1px solid #00ff8840}
+.by{background:#ffd70020;color:#ffd700;border:1px solid #ffd70040}
+.br{background:#ff444420;color:#ff8888;border:1px solid #ff444440}
+.bc{background:#00d4ff20;color:#00d4ff;border:1px solid #00d4ff40}
+.pbtn{margin-top:auto;padding-top:6px;flex-shrink:0}
+.pb{background:transparent;border:1.5px solid #00ff88;color:#00ff88;padding:7px 14px;border-radius:18px;cursor:pointer;font-size:0.75rem;font-weight:600;font-family:inherit;transition:all .2s}
+.pb:hover{background:#00ff8822}
+#foot{height:50px;flex-shrink:0;background:#020306;border-top:2px solid #041a10;display:flex;align-items:center;justify-content:center;gap:6px;padding:0 8px}
+.fb{background:rgba(255,255,255,.07);border:1.5px solid rgba(255,255,255,.18);color:#ccc;padding:7px 12px;border-radius:8px;cursor:pointer;font-size:0.78rem;font-weight:600;font-family:inherit;white-space:nowrap;transition:all .2s}
+.fb:hover{background:rgba(0,255,136,.14);border-color:#00ff88;color:#00ff88}
+#fbplay{background:#00ff88;color:#000;font-weight:800;border-color:#00ff88;padding:7px 20px}
+#fbplay:hover{background:#33ffaa}
+#fbstop{background:rgba(255,50,50,.12);border-color:rgba(255,80,80,.35);color:#ff9999}
+#fbauto.on{background:#00ff8825;border-color:#00ff88;color:#00ff88}
+
+/* iOS AUDIO UNLOCK SPLASH — mobile only */
+#ios-splash{
+  display:none;
+  position:fixed;inset:0;z-index:9999;
+  background:rgba(2,5,14,.97);
+  flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;padding:30px;
+  animation:fadeIn .4s ease;
+}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+#ios-splash.show{display:flex}
+.splash-icon{font-size:64px;margin-bottom:20px;animation:bounce 1.5s infinite}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+.splash-title{font-size:1.4rem;font-weight:900;color:#00ff88;margin-bottom:10px;letter-spacing:1px}
+.splash-sub{font-size:0.85rem;color:#99aacc;margin-bottom:30px;line-height:1.6}
+.splash-btn{
+  background:linear-gradient(135deg,#00ff88,#00ff88);
+  color:#000;font-weight:900;font-size:1rem;
+  border:none;border-radius:28px;padding:16px 40px;
+  cursor:pointer;letter-spacing:1px;
+  box-shadow:0 0 30px rgba(0,212,255,.5);
+  animation:pulse-btn 2s infinite;
+}
+@keyframes pulse-btn{0%,100%{box-shadow:0 0 30px rgba(0,212,255,.5)}50%{box-shadow:0 0 50px rgba(0,212,255,.9),0 0 80px rgba(0,255,136,.3)}}
+.splash-lock{font-size:0.7rem;color:#445;margin-top:16px}
+
+
+
+
+/* ===== FULL MOBILE RESPONSIVE — ALL DEVICES ===== */
+
+/* Large phones + tablets portrait (481px – 768px) */
+@media screen and (max-width: 768px) {
+  #hdr { height:auto; min-height:42px; padding:5px 10px; flex-wrap:wrap; gap:4px; }
+  .logo { font-size:0.85rem; letter-spacing:1px; }
+  .sub { font-size:0.44rem; display:none; }
+  .cnt, #hcnt { font-size:0.82rem; }
+  .vcnt { font-size:0.46rem; }
+
+  /* STACK: canvas on top, panel below */
+  #main { flex-direction:column !important; overflow-y:auto !important; }
+
+  #scene, #anim-panel {
+    width:100% !important;
+    height:35vh !important;
+    min-height:180px;
+    max-height:240px;
+    flex-shrink:0;
+  }
+  canvas { width:100% !important; height:100% !important; }
+
+  #panel, #text-panel {
+    width:100% !important;
+    height:auto !important;
+    flex:1;
+    min-height:0;
+    overflow-y:auto;
+    padding:8px 10px !important;
+    border-left:none !important;
+    border-top:1px solid #0f1832;
+    -webkit-overflow-scrolling:touch;
+  }
+
+  .snum { font-size:0.52rem; margin-bottom:3px; }
+  .stitle, .slide-title { font-size:0.92rem !important; margin-bottom:5px !important; line-height:1.2 !important; }
+  .sbody, .slide-body { font-size:0.66rem !important; line-height:1.5 !important; margin-bottom:6px !important; display:-webkit-box; -webkit-line-clamp:5; -webkit-box-orient:vertical; overflow:hidden; }
+
+  /* Tables: horizontal scroll */
+  #tbl, .tbl-wrap { overflow-x:auto; -webkit-overflow-scrolling:touch; }
+  .ltable, .data-table { font-size:0.56rem !important; min-width:320px; }
+  .ltable th, .data-table th { padding:3px 5px !important; font-size:0.52rem !important; white-space:nowrap; }
+  .ltable td, .data-table td { padding:2px 5px !important; font-size:0.56rem !important; }
+  .badge { font-size:0.5rem !important; padding:1px 4px !important; }
+
+  /* Stats grid: 2-column */
+  .stat-row { flex-wrap:wrap; gap:4px !important; }
+  .stat-box { min-width:calc(50% - 4px); padding:4px 6px !important; }
+  .stat-val { font-size:0.88rem !important; }
+  .stat-lbl { font-size:0.5rem !important; }
+
+  /* Verdict */
+  .verdict { font-size:0.6rem !important; padding:5px 8px !important; }
+
+  /* Play button */
+  .pbtn { padding-top:4px !important; }
+  .pb, .play-btn { font-size:0.68rem !important; padding:6px 12px !important; border-radius:16px !important; }
+  .dot { width:6px !important; height:6px !important; }
+
+  /* Footer: wrap naturally, compact */
+  #foot, #footer {
+    height:auto !important;
+    min-height:42px;
+    flex-wrap:wrap;
+    gap:3px !important;
+    padding:5px 6px !important;
+  }
+  .fb {
+    padding:6px 9px !important;
+    font-size:0.68rem !important;
+    border-radius:6px !important;
+    flex:1;
+    min-width:60px;
+    text-align:center;
+  }
+  #fbplay { flex:2 !important; }
+
+  /* iOS splash */
+  #ios-splash { padding:24px 16px; }
+  .splash-icon { font-size:50px; margin-bottom:14px; }
+  .splash-title { font-size:1.1rem; }
+  .splash-sub { font-size:0.72rem; margin-bottom:20px; }
+  .splash-btn { font-size:0.85rem; padding:12px 28px; }
+}
+
+/* Small phones (320px – 480px) — iPhone SE, older Androids */
+@media screen and (max-width: 480px) {
+  .logo { font-size:0.78rem; }
+  #hcnt, .cnt { font-size:0.75rem; }
+
+  #scene, #anim-panel {
+    height:30vh !important;
+    min-height:160px;
+    max-height:200px;
+  }
+
+  .stitle, .slide-title { font-size:0.84rem !important; }
+  .sbody, .slide-body { font-size:0.62rem !important; -webkit-line-clamp:4; }
+  .ltable, .data-table { font-size:0.52rem !important; }
+
+  .fb {
+    padding:5px 7px !important;
+    font-size:0.62rem !important;
+  }
+
+  .stat-val { font-size:0.82rem !important; }
+  .splash-title { font-size:1rem; }
+  .splash-btn { padding:10px 22px; font-size:0.8rem; }
+}
+
+/* Landscape phone mode */
+@media screen and (max-width: 900px) and (orientation: landscape) {
+  #main { flex-direction:row !important; }
+  #scene, #anim-panel {
+    width:45% !important;
+    height:100% !important;
+    max-height:none;
+  }
+  #panel, #text-panel {
+    width:55% !important;
+    height:100% !important;
+    overflow-y:auto;
+  }
+  .stitle { font-size:0.8rem !important; }
+  .sbody { font-size:0.6rem !important; -webkit-line-clamp:3; }
+  #foot, #footer { height:36px !important; }
+  .fb { padding:4px 8px !important; font-size:0.62rem !important; }
+}
+
+</style>
+</head>
+<body>
+
+<div id="ios-splash">
+  <div class="splash-icon">🔊</div>
+  <div class="splash-title">TAP TO UNLOCK AUDIO</div>
+  <div class="splash-sub">iOS requires one tap to activate audio.<br>This unlocks narration for all slides.</div>
+  <button class="splash-btn" onclick="unlockAudio()">▶ UNLOCK &amp; START</button>
+  <div class="splash-lock">🔒 iOS Audio Policy · Safari · ZeroPay Secure Demo</div>
+</div>
+
+<div id="hdr">
+  <div>
+    <div class="logo">📡 ZEROPAY MESH RELAY — ZERO CONNECTIVITY. LIVE PAYMENTS.</div>
+    <div class="sub">Agenegbode → Auchi 51.1km · Kano Remote → State Capital 100km · No Internet · No Power · No Problem</div>
+  </div>
+  <div style="text-align:right">
+    <div style="font-size:1rem;font-weight:700;color:#00ff88" id="hcnt">1 / 2</div>
+    <div style="font-size:0.58rem;color:#888">Live 3D Relay Simulation</div>
+  </div>
+</div>
+<div id="pgbar"><div id="pgfill" style="width:50%"></div></div>
+<div id="main">
+  <div id="scene"><canvas id="cvs"></canvas></div>
+  <div id="panel">
+    <div class="snum" id="snum">SCENARIO 01 / 02</div>
+    <div class="stitle" id="stitle"></div>
+    <div class="sbody" id="sbody"></div>
+    <div class="stat-row" id="stat-row"></div>
+    <div id="tbl"></div>
+    <div class="pbtn">
+      <button class="pb" id="pbtn" onclick="togglePlay()">▶ PLAY NARRATION</button>
+    </div>
+  </div>
+</div>
+<div id="foot">
+  <button class="fb" onclick="nav(-1)">◀ SCENARIO 1</button>
+  <button class="fb" id="fbplay" onclick="togglePlay()">▶ PLAY</button>
+  <button class="fb" id="fbstop" onclick="stopAudio()">⏹ STOP</button>
+  <button class="fb" onclick="nav(1)">SCENARIO 2 ▶</button>
+  <button class="fb" id="fbauto" onclick="toggleAuto()">AUTO: OFF</button>
+</div>
+<audio id="aud" onended="onEnd()"></audio>
+
+<script>
+const ZP_AUDIO="https://raw.githubusercontent.com/TOMDEGGS/BETONIQ-WEST-/main/zeropay_mesh_audio";
+// ===== BLOB RAM CACHE — prevents all audio breaks during presentation =====
+const _blobCache = {};
+(function preloadAll(){
+  var base = 'https://raw.githubusercontent.com/TOMDEGGS/BETONIQ-WEST-/main/zeropay_mesh_audio';
+  var files = ["mesh_01.mp3", "mesh_02.mp3"];
+  files.forEach(function(f){
+    fetch(base+'/'+f)
+      .then(function(r){return r.blob();})
+      .then(function(b){_blobCache[f]=URL.createObjectURL(b);console.log('cached:',f);})
+      .catch(function(e){console.warn('miss:',f);});
+  });
+})();
+
+
+const SCENARIOS=[
+  { accent:"#00ff88",
+    title:"Agenegbode → Auchi — 51.1km, Zero Connectivity",
+    body:"No internet. No power grid. No GSM signal. Yet a farmer in Agenegbode, Edo State sends a cross-border payment to Ghana using ZeroPay's Solar Mesh relay chain. Each hop: 8.5km. Total relay chain: 6 hops to the nearest GSM node at Auchi. Settlement: Paystack confirms in under 3 seconds once the packet reaches connectivity.",
+    stats:[{v:"51.1km",l:"Total Relay Distance"},{v:"6 Hops",l:"Mesh Relay Chain"},{v:"<3s",l:"Settlement on Reach"},{v:"72hr",l:"Offline Token TTL"}],
+    nodes:[
+      {name:"AGENEGBODE",sub:"Farmer — Sender",x:.08,y:.55,c:"#ffd700",type:"origin"},
+      {name:"SOLAR HUB 1",sub:"8.5km relay",x:.22,y:.35,c:"#00ff88",type:"hub"},
+      {name:"SOLAR HUB 2",sub:"17km relay",x:.38,y:.25,c:"#00ff88",type:"hub"},
+      {name:"SOLAR HUB 3",sub:"25.5km relay",x:.52,y:.32,c:"#00ff88",type:"hub"},
+      {name:"SOLAR HUB 4",sub:"34km relay",x:.64,y:.22,c:"#00ff88",type:"hub"},
+      {name:"SOLAR HUB 5",sub:"42.5km relay",x:.76,y:.32,c:"#00ff88",type:"hub"},
+      {name:"AUCHI NODE",sub:"51.1km — GSM live",x:.9,y:.45,c:"#00d4ff",type:"gsm"},
+      {name:"PAYSTACK",sub:"Settlement rail",x:.9,y:.72,c:"#ffd700",type:"settle"}
+    ],
+    edges:[[0,1],[1,2],[2,3],[3,4],[4,5],[5,6],[6,7]],
+    table:{h:["Location","Status","ZeroPay Mode"],r:[["Agenegbode","🔴 No GSM · No power","🟢 Offline — NFC tap active"],["Relay Hub 1–5","🔴 No internet","🟢 Solar mesh — auto relay"],["Auchi","🟢 GSM available","🟢 Batch sync triggered"],["Paystack API","🟢 Online","🟢 Settlement: <3 seconds"],["Cross-border","🟢 Ghana corridor","🟢 IMTO FX applied"]]}
+  },
+  { accent:"#00d4ff",
+    title:"Kano Remote Region → State Capital — 100km, No GSM",
+    body:"Northern Nigeria. Dusty harmattan terrain. Zero GSM coverage for 100km between a remote Kano village and Kano State capital. A merchant needs to receive a ₦850,000 equipment payment. No bank. No agent. No internet. ZeroPay Solar Mesh spans the full 100km — 12 hops, each 8.3km — delivering a legally settled, cryptographically signed payment receipt.",
+    stats:[{v:"100km",l:"Total Distance"},{v:"12 Hops",l:"Full Relay Chain"},{v:"₦850K",l:"Transaction Value"},{v:"0%",l:"Internet Required"}],
+    nodes:[
+      {name:"KANO VILLAGE",sub:"Merchant — Receiver",x:.06,y:.6,c:"#ff9800",type:"origin"},
+      {name:"HUB 1",sub:"8.3km",x:.16,y:.4,c:"#00d4ff",type:"hub"},
+      {name:"HUB 2",sub:"16.6km",x:.25,y:.28,c:"#00d4ff",type:"hub"},
+      {name:"HUB 3",sub:"25km",x:.35,y:.2,c:"#00d4ff",type:"hub"},
+      {name:"HUB 4",sub:"33km",x:.45,y:.28,c:"#00d4ff",type:"hub"},
+      {name:"HUB 5",sub:"41km",x:.54,y:.2,c:"#00d4ff",type:"hub"},
+      {name:"HUB 6",sub:"50km",x:.62,y:.3,c:"#00d4ff",type:"hub"},
+      {name:"HUB 7-10",sub:"58–83km",x:.72,y:.2,c:"#00d4ff",type:"hub"},
+      {name:"HUB 11-12",sub:"91–100km",x:.82,y:.32,c:"#00d4ff",type:"hub"},
+      {name:"KANO CITY",sub:"GSM · 100km",x:.9,y:.5,c:"#00ff88",type:"gsm"},
+      {name:"PAYSTACK",sub:"Settlement",x:.9,y:.74,c:"#ffd700",type:"settle"}
+    ],
+    edges:[[0,1],[1,2],[2,3],[3,4],[4,5],[5,6],[6,7],[7,8],[8,9],[9,10]],
+    table:{h:["Condition","Reality","ZeroPay Response"],r:[["GSM signal","🔴 Zero for 100km","🟢 Mesh relay activated"],["Power grid","🔴 No electricity","🟢 Solar panels — 72hr backup"],["Internet","🔴 None available","🟢 Not required — NFC offline"],["Harmattan dust","🟡 Reduces solar efficiency","🟢 Battery + supercapacitor backup"],["Settlement","🟢 Kano city GSM reached","🟢 ₦850,000 confirmed"]]}
+  }
+];
+
+let cur=0,auto=false,t=0,isPlaying=false,loadedSlide=-1;
+const cvs=document.getElementById('cvs');
+const ctx=cvs.getContext('2d');
+function W(){return cvs.width} function H(){return cvs.height}
+function resize(){const sc=document.getElementById('scene');cvs.width=sc.offsetWidth;cvs.height=sc.offsetHeight;}
+window.addEventListener('resize',resize);
+function glow(c,b){ctx.shadowColor=c;ctx.shadowBlur=b;}
+function noglow(){ctx.shadowBlur=0;}
+
+function drawMeshScenario(){
+  const w=W(),h=H();
+  const sc=SCENARIOS[cur];
+  const nodes=sc.nodes,edges=sc.edges;
+  const totalEdges=edges.length;
+  const packetProgress=((t*.25))%1;
+  const activeEdge=Math.floor(packetProgress*totalEdges);
+  const edgeProgress=(packetProgress*totalEdges)%1;
+
+  // Ground terrain
+  const terrainGrad=ctx.createLinearGradient(0,h*.65,0,h);
+  terrainGrad.addColorStop(0,cur===0?'#0a1a06':'#1a1200');
+  terrainGrad.addColorStop(1,cur===0?'#050e04':'#0a0900');
+  ctx.fillStyle=terrainGrad;ctx.fillRect(0,h*.65,w,h*.35);
+
+  // Dust particles (Kano) or foliage dots (Edo)
+  for(let i=0;i<20;i++){
+    const px=((i*179+t*30)%w);
+    const py=h*.68+((i*113)%(h*.25));
+    const c=cur===0?'rgba(0,100,0,.3)':'rgba(180,120,40,.25)';
+    ctx.fillStyle=c;ctx.beginPath();ctx.arc(px,py,1.5+i%2,0,Math.PI*2);ctx.fill();
+  }
+
+  // Sky gradient
+  const skyGrad=ctx.createLinearGradient(0,0,0,h*.65);
+  skyGrad.addColorStop(0,cur===0?'#030e08':'#080608');
+  skyGrad.addColorStop(1,cur===0?'#0a1a10':'#120e06');
+  ctx.fillStyle=skyGrad;ctx.fillRect(0,0,w,h*.65);
+
+  // Stars
+  for(let i=0;i<25;i++){
+    const sx=((i*317)%w);
+    const sy=((i*211)%(h*.6));
+    const ss=.5+(i%3)*.3;
+    ctx.fillStyle=`rgba(255,255,255,${.3+.3*(i%2)})`;
+    ctx.beginPath();ctx.arc(sx,sy,ss,0,Math.PI*2);ctx.fill();
+  }
+
+  // Sun/moon
+  if(cur===1){
+    // Harmattan haze
+    const hazeGrad=ctx.createRadialGradient(w*.8,h*.15,5,w*.8,h*.15,80);
+    hazeGrad.addColorStop(0,'rgba(255,180,80,.3)');hazeGrad.addColorStop(1,'rgba(255,180,80,0)');
+    ctx.fillStyle=hazeGrad;ctx.fillRect(0,0,w,h*.5);
+  }
+
+  // Draw edges + propagation
+  edges.forEach(([a,b],ei)=>{
+    const na=nodes[a],nb=nodes[b];
+    const done=ei<activeEdge;
+    const isActive=ei===activeEdge;
+    ctx.strokeStyle=done?sc.accent+'88':isActive?sc.accent+'cc':'rgba(255,255,255,.06)';
+    ctx.lineWidth=done?2:isActive?2.5:1;
+    if(done||isActive){glow(sc.accent,isActive?12:4);}
+    ctx.setLineDash(done?[]:[4,8]);
+    ctx.beginPath();ctx.moveTo(na.x*w,na.y*h);ctx.lineTo(nb.x*w,nb.y*h);ctx.stroke();
+    ctx.setLineDash([]);noglow();
+    if(isActive){
+      const px=na.x*w+(nb.x*w-na.x*w)*edgeProgress;
+      const py=na.y*h+(nb.y*h-na.y*h)*edgeProgress;
+      ctx.beginPath();ctx.arc(px,py,7+2*Math.sin(t*8),0,Math.PI*2);
+      ctx.fillStyle=sc.accent;glow(sc.accent,18);ctx.fill();noglow();
+      // Trailing glow
+      for(let tr=1;tr<=5;tr++){
+        const trf=Math.max(0,edgeProgress-tr*.04);
+        const tx2=na.x*w+(nb.x*w-na.x*w)*trf;
+        const ty2=na.y*h+(nb.y*h-na.y*h)*trf;
+        ctx.beginPath();ctx.arc(tx2,ty2,4*(1-tr/5),0,Math.PI*2);
+        ctx.fillStyle=sc.accent+Math.round((1-tr/5)*120).toString(16).padStart(2,'0');ctx.fill();
+      }
+    }
+  });
+
+  // Draw nodes
+  nodes.forEach((n,ni)=>{
+    const nx=n.x*w,ny=n.y*h;
+    const reached=ni<=activeEdge;
+    const r=n.type==='origin'?14:n.type==='settle'?13:n.type==='gsm'?13:9;
+
+    // Solar panel icon for hubs
+    if(n.type==='hub'&&reached){
+      ctx.fillStyle=n.c+'44';ctx.fillRect(nx-8,ny-r-10,16,6);
+      ctx.strokeStyle=n.c;ctx.lineWidth=1;ctx.strokeRect(nx-8,ny-r-10,16,6);
+      ctx.strokeStyle=n.c+'66';ctx.beginPath();ctx.moveTo(nx,ny-r-10);ctx.lineTo(nx,ny-r-4);ctx.stroke();
+    }
+
+    const ng=ctx.createRadialGradient(nx-r*.3,ny-r*.3,1,nx,ny,r);
+    ng.addColorStop(0,'#fff');ng.addColorStop(.3,n.c);ng.addColorStop(1,n.c+'22');
+    ctx.beginPath();ctx.arc(nx,ny,r*(1+.06*Math.sin(t*3+ni)),0,Math.PI*2);
+    ctx.fillStyle=reached?ng:n.c+'22';
+    if(reached){glow(n.c,12);}ctx.fill();noglow();
+
+    ctx.fillStyle=reached?'#000':'#444';ctx.font=`bold ${r*.7}px Segoe UI`;ctx.textAlign='center';
+    ctx.fillText(n.type==='hub'?'☀':'✦',nx,ny+3);
+    ctx.fillStyle=reached?n.c:'#334';ctx.font=`bold ${Math.max(6,r*.65)}px Segoe UI`;
+    ctx.fillText(n.name,nx,ny+r+10);
+    ctx.fillStyle='rgba(255,255,255,.4)';ctx.font='6px Segoe UI';
+    ctx.fillText(n.sub,nx,ny+r+18);
+
+    // Status dot
+    if(reached){
+      ctx.beginPath();ctx.arc(nx+r*.7,ny-r*.7,3,0,Math.PI*2);
+      ctx.fillStyle=n.type==='gsm'?'#00d4ff':n.type==='settle'?'#ffd700':'#00ff88';glow('#00ff88',6);ctx.fill();noglow();
+    }
+  });
+
+  // Distance label
+  const totalKm=cur===0?51.1:100;
+  const coveredKm=(totalKm*packetProgress).toFixed(1);
+  ctx.fillStyle=sc.accent;glow(sc.accent,8);ctx.font='bold 11px Segoe UI';ctx.textAlign='center';
+  ctx.fillText(`📡 RELAY PROGRESS: ${coveredKm}km / ${totalKm}km`,w/2,h*.88);noglow();
+  ctx.fillStyle='#00ff88';ctx.font='bold 10px Segoe UI';
+  ctx.fillText(cur===0?'🟢 ZERO INTERNET · ZERO POWER · PAYMENT DELIVERED':'🟢 ZERO GSM · HARMATTAN DUST · PAYMENT DELIVERED',w/2,h*.94);
+  ctx.textAlign='left';
+}
+
+function loop(){resize();ctx.clearRect(0,0,W(),H());drawMeshScenario();t+=.016;requestAnimationFrame(loop);}
+
+function buildTable(d){
+  if(!d)return '';let s=`<table class="ltable"><thead><tr>`;
+  d.h.forEach(hh=>s+=`<th>${hh}</th>`);s+='</tr></thead><tbody>';
+  d.r.forEach(r=>{s+='<tr>';r.forEach((c,i)=>{
+    const lo=String(c).toLowerCase();let badge='';
+    if(/🟢|active|confirmed|available|reached|applied/.test(lo))badge='bg';
+    else if(/🟡|reduces/.test(lo))badge='by';
+    else if(/🔴|zero|none|no internet|no electricity|no gsm/.test(lo))badge='br';
+    else if(/mesh|relay|nfc|solar|offline/.test(lo))badge='bc';
+    s+=badge?`<td><span class="badge ${badge}">${c}</span></td>`:`<td>${c}</td>`;
+  });s+='</tr>';});return s+'</tbody></table>';
+}
+
+function buildStats(stats){
+  return stats.map(s=>`<div class="stat-box"><div class="stat-val">${s.v}</div><div class="stat-lbl">${s.l}</div></div>`).join('');
+}
+
+function showSlide(n){
+  const s=SCENARIOS[n];
+  document.getElementById('hcnt').textContent=(n+1)+' / 2';
+  document.getElementById('snum').textContent='SCENARIO '+String(n+1).padStart(2,'0')+' / 02';
+  document.getElementById('stitle').textContent=s.title;
+  document.getElementById('stitle').style.color=s.accent;
+  document.getElementById('sbody').textContent=s.body;
+  document.getElementById('stat-row').innerHTML=buildStats(s.stats);
+  document.getElementById('tbl').innerHTML=buildTable(s.table);
+  document.getElementById('pgfill').style.width=((n+1)/2*100)+'%';
+  stopAudio();t=0;
+}
+
+function setPlayUI(p){isPlaying=p;document.getElementById('pbtn').textContent=p?'⏸ PAUSE':'▶ PLAY NARRATION';document.getElementById('fbplay').textContent=p?'⏸ PAUSE':'▶ PLAY';}
+function ensureLoaded(){
+  var a=document.getElementById('aud');
+  if(loadedSlide!==cur){
+    var n=String(cur+1).padStart(2,'0');
+    var fname='mesh_'+n+'.mp3';
+    a.src=(_blobCache[fname])||ZP_AUDIO+'/'+fname;
+    a.load();loadedSlide=cur;
+  }
+}
+function togglePlay(){const a=document.getElementById('aud');if(isPlaying){a.pause();setPlayUI(false);}else{ensureLoaded();a.play().then(()=>setPlayUI(true)).catch(e=>console.log(e));}}
+function stopAudio(){const a=document.getElementById('aud');a.pause();a.currentTime=0;loadedSlide=-1;setPlayUI(false);}
+function onEnd(){setPlayUI(false);loadedSlide=-1;if(auto&&cur<1){setTimeout(()=>{nav(1);setTimeout(()=>{ensureLoaded();document.getElementById('aud').play().then(()=>setPlayUI(true)).catch(e=>{});},500);},1500);}else if(auto&&cur===1){toggleAuto();}}
+function nav(d){const n=Math.max(0,Math.min(1,cur+d));if(n!==cur){const wasAuto=auto;stopAudio();cur=n;showSlide(cur);if(wasAuto)setTimeout(()=>{ensureLoaded();document.getElementById('aud').play().then(()=>setPlayUI(true)).catch(e=>{});},500);}}
+function toggleAuto(){auto=!auto;const b=document.getElementById('fbauto');b.textContent='AUTO: '+(auto?'ON ✓':'OFF');b.classList.toggle('on',auto);if(auto){ensureLoaded();document.getElementById('aud').play().then(()=>setPlayUI(true)).catch(e=>{});}}
+document.addEventListener('keydown',e=>{if(e.key==='ArrowRight')nav(1);if(e.key==='ArrowLeft')nav(-1);if(e.key===' '){e.preventDefault();togglePlay();}});
+let tx=0;document.addEventListener('touchstart',e=>{tx=e.touches[0].clientX;},{passive:true});
+document.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-tx;if(Math.abs(dx)>44)nav(dx<0?1:-1);},{passive:true});
+window.addEventListener('load',()=>setTimeout(()=>{resize();showSlide(0);loop();},150));
+
+// iOS Audio Unlock — fires on mobile Safari ONLY
+function isIOS(){
+  return /iphone|ipad|ipod/i.test(navigator.userAgent) ||
+    (navigator.platform==='MacIntel' && navigator.maxTouchPoints>1);
+}
+function unlockAudio(){
+  // Create and play a silent buffer to unlock iOS audio context
+  const AudioCtx=window.AudioContext||window.webkitAudioContext;
+  if(AudioCtx){
+    const ctx=new AudioCtx();
+    const buf=ctx.createBuffer(1,1,22050);
+    const src=ctx.createBufferSource();
+    src.buffer=buf; src.connect(ctx.destination); src.start(0);
+    ctx.resume();
+  }
+  // Also unlock the HTML audio element
+  const a=document.getElementById('aud');
+  if(a){ a.volume=0; a.play().then(()=>{a.pause();a.currentTime=0;a.volume=1;}).catch(()=>{}); }
+  // Hide splash
+  document.getElementById('ios-splash').classList.remove('show');
+  // Preload first slide audio in background
+  setTimeout(()=>{
+    if(typeof ensureLoaded==='function') ensureLoaded();
+  },300);
+}
+window.addEventListener('load',()=>{
+  if(isIOS()){
+    setTimeout(()=>document.getElementById('ios-splash').classList.add('show'),400);
+  }
+});
+
+</script>
+</body></html>
