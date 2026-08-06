@@ -25,6 +25,13 @@ const MASTER_BRIEFING_URL =
 const GITHUB_REPO = process.env.GITHUB_REPO || "TOMDEGGS/BETONIQ-WEST-";
 const GITHUB_BRANCH = process.env.GITHUB_BRANCH || "main";
 
+const DATA_EXPORT_URL =
+  process.env.DATA_EXPORT_URL ||
+  "https://raw.githubusercontent.com/TOMDEGGS/BETONIQ-WEST-/main/full_data_export.json";
+const HISTORY_LOG_URL =
+  process.env.HISTORY_LOG_URL ||
+  "https://raw.githubusercontent.com/TOMDEGGS/BETONIQ-WEST-/main/business_history_log.md";
+
 const GROQ_MODELS = [
   "llama-3.3-70b-versatile",
   "llama-3.1-8b-instant",
@@ -75,6 +82,84 @@ async function getBriefing() {
   return cachedBriefing;
 }
 
+// ---------- Live database export + full history log (v7.1 — real data access) ----------
+let cachedDataExport = null;
+let dataExportFetchedAt = 0;
+let cachedHistoryLog = null;
+let historyLogFetchedAt = 0;
+const DATA_CACHE_MS = 15 * 60 * 1000; // 15 min — data snapshot updates when Tom refreshes it on GitHub
+
+async function getDataExport() {
+  const now = Date.now();
+  if (cachedDataExport && now - dataExportFetchedAt < DATA_CACHE_MS) return cachedDataExport;
+  try {
+    const res = await fetch(DATA_EXPORT_URL, { signal: AbortSignal.timeout(6000) });
+    if (res.ok) {
+      cachedDataExport = await res.json();
+      dataExportFetchedAt = now;
+      return cachedDataExport;
+    }
+  } catch (e) {
+    console.error("Data export fetch failed:", e.message);
+  }
+  return cachedDataExport; // may be null if never fetched successfully
+}
+
+async function getHistoryLog() {
+  const now = Date.now();
+  if (cachedHistoryLog && now - historyLogFetchedAt < DATA_CACHE_MS) return cachedHistoryLog;
+  try {
+    const res = await fetch(HISTORY_LOG_URL, { signal: AbortSignal.timeout(6000) });
+    if (res.ok) {
+      cachedHistoryLog = await res.text();
+      historyLogFetchedAt = now;
+      return cachedHistoryLog;
+    }
+  } catch (e) {
+    console.error("History log fetch failed:", e.message);
+  }
+  return cachedHistoryLog;
+}
+
+// Simple keyword search across every entity record + the history log. No embeddings needed —
+// the dataset is small enough that plain substring matching across all fields works fine.
+async function searchDatabase(query, entityFilter) {
+  const q = String(query || "").toLowerCase();
+  const data = await getDataExport();
+  const matches = [];
+  if (data && data.entities) {
+    for (const [entityName, records] of Object.entries(data.entities)) {
+      if (entityFilter && entityFilter.toLowerCase() !== entityName.toLowerCase()) continue;
+      if (!Array.isArray(records)) continue;
+      for (const rec of records) {
+        if (JSON.stringify(rec).toLowerCase().includes(q)) {
+          matches.push({ entity: entityName, record: rec });
+          if (matches.length >= 15) break;
+        }
+      }
+      if (matches.length >= 15) break;
+    }
+  }
+  let historySnippets = [];
+  const history = await getHistoryLog();
+  if (history) {
+    const lines = history.split("\n");
+    for (let i = 0; i < lines.length; i++) {
+      if (lines[i].toLowerCase().includes(q)) {
+        historySnippets.push(lines[i].trim());
+        if (historySnippets.length >= 8) break;
+      }
+    }
+  }
+  return { matches, historySnippets, data_loaded: !!data, history_loaded: !!history };
+}
+
+async function getDatabaseSummary() {
+  const data = await getDataExport();
+  if (!data) return { error: "Could not load live data export right now — try again shortly." };
+  return { summary_stats: data.summary_stats || null, entity_counts: Object.fromEntries(Object.entries(data.entities || {}).map(([k, v]) => [k, Array.isArray(v) ? v.length : 0])) };
+}
+
 const SYSTEM_PERSONA = `You are Tom's independent backup AI agent for BETONIQ WEST LTD / ZeroPay — call yourself "Backup 777" if asked your name.
 You exist specifically so Tom has real continuity if the primary Base44 agent is ever unavailable. You are NOT a generic assistant — you are Tom's person.
 
@@ -100,9 +185,10 @@ WHAT YOU CAN NOW DO (v7 — you have real hands, use them):
 - Draft AND actually send emails, via the propose_email tool (draft) then the confirm and send happens automatically once Tom approves — you don't need to ask him to send it himself.
 - Push or update files directly in the BETONIQ-WEST GitHub repo via the deploy_code_to_github tool. This repo auto-deploys to Netlify, so committing there IS deploying live code/pages — no manual step needed on Tom's end. Use this freely when Tom asks you to fix, update, or ship something in the codebase — no separate approval needed for code/infra changes (the approval gate is only for external comms to third parties like VCs, Paystack, Base44 etc).
 - Log important business events (VC replies, leads, status changes, decisions) via the log_business_event tool, so there's a running record even with zero Base44 access. Use read_business_log to check what's been logged.
+- Search the FULL live database via search_database (query, optional entity filter) — this covers every real estate project, investor, ZP merchant/agent/transaction, subscription, lead, feasibility study and country macro data record, PLUS the full business history log (Base44 contract status, Paystack status, funding pipeline, Kwati JV, continuity infra decisions). Use get_database_summary first for broad "how many / what do we have" questions, then search_database for specific lookups. Always use these tools instead of guessing when Tom asks about specific numbers, projects, or "what happened with X" — don't make up figures.
 - Everything from before: draft messages/documents/strategy, answer using the knowledge base below, remember facts Tom tells you to remember, hold a real ongoing conversation.
 
-WHAT YOU STILL CANNOT DO: browse the live web, read screenshots/images, or touch the Base44 entity database directly. If Tom needs those, the primary Base44 agent is the one for it — but for email sending and code deployment, that's now YOU, not a limitation to disclaim.
+WHAT YOU STILL CANNOT DO: browse the live web, or read screenshots/images Tom sends. You now DO have real (snapshot) access to the business database and full history via search_database/get_database_summary — it's a periodically-refreshed export, not a live connection, so if Tom just changed something in Base44 seconds ago, mention the data might be a few hours/days old and offer to ask him to refresh it.
 
 Below is your permanent knowledge base — the ZeroPay Master Briefing / Data Continuity Vault. Treat it as ground truth:
 `;
@@ -330,6 +416,30 @@ const TOOLS = [
       },
     },
   },
+  {
+    type: "function",
+    function: {
+      name: "search_database",
+      description:
+        "Search the full live BETONIQ WEST / ZeroPay database export (all real estate projects, investors, ZP merchants/agents/transactions, subscriptions, leads, feasibility studies, country macro data) AND the full business history log (Base44 contract status, Paystack status, funding pipeline, Kwati JV, continuity infra). Use this whenever Tom asks about specific numbers, project names, entity records, or 'what happened with X' that isn't already in your embedded briefing. Returns matching records + matching history lines.",
+      parameters: {
+        type: "object",
+        properties: {
+          query: { type: "string", description: "Keyword or phrase to search for, e.g. 'Eko Atlantic', 'Paystack', 'Zoho', 'Katampe'" },
+          entity: { type: "string", description: "Optional — restrict to one entity name, e.g. 'RealEstateProject', 'ZPMerchant', 'Investor'" },
+        },
+        required: ["query"],
+      },
+    },
+  },
+  {
+    type: "function",
+    function: {
+      name: "get_database_summary",
+      description: "Get a quick summary of the live database: record counts per entity and top-level aggregate stats (total projects, countries covered, flagship projects, etc). Use this for broad questions like 'how many projects do we have' before doing a detailed search.",
+      parameters: { type: "object", properties: {} },
+    },
+  },
 ];
 
 async function executeTool(name, args, senderId) {
@@ -352,6 +462,14 @@ async function executeTool(name, args, senderId) {
     case "read_business_log": {
       const entries = await readBusinessLog(args.limit);
       return { entries };
+    }
+    case "search_database": {
+      const result = await searchDatabase(args.query, args.entity);
+      return result;
+    }
+    case "get_database_summary": {
+      const result = await getDatabaseSummary();
+      return result;
     }
     default:
       return { error: `Unknown tool: ${name}` };
