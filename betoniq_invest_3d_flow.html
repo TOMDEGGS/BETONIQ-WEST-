@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>BETONIQ INVEST — Narrated Investor Deck</title>
+<style>
+  * { box-sizing: border-box; }
+  body { margin:0; font-family: 'Segoe UI', Arial, sans-serif; background:#0B1B3A; color:#1A1A1A; overflow:hidden; }
+  .stage { position:relative; width:100vw; height:100vh; }
+  .slide { position:absolute; inset:0; display:none; background:#fff; }
+  .slide.active { display:block; }
+  .slide.cover { background:#0B1B3A; }
+  .cover-img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:0.9; }
+  .cover-overlay { position:absolute; left:6%; top:38%; width:55%; background:rgba(11,27,58,0.72); padding:28px 34px; border-radius:6px; }
+  .kicker { color:#C9A227; font-weight:700; font-size:15px; letter-spacing:1px; margin-bottom:8px; }
+  .cover-title { color:#fff; font-size:44px; font-weight:800; margin-bottom:14px; }
+  .cover-sub { color:#fff; font-size:18px; opacity:0.9; }
+  .band { background:#0B1B3A; padding:22px 40px 16px; }
+  .band .kicker { margin-bottom:6px; }
+  .band .title { color:#fff; font-size:28px; font-weight:800; }
+  .body { display:flex; height:calc(100vh - 96px); padding:30px 40px; gap:30px; align-items:center; }
+  .left { flex:1.3; }
+  .right { flex:1; display:flex; justify-content:center; }
+  .right img { max-width:100%; max-height:70vh; border-radius:10px; }
+  .dtable { width:100%; border-collapse:collapse; font-size:16px; }
+  .dtable th { background:#0B1B3A; color:#fff; text-align:left; padding:10px 12px; }
+  .dtable td { padding:9px 12px; border-bottom:1px solid #eee; }
+  .dtable tr:nth-child(even) td { background:#F4F5F7; }
+  .dtable .total-row td { font-weight:800; background:#C9A227; color:#0B1B3A; }
+  .blist { font-size:19px; line-height:1.8; padding-left:22px; }
+  .blist li { margin-bottom:10px; }
+  .controls { position:fixed; bottom:18px; left:0; right:0; display:flex; justify-content:center; gap:14px; z-index:10; }
+  .controls button { background:#C9A227; color:#0B1B3A; border:none; padding:10px 20px; border-radius:24px;
+    font-weight:700; font-size:14px; cursor:pointer; box-shadow:0 2px 8px rgba(0,0,0,0.3); }
+  .controls button:hover { background:#e0b52f; }
+  .counter { position:fixed; top:16px; right:22px; color:#fff; background:rgba(0,0,0,0.4); padding:6px 14px;
+    border-radius:16px; font-size:13px; z-index:10; }
+</style>
+</head>
+<body>
+<div class="counter" id="counter">1 / 11</div>
+<div class="stage" id="stage">
+
+        <div class="slide cover active" data-n="1">
+          <img class="cover-img" src="betoniq_invest_3d_img/bi_cover.png" />
+          <div class="cover-overlay">
+            <div class="kicker">BETONIQ WEST LTD · RC 1496603</div>
+            <div class="cover-title">BETONIQ INVEST</div>
+            <div class="cover-sub">The AI-scored, compliance-verified real estate investment platform for Pan-African and emerging markets</div>
+          </div>
+        </div>
+
+        <div class="slide " data-n="2">
+          <div class="band"><div class="kicker">The Opportunity</div><div class="title">A Platform Built on Real Data</div></div>
+          <div class="body">
+            <div class="left"><table class="dtable"><thead><tr><th>Metric</th><th>Figure</th></tr></thead><tbody><tr class=""><td>Active project listings</td><td>60+</td></tr><tr class=""><td>Countries represented</td><td>11</td></tr><tr class=""><td>Combined pipeline value</td><td>$5.1B+</td></tr><tr class=""><td>Average target ROI</td><td>29%</td></tr><tr class=""><td>AI scoring parameters per project</td><td>47</td></tr></tbody></table></div>
+            <div class="right"><img src="betoniq_invest_3d_img/bi_africa.png" /></div>
+          </div>
+        </div>
+
+        <div class="slide " data-n="3">
+          <div class="band"><div class="kicker">How It Works</div><div class="title">From Developer Submission to Investor Return</div></div>
+          <div class="body">
+            <div class="left"><ul class='blist'><li>Developer submits project</li><li>AI scores across 47 compliance & feasibility parameters</li><li>Verified listing published to investors</li><li>Investor matches project to their goals</li><li>Equity stake or profit-sharing investment completes</li></ul></div>
+            <div class="right"><img src="betoniq_invest_3d_img/bi_flow.png" /></div>
+          </div>
+        </div>
+
+        <div class="slide " data-n="4">
+          <div class="band"><div class="kicker">Continental Footprint</div><div class="title">Projects Across 11 Countries</div></div>
+          <div class="body">
+            <div class="left"></div>
+            <div class="right"><img src="betoniq_invest_3d_img/bi_africa.png" /></div>
+          </div>
+        </div>
+
+        <div class="slide " data-n="5">
+          <div class="band"><div class="kicker">The Technology</div><div class="title">47-Parameter AI Compliance & Feasibility Engine</div></div>
+          <div class="body">
+            <div class="left"><ul class='blist'><li>Compliance score: regulatory status, licensing, land title verification</li><li>Feasibility score: NPV, IRR, break-even period, payback timeline</li><li>Market demand & location scoring cross-referenced against macroeconomic data</li><li>Every score independently auditable, backed by a documented feasibility study</li></ul></div>
+            <div class="right"><img src="betoniq_invest_3d_img/bi_ai.png" /></div>
+          </div>
+        </div>
+
+        <div class="slide " data-n="6">
+          <div class="band"><div class="kicker">Featured Listing</div><div class="title">Katampe Terrace Residences — Abuja, Nigeria</div></div>
+          <div class="body">
+            <div class="left"><table class="dtable"><thead><tr><th>Metric</th><th>Value</th></tr></thead><tbody><tr class=""><td>Total project value</td><td>$2,100,000</td></tr><tr class=""><td>Minimum investment</td><td>$50,000</td></tr><tr class=""><td>Target IRR</td><td>31%</td></tr><tr class=""><td>Profit sharing</td><td>25%</td></tr><tr class=""><td>Investment period</td><td>18 months</td></tr><tr class=""><td>NPV</td><td>$198,000</td></tr></tbody></table></div>
+            <div class="right"><img src="betoniq_invest_3d_img/bi_building.png" /></div>
+          </div>
+        </div>
+
+        <div class="slide " data-n="7">
+          <div class="band"><div class="kicker">The Investor Journey</div><div class="title">Registration to Return</div></div>
+          <div class="body">
+            <div class="left"><ul class='blist'><li>Register and complete KYC / accreditation verification</li><li>Browse and filter verified projects by country, ROI, and sector</li><li>Invest via equity stake or profit-sharing agreement</li><li>Track portfolio performance and disbursements in real time</li></ul></div>
+            <div class="right"><img src="betoniq_invest_3d_img/bi_investors.png" /></div>
+          </div>
+        </div>
+
+        <div class="slide " data-n="8">
+          <div class="band"><div class="kicker">Business Model</div><div class="title">How BETONIQ INVEST Generates Revenue</div></div>
+          <div class="body">
+            <div class="left"><table class="dtable"><thead><tr><th>Revenue Stream</th><th>Mechanism</th></tr></thead><tbody><tr class=""><td>Developer listing fees</td><td>Tiered fee to feature projects on the platform</td></tr><tr class=""><td>Success fees</td><td>% fee on capital successfully raised</td></tr><tr class=""><td>Investor subscriptions</td><td>Monthly/annual premium deal access & analytics</td></tr><tr class=""><td>Commission on investments</td><td>% commission on completed investor transactions</td></tr></tbody></table></div>
+            <div class="right"><img src="betoniq_invest_3d_img/bi_growth.png" /></div>
+          </div>
+        </div>
+
+        <div class="slide " data-n="9">
+          <div class="band"><div class="kicker">The $4.5M Ask</div><div class="title">Pre-Series A Use of Funds</div></div>
+          <div class="body">
+            <div class="left"><table class="dtable"><thead><tr><th>Category</th><th>USD</th><th>% of Raise</th></tr></thead><tbody><tr class=""><td>Infrastructure & Hardware</td><td>$1,350,000</td><td>30%</td></tr><tr class=""><td>Personnel</td><td>$1,125,000</td><td>25%</td></tr><tr class=""><td>Statutory Licensing & Compliance</td><td>$360,000</td><td>8%</td></tr><tr class=""><td>Office Blocks & Facilities</td><td>$360,000</td><td>8%</td></tr><tr class=""><td>Transport & Logistics</td><td>$315,000</td><td>7%</td></tr><tr class=""><td>Power (Solar & Backup)</td><td>$270,000</td><td>6%</td></tr><tr class=""><td>Security (Physical & Cyber)</td><td>$270,000</td><td>6%</td></tr><tr class=""><td>Technology & Software</td><td>$270,000</td><td>6%</td></tr><tr class=""><td>Marketing & Business Development</td><td>$180,000</td><td>4%</td></tr><tr class="total-row"><td>TOTAL</td><td>$4,500,000</td><td>100%</td></tr></tbody></table></div>
+            <div class="right"><img src="betoniq_invest_3d_img/bi_growth.png" /></div>
+          </div>
+        </div>
+
+        <div class="slide " data-n="10">
+          <div class="band"><div class="kicker">Detailed Breakdown</div><div class="title">Platform Growth & Compliance Allocation</div></div>
+          <div class="body">
+            <div class="left"><table class="dtable"><thead><tr><th>Line Item</th><th>USD</th></tr></thead><tbody><tr class=""><td>Platform engineering & AI scoring infra</td><td>$180,000</td></tr><tr class=""><td>Legal & regulatory (cross-border)</td><td>$150,000</td></tr><tr class=""><td>Developer & investor acquisition</td><td>$120,000</td></tr><tr class=""><td>Marketing & PR</td><td>$90,000</td></tr><tr class=""><td>Due diligence & feasibility studies</td><td>$100,000</td></tr></tbody></table></div>
+            <div class="right"><img src="betoniq_invest_3d_img/bi_ai.png" /></div>
+          </div>
+        </div>
+
+        <div class="slide cover " data-n="11">
+          <img class="cover-img" src="betoniq_invest_3d_img/bi_cover.png" />
+          <div class="cover-overlay">
+            <div class="kicker">BETONIQ WEST LTD · RC 1496603</div>
+            <div class="cover-title">Real Estate, Rated. Verified. Invested.</div>
+            <div class="cover-sub">Tom Ugbodaga — Shareholder & CEO  |  zeropointfeild_nonwnt@zeropay.site</div>
+          </div>
+        </div>
+</div>
+<div class="controls">
+  <button onclick="prevSlide()">&#8592; Prev</button>
+  <button id="playBtn" onclick="togglePlay()">&#9658; Play Narration</button>
+  <button onclick="nextSlide()">Next &#8594;</button>
+</div>
+<audio id="narration"></audio>
+<script>
+  const total = 11;
+  let current = 1;
+  const audioFiles = ["betoniq_invest_3d_audio/slide_01.mp3", "betoniq_invest_3d_audio/slide_02.mp3", "betoniq_invest_3d_audio/slide_03.mp3", "betoniq_invest_3d_audio/slide_04.mp3", "betoniq_invest_3d_audio/slide_05.mp3", "betoniq_invest_3d_audio/slide_06.mp3", "betoniq_invest_3d_audio/slide_07.mp3", "betoniq_invest_3d_audio/slide_08.mp3", "betoniq_invest_3d_audio/slide_09.mp3", "betoniq_invest_3d_audio/slide_10.mp3", "betoniq_invest_3d_audio/slide_11.mp3"];
+  const audioEl = document.getElementById('narration');
+  let isPlaying = false;
+  let autoAdvance = false;
+
+  function showSlide(n) {
+    document.querySelectorAll('.slide').forEach(s => s.classList.remove('active'));
+    document.querySelector(`.slide[data-n="${n}"]`).classList.add('active');
+    document.getElementById('counter').textContent = `${n} / ${total}`;
+    current = n;
+    if (isPlaying) playCurrentAudio();
+  }
+  function nextSlide() { if (current < total) showSlide(current + 1); }
+  function prevSlide() { if (current > 1) showSlide(current - 1); }
+
+  function playCurrentAudio() {
+    audioEl.src = audioFiles[current - 1];
+    audioEl.play().catch(()=>{});
+  }
+  function togglePlay() {
+    isPlaying = !isPlaying;
+    document.getElementById('playBtn').innerHTML = isPlaying ? '&#10074;&#10074; Pause' : '&#9658; Play Narration';
+    if (isPlaying) { autoAdvance = true; playCurrentAudio(); } else { audioEl.pause(); autoAdvance = false; }
+  }
+  audioEl.addEventListener('ended', () => {
+    if (autoAdvance && current < total) { nextSlide(); }
+    else if (autoAdvance && current === total) { isPlaying = false; autoAdvance = false;
+      document.getElementById('playBtn').innerHTML = '&#9658; Play Narration'; }
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight') nextSlide();
+    if (e.key === 'ArrowLeft') prevSlide();
+  });
+</script>
+</body>
+</html>
