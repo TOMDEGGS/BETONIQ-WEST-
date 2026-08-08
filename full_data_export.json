@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-08-07T06:03:13+00:00",
-  "note": "Full Base44 database export for BETONIQ WEST LTD / ZeroPay / BETONIQ INVEST. Snapshot — refresh periodically by asking the primary Base44 agent to regenerate and push.",
+  "generated_at": "2026-08-08T07:01:00+01:00",
+  "note": "Complete BETONIQ(WEST) business data export refreshed by Backup 777 on 2026-08-08 from all current business entities. Includes real-estate, investor, investment, macro, compliance, feasibility, commission, developer, subscription, lead, visitor, ZeroPay transaction/merchant/agent, and TeamTask records.",
   "entities": {
     "RealEstateProject": [
       {
@@ -3560,6 +3560,8 @@
     "zeropay_merchants": 8,
     "zeropay_agents": 6,
     "zeropay_transactions": 9,
-    "active_team_tasks": 8
+    "active_team_tasks": 8,
+    "refreshed_by": "Backup 777 Data Refresh",
+    "refresh_date": "2026-08-08"
   }
 }
