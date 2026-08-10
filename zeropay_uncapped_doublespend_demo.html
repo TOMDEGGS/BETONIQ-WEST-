@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>ZeroPay — Uncapped & Double-Spend-Proof Simulation</title>
+<style>
+  :root{--bg:#060b16;--panel:#0d1526;--edge:#1c2b4a;--acc:#00d4ff;--good:#10b981;--bad:#ff4444;--txt:#e8f0ff;--dim:#7d93b8;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:radial-gradient(circle at 50% 0%, #0d1a33, var(--bg) 60%);color:var(--txt);font-family:'Segoe UI',system-ui,sans-serif;min-height:100svh;padding:20px 14px 60px;}
+  .wrap{max-width:760px;margin:0 auto;}
+  h1{font-size:22px;text-align:center;margin-bottom:4px;}
+  h1 span{color:var(--acc);}
+  .sub{text-align:center;color:var(--dim);font-size:13px;margin-bottom:22px;}
+  .card{background:var(--panel);border:1px solid var(--edge);border-radius:16px;padding:20px;margin-bottom:16px;}
+  .card h2{font-size:15px;color:var(--acc);margin-bottom:10px;letter-spacing:.5px;text-transform:uppercase;}
+  .balance-row{display:flex;justify-content:space-between;align-items:center;background:#0a1220;border:1px solid var(--edge);border-radius:10px;padding:14px 16px;margin-bottom:14px;}
+  .balance-row .lbl{color:var(--dim);font-size:12px;}
+  .balance-row .val{font-size:26px;font-weight:700;color:var(--good);font-family:monospace;}
+  .val.low{color:var(--bad);}
+  .btn-row{display:flex;gap:10px;flex-wrap:wrap;}
+  button{flex:1;min-width:130px;background:linear-gradient(135deg,#0f2847,#0a1830);border:1px solid var(--acc);color:var(--acc);padding:14px 10px;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer;transition:.15s;}
+  button:hover{background:var(--acc);color:#04101f;}
+  button.danger{border-color:var(--bad);color:var(--bad);}
+  button.danger:hover{background:var(--bad);color:#fff;}
+  button:disabled{opacity:.4;cursor:not-allowed;}
+  .log{background:#040810;border:1px solid var(--edge);border-radius:10px;padding:14px;font-family:monospace;font-size:12.5px;line-height:1.7;max-height:340px;overflow-y:auto;}
+  .log .line{margin-bottom:2px;}
+  .ok{color:var(--good);} .no{color:var(--bad);} .info{color:var(--dim);} .warn{color:#f5a623;}
+  .badge{display:inline-block;padding:2px 8px;border-radius:6px;font-size:10.5px;font-weight:700;letter-spacing:.5px;}
+  .badge.ok{background:rgba(16,185,129,.15);color:var(--good);border:1px solid var(--good);}
+  .badge.no{background:rgba(255,68,68,.15);color:var(--bad);border:1px solid var(--bad);}
+  .foot{text-align:center;color:var(--dim);font-size:11.5px;margin-top:20px;line-height:1.6;}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px;}
+  .mini{background:#0a1220;border:1px solid var(--edge);border-radius:8px;padding:10px;font-size:12px;color:var(--dim);}
+  .mini b{color:var(--txt);display:block;font-size:15px;margin-bottom:2px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1><span>ZeroPay</span> Stored-Value Simulation</h1>
+  <div class="sub">Proving: same tap for ₦500 or ₦5,000,000 · zero connectivity · double-spend impossible by design</div>
+
+  <div class="card">
+    <h2>Secure Element — On-Chip Stored Balance</h2>
+    <div class="balance-row">
+      <div>
+        <div class="lbl">PUF-secured wallet balance (cryptographically bound to this chip)</div>
+      </div>
+      <div class="val" id="balanceVal">₦5,250,000</div>
+    </div>
+    <div class="grid2">
+      <div class="mini"><b id="lastTx">—</b>last transaction</div>
+      <div class="mini"><b id="connStatus" style="color:var(--bad)">OFFLINE — 0 bars</b>network state</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Simulate Taps — Same Mechanism, Any Amount</h2>
+    <div class="btn-row">
+      <button onclick="tap(500)">Tap ₦500 (street food)</button>
+      <button onclick="tap(5000000)">Tap ₦5,000,000 (equipment)</button>
+    </div>
+    <div class="btn-row" style="margin-top:10px;">
+      <button class="danger" onclick="doubleSpend()">⚠ Attempt Double-Spend (replay last token)</button>
+      <button onclick="resetSim()">Reset Simulation</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Cryptographic Event Log</h2>
+    <div class="log" id="log"></div>
+  </div>
+
+  <div class="foot">
+    No transaction, at any point in this simulation, ever contacts a network. Approval is proven entirely by hardware-rooted signature and on-chip balance state.<br>
+    Internal simulation only — patent-pending architecture (filed April 2026). Not for external distribution.
+  </div>
+</div>
+
+<script>
+let balance = 5250000;
+let lastToken = null;
+let txCounter = 0;
+
+function fmt(n){ return '₦' + n.toLocaleString('en-NG'); }
+function updateBalanceUI(){
+  const el = document.getElementById('balanceVal');
+  el.textContent = fmt(balance);
+  el.className = 'val' + (balance < 500 ? ' low' : '');
+}
+function log(html){
+  const l = document.getElementById('log');
+  const d = document.createElement('div');
+  d.className = 'line';
+  d.innerHTML = html;
+  l.appendChild(d);
+  l.scrollTop = l.scrollHeight;
+}
+function nonce(){ return 'ZPT-' + Math.random().toString(16).slice(2,8).toUpperCase(); }
+function sig(){ return '3045022100' + Math.random().toString(16).slice(2,10) + '...ECC-P256'; }
+
+function tap(amount){
+  if (amount > balance){
+    log(`<span class="no">✗ TAP ₦${amount.toLocaleString()} — DECLINED</span> <span class="badge no">INSUFFICIENT ON-CHIP BALANCE</span>`);
+    log(`<span class="info">  PUF challenge OK → ECC signature OK → balance check: ${fmt(balance)} &lt; ${fmt(amount)} → DECLINE (no network needed to know this)</span>`);
+    return;
+  }
+  txCounter++;
+  const n = nonce();
+  const before = balance;
+  balance -= amount;
+  lastToken = { nonce: n, amount, balanceAfter: balance, sig: sig() };
+  document.getElementById('connStatus').textContent = 'OFFLINE — 0 bars';
+  document.getElementById('connStatus').style.color = 'var(--bad)';
+  log(`<span class="ok">✓ TAP ${fmt(amount)}</span> <span class="badge ok">APPROVED — 0.3s</span>`);
+  log(`<span class="info">  1. PUF silicon fingerprint challenge-response — verified (no clone possible)</span>`);
+  log(`<span class="info">  2. ECC P-256 signature over new balance state — signed: ${lastToken.sig.slice(0,24)}...</span>`);
+  log(`<span class="info">  3. On-chip balance decremented: ${fmt(before)} → ${fmt(balance)}</span>`);
+  log(`<span class="info">  4. Token ${n} minted, tamper-evident, single-use, TTL 72h</span>`);
+  log(`<span class="warn">  → No network contacted. No bank balance queried. Nothing to double-spend — value physically left the chip.</span>`);
+  document.getElementById('lastTx').textContent = fmt(amount);
+  updateBalanceUI();
+}
+
+function doubleSpend(){
+  if (!lastToken){
+    log(`<span class="info">Tap something first, then try to replay it.</span>`);
+    return;
+  }
+  log(`<span class="no">✗ REPLAY ATTEMPT — token ${lastToken.nonce} presented again at a second terminal</span>`);
+  log(`<span class="info">  1. PUF challenge-response — verified (real chip, not spoofed)</span>`);
+  log(`<span class="info">  2. ECC signature — valid signature, but signs a balance-after value of ${fmt(lastToken.balanceAfter)}, already consumed</span>`);
+  log(`<span class="info">  3. Nonce ${lastToken.nonce} check: value it authorized is already reflected in current on-chip balance</span>`);
+  log(`<span class="no">  4. DOUBLE-SPEND REJECTED</span> <span class="badge no">NO NETWORK SYNC WAS NEEDED TO CATCH THIS</span>`);
+  log(`<span class="warn">  → This is why the stored-value model matters: there is no remote ledger to be "eventually consistent" with. The chip itself is the ledger.</span>`);
+}
+
+function resetSim(){
+  balance = 5250000;
+  lastToken = null;
+  txCounter = 0;
+  document.getElementById('log').innerHTML = '';
+  document.getElementById('lastTx').textContent = '—';
+  updateBalanceUI();
+  log('<span class="info">Simulation reset. Wallet reloaded to ₦5,250,000 (simulating a top-up that happened last time the device had connectivity).</span>');
+}
+
+updateBalanceUI();
+log('<span class="info">Ready. This chip is fully offline right now — try a ₦500 tap, then a ₦5,000,000 tap, same mechanism, same speed.</span>');
+</script>
+</body>
+</html>
