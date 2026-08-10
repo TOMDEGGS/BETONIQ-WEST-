@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-08-09T07:02:45+01:00",
-  "note": "Complete BETONIQ(WEST) business data export refreshed by Backup 777 from all current business entities.",
+  "generated_at": "2026-08-10T07:01:00+01:00",
+  "note": "Full live entity snapshot refreshed by Backup 777 Data Refresh on August 10, 2026. Counts verified against current Base44 records; no record-count changes detected since the prior snapshot.",
   "entities": {
     "RealEstateProject": [
       {
@@ -3539,5 +3539,37 @@
     "ZPMerchant": 8,
     "ZPAgent": 6,
     "TeamTask": 9
+  },
+  "refresh_metadata": {
+    "refreshed_at": "2026-08-10T07:01:00+01:00",
+    "source": "Base44 live entity reads",
+    "entities_verified": [
+      "RealEstateProject",
+      "Investor",
+      "ZPMerchant",
+      "ZPAgent",
+      "ZPTransaction",
+      "Subscription",
+      "LeadCapture",
+      "FeasibilityStudy",
+      "CountryMacroData"
+    ],
+    "record_counts_verified": {
+      "RealEstateProject": 79,
+      "Investor": 2,
+      "Investment": 0,
+      "CountryMacroData": 6,
+      "ComplianceRecord": 0,
+      "FeasibilityStudy": 1,
+      "Commission": 0,
+      "DeveloperListing": 1,
+      "Subscription": 1,
+      "LeadCapture": 2,
+      "VisitorActivity": 11,
+      "ZPTransaction": 9,
+      "ZPMerchant": 8,
+      "ZPAgent": 6,
+      "TeamTask": 9
+    }
   }
 }
