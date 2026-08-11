@@ -25,7 +25,7 @@ Status: ACTIVE ✅
 ## AUTOMATION 3: Paystack Live Mode Activation Monitor
 Type: Scheduled
 Purpose: Monitors for Paystack live mode activation confirmation
-Action: Alerts when Paystack activates ZeroPay merchant account to live mode
+Action: Alerts when Paystack activates ZerôPâŷ Money merchant account to live mode
 Credits used: ~0.1 per run
 Status: ACTIVE ✅
 

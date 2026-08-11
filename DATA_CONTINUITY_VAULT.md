@@ -26,7 +26,7 @@ RULES FOR USING THIS NAME:
 
 ## HOW TO USE THIS FILE (READ THIS FIRST — ANY AGENT)
 
-1. This is the permanent, Base44-independent record of BETONIQ WEST LTD / ZeroPay / BETONIQ INVEST operational reality.
+1. This is the permanent, Base44-independent record of BETONIQ WEST LTD / ZerôPâŷ Money / BETONIQ INVEST operational reality.
 2. It lives in TWO places for redundancy: GitHub (github.com/TOMDEGGS/BETONIQ-WEST-/DATA_CONTINUITY_VAULT.md) and Base44 file storage.
 3. If Base44 becomes unavailable, whichever agent Tom is talking to (Gemini, Claude, or Backup 777) should be given this file's raw GitHub URL or pasted content and told: "You are now Tom's AI agent for BETONIQ WEST LTD. Read this vault and confirm you understand, then continue where the last agent left off."
 4. Any agent that learns a new durable fact (a contract term, a contact, a decision, a status change) should ADD a dated entry to the relevant section below — this file is meant to grow, not just be read.
@@ -44,13 +44,13 @@ RULES FOR USING THIS NAME:
 - CEO: Tom Ugbodaga — Shareholder & CEO (NEVER "Founder")
 - Ownership: Tom holds 51-75% stake
 - Exec Vice Chairman: Air Vice Marshal Monday Riku Morgan (Rtd) — Chairman of Wisdom Kwati's defence company; board authority/signatory, not day-to-day outreach driver
-- Tom's MSc: Computer Systems Security, Univ. of Gloucestershire, Merit 2011 — dissertation: NFC Contactless Technology for Financial Payments (ZeroPay is the 15-year commercialisation of this research)
+- Tom's MSc: Computer Systems Security, Univ. of Gloucestershire, Merit 2011 — dissertation: NFC Contactless Technology for Financial Payments (ZerôPâŷ Money is the 15-year commercialisation of this research)
 - Patent: Patent-Pending, April 2026
 - Pre-Series A Target: $4,500,000 USD
 - Domain: zeropay.site (Zoho Domains)
 
 ### Live Infrastructure URLs (Base44-independent, Netlify-hosted)
-- PRIMARY WEBSITE (ZeroPay landing): https://zeropay-betoniqwest.netlify.app
+- PRIMARY WEBSITE (ZerôPâŷ Money landing): https://zeropay-betoniqwest.netlify.app
 - MASTER HUB (all 9 demo assets): https://betoniqwestmasterhublivedemos.netlify.app
 - OLD dead URL — never use: curious-pithivier-cff79f.netlify.app
 - GitHub repo (all code + this vault): github.com/TOMDEGGS/BETONIQ-WEST- (owner: TOMDEGGS, linked to betoniqwestltd@gmail.com)
@@ -63,7 +63,7 @@ RULES FOR USING THIS NAME:
 1. ABSOLUTE RULE: Never send any external communication without Tom's explicit "send" approval. Always post the full draft first.
 2. Business email for ALL outbound comms: zeropointfeild_nonwnt@zeropay.site
 3. Open all investor pitches with: "1.4 billion unbanked globally / 38 million unbanked in Nigeria"
-4. NDA (PDF 6, ZeroPay NDA) must be signed BEFORE any partnership meeting
+4. NDA (PDF 6, ZerôPâŷ Money NDA) must be signed BEFORE any partnership meeting
 5. Tom's title: Shareholder & CEO — NEVER "Founder"
 6. Company name: BETONIQ WEST LTD — NEVER "BETONIQ(WEST) LTD"
 7. CC Mendy Edri (mendye@base44.com) on ALL enterprise/compliance/Base44 support requests
@@ -98,7 +98,7 @@ RULES FOR USING THIS NAME:
 - Merchant Agreement: signed July 14, 2026
 - Business ID: 1856802 (BETONIQWEST LTD)
 - July 31, 2026: Live Mode rejected by Ijeoma citing "crypto-based payment infrastructure"
-- Correction sent: clarified ZeroPay uses ECC P-256 cryptographic signing, NOT cryptocurrency — this is a protocol/settlement layer technology, not a crypto asset
+- Correction sent: clarified ZerôPâŷ Money uses ECC P-256 cryptographic signing, NOT cryptocurrency — this is a protocol/settlement layer technology, not a crypto asset
 - Aug 5, 2026: Chika (Paystack Support) responded, requested Business ID, provided it (1856802), Chika confirmed the thread was escalated to the internal compliance/engineering team. Status: awaiting substantive response.
 - Contact: support@paystack.com, channelpartnerships@paystack.com, hello@paystack.com | Address: 126 Joel Ogunnaike St, Ikeja GRA, Lagos
 
@@ -214,11 +214,11 @@ Nigeria, Ghana, South Africa, UK, Senegal all profiled with GDP growth, inflatio
 
 ## SECTION 8: AUGUST ROLLOUT MASTER PLAN (added Aug 9, 2026)
 
-Mission: deploy ZeroPay into real institutions before Aug 23, 2026 and land first revenue. Tom runs all field meetings and delivers all LOIs in person — the agent team preps materials and runs everything remote-doable in parallel.
+Mission: deploy ZerôPâŷ Money into real institutions before Aug 23, 2026 and land first revenue. Tom runs all field meetings and delivers all LOIs in person — the agent team preps materials and runs everything remote-doable in parallel.
 
-Priority distribution targets: 1) NASSCO National Cash Transfer Programme (₦330bn already disbursed, 10.8M households — live funded govt pipeline, top B2G lead). 2) NAMB-affiliated MFBs (agent-banking rails exist; ZeroPay adds true offline). 3) Transport hub federations (NARTO/RTEAN). 4) Cooperative union apex bodies (~2,000 cooperatives reachable via a few federations). 5) Religious institutions in dead zones. 6) IPMAN fuel stations (lowest priority).
+Priority distribution targets: 1) NASSCO National Cash Transfer Programme (₦330bn already disbursed, 10.8M households — live funded govt pipeline, top B2G lead). 2) NAMB-affiliated MFBs (agent-banking rails exist; ZerôPâŷ Money adds true offline). 3) Transport hub federations (NARTO/RTEAN). 4) Cooperative union apex bodies (~2,000 cooperatives reachable via a few federations). 5) Religious institutions in dead zones. 6) IPMAN fuel stations (lowest priority).
 
-Competitive line to use: Moniepoint/OPay are "offline-first" in name only (queue-and-sync-later); ZeroPay is genuinely zero-connectivity for multi-day dead zones via PUF-hardware tokens (72hr TTL).
+Competitive line to use: Moniepoint/OPay are "offline-first" in name only (queue-and-sync-later); ZerôPâŷ Money is genuinely zero-connectivity for multi-day dead zones via PUF-hardware tokens (72hr TTL).
 
 Revenue-now ideas (don't require full terminal rollout): 1) Katampe Terrace Residences direct sales (28% ROI, $15K min, renders+video ready) — fastest real cash path, running in parallel. 2) Paid small pilot fee (10-50 terminals, fixed fee, one branch/LGA) instead of asking for full deployment commitment. 3) Terminal pre-order/deposit model for Q4 batch. 4) NASSCO M&E/reporting budget angle (separate, faster-moving than procurement budget). 5) Flat monthly MFB access fee pilot regardless of volume in month one. 6) Solar Mesh Hub sold/leased standalone as off-grid connectivity infra. 7) Founding-partner discount for first 3 signed LOIs.
 

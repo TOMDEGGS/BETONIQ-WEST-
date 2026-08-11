@@ -43,14 +43,14 @@ Tom's Ownership: 51–75% stake
 Tom's Academic Background:
 MSc: Computer Systems Security — Dissertation Topic: NFC Contactless Technology for Financial Payments (Merit Class — 2011), University of Gloucestershire
 BSc: Physics, Nigeria
-Note: ZeroPay is the 15-year commercialisation of Tom's 2011 MSc dissertation research.
+Note: ZerôPâŷ Money is the 15-year commercialisation of Tom's 2011 MSc dissertation research.
 Patent: Patent-Pending April 2026
 
 ---
 
 ## SECTION 2: ZEROPAY — WHAT IT IS
 
-ZeroPay is the world's first offline-first NFC payment system using PUF (Physically Unclonable Function) hardware and Solar Mesh Hub relay networks.
+ZerôPâŷ Money is the world's first offline-first NFC payment system using PUF (Physically Unclonable Function) hardware and Solar Mesh Hub relay networks.
 
 HERO HEADLINE: "Payments work without the internet. Finally."
 
@@ -69,7 +69,7 @@ WHAT MAKES IT UNIQUE:
 
 ## SECTION 3: TECHNICAL ARCHITECTURE
 
-ZeroPay Stack (in order):
+ZerôPâŷ Money Stack (in order):
 PUF/ECC Terminal → Offline Token → Solar Mesh Hub → Paystack API → Licensed MFB → IMTO Partner
 
 5-Layer Security Stack:
@@ -85,8 +85,8 @@ Solar Mesh Hub:
 - Covers rural/unbanked areas without GSM towers
 
 CRITICAL DISTINCTION:
-ZeroPay is NOT a standard merchant or neobank.
-ZeroPay is a PROTOCOL LAYER below the PSP/settlement rail.
+ZerôPâŷ Money is NOT a standard merchant or neobank.
+ZerôPâŷ Money is a PROTOCOL LAYER below the PSP/settlement rail.
 Paystack integration = settlement rail partner, not standard merchant.
 
 ---
@@ -113,7 +113,7 @@ Total potential: ~$8.7M USD + €5.2M
 PAYSTACK:
 - Merchant Agreement signed: July 14, 2026
 - Contact: channelpartnerships@paystack.com
-- Position: ZeroPay = offline settlement rail, NOT standard merchant
+- Position: ZerôPâŷ Money = offline settlement rail, NOT standard merchant
 - Address: 126 Joel Ogunnaike St, Ikeja GRA, Lagos
 
 BASE44 (Infrastructure Provider):
@@ -147,10 +147,10 @@ KWATI GROUP:
 
 ## SECTION 7: DEMO ASSETS (ALL LIVE)
 
-ZeroPay Demo:
+ZerôPâŷ Money Demo:
 https://htmlpreview.github.io/?https://raw.githubusercontent.com/TOMDEGGS/BETONIQ-WEST-/main/zeropay_demo.html
 
-ZeroPay Operations Hub:
+ZerôPâŷ Money Operations Hub:
 https://htmlpreview.github.io/?https://raw.githubusercontent.com/TOMDEGGS/BETONIQ-WEST-/main/zeropay_operations_hub.html
 
 BETONIQ INVEST Demo:
@@ -159,10 +159,10 @@ https://htmlpreview.github.io/?https://raw.githubusercontent.com/TOMDEGGS/BETONI
 Master Hub Launcher:
 rawcdn.githack.com/TOMDEGGS/BETONIQ-WEST-/main/betoniq_launcher.html
 
-ZeroPay LIVE Landing Page:
+ZerôPâŷ Money LIVE Landing Page:
 https://curious-pithivier-cff79f.netlify.app
 
-ZeroPay NDA (sign before every meeting):
+ZerôPâŷ Money NDA (sign before every meeting):
 https://base44.app/api/apps/69c1064318031a63c4728734/files/mp/public/69c1064318031a63c4728734/6ed3e5075_PDF_6_ZeroPay_NDA_Partnership_Agreement.pdf
 
 Evidence Dossier PDF:
@@ -220,7 +220,7 @@ Active Automations:
 
 If Base44 is unavailable:
 1. Paste this entire document into ChatGPT, Gemini, or any AI
-2. Say: "You are now Tom's AI agent for ZeroPay. Read this briefing and confirm you understand."
+2. Say: "You are now Tom's AI agent for ZerôPâŷ Money. Read this briefing and confirm you understand."
 3. The AI will have full operational context in under 60 seconds.
 4. Resume operations immediately.
 
