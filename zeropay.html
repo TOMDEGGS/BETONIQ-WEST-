@@ -513,29 +513,58 @@ function goTo(tab){
   window.scrollTo({top:0,behavior:'smooth'});
 }
 
+const LEAD_ENDPOINT = 'https://betoniqwest-ai-agent-777-c4728734.base44.app/functions/captureLead';
+
 function submitMerchant(){
   const biz=document.getElementById('m-biz').value;
+  const owner=document.getElementById('m-owner').value;
   const phone=document.getElementById('m-phone').value;
+  const email=document.getElementById('m-email').value;
+  const city=document.getElementById('m-city').value;
   if(!biz||!phone){alert('Please enter your business name and phone number.');return;}
-  document.getElementById('m-success').style.display='block';
-  document.getElementById('m-biz').value='';
-  document.getElementById('m-phone').value='';
+  const btn=document.querySelector('#merchant-section .form-submit');
+  if(btn){btn.disabled=true;btn.textContent='Submitting...';}
+  fetch(LEAD_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({type:'merchant',name:owner||biz,business:biz,phone:phone,email:email,city:city})})
+    .then(r=>r.json()).then(()=>{
+      document.getElementById('m-success').style.display='block';
+      document.getElementById('m-biz').value='';document.getElementById('m-owner').value='';
+      document.getElementById('m-phone').value='';document.getElementById('m-email').value='';document.getElementById('m-city').value='';
+    }).catch(()=>{alert('Something went wrong sending your registration. Please try again or WhatsApp us directly.');})
+    .finally(()=>{if(btn){btn.disabled=false;btn.textContent='📩 Submit Merchant Registration';}});
 }
 function submitAgent(){
   const name=document.getElementById('a-name').value;
   const phone=document.getElementById('a-phone').value;
+  const email=document.getElementById('a-email').value;
+  const state=document.getElementById('a-state').value;
+  const lga=document.getElementById('a-lga').value;
   if(!name||!phone){alert('Please enter your name and phone number.');return;}
-  document.getElementById('a-success').style.display='block';
-  document.getElementById('a-name').value='';
-  document.getElementById('a-phone').value='';
+  const btn=document.querySelector('#agent-section .form-submit');
+  if(btn){btn.disabled=true;btn.textContent='Submitting...';}
+  fetch(LEAD_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({type:'agent',name:name,phone:phone,email:email,city:state,lga:lga})})
+    .then(r=>r.json()).then(()=>{
+      document.getElementById('a-success').style.display='block';
+      document.getElementById('a-name').value='';document.getElementById('a-phone').value='';
+      document.getElementById('a-email').value='';document.getElementById('a-state').value='';document.getElementById('a-lga').value='';
+    }).catch(()=>{alert('Something went wrong sending your application. Please try again or WhatsApp us directly.');})
+    .finally(()=>{if(btn){btn.disabled=false;btn.textContent='📩 Register as Agent';}});
 }
 function submitInvestor(){
   const name=document.getElementById('i-name').value;
   const email=document.getElementById('i-email').value;
+  const fund=document.getElementById('i-fund').value;
+  const phone=document.getElementById('i-phone').value;
+  const msg=document.getElementById('i-msg').value;
   if(!name||!email){alert('Please enter your name and email.');return;}
-  document.getElementById('i-success').style.display='block';
-  document.getElementById('i-name').value='';
-  document.getElementById('i-email').value='';
+  const btn=document.querySelector('#investor-section .form-submit');
+  if(btn){btn.disabled=true;btn.textContent='Submitting...';}
+  fetch(LEAD_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({type:'investor',name:name,email:email,fund:fund,phone:phone,message:msg})})
+    .then(r=>r.json()).then(()=>{
+      document.getElementById('i-success').style.display='block';
+      document.getElementById('i-name').value='';document.getElementById('i-email').value='';
+      document.getElementById('i-fund').value='';document.getElementById('i-phone').value='';document.getElementById('i-msg').value='';
+    }).catch(()=>{alert('Something went wrong sending your request. Please try again or email zeropointfeild_nonwnt@zeropay.site directly.');})
+    .finally(()=>{if(btn){btn.disabled=false;btn.textContent='📩 Request Investor Pack + NDA';}});
 }
 </script>
 </body>
