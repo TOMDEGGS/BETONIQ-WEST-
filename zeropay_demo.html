@@ -8,11 +8,11 @@
 <meta name="GPTBot" content="noindex, nofollow">
 <meta name="anthropic-ai" content="noindex, nofollow">
 <meta name="PerplexityBot" content="noindex, nofollow">
-<meta name="copyright" content="ZeroPay by BETONIQ(WEST) Ltd, RC 56802, Abuja, Nigeria. Patent Pending April 2026. All rights reserved. Unauthorised reproduction, indexing, scraping, or AI training use of this content is strictly prohibited.">
-<meta name="author" content="Tom Ugbodaga, Founder ZeroPay, BETONIQ(WEST) Ltd">
+<meta name="copyright" content="ZerôPâŷ Money by BETONIQ(WEST) Ltd, RC 56802, Abuja, Nigeria. Patent Pending April 2026. All rights reserved. Unauthorised reproduction, indexing, scraping, or AI training use of this content is strictly prohibited.">
+<meta name="author" content="Tom Ugbodaga, Founder ZerôPâŷ Money, BETONIQ(WEST) Ltd">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<title>ZeroPay — Offline Merchant Demo</title>
+<title>ZerôPâŷ Money — Offline Merchant Demo</title>
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -311,7 +311,7 @@ body {
 <div class="card">
   <div class="card-header">
     🏪 MERCHANT TERMINAL — Chidi's Electronics
-    <span class="mid">RC 56802 · ZeroPay Certified · Abuja, FCT</span>
+    <span class="mid">RC 56802 · ZerôPâŷ Money Certified · Abuja, FCT</span>
   </div>
   <div class="card-body">
 
@@ -372,8 +372,8 @@ body {
     <!-- PAYMENT SUMMARY -->
     <div class="pay-summary" id="paySummary">
       <div class="pr"><span class="lb">Merchant</span><span class="vl">Chidi's Electronics</span></div>
-      <div class="pr"><span class="lb">Terminal</span><span class="vl">ZeroPay NFC Terminal</span></div>
-      <div class="pr"><span class="lb">Network</span><span class="vl" id="netStatus">⚡ OFFLINE — ZeroPay Secured</span></div>
+      <div class="pr"><span class="lb">Terminal</span><span class="vl">ZerôPâŷ Money NFC Terminal</span></div>
+      <div class="pr"><span class="lb">Network</span><span class="vl" id="netStatus">⚡ OFFLINE — ZerôPâŷ Money Secured</span></div>
       <hr class="pd">
       <div class="pt">
         <div class="pt-ngn" id="sumNGN">₦0</div>
@@ -473,8 +473,8 @@ const SCENARIOS = {
     cls: 'orange-d', icon: '💸',
     title: 'PAYMENT DECLINED',
     code: 'ERR-ZP-001 · SPENDING_CEILING_EXCEEDED',
-    sub: 'Your ZeroPay token spending limit has been reached. This check is performed entirely offline in nanoseconds using your card\'s cryptographic ceiling — no internet required.\n\nNo funds were transferred. No network call was made.',
-    action: 'Action: Top up your ZeroPay card at any agent or via the app to restore your spending ceiling.'
+    sub: 'Your ZerôPâŷ Money token spending limit has been reached. This check is performed entirely offline in nanoseconds using your card\'s cryptographic ceiling — no internet required.\n\nNo funds were transferred. No network call was made.',
+    action: 'Action: Top up your ZerôPâŷ Money card at any agent or via the app to restore your spending ceiling.'
   },
   fraud: {
     checks: ['pass','pass','fail','pass','pass','pass'],
@@ -482,8 +482,8 @@ const SCENARIOS = {
     cls: 'red-d', icon: '🚨',
     title: 'TRANSACTION BLOCKED',
     code: 'ERR-ZP-002 · ACCOUNT_FLAGGED · FRAUD_BLACKLIST',
-    sub: 'This card\'s PUF fingerprint appears on the fraud blacklist cached from the last network sync. Transaction blocked. The attempted transaction has been logged with a timestamp and PUF fingerprint for upload to ZeroPay Risk at next sync.',
-    action: 'Action: Card holder must contact ZeroPay Support. Merchant: Do not proceed. Log has been created automatically.'
+    sub: 'This card\'s PUF fingerprint appears on the fraud blacklist cached from the last network sync. Transaction blocked. The attempted transaction has been logged with a timestamp and PUF fingerprint for upload to ZerôPâŷ Money Risk at next sync.',
+    action: 'Action: Card holder must contact ZerôPâŷ Money Support. Merchant: Do not proceed. Log has been created automatically.'
   },
   stolen: {
     checks: ['pass','pass','pass','fail','pass','pass'],
@@ -492,7 +492,7 @@ const SCENARIOS = {
     title: 'RELAY ATTACK DETECTED',
     code: 'ERR-ZP-003 · DISTANCE_BOUNDING_FAILED · RELAY_SUSPECTED',
     sub: 'Distance Bounding Protocol failed. Signal round-trip time exceeded the 30-nanosecond physical proximity threshold. This card is not physically present — a relay or cloning device has been detected.\n\nTransaction blocked. Incident logged.',
-    action: 'Action: Do not accept this card. Relay attack logged for upload. Alert ZeroPay Security.'
+    action: 'Action: Do not accept this card. Relay attack logged for upload. Alert ZerôPâŷ Money Security.'
   },
   tamper: {
     checks: ['fail','pass','pass','pass','pass','pass'],
@@ -500,8 +500,8 @@ const SCENARIOS = {
     cls: 'dark-d', icon: '⚠️',
     title: 'TERMINAL INTEGRITY FAILURE',
     code: 'ERR-ZP-004 · PUF_MISMATCH · TERMINAL_TAMPERED',
-    sub: 'The terminal\'s own PUF silicon fingerprint does not match its registered identity. This terminal has been physically tampered with or replaced. All transactions blocked.\n\nThis terminal cannot process payments until it is re-certified by ZeroPay.',
-    action: 'Action: Remove terminal from service immediately. Contact ZeroPay Hardware Support. Do not accept cash workarounds.'
+    sub: 'The terminal\'s own PUF silicon fingerprint does not match its registered identity. This terminal has been physically tampered with or replaced. All transactions blocked.\n\nThis terminal cannot process payments until it is re-certified by ZerôPâŷ Money.',
+    action: 'Action: Remove terminal from service immediately. Contact ZerôPâŷ Money Hardware Support. Do not accept cash workarounds.'
   },
   expired: {
     checks: ['pass','pass','pass','pass','fail','pass'],
@@ -509,8 +509,8 @@ const SCENARIOS = {
     cls: 'amber-d', icon: '⏰',
     title: 'TOKEN EXPIRED',
     code: 'ERR-ZP-005 · TOKEN_TTL_EXCEEDED · 72H_LIMIT',
-    sub: 'This ZeroPay offline token has exceeded its 72-hour maximum validity window without a network sync. For security, all offline tokens expire after 72 hours regardless of usage.\n\nThis prevents indefinite offline spending beyond risk limits.',
-    action: 'Action: Customer must sync their device or card to a ZeroPay hub or WiFi point to refresh their token. Takes under 3 seconds.'
+    sub: 'This ZerôPâŷ Money offline token has exceeded its 72-hour maximum validity window without a network sync. For security, all offline tokens expire after 72 hours regardless of usage.\n\nThis prevents indefinite offline spending beyond risk limits.',
+    action: 'Action: Customer must sync their device or card to a ZerôPâŷ Money hub or WiFi point to refresh their token. Takes under 3 seconds.'
   },
   duplicate: {
     checks: ['pass','pass','pass','pass','pass','fail'],
@@ -555,7 +555,7 @@ function initiateCharge() {
   document.getElementById('nfcZone').classList.add('visible');
   document.getElementById('sumNGN').textContent = '₦' + n.toLocaleString();
   document.getElementById('sumUSD').textContent = '≈ $' + (n / FX).toFixed(2) + ' USD';
-  document.getElementById('netStatus').textContent = isOnline ? '🌐 ONLINE' : '⚡ OFFLINE — ZeroPay Secured';
+  document.getElementById('netStatus').textContent = isOnline ? '🌐 ONLINE' : '⚡ OFFLINE — ZerôPâŷ Money Secured';
   document.getElementById('paySummary').classList.add('visible');
 }
 

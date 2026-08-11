@@ -6,8 +6,8 @@
 <meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noodp, notranslate, noimageindex">
 <meta name="GPTBot" content="noindex, nofollow">
 <meta name="anthropic-ai" content="noindex, nofollow">
-<meta name="copyright" content="ZeroPay by BETONIQ(WEST) Ltd, RC 56802, Abuja, Nigeria. Patent Pending April 2026. All rights reserved.">
-<title>ZeroPay — 147 Currency FX Demo</title>
+<meta name="copyright" content="ZerôPâŷ Money by BETONIQ(WEST) Ltd, RC 56802, Abuja, Nigeria. Patent Pending April 2026. All rights reserved.">
+<title>ZerôPâŷ Money — 147 Currency FX Demo</title>
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
 body { font-family: 'Segoe UI', sans-serif; background: #0a0f1e; color: #e0e8f0; min-height: 100vh; }
@@ -211,7 +211,7 @@ select:focus { border-color: #00d4ff; }
   </div>
   <div class="mode-btn" id="modeOwn" onclick="setMode('own')" ontouchend="setMode('own')">
     🏦 OWN IMTO LICENSE
-    <span class="mode-label">ZeroPay Direct — CBN Licensed</span>
+    <span class="mode-label">ZerôPâŷ Money Direct — CBN Licensed</span>
   </div>
 </div>
 
@@ -339,7 +339,7 @@ select:focus { border-color: #00d4ff; }
     </button>
 
     <div class="status-log" id="statusLog">
-      <div class="log-entry info">[SYSTEM] ZeroPay FX Engine v4.0 — Offline mode active</div>
+      <div class="log-entry info">[SYSTEM] ZerôPâŷ Money FX Engine v4.0 — Offline mode active</div>
       <div class="log-entry info">[CACHE] 147 FX rates cached from last connectivity window</div>
       <div class="log-entry">[READY] Select corridor, enter amount, then queue transfer</div>
     </div>
@@ -525,7 +525,7 @@ function setMode(mode) {
   document.getElementById('modePartner').classList.toggle('active', mode==='partner');
   document.getElementById('modeOwn').classList.toggle('active', mode==='own');
   updateRoute();
-  addLog('info', '[MODE] ' + (mode==='partner' ? 'Flutterwave IMTO Partner' : 'ZeroPay Own IMTO License'));
+  addLog('info', '[MODE] ' + (mode==='partner' ? 'Flutterwave IMTO Partner' : 'ZerôPâŷ Money Own IMTO License'));
 }
 
 function updateRoute() {
@@ -748,7 +748,7 @@ function showResultOverlay(amount, cur, receive, fee, rate, ref, isLive) {
   document.getElementById('resultDetails').innerHTML =
     'Sent: <strong>' + amount.toFixed(2) + ' ' + cur + '</strong><br>' +
     'Recipient receives: <strong>₦' + receive.toLocaleString('en-NG',{minimumFractionDigits:2}) + '</strong><br>' +
-    'ZeroPay fee: ₦' + fee.toLocaleString('en-NG',{minimumFractionDigits:2}) + '<br>' +
+    'ZerôPâŷ Money fee: ₦' + fee.toLocaleString('en-NG',{minimumFractionDigits:2}) + '<br>' +
     'Rate: 1 ' + cur + ' = ₦' + rate.toLocaleString() + '<br>' +
     (isLive ? '<strong style="color:#00c853">✅ SETTLED LIVE</strong>' : '<strong style="color:#ffa500">📋 QUEUED FOR BATCH SYNC</strong>');
   document.getElementById('resultRef').textContent = 'REF: ' + ref + ' · PUF-SIGNED · ECC-ENCRYPTED';

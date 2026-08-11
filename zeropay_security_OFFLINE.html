@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <meta name="robots" content="noindex,nofollow">
-<title>ZeroPay — 6-Vector Security Attack Demo</title>
+<title>ZerôPâŷ Money — 6-Vector Security Attack Demo</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 html,body{height:100vh;overflow:hidden;font-family:'Segoe UI',Arial,sans-serif;background:#02040a;color:#fff;display:flex;flex-direction:column}
@@ -212,7 +212,7 @@ canvas{position:absolute;inset:0;width:100%;height:100%}
   <div class="splash-title">TAP TO UNLOCK AUDIO</div>
   <div class="splash-sub">iOS requires one tap to activate audio.<br>This unlocks narration for all slides.</div>
   <button class="splash-btn" onclick="unlockAudio()">▶ UNLOCK &amp; START</button>
-  <div class="splash-lock">🔒 iOS Audio Policy · Safari · ZeroPay Secure Demo</div>
+  <div class="splash-lock">🔒 iOS Audio Policy · Safari · ZerôPâŷ Money Secure Demo</div>
 </div>
 
 <div id="hdr">
@@ -262,17 +262,17 @@ const ATTACKS=[
     title:"Attack 1 — Relay / Man-in-the-Middle",
     body:"An attacker places a covert relay device between customer and terminal. It intercepts the NFC signal and forwards it to a rogue terminal 200m away, attempting to hijack the transaction.",
     verdict:"BLOCKED — Distance Bounding rejects in 0.0008ms",
-    table:{ h:["Defence Layer","Method","Result"], r:[["Distance Bounding","RTT threshold 10ns","🟢 Relay adds 1,000,000ns — INSTANT REJECT"],["PUF Auth","Silicon fingerprint","🟢 Rogue terminal has no valid PUF cert"],["Mutual Auth","ZeroPay handshake","🟢 Handshake fails — TX never created"],["Outcome","","🟢 Zero transactions stolen"]] }
+    table:{ h:["Defence Layer","Method","Result"], r:[["Distance Bounding","RTT threshold 10ns","🟢 Relay adds 1,000,000ns — INSTANT REJECT"],["PUF Auth","Silicon fingerprint","🟢 Rogue terminal has no valid PUF cert"],["Mutual Auth","ZerôPâŷ Money handshake","🟢 Handshake fails — TX never created"],["Outcome","","🟢 Zero transactions stolen"]] }
   },
   { accent:"#ff9800",
     title:"Attack 2 — Device Cloning",
-    body:"Attacker steals a ZeroPay terminal. Attempts to extract the cryptographic key and clone the device onto 100 counterfeit terminals for mass fraud.",
+    body:"Attacker steals a ZerôPâŷ Money terminal. Attempts to extract the cryptographic key and clone the device onto 100 counterfeit terminals for mass fraud.",
     verdict:"BLOCKED — PUF key is physically unclonable",
     table:{ h:["Defence Layer","Method","Result"], r:[["PUF Silicon","Nanoscale variation","🟢 Key cannot be extracted — lives in physics"],["No Software Key","Stored in silicon","🟢 No file to copy, no key to steal"],["Clone Attempt","Any chip","🟢 Different PUF response — clone rejected by network"],["Outcome","","🟢 All 100 clones immediately refused"]] }
   },
   { accent:"#a855f7",
     title:"Attack 3 — Replay Attack",
-    body:"Attacker captures an encrypted ZeroPay transaction packet and re-transmits it 100 times to drain the victim's account or double-credit the merchant.",
+    body:"Attacker captures an encrypted ZerôPâŷ Money transaction packet and re-transmits it 100 times to drain the victim's account or double-credit the merchant.",
     verdict:"BLOCKED — Cryptogram binding + timestamp lock",
     table:{ h:["Defence Layer","Method","Result"], r:[["Context Binding","Merchant ID + Terminal ID","🟢 Cryptogram tied to exact transaction context"],["Timestamp Lock","Microsecond precision","🟢 Replayed packet timestamp already expired"],["Nonce Injection","One-time random value","🟢 Nonce already consumed — second use rejected"],["Outcome","","🟢 All 100 replays silently discarded"]] }
   },
@@ -286,11 +286,11 @@ const ATTACKS=[
     title:"Attack 5 — Rogue Mesh Node Injection",
     body:"Attacker deploys a rogue Solar Mesh Hub pretending to be a legitimate relay node. Attempts to intercept and modify transactions passing through the mesh network.",
     verdict:"BLOCKED — Node certificate + chain of trust",
-    table:{ h:["Defence Layer","Method","Result"], r:[["Node Certificate","Signed by ZeroPay CA","🟢 Rogue node has no valid cert — rejected"],["AES-256 Mesh","End-to-end encryption","🟢 Traffic encrypted — rogue node sees ciphertext only"],["Chain of Trust","All nodes verified","🟢 Rogue node breaks chain — ejected from mesh"],["Outcome","","🟢 Zero transactions intercepted"]] }
+    table:{ h:["Defence Layer","Method","Result"], r:[["Node Certificate","Signed by ZerôPâŷ Money CA","🟢 Rogue node has no valid cert — rejected"],["AES-256 Mesh","End-to-end encryption","🟢 Traffic encrypted — rogue node sees ciphertext only"],["Chain of Trust","All nodes verified","🟢 Rogue node breaks chain — ejected from mesh"],["Outcome","","🟢 Zero transactions intercepted"]] }
   },
   { accent:"#ffd700",
     title:"Attack 6 — AI / ML Anomaly Bypass",
-    body:"Sophisticated attacker studies ZeroPay's AI anomaly patterns over 6 months, then crafts a relay attack timed to mimic normal NFC latency — attempting to defeat the 4th defence layer.",
+    body:"Sophisticated attacker studies ZerôPâŷ Money's AI anomaly patterns over 6 months, then crafts a relay attack timed to mimic normal NFC latency — attempting to defeat the 4th defence layer.",
     verdict:"BLOCKED — Multi-layer redundancy defeats any single bypass",
     table:{ h:["Defence Layer","Method","Result"], r:[["AI Anomaly Layer","Defeated by timing attack","🟡 Partially bypassed — proceeds to Layer 1"],["Distance Bounding","Hardware RTT measurement","🟢 Physics cannot be faked — BLOCKED"],["PUF Auth","Required regardless","🟢 Attacker still has no valid PUF cert"],["Outcome","","🟢 5 independent layers mean no single bypass wins"]] }
   }

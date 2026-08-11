@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <meta name="robots" content="noindex,nofollow">
-<title>ZeroPay — Mesh Relay Demo: Zero Connectivity, Live Payments</title>
+<title>ZerôPâŷ Money — Mesh Relay Demo: Zero Connectivity, Live Payments</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 html,body{height:100vh;overflow:hidden;font-family:'Segoe UI',Arial,sans-serif;background:#02050a;color:#fff;display:flex;flex-direction:column}
@@ -211,7 +211,7 @@ canvas{position:absolute;inset:0;width:100%;height:100%}
   <div class="splash-title">TAP TO UNLOCK AUDIO</div>
   <div class="splash-sub">iOS requires one tap to activate audio.<br>This unlocks narration for all slides.</div>
   <button class="splash-btn" onclick="unlockAudio()">▶ UNLOCK &amp; START</button>
-  <div class="splash-lock">🔒 iOS Audio Policy · Safari · ZeroPay Secure Demo</div>
+  <div class="splash-lock">🔒 iOS Audio Policy · Safari · ZerôPâŷ Money Secure Demo</div>
 </div>
 
 <div id="hdr">
@@ -253,7 +253,7 @@ const ZP_AUDIO="https://raw.githubusercontent.com/TOMDEGGS/BETONIQ-WEST-/main/ze
 const SCENARIOS=[
   { accent:"#00ff88",
     title:"Agenegbode → Auchi — 51.1km, Zero Connectivity",
-    body:"No internet. No power grid. No GSM signal. Yet a farmer in Agenegbode, Edo State sends a cross-border payment to Ghana using ZeroPay's Solar Mesh relay chain. Each hop: 8.5km. Total relay chain: 6 hops to the nearest GSM node at Auchi. Settlement: Paystack confirms in under 3 seconds once the packet reaches connectivity.",
+    body:"No internet. No power grid. No GSM signal. Yet a farmer in Agenegbode, Edo State sends a cross-border payment to Ghana using ZerôPâŷ Money's Solar Mesh relay chain. Each hop: 8.5km. Total relay chain: 6 hops to the nearest GSM node at Auchi. Settlement: Paystack confirms in under 3 seconds once the packet reaches connectivity.",
     stats:[{v:"51.1km",l:"Total Relay Distance"},{v:"6 Hops",l:"Mesh Relay Chain"},{v:"<3s",l:"Settlement on Reach"},{v:"72hr",l:"Offline Token TTL"}],
     nodes:[
       {name:"AGENEGBODE",sub:"Farmer — Sender",x:.08,y:.55,c:"#ffd700",type:"origin"},
@@ -266,11 +266,11 @@ const SCENARIOS=[
       {name:"PAYSTACK",sub:"Settlement rail",x:.9,y:.72,c:"#ffd700",type:"settle"}
     ],
     edges:[[0,1],[1,2],[2,3],[3,4],[4,5],[5,6],[6,7]],
-    table:{h:["Location","Status","ZeroPay Mode"],r:[["Agenegbode","🔴 No GSM · No power","🟢 Offline — NFC tap active"],["Relay Hub 1–5","🔴 No internet","🟢 Solar mesh — auto relay"],["Auchi","🟢 GSM available","🟢 Batch sync triggered"],["Paystack API","🟢 Online","🟢 Settlement: <3 seconds"],["Cross-border","🟢 Ghana corridor","🟢 IMTO FX applied"]]}
+    table:{h:["Location","Status","ZerôPâŷ Money Mode"],r:[["Agenegbode","🔴 No GSM · No power","🟢 Offline — NFC tap active"],["Relay Hub 1–5","🔴 No internet","🟢 Solar mesh — auto relay"],["Auchi","🟢 GSM available","🟢 Batch sync triggered"],["Paystack API","🟢 Online","🟢 Settlement: <3 seconds"],["Cross-border","🟢 Ghana corridor","🟢 IMTO FX applied"]]}
   },
   { accent:"#00d4ff",
     title:"Kano Remote Region → State Capital — 100km, No GSM",
-    body:"Northern Nigeria. Dusty harmattan terrain. Zero GSM coverage for 100km between a remote Kano village and Kano State capital. A merchant needs to receive a ₦850,000 equipment payment. No bank. No agent. No internet. ZeroPay Solar Mesh spans the full 100km — 12 hops, each 8.3km — delivering a legally settled, cryptographically signed payment receipt.",
+    body:"Northern Nigeria. Dusty harmattan terrain. Zero GSM coverage for 100km between a remote Kano village and Kano State capital. A merchant needs to receive a ₦850,000 equipment payment. No bank. No agent. No internet. ZerôPâŷ Money Solar Mesh spans the full 100km — 12 hops, each 8.3km — delivering a legally settled, cryptographically signed payment receipt.",
     stats:[{v:"100km",l:"Total Distance"},{v:"12 Hops",l:"Full Relay Chain"},{v:"₦850K",l:"Transaction Value"},{v:"0%",l:"Internet Required"}],
     nodes:[
       {name:"KANO VILLAGE",sub:"Merchant — Receiver",x:.06,y:.6,c:"#ff9800",type:"origin"},
@@ -286,7 +286,7 @@ const SCENARIOS=[
       {name:"PAYSTACK",sub:"Settlement",x:.9,y:.74,c:"#ffd700",type:"settle"}
     ],
     edges:[[0,1],[1,2],[2,3],[3,4],[4,5],[5,6],[6,7],[7,8],[8,9],[9,10]],
-    table:{h:["Condition","Reality","ZeroPay Response"],r:[["GSM signal","🔴 Zero for 100km","🟢 Mesh relay activated"],["Power grid","🔴 No electricity","🟢 Solar panels — 72hr backup"],["Internet","🔴 None available","🟢 Not required — NFC offline"],["Harmattan dust","🟡 Reduces solar efficiency","🟢 Battery + supercapacitor backup"],["Settlement","🟢 Kano city GSM reached","🟢 ₦850,000 confirmed"]]}
+    table:{h:["Condition","Reality","ZerôPâŷ Money Response"],r:[["GSM signal","🔴 Zero for 100km","🟢 Mesh relay activated"],["Power grid","🔴 No electricity","🟢 Solar panels — 72hr backup"],["Internet","🔴 None available","🟢 Not required — NFC offline"],["Harmattan dust","🟡 Reduces solar efficiency","🟢 Battery + supercapacitor backup"],["Settlement","🟢 Kano city GSM reached","🟢 ₦850,000 confirmed"]]}
   }
 ];
 
