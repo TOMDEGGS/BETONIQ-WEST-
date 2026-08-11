@@ -10,7 +10,7 @@
 <title>ZerôPâŷ Money — 147 Currency FX Demo</title>
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-body { font-family: 'Segoe UI', sans-serif; background: #0a0f1e; color: #e0e8f0; min-height: 100vh; }
+body { font-family: 'Segoe UI', sans-serif; background: #0a0f1e; color: #e0e8f0; min-height: 100vh;min-height: 100svh; }
 
 .header { background: #0d1b3e; padding: 14px 20px; display: flex; align-items: center; justify-content: space-between; border-bottom: 2px solid #00d4ff; }
 .brand { font-size: 22px; font-weight: 900; color: #00d4ff; letter-spacing: 2px; }
@@ -82,7 +82,7 @@ select:focus { border-color: #00d4ff; }
 .amount-display { font-size: 22px; font-weight: 900; color: #00d4ff; text-align: right; min-height: 44px; }
 
 .numpad { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-bottom: 12px; }
-.num-btn { background: #132340; border: 1px solid #1e3a5f; border-radius: 8px; color: #e0e8f0; font-size: 18px; font-weight: 700; padding: 14px; cursor: pointer; text-align: center; transition: all 0.15s; touch-action: manipulation; user-select: none; }
+.num-btn { background: #132340; border: 1px solid #1e3a5f; border-radius: 8px; color: #e0e8f0; font-size: 18px; font-weight: 700; padding: 14px; cursor: pointer; text-align: center; transition: all 0.15s; touch-action: manipulation; -webkit-user-select:none;user-select:none; }
 .num-btn:active { background: #00d4ff33; transform: scale(0.95); }
 .del-btn { font-size: 14px; color: #ef5350; }
 .clear-btn { font-size: 12px; color: #ffa500; }

@@ -10,7 +10,7 @@
 <title>ZerôPâŷ Money — Live Operations Hub</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-body{font-family:'Segoe UI',sans-serif;background:#050d1a;color:#e0e8f0;min-height:100vh;overflow-x:hidden}
+body{font-family:'Segoe UI',sans-serif;background:#050d1a;color:#e0e8f0;min-height:100vh;min-height:100svh;overflow-x:hidden}
 
 /* ===================== HEADER ===================== */
 .header{background:#0d1b3e;padding:10px 20px;display:flex;align-items:center;justify-content:space-between;border-bottom:3px solid #00d4ff;position:sticky;top:0;z-index:200}
@@ -101,7 +101,8 @@ body{font-family:'Segoe UI',sans-serif;background:#050d1a;color:#e0e8f0;min-heig
 
 /* Numpad */
 .numpad{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;margin-bottom:10px}
-.num-btn{background:#132340;border:1px solid #1e3a5f;border-radius:8px;color:#e0e8f0;font-size:16px;font-weight:700;padding:12px;cursor:pointer;text-align:center;touch-action:manipulation;user-select:none}
+.num-btn{background:#132340;border:1px solid #1e3a5f;border-radius:8px;color:#e0e8f0;font-size:16px;font-weight:700;padding:12px;cursor:pointer;text-align:center;touch-action:manipulation;-webkit-user-select:none}
+.num-btn:active{background:#00d4ff22;user-select:none}
 .num-btn:active{background:#00d4ff22;transform:scale(0.95)}
 
 /* Token display */
