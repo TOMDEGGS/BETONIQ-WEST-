@@ -2,6 +2,18 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<script>
+(function(){
+  // This repo powers two Netlify sites. On the primary public domain,
+  // redirect straight to the polished landing page instead of the internal Master Hub.
+  // On the Master Hub domain, do nothing -> shows the hub below as normal.
+  if (location.hostname.indexOf('masterhublivedemos') === -1 &&
+      (location.pathname === '/' || location.pathname === '/index.html')) {
+    location.replace('/zeropay.html');
+  }
+})();
+</script>
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>BETONIQ · ZerôPâŷ Money — Master Hub</title>
 <style>
