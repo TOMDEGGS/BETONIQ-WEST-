@@ -63,6 +63,21 @@ let cachedBriefing = null;
 let briefingFetchedAt = 0;
 const BRIEFING_CACHE_MS = 30 * 60 * 1000; // 30 min
 
+function getBriefingCacheStore() {
+  return getStore("betoniq-backup-briefing-cache");
+}
+
+// v7.6 — SELF-UPDATING FALLBACK.
+// Old behaviour: on live-fetch failure, always fell back to EMBEDDED_BRIEFING, a hardcoded
+// string frozen at whatever it was when someone last hand-edited the code. That copy could
+// silently go stale for months (exactly what happened with the Aug 11 rebrand) and nobody
+// would know until it gave a wrong answer.
+// New behaviour: every time the LIVE fetch from GitHub succeeds, we persist that fresh copy
+// to Netlify Blobs as "last_known_good". If a later live fetch ever fails (network blip,
+// GitHub rate limit, etc.), we fall back to that persisted last-known-good copy FIRST —
+// which is near-current, refreshed automatically, no code edits required — and only fall
+// all the way back to the truly-hardcoded EMBEDDED_BRIEFING if Blobs itself has never been
+// populated (e.g. very first cold start ever). This makes the fallback path self-updating.
 async function getBriefing() {
   const now = Date.now();
   if (cachedBriefing && now - briefingFetchedAt < BRIEFING_CACHE_MS) {
@@ -71,12 +86,27 @@ async function getBriefing() {
   try {
     const res = await fetch(MASTER_BRIEFING_URL, { signal: AbortSignal.timeout(5000) });
     if (res.ok) {
-      cachedBriefing = await res.text();
+      const fresh = await res.text();
+      cachedBriefing = fresh;
+      briefingFetchedAt = now;
+      // Fire-and-forget persist of the fresh copy as the new last-known-good fallback.
+      getBriefingCacheStore()
+        .set("last_known_good", fresh, { metadata: { fetchedAt: new Date(now).toISOString() } })
+        .catch((e) => console.error("Failed to persist last-known-good briefing:", e.message));
+      return cachedBriefing;
+    }
+  } catch (e) {
+    console.error("Live briefing fetch failed, trying last-known-good cache:", e.message);
+  }
+  try {
+    const lastKnownGood = await getBriefingCacheStore().get("last_known_good");
+    if (lastKnownGood) {
+      cachedBriefing = lastKnownGood;
       briefingFetchedAt = now;
       return cachedBriefing;
     }
   } catch (e) {
-    console.error("Live briefing fetch failed, using embedded copy:", e.message);
+    console.error("Last-known-good briefing cache also unavailable:", e.message);
   }
   cachedBriefing = EMBEDDED_BRIEFING;
   briefingFetchedAt = now;
