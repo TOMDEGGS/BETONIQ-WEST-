@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-08-10T07:01:00+01:00",
-  "note": "Full live entity snapshot refreshed by Backup 777 Data Refresh on August 10, 2026. Counts verified against current Base44 records; no record-count changes detected since the prior snapshot.",
+  "generated_at": "2026-08-11T07:01:00+01:00",
+  "note": "Full live entity snapshot refreshed by Backup 777 Data Refresh on August 11, 2026. One new LeadCapture record was added from the live ZerôPâŷ Money landing-page merchant registration test; all other tracked entity counts are unchanged.",
   "entities": {
     "RealEstateProject": [
       {
@@ -2567,6 +2567,25 @@
     ],
     "LeadCapture": [
       {
+        "country": "Nigeria",
+        "interest_type": "Merchant Registration",
+        "project_interested_in": null,
+        "notes": "Business: Live Browser Test Shop | Source: ZerôPâŷ Money live landing page (zeropay.html)",
+        "phone": "+2348099998888",
+        "name": "Browser Test Owner",
+        "source": "Live Landing Page",
+        "message": "",
+        "investment_budget": null,
+        "email": "",
+        "status": "New",
+        "id": "6a7aa7389e41f43f725e0e0b",
+        "created_date": "2026-08-11T04:38:16.891000",
+        "updated_date": "2026-08-11T04:38:16.891000",
+        "created_by_id": "service_28c9a832-7e19-435b-a83b-8e07995f009a",
+        "created_by": "service+28c9a832-7e19-435b-a83b-8e07995f009a@no-reply.base44.com",
+        "is_sample": false
+      },
+      {
         "country": null,
         "interest_type": "Subscription",
         "project_interested_in": null,
@@ -3533,7 +3552,7 @@
     "Commission": 0,
     "DeveloperListing": 1,
     "Subscription": 1,
-    "LeadCapture": 2,
+    "LeadCapture": 3,
     "VisitorActivity": 11,
     "ZPTransaction": 9,
     "ZPMerchant": 8,
@@ -3541,35 +3560,28 @@
     "TeamTask": 9
   },
   "refresh_metadata": {
-    "refreshed_at": "2026-08-10T07:01:00+01:00",
-    "source": "Base44 live entity reads",
-    "entities_verified": [
+    "refreshed_at": "2026-08-11T07:01:00+01:00",
+    "source": "Live Base44 entity records",
+    "tracked_entities": 15,
+    "new_records_since_previous_snapshot": {
+      "LeadCapture": 1
+    },
+    "unchanged_entities": [
       "RealEstateProject",
       "Investor",
+      "Investment",
+      "CountryMacroData",
+      "ComplianceRecord",
+      "FeasibilityStudy",
+      "Commission",
+      "DeveloperListing",
+      "Subscription",
+      "VisitorActivity",
+      "ZPTransaction",
       "ZPMerchant",
       "ZPAgent",
-      "ZPTransaction",
-      "Subscription",
-      "LeadCapture",
-      "FeasibilityStudy",
-      "CountryMacroData"
+      "TeamTask"
     ],
-    "record_counts_verified": {
-      "RealEstateProject": 79,
-      "Investor": 2,
-      "Investment": 0,
-      "CountryMacroData": 6,
-      "ComplianceRecord": 0,
-      "FeasibilityStudy": 1,
-      "Commission": 0,
-      "DeveloperListing": 1,
-      "Subscription": 1,
-      "LeadCapture": 2,
-      "VisitorActivity": 11,
-      "ZPTransaction": 9,
-      "ZPMerchant": 8,
-      "ZPAgent": 6,
-      "TeamTask": 9
-    }
+    "backup_consumer": "Backup 777"
   }
 }
