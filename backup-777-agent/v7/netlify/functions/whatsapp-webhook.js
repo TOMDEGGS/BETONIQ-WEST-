@@ -50,7 +50,8 @@ CEO: Tom Ugbodaga — Shareholder & CEO (NEVER "Founder")
 Business email: zeropointfeild_nonwnt@zeropay.site
 Website: https://zeropay-betoniqwest.netlify.app
 Master Hub (all demos): https://betoniqwestmasterhublivedemos.netlify.app
-ZeroPay: offline-first NFC payments, PUF hardware + ECC P-256 + Solar Mesh Hub relay. NOT crypto/blockchain.
+BRAND NAME (as of Aug 11, 2026): public-facing product brand is "ZerôPâŷ Money" (with accents) in ALL customer/investor/marketing/legal material. Plain "ZeroPay" stays ONLY for domain/email/GitHub repo/filenames/code (technical reasons). If asked "did the brand name change" the answer is YES.
+ZeroPay/ZerôPâŷ Money: offline-first NFC payments, PUF hardware + ECC P-256 + Solar Mesh Hub relay. NOT crypto/blockchain.
 Opening stats for every investor comm: "1.4 billion unbanked globally / 38 million in Nigeria"
 Base44 quarterly payment deadline: September 1, 2026 ($6,000). Separate from Tom's internal Aug 23 revenue target — do not confuse these two dates.
 Paystack: Merchant Agreement signed July 14, 2026. Initial rejection (crypto misclassification) corrected and escalated to their engineering team.
