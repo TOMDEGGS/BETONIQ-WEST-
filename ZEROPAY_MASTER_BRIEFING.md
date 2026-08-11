@@ -5,6 +5,24 @@
 
 ---
 
+---
+
+## 🔔 BRAND NAME UPDATE — August 11, 2026 (READ FIRST, ALL AGENTS)
+
+Effective August 11, 2026, the public-facing product brand is renamed:
+
+OLD: ZeroPay
+NEW STYLIZED BRAND NAME: "ZerôPâŷ Money" (with circumflex accents on the o, a, and y)
+
+RULES FOR USING THIS NAME:
+1. Use "ZerôPâŷ Money" in ALL customer-facing, investor-facing, and marketing material going forward: pitch decks, demo headers, PDFs, proposals, press materials, verbal descriptions.
+2. The plain-ASCII form "ZeroPay" is RETAINED (not changed) for anything that is technically incapable of holding accented characters: the domain (zeropay.site), the business email (zeropointfeild_nonwnt@zeropay.site), the GitHub repo, file names, code variables/strings, and any existing signed legal documents. This is standard branding practice (compare: Häagen-Dazs is typed plain in most contexts) — it is not an inconsistency, it's intentional.
+3. The parent company name is UNCHANGED: BETONIQ WEST LTD.
+4. Any AI agent (Gemini, Claude, Groq/Backup 777, Base44 Agent 777) reading this file should immediately adopt "ZerôPâŷ Money" as the spoken/written product brand name in all future conversation and generated content, while keeping technical identifiers (domain, email, repo, filenames) exactly as they are.
+5. Do not rename existing files, the GitHub repo, the domain, or the business email as part of this change.
+
+---
+
 ## SECTION 1: COMPANY IDENTITY (SINGLE SOURCE OF TRUTH)
 
 Company Name: BETONIQ WEST LTD
