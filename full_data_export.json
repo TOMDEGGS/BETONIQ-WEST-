@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-11T07:01:00+01:00",
+  "generated_at": "2026-08-12T07:03:00+01:00",
   "note": "Full live entity snapshot refreshed by Backup 777 Data Refresh on August 11, 2026. One new LeadCapture record was added from the live ZerôPâŷ Money landing-page merchant registration test; all other tracked entity counts are unchanged.",
   "entities": {
     "RealEstateProject": [
@@ -3560,12 +3560,10 @@
     "TeamTask": 9
   },
   "refresh_metadata": {
-    "refreshed_at": "2026-08-11T07:01:00+01:00",
+    "refreshed_at": "2026-08-12T07:03:00+01:00",
     "source": "Live Base44 entity records",
     "tracked_entities": 15,
-    "new_records_since_previous_snapshot": {
-      "LeadCapture": 1
-    },
+    "new_records_since_previous_snapshot": {},
     "unchanged_entities": [
       "RealEstateProject",
       "Investor",
@@ -3576,6 +3574,7 @@
       "Commission",
       "DeveloperListing",
       "Subscription",
+      "LeadCapture",
       "VisitorActivity",
       "ZPTransaction",
       "ZPMerchant",
