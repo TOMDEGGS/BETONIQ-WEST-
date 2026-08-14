@@ -45,3 +45,34 @@ ZerôPâŷ Money is BETONIQ WEST LTD's offline-first payment protocol serving Af
 
 ## Status
 DRAFT — awaiting Tom's review and sign-off before sourcing begins. Value model architecture confirmed Aug 10, 2026.
+
+## Solar Mesh Hub — Threat Model (Restored Aug 14, 2026 — originally drafted Aug 11, 2026, lost from a prior session's local file before it reached this shared spec)
+
+What the hub actually holds: the hub is a relay and aggregator, not a vault. Customer value lives cryptographically inside each individual terminal's PUF-secured element, not inside the hub. The hub's job is passing already-signed, already-final tokens along the mesh toward a connectivity point — closer to a postal sorting office than a bank vault.
+
+**Scenario A — Hub physically stolen:** an attacker gets a battery, solar charge controller, LoRa radio, and whatever queued/relayed tokens were sitting in its buffer. Those queued tokens are still individually signed by the originating terminal's own key — the hub never had authority to alter them, only to carry them. Stealing the hub hands the attacker no spendable value and no merchant/customer private keys. Worst case: those specific pending transactions get delayed until re-routed through another hub — an availability problem, not a fraud problem.
+
+**Scenario B — Hub tampered with in the field (attacker tries to inject/alter transactions):** this is the sharper, genuinely open question. Safety here requires the hub to have its own device identity (a certificate/keypair distinct from any customer's), so the receiving side at settlement can verify "this really came from Hub #14 in Kaduna" and reject anything from an unrecognized or revoked hub identity. Whether an attacker could splice a fraudulent token into the relay stream depends entirely on whether the *originating terminal's* signature (not the hub's) is checked end-to-end at settlement — if it is, a compromised hub can drop or delay messages but should not be able to forge new ones, since it never held a terminal's signing key.
+
+**Open items — not yet formally closed, must be resolved before scaling past the pilot:**
+1. Hub-level device attestation (certificate/keypair per hub, distinct from terminal keys).
+2. Key revocation process if a specific hub is confirmed compromised.
+3. Tampering resistance for the hub enclosure itself (physical hardening, not just cryptographic).
+4. Defined handling for tokens that were mid-relay through a hub at the exact moment of compromise.
+5. All four items above are explicitly in scope for the independent third-party lab attack-test validation already budgeted in the Niger State rollout ($60,000 line) — this is precisely the kind of gap that testing exists to catch before wider deployment, not something to assume is fine on paper.
+
+## Attack Timing — Two Attacks That Matter, Frame by Frame in Milliseconds (Restored Aug 14, 2026)
+
+**Relay attack (attacker fakes physical presence over the internet):**
+- t=0ms: Attacker places a proxy device near the real terminal, a second proxy near the victim's device somewhere far away, relaying the NFC signal over internet/mobile data.
+- t=0-15ms: Handshake proceeds normally — invisible at this stage, since relayed protocol messages look identical to genuine ones.
+- t=15-20ms: Distance-bounding timing check runs. Genuine NFC coupling happens over ~4cm, so a real round-trip completes in well under a couple of milliseconds once protocol overhead is stripped out. Relaying over decent 4G adds 20-150ms; over satellite, 500-700ms — orders of magnitude outside the tight window a truly local tap should produce.
+- Result: declined at roughly t=20ms, before the ECC signing step even runs. Caught on timing physics alone, not cryptography.
+
+**Double-spend attempt (same offline value used at two terminals before any sync):**
+- t=0ms, Terminal A: payer taps. Critical detail — it is the payer's own device that "spends" the money. The payer's secure chip decrements its internal balance and cryptographically commits a new signed state, with a hardware monotonic counter ticking forward. That commit is what makes the money gone from the payer's side, immediately.
+- t=X, Terminal B (second tap attempted elsewhere): for double-spend to work, the attacker needs the payer's device to present its pre-transaction balance again — meaning either roll back that same chip's internal state, or clone the chip entirely.
+- Rollback blocked: the hardware counter is monotonic — it can only count up, by design, even under direct memory manipulation. Once advanced, it cannot be un-advanced on that physical chip.
+- Cloning blocked: PUF-derived key material comes from atomic-level manufacturing randomness in that one specific piece of silicon, never stored anywhere retrievable — not even by us as manufacturer. There is no key to copy, only physics to replicate, which is not feasible with current attack techniques.
+- Result: the second tap either produces an already-spent signature the receiving terminal's crypto check rejects, or fails outright because there is no valid unspent state left to sign. Caught locally, same ~100-150ms window as any normal tap.
+- Honest caveat: this is exactly why independent third-party security testing is budgeted as a mandatory funded gate before scaling past the Niger State pilot — nobody serious trusts the math on paper alone; it needs real adversarial lab testing against real silicon.
