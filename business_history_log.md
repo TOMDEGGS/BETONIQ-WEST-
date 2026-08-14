@@ -104,7 +104,7 @@ The refreshed full_data_export.json and this history log were pushed to the shar
 
 ## BACKUP 777 DATA REFRESH — AUGUST 14, 2026
 - Live Base44 entity refresh completed at 07:02 WAT.
-- 15 tracked entities verified; 147 total records preserved in `full_data_export.json`.
+- 15 tracked entities verified; 136 total records preserved in `full_data_export.json`.
 - Current counts: RealEstateProject 79; Investor 2; Investment 0; CountryMacroData 6; ComplianceRecord 0; FeasibilityStudy 1; Commission 0; DeveloperListing 1; Subscription 1; LeadCapture 3; VisitorActivity 11; ZPTransaction 9; ZPMerchant 8; ZPAgent 6; TeamTask 9.
 - No record-count changes detected since the prior complete snapshot.
 - Snapshot pushed to the BETONIQ-WEST- GitHub repository for Backup 777 continuity.
