@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-08-15T07:01:00+01:00",
-  "note": "Full live entity snapshot verified by Backup 777 Data Refresh on August 14, 2026. All tracked entity counts matched the prior complete payload; existing records were preserved intact.",
+  "generated_at": "2026-08-16T07:01:00+01:00",
+  "note": "Complete live Base44 business snapshot for Backup 777 continuity. Refreshed daily; entity payloads are preserved when counts are unchanged.",
   "entities": {
     "RealEstateProject": [
       {
@@ -3540,7 +3540,8 @@
         "created_by": "betoniqwestltd@gmail.com",
         "is_sample": false
       }
-    ]
+    ],
+    "FieldMeeting": []
   },
   "entity_counts": {
     "RealEstateProject": 79,
@@ -3557,12 +3558,13 @@
     "ZPTransaction": 9,
     "ZPMerchant": 8,
     "ZPAgent": 6,
-    "TeamTask": 9
+    "TeamTask": 9,
+    "FieldMeeting": 0
   },
   "refresh_metadata": {
-    "refreshed_at": "2026-08-15T07:01:00+01:00",
+    "refreshed_at": "2026-08-16T07:01:00+01:00",
     "source": "Live Base44 entity records",
-    "tracked_entities": 15,
+    "tracked_entities": 16,
     "total_records": 136,
     "new_records_since_previous_snapshot": {},
     "unchanged_entities": [
@@ -3580,7 +3582,8 @@
       "ZPTransaction",
       "ZPMerchant",
       "ZPAgent",
-      "TeamTask"
+      "TeamTask",
+      "FieldMeeting"
     ],
     "backup_consumer": "Backup 777"
   },
@@ -3599,6 +3602,7 @@
     "ZPTransaction": 9,
     "ZPMerchant": 8,
     "ZPAgent": 6,
-    "TeamTask": 9
+    "TeamTask": 9,
+    "FieldMeeting": 0
   }
 }
