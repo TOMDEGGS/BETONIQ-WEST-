@@ -1,0 +1,12 @@
+{
+  "backup_name": "BETONIQ_WEST_WEEKLY_OPERATIONAL_BACKUP",
+  "generated_at": "2026-08-16T19:01:35+00:00",
+  "source": "BETONIQ WEST operational repository snapshot",
+  "file_count": 200,
+  "added_since_previous_snapshot": [
+    "avm_morgan_docs/AVM_MORGAN_SIX_ZONAL_RESTRUCTURING_ESSAY.docx"
+  ],
+  "modified_since_previous_snapshot": [],
+  "removed_since_previous_snapshot": [],
+  "notes": "Includes all current repository files except .git metadata; generated for weekly offline/local backup."
+}
