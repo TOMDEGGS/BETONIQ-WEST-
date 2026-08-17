@@ -15,7 +15,7 @@ import datetime
 
 REPO_ROOT = "gh_repo"
 DATE_STR = datetime.date.today().isoformat()
-MAX_PART_BYTES = 80 * 1024 * 1024  # 80MB safety cap per part (20MB headroom under GitHub's 100MB hard limit)
+MAX_PART_BYTES = 45 * 1024 * 1024  # 45MB safety cap per part (comfortably under GitHub's 50MB soft-warning AND 100MB hard limit)
 EXCLUDE_DIRS = {".git"}
 EXCLUDE_FILE_PATTERNS = ["BETONIQ_WEST_WEEKLY_OPERATIONAL_BACKUP_"]  # never re-include old backup zips in the new one
 
