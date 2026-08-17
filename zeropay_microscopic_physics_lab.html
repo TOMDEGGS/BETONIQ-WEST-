@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>ZeroPay Attack Validation Lab — Microscopic Physics Walkthrough</title>
+<style>
+  :root{
+    --navy:#0B1F3A; --gold:#B8860B; --white:#F5F5F7; --grey:#8A93A6;
+    --puf:#7B2FBE; --ecc:#1E5FBE; --relay:#E08A1E; --token:#1E9E5A; --hub:#C0392B; --sidechan:#B8860B;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0; background:radial-gradient(circle at top,#0d2647,#050d1c 70%);
+    color:var(--white); font-family:'Segoe UI','Helvetica Neue',Arial,sans-serif;
+    padding:24px 16px 70px;
+  }
+  header{ text-align:center; margin-bottom:22px; }
+  header h1{
+    font-size:1.85rem; letter-spacing:1.5px; margin:0 0 6px;
+    color:#fff; text-shadow:0 0 14px rgba(184,134,11,.6);
+  }
+  header p{ color:var(--grey); font-size:.92rem; margin:4px 0; }
+  .ctrlbar{ text-align:center; margin:18px 0 30px; }
+  .bigbtn{
+    padding:14px 32px; background:linear-gradient(90deg,var(--gold),#e0b83c); color:#0B1F3A;
+    border:none; border-radius:8px; font-weight:bold; font-size:1rem;
+    letter-spacing:1px; cursor:pointer; box-shadow:0 0 22px rgba(184,134,11,.5);
+    text-transform:uppercase; margin:0 6px;
+  }
+  .bigbtn.secondary{ background:#22335a; color:#fff; box-shadow:none; }
+  .bigbtn:hover{ filter:brightness(1.1); }
+  .voicestatus{ color:var(--grey); font-size:.78rem; margin-top:8px; }
+
+  .grid{ display:flex; flex-direction:column; gap:26px; max-width:1150px; margin:0 auto; }
+  .card{
+    background:#0F1F38; border:1px solid #1e3457; border-radius:14px;
+    overflow:hidden; box-shadow:0 6px 24px rgba(0,0,0,.45);
+  }
+  .card-header{
+    padding:16px 20px; font-weight:bold; font-size:1.15rem;
+    color:#fff; display:flex; justify-content:space-between; align-items:center;
+  }
+  .card-header .sub{ font-size:.75rem; font-weight:normal; opacity:.85; display:block; margin-top:3px;}
+  .card-body{ padding:18px 20px 22px; display:flex; gap:20px; flex-wrap:wrap; }
+  .stage-canvas-wrap{ flex:1 1 460px; min-width:320px; }
+  canvas{ width:100%; height:280px; background:#050D1C; border-radius:8px; border:1px solid #16243f; display:block; }
+  .stage-info{ flex:1 1 320px; min-width:280px; display:flex; flex-direction:column; gap:12px; }
+  .stagepill{
+    display:inline-block; padding:4px 12px; border-radius:20px; font-size:.72rem;
+    font-weight:bold; letter-spacing:.5px; align-self:flex-start;
+  }
+  .caption{
+    font-size:1.02rem; line-height:1.55; color:#eef2fa; min-height:130px;
+    background:#0a1830; border-radius:8px; padding:14px 16px; border:1px solid #16243f;
+  }
+  .controls{ display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
+  .ctrlbtn{
+    padding:8px 14px; border:none; border-radius:6px; font-weight:bold; cursor:pointer;
+    font-size:.8rem; color:#fff; background:#22335a;
+  }
+  .ctrlbtn.narrate.active{ background:#1E9E5A; }
+  .progressdots{ display:flex; gap:6px; margin-top:4px; }
+  .dot{ width:9px; height:9px; border-radius:50%; background:#2a3f60; }
+  .dot.on{ background:var(--gold); }
+
+  footer{ text-align:center; color:#4c5c7a; font-size:.74rem; margin-top:44px; line-height:1.6; max-width:800px; margin-left:auto; margin-right:auto; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>THE PHYSICS BEHIND ZEROPAY'S SECURITY</h1>
+  <p>MICROSCOPIC-LEVEL 2D WALKTHROUGH — 6 ATTACK SCENARIOS · FRAME-BY-FRAME · NARRATED</p>
+  <p style="color:var(--gold);">BETONIQ WEST LTD — CONFIDENTIAL TECHNICAL DEMONSTRATION</p>
+</header>
+
+<div class="ctrlbar">
+  <button class="bigbtn" id="playAllBtn" onclick="playFullWalkthrough()">▶ PLAY FULL NARRATED WALKTHROUGH</button>
+  <button class="bigbtn secondary" onclick="stopEverything()">■ STOP</button>
+  <div class="voicestatus" id="voiceStatus">Loading British voice...</div>
+</div>
+
+<div class="grid" id="grid"></div>
+
+<footer>
+This is an illustrative 2D physics walkthrough designed to make the underlying security mechanisms intuitive —
+electron behaviour, field strength, and timing are simplified for clarity, not laboratory-precision renders.
+The pass/fail thresholds referenced match the six tests defined in the ZeroPay Attack Validation Lab Walkthrough
+document and its accompanying live test simulator. It does not replace the accredited third-party $49,000
+hardware-security certification.
+</footer>
+
+<script>
+// =====================================================================
+// SCENARIO DEFINITIONS — each has 5 narrated, animated stages
+// =====================================================================
+const SCENARIOS = [
+{
+  id:'puf', name:'PUF CLONING ATTEMPT', color:'#7B2FBE',
+  sub:'Why this chip\u2019s fingerprint cannot be copied',
+  stages:[
+    { cap:"Every silicon chip that comes off a production line looks identical on the surface. But zoom in far enough, to the level of individual transistors, and something remarkable happens.",
+      draw: drawPUFStage1 },
+    { cap:"During manufacturing, the exact position of dopant atoms inside each transistor is influenced by microscopic, uncontrollable variations, sometimes only a few atoms wide. No two chips, not even two chips from the very same wafer, end up with exactly the same pattern.",
+      draw: drawPUFStage2 },
+    { cap:"When we send an electrical challenge into this chip's Physically Unclonable Function, the response it produces depends entirely on that random atomic-level pattern. It behaves like a fingerprint that was never designed, it emerged by accident during manufacturing.",
+      draw: drawPUFStage3 },
+    { cap:"Now watch what happens when an attacker manufactures what looks like an identical chip, same design, same factory, even the same batch. Because the atomic-level variation is different, its response to the exact same challenge comes out completely different.",
+      draw: drawPUFStage4 },
+    { cap:"The terminal compares the two responses and they simply do not match. This is not a password that could be stolen or a key that could be copied, it is physics itself standing in the way of cloning.",
+      draw: drawPUFStage5 },
+  ]
+},
+{
+  id:'ecc', name:'ECC P-256 FORGERY & FAULT INJECTION', color:'#1E5FBE',
+  sub:'Why you cannot forge a signature without the key',
+  stages:[
+    { cap:"Elliptic curve cryptography works by choosing a starting point on a mathematical curve and multiplying it by a secret number, the private key, many times over using a repeated doubling and adding process.",
+      draw: drawECCStage1 },
+    { cap:"Each doubling step moves to a new, seemingly random point on the curve. After enough steps, the resulting public point is scattered so unpredictably that reversing the process, working backwards to find the secret number, would take longer than the age of the universe with today's computers.",
+      draw: drawECCStage2 },
+    { cap:"An attacker without the private key can only guess. Every guess it makes lands on the wrong point, and the terminal's verification check catches it instantly.",
+      draw: drawECCStage3 },
+    { cap:"A more sophisticated attacker tries something physical: injecting a precisely timed voltage glitch into the chip while it signs a transaction, hoping to corrupt just one step and leak a fragment of the secret key.",
+      draw: drawECCStage4 },
+    { cap:"Our signing circuit is hardened against exactly this. A glitch either produces no signature at all, or a signature that fails verification outright. Across five thousand glitch attempts in testing, not one ever produced a usable key fragment.",
+      draw: drawECCStage5 },
+  ]
+},
+{
+  id:'relay', name:'RELAY / DISTANCE-BOUNDING', color:'#E08A1E',
+  sub:'Why you cannot fake being close',
+  stages:[
+    { cap:"Near field communication works over an extremely short range, typically less than four centimetres, because the radio field strength collapses sharply with distance.",
+      draw: drawRelayStage1 },
+    { cap:"When a genuine card taps the terminal, the challenge and response travel that tiny distance and back in a matter of nanoseconds, faster than you could ever perceive.",
+      draw: drawRelayStage2 },
+    { cap:"A relay attacker tries to fool the terminal by placing one device next to it and a second device next to a genuine card far away, forwarding the exchange between them over the internet.",
+      draw: drawRelayStage3 },
+    { cap:"But that relay path, however fast the network, still has to travel through routers, towers, and switching equipment. Our terminal times every response down to fractions of a millisecond, and anything slower than about five milliseconds beyond the physical limit is immediately flagged.",
+      draw: drawRelayStage4 },
+    { cap:"The laws of physics do not bend for a relay attacker. The extra distance always costs extra time, and that time is exactly what gives them away.",
+      draw: drawRelayStage5 },
+  ]
+},
+{
+  id:'token', name:'DOUBLE-SPEND / TOKEN REPLAY', color:'#1E9E5A',
+  sub:'Why the same value cannot be spent twice',
+  stages:[
+    { cap:"The value on this terminal is not a number in a spreadsheet somewhere, it is physically stored as trapped electrons sitting on a floating gate inside the secure chip's memory.",
+      draw: drawTokenStage1 },
+    { cap:"The instant a payment is made, electrons are physically removed from that floating gate, lowering the stored charge, before anything is transmitted to the other device.",
+      draw: drawTokenStage2 },
+    { cap:"This ordering matters enormously. The chip commits the new, lower balance to physical memory first, and only afterwards signs and sends the proof of payment. There is no window in which the old, higher balance still exists anywhere.",
+      draw: drawTokenStage3 },
+    { cap:"An attacker who captures that signed token and tries to replay it, or who cuts power at the exact wrong instant hoping the balance reverts, runs into the same wall. The write has already completed and is non-volatile, it survives a power loss exactly like a fact once written cannot become unwritten.",
+      draw: drawTokenStage4 },
+    { cap:"The second attempt is checked against a chip that already reflects the lower balance. It is rejected, not because a server somewhere noticed, but because the physical memory itself has already moved on.",
+      draw: drawTokenStage5 },
+  ]
+},
+{
+  id:'hub', name:'SOLAR MESH HUB TAMPERING / THEFT', color:'#C0392B',
+  sub:'Why a stolen hub cannot forge money',
+  stages:[
+    { cap:"The Solar Mesh Hub's only job is to carry signed messages between terminals and the settlement system when internet access finally becomes available. It never holds a key that can create money.",
+      draw: drawHubStage1 },
+    { cap:"Every token that passes through the hub carries a cryptographic signature, mathematically bound to the private key sealed inside the terminal that created it, a key the hub itself never possesses.",
+      draw: drawHubStage2 },
+    { cap:"If someone steals the hub and tries to inject a forged transaction into the stream, that packet arrives at settlement without a valid signature matching any known terminal.",
+      draw: drawHubStage3 },
+    { cap:"The settlement system checks every single signature against its record of valid, registered terminals. A forged packet fails that check instantly and is discarded before a single unit of value moves.",
+      draw: drawHubStage4 },
+    { cap:"The hub can be lost, stolen, even destroyed, and not one unit of real value is put at risk, because the hub was never the thing holding the trust in the first place.",
+      draw: drawHubStage5 },
+  ]
+},
+{
+  id:'sidechan', name:'SIDE-CHANNEL / KEY EXTRACTION', color:'#B8860B',
+  sub:'Why listening to the chip doesn\u2019t reveal the key',
+  stages:[
+    { cap:"Every time a transistor switches on this chip, it draws a tiny amount of current, and that current creates a faint electromagnetic ripple that in theory an attacker could try to listen to from outside.",
+      draw: drawSideStage1 },
+    { cap:"This is exactly how some early smart cards were broken years ago, careful statistical analysis of thousands of these tiny power ripples could reveal the secret key one bit at a time.",
+      draw: drawSideStage2 },
+    { cap:"Our secure element defends against this directly. It deliberately injects random electrical noise and executes every operation in exactly the same amount of time regardless of the data, so there is nothing predictable left to listen to.",
+      draw: drawSideStage3 },
+    { cap:"In independent testing, ten thousand separate power and electromagnetic traces were captured and statistically analysed. The correlation between the emissions and any hypothesised key bit stayed essentially at zero throughout.",
+      draw: drawSideStage4 },
+    { cap:"Listening to the chip from the outside tells an attacker nothing usable. The secret stays exactly where it belongs, inside the silicon, never observable from beyond it.",
+      draw: drawSideStage5 },
+  ]
+},
+];
+
+// =====================================================================
+// DRAW HELPERS
+// =====================================================================
+function clear(ctx,w,h){ ctx.clearRect(0,0,w,h); ctx.fillStyle='#050D1C'; ctx.fillRect(0,0,w,h); }
+function label(ctx,text,x,y,color='#fff',size=12,weight='bold'){
+  ctx.fillStyle=color; ctx.font=`${weight} ${size}px Consolas,monospace`; ctx.fillText(text,x,y);
+}
+function rng(seed){ let s=seed; return ()=>{ s=(s*9301+49297)%233280; return s/233280; }; }
+
+// ---- PUF ----
+function drawPUFStage1(ctx,w,h,t,color){
+  clear(ctx,w,h);
+  label(ctx,'SILICON DIE — TRANSISTOR GRID (MAGNIFIED)',10,18,'#fff',12);
+  const cols=14, rows=6, cw=w/cols, ch=(h-40)/rows;
+  for(let r=0;r<rows;r++)for(let c=0;c<cols;c++){
+    const x=c*cw+cw/2, y=40+r*ch+ch/2;
+    const reveal = Math.min(1,(t*cols*rows*1.3 - (r*cols+c))*0.3+0.3);
+    if(reveal<=0) continue;
+    ctx.globalAlpha=Math.min(1,reveal);
+    ctx.strokeStyle=color; ctx.lineWidth=1.2;
+    ctx.strokeRect(x-cw*0.35,y-ch*0.35,cw*0.7,ch*0.7);
+    ctx.globalAlpha=1;
+  }
+}
+function drawPUFStage2(ctx,w,h,t,color){
+  clear(ctx,w,h);
+  label(ctx,'RANDOM DOPANT ATOM PLACEMENT (UNIQUE PER CHIP)',10,18,'#fff',12);
+  const r = rng(42);
+  const n = Math.floor(200*Math.min(1,t*1.2));
+  for(let i=0;i<n;i++){
+    const x = r()*w, y = 40+r()*(h-60);
+    ctx.fillStyle = i%7===0? color : '#9fb4d6';
+    ctx.beginPath(); ctx.arc(x,y,1.6,0,7); ctx.fill();
+  }
+  label(ctx,'\u2192 No two chips share this pattern, not even from the same wafer',10,h-12,'#8A93A6',11,'normal');
+}
+function drawPUFStage3(ctx,w,h,t,color){
+  clear(ctx,w,h);
+  label(ctx,'CHALLENGE SIGNAL \u2192 UNIQUE RESPONSE WAVEFORM',10,18,'#fff',12);
+  ctx.strokeStyle=color; ctx.lineWidth=2; ctx.beginPath();
+  const n = Math.floor(w*Math.min(1,t*1.3));
+  for(let x=0;x<n;x++){
+    const y = h/2 + Math.sin(x/9 + Math.sin(x*0.13)*2)*40*Math.sin(x/w*3.14);
+    x===0? ctx.moveTo(x,y): ctx.lineTo(x,y);
+  }
+  ctx.stroke();
+  if(t>0.6) label(ctx,'THIS RESPONSE = CHIP #A17F92 ONLY',10,h-12,color,11);
+}
+function drawPUFStage4(ctx,w,h,t,color){
+  clear(ctx,w,h);
+  label(ctx,'CLONE CHIP — DIFFERENT ATOMIC PATTERN',10,18,'#E74C3C',12);
+  const r = rng(999);
+  const n = Math.floor(200*Math.min(1,t*1.2));
+  for(let i=0;i<n;i++){
+    const x = r()*w, y = 40+r()*(h*0.4);
+    ctx.fillStyle = '#E74C3C';
+    ctx.beginPath(); ctx.arc(x,y,1.6,0,7); ctx.fill();
+  }
+  ctx.strokeStyle='#E74C3C'; ctx.lineWidth=2; ctx.beginPath();
+  const nn = Math.floor(w*Math.min(1,Math.max(0,(t-0.4))*1.8));
+  for(let x=0;x<nn;x++){
+    const y = h*0.75 + Math.sin(x/6 + Math.cos(x*0.09)*3)*30*Math.sin(x/w*3.14);
+    x===0? ctx.moveTo(x,y): ctx.lineTo(x,y);
+  }
+  ctx.stroke();
+  if(t>0.5) label(ctx,'RESPONSE COMPLETELY DIFFERENT WAVEFORM',10,h-12,'#E74C3C',11);
+}
+function drawPUFStage5(ctx,w,h,t,color){
+  clear(ctx,w,h);
+  label(ctx,'TERMINAL COMPARISON',10,18,'#fff',12);
+  ctx.strokeStyle=color; ctx.lineWidth=2; ctx.beginPath();
+  for(let x=0;x<w;x++){ const y=h*0.35+Math.sin(x/9)*25; x===0?ctx.moveTo(x,y):ctx.lineTo(x,y); } ctx.stroke();
+  ctx.strokeStyle='#E74C3C'; ctx.lineWidth=2; ctx.beginPath();
+  for(let x=0;x<w;x++){ const y=h*0.65+Math.sin(x/6+1.4)*25; x===0?ctx.moveTo(x,y):ctx.lineTo(x,y); } ctx.stroke();
+  if(t>0.4){
+    ctx.strokeStyle='#E74C3C'; ctx.lineWidth=3;
+    ctx.beginPath(); ctx.moveTo(w*0.4,h*0.15); ctx.lineTo(w*0.6,h*0.85);
+    ctx.moveTo(w*0.6,h*0.15); ctx.lineTo(w*0.4,h*0.85); ctx.stroke();
+  }
+  if(t>0.6) label(ctx,'AUTH REJECTED — 0/2,000 CLONE ATTEMPTS SUCCEED',10,h-12,'#E74C3C',13);
+}
+
+// ---- ECC ----
+function drawCurveBase(ctx,w,h){
+  ctx.strokeStyle='#2a3f60'; ctx.lineWidth=1.4; ctx.beginPath();
+  for(let x=-w/2;x<w/2;x++){
+    const y2 = x*x*x*0.00002 - x*0.02 + 4;
+    if(y2<0) continue;
+    const y = Math.sqrt(Math.abs(y2))*20;
+    ctx.lineTo(x+w/2, h/2-y);
+  }
+  for(let x=w/2-1;x>-w/2;x--){
+    const y2 = x*x*x*0.00002 - x*0.02 + 4;
+    if(y2<0) continue;
+    const y = Math.sqrt(Math.abs(y2))*20;
+    ctx.lineTo(x+w/2, h/2+y);
+  }
+  ctx.stroke();
+}
+function drawECCStage1(ctx,w,h,t,color){
+  clear(ctx,w,h); label(ctx,'ELLIPTIC CURVE P-256 (SIMPLIFIED VIEW)',10,18,'#fff',12);
+  drawCurveBase(ctx,w,h);
+  const gx=w*0.28, gy=h*0.42;
+  if(t>0.3){ ctx.fillStyle=color; ctx.beginPath(); ctx.arc(gx,gy,6,0,7); ctx.fill(); label(ctx,'G (generator point)',gx+10,gy-8,color,11);}
+}
+function drawECCStage2(ctx,w,h,t,color){
+  clear(ctx,w,h); label(ctx,'PRIVATE KEY = REPEATED DOUBLING STEPS',10,18,'#fff',12);
+  drawCurveBase(ctx,w,h);
+  const pts=[[0.28,0.42],[0.42,0.28],[0.55,0.62],[0.68,0.35],[0.78,0.58]];
+  const n=Math.floor(pts.length*Math.min(1,t*1.3));
+  ctx.strokeStyle=color; ctx.lineWidth=1.5;
+  for(let i=0;i<n;i++){
+    const [px,py]=pts[i];
+    const x=px*w,y=py*h;
+    ctx.fillStyle=color; ctx.beginPath(); ctx.arc(x,y,5,0,7); ctx.fill();
+    if(i>0){ const [ppx,ppy]=pts[i-1]; ctx.beginPath(); ctx.moveTo(ppx*w,ppy*h); ctx.lineTo(x,y); ctx.stroke(); }
+    label(ctx, i===0?'G':`${Math.pow(2,i)}\u00b7G`, x+8,y-8,'#fff',10);
+  }
+}
+function drawECCStage3(ctx,w,h,t,color){
+  clear(ctx,w,h); label(ctx,'ATTACKER GUESSING WITHOUT THE KEY',10,18,'#fff',12);
+  drawCurveBase(ctx,w,h);
+  const r=rng(7);
+  const n=Math.floor(18*Math.min(1,t*1.4));
+  for(let i=0;i<n;i++){
+    const x=r()*w, y=r()*h;
+    ctx.fillStyle='#E74C3C'; ctx.beginPath(); ctx.arc(x,y,4,0,7); ctx.fill();
+  }
+  if(t>0.6) label(ctx,'EVERY GUESS MISSES THE VALID CURVE POINT',10,h-12,'#E74C3C',12);
+}
+function drawECCStage4(ctx,w,h,t,color){
+  clear(ctx,w,h); label(ctx,'VOLTAGE GLITCH DURING SIGNING OPERATION',10,18,'#fff',12);
+  ctx.strokeStyle=color; ctx.lineWidth=2; ctx.beginPath();
+  const n=Math.floor(w*Math.min(1,t*1.3));
+  for(let x=0;x<n;x++){
+    let y=h/2+Math.sin(x/10)*20;
+    if(Math.abs(x-w*0.55)<6 && t>0.35) y -= 90*(1-Math.abs(x-w*0.55)/6);
+    x===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
+  }
+  ctx.stroke();
+  if(t>0.4){
+    ctx.strokeStyle='#E74C3C'; ctx.setLineDash([4,3]);
+    ctx.beginPath(); ctx.moveTo(w*0.55,10); ctx.lineTo(w*0.55,h-10); ctx.stroke(); ctx.setLineDash([]);
+    label(ctx,'GLITCH INJECTED HERE',w*0.55+8,30,'#E74C3C',11);
+  }
+}
+function drawECCStage5(ctx,w,h,t,color){
+  clear(ctx,w,h); label(ctx,'RESULT: NO USABLE KEY FRAGMENT',10,18,'#fff',12);
+  const total = 5000, n = Math.floor(total*Math.min(1,t*1.2));
+  const pct = n/total;
+  ctx.fillStyle=color; ctx.fillRect(10,h/2-10,(w-20)*pct,20);
+  ctx.strokeStyle='#2a3f60'; ctx.strokeRect(10,h/2-10,w-20,20);
+  label(ctx,`GLITCH ATTEMPT ${n}/${total}`,12,h/2-18,'#fff',12);
+  if(t>0.7) label(ctx,'0/5,000 FORGERIES PRODUCE A VALID SIGNATURE',10,h-12,'#4be089',12);
+}
+
+// ---- RELAY ----
+function drawRelayStage1(ctx,w,h,t,color){
+  clear(ctx,w,h); label(ctx,'NFC FIELD STRENGTH VS DISTANCE',10,18,'#fff',12);
+  const cx=w*0.25, cy=h/2;
+  const rings=Math.floor(4*Math.min(1,t*1.4));
+  for(let i=1;i<=rings;i++){
+    ctx.strokeStyle=color; ctx.globalAlpha=1-(i/6); ctx.lineWidth=2;
+    ctx.beginPath(); ctx.arc(cx,cy,i*22,0,7); ctx.stroke();
+  }
+  ctx.globalAlpha=1;
+  ctx.fillStyle=color; ctx.fillRect(cx-8,cy-8,16,16);
+  label(ctx,'TERMINAL',cx-24,cy+34,'#fff',10);
+  label(ctx,'Effective range: <4cm',cx-30,cy-60,'#8A93A6',11,'normal');
+}
+function drawRelayStage2(ctx,w,h,t,color){
+  clear(ctx,w,h); label(ctx,'GENUINE TAP — ROUND TRIP IN NANOSECONDS',10,18,'#fff',12);
+  const cx1=w*0.35, cx2=w*0.45, cy=h/2;
+  ctx.fillStyle=color; ctx.fillRect(cx1-8,cy-8,16,16);
+  ctx.fillStyle='#1E9E5A'; ctx.beginPath(); ctx.arc(cx2,cy,7,0,7); ctx.fill();
+  if(t>0.3){
+    ctx.strokeStyle='#4be089'; ctx.lineWidth=2;
+    ctx.beginPath(); ctx.moveTo(cx1,cy-20); ctx.lineTo(cx2,cy-20); ctx.stroke();
+    label(ctx,'~4ns round trip',cx1,cy-28,'#4be089',11);
+  }
+  label(ctx,'CARD',cx2-10,cy+24,'#fff',10);
+  label(ctx,'TERMINAL',cx1-24,cy+34,'#fff',10);
+}
+function drawRelayStage3(ctx,w,h,t,color){
+  clear(ctx,w,h); label(ctx,'RELAY ATTACK — TWO PROXIES OVER THE INTERNET',10,18,'#fff',12);
+  const t1=[w*0.1,h*0.5], p1=[w*0.32,h*0.5], p2=[w*0.68,h*0.5], c1=[w*0.9,h*0.5];
+  ctx.fillStyle=color; ctx.fillRect(t1[0]-8,t1[1]-8,16,16);
+  ctx.fillStyle='#E08A1E'; ctx.beginPath(); ctx.arc(p1[0],p1[1],7,0,7); ctx.fill();
+  ctx.beginPath(); ctx.arc(p2[0],p2[1],7,0,7); ctx.fill();
+  ctx.fillStyle='#1E9E5A'; ctx.beginPath(); ctx.arc(c1[0],c1[1],7,0,7); ctx.fill();
+  const n = Math.floor(3*Math.min(1,t*1.5));
+  const pairs=[[t1,p1],[p1,p2],[p2,c1]];
+  for(let i=0;i<n;i++){
+    ctx.strokeStyle='#E08A1E'; ctx.setLineDash([5,4]); ctx.lineWidth=2;
+    ctx.beginPath(); ctx.moveTo(...pairs[i][0]); ctx.lineTo(...pairs[i][1]); ctx.stroke();
+  }
+  ctx.setLineDash([]);
+  label(ctx,'TERMINAL',t1[0]-20,t1[1]+28,'#fff',9);
+  label(ctx,'PROXY A',p1[0]-18,p1[1]+28,'#E08A1E',9);
+  label(ctx,'PROXY B',p2[0]-18,p2[1]+28,'#E08A1E',9);
+  label(ctx,'CARD',c1[0]-14,c1[1]+28,'#fff',9);
+}
+function drawRelayStage4(ctx,w,h,t,color){
+  clear(ctx,w,h); label(ctx,'TIMING CHECK vs 5ms THRESHOLD',10,18,'#fff',12);
+  const thresholdX=w*0.35;
+  ctx.strokeStyle='#E74C3C'; ctx.setLineDash([4,4]);
+  ctx.beginPath(); ctx.moveTo(thresholdX,0); ctx.lineTo(thresholdX,h); ctx.stroke(); ctx.setLineDash([]);
+  label(ctx,'5ms LIMIT',thresholdX+6,30,'#E74C3C',11);
+  const barw=(w-thresholdX-40)*Math.min(1,t*1.4);
+  ctx.fillStyle=color; ctx.fillRect(thresholdX+20,h/2-14,barw,28);
+  label(ctx,'RELAYED ROUND-TRIP TIME GROWING...',thresholdX+20,h/2-22,'#fff',11);
+  ctx.fillStyle='#4be089'; ctx.fillRect(10,h/2-14,8,28);
+  label(ctx,'genuine',10,h/2+34,'#4be089',9,'normal');
+}
+function drawRelayStage5(ctx,w,h,t,color){
+  clear(ctx,w,h); label(ctx,'RESULT',10,18,'#fff',12);
+  ctx.strokeStyle='#E74C3C'; ctx.lineWidth=4;
+  const s=Math.min(1,t*1.5);
+  ctx.beginPath(); ctx.moveTo(w*0.35,h*0.3); ctx.lineTo(w*0.35+ (w*0.3)*s, h*0.3+(h*0.4)*s);
+  ctx.moveTo(w*0.65,h*0.3); ctx.lineTo(w*0.65-(w*0.3)*s, h*0.3+(h*0.4)*s);
+  ctx.stroke();
+  if(t>0.5) label(ctx,'100% REJECTED ABOVE 5ms ADDED LATENCY',10,h-12,'#4be089',13);
+}
+
+// ---- TOKEN ----
+function drawTokenStage1(ctx,w,h,t,color){
+  clear(ctx,w,h); label(ctx,'FLOATING GATE MEMORY CELL — STORED VALUE',10,18,'#fff',12);
+  ctx.strokeStyle='#8A93A6'; ctx.lineWidth=2; ctx.strokeRect(w*0.3,h*0.2,w*0.4,h*0.5);
+  label(ctx,'FLOATING GATE',w*0.3,h*0.16,'#8A93A6',10,'normal');
+  const r=rng(3);
+  const n=Math.floor(40*Math.min(1,t*1.3));
+  for(let i=0;i<n;i++){
+    const x=w*0.32+r()*(w*0.36), y=h*0.22+r()*(h*0.46);
+    ctx.fillStyle=color; ctx.beginPath(); ctx.arc(x,y,2.4,0,7); ctx.fill();
+  }
+  if(t>0.5) label(ctx,'CHARGE = \u20A650,000 STORED VALUE',w*0.3,h*0.85,'#fff',12);
+}
+function drawTokenStage2(ctx,w,h,t,color){
+  clear(ctx,w,h); label(ctx,'DECREMENT — ELECTRONS TUNNEL OUT',10,18,'#fff',12);
+  ctx.strokeStyle='#8A93A6'; ctx.lineWidth=2; ctx.strokeRect(w*0.3,h*0.2,w*0.4,h*0.5);
+  const r=rng(3);
+  const remain = Math.max(0.15, 1-t);
+  const n=Math.floor(40*remain);
+  for(let i=0;i<n;i++){
+    const x=w*0.32+r()*(w*0.36), y=h*0.22+r()*(h*0.46);
+    ctx.fillStyle=color; ctx.beginPath(); ctx.arc(x,y,2.4,0,7); ctx.fill();
+  }
+  // escaping electrons
+  const esc=Math.floor(12*t);
+  for(let i=0;i<esc;i++){
+    const ex = w*0.72+ (t*60+i*8)%80, ey = h*0.3+i*8;
+    ctx.fillStyle='#E08A1E'; ctx.beginPath(); ctx.arc(ex,ey,2,0,7); ctx.fill();
+  }
+  label(ctx,`REMAINING CHARGE: \u20A6${Math.floor(50000*remain).toLocaleString()}`,w*0.3,h*0.85,'#fff',12);
+}
+function drawTokenStage3(ctx,w,h,t,color){
+  clear(ctx,w,h); label(ctx,'SEQUENCING: WRITE MEMORY, THEN TRANSMIT',10,18,'#fff',12);
+  const steps=['1. DECREMENT BALANCE','2. COMMIT TO MEMORY','3. SIGN TOKEN','4. TRANSMIT'];
+  const n=Math.floor(steps.length*Math.min(1,t*1.3));
+  for(let i=0;i<n;i++){
+    const y = 60+i*44;
+    ctx.fillStyle= i<n-1? color: '#4be089';
+    ctx.fillRect(30,y-18,w-60,32);
+    ctx.fillStyle='#fff'; ctx.font='bold 13px Consolas'; ctx.fillText(steps[i],42,y+2);
+  }
+}
+function drawTokenStage4(ctx,w,h,t,color){
+  clear(ctx,w,h); label(ctx,'REPLAY / POWER-CUT ROLLBACK ATTEMPT',10,18,'#fff',12);
+  ctx.strokeStyle='#8A93A6'; ctx.lineWidth=2; ctx.strokeRect(w*0.3,h*0.2,w*0.4,h*0.5);
+  label(ctx,'NON-VOLATILE — CHARGE PERSISTS',w*0.3,h*0.16,'#8A93A6',10,'normal');
+  if(t>0.3 && t<0.7){
+    ctx.fillStyle='#E74C3C'; ctx.globalAlpha=0.25+0.2*Math.sin(t*40);
+    ctx.fillRect(0,0,w,h); ctx.globalAlpha=1;
+    label(ctx,'POWER CUT ATTEMPTED',w*0.3,h*0.5,'#E74C3C',13);
+  }
+  if(t>0.6) label(ctx,'BALANCE UNCHANGED — WRITE ALREADY COMMITTED',10,h-12,'#4be089',12);
+}
+function drawTokenStage5(ctx,w,h,t,color){
+  clear(ctx,w,h); label(ctx,'RESULT',10,18,'#fff',12);
+  const n=Math.floor(1000*Math.min(1,t*1.2));
+  ctx.fillStyle=color; ctx.fillRect(10,h/2-10,(w-20)*Math.min(1,t*1.2),20);
+  label(ctx,`REPLAY ATTEMPT ${n}/1000`,12,h/2-18,'#fff',11);
+  if(t>0.6) label(ctx,'100% REJECTED — 0/1,000 REPLAYS SUCCEED',10,h-12,'#4be089',13);
+}
+
+// ---- HUB ----
+function drawHubStage1(ctx,w,h,t,color){
+  clear(ctx,w,h); label(ctx,'SOLAR MESH HUB — RELAY ONLY, NO SIGNING KEY',10,18,'#fff',12);
+  const nodes=[[w*0.1,h*0.6],[w*0.3,h*0.35],[w*0.5,h*0.55],[w*0.7,h*0.3],[w*0.9,h*0.6]];
+  ctx.strokeStyle='#2a3f60';
+  for(let i=0;i<nodes.length-1;i++){ ctx.beginPath(); ctx.moveTo(...nodes[i]); ctx.lineTo(...nodes[i+1]); ctx.stroke(); }
+  nodes.forEach((n,i)=>{ ctx.fillStyle= i===2? color:'#3a5a8a'; ctx.beginPath(); ctx.arc(n[0],n[1],7,0,7); ctx.fill(); });
+  label(ctx,'HUB',nodes[2][0]-10,nodes[2][1]-14,color,10);
+}
+function drawHubStage2(ctx,w,h,t,color){
+  clear(ctx,w,h); label(ctx,'TOKEN PACKET STRUCTURE',10,18,'#fff',12);
+  ctx.strokeStyle='#8A93A6'; ctx.strokeRect(w*0.15,h*0.35,w*0.4,h*0.3);
+  label(ctx,'PAYLOAD (amount, payee)',w*0.17,h*0.3,'#8A93A6',10,'normal');
+  const sigw = (w*0.3)*Math.min(1,t*1.4);
+  ctx.fillStyle=color; ctx.fillRect(w*0.6,h*0.35,sigw,h*0.3);
+  label(ctx,'SIGNATURE (bound to terminal key)',w*0.6,h*0.3,color,10,'normal');
+}
+function drawHubStage3(ctx,w,h,t,color){
+  clear(ctx,w,h); label(ctx,'STOLEN HUB — FORGED PACKET INJECTED',10,18,'#E74C3C',12);
+  ctx.strokeStyle='#8A93A6'; ctx.strokeRect(w*0.15,h*0.35,w*0.4,h*0.3);
+  const sigw=(w*0.3)*Math.min(1,t*1.4);
+  ctx.fillStyle='#E74C3C'; ctx.fillRect(w*0.6,h*0.35,sigw,h*0.3);
+  label(ctx,'NO VALID SIGNATURE',w*0.6,h*0.3,'#E74C3C',10,'normal');
+}
+function drawHubStage4(ctx,w,h,t,color){
+  clear(ctx,w,h); label(ctx,'SETTLEMENT VERIFICATION CHECK',10,18,'#fff',12);
+  const cx=w*0.5, cy=h*0.5;
+  ctx.strokeStyle='#8A93A6'; ctx.beginPath(); ctx.arc(cx,cy,60,0,7); ctx.stroke();
+  label(ctx,'HASH COMPARE',cx-40,cy+4,'#8A93A6',11,'normal');
+  if(t>0.4){
+    ctx.strokeStyle='#E74C3C'; ctx.lineWidth=4;
+    ctx.beginPath(); ctx.moveTo(cx-30,cy-30); ctx.lineTo(cx+30,cy+30);
+    ctx.moveTo(cx+30,cy-30); ctx.lineTo(cx-30,cy+30); ctx.stroke();
+  }
+  if(t>0.6) label(ctx,'MISMATCH DETECTED — PACKET DISCARDED',10,h-12,'#E74C3C',12);
+}
+function drawHubStage5(ctx,w,h,t,color){
+  clear(ctx,w,h); label(ctx,'RESULT',10,18,'#fff',12);
+  const items=6;
+  const n=Math.floor(items*Math.min(1,t*1.4));
+  for(let i=0;i<n;i++){
+    const x=20+i*((w-40)/items), y=h*0.5;
+    const bad = i===3;
+    ctx.fillStyle = bad? '#E74C3C':'#4be089';
+    ctx.fillRect(x,y-14,(w-40)/items-8,28);
+    label(ctx, bad?'\u2715':'\u2713', x+10,y+4,'#fff',14);
+  }
+  if(t>0.6) label(ctx,'0 FORGED TOKENS ACCEPTED BY SETTLEMENT',10,h-12,'#4be089',13);
+}
+
+// ---- SIDE-CHANNEL ----
+function drawSideStage1(ctx,w,h,t,color){
+  clear(ctx,w,h); label(ctx,'TRANSISTOR SWITCHING \u2192 EM RIPPLE',10,18,'#fff',12);
+  const cx=w*0.5, cy=h*0.55;
+  ctx.fillStyle=color; ctx.fillRect(cx-10,cy-10,20,20);
+  const rings=Math.floor(4*Math.min(1,t*1.4));
+  for(let i=1;i<=rings;i++){
+    ctx.strokeStyle=color; ctx.globalAlpha=1-(i/6);
+    ctx.beginPath(); ctx.arc(cx,cy,i*26,0,7); ctx.stroke();
+  }
+  ctx.globalAlpha=1;
+  label(ctx,'TRANSISTOR',cx-32,cy+30,'#fff',10);
+}
+function drawSideStage2(ctx,w,h,t,color){
+  clear(ctx,w,h); label(ctx,'HISTORICAL VULNERABILITY — CORRELATION SPIKE',10,18,'#fff',12);
+  ctx.strokeStyle='#E08A1E'; ctx.lineWidth=2; ctx.beginPath();
+  const n=Math.floor(w*Math.min(1,t*1.3));
+  for(let x=0;x<n;x++){
+    let y=h*0.6+Math.sin(x/6)*6;
+    if(Math.abs(x-w*0.5)<10) y -= 80*(1-Math.abs(x-w*0.5)/10);
+    x===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
+  }
+  ctx.stroke();
+  if(t>0.5) label(ctx,'SPIKE ALIGNS WITH KEY BIT = 1 (OLD SMART CARDS)',10,h-12,'#E08A1E',11);
+}
+function drawSideStage3(ctx,w,h,t,color){
+  clear(ctx,w,h); label(ctx,'COUNTERMEASURE: NOISE INJECTION + CONSTANT TIME',10,18,'#fff',12);
+  ctx.strokeStyle=color; ctx.lineWidth=1.4; ctx.beginPath();
+  const n=Math.floor(w*Math.min(1,t*1.3));
+  const r=rng(11);
+  for(let x=0;x<n;x++){
+    const y=h*0.6+(r()-0.5)*46;
+    x===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
+  }
+  ctx.stroke();
+  if(t>0.5) label(ctx,'SIGNAL MASKED — NO PREDICTABLE PATTERN',10,h-12,color,11);
+}
+function drawSideStage4(ctx,w,h,t,color){
+  clear(ctx,w,h); label(ctx,'CORRELATION vs TRACE COUNT (10,000 traces)',10,18,'#fff',12);
+  const n=Math.floor(10000*Math.min(1,t*1.3));
+  const pct=n/10000;
+  ctx.strokeStyle='#2a3f60'; ctx.beginPath(); ctx.moveTo(10,h*0.5); ctx.lineTo(w-10,h*0.5); ctx.stroke();
+  ctx.strokeStyle=color; ctx.lineWidth=2; ctx.beginPath();
+  const r=rng(5);
+  for(let x=0;x<(w-20)*pct;x++){
+    const y=h*0.5+(r()-0.5)*6;
+    x===0?ctx.moveTo(x+10,y):ctx.lineTo(x+10,y);
+  }
+  ctx.stroke();
+  label(ctx,`TRACES ANALYSED: ${n.toLocaleString()}/10,000`,10,h-12,'#fff',11);
+}
+function drawSideStage5(ctx,w,h,t,color){
+  clear(ctx,w,h); label(ctx,'RESULT',10,18,'#fff',12);
+  ctx.strokeStyle=color; ctx.lineWidth=2;
+  ctx.beginPath(); ctx.moveTo(20,h*0.5); ctx.lineTo(w-20,h*0.5); ctx.stroke();
+  if(t>0.4) label(ctx,'CORRELATION \u2248 0.00 ACROSS ALL TRACES',10,h*0.35,color,13);
+  if(t>0.6) label(ctx,'0 RECOVERABLE KEY BITS — NO KEY RECOVERED',10,h-12,'#4be089',13);
+}
+
+// =====================================================================
+// UI BUILD
+// =====================================================================
+const grid = document.getElementById('grid');
+const state = {}; // per-scenario runtime state
+
+SCENARIOS.forEach(sc=>{
+  const card = document.createElement('div');
+  card.className='card';
+  card.innerHTML = `
+    <div class="card-header" style="background:${sc.color}">
+      <div><div>${sc.name}</div><span class="sub">${sc.sub}</span></div>
+      <span class="stagepill" id="pill-${sc.id}" style="background:rgba(255,255,255,.2);color:#fff;">STAGE 1 / ${sc.stages.length}</span>
+    </div>
+    <div class="card-body">
+      <div class="stage-canvas-wrap"><canvas id="canvas-${sc.id}" width="600" height="280"></canvas></div>
+      <div class="stage-info">
+        <div class="caption" id="caption-${sc.id}">${sc.stages[0].cap}</div>
+        <div class="progressdots" id="dots-${sc.id}"></div>
+        <div class="controls">
+          <button class="ctrlbtn" onclick="prevStage('${sc.id}')">\u25c0 Prev</button>
+          <button class="ctrlbtn" id="play-${sc.id}" onclick="togglePlay('${sc.id}')">\u25b6 Play Scenario</button>
+          <button class="ctrlbtn" onclick="nextStage('${sc.id}')">Next \u25b6</button>
+          <button class="ctrlbtn narrate active" id="narrate-${sc.id}" onclick="toggleNarrate('${sc.id}')">\ud83d\udd0a Narration ON</button>
+        </div>
+      </div>
+    </div>`;
+  grid.appendChild(card);
+
+  const dotsWrap = document.getElementById(`dots-${sc.id}`);
+  sc.stages.forEach((_,i)=>{
+    const d=document.createElement('div'); d.className='dot'+(i===0?' on':''); d.id=`dot-${sc.id}-${i}`;
+    dotsWrap.appendChild(d);
+  });
+
+  state[sc.id] = { stage:0, playing:false, narrate:true, rafId:null, stageStart:0, speechTimeout:null };
+});
+
+// =====================================================================
+// ANIMATION LOOP
+// =====================================================================
+const STAGE_DURATION = 5200; // ms per stage, non-real-time pacing
+
+function renderFrame(scId, ts){
+  const sc = SCENARIOS.find(s=>s.id===scId);
+  const st = state[scId];
+  const canvas = document.getElementById(`canvas-${scId}`);
+  const ctx = canvas.getContext('2d');
+  if(!st.stageStart) st.stageStart = ts;
+  const elapsed = ts - st.stageStart;
+  const t = Math.min(1, elapsed/STAGE_DURATION);
+  sc.stages[st.stage].draw(ctx, canvas.width, canvas.height, t, sc.color);
+
+  if(st.playing){
+    if(t>=1){
+      if(st.stage < sc.stages.length-1){
+        goToStage(scId, st.stage+1, true);
+      } else {
+        st.playing = false;
+        document.getElementById(`play-${scId}`).textContent = '\u25b6 Play Scenario';
+        return;
+      }
+    }
+    st.rafId = requestAnimationFrame(ts2=>renderFrame(scId, ts2));
+  }
+}
+
+function drawStatic(scId){
+  const sc = SCENARIOS.find(s=>s.id===scId);
+  const st = state[scId];
+  const canvas = document.getElementById(`canvas-${scId}`);
+  const ctx = canvas.getContext('2d');
+  sc.stages[st.stage].draw(ctx, canvas.width, canvas.height, 1, sc.color);
+}
+
+function updateDots(scId){
+  const sc = SCENARIOS.find(s=>s.id===scId);
+  const st = state[scId];
+  sc.stages.forEach((_,i)=>{
+    document.getElementById(`dot-${scId}-${i}`).classList.toggle('on', i===st.stage);
+  });
+  document.getElementById(`pill-${scId}`).textContent = `STAGE ${st.stage+1} / ${sc.stages.length}`;
+  document.getElementById(`caption-${scId}`).textContent = sc.stages[st.stage].cap;
+}
+
+function goToStage(scId, idx, autoContinue){
+  const sc = SCENARIOS.find(s=>s.id===scId);
+  const st = state[scId];
+  if(st.rafId) cancelAnimationFrame(st.rafId);
+  st.stage = Math.max(0, Math.min(sc.stages.length-1, idx));
+  st.stageStart = 0;
+  updateDots(scId);
+  if(st.narrate) speakCaption(sc.stages[st.stage].cap, scId);
+  if(autoContinue || st.playing){
+    st.playing = true;
+    document.getElementById(`play-${scId}`).textContent = '\u23f8 Pause';
+    st.rafId = requestAnimationFrame(ts=>renderFrame(scId, ts));
+  } else {
+    drawStatic(scId);
+  }
+}
+
+function nextStage(scId){
+  const sc = SCENARIOS.find(s=>s.id===scId);
+  const st = state[scId];
+  const wasPlaying = st.playing;
+  st.playing = false;
+  if(st.rafId) cancelAnimationFrame(st.rafId);
+  goToStage(scId, Math.min(sc.stages.length-1, st.stage+1), wasPlaying);
+}
+function prevStage(scId){
+  const st = state[scId];
+  const wasPlaying = st.playing;
+  st.playing = false;
+  if(st.rafId) cancelAnimationFrame(st.rafId);
+  goToStage(scId, Math.max(0, st.stage-1), wasPlaying);
+}
+function togglePlay(scId){
+  const st = state[scId];
+  if(st.playing){
+    st.playing = false;
+    if(st.rafId) cancelAnimationFrame(st.rafId);
+    document.getElementById(`play-${scId}`).textContent = '\u25b6 Play Scenario';
+    window.speechSynthesis.cancel();
+  } else {
+    st.playing = true;
+    st.stageStart = 0;
+    document.getElementById(`play-${scId}`).textContent = '\u23f8 Pause';
+    if(st.narrate){
+      const sc = SCENARIOS.find(s=>s.id===scId);
+      speakCaption(sc.stages[st.stage].cap, scId);
+    }
+    st.rafId = requestAnimationFrame(ts=>renderFrame(scId, ts));
+  }
+}
+function toggleNarrate(scId){
+  const st = state[scId];
+  st.narrate = !st.narrate;
+  const btn = document.getElementById(`narrate-${scId}`);
+  btn.textContent = st.narrate ? '\ud83d\udd0a Narration ON' : '\ud83d\udd07 Narration OFF';
+  btn.classList.toggle('active', st.narrate);
+  if(!st.narrate) window.speechSynthesis.cancel();
+}
+
+// initial paint
+SCENARIOS.forEach(sc=> drawStatic(sc.id));
+
+// =====================================================================
+// BRITISH FEMALE VOICE — SPEECH SYNTHESIS
+// =====================================================================
+let chosenVoice = null;
+function pickBritishVoice(){
+  const voices = window.speechSynthesis.getVoices();
+  if(!voices.length) return null;
+  const priorityNames = ['Google UK English Female','Microsoft Hazel','Microsoft Sonia','Serena','Kate','Google UK English'];
+  for(const name of priorityNames){
+    const v = voices.find(v=>v.name.includes(name));
+    if(v) return v;
+  }
+  const gb = voices.filter(v=>v.lang === 'en-GB');
+  const gbFemale = gb.find(v=>/female|hazel|sonia|serena|kate|amy|emma/i.test(v.name));
+  if(gbFemale) return gbFemale;
+  if(gb.length) return gb[0];
+  return voices.find(v=>v.lang.startsWith('en')) || voices[0];
+}
+function refreshVoice(){
+  chosenVoice = pickBritishVoice();
+  const status = document.getElementById('voiceStatus');
+  status.textContent = chosenVoice ? `Narration voice: ${chosenVoice.name} (${chosenVoice.lang})` : 'No speech voices available in this browser.';
+}
+window.speechSynthesis.onvoiceschanged = refreshVoice;
+refreshVoice();
+setTimeout(refreshVoice, 400);
+
+function speakCaption(text, scId){
+  window.speechSynthesis.cancel();
+  const utt = new SpeechSynthesisUtterance(text);
+  if(chosenVoice) utt.voice = chosenVoice;
+  utt.lang = chosenVoice ? chosenVoice.lang : 'en-GB';
+  utt.rate = 0.98; utt.pitch = 1.0;
+  window.speechSynthesis.speak(utt);
+}
+
+// =====================================================================
+// MASTER FULL WALKTHROUGH (sequential across all 6 scenarios)
+// =====================================================================
+let fullWalkthroughActive = false;
+let fullWalkthroughTimer = null;
+
+function playFullWalkthrough(){
+  if(fullWalkthroughActive) return;
+  fullWalkthroughActive = true;
+  document.getElementById('playAllBtn').textContent = '\u25b6 RUNNING FULL WALKTHROUGH...';
+  let scIndex = 0;
+
+  function runScenario(){
+    if(!fullWalkthroughActive || scIndex >= SCENARIOS.length){
+      fullWalkthroughActive = false;
+      document.getElementById('playAllBtn').textContent = '\u25b6 PLAY FULL NARRATED WALKTHROUGH';
+      return;
+    }
+    const sc = SCENARIOS[scIndex];
+    const st = state[sc.id];
+    // stop all others
+    SCENARIOS.forEach(s=>{ const s2=state[s.id]; if(s2.playing){ s2.playing=false; if(s2.rafId) cancelAnimationFrame(s2.rafId); }});
+    document.getElementById(`canvas-${sc.id}`).scrollIntoView({behavior:'smooth', block:'center'});
+    goToStage(sc.id, 0, true);
+    // total scenario duration = stages * STAGE_DURATION, then move to next scenario
+    fullWalkthroughTimer = setTimeout(()=>{
+      scIndex++;
+      runScenario();
+    }, sc.stages.length * STAGE_DURATION + 400);
+  }
+  runScenario();
+}
+
+function stopEverything(){
+  fullWalkthroughActive = false;
+  if(fullWalkthroughTimer) clearTimeout(fullWalkthroughTimer);
+  document.getElementById('playAllBtn').textContent = '\u25b6 PLAY FULL NARRATED WALKTHROUGH';
+  window.speechSynthesis.cancel();
+  SCENARIOS.forEach(sc=>{
+    const st = state[sc.id];
+    st.playing = false;
+    if(st.rafId) cancelAnimationFrame(st.rafId);
+    document.getElementById(`play-${sc.id}`).textContent = '\u25b6 Play Scenario';
+  });
+}
+</script>
+</body>
+</html>
