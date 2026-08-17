@@ -587,6 +587,33 @@ function drawSideStage5(ctx,w,h,t,color){
   if(t>0.6) label(ctx,'0 RECOVERABLE KEY BITS — NO KEY RECOVERED',10,h-12,'#4be089',13);
 }
 
+// Backup narration MP3s (British female TTS) — hosted on GitHub, one per scenario,
+// for live demos on devices/browsers where Web Speech API isn't reliable.
+const NARRATION_MP3 = {
+  puf:      'https://raw.githubusercontent.com/TOMDEGGS/BETONIQ-WEST-/main/audio/attack_lab_narration/1_puf_cloning_attempt.mp3',
+  ecc:      'https://raw.githubusercontent.com/TOMDEGGS/BETONIQ-WEST-/main/audio/attack_lab_narration/2_ecc_forgery_fault_injection.mp3',
+  relay:    'https://raw.githubusercontent.com/TOMDEGGS/BETONIQ-WEST-/main/audio/attack_lab_narration/3_relay_distance_bounding.mp3',
+  token:    'https://raw.githubusercontent.com/TOMDEGGS/BETONIQ-WEST-/main/audio/attack_lab_narration/4_double_spend_token_replay.mp3',
+  hub:      'https://raw.githubusercontent.com/TOMDEGGS/BETONIQ-WEST-/main/audio/attack_lab_narration/5_solar_mesh_hub_tampering.mp3',
+  sidechan: 'https://raw.githubusercontent.com/TOMDEGGS/BETONIQ-WEST-/main/audio/attack_lab_narration/6_sidechannel_key_extraction.mp3'
+};
+function playBackupNarration(scId){
+  const url = NARRATION_MP3[scId];
+  if(!url) return;
+  let audio = document.getElementById(`backup-audio-${scId}`);
+  if(!audio){
+    audio = document.createElement('audio');
+    audio.id = `backup-audio-${scId}`;
+    audio.controls = true;
+    audio.style.width = '100%';
+    audio.style.marginTop = '8px';
+    audio.src = url;
+    const wrap = document.getElementById(`audiowrap-${scId}`);
+    wrap.appendChild(audio);
+  }
+  audio.play();
+}
+
 // =====================================================================
 // UI BUILD
 // =====================================================================
@@ -612,6 +639,11 @@ SCENARIOS.forEach(sc=>{
           <button class="ctrlbtn" onclick="nextStage('${sc.id}')">Next \u25b6</button>
           <button class="ctrlbtn narrate active" id="narrate-${sc.id}" onclick="toggleNarrate('${sc.id}')">\ud83d\udd0a Narration ON</button>
         </div>
+        <div class="controls" style="margin-top:6px;">
+          <button class="ctrlbtn" style="background:#334155;" onclick="playBackupNarration('${sc.id}')">\ud83c\udfa7 Play Backup MP3</button>
+          <a class="ctrlbtn" style="background:#334155;text-decoration:none;display:inline-block;" href="${NARRATION_MP3[sc.id]}" download>\u2b07 Download MP3</a>
+        </div>
+        <div id="audiowrap-${sc.id}"></div>
       </div>
     </div>`;
   grid.appendChild(card);
