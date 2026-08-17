@@ -1,0 +1,25 @@
+{
+  "backup_name": "BETONIQ_WEST_WEEKLY_OPERATIONAL_BACKUP",
+  "generated_at": "2026-08-17T12:02:26.807704Z",
+  "source": "BETONIQ WEST operational repository snapshot",
+  "split_strategy": "Split into 2 zip part(s), each capped at 80MB, to stay safely under GitHub's 100MB hard per-file limit.",
+  "total_files": 213,
+  "parts": [
+    {
+      "part": 1,
+      "filename": "BETONIQ_WEST_WEEKLY_OPERATIONAL_BACKUP_2026-08-17_part1of2.zip",
+      "file_count": 17,
+      "uncompressed_bytes": 83886048,
+      "compressed_bytes": 66394292,
+      "compressed_mb": 63.32
+    },
+    {
+      "part": 2,
+      "filename": "BETONIQ_WEST_WEEKLY_OPERATIONAL_BACKUP_2026-08-17_part2of2.zip",
+      "file_count": 196,
+      "uncompressed_bytes": 44677464,
+      "compressed_bytes": 41828699,
+      "compressed_mb": 39.89
+    }
+  ]
+}
