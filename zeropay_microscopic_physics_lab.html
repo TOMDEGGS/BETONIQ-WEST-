@@ -628,7 +628,18 @@ SCENARIOS.forEach(sc=>{
 // =====================================================================
 // ANIMATION LOOP
 // =====================================================================
-const STAGE_DURATION = 5200; // ms per stage, non-real-time pacing
+// Dynamic per-stage duration so narration always has time to finish before the
+// animation auto-advances (fixes narration being cut off mid-sentence on longer captions).
+const WORDS_PER_SECOND = 2.6;   // conservative pace estimate matching the TTS narrator
+const MIN_STAGE_DURATION = 5000;
+const STAGE_BUFFER_MS = 2600;   // lead-in + trailing pause so speech comfortably completes
+
+SCENARIOS.forEach(sc=>{
+  sc.stages.forEach(stage=>{
+    const words = stage.cap.trim().split(/\s+/).length;
+    stage.duration = Math.max(MIN_STAGE_DURATION, Math.round((words / WORDS_PER_SECOND) * 1000) + STAGE_BUFFER_MS);
+  });
+});
 
 function renderFrame(scId, ts){
   const sc = SCENARIOS.find(s=>s.id===scId);
@@ -637,11 +648,14 @@ function renderFrame(scId, ts){
   const ctx = canvas.getContext('2d');
   if(!st.stageStart) st.stageStart = ts;
   const elapsed = ts - st.stageStart;
-  const t = Math.min(1, elapsed/STAGE_DURATION);
+  const dur = sc.stages[st.stage].duration;
+  const t = Math.min(1, elapsed/dur);
   sc.stages[st.stage].draw(ctx, canvas.width, canvas.height, t, sc.color);
 
   if(st.playing){
-    if(t>=1){
+    // Advance once the buffered timer elapses AND speech has finished — with a hard
+    // ceiling fallback in case speechSynthesis.speaking gets stuck true (known Chrome bug).
+    if(t>=1 && (!window.speechSynthesis.speaking || elapsed > dur*1.8)){
       if(st.stage < sc.stages.length-1){
         goToStage(scId, st.stage+1, true);
       } else {
@@ -794,11 +808,11 @@ function playFullWalkthrough(){
     SCENARIOS.forEach(s=>{ const s2=state[s.id]; if(s2.playing){ s2.playing=false; if(s2.rafId) cancelAnimationFrame(s2.rafId); }});
     document.getElementById(`canvas-${sc.id}`).scrollIntoView({behavior:'smooth', block:'center'});
     goToStage(sc.id, 0, true);
-    // total scenario duration = stages * STAGE_DURATION, then move to next scenario
+    // total scenario duration = sum of this scenario's per-stage buffered durations
     fullWalkthroughTimer = setTimeout(()=>{
       scIndex++;
       runScenario();
-    }, sc.stages.length * STAGE_DURATION + 400);
+    }, sc.stages.reduce((sum, st)=>sum+st.duration, 0) + 500);
   }
   runScenario();
 }
