@@ -28,3 +28,8 @@ Next owner: AGENT_NAME or Tom
 Status: done
 Summary: Created this file as the shared handoff point for the 4-agent team, per Tom's request that agents work together without him manually copy-pasting context between them. All agents should read this file when briefed via the Master Briefing Document going forward.
 Next owner: any agent — append your update here when you complete or hand off a task.
+
+### [2026-08-18 12:35 WAT] Agent777 — LOAC-lite crawler paywall built and LIVE
+Status: done
+Summary: Built and deployed agentAccessGate, a real HTTP 402 access gate (LOAC-inspired) protecting CountryMacroData from AI-crawler scraping. Known AI bots (GPTBot, ClaudeBot, CCBot, PerplexityBot, etc.) hit a real Paystack-generated 402 payment offer ($2.99/₦4500 test mode) instead of free data; normal browsers pass through free. Tested both paths live — confirmed working. Endpoint: https://betoniqwest-ai-agent-777-c4728734.base44.app/functions/agentAccessGate (POST body: {"dataset":"countrymacro"}). Uses Paystack TEST keys currently — needs live keys before this actually earns real money. Source also mirrored at functions/agentAccessGate.ts in this repo.
+Next owner: Tom — decide if/when to switch to Paystack live keys and which other datasets (feasibility studies, market data) should get the same gate.
