@@ -1,7 +1,7 @@
 # ZEROPAY MASTER BRIEFING DOCUMENT
 ## AI Agent Operational Intelligence File
 ## BETONIQ WEST LTD — Confidential
-## Last Updated: July 31, 2026
+## Last Updated: August 18, 2026 (knowledge-transfer pass by Agent 777)
 
 ---
 
@@ -33,7 +33,9 @@ Type: Private Company Limited by Shares
 Registered Address: D26 Flat 1, 25th Street, AMAC, FCT, Abuja, Nigeria
 Business Email: zeropointfeild_nonwnt@zeropay.site
 Personal Gmail: betoniqwestltd@gmail.com
-Website: https://curious-pithivier-cff79f.netlify.app (primary live URL)
+Website: https://zeropay-betoniqwest.netlify.app (LIVE — primary)
+Master Hub (all demo assets): https://betoniqwestmasterhublivedemos.netlify.app
+OLD DEAD URL — NEVER USE: curious-pithivier-cff79f.netlify.app
 Domain: zeropay.site (Zoho Domains)
 
 CEO: Tom Ugbodaga — Shareholder & CEO (NEVER called "Founder")
@@ -123,15 +125,19 @@ BASE44 (Infrastructure Provider):
 - Nathan Pinciak: nathanp@base44.com
 - Gali Michaeli: galimi@base44.com
 - Enterprise E2: $24,000/year. Payment deferral denied July 2026. Quarterly terms maintained.
+- ~$24,000 annual payment due ~Sep 1, 2026 (Net 60 from July 2 invoice). Tom is handling this DIRECTLY with Jenny Rivero. No agent should escalate to Toviah on this — stay out of it unless Tom explicitly asks.
 
 UNIVERSITY OF GLOUCESTERSHIRE — FISRI:
 - Contact: fisri@glos.ac.uk
 - Purpose: EU Horizon Europe co-application partner
 - FISRI email sent: July 30, 2026. Awaiting response.
 
-KWATI GROUP:
-- Partnership strategy: AVM Monday Riku Morgan chairs their new defence/security company
-- Kwati Chairman joins BETONIQ WEST LTD board as Director
+KWATI GROUP (Wisdom Kwati, 37, developer/drone manufacturer):
+- Lead offer is a REAL ESTATE JV: 100 hectares from Kwati's own existing landed assets (Kuje, Abuja + other holdings), BETONIQ WEST provides development execution. ZerôPâŷ Money equity (framed as Fintech-as-a-Service: PSSP+PTSP+Super-Agent) is a strategic SWEETENER on top, not the primary ask.
+- AVM Monday Riku Morgan (Rtd) chairs Kwati's security/defence company (standing relationship) and separately leads outreach to the Army/Air Force exploring institutional housing offtake — framed as an initiative he's positioned to lead, not a done deal.
+- Heads of Terms include equity offer: 40% ZerôPâŷ Money + 20% BETONIQ WEST LTD for Kwati.
+- NDA (PDF 6) must be signed BEFORE any technical/financial detail is shared. Do not reveal architecture pre-NDA.
+- Docs: KWATI_REAL_ESTATE_LED_OFFER.docx + KWATI_FULL_FINTECH_OFFER.docx (draft status — confirm with Tom before treating as final/sent).
 
 ---
 
@@ -160,7 +166,12 @@ Master Hub Launcher:
 rawcdn.githack.com/TOMDEGGS/BETONIQ-WEST-/main/betoniq_launcher.html
 
 ZerôPâŷ Money LIVE Landing Page:
-https://curious-pithivier-cff79f.netlify.app
+https://zeropay-betoniqwest.netlify.app
+
+Master Hub (all demo assets, updated Aug 2026):
+https://betoniqwestmasterhublivedemos.netlify.app
+
+OLD DEAD URL — NEVER USE: curious-pithivier-cff79f.netlify.app
 
 ZerôPâŷ Money NDA (sign before every meeting):
 https://base44.app/api/apps/69c1064318031a63c4728734/files/mp/public/69c1064318031a63c4728734/6ed3e5075_PDF_6_ZeroPay_NDA_Partnership_Agreement.pdf
@@ -173,6 +184,8 @@ https://base44.app/api/apps/69c1064318031a63c4728734/files/mp/public/69c10643180
 ## SECTION 8: MANDATORY OPERATING RULES
 
 1. ABSOLUTE RULE: Never send any external communication without Tom's explicit 'send' approval. Post full draft first. Wait for "send" word.
+
+1b. NO COLD EMAILS, PERIOD (reinforced Aug 18, 2026). All outreach — VCs, HNIs, partners — goes through named contacts, application portals (accelerators, foundations, sandboxes), or LinkedIn direct engagement. Never draft or suggest a cold email blast to a stranger or generic firm inbox.
 
 2. Business email for ALL communications: zeropointfeild_nonwnt@zeropay.site
 
@@ -209,10 +222,26 @@ Outbound VC emails: Zoho SMTP (zeropointfeild_nonwnt@zeropay.site)
 IMAP monitoring: Zoho IMAP (configured in Base44 automations)
 Personal Gmail: betoniqwestltd@gmail.com (Netlify, Google Workspace tools)
 
+KNOWN BLOCKER (as of Aug 18, 2026): Zoho SMTP is returning "535 Authentication Failed" — the app password is stale/invalid. Do not assume Zoho send works; verify or use the authorized Gmail send connector (gmail.send scope) as fallback for anything Tom explicitly approves to send. Whoever picks this up next should try regenerating a fresh Zoho app-specific password.
+
 Active Automations:
 - Paystack Live Mode Activation Monitor
 - Daily VC Response Monitor
 - LOI & VC Response Real-Time Monitor
+
+---
+
+---
+
+## SECTION 11: AGENT-TO-AGENT COORDINATION (NEW — Aug 18, 2026)
+
+All 4 agents on this team — Agent 777 (Base44/primary), Gemini (secondary/backup), Groq/Llama (Backup 777, WhatsApp continuity), and Claude (technical/security review) — share a single coordination file:
+
+github.com/TOMDEGGS/BETONIQ-WEST-/blob/main/AGENT_COMMS_LOG.md
+
+RULE FOR EVERY AGENT: Before starting any task for Tom, read AGENT_COMMS_LOG.md first to see what other agents have already done, decided, or flagged as blocked. When you finish something another agent needs to know about, append a new dated entry to that file (never delete or edit another agent's entries). This is how the team stays in sync WITHOUT Tom manually copy-pasting context between agents every time.
+
+If you cannot directly write to GitHub, tell Tom the exact entry to add and ask him to paste it in, or ask him to paste the current log content to you so you have full context before proceeding.
 
 ---
 
