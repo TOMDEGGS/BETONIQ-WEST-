@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-08-17T07:01:00+01:00",
-  "note": "Complete live Base44 business snapshot for Backup 777 continuity. Refreshed daily; entity payloads are preserved when counts are unchanged.",
+  "generated_at": "2026-08-19T07:03:00+01:00",
+  "note": "Complete live Base44 business-data snapshot refreshed 19 Aug 2026 for Backup 777 continuity.",
   "entities": {
     "RealEstateProject": [
       {
@@ -3541,7 +3541,53 @@
         "is_sample": false
       }
     ],
-    "FieldMeeting": []
+    "FieldMeeting": [],
+    "BackupAgentMessage": [
+      {
+        "phone": "whatsapp:+2340000000000",
+        "content": "You asked who I am and what ZeroPay is. I provided an overview of my role as your backup brain for BETONIQ WEST LTD and detailed the key features of ZeroPay, your flagship product. If you need more specific information or clarification, feel free to ask!",
+        "role": "assistant",
+        "id": "6a8473554a32556d925965dc",
+        "created_date": "2026-08-18T14:59:33.543Z",
+        "updated_date": "2026-08-18T14:59:33.543Z",
+        "created_by_id": "service_28c9a832-7e19-435b-a83b-8e07995f009a",
+        "created_by": "service+28c9a832-7e19-435b-a83b-8e07995f009a@no-reply.base44.com",
+        "is_sample": false
+      },
+      {
+        "phone": "whatsapp:+2340000000000",
+        "content": "What did I just ask you about?",
+        "role": "user",
+        "id": "6a8473558ff03cd794d207c0",
+        "created_date": "2026-08-18T14:59:33.457Z",
+        "updated_date": "2026-08-18T14:59:33.457Z",
+        "created_by_id": "service_28c9a832-7e19-435b-a83b-8e07995f009a",
+        "created_by": "service+28c9a832-7e19-435b-a83b-8e07995f009a@no-reply.base44.com",
+        "is_sample": false
+      },
+      {
+        "phone": "whatsapp:+2340000000000",
+        "content": "I'm your backup brain for BETONIQ WEST LTD, here to assist you while the primary agent is temporarily unavailable. ZeroPay, or ZerôPâŷ Money as it's stylized for public material, is our flagship product. It's an offline-capable payments protocol layer designed to facilitate secure transactions without relying on constant internet connectivity. The system utilizes a stack that includes a PUF/ECC Terminal, an Offline Cryptographic Token, a Solar Mesh Hub, and integrates with the Paystack API temporarily, along with a Licensed MFB and IMTO Partner. The value model operates as a stored-value/e-purse, ensuring that balances are cryptographically secured and can be decremented locally through signed state updates, all while being double-spend-proof and uncapped.",
+        "role": "assistant",
+        "id": "6a84734bb28f3bdee78a2677",
+        "created_date": "2026-08-18T14:59:23.247Z",
+        "updated_date": "2026-08-18T14:59:23.247Z",
+        "created_by_id": "service_28c9a832-7e19-435b-a83b-8e07995f009a",
+        "created_by": "service+28c9a832-7e19-435b-a83b-8e07995f009a@no-reply.base44.com",
+        "is_sample": false
+      },
+      {
+        "phone": "whatsapp:+2340000000000",
+        "content": "Who are you and what is ZeroPay?",
+        "role": "user",
+        "id": "6a84734b6d55301e335a5d6f",
+        "created_date": "2026-08-18T14:59:23.138Z",
+        "updated_date": "2026-08-18T14:59:23.138Z",
+        "created_by_id": "service_28c9a832-7e19-435b-a83b-8e07995f009a",
+        "created_by": "service+28c9a832-7e19-435b-a83b-8e07995f009a@no-reply.base44.com",
+        "is_sample": false
+      }
+    ]
   },
   "entity_counts": {
     "RealEstateProject": 79,
@@ -3559,14 +3605,17 @@
     "ZPMerchant": 8,
     "ZPAgent": 6,
     "TeamTask": 9,
-    "FieldMeeting": 0
+    "FieldMeeting": 0,
+    "BackupAgentMessage": 4
   },
   "refresh_metadata": {
-    "refreshed_at": "2026-08-17T07:01:00+01:00",
+    "refreshed_at": "2026-08-19T07:03:00+01:00",
     "source": "Live Base44 entity records",
-    "tracked_entities": 16,
-    "total_records": 136,
-    "new_records_since_previous_snapshot": {},
+    "tracked_entities": 17,
+    "total_records": 140,
+    "new_records_since_previous_snapshot": {
+      "BackupAgentMessage": 4
+    },
     "unchanged_entities": [
       "RealEstateProject",
       "Investor",
@@ -3603,7 +3652,8 @@
     "ZPMerchant": 8,
     "ZPAgent": 6,
     "TeamTask": 9,
-    "FieldMeeting": 0
+    "FieldMeeting": 0,
+    "BackupAgentMessage": 4
   },
-  "total_records": 136
+  "total_records": 140
 }
