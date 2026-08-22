@@ -73,6 +73,7 @@ audio{width:100%;margin-top:14px;height:32px;}
 <div class="audio-label">AI-generated narration (British female voice) — plays in sync with the diagram above, disclosed as AI-generated per compliance.</div>
 <div class="log" id="log"></div>
 <button class="replay-btn" onclick="window.__restart()">Replay animation + narration</button>
+<button class="replay-btn" id="stopBtn" onclick="window.__stop()" style="margin-left:8px;background:#3a1414;color:#f87171;border-color:#5a2323;">Stop</button>
 </div>
 
 <div class="formula">Spec = Init &and; [][Next]_vars &and; WF_vars(Next) &nbsp; | &nbsp; Invariant: |{d : state[d]="Reconciled"}| &le; 1</div>
@@ -174,7 +175,10 @@ function initEngine(steps, totalDuration, opts){
 
   function clearTimers(){ timers.forEach(function(id){ clearTimeout(id); }); timers = []; }
 
+  let stopped = false;
+
   function run(){
+    if (stopped) return;
     clearTimers();
     resetAll();
     window.__t0 = Date.now();
@@ -187,7 +191,26 @@ function initEngine(steps, totalDuration, opts){
     timers.push(loopId);
   }
 
-  window.__restart = run;
+  function stopAll(){
+    stopped = true;
+    clearTimers();
+    extraIntervals.forEach(function(id){ clearInterval(id); });
+    extraIntervals = [];
+    if (audio) { try { audio.pause(); } catch(e){} }
+    log('— STOPPED — press Replay to run it again —', 'hi');
+    const btn = document.getElementById('stopBtn');
+    if (btn) btn.textContent = 'Stopped';
+  }
+
+  function restartAll(){
+    stopped = false;
+    const btn = document.getElementById('stopBtn');
+    if (btn) btn.textContent = 'Stop';
+    run();
+  }
+
+  window.__restart = restartAll;
+  window.__stop = stopAll;
   window.addEventListener('load', function(){ setTimeout(run, 200); });
 }
 
