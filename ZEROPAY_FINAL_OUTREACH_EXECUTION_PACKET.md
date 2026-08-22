@@ -1,8 +1,10 @@
 # ZerôPâŷ Money — Final Outreach Execution Packet (LinkedIn + X only, ready to fire)
 
-Everything below is drafted and staged. Per standing rule, nothing goes out until Tom says "send" — this is the full, final version pulling together the LinkedIn notes, the X challenge, and all technical video/teaser assets built so far.
+Revised Aug 22, 2026: leads with the formal mathematical proof, not the hardware video. A phone-screen demo only proves zero-connectivity, not hardware-level security (no PUF silicon exists yet) — a real cryptographer/engineer would clock that immediately. What actually earns credibility with this audience is a reproducible, machine-checked proof. That leads now.
 
-Channels only: LinkedIn (named contacts, post-connection) and X/Twitter (public). No cold email, no portals with generic inboxes — consistent with the no-cold-email rule.
+Everything below is drafted and staged. Per standing rule, nothing goes out until Tom says "send."
+
+Channels only: LinkedIn (named contacts, post-connection) and X/Twitter (public). No cold email, no generic-inbox portals.
 
 ## Target list (4)
 1. Shahin Farshchi — Lux Capital — LinkedIn (top priority) + X @Farshchi
@@ -22,28 +24,34 @@ Ash Egan: "Hi Ash, we've solved offline double-spend via a hardware-bound crypto
 ## Step 2 — X/Twitter public challenge post (fires independently, reaches all 3 X handles at once)
 "While the industry accepts digital double-spend requires an active network ledger or a centralized hardware anchor, we've achieved finality under absolute off-grid isolation. Hardware-rooted, PUF-bound state machine, patent-pending. Proof paper open for review under MNDA. @Farshchi @traestephens @terronk — invite your teams to find the flaw."
 
-## Step 3 — Once a connection accepts / anyone engages on X, send these (never with the initial request)
-Technical videos (live, animated, narrated — no raw hardware footage filmed yet):
-1. Bug bounty challenge walkthrough — https://htmlpreview.github.io/?https://raw.githubusercontent.com/TOMDEGGS/BETONIQ-WEST-/main/animations/1_bounty_challenge_animation.html
-2. Formal proof (TLC model-checker run, visualized) — https://htmlpreview.github.io/?https://raw.githubusercontent.com/TOMDEGGS/BETONIQ-WEST-/main/animations/2_formal_proof_animation.html
-3. Attack leaderboard concept — https://htmlpreview.github.io/?https://raw.githubusercontent.com/TOMDEGGS/BETONIQ-WEST-/main/animations/5_attack_leaderboard_animation.html
+## Step 3 — Once a connection accepts / anyone engages on X, lead with these (in this order)
+1. Formal verification proof of concept (TLA+/TLC model-checker run — 437 states explored, zero violations, plus a negative control proving the checker isn't vacuous). This is the single strongest asset for an engineering audience — reproducible and mathematically rigorous, not a demo.
+https://raw.githubusercontent.com/TOMDEGGS/BETONIQ-WEST-/main/white_papers/ZeroPay_Formal_Verification_ProofOfConcept.pdf
 
-Technical white papers (proof, not marketing — now in Word + PDF, 16-20pt legible font):
-Cryptographic proof paper — https://raw.githubusercontent.com/TOMDEGGS/BETONIQ-WEST-/main/white_papers/ZeroPay_Cryptographic_Proof_WhitePaper.pdf
-Formal verification proof of concept — https://raw.githubusercontent.com/TOMDEGGS/BETONIQ-WEST-/main/white_papers/ZeroPay_Formal_Verification_ProofOfConcept.pdf
-Objection-killer FAQ — https://raw.githubusercontent.com/TOMDEGGS/BETONIQ-WEST-/main/white_papers/ZeroPay_Technical_Objection_Killer_FAQ.pdf
+2. Cryptographic proof paper (the state-machine formalization and Token Uniqueness Invariant proof).
+https://raw.githubusercontent.com/TOMDEGGS/BETONIQ-WEST-/main/white_papers/ZeroPay_Cryptographic_Proof_WhitePaper.pdf
 
-MNDA (required before anything deeper than the above) — https://raw.githubusercontent.com/TOMDEGGS/BETONIQ-WEST-/main/ZEROPAY_TECHNICAL_REVIEW_MNDA.md
+## Step 4 — If they push back technically or ask hard questions, send the FAQ
+Technical objection-killer FAQ — pre-answers PUF side-channel limits, relay-attack defenses, Byzantine fault tolerance gaps, honestly. This is what turns a skeptical technical reviewer into a second meeting.
+https://raw.githubusercontent.com/TOMDEGGS/BETONIQ-WEST-/main/white_papers/ZeroPay_Technical_Objection_Killer_FAQ.pdf
 
-## What's still missing before this is 100% complete
-The raw 60-second hardware "shock and awe" phone video (Faraday-bag test) hasn't been filmed yet — production guide is ready at ZEROPAY_60SEC_VIDEO_PROOF_PRODUCTION_GUIDE.md, just needs Tom to film it. Everything else — proof paper, formal verification, FAQ, animated walkthroughs, LinkedIn notes, X post — is done and staged.
+## Step 5 — Only for non-technical stakeholders (partners, ops people, not engineers)
+The 2D animated walkthroughs are illustrative only — never presented as proof to an engineer or cryptographer, only as an accessible visual aid for people evaluating the business case, not the cryptography.
+Bug bounty challenge walkthrough — https://htmlpreview.github.io/?https://raw.githubusercontent.com/TOMDEGGS/BETONIQ-WEST-/main/animations/1_bounty_challenge_animation.html
+Formal proof visualized — https://htmlpreview.github.io/?https://raw.githubusercontent.com/TOMDEGGS/BETONIQ-WEST-/main/animations/2_formal_proof_animation.html
+
+## MNDA (required before anything deeper than the above)
+https://raw.githubusercontent.com/TOMDEGGS/BETONIQ-WEST-/main/ZEROPAY_TECHNICAL_REVIEW_MNDA.md
+
+## What's been retired from this packet
+The raw 60-second hardware "shock and awe" phone video is pulled from engineer-facing outreach. It only demonstrates zero-connectivity via software running on commodity phones — no PUF hardware exists yet to film, and presenting it as hardware proof risks credibility with the exact audience it's meant to impress. The production guide stays on file (ZEROPAY_60SEC_VIDEO_PROOF_PRODUCTION_GUIDE.md) in case it's ever useful for a lower-stakes, non-technical audience — but it is not part of this outreach sequence.
 
 ## Execution order
 1. Send the 4 LinkedIn connection notes.
 2. Post the X challenge tweet (independent of LinkedIn, reaches all 3 X-active targets + the public).
-3. When anyone accepts/engages, follow up with the video links + proof paper PDF (not the FAQ or MNDA yet — those go out only if they push back technically or ask for deeper review).
+3. When anyone accepts/engages, send the formal verification proof first, then the cryptographic proof paper.
 4. If a technical objection comes up, send the FAQ.
 5. MNDA only once a real conversation/meeting is on the table.
 
 ---
-*BETONIQ WEST LTD — RC 1496603 — Packet complete. Waiting on Tom's explicit "send" go-ahead for any of these.*
+*BETONIQ WEST LTD — RC 1496603 — Packet complete, revised to lead with mathematical proof over demo video. Waiting on Tom's explicit "send" go-ahead for any of these.*
