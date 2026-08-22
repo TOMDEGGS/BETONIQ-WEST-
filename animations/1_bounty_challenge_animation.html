@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<title>ZerôPâŷ Money — Double-Spend Replay Attack, Animated Protocol Trace</title>
+<style>
+body{background:#0a0e17;color:#e8edf5;font-family:'Courier New',Consolas,monospace;margin:0;padding:28px;max-width:980px;}
+h1{color:#4bacc6;font-size:22px;margin-bottom:4px;}
+.subtitle{color:#8a96a8;font-size:13px;margin-bottom:18px;}
+.badge{display:inline-block;background:#1f2a44;color:#f2c14e;font-size:11px;padding:3px 9px;border-radius:4px;margin-bottom:10px;letter-spacing:0.5px;}
+.stage{border:1px solid #2c3550;border-radius:8px;padding:14px;background:#0f1420;margin-top:10px;}
+svg{width:100%;height:auto;display:block;background:#0a0e17;border-radius:6px;}
+.node-label{fill:#e8edf5;font-size:13px;font-family:'Courier New',monospace;}
+.node-sub{fill:#7a8598;font-size:10px;font-family:'Courier New',monospace;}
+.caption-list{margin-top:16px;font-size:13.5px;line-height:1.7;color:#c9d2e0;}
+.caption-list b{color:#4bacc6;}
+.formula{font-family:'Courier New',monospace;background:#1a2238;padding:10px 14px;border-radius:6px;color:#f2c14e;display:inline-block;margin:12px 0;font-size:13px;}
+.footer{margin-top:26px;font-size:11px;color:#5a6478;border-top:1px solid #1f2a44;padding-top:10px;}
+.counter{font-size:26px;color:#4bacc6;font-weight:bold;}
+.result-pass{color:#4ade80;font-weight:bold;}
+.result-fail{color:#f87171;font-weight:bold;}
+</style></head>
+<body>
+<div class="badge">SCENARIO 1 OF 7 — PUBLIC BOUNTY CHALLENGE</div>
+<h1>Replay Attack Against the Token State Machine — Live Protocol Trace</h1>
+<div class="subtitle">This is the exact attack anyone is invited to attempt under the public bounty challenge. Depiction is protocol-logic accurate, not illustrative marketing.</div>
+
+<div class="stage">
+<svg viewBox="0 0 900 420" xmlns="http://www.w3.org/2000/svg">
+  <!-- hidden master clock -->
+  <rect id="clock" x="0" y="0" width="1" height="1" opacity="0">
+    <animate attributeName="opacity" values="0;0" dur="13s" repeatCount="indefinite" begin="0s" id="clk"/>
+  </rect>
+
+  <!-- Adversary node -->
+  <rect x="20" y="30" width="150" height="60" rx="6" fill="#2a1f3d" stroke="#a78bfa" stroke-width="1.5"/>
+  <text x="95" y="55" text-anchor="middle" class="node-label">Adversary</text>
+  <text x="95" y="72" text-anchor="middle" class="node-sub">captures token T off-wire</text>
+
+  <!-- Receiver 1 -->
+  <rect id="r1box" x="370" y="30" width="170" height="60" rx="6" fill="#1a2b1f" stroke="#4ade80" stroke-width="1.5"/>
+  <text x="455" y="52" text-anchor="middle" class="node-label">Receiving Device 1</text>
+  <text id="r1state" x="455" y="72" text-anchor="middle" class="node-sub" fill="#7a8598">NoToken</text>
+
+  <!-- Receiver 2 -->
+  <rect id="r2box" x="600" y="30" width="170" height="60" rx="6" fill="#1a2b1f" stroke="#4ade80" stroke-width="1.5"/>
+  <text x="685" y="52" text-anchor="middle" class="node-label">Receiving Device 2</text>
+  <text id="r2state" x="685" y="72" text-anchor="middle" class="node-sub" fill="#7a8598">NoToken</text>
+
+  <!-- Hub -->
+  <rect x="370" y="300" width="200" height="70" rx="6" fill="#1f2a44" stroke="#4bacc6" stroke-width="1.5"/>
+  <text x="470" y="330" text-anchor="middle" class="node-label">Solar Mesh Hub</text>
+  <text x="470" y="348" text-anchor="middle" class="node-sub">registry: first-seen(N) wins</text>
+  <text id="hubwinner" x="470" y="362" text-anchor="middle" class="node-sub" fill="#f2c14e"></text>
+
+  <!-- paths (invisible, for motion) -->
+  <path id="pathA1" d="M 170,60 L 455,60" fill="none" stroke="none"/>
+  <path id="pathA2" d="M 170,60 L 685,60" fill="none" stroke="none"/>
+  <path id="path1H" d="M 455,90 L 470,300" fill="none" stroke="#2c3550" stroke-width="1" stroke-dasharray="4,4"/>
+  <path id="path2H" d="M 685,90 L 570,300" fill="none" stroke="#2c3550" stroke-width="1" stroke-dasharray="4,4"/>
+
+  <!-- token dot to receiver 1 -->
+  <circle r="7" fill="#f2c14e">
+    <animateMotion dur="13s" repeatCount="indefinite" begin="0.5s" keyPoints="0;1" keyTimes="0;0.15" calcMode="linear" path="M 170,60 L 455,60"/>
+    <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.02;0.15;0.16" dur="13s" repeatCount="indefinite" begin="0.5s"/>
+  </circle>
+
+  <!-- token dot to receiver 2 (same nonce N, replayed) -->
+  <circle r="7" fill="#f2c14e">
+    <animateMotion dur="13s" repeatCount="indefinite" begin="2.2s" keyPoints="0;1" keyTimes="0;0.15" calcMode="linear" path="M 170,60 L 685,60"/>
+    <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.02;0.15;0.16" dur="13s" repeatCount="indefinite" begin="2.2s"/>
+  </circle>
+
+  <!-- r1 state change: NoToken -> ProvisionallyRedeemed -->
+  <animate href="#r1state" attributeName="fill" values="#7a8598;#7a8598;#4ade80;#4ade80" keyTimes="0;0.145;0.16;1" dur="13s" repeatCount="indefinite" begin="0.5s"/>
+
+  <!-- r2 state change -->
+  <animate href="#r2state" attributeName="fill" values="#7a8598;#7a8598;#4ade80;#4ade80" keyTimes="0;0.30;0.32;1" dur="13s" repeatCount="indefinite" begin="0.5s"/>
+
+  <!-- reconcile pulses to hub -->
+  <circle r="6" fill="#4bacc6">
+    <animateMotion dur="13s" repeatCount="indefinite" begin="0.5s" keyPoints="0;1" keyTimes="0.35;0.5" calcMode="linear" path="M 455,90 L 470,300"/>
+    <animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;0.34;0.36;0.5;0.51" dur="13s" repeatCount="indefinite" begin="0.5s"/>
+  </circle>
+  <circle r="6" fill="#4bacc6">
+    <animateMotion dur="13s" repeatCount="indefinite" begin="0.5s" keyPoints="0;1" keyTimes="0.52;0.67" calcMode="linear" path="M 685,90 L 570,300"/>
+    <animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;0.51;0.53;0.67;0.68" dur="13s" repeatCount="indefinite" begin="0.5s"/>
+  </circle>
+
+  <!-- outcome labels -->
+  <text x="455" y="110" text-anchor="middle" font-size="11" fill="#f2c14e" opacity="0">
+    <animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;0.49;0.51;0.99;1" dur="13s" repeatCount="indefinite" begin="0.5s"/>
+    RECONCILED — first-seen(N) accepted permanently
+  </text>
+  <text x="685" y="110" text-anchor="middle" font-size="11" fill="#f87171" opacity="0">
+    <animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;0.66;0.68;0.99;1" dur="13s" repeatCount="indefinite" begin="0.5s"/>
+    BRICKED — duplicate N, Device A's key flagged
+  </text>
+</svg>
+</div>
+
+<div class="formula">T = (N, V, Pk_A, C_A, Sig_A(N ‖ V ‖ C_A))</div>
+
+<div class="caption-list">
+<b>What this shows:</b> the exact worst-case scenario the bounty challenge invites researchers to attack — the same captured token <b>T</b> replayed to two offline Receiving Devices that cannot see each other. Both provisionally accept, because neither has a live connection to check the other. The moment either reconnects to the Solar Mesh Hub, the registry keyed on nonce <b>N</b> accepts only the first-seen presentation as <b>Reconciled</b>; the second is <b>Bricked</b> and the originating device's public key <b>Pk_A</b> is flagged. This is the Token Uniqueness Invariant from Section 3 of the cryptographic proof paper, running as a live trace rather than static prose.
+</div>
+
+<div class="footer">BETONIQ WEST LTD — RC 1496603 — Protocol-logic depiction for accredited technical review. No PUF extraction, distance-bounding, or firmware detail disclosed. Companion narration: /voice_explainers/1_bounty_challenge.mp3</div>
+</body></html>
