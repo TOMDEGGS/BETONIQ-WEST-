@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8">
-<title>Replay Attack Against the Token State Machine — Live Protocol Trace</title>
+<title>Five Objections, Five Short Clips — Video Series Structure</title>
 <style>
 body{background:#0a0e17;color:#e8edf5;font-family:'Courier New',Consolas,monospace;margin:0;padding:28px;max-width:980px;}
 h1{color:#4bacc6;font-size:22px;margin-bottom:4px;}
@@ -38,42 +38,38 @@ audio{width:100%;margin-top:14px;height:32px;}
 
 </style></head>
 <body>
-<div class="badge">SCENARIO 1 OF 7 — PUBLIC BOUNTY CHALLENGE</div>
-<h1>Replay Attack Against the Token State Machine — Live Protocol Trace</h1>
-<div class="subtitle">This is the exact attack anyone is invited to attempt under the public bounty challenge.</div>
+<div class="badge">SCENARIO 3 OF 7 — 5-PART VIDEO SERIES</div>
+<h1>Five Objections, Five Short Clips — Video Series Structure</h1>
+<div class="subtitle">Each of the 5 planned videos isolates and closes exactly one technical escape hatch.</div>
 
 <div class="stage">
 <div class="diagram" id="diagram">
 
-<div class="node c-grey" id="adversary" style="left:20px;top:30px;">
-  <span class="title">Adversary</span><span class="state">captures token T off-wire</span>
-</div>
-<div class="node c-green resettable" id="d1" data-init-state="NoToken" style="left:340px;top:15px;">
-  <span class="title">Receiving Device 1</span><span class="state">NoToken</span>
-</div>
-<div class="node c-green resettable" id="d2" data-init-state="NoToken" style="left:600px;top:15px;">
-  <span class="title">Receiving Device 2</span><span class="state">NoToken</span>
-</div>
-<div class="node c-blue" id="hub" style="left:400px;top:240px;">
-  <span class="title">Solar Mesh Hub</span><span class="state">registry: first-seen(N) wins</span>
-</div>
-<div class="token" id="token1"></div>
-<div class="token" id="token2"></div>
+<div class="node c-grey" id="attacker3" style="left:20px;top:130px;">
+  <span class="title">Attack attempt</span><span class="state">in progress</span></div>
+<div class="node c-blue" id="terminal3" style="left:640px;top:130px;">
+  <span class="title">Secure Element</span><span class="state">defending</span></div>
+<div class="node c-grey resettable" id="a1" data-init-state="queued" style="left:210px;top:20px;min-width:90px;"><span class="title">RF/EMF sniff</span><span class="state">queued</span></div>
+<div class="node c-grey resettable" id="a2" data-init-state="queued" style="left:210px;top:80px;min-width:90px;"><span class="title">Clone/replay</span><span class="state">queued</span></div>
+<div class="node c-grey resettable" id="a3" data-init-state="queued" style="left:210px;top:140px;min-width:90px;"><span class="title">Race condition</span><span class="state">queued</span></div>
+<div class="node c-grey resettable" id="a4" data-init-state="queued" style="left:210px;top:200px;min-width:90px;"><span class="title">Attribution dodge</span><span class="state">queued</span></div>
+<div class="node c-grey resettable" id="a5" data-init-state="queued" style="left:210px;top:260px;min-width:90px;"><span class="title">"Just marketing"</span><span class="state">queued</span></div>
+<div class="token" id="token3"></div>
 
 </div>
 <audio id="narration" controls preload="auto">
-  <source src="../voice_explainers/1_bounty_challenge.mp3" type="audio/mpeg">
+  <source src="../voice_explainers/3_video_series.mp3" type="audio/mpeg">
 </audio>
 <div class="audio-label">AI-generated narration (British female voice) — plays in sync with the diagram above, disclosed as AI-generated per compliance.</div>
 <div class="log" id="log"></div>
 <button class="replay-btn" onclick="window.__restart()">Replay animation + narration</button>
 </div>
 
-<div class="formula">T = (N, V, Pk_A, C_A, Sig_A(N &#8214; V &#8214; C_A))</div>
+<div class="formula">5 objections -&gt; 5 short clips -&gt; 5 closed escape hatches</div>
 
 <div class="caption-list">
 
-<b>What this shows:</b> the exact worst-case scenario the public bounty challenge invites researchers to attack — a single captured token replayed to two Receiving Devices that are offline from each other and cannot see one another's state. Both provisionally accept; the moment either reconnects, the Solar Mesh Hub's first-seen(N) rule permanently resolves which one survives and cryptographically flags the other as a duplicate, traceable to the originating device's public key. This is the Token Uniqueness Invariant from Section 3 of the cryptographic proof paper, shown as a live trace rather than static prose.
+<b>What this shows:</b> the structure of the 5-part video series — instead of one long proof video, each clip isolates and kills exactly one specific technical objection a skeptic could raise, in order of how a sharp reviewer would actually attack the claim: physical signal denial, replay/clone, timing race, attribution, and "prove you actually tested this." Full shot lists are in <code>ZEROPAY_5PART_VIDEO_SERIES_PRODUCTION_GUIDE.md</code>.
 
 </div>
 
@@ -188,19 +184,17 @@ function initEngine(steps, totalDuration, opts){
 </script>
 <script>
 const steps = [
-
-{t:0, action: function(){ __log("Public bounty challenge: attempt a real double-spend against this live protocol model."); }},
-{t:600, action: function(){ __placeTokenAt('token1','adversary'); __moveToken('token1','d1',1100); __log("Adversary replays captured token T = (N,V,Pk_A,C_A,Sig_A) to Receiving Device 1 (offline)"); }},
-{t:1900, action: function(){ __setNode('d1','ProvisionallyRedeemed','c-gold'); __hideToken('token1'); __log('Device 1 accepts provisionally — first time this nonce N has been seen locally','hi'); }},
-{t:2600, action: function(){ __placeTokenAt('token2','adversary'); __moveToken('token2','d2',1100); __log("Adversary replays the SAME token T to Receiving Device 2 (offline, no visibility of Device 1)"); }},
-{t:3900, action: function(){ __setNode('d2','ProvisionallyRedeemed','c-gold'); __hideToken('token2'); __log('Device 2 ALSO accepts provisionally — the unavoidable fog-of-war window','hi'); }},
-{t:4700, action: function(){ __placeTokenAt('token1','d1'); __moveToken('token1','hub',900); __log('Device 1 reconnects, presents nonce N to the Solar Mesh Hub registry'); }},
-{t:5700, action: function(){ __setNode('d1','RECONCILED','c-green'); __hideToken('token1'); __log('Hub: nonce N not seen before -> Device 1 RECONCILED, accepted permanently','pass'); }},
-{t:6600, action: function(){ __placeTokenAt('token2','d2'); __moveToken('token2','hub',900); __log('Device 2 reconnects, presents the SAME nonce N'); }},
-{t:7600, action: function(){ __setNode('d2','BRICKED','c-red'); __log("Hub: nonce N already reconciled -> Device 2 BRICKED. Device A's public key flagged as origin.",'fail'); }},
-{t:8600, action: function(){ __log('Result: exactly one presentation survives, ever. This is the Token Uniqueness Invariant — try to break it.','hi'); }},
-
+{t:3400, action: function(){ __setNode('a1','ATTEMPTED','c-gold'); __placeTokenAt('token3','attacker3'); __moveToken('token3','a1',700); __log('Video 1: seal terminal in a Faraday bag, tap through it — attempt launched'); }},
+{t:4300, action: function(){ __setNode('a1','BLOCKED','c-red'); __hideToken('token3'); __log("Video 1 result: transaction still completes inside a sealed Faraday bag — zero signal, zero exploit surface",'pass'); }},
+{t:6000, action: function(){ __setNode('a2','ATTEMPTED','c-gold'); __placeTokenAt('token3','attacker3'); __moveToken('token3','a2',700); __log('Video 2: capture token, replay to a 2nd reader — attempt launched'); }},
+{t:6900, action: function(){ __setNode('a2','BLOCKED','c-red'); __hideToken('token3'); __log("Video 2 result: 2nd device shows PROVISIONALLY ACCEPTED, then flips to REJECTED the instant it reconciles",'pass'); }},
+{t:8600, action: function(){ __setNode('a3','ATTEMPTED','c-gold'); __placeTokenAt('token3','attacker3'); __moveToken('token3','a3',700); __log('Video 3: present same token to 2 readers in the same second — attempt launched'); }},
+{t:9500, action: function(){ __setNode('a3','BLOCKED','c-red'); __hideToken('token3'); __log("Video 3 result: same-second race still resolves to exactly one winner at reconciliation",'pass'); }},
+{t:11200, action: function(){ __setNode('a4','ATTEMPTED','c-gold'); __placeTokenAt('token3','attacker3'); __moveToken('token3','a4',700); __log('Video 4: try to hide which device double-spent — attempt launched'); }},
+{t:12100, action: function(){ __setNode('a4','BLOCKED','c-red'); __hideToken('token3'); __log("Video 4 result: registry flags the origin device's public key — the cheat is attributable, not anonymous",'pass'); }},
+{t:13800, action: function(){ __setNode('a5','ATTEMPTED','c-gold'); __placeTokenAt('token3','attacker3'); __moveToken('token3','a5',700); __log('Video 5: dismiss it as unverified marketing claims — attempt launched'); }},
+{t:14700, action: function(){ __setNode('a5','BLOCKED','c-red'); __hideToken('token3'); __log("Video 5 result: unedited TLC terminal output shown live — 437 states, 0 violations, timestamped and reproducible",'pass'); }},
 ];
-initEngine(steps, 10500, {audioId:'narration'});
+initEngine(steps, 14200, {audioId:'narration'});
 </script>
 </body></html>

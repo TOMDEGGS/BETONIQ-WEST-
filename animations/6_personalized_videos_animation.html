@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8">
-<title>Replay Attack Against the Token State Machine — Live Protocol Trace</title>
+<title>One Proof, Four Investor Lenses</title>
 <style>
 body{background:#0a0e17;color:#e8edf5;font-family:'Courier New',Consolas,monospace;margin:0;padding:28px;max-width:980px;}
 h1{color:#4bacc6;font-size:22px;margin-bottom:4px;}
@@ -38,42 +38,36 @@ audio{width:100%;margin-top:14px;height:32px;}
 
 </style></head>
 <body>
-<div class="badge">SCENARIO 1 OF 7 — PUBLIC BOUNTY CHALLENGE</div>
-<h1>Replay Attack Against the Token State Machine — Live Protocol Trace</h1>
-<div class="subtitle">This is the exact attack anyone is invited to attempt under the public bounty challenge.</div>
+<div class="badge">SCENARIO 6 OF 7 — PERSONALIZED INVESTOR CUTS</div>
+<h1>One Proof, Four Investor Lenses</h1>
+<div class="subtitle">Same evidence, four scripts — each spotlighting the specific angle a given fund is known to prioritize.</div>
 
 <div class="stage">
 <div class="diagram" id="diagram">
 
-<div class="node c-grey" id="adversary" style="left:20px;top:30px;">
-  <span class="title">Adversary</span><span class="state">captures token T off-wire</span>
-</div>
-<div class="node c-green resettable" id="d1" data-init-state="NoToken" style="left:340px;top:15px;">
-  <span class="title">Receiving Device 1</span><span class="state">NoToken</span>
-</div>
-<div class="node c-green resettable" id="d2" data-init-state="NoToken" style="left:600px;top:15px;">
-  <span class="title">Receiving Device 2</span><span class="state">NoToken</span>
-</div>
-<div class="node c-blue" id="hub" style="left:400px;top:240px;">
-  <span class="title">Solar Mesh Hub</span><span class="state">registry: first-seen(N) wins</span>
-</div>
-<div class="token" id="token1"></div>
-<div class="token" id="token2"></div>
+<div class="node c-blue" id="dev6" style="left:60px;top:120px;min-width:170px;">
+  <span class="title">Origin Device</span><span class="state">PUF-rooted secure element</span></div>
+<div class="node c-blue" id="hub6" style="left:340px;top:120px;min-width:170px;">
+  <span class="title">Token state machine</span><span class="state">T=(N,V,Pk_A,C_A,Sig_A)</span></div>
+<div class="node c-blue" id="proof6" style="left:620px;top:120px;min-width:200px;">
+  <span class="title">Formal proof</span><span class="state">437 states, 0 violations</span></div>
+<div class="node c-grey resettable" id="lens6" data-init-state="—" style="left:250px;top:230px;min-width:420px;">
+  <span class="title">Investor lens</span><span class="state">—</span></div>
 
 </div>
 <audio id="narration" controls preload="auto">
-  <source src="../voice_explainers/1_bounty_challenge.mp3" type="audio/mpeg">
+  <source src="../voice_explainers/6_personalized_videos.mp3" type="audio/mpeg">
 </audio>
 <div class="audio-label">AI-generated narration (British female voice) — plays in sync with the diagram above, disclosed as AI-generated per compliance.</div>
 <div class="log" id="log"></div>
 <button class="replay-btn" onclick="window.__restart()">Replay animation + narration</button>
 </div>
 
-<div class="formula">T = (N, V, Pk_A, C_A, Sig_A(N &#8214; V &#8214; C_A))</div>
+<div class="formula">Constant: T = (N, V, Pk_A, C_A, Sig_A) &nbsp;|&nbsp; Variable: which part of the SAME proof gets the spotlight</div>
 
 <div class="caption-list">
 
-<b>What this shows:</b> the exact worst-case scenario the public bounty challenge invites researchers to attack — a single captured token replayed to two Receiving Devices that are offline from each other and cannot see one another's state. Both provisionally accept; the moment either reconnects, the Solar Mesh Hub's first-seen(N) rule permanently resolves which one survives and cryptographically flags the other as a duplicate, traceable to the originating device's public key. This is the Token Uniqueness Invariant from Section 3 of the cryptographic proof paper, shown as a live trace rather than static prose.
+<b>What this shows:</b> the 4 personalized video cuts don't change the underlying claim or evidence at all — they spotlight a different, genuine part of the same proof depending on what each specific fund is known to weigh most heavily. Full scripts in <code>ZEROPAY_VC_PERSONALIZED_VIDEO_SCRIPTS.md</code>.
 
 </div>
 
@@ -189,18 +183,14 @@ function initEngine(steps, totalDuration, opts){
 <script>
 const steps = [
 
-{t:0, action: function(){ __log("Public bounty challenge: attempt a real double-spend against this live protocol model."); }},
-{t:600, action: function(){ __placeTokenAt('token1','adversary'); __moveToken('token1','d1',1100); __log("Adversary replays captured token T = (N,V,Pk_A,C_A,Sig_A) to Receiving Device 1 (offline)"); }},
-{t:1900, action: function(){ __setNode('d1','ProvisionallyRedeemed','c-gold'); __hideToken('token1'); __log('Device 1 accepts provisionally — first time this nonce N has been seen locally','hi'); }},
-{t:2600, action: function(){ __placeTokenAt('token2','adversary'); __moveToken('token2','d2',1100); __log("Adversary replays the SAME token T to Receiving Device 2 (offline, no visibility of Device 1)"); }},
-{t:3900, action: function(){ __setNode('d2','ProvisionallyRedeemed','c-gold'); __hideToken('token2'); __log('Device 2 ALSO accepts provisionally — the unavoidable fog-of-war window','hi'); }},
-{t:4700, action: function(){ __placeTokenAt('token1','d1'); __moveToken('token1','hub',900); __log('Device 1 reconnects, presents nonce N to the Solar Mesh Hub registry'); }},
-{t:5700, action: function(){ __setNode('d1','RECONCILED','c-green'); __hideToken('token1'); __log('Hub: nonce N not seen before -> Device 1 RECONCILED, accepted permanently','pass'); }},
-{t:6600, action: function(){ __placeTokenAt('token2','d2'); __moveToken('token2','hub',900); __log('Device 2 reconnects, presents the SAME nonce N'); }},
-{t:7600, action: function(){ __setNode('d2','BRICKED','c-red'); __log("Hub: nonce N already reconciled -> Device 2 BRICKED. Device A's public key flagged as origin.",'fail'); }},
-{t:8600, action: function(){ __log('Result: exactly one presentation survives, ever. This is the Token Uniqueness Invariant — try to break it.','hi'); }},
+{t:0, action: function(){ __log('Same underlying proof, four different doors in — depending on what each fund is known to prioritize.'); }},
+{t:1500, action: function(){ __setNode('dev6', undefined, 'c-gold'); __setNode('lens6','LUX CAPITAL lens: hardware-rooted PUF key, silicon-level security','c-gold'); __log('Lens 1 — Shahin Farshchi, Lux Capital: hardware / deep-tech fit'); }},
+{t:4000, action: function(){ __setNode('dev6', undefined, 'c-blue'); __setNode('hub6', undefined, 'c-gold'); __setNode('lens6','ROOT VENTURES lens: the invariant itself — engineering risk, tested directly','c-gold'); __log('Lens 2 — Lee Edwards, Root Ventures: engineer-led, evaluates engineering risk directly'); }},
+{t:7000, action: function(){ __setNode('hub6', undefined, 'c-blue'); __setNode('lens6','FOUNDERS FUND lens: zero-connectivity operation — sovereign infrastructure resilience','c-gold'); __log('Lens 3 — Trae Stephens, Founders Fund: defense / sovereign-infrastructure framing'); }},
+{t:10000, action: function(){ __setNode('lens6','ARCHETYPE lens: the cryptographic primitive itself, pre-commercialization','c-gold'); __log('Lens 4 — Ash Egan, Archetype: crypto-primitive angle'); }},
+{t:13000, action: function(){ __log('Four scripts, one proof — never four different claims.','hi'); }},
 
 ];
-initEngine(steps, 10500, {audioId:'narration'});
+initEngine(steps, 15000, {audioId:'narration'});
 </script>
 </body></html>

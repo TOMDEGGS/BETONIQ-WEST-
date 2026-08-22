@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8">
-<title>Replay Attack Against the Token State Machine — Live Protocol Trace</title>
+<title>Conference Talk Abstract — Poster-Style Draft Reveal</title>
 <style>
 body{background:#0a0e17;color:#e8edf5;font-family:'Courier New',Consolas,monospace;margin:0;padding:28px;max-width:980px;}
 h1{color:#4bacc6;font-size:22px;margin-bottom:4px;}
@@ -38,42 +38,41 @@ audio{width:100%;margin-top:14px;height:32px;}
 
 </style></head>
 <body>
-<div class="badge">SCENARIO 1 OF 7 — PUBLIC BOUNTY CHALLENGE</div>
-<h1>Replay Attack Against the Token State Machine — Live Protocol Trace</h1>
-<div class="subtitle">This is the exact attack anyone is invited to attempt under the public bounty challenge.</div>
+<div class="badge">SCENARIO 7 OF 7 — CONFERENCE ABSTRACT DRAFT</div>
+<h1>Conference Talk Abstract — Poster-Style Draft Reveal</h1>
+<div class="subtitle">Draft only. Not submitted to any conference. Requires explicit approval before going out.</div>
 
 <div class="stage">
 <div class="diagram" id="diagram">
 
-<div class="node c-grey" id="adversary" style="left:20px;top:30px;">
-  <span class="title">Adversary</span><span class="state">captures token T off-wire</span>
-</div>
-<div class="node c-green resettable" id="d1" data-init-state="NoToken" style="left:340px;top:15px;">
-  <span class="title">Receiving Device 1</span><span class="state">NoToken</span>
-</div>
-<div class="node c-green resettable" id="d2" data-init-state="NoToken" style="left:600px;top:15px;">
-  <span class="title">Receiving Device 2</span><span class="state">NoToken</span>
-</div>
-<div class="node c-blue" id="hub" style="left:400px;top:240px;">
-  <span class="title">Solar Mesh Hub</span><span class="state">registry: first-seen(N) wins</span>
-</div>
-<div class="token" id="token1"></div>
-<div class="token" id="token2"></div>
+<div class="node c-blue" id="title7" style="left:20px;top:15px;min-width:860px;text-align:left;">
+  <span class="title">Offline Double-Spend Prevention Without a Live Ledger</span>
+  <span class="state">A Formally Verified State Machine for NFC-Based Payment Tokens (draft abstract)</span></div>
+<div class="node c-grey resettable" id="prob7" data-init-state="—" style="left:20px;top:90px;min-width:410px;text-align:left;">
+  <span class="title">Problem</span><span class="state">—</span></div>
+<div class="node c-grey resettable" id="method7" data-init-state="—" style="left:460px;top:90px;min-width:410px;text-align:left;">
+  <span class="title">Method</span><span class="state">—</span></div>
+<div class="node c-grey resettable" id="res7" data-init-state="—" style="left:20px;top:170px;min-width:410px;text-align:left;">
+  <span class="title">Result</span><span class="state">—</span></div>
+<div class="node c-grey resettable" id="ctrl7" data-init-state="—" style="left:460px;top:170px;min-width:410px;text-align:left;">
+  <span class="title">Negative control</span><span class="state">—</span></div>
+<div class="node c-gold resettable" id="status7" data-init-state="DRAFT — NOT SUBMITTED" style="left:20px;top:250px;min-width:850px;">
+  <span class="title">Submission status</span><span class="state">DRAFT — NOT SUBMITTED, awaiting Tom's go-ahead</span></div>
 
 </div>
 <audio id="narration" controls preload="auto">
-  <source src="../voice_explainers/1_bounty_challenge.mp3" type="audio/mpeg">
+  <source src="../voice_explainers/7_conference_abstract.mp3" type="audio/mpeg">
 </audio>
 <div class="audio-label">AI-generated narration (British female voice) — plays in sync with the diagram above, disclosed as AI-generated per compliance.</div>
 <div class="log" id="log"></div>
 <button class="replay-btn" onclick="window.__restart()">Replay animation + narration</button>
 </div>
 
-<div class="formula">T = (N, V, Pk_A, C_A, Sig_A(N &#8214; V &#8214; C_A))</div>
+<div class="formula">Abstract status: DRAFT ONLY &nbsp;|&nbsp; Requires explicit send approval before any submission</div>
 
 <div class="caption-list">
 
-<b>What this shows:</b> the exact worst-case scenario the public bounty challenge invites researchers to attack — a single captured token replayed to two Receiving Devices that are offline from each other and cannot see one another's state. Both provisionally accept; the moment either reconnects, the Solar Mesh Hub's first-seen(N) rule permanently resolves which one survives and cryptographically flags the other as a duplicate, traceable to the originating device's public key. This is the Token Uniqueness Invariant from Section 3 of the cryptographic proof paper, shown as a live trace rather than static prose.
+<b>What this shows:</b> the draft conference talk abstract exactly as written in <code>ZEROPAY_CONFERENCE_ABSTRACT_DRAFT.md</code>, assembled visually. Nothing has been submitted anywhere — this stays a draft, ready to go out in minutes the moment Tom approves it.
 
 </div>
 
@@ -189,18 +188,14 @@ function initEngine(steps, totalDuration, opts){
 <script>
 const steps = [
 
-{t:0, action: function(){ __log("Public bounty challenge: attempt a real double-spend against this live protocol model."); }},
-{t:600, action: function(){ __placeTokenAt('token1','adversary'); __moveToken('token1','d1',1100); __log("Adversary replays captured token T = (N,V,Pk_A,C_A,Sig_A) to Receiving Device 1 (offline)"); }},
-{t:1900, action: function(){ __setNode('d1','ProvisionallyRedeemed','c-gold'); __hideToken('token1'); __log('Device 1 accepts provisionally — first time this nonce N has been seen locally','hi'); }},
-{t:2600, action: function(){ __placeTokenAt('token2','adversary'); __moveToken('token2','d2',1100); __log("Adversary replays the SAME token T to Receiving Device 2 (offline, no visibility of Device 1)"); }},
-{t:3900, action: function(){ __setNode('d2','ProvisionallyRedeemed','c-gold'); __hideToken('token2'); __log('Device 2 ALSO accepts provisionally — the unavoidable fog-of-war window','hi'); }},
-{t:4700, action: function(){ __placeTokenAt('token1','d1'); __moveToken('token1','hub',900); __log('Device 1 reconnects, presents nonce N to the Solar Mesh Hub registry'); }},
-{t:5700, action: function(){ __setNode('d1','RECONCILED','c-green'); __hideToken('token1'); __log('Hub: nonce N not seen before -> Device 1 RECONCILED, accepted permanently','pass'); }},
-{t:6600, action: function(){ __placeTokenAt('token2','d2'); __moveToken('token2','hub',900); __log('Device 2 reconnects, presents the SAME nonce N'); }},
-{t:7600, action: function(){ __setNode('d2','BRICKED','c-red'); __log("Hub: nonce N already reconciled -> Device 2 BRICKED. Device A's public key flagged as origin.",'fail'); }},
-{t:8600, action: function(){ __log('Result: exactly one presentation survives, ever. This is the Token Uniqueness Invariant — try to break it.','hi'); }},
+{t:0, action: function(){ __log('Draft talk abstract, target venues: Real World Crypto, DEF CON Crypto & Privacy Village.'); }},
+{t:1600, action: function(){ __setNode('prob7','Existing offline systems cap transaction size and reconcile probabilistically — a bounded fraud window, not a solved problem.','c-blue'); __log('Problem statement locked in.'); }},
+{t:4400, action: function(){ __setNode('method7','PUF-rooted monotonic counter + first-seen-wins reconciliation, formalized in TLA+, checked by TLC.','c-blue'); __log('Method statement locked in.'); }},
+{t:7200, action: function(){ __setNode('res7','437 distinct states, 2 safety invariants + 1 liveness property, zero violations.','c-green'); __log('Result statement locked in — matches the real TLC run in formal_verification/.','pass'); }},
+{t:10000, action: function(){ __setNode('ctrl7','Same model, dedup removed -> checker breaks it in 5 states. Verification is not vacuous.','c-green'); __log('Negative control statement locked in.','pass'); }},
+{t:12800, action: function(){ __log('Even a rejection from a serious venue is a checkable, timestamped signal this work sits in the real cryptography community.','hi'); }},
 
 ];
-initEngine(steps, 10500, {audioId:'narration'});
+initEngine(steps, 14200, {audioId:'narration'});
 </script>
 </body></html>
