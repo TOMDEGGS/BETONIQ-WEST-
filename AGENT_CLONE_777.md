@@ -105,6 +105,18 @@ VC outreach: LoftyInc Capital replied Aug 19 with standard acknowledgment only. 
 - Gemini (read-only fallback): gemini.google.com with betoniqwestltd@gmail.com — paste Master Briefing Document, tested working Jul 31, 2026.
 - Full self-sufficiency manual (all 12 platforms, step-by-step navigation): pushed to GitHub as SELF_SUFFICIENCY_MANUAL.md and BETONIQ_WEST_Self_Sufficiency_Manual.pdf
 
+## CAPABILITY LIMITS WHEN RUNNING AS A GEMINI CLONE (read this before relying on it mid-crisis)
+
+This document gives Gemini the same identity, personality, standing rules, and company knowledge as the primary Base44 agent. It does NOT give Gemini the same abilities. Know these limits before you need them in an emergency:
+
+- No automation / no self-initiated messages: Gemini cannot wake itself up on a schedule or text you first. It only responds when you open the chat and type. The Daily Command Briefing (6:30am WhatsApp) only runs on the primary Base44 agent, not on this clone.
+- No live data access: Gemini cannot read TeamTask, FieldMeeting, or any other live entity/database. If you want its input on current tasks, you have to type or paste the current state to it yourself.
+- No file/code execution: Gemini cannot write files, run terminal commands, or push to GitHub. (Agent Zero, documented separately, is the option that CAN do this — see AGENT_ZERO_SETUP_CHECKLIST.pdf.)
+- No email/WhatsApp sending: Gemini cannot send emails or WhatsApp messages on your behalf. It can only draft text for you to send yourself.
+- No web browsing/live lookups by default: treat anything Gemini tells you about current live status (funding replies, account balances, live URLs) as unverified — it only knows what's in this document plus its own training data, not real-time state.
+
+Bottom line: Gemini clone = same brain for strategy/knowledge/personality, zero hands. Use it to think, not to act.
+
 ---
 
 *End of clone package. This file is the portable brain of BETONIQ WEST AI AGENT 777 — permanently hosted on GitHub, zero dependency on Base44.*
