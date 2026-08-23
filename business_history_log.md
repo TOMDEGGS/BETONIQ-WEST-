@@ -1,7 +1,7 @@
 # BETONIQ WEST — Backup 777 Business History Log
 
-Refresh timestamp: 2026-08-22T07:01:00+01:00
-Source: Base44 entity database
+Refresh timestamp: 2026-08-23T07:01:00+01:00
+Source: Base44 entity database (live refresh)
 Destination: TOMDEGGS/BETONIQ-WEST-
 
 ## Refresh completed
@@ -36,7 +36,7 @@ Investor pipeline: 2 investor records; both active. Feasibility: 1 study. ZeroPa
 
 ## Change status
 
-Live entity counts and record payload match the prior export. No records were modified or deleted during this run. The machine-readable export timestamp was refreshed so Backup 777 can identify the latest successful pull.
+Live entity counts and record payload match the prior export. No records were modified or deleted during this run. The machine-readable export timestamp and refresh metadata were updated so Backup 777 can identify the latest successful pull.
 
 ## Continuity note
 
