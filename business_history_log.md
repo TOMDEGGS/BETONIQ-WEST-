@@ -41,3 +41,7 @@ Live entity counts and record payload match the prior export. No records were mo
 ## Continuity note
 
 Base44 remains the authoritative live source. This repository snapshot is for Backup 777 continuity and should be treated as a synchronized operational copy, not a replacement for the live database.
+
+## Refresh — 2026-08-24T07:03:51+01:00
+
+Live Base44 refresh completed for 18 entities. Total records: 155. Counts: RealEstateProject=79, Investor=2, Investment=0, CountryMacroData=6, ComplianceRecord=0, FeasibilityStudy=1, Commission=0, DeveloperListing=1, Subscription=1, LeadCapture=3, VisitorActivity=11, ZPTransaction=9, ZPMerchant=8, ZPAgent=6, TeamTask=9, FieldMeeting=0, BackupAgentMessage=6, FundingOutreach=13. Added FundingOutreach to the continuity snapshot. No records were modified or deleted.
