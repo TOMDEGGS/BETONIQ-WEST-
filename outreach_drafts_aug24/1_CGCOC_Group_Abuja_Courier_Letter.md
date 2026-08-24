@@ -7,6 +7,18 @@ MSc Computer Systems Security (University of Gloucestershire - England, 2011)
 
 Delivery method: Physical courier to CGCOC Group's Abuja office (no cold email)
 
+RECIPIENT ADDRESS FOR COURIER (verified registered office):
+CGC Nigeria Limited (CGCOC Group)
+CGC Camp, Plot 3016, Katampe Hill, Kubwa Road
+Abuja, FCT, Nigeria
+(Alternate/OSEX yard site: Bala Mohammed Way, Guzape, Abuja, FCT)
+
+RELIABLE NIGERIA COURIER OPTIONS TO BOOK THIS DELIVERY:
+1. GIG Logistics (GIGL) — 16 walk-in centres across Abuja. Contact Centre: 07080960441 / 07077566565. Book via giglogistics.com
+2. DHL Express Nigeria — Customer Service: 0700-DHL-DHL1 (0700-345-3451) or via mydhl.express.dhl/ng/en/home.html
+3. Redstar/FedEx Nigeria agent (Abuja) — No 3 Conakry Street, Wuse Zone 3, Abuja (near Nigeria Customs HQ)
+Recommend requesting signature-on-delivery + tracking number, addressed to "The Country Manager / Business Development, CGC Nigeria Limited."
+
 ---
 
 Subject: Strategic Technology Partnership Inquiry — Offline Payment Infrastructure for CGCOC Project Sites
