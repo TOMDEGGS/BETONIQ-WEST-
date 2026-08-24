@@ -1,0 +1,66 @@
+TLC2 Version 2.19 of 08 August 2024 (rev: 5a47802)
+Running breadth-first search Model-Checking with fp 1 and seed 3971886655173525315 with 1 worker on 4 cores with 27305MB heap and 64MB offheap memory [pid: 638] (Linux 4.19.0-gvisor amd64, Debian 17.0.20 x86_64, MSBDiskFPSet, DiskStateQueue).
+Parsing file /tmp/tla/ZeroPayDoubleSpend_BROKEN_control.tla
+Parsing file /tmp/Naturals.tla
+Parsing file /tmp/FiniteSets.tla
+Parsing file /tmp/Sequences.tla
+Parsing file /tmp/TLC.tla
+Semantic processing of module Naturals
+Semantic processing of module Sequences
+Semantic processing of module FiniteSets
+Semantic processing of module TLC
+Semantic processing of module ZeroPayDoubleSpend_BROKEN_control
+Starting... (2026-08-22 13:35:27)
+Computing initial states...
+Finished computing initial states: 1 distinct state generated at 2026-08-22 13:35:27.
+Error: Invariant TokenUniquenessInvariant is violated.
+Error: The behavior up to this point is:
+State 1: <Initial predicate>
+/\ deviceState = ( d1 :> "NoToken" @@
+  d2 :> "NoToken" @@
+  d3 :> "NoToken" @@
+  d4 :> "NoToken" @@
+  d5 :> "NoToken" )
+/\ hubSeenNonce = FALSE
+/\ hubWinner = "none"
+
+State 2: <ReceiveOffline line 21, col 3 to line 23, col 42 of module ZeroPayDoubleSpend_BROKEN_control>
+/\ deviceState = ( d1 :> "ProvisionallyRedeemed" @@
+  d2 :> "NoToken" @@
+  d3 :> "NoToken" @@
+  d4 :> "NoToken" @@
+  d5 :> "NoToken" )
+/\ hubSeenNonce = FALSE
+/\ hubWinner = "none"
+
+State 3: <ReceiveOffline line 21, col 3 to line 23, col 42 of module ZeroPayDoubleSpend_BROKEN_control>
+/\ deviceState = ( d1 :> "ProvisionallyRedeemed" @@
+  d2 :> "ProvisionallyRedeemed" @@
+  d3 :> "NoToken" @@
+  d4 :> "NoToken" @@
+  d5 :> "NoToken" )
+/\ hubSeenNonce = FALSE
+/\ hubWinner = "none"
+
+State 4: <Reconcile line 27, col 3 to line 30, col 19 of module ZeroPayDoubleSpend_BROKEN_control>
+/\ deviceState = ( d1 :> "Reconciled" @@
+  d2 :> "ProvisionallyRedeemed" @@
+  d3 :> "NoToken" @@
+  d4 :> "NoToken" @@
+  d5 :> "NoToken" )
+/\ hubSeenNonce = TRUE
+/\ hubWinner = d1
+
+State 5: <Reconcile line 27, col 3 to line 30, col 19 of module ZeroPayDoubleSpend_BROKEN_control>
+/\ deviceState = ( d1 :> "Reconciled" @@
+  d2 :> "Reconciled" @@
+  d3 :> "NoToken" @@
+  d4 :> "NoToken" @@
+  d5 :> "NoToken" )
+/\ hubSeenNonce = TRUE
+/\ hubWinner = d2
+
+120 states generated, 64 distinct states found, 38 states left on queue.
+The depth of the complete state graph search is 5.
+The average outdegree of the complete state graph is 3 (minimum is 0, the maximum 5 and the 95th percentile is 5).
+Finished in 00s at (2026-08-22 13:35:27)
