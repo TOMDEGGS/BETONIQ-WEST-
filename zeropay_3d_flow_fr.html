@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ZerôPâŷ Money — 3D Flow Deck (FR · UNIVERSAL VERSION)</title>
+<style>
+  * { box-sizing: border-box; }
+  body { margin:0; font-family: 'Segoe UI', Arial, sans-serif; background:#0B1B3A; color:#1A1A1A; overflow:hidden; }
+  .stage { position:relative; width:100vw; height:100vh;height:100svh; }
+  .slide { position:absolute; inset:0; display:none; background:#fff; }
+  .slide.active { display:block; }
+  .slide.cover { background:#0B1B3A; }
+  .cover-img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:0.9; }
+  .cover-overlay { position:absolute; left:6%; top:36%; width:60%; background:rgba(11,27,58,0.72); padding:28px 34px; border-radius:6px; }
+  .kicker { color:#C9A227; font-weight:700; font-size:15px; letter-spacing:1px; margin-bottom:8px; }
+  .cover-title { color:#fff; font-size:34px; font-weight:800; margin-bottom:14px; }
+  .cover-sub { color:#fff; font-size:16px; opacity:0.9; }
+  .band { background:#0B1B3A; padding:22px 40px 16px; }
+  .band .kicker { margin-bottom:6px; }
+  .band .title { color:#fff; font-size:26px; font-weight:800; }
+  .body { display:flex; height:calc(100vh - 96px); padding:30px 40px; gap:30px; align-items:center; }
+  .left { flex:1.3; }
+  .right { flex:1; display:flex; justify-content:center; }
+  .right img { max-width:100%; max-height:70vh; border-radius:10px; }
+  .dtable { width:100%; border-collapse:collapse; font-size:15px; }
+  .dtable th { background:#0B1B3A; color:#fff; text-align:left; padding:10px 12px; }
+  .dtable td { padding:9px 12px; border-bottom:1px solid #eee; }
+  .dtable tr:nth-child(even) td { background:#F4F5F7; }
+  .blist { font-size:19px; line-height:1.8; padding-left:22px; }
+  .blist li { margin-bottom:10px; }
+  .controls { position:fixed; bottom:18px; left:0; right:0; display:flex; justify-content:center; gap:14px; z-index:10; }
+  .controls button { background:#C9A227; color:#0B1B3A; border:none; padding:10px 20px; border-radius:24px;
+    font-weight:700; font-size:14px; cursor:pointer; box-shadow:0 2px 8px rgba(0,0,0,0.3); }
+  .controls button:hover { background:#e0b52f; }
+  .counter { position:fixed; top:16px; right:22px; color:#fff; background:rgba(0,0,0,0.4); padding:6px 14px;
+    border-radius:16px; font-size:13px; z-index:10; }
+  .badge { position:fixed; top:16px; left:22px; color:#0B1B3A; background:#C9A227; padding:6px 14px;
+    border-radius:16px; font-size:13px; z-index:10; font-weight:700; }
+</style>
+</head>
+<body>
+<div class="badge">FR · UNIVERSAL VERSION</div>
+<div class="counter" id="counter">1 / 12</div>
+<div class="stage" id="stage">
+
+  <div class="slide cover active" data-n="1">
+    <img class="cover-img" src="zeropay_3d_img/zp_cover.png" />
+    <div class="cover-overlay">
+      <div class="kicker">BETONIQ WEST LTD · RC 1496603</div>
+      <div class="cover-title">ZerôPâŷ Money : Les Paiements Fonctionnent Sans Internet</div>
+      <div class="cover-sub">Infrastructure de paiement hors ligne pour les 1,4 milliard de personnes non bancarisées dans le monde — de la Guyane française aux régions isolées de tous les continents — sécurisée par PUF/ECC et des relais maillés solaires</div>
+    </div>
+  </div>
+
+  <div class="slide" data-n="2">
+    <div class="band"><div class="kicker">L'Opportunité</div><div class="title">La Fracture Mondiale de Connectivité dans les Paiements</div></div>
+    <div class="body">
+      <div class="left"><table class="dtable"><thead><tr><th>Indicateur</th><th>Chiffre</th></tr></thead><tbody><tr><td>Population non bancarisée (mondiale)</td><td>1,4 milliard</td></tr><tr><td>Population non bancarisée (Nigeria)</td><td>38 millions</td></tr><tr><td>Zones de connectivité non garantie (Guyane française)</td><td>~90% du territoire intérieur</td></tr><tr><td>Interruption moyenne du réseau mobile rural</td><td>15-30% des heures par jour</td></tr><tr><td>Économie informelle dépendante du liquide (Nigeria)</td><td>~50% du PIB</td></tr></tbody></table></div>
+      <div class="right"><img src="zeropay_3d_img/zp_send.png" /></div>
+    </div>
+  </div>
+
+  <div class="slide" data-n="3">
+    <div class="band"><div class="kicker">Corridor de Déploiement</div><div class="title">Cayenne à Maripasoula : la Frontière de Connectivité de la Guyane</div></div>
+    <div class="body">
+      <div class="left"><ul class="blist"><li>Plus de 250 km entre Cayenne et Maripasoula, au cœur de la forêt amazonienne guyanaise, territoire français</li><li>La couverture mobile est absente sur la quasi-totalité de cet itinéraire intérieur</li><li>Un exemple parmi d'autres : la fracture de connectivité existe sur tous les continents, pas seulement en Afrique</li></ul></div>
+      <div class="right"><img src="zeropay_3d_img/zp_map.png" /></div>
+    </div>
+  </div>
+
+  <div class="slide" data-n="4">
+    <div class="band"><div class="kicker">Étape 1 sur 6</div><div class="title">Le Client Initie le Paiement (FX)</div></div>
+    <div class="body">
+      <div class="left"><ul class="blist"><li>L'expéditeur ouvre l'application ZerôPâŷ Money ou présente sa carte/objet connecté NFC au terminal marchand</li><li>Le montant est saisi en devise locale ; le taux de change est fixé au moment de l'initiation</li><li>Aucune connexion internet ni signal cellulaire n'est requis à aucun moment</li></ul></div>
+      <div class="right"><img src="zeropay_3d_img/zp_send.png" /></div>
+    </div>
+  </div>
+
+  <div class="slide" data-n="5">
+    <div class="band"><div class="kicker">Étape 2 sur 6</div><div class="title">Le Terminal PUF/ECC Signe un Jeton Hors Ligne</div></div>
+    <div class="body">
+      <div class="left"><ul class="blist"><li>La Fonction Physiquement Non Clonable (PUF) génère une empreinte cryptographique unique liée au matériel</li><li>La signature à courbe elliptique ECC P-256 crée un jeton de transaction hors ligne infalsifiable</li><li>La génération dynamique de défis empêche le clonage ou la répétition du jeton</li></ul></div>
+      <div class="right"><img src="zeropay_3d_img/zp_terminal.png" /></div>
+    </div>
+  </div>
+
+  <div class="slide" data-n="6">
+    <div class="band"><div class="kicker">Étape 3 sur 6</div><div class="title">Le Jeton Hors Ligne est Transmis par NFC</div></div>
+    <div class="body">
+      <div class="left"><ul class="blist"><li>Le jeton signé est transmis par Communication en Champ Proche (NFC) — sans utiliser de données cellulaires</li><li>Compatible avec les téléphones basiques, les téléphones à touches et les objets connectés bas de gamme</li><li>Le protocole de délimitation de distance bloque les attaques par relais ou par interception</li></ul></div>
+      <div class="right"><img src="zeropay_3d_img/zp_nfc.png" /></div>
+    </div>
+  </div>
+
+  <div class="slide" data-n="7">
+    <div class="band"><div class="kicker">Étape 4 sur 6</div><div class="title">Le Relais Maillé Solaire Transporte le Jeton</div></div>
+    <div class="body">
+      <div class="left"><ul class="blist"><li>Le relais solaire, avec supercondensateur et batterie lithium de secours, fonctionne 24h/24 hors réseau électrique</li><li>Le réseau maillé transmet le jeton de relais à relais jusqu'au point connecté le plus proche</li><li>La validité de 72 heures du jeton correspond à la fenêtre d'autonomie énergétique du relais</li></ul></div>
+      <div class="right"><img src="zeropay_3d_img/zp_hub.png" /></div>
+    </div>
+  </div>
+
+  <div class="slide" data-n="8">
+    <div class="band"><div class="kicker">Étape 5 sur 6</div><div class="title">Le Destinataire Reçoit via un Téléphone Basique ou un Objet Connecté</div></div>
+    <div class="body">
+      <div class="left"><ul class="blist"><li>Le destinataire présente son appareil au terminal ou au relais local</li><li>Les fonds apparaissent instantanément comme solde en attente et vérifié cryptographiquement</li><li>Aucun smartphone ni forfait de données n'est nécessaire pour recevoir de l'argent</li></ul></div>
+      <div class="right"><img src="zeropay_3d_img/zp_nfc.png" /></div>
+    </div>
+  </div>
+
+  <div class="slide" data-n="9">
+    <div class="band"><div class="kicker">Étape 6 sur 6</div><div class="title">La Reconnexion Déclenche le Règlement</div></div>
+    <div class="body">
+      <div class="left"><ul class="blist"><li>Dès qu'un appareil de la chaîne se reconnecte, les jetons se synchronisent automatiquement avec le cloud</li><li>Le règlement transite par l'API Paystack vers une banque de microfinance agréée</li><li>Les transferts transfrontaliers sont finalisés via l'intégration d'un partenaire IMTO</li></ul></div>
+      <div class="right"><img src="zeropay_3d_img/zp_sync.png" /></div>
+    </div>
+  </div>
+
+  <div class="slide" data-n="10">
+    <div class="band"><div class="kicker">Le Parcours Complet</div><div class="title">Flux de Bout en Bout : De l'Envoi à la Réception</div></div>
+    <div class="body">
+      <div class="left"><ul class="blist"><li>1. Envoi (FX)  →  2. Signature PUF/ECC  →  3. Transmission NFC</li><li>4. Relais Maillé Solaire  →  5. Réception NFC  →  6. Synchronisation et Règlement</li><li>Temps total écoulé, entièrement hors ligne : généralement moins de 5 secondes. Le règlement se termine automatiquement lors de la reconnexion.</li></ul></div>
+      <div class="right"><img src="zeropay_3d_img/zp_flow.png" /></div>
+    </div>
+  </div>
+
+  <div class="slide" data-n="11">
+    <div class="band"><div class="kicker">Spécifications Techniques</div><div class="title">Architecture de Sécurité et de Performance</div></div>
+    <div class="body">
+      <div class="left"><table class="dtable"><thead><tr><th>Couche</th><th>Spécification</th></tr></thead><tbody><tr><td>Racine de confiance matérielle</td><td>Fonction Physiquement Non Clonable (PUF), au niveau du silicium</td></tr><tr><td>Signature cryptographique</td><td>Signature numérique à courbe elliptique ECC P-256</td></tr><tr><td>Protection anti-relais</td><td>Protocole de délimitation de distance</td></tr><tr><td>Validité du jeton hors ligne</td><td>Durée de vie de 72 heures</td></tr><tr><td>Autonomie énergétique du relais</td><td>Supercondensateur + batterie lithium, à charge solaire</td></tr><tr><td>Protocole de transmission</td><td>NFC (ISO/IEC 14443), relais maillé de nœud à nœud</td></tr><tr><td>Filière de règlement</td><td>API Paystack vers banque de microfinance agréée vers partenaire IMTO (transfrontalier)</td></tr><tr><td>Statut du brevet</td><td>Brevet en cours de dépôt, déposé en avril 2026</td></tr></tbody></table></div>
+      <div class="right"><img src="zeropay_3d_img/zp_terminal.png" /></div>
+    </div>
+  </div>
+
+  <div class="slide cover" data-n="12">
+    <img class="cover-img" src="zeropay_3d_img/zp_cover.png" />
+    <div class="cover-overlay">
+      <div class="kicker">BETONIQ WEST LTD · RC 1496603</div>
+      <div class="cover-title">Les Paiements Fonctionnent Sans Internet.</div>
+      <div class="cover-sub">Tom Ugbodaga — Actionnaire et Directeur Général (CEO)  |  zeropointfeild_nonwnt@zeropay.site</div>
+    </div>
+  </div>
+
+</div>
+<div class="controls">
+  <button onclick="prevSlide()">&#8592; Précédent</button>
+  <button id="playBtn" onclick="togglePlay()">&#9658; Lancer la Narration</button>
+  <button id="stopBtn" onclick="stopNarration()">&#9632; Arrêter</button>
+  <button onclick="nextSlide()">Suivant &#8594;</button>
+</div>
+<audio id="narration"></audio>
+<script>
+  const total = 12;
+  let current = 1;
+  const audioFiles = ["zeropay_3d_audio_fr/slide_01.mp3","zeropay_3d_audio_fr/slide_02.mp3","zeropay_3d_audio_fr/slide_03.mp3","zeropay_3d_audio_fr/slide_04.mp3","zeropay_3d_audio_fr/slide_05.mp3","zeropay_3d_audio_fr/slide_06.mp3","zeropay_3d_audio_fr/slide_07.mp3","zeropay_3d_audio_fr/slide_08.mp3","zeropay_3d_audio_fr/slide_09.mp3","zeropay_3d_audio_fr/slide_10.mp3","zeropay_3d_audio_fr/slide_11.mp3","zeropay_3d_audio_fr/slide_12.mp3"];
+  const audioEl = document.getElementById('narration');
+  let isPlaying = false;
+  let autoAdvance = false;
+  const playLabel = "&#9658; Lancer la Narration";
+  const pauseLabel = "&#10074;&#10074; Pause";
+
+  function showSlide(n) {
+    document.querySelectorAll('.slide').forEach(s => s.classList.remove('active'));
+    document.querySelector(`.slide[data-n="${n}"]`).classList.add('active');
+    document.getElementById('counter').textContent = `${n} / ${total}`;
+    current = n;
+    if (isPlaying) playCurrentAudio();
+  }
+  function nextSlide() { if (current < total) showSlide(current + 1); }
+  function prevSlide() { if (current > 1) showSlide(current - 1); }
+
+  function playCurrentAudio() {
+    audioEl.src = audioFiles[current - 1];
+    audioEl.play().catch(()=>{});
+  }
+  function togglePlay() {
+    isPlaying = !isPlaying;
+    document.getElementById('playBtn').innerHTML = isPlaying ? pauseLabel : playLabel;
+    if (isPlaying) { autoAdvance = true; playCurrentAudio(); } else { audioEl.pause(); autoAdvance = false; }
+  }
+  function stopNarration() {
+    audioEl.pause();
+    audioEl.currentTime = 0;
+    isPlaying = false;
+    autoAdvance = false;
+    document.getElementById('playBtn').innerHTML = playLabel;
+  }
+  audioEl.addEventListener('ended', () => {
+    if (autoAdvance && current < total) { nextSlide(); }
+    else if (autoAdvance && current === total) { isPlaying = false; autoAdvance = false;
+      document.getElementById('playBtn').innerHTML = playLabel; }
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight') nextSlide();
+    if (e.key === 'ArrowLeft') prevSlide();
+  });
+</script>
+</body>
+</html>

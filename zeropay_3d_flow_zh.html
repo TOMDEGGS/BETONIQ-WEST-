@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ZerôPâŷ Money — 3D Flow Deck (ZH · CGCOC VERSION)</title>
+<style>
+  * { box-sizing: border-box; }
+  body { margin:0; font-family: 'Segoe UI', Arial, sans-serif; background:#0B1B3A; color:#1A1A1A; overflow:hidden; }
+  .stage { position:relative; width:100vw; height:100vh;height:100svh; }
+  .slide { position:absolute; inset:0; display:none; background:#fff; }
+  .slide.active { display:block; }
+  .slide.cover { background:#0B1B3A; }
+  .cover-img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:0.9; }
+  .cover-overlay { position:absolute; left:6%; top:36%; width:60%; background:rgba(11,27,58,0.72); padding:28px 34px; border-radius:6px; }
+  .kicker { color:#C9A227; font-weight:700; font-size:15px; letter-spacing:1px; margin-bottom:8px; }
+  .cover-title { color:#fff; font-size:34px; font-weight:800; margin-bottom:14px; }
+  .cover-sub { color:#fff; font-size:16px; opacity:0.9; }
+  .band { background:#0B1B3A; padding:22px 40px 16px; }
+  .band .kicker { margin-bottom:6px; }
+  .band .title { color:#fff; font-size:26px; font-weight:800; }
+  .body { display:flex; height:calc(100vh - 96px); padding:30px 40px; gap:30px; align-items:center; }
+  .left { flex:1.3; }
+  .right { flex:1; display:flex; justify-content:center; }
+  .right img { max-width:100%; max-height:70vh; border-radius:10px; }
+  .dtable { width:100%; border-collapse:collapse; font-size:15px; }
+  .dtable th { background:#0B1B3A; color:#fff; text-align:left; padding:10px 12px; }
+  .dtable td { padding:9px 12px; border-bottom:1px solid #eee; }
+  .dtable tr:nth-child(even) td { background:#F4F5F7; }
+  .blist { font-size:19px; line-height:1.8; padding-left:22px; }
+  .blist li { margin-bottom:10px; }
+  .controls { position:fixed; bottom:18px; left:0; right:0; display:flex; justify-content:center; gap:14px; z-index:10; }
+  .controls button { background:#C9A227; color:#0B1B3A; border:none; padding:10px 20px; border-radius:24px;
+    font-weight:700; font-size:14px; cursor:pointer; box-shadow:0 2px 8px rgba(0,0,0,0.3); }
+  .controls button:hover { background:#e0b52f; }
+  .counter { position:fixed; top:16px; right:22px; color:#fff; background:rgba(0,0,0,0.4); padding:6px 14px;
+    border-radius:16px; font-size:13px; z-index:10; }
+  .badge { position:fixed; top:16px; left:22px; color:#0B1B3A; background:#C9A227; padding:6px 14px;
+    border-radius:16px; font-size:13px; z-index:10; font-weight:700; }
+</style>
+</head>
+<body>
+<div class="badge">ZH · CGCOC VERSION</div>
+<div class="counter" id="counter">1 / 12</div>
+<div class="stage" id="stage">
+
+  <div class="slide cover active" data-n="1">
+    <img class="cover-img" src="zeropay_3d_img/zp_cover.png" />
+    <div class="cover-overlay">
+      <div class="kicker">BETONIQ WEST LTD · 注册号 RC 1496603</div>
+      <div class="cover-title">ZerôPâŷ Money：无需互联网即可完成支付</div>
+      <div class="cover-sub">面向全球14亿无银行账户人群的离线优先支付基础设施——从尼日利亚农村到各大洲的偏远地区——由PUF/ECC安全技术与太阳能网状中继枢纽驱动</div>
+    </div>
+  </div>
+
+  <div class="slide" data-n="2">
+    <div class="band"><div class="kicker">市场机遇</div><div class="title">全球支付连接缺口</div></div>
+    <div class="body">
+      <div class="left"><table class="dtable"><thead><tr><th>指标</th><th>数据</th></tr></thead><tbody><tr><td>全球无银行账户人口</td><td>14亿</td></tr><tr><td>尼日利亚无银行账户人口</td><td>3800万</td></tr><tr><td>尼日利亚网络连接不稳定地区</td><td>约占国土面积40%</td></tr><tr><td>农村移动网络平均中断时长</td><td>每日15-30%的时间</td></tr><tr><td>尼日利亚依赖现金的非正式经济</td><td>约占GDP的50%</td></tr></tbody></table></div>
+      <div class="right"><img src="zeropay_3d_img/zp_send.png" /></div>
+    </div>
+  </div>
+
+  <div class="slide" data-n="3">
+    <div class="band"><div class="kicker">部署走廊</div><div class="title">波蒂斯库姆至乔斯：一条零网络连接的贸易通道</div></div>
+    <div class="body">
+      <div class="left"><ul class="blist"><li>尼日利亚东北部波蒂斯库姆至乔斯，全长超过300公里的贸易通道</li><li>该路线大部分区域几乎没有移动网络信号覆盖</li><li>这是CGCOC在尼日利亚现有项目布局区域之一，也是众多类似案例中的一个——连接缺口存在于每个大陆，而不仅仅是非洲</li></ul></div>
+      <div class="right"><img src="zeropay_3d_img/zp_map.png" /></div>
+    </div>
+  </div>
+
+  <div class="slide" data-n="4">
+    <div class="band"><div class="kicker">步骤 1 / 6</div><div class="title">客户发起付款（外汇）</div></div>
+    <div class="body">
+      <div class="left"><ul class="blist"><li>付款人打开ZerôPâŷ Money应用程序，或在商户终端上刷NFC卡/穿戴设备</li><li>以当地货币输入金额；汇率在发起时锁定</li><li>全程无需互联网连接或蜂窝网络信号</li></ul></div>
+      <div class="right"><img src="zeropay_3d_img/zp_send.png" /></div>
+    </div>
+  </div>
+
+  <div class="slide" data-n="5">
+    <div class="band"><div class="kicker">步骤 2 / 6</div><div class="title">PUF/ECC终端签署离线令牌</div></div>
+    <div class="body">
+      <div class="left"><ul class="blist"><li>物理不可克隆函数（PUF）生成硬件级唯一加密指纹</li><li>ECC P-256椭圆曲线签名生成防篡改的离线交易令牌</li><li>动态挑战生成机制防止令牌被克隆或重放</li></ul></div>
+      <div class="right"><img src="zeropay_3d_img/zp_terminal.png" /></div>
+    </div>
+  </div>
+
+  <div class="slide" data-n="6">
+    <div class="band"><div class="kicker">步骤 3 / 6</div><div class="title">离线令牌通过NFC传输</div></div>
+    <div class="body">
+      <div class="left"><ul class="blist"><li>已签名的令牌通过近场通信（NFC）传输——不使用蜂窝数据</li><li>兼容功能手机、老年机及低成本穿戴设备</li><li>距离限定协议可阻止中继/中间人攻击</li></ul></div>
+      <div class="right"><img src="zeropay_3d_img/zp_nfc.png" /></div>
+    </div>
+  </div>
+
+  <div class="slide" data-n="7">
+    <div class="band"><div class="kicker">步骤 4 / 6</div><div class="title">太阳能网状中继枢纽转发令牌</div></div>
+    <div class="body">
+      <div class="left"><ul class="blist"><li>配备超级电容与锂电池备用电源的太阳能枢纽可实现24/7离网运行</li><li>网状网络将令牌逐节点传递至最近的联网点</li><li>72小时的离线令牌有效期与枢纽的备用电源窗口相匹配</li></ul></div>
+      <div class="right"><img src="zeropay_3d_img/zp_hub.png" /></div>
+    </div>
+  </div>
+
+  <div class="slide" data-n="8">
+    <div class="band"><div class="kicker">步骤 5 / 6</div><div class="title">收款人通过功能手机或穿戴设备接收款项</div></div>
+    <div class="body">
+      <div class="left"><ul class="blist"><li>收款人将设备靠近本地终端或枢纽</li><li>资金立即以经过加密验证的待处理余额形式显示</li><li>接收款项无需智能手机或数据套餐</li></ul></div>
+      <div class="right"><img src="zeropay_3d_img/zp_nfc.png" /></div>
+    </div>
+  </div>
+
+  <div class="slide" data-n="9">
+    <div class="band"><div class="kicker">步骤 6 / 6</div><div class="title">重新连接后触发结算</div></div>
+    <div class="body">
+      <div class="left"><ul class="blist"><li>链条中任意设备重新联网后，令牌自动同步至云端</li><li>结算通过Paystack API路由至持牌小额金融银行</li><li>跨境转账通过IMTO合作伙伴集成完成</li></ul></div>
+      <div class="right"><img src="zeropay_3d_img/zp_sync.png" /></div>
+    </div>
+  </div>
+
+  <div class="slide" data-n="10">
+    <div class="band"><div class="kicker">完整流程</div><div class="title">端到端流程：从发送到接收</div></div>
+    <div class="body">
+      <div class="left"><ul class="blist"><li>1. 发送（外汇） → 2. PUF/ECC签名 → 3. NFC传输</li><li>4. 太阳能网状枢纽 → 5. NFC接收 → 6. 同步与结算</li><li>全程离线，总耗时通常低于5秒。重新联网后自动完成结算。</li></ul></div>
+      <div class="right"><img src="zeropay_3d_img/zp_flow.png" /></div>
+    </div>
+  </div>
+
+  <div class="slide" data-n="11">
+    <div class="band"><div class="kicker">技术规格</div><div class="title">安全与性能架构</div></div>
+    <div class="body">
+      <div class="left"><table class="dtable"><thead><tr><th>层级</th><th>规格</th></tr></thead><tbody><tr><td>硬件信任根</td><td>物理不可克隆函数（PUF），芯片级</td></tr><tr><td>加密签名</td><td>ECC P-256椭圆曲线数字签名</td></tr><tr><td>防中继保护</td><td>距离限定协议</td></tr><tr><td>离线令牌有效期</td><td>72小时生命周期</td></tr><tr><td>枢纽备用电源</td><td>超级电容+锂电池，太阳能充电</td></tr><tr><td>传输协议</td><td>NFC（ISO/IEC 14443），节点间网状中继</td></tr><tr><td>结算通道</td><td>Paystack API至持牌小额金融银行至IMTO（跨境）</td></tr><tr><td>专利状态</td><td>专利申请中，2026年4月提交</td></tr></tbody></table></div>
+      <div class="right"><img src="zeropay_3d_img/zp_terminal.png" /></div>
+    </div>
+  </div>
+
+  <div class="slide cover" data-n="12">
+    <img class="cover-img" src="zeropay_3d_img/zp_cover.png" />
+    <div class="cover-overlay">
+      <div class="kicker">BETONIQ WEST LTD · 注册号 RC 1496603</div>
+      <div class="cover-title">支付无需互联网。</div>
+      <div class="cover-sub">Tom Ugbodaga（汤姆·乌格博达加） — 股东兼首席执行官（CEO） | zeropointfeild_nonwnt@zeropay.site</div>
+    </div>
+  </div>
+
+</div>
+<div class="controls">
+  <button onclick="prevSlide()">&#8592; 上一页</button>
+  <button id="playBtn" onclick="togglePlay()">&#9658; 播放讲解</button>
+  <button id="stopBtn" onclick="stopNarration()">&#9632; 停止</button>
+  <button onclick="nextSlide()">下一页 &#8594;</button>
+</div>
+<audio id="narration"></audio>
+<script>
+  const total = 12;
+  let current = 1;
+  const audioFiles = ["zeropay_3d_audio_zh/slide_01.mp3","zeropay_3d_audio_zh/slide_02.mp3","zeropay_3d_audio_zh/slide_03.mp3","zeropay_3d_audio_zh/slide_04.mp3","zeropay_3d_audio_zh/slide_05.mp3","zeropay_3d_audio_zh/slide_06.mp3","zeropay_3d_audio_zh/slide_07.mp3","zeropay_3d_audio_zh/slide_08.mp3","zeropay_3d_audio_zh/slide_09.mp3","zeropay_3d_audio_zh/slide_10.mp3","zeropay_3d_audio_zh/slide_11.mp3","zeropay_3d_audio_zh/slide_12.mp3"];
+  const audioEl = document.getElementById('narration');
+  let isPlaying = false;
+  let autoAdvance = false;
+  const playLabel = "&#9658; 播放讲解";
+  const pauseLabel = "&#10074;&#10074; 暂停";
+
+  function showSlide(n) {
+    document.querySelectorAll('.slide').forEach(s => s.classList.remove('active'));
+    document.querySelector(`.slide[data-n="${n}"]`).classList.add('active');
+    document.getElementById('counter').textContent = `${n} / ${total}`;
+    current = n;
+    if (isPlaying) playCurrentAudio();
+  }
+  function nextSlide() { if (current < total) showSlide(current + 1); }
+  function prevSlide() { if (current > 1) showSlide(current - 1); }
+
+  function playCurrentAudio() {
+    audioEl.src = audioFiles[current - 1];
+    audioEl.play().catch(()=>{});
+  }
+  function togglePlay() {
+    isPlaying = !isPlaying;
+    document.getElementById('playBtn').innerHTML = isPlaying ? pauseLabel : playLabel;
+    if (isPlaying) { autoAdvance = true; playCurrentAudio(); } else { audioEl.pause(); autoAdvance = false; }
+  }
+  function stopNarration() {
+    audioEl.pause();
+    audioEl.currentTime = 0;
+    isPlaying = false;
+    autoAdvance = false;
+    document.getElementById('playBtn').innerHTML = playLabel;
+  }
+  audioEl.addEventListener('ended', () => {
+    if (autoAdvance && current < total) { nextSlide(); }
+    else if (autoAdvance && current === total) { isPlaying = false; autoAdvance = false;
+      document.getElementById('playBtn').innerHTML = playLabel; }
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight') nextSlide();
+    if (e.key === 'ArrowLeft') prevSlide();
+  });
+</script>
+</body>
+</html>
