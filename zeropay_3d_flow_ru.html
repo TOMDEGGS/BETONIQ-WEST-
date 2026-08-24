@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ZerôPâŷ Money — Озвученная 3D-презентация (RU)</title>
+<style>
+  * { box-sizing: border-box; }
+  body { margin:0; font-family: 'Segoe UI', Arial, sans-serif; background:#0B1B3A; color:#1A1A1A; overflow:hidden; }
+  .stage { position:relative; width:100vw; height:100vh;height:100svh; }
+  .slide { position:absolute; inset:0; display:none; background:#fff; }
+  .slide.active { display:block; }
+  .slide.cover { background:#0B1B3A; }
+  .cover-img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:0.9; }
+  .cover-overlay { position:absolute; left:6%; top:36%; width:60%; background:rgba(11,27,58,0.72); padding:28px 34px; border-radius:6px; }
+  .kicker { color:#C9A227; font-weight:700; font-size:15px; letter-spacing:1px; margin-bottom:8px; }
+  .cover-title { color:#fff; font-size:36px; font-weight:800; margin-bottom:14px; }
+  .cover-sub { color:#fff; font-size:17px; opacity:0.9; }
+  .band { background:#0B1B3A; padding:22px 40px 16px; }
+  .band .kicker { margin-bottom:6px; }
+  .band .title { color:#fff; font-size:26px; font-weight:800; }
+  .body { display:flex; height:calc(100vh - 96px); padding:30px 40px; gap:30px; align-items:center; }
+  .left { flex:1.3; }
+  .right { flex:1; display:flex; justify-content:center; }
+  .right img { max-width:100%; max-height:70vh; border-radius:10px; }
+  .dtable { width:100%; border-collapse:collapse; font-size:15px; }
+  .dtable th { background:#0B1B3A; color:#fff; text-align:left; padding:10px 12px; }
+  .dtable td { padding:9px 12px; border-bottom:1px solid #eee; }
+  .dtable tr:nth-child(even) td { background:#F4F5F7; }
+  .blist { font-size:19px; line-height:1.8; padding-left:22px; }
+  .blist li { margin-bottom:10px; }
+  .controls { position:fixed; bottom:18px; left:0; right:0; display:flex; justify-content:center; gap:14px; z-index:10; }
+  .controls button { background:#C9A227; color:#0B1B3A; border:none; padding:10px 20px; border-radius:24px;
+    font-weight:700; font-size:14px; cursor:pointer; box-shadow:0 2px 8px rgba(0,0,0,0.3); }
+  .controls button:hover { background:#e0b52f; }
+  .counter { position:fixed; top:16px; right:22px; color:#fff; background:rgba(0,0,0,0.4); padding:6px 14px;
+    border-radius:16px; font-size:13px; z-index:10; }
+  .badge { position:fixed; top:16px; left:22px; color:#0B1B3A; background:#C9A227; padding:6px 14px;
+    border-radius:16px; font-size:13px; z-index:10; font-weight:700; }
+</style>
+</head>
+<body>
+<div class="badge">RU · UNIVERSAL VERSION</div>
+<div class="counter" id="counter">1 / 12</div>
+<div class="stage" id="stage">
+
+  <div class="slide cover active" data-n="1">
+    <img class="cover-img" src="zeropay_3d_img/zp_cover.png" />
+    <div class="cover-overlay">
+      <div class="kicker">BETONIQ WEST LTD · RC 1496603</div>
+      <div class="cover-title">ZerôPâŷ Money: Платежи работают без интернета</div>
+      <div class="cover-sub">Автономная платёжная инфраструктура для 1,4 миллиарда людей без доступа к банковским услугам по всему миру — с защитой на базе PUF/ECC и солнечными mesh-хабами.</div>
+    </div>
+  </div>
+
+  <div class="slide" data-n="2">
+    <div class="band"><div class="kicker">Возможность</div><div class="title">Глобальный разрыв в доступности платежей</div></div>
+    <div class="body">
+      <div class="left"><table class="dtable"><thead><tr><th>Показатель</th><th>Значение</th></tr></thead><tbody>
+        <tr><td>Не имеющие доступа к банкам (в мире)</td><td>1,4 миллиарда</td></tr>
+        <tr><td>Не имеющие доступа к банкам (Нигерия)</td><td>38 миллионов</td></tr>
+        <tr><td>Территории с ненадёжной связью (Нигерия)</td><td>~40% территории</td></tr>
+        <tr><td>Среднее время простоя мобильной сети в сельской местности</td><td>15–30% времени в сутки</td></tr>
+        <tr><td>Доля наличной, неформальной экономики (Нигерия)</td><td>~50% ВВП</td></tr>
+      </tbody></table></div>
+      <div class="right"><img src="zeropay_3d_img/zp_send.png" /></div>
+    </div>
+  </div>
+
+  <div class="slide" data-n="3">
+    <div class="band"><div class="kicker">Маршрут внедрения</div><div class="title">Якутск — Оймякон: маршрут без связи</div></div>
+    <div class="body">
+      <div class="left"><ul class="blist">
+        <li>Более 650 км Республики Саха (Якутия) — знаменитая "Дорога костей"</li>
+        <li>Сотовая связь практически отсутствует на большей части маршрута</li>
+        <li>Один из множества примеров: разрыв связи существует на каждом континенте, не только в Африке</li>
+      </ul></div>
+      <div class="right"><img src="zeropay_3d_img/zp_map.png" /></div>
+    </div>
+  </div>
+
+  <div class="slide" data-n="4">
+    <div class="band"><div class="kicker">Шаг 1 из 6</div><div class="title">Клиент инициирует платёж (обмен валют)</div></div>
+    <div class="body">
+      <div class="left"><ul class="blist">
+        <li>Отправитель открывает приложение ZerôPâŷ Money или прикладывает NFC-карту/носимое устройство к терминалу продавца</li>
+        <li>Сумма вводится в местной валюте; курс обмена фиксируется в момент инициации</li>
+        <li>Интернет или сотовый сигнал не требуются на любом этапе</li>
+      </ul></div>
+      <div class="right"><img src="zeropay_3d_img/zp_send.png" /></div>
+    </div>
+  </div>
+
+  <div class="slide" data-n="5">
+    <div class="band"><div class="kicker">Шаг 2 из 6</div><div class="title">PUF/ECC-терминал подписывает офлайн-токен</div></div>
+    <div class="body">
+      <div class="left"><ul class="blist">
+        <li>Физически неклонируемая функция (PUF) генерирует уникальный аппаратный криптографический отпечаток</li>
+        <li>Подпись по эллиптической кривой ECC P-256 создаёт защищённый от подделки офлайн-токен транзакции</li>
+        <li>Динамическая генерация запросов предотвращает клонирование или повтор токена</li>
+      </ul></div>
+      <div class="right"><img src="zeropay_3d_img/zp_terminal.png" /></div>
+    </div>
+  </div>
+
+  <div class="slide" data-n="6">
+    <div class="band"><div class="kicker">Шаг 3 из 6</div><div class="title">Офлайн-токен передаётся по NFC</div></div>
+    <div class="body">
+      <div class="left"><ul class="blist">
+        <li>Подписанный токен передаётся через ближнюю бесконтактную связь (NFC) — без использования сотовых данных</li>
+        <li>Совместим с кнопочными телефонами, простыми мобильными и недорогими носимыми устройствами</li>
+        <li>Протокол ограничения дальности блокирует релейные атаки и атаки "человек посередине"</li>
+      </ul></div>
+      <div class="right"><img src="zeropay_3d_img/zp_nfc.png" /></div>
+    </div>
+  </div>
+
+  <div class="slide" data-n="7">
+    <div class="band"><div class="kicker">Шаг 4 из 6</div><div class="title">Солнечный mesh-хаб передаёт токен дальше</div></div>
+    <div class="body">
+      <div class="left"><ul class="blist">
+        <li>Солнечный хаб с суперконденсатором и литиевой батареей работает автономно 24/7</li>
+        <li>Mesh-сеть передаёт токен от хаба к хабу до ближайшей точки с подключением</li>
+        <li>Срок действия офлайн-токена — 72 часа, соответствует запасу энергии хаба</li>
+      </ul></div>
+      <div class="right"><img src="zeropay_3d_img/zp_hub.png" /></div>
+    </div>
+  </div>
+
+  <div class="slide" data-n="8">
+    <div class="band"><div class="kicker">Шаг 5 из 6</div><div class="title">Получатель получает средства через кнопочный телефон или носимое устройство</div></div>
+    <div class="body">
+      <div class="left"><ul class="blist">
+        <li>Получатель прикладывает устройство к местному терминалу или хабу</li>
+        <li>Средства появляются как криптографически подтверждённый баланс мгновенно</li>
+        <li>Смартфон или тарифный план не требуются для получения денег</li>
+      </ul></div>
+      <div class="right"><img src="zeropay_3d_img/zp_nfc.png" /></div>
+    </div>
+  </div>
+
+  <div class="slide" data-n="9">
+    <div class="band"><div class="kicker">Шаг 6 из 6</div><div class="title">Подключение к сети запускает расчёт</div></div>
+    <div class="body">
+      <div class="left"><ul class="blist">
+        <li>Как только любое устройство в цепочке подключается к сети, токены автоматически синхронизируются с облаком</li>
+        <li>Расчёт проходит через API Paystack в лицензированный микрофинансовый банк</li>
+        <li>Международные переводы завершаются через партнёра IMTO</li>
+      </ul></div>
+      <div class="right"><img src="zeropay_3d_img/zp_sync.png" /></div>
+    </div>
+  </div>
+
+  <div class="slide" data-n="10">
+    <div class="band"><div class="kicker">Полный путь</div><div class="title">Сквозной поток: от отправки до получения</div></div>
+    <div class="body">
+      <div class="left"><ul class="blist">
+        <li>1. Отправка (обмен валют) → 2. Подпись PUF/ECC → 3. Передача по NFC</li>
+        <li>4. Солнечный mesh-хаб → 5. Получение по NFC → 6. Синхронизация и расчёт</li>
+        <li>Общее время в полностью офлайн-режиме: обычно менее 5 секунд. Расчёт завершается автоматически при подключении.</li>
+      </ul></div>
+      <div class="right"><img src="zeropay_3d_img/zp_flow.png" /></div>
+    </div>
+  </div>
+
+  <div class="slide" data-n="11">
+    <div class="band"><div class="kicker">Технические характеристики</div><div class="title">Архитектура безопасности и производительности</div></div>
+    <div class="body">
+      <div class="left"><table class="dtable"><thead><tr><th>Уровень</th><th>Спецификация</th></tr></thead><tbody>
+        <tr><td>Аппаратный корень доверия</td><td>Физически неклонируемая функция (PUF), на уровне кремния</td></tr>
+        <tr><td>Криптографическая подпись</td><td>Цифровая подпись по эллиптической кривой ECC P-256</td></tr>
+        <tr><td>Защита от релейных атак</td><td>Протокол ограничения дальности</td></tr>
+        <tr><td>Срок действия офлайн-токена</td><td>72 часа</td></tr>
+        <tr><td>Резервное питание хаба</td><td>Суперконденсатор + литиевая батарея, солнечная зарядка</td></tr>
+        <tr><td>Протокол передачи</td><td>NFC (ISO/IEC 14443), mesh-релей от хаба к хабу</td></tr>
+        <tr><td>Расчётный канал</td><td>API Paystack → лицензированный МФО → IMTO (международные переводы)</td></tr>
+        <tr><td>Статус патента</td><td>Заявка подана, апрель 2026</td></tr>
+      </tbody></table></div>
+      <div class="right"><img src="zeropay_3d_img/zp_terminal.png" /></div>
+    </div>
+  </div>
+
+  <div class="slide cover" data-n="12">
+    <img class="cover-img" src="zeropay_3d_img/zp_cover.png" />
+    <div class="cover-overlay">
+      <div class="kicker">BETONIQ WEST LTD · RC 1496603</div>
+      <div class="cover-title">Платежи работают без интернета.</div>
+      <div class="cover-sub">Tom Ugbodaga — Акционер и генеральный директор (Shareholder &amp; CEO) | zeropointfeild_nonwnt@zeropay.site</div>
+    </div>
+  </div>
+
+</div>
+<div class="controls">
+  <button onclick="prevSlide()">&#8592; Назад</button>
+  <button id="playBtn" onclick="togglePlay()">&#9658; Озвучка</button>
+  <button onclick="nextSlide()">Далее &#8594;</button>
+</div>
+<audio id="narration"></audio>
+<script>
+  const total = 12;
+  let current = 1;
+  const audioFiles = ["zeropay_3d_audio_ru/slide_01.mp3","zeropay_3d_audio_ru/slide_02.mp3","zeropay_3d_audio_ru/slide_03.mp3","zeropay_3d_audio_ru/slide_04.mp3","zeropay_3d_audio_ru/slide_05.mp3","zeropay_3d_audio_ru/slide_06.mp3","zeropay_3d_audio_ru/slide_07.mp3","zeropay_3d_audio_ru/slide_08.mp3","zeropay_3d_audio_ru/slide_09.mp3","zeropay_3d_audio_ru/slide_10.mp3","zeropay_3d_audio_ru/slide_11.mp3","zeropay_3d_audio_ru/slide_12.mp3"];
+  const audioEl = document.getElementById('narration');
+  let isPlaying = false;
+  let autoAdvance = false;
+
+  function showSlide(n) {
+    document.querySelectorAll('.slide').forEach(s => s.classList.remove('active'));
+    document.querySelector(`.slide[data-n="${n}"]`).classList.add('active');
+    document.getElementById('counter').textContent = `${n} / ${total}`;
+    current = n;
+    if (isPlaying) playCurrentAudio();
+  }
+  function nextSlide() { if (current < total) showSlide(current + 1); }
+  function prevSlide() { if (current > 1) showSlide(current - 1); }
+
+  function playCurrentAudio() {
+    audioEl.src = audioFiles[current - 1];
+    audioEl.play().catch(()=>{});
+  }
+  function togglePlay() {
+    isPlaying = !isPlaying;
+    document.getElementById('playBtn').innerHTML = isPlaying ? '&#10074;&#10074; Пауза' : '&#9658; Озвучка';
+    if (isPlaying) { autoAdvance = true; playCurrentAudio(); } else { audioEl.pause(); autoAdvance = false; }
+  }
+  audioEl.addEventListener('ended', () => {
+    if (autoAdvance && current < total) { nextSlide(); }
+    else if (autoAdvance && current === total) { isPlaying = false; autoAdvance = false;
+      document.getElementById('playBtn').innerHTML = '&#9658; Озвучка'; }
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight') nextSlide();
+    if (e.key === 'ArrowLeft') prevSlide();
+  });
+</script>
+</body>
+</html>

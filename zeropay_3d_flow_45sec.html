@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ZerôPâŷ Money — 45-Second Deep-Tech Teaser</title>
+<style>
+  * { box-sizing: border-box; }
+  body { margin:0; font-family: 'Segoe UI', Arial, sans-serif; background:#0B1B3A; color:#1A1A1A; overflow:hidden; }
+  .stage { position:relative; width:100vw; height:100vh;height:100svh; }
+  .slide { position:absolute; inset:0; display:none; background:#fff; }
+  .slide.active { display:block; }
+  .slide.cover { background:#0B1B3A; }
+  .cover-img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:0.9; }
+  .cover-overlay { position:absolute; left:6%; top:36%; width:60%; background:rgba(11,27,58,0.72); padding:28px 34px; border-radius:6px; }
+  .kicker { color:#C9A227; font-weight:700; font-size:15px; letter-spacing:1px; margin-bottom:8px; }
+  .cover-title { color:#fff; font-size:38px; font-weight:800; margin-bottom:14px; }
+  .cover-sub { color:#fff; font-size:17px; opacity:0.9; }
+  .band { background:#0B1B3A; padding:22px 40px 16px; }
+  .band .kicker { margin-bottom:6px; }
+  .band .title { color:#fff; font-size:27px; font-weight:800; }
+  .body { display:flex; height:calc(100vh - 96px); padding:30px 40px; gap:30px; align-items:center; }
+  .left { flex:1.3; }
+  .right { flex:1; display:flex; justify-content:center; }
+  .right img { max-width:100%; max-height:70vh; border-radius:10px; }
+  .blist { font-size:20px; line-height:1.9; padding-left:22px; }
+  .blist li { margin-bottom:10px; }
+  .controls { position:fixed; bottom:18px; left:0; right:0; display:flex; justify-content:center; gap:14px; z-index:10; }
+  .controls button { background:#C9A227; color:#0B1B3A; border:none; padding:10px 20px; border-radius:24px;
+    font-weight:700; font-size:14px; cursor:pointer; box-shadow:0 2px 8px rgba(0,0,0,0.3); }
+  .controls button:hover { background:#e0b52f; }
+  .counter { position:fixed; top:16px; right:22px; color:#fff; background:rgba(0,0,0,0.4); padding:6px 14px;
+    border-radius:16px; font-size:13px; z-index:10; }
+  .badge { position:fixed; top:16px; left:22px; color:#0B1B3A; background:#C9A227; padding:6px 14px;
+    border-radius:16px; font-size:13px; z-index:10; font-weight:700; }
+</style>
+</head>
+<body>
+<div class="badge">45-SEC TEASER</div>
+<div class="counter" id="counter">1 / 4</div>
+<div class="stage" id="stage">
+
+  <div class="slide cover active" data-n="1">
+    <img class="cover-img" src="zeropay_3d_img/zp_cover.png" />
+    <div class="cover-overlay">
+      <div class="kicker">BETONIQ WEST LTD · RC 1496603</div>
+      <div class="cover-title">ZerôPâŷ Money: Payments Work Without the Internet</div>
+      <div class="cover-sub">Universal offline-first payment infrastructure — anywhere in the world the internet doesn't reach.</div>
+    </div>
+  </div>
+
+  <div class="slide" data-n="2">
+    <div class="band"><div class="kicker">The Opportunity</div><div class="title">A Global Connectivity Gap</div></div>
+    <div class="body">
+      <div class="left"><ul class="blist">
+        <li>1.4 billion people are unbanked globally</li>
+        <li>Mobile networks fail up to 30% of the day in the regions that need banking most</li>
+        <li>Not one country's problem — a universal infrastructure gap</li>
+      </ul></div>
+      <div class="right"><img src="zeropay_3d_img/zp_send.png" /></div>
+    </div>
+  </div>
+
+  <div class="slide" data-n="3">
+    <div class="band"><div class="kicker">How It Works</div><div class="title">Hardware-Secured, Fully Offline</div></div>
+    <div class="body">
+      <div class="left"><ul class="blist">
+        <li>PUF + ECC P-256 terminal signs a tamper-proof offline token</li>
+        <li>Token relays hub-to-hub across a solar-powered mesh network</li>
+        <li>Settles automatically on reconnection — under 5 seconds, end to end, fully offline</li>
+      </ul></div>
+      <div class="right"><img src="zeropay_3d_img/zp_flow.png" /></div>
+    </div>
+  </div>
+
+  <div class="slide cover" data-n="4">
+    <img class="cover-img" src="zeropay_3d_img/zp_cover.png" />
+    <div class="cover-overlay">
+      <div class="kicker">Formally Verified · Patent-Pending</div>
+      <div class="cover-title">Payments Work Without the Internet.</div>
+      <div class="cover-sub">Tom Ugbodaga — Shareholder &amp; CEO | zeropointfeild_nonwnt@zeropay.site</div>
+    </div>
+  </div>
+
+</div>
+<div class="controls">
+  <button onclick="prevSlide()">&#8592; Prev</button>
+  <button id="playBtn" onclick="togglePlay()">&#9658; Play Narration</button>
+  <button onclick="nextSlide()">Next &#8594;</button>
+</div>
+<audio id="narration"></audio>
+<script>
+  const total = 4;
+  let current = 1;
+  const audioFiles = ["zeropay_3d_audio_45sec/slide_01.mp3","zeropay_3d_audio_45sec/slide_02.mp3","zeropay_3d_audio_45sec/slide_03.mp3","zeropay_3d_audio_45sec/slide_04.mp3"];
+  const audioEl = document.getElementById('narration');
+  let isPlaying = false;
+  let autoAdvance = false;
+
+  function showSlide(n) {
+    document.querySelectorAll('.slide').forEach(s => s.classList.remove('active'));
+    document.querySelector(`.slide[data-n="${n}"]`).classList.add('active');
+    document.getElementById('counter').textContent = `${n} / ${total}`;
+    current = n;
+    if (isPlaying) playCurrentAudio();
+  }
+  function nextSlide() { if (current < total) showSlide(current + 1); }
+  function prevSlide() { if (current > 1) showSlide(current - 1); }
+
+  function playCurrentAudio() {
+    audioEl.src = audioFiles[current - 1];
+    audioEl.play().catch(()=>{});
+  }
+  function togglePlay() {
+    isPlaying = !isPlaying;
+    document.getElementById('playBtn').innerHTML = isPlaying ? '&#10074;&#10074; Pause' : '&#9658; Play Narration';
+    if (isPlaying) { autoAdvance = true; playCurrentAudio(); } else { audioEl.pause(); autoAdvance = false; }
+  }
+  audioEl.addEventListener('ended', () => {
+    if (autoAdvance && current < total) { nextSlide(); }
+    else if (autoAdvance && current === total) { isPlaying = false; autoAdvance = false;
+      document.getElementById('playBtn').innerHTML = '&#9658; Play Narration'; }
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight') nextSlide();
+    if (e.key === 'ArrowLeft') prevSlide();
+  });
+  // Autoplay attempt on load — closest achievable to "opens on receiving the mail".
+  // Browser autoplay policies may still require one click; a big "Play Narration" button is always visible as fallback.
+  window.addEventListener('load', () => { togglePlay(); });
+</script>
+</body>
+</html>
