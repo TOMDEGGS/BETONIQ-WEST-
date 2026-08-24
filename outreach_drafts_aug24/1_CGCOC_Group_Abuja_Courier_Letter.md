@@ -27,6 +27,9 @@ https://rawcdn.githack.com/TOMDEGGS/BETONIQ-WEST-/main/zeropay_3d_flow_45sec.htm
 Full technical walkthrough:
 https://rawcdn.githack.com/TOMDEGGS/BETONIQ-WEST-/main/zeropay_3d_flow.html
 
+Chinese-language version (for internal review):
+https://rawcdn.githack.com/TOMDEGGS/BETONIQ-WEST-/main/zeropay_3d_flow_zh.html
+
 Respectfully,
 Tom Ugbodaga
 Shareholder & CEO, BETONIQ WEST LTD

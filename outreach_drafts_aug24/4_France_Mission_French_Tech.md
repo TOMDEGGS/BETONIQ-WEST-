@@ -23,6 +23,8 @@ My credentials: MSc Computer Systems Security, University of Gloucestershire, En
 
 Technical demonstration (45 seconds): https://rawcdn.githack.com/TOMDEGGS/BETONIQ-WEST-/main/zeropay_3d_flow_45sec.html
 Full walkthrough: https://rawcdn.githack.com/TOMDEGGS/BETONIQ-WEST-/main/zeropay_3d_flow.html
+French-language version:
+https://rawcdn.githack.com/TOMDEGGS/BETONIQ-WEST-/main/zeropay_3d_flow_fr.html
 LinkedIn: linkedin.com/in/tom-deggs-ugbodaga-2306692bb
 
 I welcome the opportunity to provide any further technical evidence your reviewers require.
