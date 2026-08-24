@@ -17,7 +17,7 @@ Dear CGCOC Group,
 
 BETONIQ WEST LTD has built ZerôPâŷ Money — offline-first payment infrastructure that lets workers, contractors, and local merchants transact securely without an internet or cellular connection. A hardware-secured terminal signs a tamper-proof transaction token, a solar-powered mesh network relays it hub-to-hub, and settlement completes automatically the moment any device reconnects. End to end: under five seconds, fully offline. The system is formally verified (TLA+ model checking, 437 states, 0 violations) and patent-pending.
 
-This is not an African-only solution — it is universal infrastructure for anywhere connectivity is unreliable: construction sites, disaster response corridors, and rural or remote deployments worldwide. CGCOC's land access and project footprint across Nigeria make it a natural distribution partner for pilot deployment.
+This is not an Africa-only solution — it is universal infrastructure for anywhere connectivity is unreliable: from rural Africa to construction sites, disaster-response corridors, and remote deployments on every continent. CGCOC's land access and project footprint across Nigeria make it a natural distribution partner for pilot deployment.
 
 I would welcome a short introductory meeting to explore synergy between CGCOC's site infrastructure and ZerôPâŷ Money's payment layer. A mutual NDA would be signed before any technical architecture is disclosed.
 

@@ -13,7 +13,7 @@ Subject: French Tech Visa Application — ZerôPâŷ Money, Offline-First Global
 
 Dear Mission French Tech Evaluation Team,
 
-1.4 billion people worldwide are unbanked — 38 million in Nigeria alone. The connectivity gap behind that number is global, not regional: rural areas on every continent, disaster-response corridors, and even developed markets during network outages all face the same problem — no connection, no transaction.
+1.4 billion people worldwide are unbanked — 38 million in Nigeria alone. The connectivity gap behind that number is global, not regional: rural areas from Africa to Latin America and Southeast Asia, disaster-response corridors on every continent, and even developed markets during network outages all face the same problem — no connection, no transaction.
 
 I am Tom Ugbodaga, Shareholder & CEO of BETONIQ WEST LTD, creator of ZerôPâŷ Money — hardware-secured, fully offline payment infrastructure. A PUF + ECC P-256 terminal signs a tamper-proof offline token, a solar-powered mesh network relays it hub-to-hub, and settlement completes automatically upon reconnection — end to end, under five seconds, fully offline. The protocol is formally verified via TLA+ model checking (437 states, 0 violations) and patent-pending.
 

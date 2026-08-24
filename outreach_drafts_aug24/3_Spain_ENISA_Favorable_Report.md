@@ -13,7 +13,7 @@ Subject: Application for Favorable Report — ZerôPâŷ Money, Offline-First Gl
 
 Dear ENISA Evaluation Team,
 
-1.4 billion people worldwide are unbanked — 38 million in Nigeria alone. This reflects a universal infrastructure gap: mobile and internet connectivity fails unpredictably across rural regions, disaster corridors, and even developed economies during outages, cutting people off from the financial system at the exact moment they need it.
+1.4 billion people worldwide are unbanked — 38 million in Nigeria alone. This reflects a universal infrastructure gap: mobile and internet connectivity fails unpredictably across rural regions from Africa to Latin America and Southeast Asia, disaster corridors on every continent, and even developed economies during outages, cutting people off from the financial system at the exact moment they need it.
 
 I am Tom Ugbodaga, Shareholder & CEO of BETONIQ WEST LTD, creator of ZerôPâŷ Money — a hardware-secured, fully offline payment protocol. A PUF + ECC P-256 terminal signs a tamper-proof transaction token, a solar-powered mesh network relays it hub-to-hub, and settlement completes automatically once any device reconnects — end to end in under five seconds, fully offline. The protocol is formally verified via TLA+ model checking (437 states, 0 violations) and patent-pending.
 

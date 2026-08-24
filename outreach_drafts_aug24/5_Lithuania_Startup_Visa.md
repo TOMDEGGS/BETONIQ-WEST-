@@ -13,7 +13,7 @@ Subject: Startup Visa Application — ZerôPâŷ Money, Offline-First Global Pay
 
 Dear Startup Lithuania Evaluation Committee,
 
-1.4 billion people worldwide are unbanked — 38 million in Nigeria alone. The infrastructure gap behind this figure is universal, not regional: rural areas across every continent, disaster-response corridors, and even developed markets during outages face the same barrier — no connectivity, no transaction.
+1.4 billion people worldwide are unbanked — 38 million in Nigeria alone. The infrastructure gap behind this figure is universal, not regional: rural areas from Africa to Latin America and Southeast Asia, disaster-response corridors, and even developed markets during outages face the same barrier — no connectivity, no transaction.
 
 I am Tom Ugbodaga, Shareholder & CEO of BETONIQ WEST LTD, creator of ZerôPâŷ Money — hardware-secured, fully offline payment infrastructure. A PUF + ECC P-256 terminal signs a tamper-proof offline transaction token, a solar-powered mesh network relays it hub-to-hub, and settlement completes automatically once any device reconnects — end to end, under five seconds, fully offline. The protocol is formally verified via TLA+ model checking (437 states, 0 violations) and patent-pending.
 
