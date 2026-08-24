@@ -142,6 +142,7 @@
 <div class="controls">
   <button onclick="prevSlide()">&#8592; Prev</button>
   <button id="playBtn" onclick="togglePlay()">&#9658; Play Narration</button>
+  <button id="stopBtn" onclick="stopNarration()">&#9632; Stop</button>
   <button onclick="nextSlide()">Next &#8594;</button>
 </div>
 <audio id="narration"></audio>
@@ -171,6 +172,13 @@
     isPlaying = !isPlaying;
     document.getElementById('playBtn').innerHTML = isPlaying ? '&#10074;&#10074; Pause' : '&#9658; Play Narration';
     if (isPlaying) { autoAdvance = true; playCurrentAudio(); } else { audioEl.pause(); autoAdvance = false; }
+  }
+  function stopNarration() {
+    audioEl.pause();
+    audioEl.currentTime = 0;
+    isPlaying = false;
+    autoAdvance = false;
+    document.getElementById('playBtn').innerHTML = '&#9658; Play Narration';
   }
   audioEl.addEventListener('ended', () => {
     if (autoAdvance && current < total) { nextSlide(); }
