@@ -1,6 +1,6 @@
 {
   "export_name": "BETONIQ WEST / Backup 777 full data refresh",
-  "generated_at": "2026-08-24T07:03:51+01:00",
+  "generated_at": "2026-08-25T07:02:54+01:00",
   "source": "Base44 entity database (live refresh)",
   "destination": "TOMDEGGS/BETONIQ-WEST-",
   "privacy_note": "Record-level business data snapshot for Backup 777 continuity. Treat Base44 as the authoritative live source.",
@@ -52,7 +52,9 @@
         "id": "6a4f886d563f7962a266c0b6",
         "created_date": "2026-07-09T11:39:25.532000",
         "updated_date": "2026-07-09T11:47:16.883000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       },
       {
         "country": "Ghana",
@@ -79,7 +81,9 @@
         "id": "6a4f886d563f7962a266c0b7",
         "created_date": "2026-07-09T11:39:25.532000",
         "updated_date": "2026-07-09T11:47:25.704000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       },
       {
         "country": "South Africa",
@@ -106,7 +110,9 @@
         "id": "6a4f886d563f7962a266c0b8",
         "created_date": "2026-07-09T11:39:25.532000",
         "updated_date": "2026-07-09T11:47:54.014000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       },
       {
         "country": "Namibia",
@@ -133,7 +139,9 @@
         "id": "6a4f886d563f7962a266c0b9",
         "created_date": "2026-07-09T11:39:25.532000",
         "updated_date": "2026-07-09T11:47:28.247000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       },
       {
         "country": "Nigeria",
@@ -160,7 +168,9 @@
         "id": "6a4f87dc563f7962a266c042",
         "created_date": "2026-07-09T11:37:00.250000",
         "updated_date": "2026-07-09T11:49:46.102000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       },
       {
         "country": "Morocco",
@@ -187,7 +197,9 @@
         "id": "6a4f87dc563f7962a266c043",
         "created_date": "2026-07-09T11:37:00.250000",
         "updated_date": "2026-07-09T11:48:12.797000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       },
       {
         "country": "Morocco",
@@ -214,7 +226,9 @@
         "id": "6a4f87dc563f7962a266c044",
         "created_date": "2026-07-09T11:37:00.250000",
         "updated_date": "2026-07-09T11:48:33.608000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       },
       {
         "country": "United Kingdom",
@@ -241,7 +255,9 @@
         "id": "6a4f87dc563f7962a266c045",
         "created_date": "2026-07-09T11:37:00.250000",
         "updated_date": "2026-07-09T11:48:52.358000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       },
       {
         "country": "Kenya",
@@ -268,7 +284,9 @@
         "id": "6a4f87dc563f7962a266c046",
         "created_date": "2026-07-09T11:37:00.250000",
         "updated_date": "2026-07-09T11:49:17.247000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       },
       {
         "country": "Kenya",
@@ -295,7 +313,9 @@
         "id": "6a4e94a77ae9a27a320c89fb",
         "created_date": "2026-07-08T18:19:19.754000",
         "updated_date": "2026-07-08T18:19:19.754000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       },
       {
         "country": "Morocco",
@@ -322,7 +342,9 @@
         "id": "6a4e94a77ae9a27a320c89fc",
         "created_date": "2026-07-08T18:19:19.754000",
         "updated_date": "2026-07-08T18:19:19.754000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       },
       {
         "country": "Egypt",
@@ -349,7 +371,9 @@
         "id": "6a4e94a77ae9a27a320c89fd",
         "created_date": "2026-07-08T18:19:19.754000",
         "updated_date": "2026-07-08T18:19:19.754000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       },
       {
         "country": "Rwanda",
@@ -376,7 +400,9 @@
         "id": "6a4e94a77ae9a27a320c89fe",
         "created_date": "2026-07-08T18:19:19.754000",
         "updated_date": "2026-07-08T18:19:19.754000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       },
       {
         "country": "Cape Verde",
@@ -403,7 +429,9 @@
         "id": "6a4e94a77ae9a27a320c89ff",
         "created_date": "2026-07-08T18:19:19.754000",
         "updated_date": "2026-07-08T18:19:19.754000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       },
       {
         "country": "Nigeria",
@@ -430,7 +458,9 @@
         "id": "6a4e94a77ae9a27a320c8a00",
         "created_date": "2026-07-08T18:19:19.754000",
         "updated_date": "2026-07-08T18:19:19.754000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       },
       {
         "country": "Nigeria",
@@ -457,7 +487,9 @@
         "id": "6a4e94a77ae9a27a320c8a01",
         "created_date": "2026-07-08T18:19:19.754000",
         "updated_date": "2026-07-08T18:19:19.754000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       },
       {
         "country": "Tanzania",
@@ -484,7 +516,9 @@
         "id": "6a4e94a77ae9a27a320c89fa",
         "created_date": "2026-07-08T18:19:19.753000",
         "updated_date": "2026-07-08T18:19:19.753000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       },
       {
         "country": "Nigeria",
@@ -511,7 +545,9 @@
         "id": "6a07e4a1b5b162df518309db",
         "created_date": "2026-05-16T03:29:37.153000",
         "updated_date": "2026-07-09T10:51:59.173000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       },
       {
         "city": "London",
@@ -538,7 +574,9 @@
         "id": "69c11d4fc3c291ae051710d5",
         "created_date": "2026-03-23T11:00:31.939000",
         "updated_date": "2026-03-23T11:00:31.939000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       },
       {
         "city": "London",
@@ -565,7 +603,9 @@
         "id": "69c11d4fc3c291ae051710d2",
         "created_date": "2026-03-23T11:00:31.939000",
         "updated_date": "2026-03-23T11:00:31.939000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       },
       {
         "city": "Johannesburg",
@@ -592,7 +632,9 @@
         "id": "69c11d4fc3c291ae051710d4",
         "created_date": "2026-03-23T11:00:31.939000",
         "updated_date": "2026-03-23T11:00:31.939000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       },
       {
         "city": "Lagos",
@@ -619,7 +661,9 @@
         "id": "69c11d4fc3c291ae051710d3",
         "created_date": "2026-03-23T11:00:31.939000",
         "updated_date": "2026-03-23T11:00:31.939000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       },
       {
         "city": "Lagos",
@@ -646,7 +690,9 @@
         "id": "69c11d4fc3c291ae051710c9",
         "created_date": "2026-03-23T11:00:31.938000",
         "updated_date": "2026-03-23T11:00:31.938000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       },
       {
         "city": "Abuja",
@@ -673,7 +719,9 @@
         "id": "69c11d4fc3c291ae051710cb",
         "created_date": "2026-03-23T11:00:31.938000",
         "updated_date": "2026-03-23T11:00:31.938000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       },
       {
         "city": "Johannesburg",
@@ -700,7 +748,9 @@
         "id": "69c11d4fc3c291ae051710cd",
         "created_date": "2026-03-23T11:00:31.938000",
         "updated_date": "2026-03-23T11:00:31.938000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       },
       {
         "city": "Accra",
@@ -727,7 +777,9 @@
         "id": "69c11d4fc3c291ae051710cc",
         "created_date": "2026-03-23T11:00:31.938000",
         "updated_date": "2026-03-23T11:00:31.938000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       },
       {
         "city": "Lagos",
@@ -754,7 +806,9 @@
         "id": "69c11d4fc3c291ae051710cf",
         "created_date": "2026-03-23T11:00:31.938000",
         "updated_date": "2026-03-23T11:00:31.938000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       },
       {
         "city": "Accra",
@@ -781,7 +835,9 @@
         "id": "69c11d4fc3c291ae051710d0",
         "created_date": "2026-03-23T11:00:31.938000",
         "updated_date": "2026-03-23T11:00:31.938000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       },
       {
         "city": "Abuja",
@@ -808,7 +864,9 @@
         "id": "69c11d4fc3c291ae051710d1",
         "created_date": "2026-03-23T11:00:31.938000",
         "updated_date": "2026-03-23T11:00:31.938000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       },
       {
         "city": "Lagos",
@@ -835,7 +893,9 @@
         "id": "69c11d4fc3c291ae051710ca",
         "created_date": "2026-03-23T11:00:31.938000",
         "updated_date": "2026-03-23T11:00:31.938000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       },
       {
         "city": "London",
@@ -862,7 +922,9 @@
         "id": "69c11d4fc3c291ae051710ce",
         "created_date": "2026-03-23T11:00:31.938000",
         "updated_date": "2026-03-23T11:00:31.938000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       },
       {
         "city": "London",
@@ -889,7 +951,9 @@
         "id": "69c11d20c3c291ae051710be",
         "created_date": "2026-03-23T10:59:44.324000",
         "updated_date": "2026-03-23T10:59:44.324000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       },
       {
         "city": "Birmingham",
@@ -916,7 +980,9 @@
         "id": "69c11d20c3c291ae051710c0",
         "created_date": "2026-03-23T10:59:44.324000",
         "updated_date": "2026-03-23T10:59:44.324000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       },
       {
         "city": "Manchester",
@@ -943,7 +1009,9 @@
         "id": "69c11d20c3c291ae051710bf",
         "created_date": "2026-03-23T10:59:44.324000",
         "updated_date": "2026-03-23T10:59:44.324000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       },
       {
         "city": "London",
@@ -970,7 +1038,9 @@
         "id": "69c11d20c3c291ae051710b8",
         "created_date": "2026-03-23T10:59:44.324000",
         "updated_date": "2026-03-23T10:59:44.324000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       },
       {
         "city": "Abuja",
@@ -997,7 +1067,9 @@
         "id": "69c11d20c3c291ae051710c4",
         "created_date": "2026-03-23T10:59:44.324000",
         "updated_date": "2026-03-23T10:59:44.324000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       },
       {
         "city": "Accra",
@@ -1024,7 +1096,9 @@
         "id": "69c11d20c3c291ae051710c3",
         "created_date": "2026-03-23T10:59:44.324000",
         "updated_date": "2026-03-23T10:59:44.324000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       },
       {
         "city": "London",
@@ -1051,7 +1125,9 @@
         "id": "69c11d20c3c291ae051710bc",
         "created_date": "2026-03-23T10:59:44.324000",
         "updated_date": "2026-03-23T10:59:44.324000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       },
       {
         "city": "London",
@@ -1078,7 +1154,9 @@
         "id": "69c11d20c3c291ae051710ba",
         "created_date": "2026-03-23T10:59:44.324000",
         "updated_date": "2026-03-23T10:59:44.324000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       },
       {
         "city": "London",
@@ -1105,7 +1183,9 @@
         "id": "69c11d20c3c291ae051710b9",
         "created_date": "2026-03-23T10:59:44.324000",
         "updated_date": "2026-03-23T10:59:44.324000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       },
       {
         "city": "London",
@@ -1132,7 +1212,9 @@
         "id": "69c11d20c3c291ae051710bd",
         "created_date": "2026-03-23T10:59:44.324000",
         "updated_date": "2026-03-23T10:59:44.324000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       },
       {
         "city": "Lagos",
@@ -1159,7 +1241,9 @@
         "id": "69c11d20c3c291ae051710c2",
         "created_date": "2026-03-23T10:59:44.324000",
         "updated_date": "2026-03-23T10:59:44.324000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       },
       {
         "city": "Lagos",
@@ -1186,7 +1270,9 @@
         "id": "69c11d20c3c291ae051710c6",
         "created_date": "2026-03-23T10:59:44.324000",
         "updated_date": "2026-03-23T10:59:44.324000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       },
       {
         "city": "London",
@@ -1213,7 +1299,9 @@
         "id": "69c11d20c3c291ae051710bb",
         "created_date": "2026-03-23T10:59:44.324000",
         "updated_date": "2026-03-23T10:59:44.324000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       },
       {
         "city": "Lagos",
@@ -1240,7 +1328,9 @@
         "id": "69c11d20c3c291ae051710c1",
         "created_date": "2026-03-23T10:59:44.324000",
         "updated_date": "2026-03-23T10:59:44.324000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       },
       {
         "city": "Cape Town",
@@ -1267,7 +1357,9 @@
         "id": "69c11d20c3c291ae051710c5",
         "created_date": "2026-03-23T10:59:44.324000",
         "updated_date": "2026-03-23T10:59:44.324000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       },
       {
         "city": "Johannesburg",
@@ -1294,7 +1386,9 @@
         "id": "69c11ce9c3c291ae051710b2",
         "created_date": "2026-03-23T10:58:49.981000",
         "updated_date": "2026-03-23T10:58:49.981000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       },
       {
         "city": "Johannesburg",
@@ -1321,7 +1415,9 @@
         "id": "69c11ce9c3c291ae051710b6",
         "created_date": "2026-03-23T10:58:49.981000",
         "updated_date": "2026-03-23T10:58:49.981000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       },
       {
         "city": "Accra",
@@ -1348,7 +1444,9 @@
         "id": "69c11ce9c3c291ae051710ae",
         "created_date": "2026-03-23T10:58:49.981000",
         "updated_date": "2026-03-23T10:58:49.981000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       },
       {
         "city": "Cape Town",
@@ -1375,7 +1473,9 @@
         "id": "69c11ce9c3c291ae051710b7",
         "created_date": "2026-03-23T10:58:49.981000",
         "updated_date": "2026-03-23T10:58:49.981000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       },
       {
         "city": "Durban",
@@ -1402,7 +1502,9 @@
         "id": "69c11ce9c3c291ae051710b4",
         "created_date": "2026-03-23T10:58:49.981000",
         "updated_date": "2026-03-23T10:58:49.981000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       },
       {
         "city": "Accra",
@@ -1429,7 +1531,9 @@
         "id": "69c11ce9c3c291ae051710ad",
         "created_date": "2026-03-23T10:58:49.981000",
         "updated_date": "2026-03-23T10:58:49.981000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       },
       {
         "city": "Accra",
@@ -1456,7 +1560,9 @@
         "id": "69c11ce9c3c291ae051710b1",
         "created_date": "2026-03-23T10:58:49.981000",
         "updated_date": "2026-03-23T10:58:49.981000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       },
       {
         "city": "Kumasi",
@@ -1483,7 +1589,9 @@
         "id": "69c11ce9c3c291ae051710b0",
         "created_date": "2026-03-23T10:58:49.981000",
         "updated_date": "2026-03-23T10:58:49.981000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       },
       {
         "city": "Accra",
@@ -1510,7 +1618,9 @@
         "id": "69c11ce9c3c291ae051710ac",
         "created_date": "2026-03-23T10:58:49.981000",
         "updated_date": "2026-03-23T10:58:49.981000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       },
       {
         "city": "Tema",
@@ -1537,7 +1647,9 @@
         "id": "69c11ce9c3c291ae051710af",
         "created_date": "2026-03-23T10:58:49.981000",
         "updated_date": "2026-03-23T10:58:49.981000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       },
       {
         "city": "Cape Town",
@@ -1564,7 +1676,9 @@
         "id": "69c11ce9c3c291ae051710b3",
         "created_date": "2026-03-23T10:58:49.981000",
         "updated_date": "2026-03-23T10:58:49.981000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       },
       {
         "city": "Pretoria",
@@ -1591,7 +1705,9 @@
         "id": "69c11ce9c3c291ae051710b5",
         "created_date": "2026-03-23T10:58:49.981000",
         "updated_date": "2026-03-23T10:58:49.981000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       },
       {
         "city": "Abuja",
@@ -1618,7 +1734,9 @@
         "id": "69c11cbec3c291ae051710a9",
         "created_date": "2026-03-23T10:58:06.911000",
         "updated_date": "2026-03-23T10:58:06.911000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       },
       {
         "city": "Lagos",
@@ -1645,7 +1763,9 @@
         "id": "69c11cbec3c291ae0517109d",
         "created_date": "2026-03-23T10:58:06.911000",
         "updated_date": "2026-03-23T10:58:06.911000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       },
       {
         "city": "Lagos",
@@ -1672,7 +1792,9 @@
         "id": "69c11cbec3c291ae051710a3",
         "created_date": "2026-03-23T10:58:06.911000",
         "updated_date": "2026-03-23T10:58:06.911000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       },
       {
         "city": "Abuja",
@@ -1699,7 +1821,9 @@
         "id": "69c11cbec3c291ae051710a5",
         "created_date": "2026-03-23T10:58:06.911000",
         "updated_date": "2026-03-23T10:58:06.911000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       },
       {
         "city": "Lagos",
@@ -1726,7 +1850,9 @@
         "id": "69c11cbec3c291ae051710a1",
         "created_date": "2026-03-23T10:58:06.911000",
         "updated_date": "2026-03-23T10:58:06.911000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       },
       {
         "city": "Lagos",
@@ -1753,7 +1879,9 @@
         "id": "69c11cbec3c291ae051710a2",
         "created_date": "2026-03-23T10:58:06.911000",
         "updated_date": "2026-03-23T10:58:06.911000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       },
       {
         "city": "Abuja",
@@ -1780,7 +1908,9 @@
         "id": "69c11cbec3c291ae051710a6",
         "created_date": "2026-03-23T10:58:06.911000",
         "updated_date": "2026-03-23T10:58:06.911000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       },
       {
         "city": "Abuja",
@@ -1807,7 +1937,9 @@
         "id": "69c11cbec3c291ae051710a7",
         "created_date": "2026-03-23T10:58:06.911000",
         "updated_date": "2026-03-23T10:58:06.911000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       },
       {
         "city": "Lagos",
@@ -1834,7 +1966,9 @@
         "id": "69c11cbec3c291ae0517109c",
         "created_date": "2026-03-23T10:58:06.911000",
         "updated_date": "2026-03-23T10:58:06.911000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       },
       {
         "city": "Lagos",
@@ -1861,7 +1995,9 @@
         "id": "69c11cbec3c291ae051710a0",
         "created_date": "2026-03-23T10:58:06.911000",
         "updated_date": "2026-03-23T10:58:06.911000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       },
       {
         "city": "Abuja",
@@ -1888,7 +2024,9 @@
         "id": "69c11cbec3c291ae051710a8",
         "created_date": "2026-03-23T10:58:06.911000",
         "updated_date": "2026-03-23T10:58:06.911000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       },
       {
         "city": "Abuja",
@@ -1915,7 +2053,9 @@
         "id": "69c11cbec3c291ae051710a4",
         "created_date": "2026-03-23T10:58:06.911000",
         "updated_date": "2026-03-23T10:58:06.911000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       },
       {
         "city": "Lagos",
@@ -1942,7 +2082,9 @@
         "id": "69c11cbec3c291ae0517109e",
         "created_date": "2026-03-23T10:58:06.911000",
         "updated_date": "2026-03-23T10:58:06.911000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       },
       {
         "city": "Lagos",
@@ -1969,7 +2111,9 @@
         "id": "69c11cbec3c291ae0517109f",
         "created_date": "2026-03-23T10:58:06.911000",
         "updated_date": "2026-03-23T10:58:06.911000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       },
       {
         "city": "Dakar",
@@ -1996,7 +2140,9 @@
         "id": "69c1104eb3c159051f121c35",
         "created_date": "2026-03-23T10:05:02.585000",
         "updated_date": "2026-03-23T10:05:02.585000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       },
       {
         "city": "London",
@@ -2023,7 +2169,9 @@
         "id": "69c1104eb3c159051f121c36",
         "created_date": "2026-03-23T10:05:02.585000",
         "updated_date": "2026-03-23T10:05:02.585000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       },
       {
         "city": "Manchester",
@@ -2050,7 +2198,9 @@
         "id": "69c1104eb3c159051f121c37",
         "created_date": "2026-03-23T10:05:02.585000",
         "updated_date": "2026-03-23T10:05:02.585000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       },
       {
         "city": "Accra",
@@ -2077,7 +2227,9 @@
         "id": "69c1104eb3c159051f121c34",
         "created_date": "2026-03-23T10:05:02.585000",
         "updated_date": "2026-03-23T10:05:02.585000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       },
       {
         "city": "Abuja",
@@ -2104,7 +2256,9 @@
         "id": "69c1104eb3c159051f121c33",
         "created_date": "2026-03-23T10:05:02.584000",
         "updated_date": "2026-03-23T10:05:02.584000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       },
       {
         "city": "Lagos",
@@ -2131,7 +2285,9 @@
         "id": "69c1104eb3c159051f121c31",
         "created_date": "2026-03-23T10:05:02.584000",
         "updated_date": "2026-03-23T10:05:02.584000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       },
       {
         "city": "Lagos",
@@ -2158,7 +2314,9 @@
         "id": "69c1104eb3c159051f121c32",
         "created_date": "2026-03-23T10:05:02.584000",
         "updated_date": "2026-03-23T10:05:02.584000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       }
     ],
     "Investor": [
@@ -2180,7 +2338,9 @@
         "id": "6a43fc58700af4807da85617",
         "created_date": "2026-06-30T17:26:48.167000",
         "updated_date": "2026-06-30T17:26:48.167000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       },
       {
         "kyc_status": "Verified",
@@ -2200,7 +2360,9 @@
         "id": "6a143006e8644afb53a8dbff",
         "created_date": "2026-05-25T11:18:30.129000",
         "updated_date": "2026-05-25T11:18:30.129000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       }
     ],
     "Investment": [],
@@ -2226,7 +2388,9 @@
         "id": "69c11d5dc3c291ae051710d6",
         "created_date": "2026-03-23T11:00:45.515000",
         "updated_date": "2026-03-23T11:00:45.515000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       },
       {
         "country": "London / UK",
@@ -2249,7 +2413,9 @@
         "id": "69c11d5dc3c291ae051710d7",
         "created_date": "2026-03-23T11:00:45.515000",
         "updated_date": "2026-03-23T11:00:45.515000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       },
       {
         "country": "Nigeria",
@@ -2272,7 +2438,9 @@
         "id": "69c11032b3c159051f121c2b",
         "created_date": "2026-03-23T10:04:34.117000",
         "updated_date": "2026-03-23T10:04:34.117000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       },
       {
         "country": "Senegal",
@@ -2295,7 +2463,9 @@
         "id": "69c11032b3c159051f121c2e",
         "created_date": "2026-03-23T10:04:34.117000",
         "updated_date": "2026-03-23T10:04:34.117000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       },
       {
         "country": "United Kingdom",
@@ -2318,7 +2488,9 @@
         "id": "69c11032b3c159051f121c2d",
         "created_date": "2026-03-23T10:04:34.117000",
         "updated_date": "2026-03-23T10:04:34.117000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       },
       {
         "country": "Ghana",
@@ -2341,7 +2513,9 @@
         "id": "69c11032b3c159051f121c2c",
         "created_date": "2026-03-23T10:04:34.117000",
         "updated_date": "2026-03-23T10:04:34.117000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       }
     ],
     "ComplianceRecord": [],
@@ -2368,7 +2542,9 @@
         "id": "6a07e4b0b5b162df518309e1",
         "created_date": "2026-05-16T03:29:52.565000",
         "updated_date": "2026-07-09T10:51:58.440000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       }
     ],
     "Commission": [],
@@ -2390,7 +2566,9 @@
         "id": "6a07e4a9b5b162df518309dc",
         "created_date": "2026-05-16T03:29:45.182000",
         "updated_date": "2026-05-16T03:29:45.182000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       }
     ],
     "Subscription": [
@@ -2406,7 +2584,9 @@
         "id": "6a14300be8644afb53a8dc00",
         "created_date": "2026-05-25T11:18:35.394000",
         "updated_date": "2026-05-25T11:18:35.394000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       }
     ],
     "LeadCapture": [
@@ -2425,7 +2605,9 @@
         "id": "6a7aa7389e41f43f725e0e0b",
         "created_date": "2026-08-11T04:38:16.891000",
         "updated_date": "2026-08-11T04:38:16.891000",
-        "created_by": "service+28c9a832-7e19-435b-a83b-8e07995f009a@no-reply.base44.com"
+        "created_by_id": "service_28c9a832-7e19-435b-a83b-8e07995f009a",
+        "created_by": "service+28c9a832-7e19-435b-a83b-8e07995f009a@no-reply.base44.com",
+        "is_sample": false
       },
       {
         "country": null,
@@ -2442,7 +2624,9 @@
         "id": "6a142e6f1b6208e0b6203b98",
         "created_date": "2026-05-25T11:11:43.434000",
         "updated_date": "2026-05-25T11:11:43.434000",
-        "created_by": "service+28c9a832-7e19-435b-a83b-8e07995f009a@no-reply.base44.com"
+        "created_by_id": "service_28c9a832-7e19-435b-a83b-8e07995f009a",
+        "created_by": "service+28c9a832-7e19-435b-a83b-8e07995f009a@no-reply.base44.com",
+        "is_sample": false
       },
       {
         "country": null,
@@ -2459,7 +2643,9 @@
         "id": "6a142d7f8aa35722cb510609",
         "created_date": "2026-05-25T11:07:43.554000",
         "updated_date": "2026-05-25T11:07:43.554000",
-        "created_by": "service+28c9a832-7e19-435b-a83b-8e07995f009a@no-reply.base44.com"
+        "created_by_id": "service_28c9a832-7e19-435b-a83b-8e07995f009a",
+        "created_by": "service+28c9a832-7e19-435b-a83b-8e07995f009a@no-reply.base44.com",
+        "is_sample": false
       }
     ],
     "VisitorActivity": [
@@ -2477,7 +2663,9 @@
         "id": "69c17524375db1ee9ea843af",
         "created_date": "2026-03-23T17:15:16.784000",
         "updated_date": "2026-03-23T17:15:16.784000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       },
       {
         "page_visited": "Home",
@@ -2493,7 +2681,9 @@
         "id": "69c161f737b9d7a86b0a0fe5",
         "created_date": "2026-03-23T15:53:27.418000",
         "updated_date": "2026-03-23T15:53:27.418000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       },
       {
         "page_visited": "Home",
@@ -2509,7 +2699,9 @@
         "id": "69c15e75c8941671bcbc3862",
         "created_date": "2026-03-23T15:38:29.290000",
         "updated_date": "2026-03-23T15:38:29.290000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       },
       {
         "page_visited": "Home",
@@ -2525,7 +2717,9 @@
         "id": "69c15e398dfdc8435f76c522",
         "created_date": "2026-03-23T15:37:29.238000",
         "updated_date": "2026-03-23T15:37:29.238000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       },
       {
         "page_visited": "Home",
@@ -2541,7 +2735,9 @@
         "id": "69c14899214a2f99a20f7cbd",
         "created_date": "2026-03-23T14:05:13.531000",
         "updated_date": "2026-03-23T14:05:13.531000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       },
       {
         "action_taken": "Page View",
@@ -2557,7 +2753,9 @@
         "id": "69c129bc7e73f29132b84011",
         "created_date": "2026-03-23T11:53:32.387000",
         "updated_date": "2026-03-23T11:53:32.387000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       },
       {
         "action_taken": "Page View",
@@ -2573,7 +2771,9 @@
         "id": "69c129ac7af04a569316ff95",
         "created_date": "2026-03-23T11:53:16.359000",
         "updated_date": "2026-03-23T11:53:16.359000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       },
       {
         "action_taken": "Page View",
@@ -2589,7 +2789,9 @@
         "id": "69c1299d176f5f899ffd1085",
         "created_date": "2026-03-23T11:53:01.516000",
         "updated_date": "2026-03-23T11:53:01.516000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       },
       {
         "action_taken": "Project Click",
@@ -2605,7 +2807,9 @@
         "id": "69c1293012fe274413278d97",
         "created_date": "2026-03-23T11:51:12.012000",
         "updated_date": "2026-03-23T11:51:12.012000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       },
       {
         "action_taken": "Invest Now Click",
@@ -2621,7 +2825,9 @@
         "id": "69c1292075da62b6dfe579e6",
         "created_date": "2026-03-23T11:50:56.728000",
         "updated_date": "2026-03-23T11:50:56.728000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       },
       {
         "action_taken": "Page View",
@@ -2637,7 +2843,9 @@
         "id": "69c129104d75cf5320348435",
         "created_date": "2026-03-23T11:50:40.946000",
         "updated_date": "2026-03-23T11:50:40.946000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       }
     ],
     "ZPTransaction": [
@@ -2662,7 +2870,9 @@
         "id": "6a5b05ff8361c17fc5cafd88",
         "created_date": "2026-07-18T04:50:07.724000",
         "updated_date": "2026-07-18T04:50:07.724000",
-        "created_by": "service+28c9a832-7e19-435b-a83b-8e07995f009a@no-reply.base44.com"
+        "created_by_id": "service_28c9a832-7e19-435b-a83b-8e07995f009a",
+        "created_by": "service+28c9a832-7e19-435b-a83b-8e07995f009a@no-reply.base44.com",
+        "is_sample": false
       },
       {
         "amount": 4500.0,
@@ -2685,7 +2895,9 @@
         "id": "69c17845674435f6e3702973",
         "created_date": "2026-03-23T17:28:37.667000",
         "updated_date": "2026-03-23T17:28:37.667000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       },
       {
         "amount": 12000.0,
@@ -2708,7 +2920,9 @@
         "id": "69c17845674435f6e3702974",
         "created_date": "2026-03-23T17:28:37.667000",
         "updated_date": "2026-03-23T17:28:37.667000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       },
       {
         "amount": 85000.0,
@@ -2731,7 +2945,9 @@
         "id": "69c17845674435f6e3702975",
         "created_date": "2026-03-23T17:28:37.667000",
         "updated_date": "2026-03-23T17:28:37.667000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       },
       {
         "amount": 320.0,
@@ -2754,7 +2970,9 @@
         "id": "69c17845674435f6e3702976",
         "created_date": "2026-03-23T17:28:37.667000",
         "updated_date": "2026-03-23T17:28:37.667000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       },
       {
         "amount": 18.5,
@@ -2777,7 +2995,9 @@
         "id": "69c17845674435f6e3702977",
         "created_date": "2026-03-23T17:28:37.667000",
         "updated_date": "2026-03-23T17:28:37.667000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       },
       {
         "amount": 5500.0,
@@ -2800,7 +3020,9 @@
         "id": "69c17845674435f6e3702978",
         "created_date": "2026-03-23T17:28:37.667000",
         "updated_date": "2026-03-23T17:28:37.667000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       },
       {
         "amount": 22000.0,
@@ -2823,7 +3045,9 @@
         "id": "69c17845674435f6e3702979",
         "created_date": "2026-03-23T17:28:37.667000",
         "updated_date": "2026-03-23T17:28:37.667000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       },
       {
         "amount": 42.0,
@@ -2846,7 +3070,9 @@
         "id": "69c17845674435f6e370297a",
         "created_date": "2026-03-23T17:28:37.667000",
         "updated_date": "2026-03-23T17:28:37.667000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       }
     ],
     "ZPMerchant": [
@@ -2872,7 +3098,9 @@
         "id": "69c17828674435f6e3702959",
         "created_date": "2026-03-23T17:28:08.577000",
         "updated_date": "2026-03-23T17:28:08.577000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       },
       {
         "kyc_status": "Verified",
@@ -2896,7 +3124,9 @@
         "id": "69c17828674435f6e370295a",
         "created_date": "2026-03-23T17:28:08.577000",
         "updated_date": "2026-03-23T17:28:08.577000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       },
       {
         "kyc_status": "Verified",
@@ -2920,7 +3150,9 @@
         "id": "69c17828674435f6e370295b",
         "created_date": "2026-03-23T17:28:08.577000",
         "updated_date": "2026-03-23T17:28:08.577000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       },
       {
         "kyc_status": "Verified",
@@ -2944,7 +3176,9 @@
         "id": "69c17828674435f6e370295c",
         "created_date": "2026-03-23T17:28:08.577000",
         "updated_date": "2026-03-23T17:28:08.577000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       },
       {
         "kyc_status": "Verified",
@@ -2968,7 +3202,9 @@
         "id": "69c17828674435f6e370295d",
         "created_date": "2026-03-23T17:28:08.577000",
         "updated_date": "2026-03-23T17:28:08.577000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       },
       {
         "kyc_status": "Verified",
@@ -2992,7 +3228,9 @@
         "id": "69c17828674435f6e370295e",
         "created_date": "2026-03-23T17:28:08.577000",
         "updated_date": "2026-03-23T17:28:08.577000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       },
       {
         "kyc_status": "Verified",
@@ -3016,7 +3254,9 @@
         "id": "69c17828674435f6e370295f",
         "created_date": "2026-03-23T17:28:08.577000",
         "updated_date": "2026-03-23T17:28:08.577000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       },
       {
         "kyc_status": "Pending",
@@ -3040,7 +3280,9 @@
         "id": "69c17828674435f6e3702960",
         "created_date": "2026-03-23T17:28:08.577000",
         "updated_date": "2026-03-23T17:28:08.577000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       }
     ],
     "ZPAgent": [
@@ -3062,7 +3304,9 @@
         "id": "69c17834674435f6e3702964",
         "created_date": "2026-03-23T17:28:20.455000",
         "updated_date": "2026-03-23T17:28:20.455000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       },
       {
         "country": "Nigeria",
@@ -3082,7 +3326,9 @@
         "id": "69c17834674435f6e3702965",
         "created_date": "2026-03-23T17:28:20.455000",
         "updated_date": "2026-03-23T17:28:20.455000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       },
       {
         "country": "Nigeria",
@@ -3102,7 +3348,9 @@
         "id": "69c17834674435f6e3702966",
         "created_date": "2026-03-23T17:28:20.455000",
         "updated_date": "2026-03-23T17:28:20.455000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       },
       {
         "country": "Nigeria",
@@ -3122,7 +3370,9 @@
         "id": "69c17834674435f6e3702967",
         "created_date": "2026-03-23T17:28:20.455000",
         "updated_date": "2026-03-23T17:28:20.455000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       },
       {
         "country": "Ghana",
@@ -3142,7 +3392,9 @@
         "id": "69c17834674435f6e3702968",
         "created_date": "2026-03-23T17:28:20.455000",
         "updated_date": "2026-03-23T17:28:20.455000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       },
       {
         "country": "Nigeria",
@@ -3162,7 +3414,9 @@
         "id": "69c17834674435f6e3702969",
         "created_date": "2026-03-23T17:28:20.455000",
         "updated_date": "2026-03-23T17:28:20.455000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       }
     ],
     "TeamTask": [
@@ -3178,7 +3432,9 @@
         "id": "6a74d18699f3cede892e8a85",
         "created_date": "2026-08-06T18:25:10.444000",
         "updated_date": "2026-08-06T18:25:10.444000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       },
       {
         "owner": "External Hire (TBD)",
@@ -3192,7 +3448,9 @@
         "id": "6a74d18699f3cede892e8a86",
         "created_date": "2026-08-06T18:25:10.444000",
         "updated_date": "2026-08-06T18:25:10.444000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       },
       {
         "owner": "AI Agent 777",
@@ -3206,7 +3464,9 @@
         "id": "6a74d18699f3cede892e8a87",
         "created_date": "2026-08-06T18:25:10.444000",
         "updated_date": "2026-08-06T18:25:10.444000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       },
       {
         "owner": "AI Agent 777",
@@ -3220,7 +3480,9 @@
         "id": "6a74d18699f3cede892e8a88",
         "created_date": "2026-08-06T18:25:10.444000",
         "updated_date": "2026-08-06T18:25:10.444000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       },
       {
         "owner": "AI Agent 777",
@@ -3234,7 +3496,9 @@
         "id": "6a74d18699f3cede892e8a89",
         "created_date": "2026-08-06T18:25:10.444000",
         "updated_date": "2026-08-06T18:25:10.444000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       },
       {
         "owner": "AI Agent 777",
@@ -3248,7 +3512,9 @@
         "id": "6a74d18699f3cede892e8a8a",
         "created_date": "2026-08-06T18:25:10.444000",
         "updated_date": "2026-08-06T18:25:10.444000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       },
       {
         "owner": "AI Agent 777",
@@ -3262,7 +3528,9 @@
         "id": "6a74d18699f3cede892e8a8b",
         "created_date": "2026-08-06T18:25:10.444000",
         "updated_date": "2026-08-06T18:25:10.444000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       },
       {
         "owner": "AI Agent 777",
@@ -3276,7 +3544,9 @@
         "id": "6a74d18699f3cede892e8a8c",
         "created_date": "2026-08-06T18:25:10.444000",
         "updated_date": "2026-08-06T18:25:10.444000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       },
       {
         "owner": "Tom",
@@ -3290,7 +3560,9 @@
         "id": "6a74d18699f3cede892e8a8d",
         "created_date": "2026-08-06T18:25:10.444000",
         "updated_date": "2026-08-06T18:25:10.444000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       }
     ],
     "FieldMeeting": [],
@@ -3302,7 +3574,9 @@
         "id": "6a8585928e7719fa3904e245",
         "created_date": "2026-08-19T10:29:38.511000",
         "updated_date": "2026-08-19T10:29:38.511000",
-        "created_by": "service+28c9a832-7e19-435b-a83b-8e07995f009a@no-reply.base44.com"
+        "created_by_id": "service_28c9a832-7e19-435b-a83b-8e07995f009a",
+        "created_by": "service+28c9a832-7e19-435b-a83b-8e07995f009a@no-reply.base44.com",
+        "is_sample": false
       },
       {
         "phone": "whatsapp:+2347065252117",
@@ -3311,7 +3585,9 @@
         "id": "6a85859206c416edc9e1d83f",
         "created_date": "2026-08-19T10:29:38.395000",
         "updated_date": "2026-08-19T10:29:38.395000",
-        "created_by": "service+28c9a832-7e19-435b-a83b-8e07995f009a@no-reply.base44.com"
+        "created_by_id": "service_28c9a832-7e19-435b-a83b-8e07995f009a",
+        "created_by": "service+28c9a832-7e19-435b-a83b-8e07995f009a@no-reply.base44.com",
+        "is_sample": false
       },
       {
         "phone": "whatsapp:+2340000000000",
@@ -3320,7 +3596,9 @@
         "id": "6a8473554a32556d925965dc",
         "created_date": "2026-08-18T14:59:33.543000",
         "updated_date": "2026-08-18T14:59:33.543000",
-        "created_by": "service+28c9a832-7e19-435b-a83b-8e07995f009a@no-reply.base44.com"
+        "created_by_id": "service_28c9a832-7e19-435b-a83b-8e07995f009a",
+        "created_by": "service+28c9a832-7e19-435b-a83b-8e07995f009a@no-reply.base44.com",
+        "is_sample": false
       },
       {
         "phone": "whatsapp:+2340000000000",
@@ -3329,7 +3607,9 @@
         "id": "6a8473558ff03cd794d207c0",
         "created_date": "2026-08-18T14:59:33.457000",
         "updated_date": "2026-08-18T14:59:33.457000",
-        "created_by": "service+28c9a832-7e19-435b-a83b-8e07995f009a@no-reply.base44.com"
+        "created_by_id": "service_28c9a832-7e19-435b-a83b-8e07995f009a",
+        "created_by": "service+28c9a832-7e19-435b-a83b-8e07995f009a@no-reply.base44.com",
+        "is_sample": false
       },
       {
         "phone": "whatsapp:+2340000000000",
@@ -3338,7 +3618,9 @@
         "id": "6a84734bb28f3bdee78a2677",
         "created_date": "2026-08-18T14:59:23.247000",
         "updated_date": "2026-08-18T14:59:23.247000",
-        "created_by": "service+28c9a832-7e19-435b-a83b-8e07995f009a@no-reply.base44.com"
+        "created_by_id": "service_28c9a832-7e19-435b-a83b-8e07995f009a",
+        "created_by": "service+28c9a832-7e19-435b-a83b-8e07995f009a@no-reply.base44.com",
+        "is_sample": false
       },
       {
         "phone": "whatsapp:+2340000000000",
@@ -3347,7 +3629,9 @@
         "id": "6a84734b6d55301e335a5d6f",
         "created_date": "2026-08-18T14:59:23.138000",
         "updated_date": "2026-08-18T14:59:23.138000",
-        "created_by": "service+28c9a832-7e19-435b-a83b-8e07995f009a@no-reply.base44.com"
+        "created_by_id": "service_28c9a832-7e19-435b-a83b-8e07995f009a",
+        "created_by": "service+28c9a832-7e19-435b-a83b-8e07995f009a@no-reply.base44.com",
+        "is_sample": false
       }
     ],
     "FundingOutreach": [
@@ -3367,7 +3651,9 @@
         "id": "6a8b5737f6695e6161862e6d",
         "created_date": "2026-08-23T20:25:27.253000",
         "updated_date": "2026-08-23T20:25:27.253000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       },
       {
         "last_action_date": "",
@@ -3385,7 +3671,9 @@
         "id": "6a8b5737f6695e6161862e6e",
         "created_date": "2026-08-23T20:25:27.253000",
         "updated_date": "2026-08-23T20:25:27.253000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       },
       {
         "last_action_date": "2026-08-19",
@@ -3403,7 +3691,9 @@
         "id": "6a8b5737f6695e6161862e6f",
         "created_date": "2026-08-23T20:25:27.253000",
         "updated_date": "2026-08-23T20:25:27.253000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       },
       {
         "last_action_date": "2026-08-15",
@@ -3421,7 +3711,9 @@
         "id": "6a8b5737f6695e6161862e63",
         "created_date": "2026-08-23T20:25:27.252000",
         "updated_date": "2026-08-23T20:25:27.252000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       },
       {
         "last_action_date": "2026-07-30",
@@ -3439,7 +3731,9 @@
         "id": "6a8b5737f6695e6161862e64",
         "created_date": "2026-08-23T20:25:27.252000",
         "updated_date": "2026-08-23T20:25:27.252000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       },
       {
         "last_action_date": "2026-08-19",
@@ -3457,7 +3751,9 @@
         "id": "6a8b5737f6695e6161862e65",
         "created_date": "2026-08-23T20:25:27.252000",
         "updated_date": "2026-08-23T20:25:27.252000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       },
       {
         "last_action_date": "2026-08-23",
@@ -3475,7 +3771,9 @@
         "id": "6a8b5737f6695e6161862e66",
         "created_date": "2026-08-23T20:25:27.252000",
         "updated_date": "2026-08-23T20:25:27.252000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       },
       {
         "last_action_date": "2026-07-30",
@@ -3493,7 +3791,9 @@
         "id": "6a8b5737f6695e6161862e67",
         "created_date": "2026-08-23T20:25:27.252000",
         "updated_date": "2026-08-23T20:25:27.252000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       },
       {
         "last_action_date": "2026-07-31",
@@ -3511,7 +3811,9 @@
         "id": "6a8b5737f6695e6161862e68",
         "created_date": "2026-08-23T20:25:27.252000",
         "updated_date": "2026-08-23T20:25:27.252000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       },
       {
         "last_action_date": "2026-07-31",
@@ -3529,7 +3831,9 @@
         "id": "6a8b5737f6695e6161862e69",
         "created_date": "2026-08-23T20:25:27.252000",
         "updated_date": "2026-08-23T20:25:27.252000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       },
       {
         "last_action_date": "2026-08-01",
@@ -3547,7 +3851,9 @@
         "id": "6a8b5737f6695e6161862e6a",
         "created_date": "2026-08-23T20:25:27.252000",
         "updated_date": "2026-08-23T20:25:27.252000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       },
       {
         "last_action_date": "2026-08-01",
@@ -3565,7 +3871,9 @@
         "id": "6a8b5737f6695e6161862e6b",
         "created_date": "2026-08-23T20:25:27.252000",
         "updated_date": "2026-08-23T20:25:27.252000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       },
       {
         "last_action_date": "2026-08-01",
@@ -3583,63 +3891,10 @@
         "id": "6a8b5737f6695e6161862e6c",
         "created_date": "2026-08-23T20:25:27.252000",
         "updated_date": "2026-08-23T20:25:27.252000",
-        "created_by": "betoniqwestltd@gmail.com"
+        "created_by_id": "69c1064318031a63c4728735",
+        "created_by": "betoniqwestltd@gmail.com",
+        "is_sample": false
       }
     ]
-  },
-  "operational_snapshot": {
-    "real_estate_projects": {
-      "count": 79,
-      "featured_count": 33,
-      "countries_observed": [
-        "Cape Verde",
-        "Egypt",
-        "Ghana",
-        "Kenya",
-        "Morocco",
-        "Namibia",
-        "Nigeria",
-        "Rwanda",
-        "Senegal",
-        "South Africa",
-        "Tanzania",
-        "United Kingdom"
-      ]
-    },
-    "investors": {
-      "count": 2,
-      "active_count": 2,
-      "total_invested_usd_observed": 49.0
-    },
-    "feasibility_studies": {
-      "count": 1,
-      "overall_scores_observed": [
-        88.0
-      ]
-    },
-    "subscriptions": {
-      "count": 1,
-      "active_count": 1
-    },
-    "zeropay": {
-      "transactions": 9,
-      "merchants": 8,
-      "agents": 6,
-      "transaction_statuses_observed": [
-        "PENDING",
-        "SETTLED",
-        "SYNCED",
-        "pending_sync"
-      ]
-    },
-    "pipeline": {
-      "LeadCapture": 3,
-      "TeamTask": 9,
-      "FieldMeeting": 0,
-      "FundingOutreach": 13,
-      "Commission": 0,
-      "Investment": 0
-    }
-  },
-  "refresh_note": "Live Base44 entity refresh completed 2026-08-24T07:03:51+01:00. Includes FundingOutreach and all current business entities; no records were modified or deleted during this run."
+  }
 }
