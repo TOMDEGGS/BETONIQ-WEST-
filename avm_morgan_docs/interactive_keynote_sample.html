@@ -618,67 +618,85 @@ const PALETTE = [0x5ef2b0,0xffd166,0x5b9dff,0xff6b6b,0xc98bff,0x6ce7cf,0xff9ebc]
 function pal(i){ return PALETTE[i%PALETTE.length]; }
 function hexStr(n){ return '#'+(new THREE.Color(n)).getHexString(); }
 
-/* Simple stylised low-poly human figure — used for people-centred sections */
-function makeHumanFigure(color, scale=1){
-  const g = new THREE.Group();
-  const mat = new THREE.MeshStandardMaterial({color, emissive:color, emissiveIntensity:0.28});
-  const head = new THREE.Mesh(new THREE.SphereGeometry(0.28,16,16), mat); head.position.y=1.55; g.add(head);
-  const torso = new THREE.Mesh(new THREE.CylinderGeometry(0.32,0.4,1.0,12), mat); torso.position.y=0.85; g.add(torso);
-  const armGeo = new THREE.CylinderGeometry(0.09,0.09,0.85,8);
-  const armL = new THREE.Mesh(armGeo,mat); armL.position.set(-0.5,0.95,0); armL.rotation.z=0.35; g.add(armL);
-  const armR = new THREE.Mesh(armGeo,mat); armR.position.set(0.5,0.95,0); armR.rotation.z=-0.35; g.add(armR);
-  const legGeo = new THREE.CylinderGeometry(0.11,0.11,0.9,8);
-  const legL = new THREE.Mesh(legGeo,mat); legL.position.set(-0.18,0.05,0); g.add(legL);
-  const legR = new THREE.Mesh(legGeo,mat); legR.position.set(0.18,0.05,0); g.add(legR);
-  g.scale.set(scale,scale,scale);
-  return g;
+/* Real photographic African human figures — image sprites, not caricatures */
+function makeHumanImageFigure(imgUrl, height=2.6){
+  const spr = new THREE.Sprite(new THREE.SpriteMaterial({transparent:true, opacity:0}));
+  spr.scale.set(height*0.62, height, 1);
+  new THREE.TextureLoader().load(imgUrl, (tex)=>{
+    tex.minFilter = THREE.LinearFilter;
+    spr.material.map = tex;
+    spr.material.opacity = 1;
+    spr.material.needsUpdate = true;
+    const iw = tex.image && tex.image.width, ih = tex.image && tex.image.height;
+    if(iw && ih){ spr.scale.set(height*(iw/ih), height, 1); }
+  }, undefined, ()=>{ spr.material.opacity = 1; });
+  return spr;
+}
+/* Anonymised silhouette — used only for the unidentified "criminal" node, deliberately faceless */
+function makeSilhouetteSprite(color, height=2.6){
+  const canvas = document.createElement('canvas'); canvas.width=300; canvas.height=420;
+  const ctx = canvas.getContext('2d');
+  ctx.save();
+  ctx.shadowColor = color; ctx.shadowBlur = 26;
+  ctx.fillStyle = '#0d0d0f';
+  ctx.beginPath(); ctx.arc(150,110,68,0,Math.PI*2); ctx.fill();
+  ctx.beginPath();
+  ctx.moveTo(58,420); ctx.quadraticCurveTo(58,225,150,215); ctx.quadraticCurveTo(242,225,242,420); ctx.closePath(); ctx.fill();
+  ctx.restore();
+  ctx.strokeStyle = color; ctx.lineWidth=4; ctx.shadowColor=color; ctx.shadowBlur=16;
+  ctx.beginPath(); ctx.arc(150,110,68,0,Math.PI*2); ctx.stroke();
+  const tex = new THREE.CanvasTexture(canvas);
+  const mat = new THREE.SpriteMaterial({map:tex, transparent:true});
+  const spr = new THREE.Sprite(mat);
+  spr.scale.set(height*(canvas.width/canvas.height), height, 1);
+  return spr;
 }
 
-/* Generic row of human figures, each with a welded label */
+/* Generic row of real human photo figures, each with a welded label */
 function buildHumanRow(containerId, people, opts={}){
   const container = document.getElementById(containerId);
   const {scene,camera,renderer} = baseScene(container);
-  camera.position.set(0, 1.1, people.length>3?10.5:9.2);
+  camera.position.set(0, 1.3, people.length>3?11.5:10);
   const group = new THREE.Group(); scene.add(group);
   const n = people.length;
-  const spacing = opts.spacing || 2.3;
+  const spacing = opts.spacing || 2.6;
   const startX = -((n-1)*spacing)/2;
   const figures=[];
   people.forEach((p,i)=>{
-    const fig = makeHumanFigure(p.color, p.scale||1);
+    const fig = p.img ? makeHumanImageFigure(p.img, p.height||2.6) : makeSilhouetteSprite(hexStr(p.color!==undefined?p.color:0xff6b6b), p.height||2.6);
     fig.position.x = startX + i*spacing;
     fig.userData.phase = i*0.7;
     group.add(fig);
     figures.push(fig);
-    const lbl = makeLabelSprite(p.label, {glow:hexStr(p.color), fontSize:32, scale:0.95});
-    lbl.position.set(fig.position.x, 2.15, 0);
+    const lbl = makeLabelSprite(p.label, {glow:hexStr(p.color!==undefined?p.color:0xffffff), fontSize:32, scale:0.95});
+    lbl.position.set(fig.position.x, 2.55, 0);
     group.add(lbl);
   });
   if(opts.centerLabel){
     const cl = makeLabelSprite(opts.centerLabel, {glow:'#ffffff', fontSize:48, scale:1.55});
-    cl.position.set(0, -1.55, 0.6);
+    cl.position.set(0, -1.65, 0.6);
     group.add(cl);
   }
   function anim(){
     const t = Date.now()*0.0015;
-    figures.forEach(f=>{ f.position.y = Math.sin(t+f.userData.phase)*0.08; f.rotation.y = Math.sin(t*0.5+f.userData.phase)*0.15; });
-    group.rotation.y = Math.sin(t*0.2)*0.08;
+    figures.forEach(f=>{ f.position.y = Math.sin(t+f.userData.phase)*0.08; });
+    group.rotation.y = Math.sin(t*0.2)*0.06;
     renderer.render(scene,camera);
     requestAnimationFrame(anim);
   }
   anim();
 }
 
-/* Generic orbit scene — core (shape/tree/human) with N labelled items orbiting */
+/* Generic orbit scene — core (shape/tree/human photo) with N labelled items orbiting */
 function buildOrbit3D(containerId, opts){
-  const {coreLabel, coreColor=0xffd166, coreShape='octa', items=[], radius=3.5, coreIsHuman=false} = opts;
+  const {coreLabel, coreColor=0xffd166, coreShape='octa', items=[], radius=3.5, coreIsHuman=false, coreImg} = opts;
   const container = document.getElementById(containerId);
   const {scene,camera,renderer} = baseScene(container);
   if(items.length>7) camera.position.set(0,0,11);
   const group = new THREE.Group(); scene.add(group);
   let core = null;
   if(coreIsHuman){
-    core = makeHumanFigure(coreColor, 1.2);
+    core = makeHumanImageFigure(coreImg || 'images/soldier.png', 2.9);
     group.add(core);
   } else if(coreShape==='tree'){
     for(let i=0;i<5;i++){
@@ -699,7 +717,7 @@ function buildOrbit3D(containerId, opts){
   }
   if(coreLabel){
     const lbl = makeLabelSprite(coreLabel, {glow:hexStr(coreColor), fontSize:44, scale:1.3});
-    lbl.position.set(0, coreIsHuman?2.2:1.5, 0);
+    lbl.position.set(0, coreIsHuman?2.7:1.5, 0);
     group.add(lbl);
   }
   const n = items.length;
@@ -724,7 +742,7 @@ function buildOrbit3D(containerId, opts){
       m.position.set(m.userData.radius*Math.cos(a), m.userData.radius*Math.sin(a), Math.sin(t*2+a)*0.4);
     });
     group.rotation.y += 0.0015;
-    if(core) core.rotation.y += 0.01;
+    if(core && core.rotation) core.rotation.y += 0.01;
     renderer.render(scene,camera);
     requestAnimationFrame(anim);
   }
@@ -828,22 +846,22 @@ function buildFusionCentre(){
 /* SECTION SEVEN — Community as first sensor */
 function buildSensor(){
   buildHumanRow('three-sensor', [
-    {label:'FARMER', color:0x5ef2b0},{label:'HUNTER', color:0xffd166},
-    {label:'TEACHER', color:0x5b9dff},{label:'MARKET\nWOMAN', color:0xff9ebc},
-    {label:'TRADITIONAL\nRULER', color:0xc98bff}
+    {label:'FARMER', color:0x5ef2b0, img:'images/farmer_man.png'},{label:'HUNTER', color:0xffd166, img:'images/hunter.png'},
+    {label:'TEACHER', color:0x5b9dff, img:'images/teacher_woman.png'},{label:'MARKET\nWOMAN', color:0xff9ebc, img:'images/market_woman.png'},
+    {label:'TRADITIONAL\nRULER', color:0xc98bff, img:'images/traditional_ruler.png'}
   ], {centerLabel:'FIRST SENSOR NETWORK'});
 }
 /* SECTION EIGHT — Traditional rulers, standing table */
 function buildRulers(){
   buildOrbit3D('three-rulers', {
-    coreLabel:'TRADITIONAL\nCOUNCIL', coreColor:0xffd166, coreIsHuman:true, radius:3.6,
+    coreLabel:'TRADITIONAL\nCOUNCIL', coreColor:0xffd166, coreIsHuman:true, coreImg:'images/traditional_ruler.png', radius:3.6,
     items:['POLICE','DSS','MILITARY\nLIAISON','LOCAL\nGOVT','COMMUNITY\nREPS'].map(l=>({label:l,color:0x5ef2b0}))
   });
 }
 /* SECTION ELEVEN — Technology multiplies human capability */
 function buildTech(){
   buildOrbit3D('three-tech', {
-    coreLabel:'COMMANDER', coreColor:0xffd166, coreIsHuman:true, radius:3.6,
+    coreLabel:'COMMANDER', coreColor:0xffd166, coreIsHuman:true, coreImg:'images/soldier.png', radius:3.6,
     items:['DRONE\nSURVEILLANCE','SATELLITE\nIMAGERY','SECURE\nCOMMS','BIOMETRIC\nID','GIS\nMAPPING','AI\nPATTERN'].map(l=>({label:l,color:0x5b9dff}))
   });
 }
@@ -854,32 +872,34 @@ function buildForest(){
     items:['SANCTUARY','MOBILITY','SUPPLIES','COMMS','FINANCING','MOVEMENT'].map(l=>({label:l,color:0x5ef2b0}))
   });
 }
-/* SECTION THIRTEEN — Separate criminal from community */
+/* SECTION THIRTEEN — Separate criminal from community. The five community roles use real, dignified
+   photos; "THE CRIMINAL" is deliberately rendered as a faceless red silhouette — never a real person's
+   photo — to make the point visually: identity tells you nothing, only behaviour does. */
 function buildSeparate(){
   buildHumanRow('three-separate', [
-    {label:'FULANI\nPASTORALIST', color:0x5ef2b0},{label:'TIV\nFARMER', color:0x5ef2b0},
-    {label:'IDOMA\nYOUTH', color:0x5ef2b0},{label:'MUSLIM', color:0x5ef2b0},
-    {label:'CHRISTIAN', color:0x5ef2b0},{label:'THE\nCRIMINAL', color:0xff6b6b}
-  ], {centerLabel:'BEHAVIOUR & EVIDENCE — NEVER IDENTITY', spacing:2.05});
+    {label:'FULANI\nPASTORALIST', color:0x5ef2b0, img:'images/herder_fulani.png'},{label:'TIV\nFARMER', color:0x5ef2b0, img:'images/farmer_man.png'},
+    {label:'IDOMA\nYOUTH', color:0x5ef2b0, img:'images/youth_man.png'},{label:'MUSLIM', color:0x5ef2b0, img:'images/official_man.png'},
+    {label:'CHRISTIAN', color:0x5ef2b0, img:'images/teacher_woman.png'},{label:'THE\nCRIMINAL', color:0xff6b6b}
+  ], {centerLabel:'BEHAVIOUR & EVIDENCE — NEVER IDENTITY', spacing:2.3});
 }
 /* SECTION FOURTEEN — Farmer-herder governance */
 function buildFarmHerd(){
   buildHumanRow('three-farmherd', [
-    {label:'FARMER', color:0x5ef2b0},{label:'HERDER', color:0xffd166}
-  ], {centerLabel:'GOVERNANCE, NOT GUNFIRE', spacing:3.2});
+    {label:'FARMER', color:0x5ef2b0, img:'images/farmer_man.png'},{label:'HERDER', color:0xffd166, img:'images/herder_fulani.png'}
+  ], {centerLabel:'GOVERNANCE, NOT GUNFIRE', spacing:3.4});
 }
 /* SECTION FIFTEEN — Youth investment */
 function buildYouth(){
   buildOrbit3D('three-youth', {
-    coreLabel:'YOUTH', coreColor:0x5ef2b0, coreIsHuman:true, radius:3.6,
+    coreLabel:'YOUTH', coreColor:0x5ef2b0, coreIsHuman:true, coreImg:'images/youth_man.png', radius:3.6,
     items:['VOCATIONAL','AGRICULTURE','TECHNOLOGY','SPORTS','EDUCATION','APPRENTICE-\nSHIP'].map(l=>({label:l,color:0xffd166}))
   });
 }
 /* SECTIONS 16&17 — Women & Local Government */
 function buildWomenLG(){
   buildHumanRow('three-women-lg', [
-    {label:'WOMAN\nSECURITY PARTNER', color:0xff9ebc},{label:'LGA\nCHAIRMAN', color:0x5b9dff}
-  ], {centerLabel:'PROXIMITY = FASTER WARNING', spacing:3.2});
+    {label:'WOMAN\nSECURITY PARTNER', color:0xff9ebc, img:'images/market_woman.png'},{label:'LGA\nCHAIRMAN', color:0x5b9dff, img:'images/official_man.png'}
+  ], {centerLabel:'PROXIMITY = FASTER WARNING', spacing:3.4});
 }
 /* SECTION EIGHTEEN — State police safeguards */
 function buildStatePolice(){
@@ -891,7 +911,7 @@ function buildStatePolice(){
 /* SECTIONS 19&20 — Funding & welfare */
 function buildFunding(){
   buildOrbit3D('three-funding', {
-    coreLabel:'PERSONNEL', coreColor:0xffd166, coreIsHuman:true, radius:3.6,
+    coreLabel:'PERSONNEL', coreColor:0xffd166, coreIsHuman:true, coreImg:'images/soldier.png', radius:3.6,
     items:['COMMS &\nACCOMMODATION','MEDICAL\nCARE','FOOD','TRANSPORT','EQUIPMENT','PSYCH\nSUPPORT'].map(l=>({label:l,color:0xff6b6b}))
   });
 }
@@ -965,8 +985,8 @@ function buildHeptagon(){
 /* SECTION TWENTY-FIVE — success in three years */
 function buildSuccess(){
   buildHumanRow('three-success', [
-    {label:'FARMER\nRETURNS', color:0x5ef2b0, scale:1.05},{label:'FAMILY\nCOMES HOME', color:0xffd166}
-  ], {centerLabel:'KIDNAPPING ↓ · TRUST ↑ · HIGHWAYS SECURE', spacing:3.0});
+    {label:'FARMER\nRETURNS', color:0x5ef2b0, img:'images/farmer_man.png'},{label:'FAMILY\nCOMES HOME', color:0xffd166, img:'images/child.png'}
+  ], {centerLabel:'KIDNAPPING ↓ · TRUST ↑ · HIGHWAYS SECURE', spacing:3.4});
 }
 /* SECTION TWENTY-SIX — mental shift */
 function buildMental(){
@@ -982,12 +1002,12 @@ function buildMental(){
 /* OPENING — one ecosystem, the people behind the statistics */
 function buildOpening(){
   buildHumanRow('three-opening', [
-    {label:'MOTHER\nBENUE', color:0xff9ebc},{label:'FARMER\nPLATEAU', color:0x5ef2b0},
-    {label:'TRADITIONAL RULER\nNIGER STATE', color:0xffd166},{label:'SOLDIER\nREDEPLOYED', color:0x5b9dff}
+    {label:'MOTHER\nBENUE', color:0xff9ebc, img:'images/mother.png'},{label:'FARMER\nPLATEAU', color:0x5ef2b0, img:'images/farmer_man.png'},
+    {label:'TRADITIONAL RULER\nNIGER STATE', color:0xffd166, img:'images/traditional_ruler.png'},{label:'SOLDIER\nREDEPLOYED', color:0x5b9dff, img:'images/soldier.png'}
   ], {centerLabel:'ONE ECOSYSTEM, NOT SEPARATE PROBLEMS'});
 }
 
-/* CLOSING VISUAL — rising particles + a human figure arriving home */
+/* CLOSING VISUAL — rising particles + a real human figure arriving home */
 function buildClose(){
   const container = document.getElementById('three-close');
   const {scene,camera,renderer} = baseScene(container);
@@ -1003,11 +1023,11 @@ function buildClose(){
   geo.setAttribute('position', new THREE.BufferAttribute(arr,3));
   const points = new THREE.Points(geo, new THREE.PointsMaterial({color:0xffd166, size:0.09}));
   group.add(points);
-  const figure = makeHumanFigure(0x5ef2b0, 1.3);
-  figure.position.set(0,-1.2,0.5);
+  const figure = makeHumanImageFigure('images/closing_walk.png', 3.0);
+  figure.position.set(0,-0.9,0.5);
   group.add(figure);
   const label = makeLabelSprite('ARRIVE\nALIVE', {glow:'#5ef2b0', fontSize:72, scale:2.6});
-  label.position.set(0,1.6,0);
+  label.position.set(0,2.0,0);
   group.add(label);
   function anim(){
     const t = Date.now()*0.0015;
@@ -1017,8 +1037,7 @@ function buildClose(){
       if(pos[i*3+1] > 3) pos[i*3+1] = -3;
     }
     geo.attributes.position.needsUpdate = true;
-    figure.position.y = -1.2 + Math.sin(t)*0.06;
-    figure.rotation.y = Math.sin(t*0.4)*0.2;
+    figure.position.y = -0.9 + Math.sin(t)*0.06;
     renderer.render(scene,camera);
     requestAnimationFrame(anim);
   }
