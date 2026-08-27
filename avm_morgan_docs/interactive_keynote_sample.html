@@ -800,7 +800,51 @@ function buildGlobe(){
   tctx.restore();
   tctx.strokeStyle='#ffe08a'; tctx.lineWidth=3; tctx.shadowColor='#ffd166'; tctx.shadowBlur=12; tctx.stroke(); tctx.shadowBlur=0;
 
-  /* No town/state labels or dots on the globe — clean flag-coloured landmass only, per Tom's direction */
+  /* Bold, correctly-positioned town labels across Nigeria (major cities + North-Central state
+     capitals, which anchor this keynote's geography) — real lat/lon, projected with proj(). */
+  const towns = [
+    {name:'ABUJA (FCT)', lat:9.0765, lon:7.3986, cap:true},
+    {name:'LAGOS', lat:6.5244, lon:3.3792},
+    {name:'KANO', lat:12.0022, lon:8.5920},
+    {name:'PORT HARCOURT', lat:4.8156, lon:7.0498},
+    {name:'IBADAN', lat:7.3775, lon:3.9470},
+    {name:'KADUNA', lat:10.5105, lon:7.4165},
+    {name:'JOS', lat:9.8965, lon:8.8583, cap:true},
+    {name:'MAKURDI', lat:7.7322, lon:8.5391, cap:true},
+    {name:'MINNA', lat:9.6139, lon:6.5569, cap:true},
+    {name:'LOKOJA', lat:7.8023, lon:6.7333, cap:true},
+    {name:'LAFIA', lat:8.4939, lon:8.5169, cap:true},
+    {name:'ILORIN', lat:8.4966, lon:4.5426, cap:true},
+    {name:'MAIDUGURI', lat:11.8333, lon:13.1500},
+    {name:'ENUGU', lat:6.4413, lon:7.4988},
+    {name:'CALABAR', lat:4.9757, lon:8.3417},
+    {name:'SOKOTO', lat:13.0059, lon:5.2476},
+    {name:'BENIN CITY', lat:6.3350, lon:5.6037},
+    {name:'YOLA', lat:9.2035, lon:12.4954}
+  ];
+  towns.forEach(t=>{
+    const [x,y] = proj(t.lon, t.lat);
+    const dotR = t.cap ? 5 : 3.5;
+    tctx.beginPath();
+    tctx.fillStyle = t.cap ? '#ffd166' : '#ffffff';
+    tctx.shadowColor = t.cap ? '#ffd166' : '#000000';
+    tctx.shadowBlur = t.cap ? 8 : 2;
+    tctx.arc(x, y, dotR, 0, Math.PI*2);
+    tctx.fill();
+    tctx.shadowBlur = 0;
+    tctx.strokeStyle = '#0a0a0a'; tctx.lineWidth = 1.2; tctx.stroke();
+
+    const fontSize = t.cap ? 20 : 17;
+    tctx.font = `bold ${fontSize}px Arial, sans-serif`;
+    tctx.textAlign = 'center';
+    tctx.textBaseline = 'middle';
+    const labelY = y - dotR - 8;
+    tctx.lineJoin = 'round';
+    tctx.strokeStyle = '#050912'; tctx.lineWidth = 4.5;
+    tctx.strokeText(t.name, x, labelY);
+    tctx.fillStyle = t.cap ? '#ffd166' : '#ffffff';
+    tctx.fillText(t.name, x, labelY);
+  });
 
   const tex = new THREE.CanvasTexture(tc);
   const sphere = new THREE.Mesh(new THREE.SphereGeometry(3,64,64), new THREE.MeshStandardMaterial({map:tex, roughness:0.55, metalness:0.1}));
