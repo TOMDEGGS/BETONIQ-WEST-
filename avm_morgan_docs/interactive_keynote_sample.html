@@ -16,41 +16,47 @@
   .slide{
     position:absolute;top:0;left:0;width:100%;height:100%;
     display:none;flex-direction:column;justify-content:center;align-items:center;
-    padding:30px 5vw;text-align:center;
+    padding:26px 5vw;text-align:center;
   }
   .slide.active{display:flex;}
-  .kicker{color:var(--accent);letter-spacing:4px;font-size:16px;text-transform:uppercase;margin-bottom:8px;font-weight:800;
+  .kicker{color:var(--accent);letter-spacing:3px;font-size:15px;text-transform:uppercase;margin-bottom:6px;font-weight:800;
     text-shadow:0 0 18px rgba(255,209,102,0.65);}
-  h1{font-size:clamp(34px,5vw,64px);margin:0 0 10px;line-height:1.12;font-weight:800;
+  h1{font-size:clamp(28px,4.4vw,54px);margin:0 0 8px;line-height:1.1;font-weight:800;
     text-shadow:0 0 26px rgba(255,255,255,0.35);}
   h2{font-size:clamp(22px,3vw,36px);margin:0 0 16px;color:var(--accent2);font-weight:700;
     text-shadow:0 0 20px rgba(94,242,176,0.55);}
-  p.body{max-width:920px;font-size:clamp(17px,1.9vw,23px);line-height:1.55;color:var(--text);font-weight:500;}
-  p.muted{color:var(--muted);font-size:clamp(14px,1.4vw,18px);max-width:820px;line-height:1.5;font-weight:600;}
-  .stage{width:min(960px,92vw);height:min(56vh,520px);position:relative;margin:10px 0;}
+  p.body{max-width:920px;font-size:clamp(16px,1.8vw,22px);line-height:1.5;color:var(--text);font-weight:500;}
+  p.muted{color:var(--muted);font-size:clamp(13px,1.3vw,17px);max-width:820px;line-height:1.5;font-weight:600;}
+  .stage{width:min(960px,92vw);height:min(52vh,480px);position:relative;margin:8px 0;}
   canvas.draw2d{width:100%;height:100%;display:block;border-radius:14px;background:radial-gradient(circle at 50% 30%,#141d38,#05070d);}
   .three-container{width:100%;height:100%;border-radius:14px;overflow:hidden;background:radial-gradient(circle at 50% 30%,#141d38,#05070d);}
   .three-container canvas{display:block;width:100% !important;height:100% !important;}
   .nav{
-    position:absolute;bottom:20px;left:0;width:100%;display:flex;justify-content:center;
-    align-items:center;gap:16px;z-index:50;
+    position:absolute;bottom:14px;left:0;width:100%;display:flex;justify-content:center;
+    align-items:center;gap:14px;z-index:50;
   }
   .navbtn{
     background:var(--panel);border:1px solid var(--accent);color:var(--text);
-    padding:11px 20px;border-radius:24px;cursor:pointer;font-size:15px;letter-spacing:1px;font-weight:700;
+    padding:9px 18px;border-radius:22px;cursor:pointer;font-size:14px;letter-spacing:1px;font-weight:700;
     transition:all .2s;
   }
   .navbtn:hover{background:var(--accent);color:#000;}
-  .dots{display:flex;gap:6px;}
-  .dot{width:9px;height:9px;border-radius:50%;background:#2a3352;cursor:pointer;transition:.2s;}
-  .dot.active{background:var(--accent);width:24px;border-radius:5px;box-shadow:0 0 10px rgba(255,209,102,0.8);}
-  .counter{font-size:clamp(36px,6vw,64px);font-weight:900;color:var(--danger);text-shadow:0 0 24px rgba(255,107,107,0.7);}
-  .counterlabel{font-size:14px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;font-weight:700;}
-  .statgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;width:min(960px,92vw);margin-top:8px;}
-  .statcard{background:var(--panel);border:1px solid var(--accent);border-radius:12px;padding:16px 10px;box-shadow:0 0 20px rgba(255,209,102,0.12);}
-  .topline{position:absolute;top:16px;left:22px;font-size:12px;color:var(--muted);letter-spacing:2px;z-index:40;font-weight:700;}
+  .dots{display:flex;gap:4px;flex-wrap:wrap;max-width:50vw;justify-content:center;}
+  .dot{width:7px;height:7px;border-radius:50%;background:#2a3352;cursor:pointer;transition:.2s;}
+  .dot.active{background:var(--accent);width:18px;border-radius:5px;box-shadow:0 0 10px rgba(255,209,102,0.8);}
+  .counter{font-size:clamp(30px,5vw,52px);font-weight:900;color:var(--danger);text-shadow:0 0 24px rgba(255,107,107,0.7);}
+  .counterlabel{font-size:13px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;font-weight:700;}
+  .statgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;width:min(960px,92vw);margin-top:6px;}
+  .statcard{background:var(--panel);border:1px solid var(--accent);border-radius:12px;padding:14px 8px;box-shadow:0 0 20px rgba(255,209,102,0.12);}
+  .topline{position:absolute;top:14px;left:20px;font-size:11px;color:var(--muted);letter-spacing:2px;z-index:40;font-weight:700;}
   .progress{position:absolute;top:0;left:0;height:4px;background:var(--accent);z-index:60;transition:width .3s;box-shadow:0 0 12px var(--accent);}
-  .refnote{position:absolute;top:16px;right:22px;font-size:11px;color:var(--muted);z-index:40;}
+  .refnote{position:absolute;top:14px;right:20px;font-size:10px;color:var(--muted);z-index:40;}
+  .refs-list{max-width:980px;max-height:60vh;overflow-y:auto;text-align:left;padding:10px 18px;background:var(--panel);
+    border:1px solid var(--accent);border-radius:14px;box-shadow:0 0 24px rgba(255,209,102,0.15);}
+  .refs-item{font-size:clamp(13px,1.3vw,16px);line-height:1.55;color:var(--text);margin:10px 0;padding-left:28px;position:relative;}
+  .refs-item b{color:var(--accent2);}
+  .refs-item::before{content:counter(refnum);counter-increment:refnum;position:absolute;left:0;top:0;color:var(--accent);font-weight:800;}
+  .refs-list{counter-reset:refnum;}
 </style>
 </head>
 <body>
@@ -59,7 +65,7 @@
   <div class="topline">AVM MONDAY RIKU MORGAN (RTD) &nbsp;·&nbsp; MOD KEYNOTE ADDRESS &nbsp;·&nbsp; 31 AUG 2026</div>
   <div class="refnote">SAMPLE / DRAFT — INTERACTIVE BUILD</div>
 
-  <!-- SLIDE 0: TITLE -->
+  <!-- 0: TITLE -->
   <section class="slide active" data-idx="0">
     <div class="kicker">Keynote Address · Federal Ministry of Defence</div>
     <h1>Collaborative Approaches to Strengthening<br>Security in North-Central Nigeria</h1>
@@ -67,9 +73,16 @@
     <p class="muted">Air Vice Marshal Monday Riku Morgan (Rtd) · Former Chief of Defence Intelligence</p>
   </section>
 
-  <!-- SLIDE 1: THE CRISIS -->
+  <!-- 1: OPENING -->
   <section class="slide" data-idx="1">
     <div class="kicker">Opening — One Ecosystem, Not Separate Problems</div>
+    <h1>The People Behind the Statistics</h1>
+    <div class="stage"><div class="three-container" id="three-opening"></div></div>
+  </section>
+
+  <!-- 2: HUMAN COST STATS -->
+  <section class="slide" data-idx="2">
+    <div class="kicker">Opening — The Scale of the Crisis</div>
     <h1>The Human Cost, In Numbers</h1>
     <div class="statgrid" id="statgrid">
       <div class="statcard"><div class="counter" data-target="140" data-suffix="+">0</div><div class="counterlabel">Killed, Plateau State, Dec 2023</div></div>
@@ -81,68 +94,202 @@
     </div>
   </section>
 
-  <!-- SLIDE 2: THE REACTIVE CYCLE -->
-  <section class="slide" data-idx="2">
+  <!-- 3: SECTION ONE -->
+  <section class="slide" data-idx="3">
+    <div class="kicker">Section One — The North-Central Security Question</div>
+    <h1>The Bridge Between North and South</h1>
+    <div class="stage"><canvas class="draw2d" id="canvas-secq1"></canvas></div>
+  </section>
+
+  <!-- 4: SECTION TWO -->
+  <section class="slide" data-idx="4">
     <div class="kicker">Section Two — The Central Problem</div>
     <h1>We Are Too Reactive</h1>
     <div class="stage"><canvas class="draw2d" id="canvas-cycle"></canvas></div>
   </section>
 
-  <!-- SLIDE 3: SEE SHARE DECIDE ACT LEARN -->
-  <section class="slide" data-idx="3">
+  <!-- 5: SECTION THREE -->
+  <section class="slide" data-idx="5">
     <div class="kicker">Section Three — Security as Collective Responsibility</div>
     <h1>Five Disciplines, One Cycle</h1>
     <div class="stage"><div class="three-container" id="three-wheel"></div></div>
   </section>
 
-  <!-- SLIDE 4: ONE SECURITY PICTURE -->
-  <section class="slide" data-idx="4">
-    <div class="kicker">Sections Four & Five — Fusion Centre</div>
-    <h1>One Security Picture, Multiple Capabilities</h1>
+  <!-- 6: SECTION FOUR -->
+  <section class="slide" data-idx="6">
+    <div class="kicker">Section Four — One Security Picture, Multiple Capabilities</div>
+    <h1>Nine Agencies, One Threat Picture</h1>
     <div class="stage"><div class="three-container" id="three-fusion"></div></div>
   </section>
 
-  <!-- SLIDE 5: SECURITY CORRIDORS -->
-  <section class="slide" data-idx="5">
+  <!-- 7: SECTION FIVE -->
+  <section class="slide" data-idx="7">
+    <div class="kicker">Section Five — Regional Security Intelligence & Fusion Centre</div>
+    <h1>Built on a Proven Global Principle</h1>
+    <div class="stage"><div class="three-container" id="three-fusioncentre"></div></div>
+  </section>
+
+  <!-- 8: SECTION SIX -->
+  <section class="slide" data-idx="8">
+    <div class="kicker">Section Six — From Intelligence Collection to Intelligence Action</div>
+    <h1>The Pathway Must Close the Loop</h1>
+    <div class="stage"><canvas class="draw2d" id="canvas-intelaction"></canvas></div>
+  </section>
+
+  <!-- 9: SECTION SEVEN -->
+  <section class="slide" data-idx="9">
+    <div class="kicker">Section Seven — The Community Must Become the First Sensor</div>
+    <h1>They See What No Satellite Ever Will</h1>
+    <div class="stage"><div class="three-container" id="three-sensor"></div></div>
+  </section>
+
+  <!-- 10: SECTION EIGHT -->
+  <section class="slide" data-idx="10">
+    <div class="kicker">Section Eight — Traditional Rulers in the Security Architecture</div>
+    <h1>A Standing Table, Not an Emergency Meeting</h1>
+    <div class="stage"><div class="three-container" id="three-rulers"></div></div>
+  </section>
+
+  <!-- 11: SECTION NINE -->
+  <section class="slide" data-idx="11">
     <div class="kicker">Section Nine — Security Corridors, Not Administrative Boundaries</div>
     <h1>Threats Move Along Corridors</h1>
     <div class="stage"><canvas class="draw2d" id="canvas-corridors"></canvas></div>
   </section>
 
-  <!-- SLIDE 6: 30-60 MINUTE WINDOW -->
-  <section class="slide" data-idx="6">
+  <!-- 12: SECTION TEN -->
+  <section class="slide" data-idx="12">
     <div class="kicker">Section Ten — Rapid Response</div>
     <h1>The Thirty-to-Sixty-Minute Window</h1>
-    <div class="stage" style="height:min(52vh,420px);"><canvas class="draw2d" id="canvas-timer"></canvas></div>
+    <div class="stage" style="height:min(48vh,400px);"><canvas class="draw2d" id="canvas-timer"></canvas></div>
   </section>
 
-  <!-- SLIDE 7: THREE LAYER MODEL -->
-  <section class="slide" data-idx="7">
+  <!-- 13: SECTION ELEVEN -->
+  <section class="slide" data-idx="13">
+    <div class="kicker">Section Eleven — Technology Should Multiply Human Capability</div>
+    <h1>A Doctrine, Not a Shopping List</h1>
+    <div class="stage"><div class="three-container" id="three-tech"></div></div>
+  </section>
+
+  <!-- 14: SECTION TWELVE -->
+  <section class="slide" data-idx="14">
+    <div class="kicker">Section Twelve — The Forest Problem</div>
+    <h1>Deny Sanctuary, Not the Farmer</h1>
+    <div class="stage"><div class="three-container" id="three-forest"></div></div>
+  </section>
+
+  <!-- 15: SECTION THIRTEEN -->
+  <section class="slide" data-idx="15">
+    <div class="kicker">Section Thirteen — Separate the Criminal From the Community</div>
+    <h1>Identify by Behaviour, Never by Identity</h1>
+    <div class="stage"><div class="three-container" id="three-separate"></div></div>
+  </section>
+
+  <!-- 16: SECTION FOURTEEN -->
+  <section class="slide" data-idx="16">
+    <div class="kicker">Section Fourteen — Farmer-Herder Conflict as a Governance Issue</div>
+    <h1>We Cannot Shoot Our Way Out of a Dispute</h1>
+    <div class="stage"><div class="three-container" id="three-farmherd"></div></div>
+  </section>
+
+  <!-- 17: SECTION FIFTEEN -->
+  <section class="slide" data-idx="17">
+    <div class="kicker">Section Fifteen — Young People, the Most Important Investment</div>
+    <h1>A Credible Alternative Future, Offered Early</h1>
+    <div class="stage"><div class="three-container" id="three-youth"></div></div>
+  </section>
+
+  <!-- 18: SECTIONS 16&17 -->
+  <section class="slide" data-idx="18">
+    <div class="kicker">Sections Sixteen & Seventeen — Women & Local Government</div>
+    <h1>Proximity Means Faster Warning</h1>
+    <div class="stage"><div class="three-container" id="three-women-lg"></div></div>
+  </section>
+
+  <!-- 19: SECTION EIGHTEEN -->
+  <section class="slide" data-idx="19">
+    <div class="kicker">Section Eighteen — State Police: An Opportunity That Requires Safeguards</div>
+    <h1>Competence Close to Community, Without Abuse</h1>
+    <div class="stage"><div class="three-container" id="three-statepolice"></div></div>
+  </section>
+
+  <!-- 20: SECTIONS 19&20 -->
+  <section class="slide" data-idx="20">
+    <div class="kicker">Sections Nineteen & Twenty — Predictable Funding & Personnel Welfare</div>
+    <h1>Morale Is a Combat Capability</h1>
+    <div class="stage"><div class="three-container" id="three-funding"></div></div>
+  </section>
+
+  <!-- 21: SECTION TWENTY-ONE -->
+  <section class="slide" data-idx="21">
     <div class="kicker">Section Twenty-One — The Architecture</div>
     <h1>The Three-Layer Security Model</h1>
     <div class="stage"><div class="three-container" id="three-layers"></div></div>
   </section>
 
-  <!-- SLIDE 8: 24 HOUR CYCLE -->
-  <section class="slide" data-idx="8">
+  <!-- 22: SECTION TWENTY-TWO -->
+  <section class="slide" data-idx="22">
     <div class="kicker">Section Twenty-Two — Around the Clock</div>
     <h1>A Twenty-Four-Hour Security Cycle</h1>
-    <div class="stage" style="height:min(58vh,480px);"><canvas class="draw2d" id="canvas-clock"></canvas></div>
+    <div class="stage" style="height:min(54vh,440px);"><canvas class="draw2d" id="canvas-clock"></canvas></div>
   </section>
 
-  <!-- SLIDE 9: SEVEN COMMITMENTS -->
-  <section class="slide" data-idx="9">
+  <!-- 23: SECTION TWENTY-THREE -->
+  <section class="slide" data-idx="23">
+    <div class="kicker">Section Twenty-Three — What Should Happen in the Next Ninety Days</div>
+    <h1>No Abstractions — Ten Concrete Actions</h1>
+    <div class="stage"><div class="three-container" id="three-90days"></div></div>
+  </section>
+
+  <!-- 24: SECTION TWENTY-FOUR -->
+  <section class="slide" data-idx="24">
     <div class="kicker">Section Twenty-Four — The North-Central Security Compact</div>
     <h1>Seven Commitments</h1>
     <div class="stage"><div class="three-container" id="three-heptagon"></div></div>
   </section>
 
-  <!-- SLIDE 10: CLOSING -->
-  <section class="slide" data-idx="10">
+  <!-- 25: SECTION TWENTY-FIVE -->
+  <section class="slide" data-idx="25">
+    <div class="kicker">Section Twenty-Five — What Success Should Look Like in Three Years</div>
+    <h1>Farmers Return. Families Come Home.</h1>
+    <div class="stage"><div class="three-container" id="three-success"></div></div>
+  </section>
+
+  <!-- 26: SECTION TWENTY-SIX -->
+  <section class="slide" data-idx="26">
+    <div class="kicker">Section Twenty-Six — The Biggest Change We Need Is Mental</div>
+    <h1>How We Think, Before How Much We Spend</h1>
+    <div class="stage"><div class="three-container" id="three-mental"></div></div>
+  </section>
+
+  <!-- 27: CLOSING -->
+  <section class="slide" data-idx="27">
     <div class="kicker">Closing</div>
     <div class="stage"><div class="three-container" id="three-close"></div></div>
     <h1>He Simply Wants to Arrive Alive.</h1>
     <p class="muted">— Air Vice Marshal Monday Riku Morgan (Rtd)</p>
+  </section>
+
+  <!-- 28: REFERENCES -->
+  <section class="slide" data-idx="28">
+    <div class="kicker">References</div>
+    <h1>Sources &amp; Comparative Precedents</h1>
+    <div class="refs-list">
+      <div class="refs-item"><b>ACLED</b> (2025) <i>Armed Conflict Location &amp; Event Data Project: Nigeria, Jan 2024–Dec 2025.</i> Conflict and fatality data, Benue, Plateau &amp; Niger States.</div>
+      <div class="refs-item"><b>Federal Government of Nigeria</b> (2026) <i>Northern Nigerian Security Trust Fund.</i> Inaugurated July 2026.</div>
+      <div class="refs-item"><b>Government of Colombia</b> (1990s–2000s) <i>Plan Colombia: Community Intelligence &amp; Reintegration Programmes.</i></div>
+      <div class="refs-item"><b>Government of Kenya</b> (n.d.) <i>Nyumba Kumi Community Policing Initiative.</i></div>
+      <div class="refs-item"><b>Government of the Philippines</b> (n.d.) <i>Barangay Peacekeeping Action Teams.</i></div>
+      <div class="refs-item"><b>UK Government</b> (n.d.) <i>Joint Terrorism Analysis Centre (JTAC).</i></div>
+      <div class="refs-item"><b>US Government</b> (n.d.) <i>National Counterterrorism Center (NCTC).</i></div>
+      <div class="refs-item"><b>Government of India</b> (2009) <i>Multi-Agency Centre (MAC), established following the 2008 Mumbai attacks.</i></div>
+      <div class="refs-item"><b>Government of Israel</b> (n.d.) <i>Civil Defence Rapid-Response &amp; Pre-Positioning Doctrine.</i></div>
+      <div class="refs-item"><b>Government of the United Kingdom</b> (1998–) <i>Good Friday Agreement — Northern Ireland Youth Reintegration Programmes.</i></div>
+      <div class="refs-item"><b>Government of South Africa</b> (n.d.) <i>Provincial Policing Powers Debate.</i></div>
+      <div class="refs-item"><b>Sahel Regional Bodies &amp; Governments of Kenya/Ethiopia</b> (n.d.) <i>Cross-Border Grazing &amp; Pastoralist Dialogue Initiatives.</i></div>
+      <div class="refs-item"><b>North-Central Nigeria Governors' Forum</b> (2025) <i>Joint Security Operations Agreement.</i></div>
+    </div>
+    <p class="muted" style="margin-top:10px;">Air Vice Marshal Monday Riku Morgan (Rtd) · MOD Keynote Address · 31 August 2026</p>
   </section>
 
   <div class="nav">
@@ -181,7 +328,7 @@ window.addEventListener('keydown',e=>{
   if(e.key==='ArrowLeft') goTo(current-1);
 });
 
-/* ---------- COUNTER ANIMATION (slide 1) ---------- */
+/* ---------- COUNTER ANIMATION ---------- */
 function animateCounters(){
   document.querySelectorAll('#statgrid .counter').forEach(el=>{
     const target = parseInt(el.getAttribute('data-target'),10);
@@ -199,7 +346,7 @@ function animateCounters(){
   });
 }
 
-/* helper: bright glowing label drawn directly ON the canvas graphic */
+/* helper: bright glowing label drawn directly ON a 2D canvas graphic */
 function glowText(ctx, text, x, y, size, color){
   ctx.save();
   ctx.font = `800 ${size}px Segoe UI`;
@@ -214,7 +361,55 @@ function glowText(ctx, text, x, y, size, color){
   ctx.restore();
 }
 
-/* ---------- CANVAS 2D: REACTIVE CYCLE (slide 2) — big glowing labels ON the ring ---------- */
+/* ---------- GENERIC 2D: NETWORK / CORRIDOR MAP ---------- */
+function drawNetworkMap2D(canvasId, nodes, edges){
+  const cv = document.getElementById(canvasId);
+  const ctx = cv.getContext('2d');
+  let t = 0;
+  function render(){
+    const w = cv.clientWidth, h = cv.clientHeight;
+    if(w<2||h<2){ requestAnimationFrame(render); return; }
+    cv.width = w; cv.height = h;
+    ctx.clearRect(0,0,w,h);
+    ctx.lineWidth = 3;
+    edges.forEach(([a,b])=>{
+      const [ax,ay] = nodes[a], [bx,by] = nodes[b];
+      const x1=ax*w,y1=ay*h,x2=bx*w,y2=by*h;
+      ctx.strokeStyle = '#ffd16688';
+      ctx.beginPath(); ctx.moveTo(x1,y1); ctx.lineTo(x2,y2); ctx.stroke();
+      const p = (Math.sin(t + (x1+y1)*0.01)+1)/2;
+      const px = x1 + (x2-x1)*p, py = y1 + (y2-y1)*p;
+      ctx.beginPath(); ctx.fillStyle='#ff6b6b'; ctx.shadowColor='#ff6b6b'; ctx.shadowBlur=14;
+      ctx.arc(px,py,6,0,Math.PI*2); ctx.fill(); ctx.shadowBlur=0;
+    });
+    Object.entries(nodes).forEach(([name,[nx,ny]])=>{
+      const x=nx*w,y=ny*h;
+      ctx.beginPath(); ctx.fillStyle='#5ef2b0'; ctx.shadowColor='#5ef2b0'; ctx.shadowBlur=12;
+      ctx.arc(x,y,7,0,Math.PI*2); ctx.fill(); ctx.shadowBlur=0;
+      glowText(ctx, name.replace('_',' '), x, y-20, 15, '#5ef2b0');
+    });
+    t += 0.03;
+    requestAnimationFrame(render);
+  }
+  render();
+}
+function drawSecQ1(){
+  drawNetworkMap2D('canvas-secq1', {
+    'BENUE':[0.80,0.62],'KOGI':[0.40,0.68],'KWARA':[0.12,0.50],'NASARAWA':[0.62,0.48],
+    'NIGER':[0.36,0.30],'PLATEAU':[0.74,0.26],'FCT':[0.55,0.42]
+  }, [['KWARA','NIGER'],['NIGER','FCT'],['FCT','NASARAWA'],['NASARAWA','BENUE'],['NASARAWA','PLATEAU'],['KOGI','NASARAWA'],['KOGI','BENUE']]);
+}
+function drawCorridors(){
+  drawNetworkMap2D('canvas-corridors', {
+    'KWARA':[0.16,0.55],'NIGER':[0.40,0.35],'KAINJI':[0.28,0.18],
+    'KADUNA':[0.58,0.16],'FCT':[0.55,0.42],'BENUE':[0.76,0.56],
+    'NASARAWA':[0.63,0.48],'TARABA':[0.90,0.50],'PLATEAU':[0.70,0.28],
+    'BAUCHI':[0.86,0.16],'KOGI':[0.40,0.64]
+  }, [['KWARA','NIGER'],['NIGER','KAINJI'],['NIGER','KADUNA'],['KADUNA','FCT'],
+      ['BENUE','NASARAWA'],['BENUE','TARABA'],['PLATEAU','BAUCHI'],['KOGI','NASARAWA'],['NASARAWA','BENUE'],['KOGI','BENUE']]);
+}
+
+/* ---------- 2D: REACTIVE CYCLE ---------- */
 function drawCycle(){
   const cv = document.getElementById('canvas-cycle');
   const ctx = cv.getContext('2d');
@@ -245,48 +440,54 @@ function drawCycle(){
   render();
 }
 
-/* ---------- CANVAS 2D: SECURITY CORRIDORS (slide 5) ---------- */
-function drawCorridors(){
-  const cv = document.getElementById('canvas-corridors');
+/* ---------- 2D: INTEL COLLECTION -> ACTION FLOW/FEEDBACK LOOP ---------- */
+function drawFlowChain2D(canvasId, steps){
+  const cv = document.getElementById(canvasId);
   const ctx = cv.getContext('2d');
-  const nodes = {
-    'KWARA':[0.16,0.55],'NIGER':[0.40,0.35],'KAINJI':[0.28,0.18],
-    'KADUNA':[0.58,0.16],'FCT':[0.55,0.42],'BENUE':[0.76,0.56],
-    'NASARAWA':[0.63,0.48],'TARABA':[0.90,0.50],'PLATEAU':[0.70,0.28],
-    'BAUCHI':[0.86,0.16],'KOGI':[0.40,0.64]
-  };
-  const edges = [['KWARA','NIGER'],['NIGER','KAINJI'],['NIGER','KADUNA'],['KADUNA','FCT'],
-                 ['BENUE','NASARAWA'],['BENUE','TARABA'],['PLATEAU','BAUCHI'],['KOGI','NASARAWA'],['NASARAWA','BENUE'],['KOGI','BENUE']];
   let t = 0;
   function render(){
     const w = cv.clientWidth, h = cv.clientHeight;
     if(w<2||h<2){ requestAnimationFrame(render); return; }
     cv.width = w; cv.height = h;
     ctx.clearRect(0,0,w,h);
-    ctx.lineWidth = 3;
-    edges.forEach(([a,b])=>{
-      const [ax,ay] = nodes[a], [bx,by] = nodes[b];
-      const x1=ax*w,y1=ay*h,x2=bx*w,y2=by*h;
-      ctx.strokeStyle = '#ffd16688';
-      ctx.beginPath(); ctx.moveTo(x1,y1); ctx.lineTo(x2,y2); ctx.stroke();
-      const p = (Math.sin(t + (x1+y1)*0.01)+1)/2;
-      const px = x1 + (x2-x1)*p, py = y1 + (y2-y1)*p;
-      ctx.beginPath(); ctx.fillStyle='#ff6b6b'; ctx.shadowColor='#ff6b6b'; ctx.shadowBlur=14;
-      ctx.arc(px,py,6,0,Math.PI*2); ctx.fill(); ctx.shadowBlur=0;
+    const n = steps.length;
+    const y = h*0.40, marginX = w*0.08, usableW = w - marginX*2;
+    const pts = steps.map((s,i)=> [marginX + (usableW*i/(n-1)), y]);
+    ctx.strokeStyle='#2a3352'; ctx.lineWidth=3;
+    ctx.beginPath(); pts.forEach(([x,yy],i)=>{ if(i===0) ctx.moveTo(x,yy); else ctx.lineTo(x,yy); }); ctx.stroke();
+    const [lx,ly] = pts[n-1], [fx,fy] = pts[0];
+    ctx.save();
+    ctx.setLineDash([8,8]);
+    ctx.strokeStyle='#5ef2b0'; ctx.lineWidth=3; ctx.shadowColor='#5ef2b0'; ctx.shadowBlur=10;
+    ctx.beginPath();
+    ctx.moveTo(lx,ly+26);
+    ctx.quadraticCurveTo(w/2, h*0.86, fx, fy+26);
+    ctx.stroke();
+    ctx.restore();
+    glowText(ctx,'FEEDBACK CLOSES THE LOOP', w/2, h*0.80, 17, '#5ef2b0');
+    const p = (Math.sin(t)+1)/2;
+    const idxF = p*(n-1);
+    const i0 = Math.floor(idxF), i1=Math.min(n-1,i0+1);
+    const localP = idxF - i0;
+    const px = pts[i0][0] + (pts[i1][0]-pts[i0][0])*localP;
+    ctx.beginPath(); ctx.fillStyle='#ff6b6b'; ctx.shadowColor='#ff6b6b'; ctx.shadowBlur=14; ctx.arc(px,y,7,0,Math.PI*2); ctx.fill(); ctx.shadowBlur=0;
+    steps.forEach((label,i)=>{
+      const [x,yy] = pts[i];
+      const isFeedback = label.toUpperCase().includes('FEEDBACK');
+      const c = isFeedback? '#5ef2b0':'#ffd166';
+      ctx.beginPath(); ctx.fillStyle=c; ctx.shadowColor=c; ctx.shadowBlur=14; ctx.arc(x,yy,9,0,Math.PI*2); ctx.fill(); ctx.shadowBlur=0;
+      label.split('\n').forEach((line,li)=> glowText(ctx, line, x, yy-32-li*17, 14, c));
     });
-    Object.entries(nodes).forEach(([name,[nx,ny]])=>{
-      const x=nx*w,y=ny*h;
-      ctx.beginPath(); ctx.fillStyle='#5ef2b0'; ctx.shadowColor='#5ef2b0'; ctx.shadowBlur=12;
-      ctx.arc(x,y,7,0,Math.PI*2); ctx.fill(); ctx.shadowBlur=0;
-      glowText(ctx, name, x, y-20, 15, '#5ef2b0');
-    });
-    t += 0.03;
+    t += 0.02;
     requestAnimationFrame(render);
   }
   render();
 }
+function drawIntelAction(){
+  drawFlowChain2D('canvas-intelaction', ['COMMUNITY','LOCAL\nNODE','FUSION\nCENTRE','THREAT\nASSESSMENT','SECURITY\nAGENCY','RAPID\nRESPONSE','FEEDBACK']);
+}
 
-/* ---------- CANVAS 2D: 30-60 MIN TIMER (slide 6) ---------- */
+/* ---------- 2D: RAPID RESPONSE TIMER ---------- */
 function drawTimer(){
   const cv = document.getElementById('canvas-timer');
   const ctx = cv.getContext('2d');
@@ -304,7 +505,7 @@ function drawTimer(){
     ctx.strokeStyle = col; ctx.lineWidth=16; ctx.shadowColor=col; ctx.shadowBlur=20;
     ctx.beginPath(); ctx.arc(cx,cy,r,-Math.PI/2, -Math.PI/2 + progress*Math.PI*2); ctx.stroke();
     ctx.shadowBlur=0;
-    glowText(ctx, Math.round(progress*60)+' MIN', cx, cy, 30, col);
+    glowText(ctx, Math.round(progress*60)+' MIN', cx, cy, 28, col);
     const y2 = h*0.82;
     chain.forEach((label,i)=>{
       const x = w*(0.1 + i*0.8/(chain.length-1));
@@ -325,7 +526,7 @@ function drawTimer(){
   render();
 }
 
-/* ---------- CANVAS 2D: 24H CYCLE (slide 8) ---------- */
+/* ---------- 2D: 24H CYCLE ---------- */
 function drawClock(){
   const cv = document.getElementById('canvas-clock');
   const ctx = cv.getContext('2d');
@@ -381,7 +582,7 @@ function baseScene(container){
   return {scene,camera,renderer,resize};
 }
 
-/* Bright glowing text sprite — this is how text gets welded ONTO the 3D graphic itself */
+/* Bright glowing text sprite — welds text ONTO the 3D graphic itself */
 function makeLabelSprite(text, {color='#ffffff', glow='#ffd166', fontSize=64, scale=2.2}={}){
   const lines = text.split('\n');
   const canvas = document.createElement('canvas');
@@ -413,90 +614,107 @@ function makeLabelSprite(text, {color='#ffffff', glow='#ffd166', fontSize=64, sc
   return sprite;
 }
 
-/* GLOBE (slide 0) */
-function buildGlobe(){
-  const container = document.getElementById('three-globe');
-  const {scene,camera,renderer} = baseScene(container);
-  const group = new THREE.Group(); scene.add(group);
-  const geo = new THREE.IcosahedronGeometry(3, 2);
-  const mat = new THREE.MeshBasicMaterial({color:0x2a3a66, wireframe:true});
-  group.add(new THREE.Mesh(geo, mat));
-  const stateNames = ['BENUE','KOGI','KWARA','NASARAWA','NIGER','PLATEAU','FCT','KADUNA','TARABA'];
-  const hotspots = [];
-  for(let i=0;i<9;i++){
-    const phi = Math.acos(-1 + (2*i)/9);
-    const theta = Math.sqrt(9*Math.PI)*phi;
-    const r = 3;
-    const x = r*Math.cos(theta)*Math.sin(phi), y = r*Math.sin(theta)*Math.sin(phi), z = r*Math.cos(phi);
-    const sMat = new THREE.MeshBasicMaterial({color: i%3===0?0xff6b6b:0xffd166});
-    const s = new THREE.Mesh(new THREE.SphereGeometry(0.13,12,12), sMat); s.position.set(x,y,z);
-    const label = makeLabelSprite(stateNames[i], {glow: i%3===0?'#ff6b6b':'#ffd166', fontSize:52, scale:1.3});
-    label.position.set(x*1.28,y*1.28,z*1.28);
-    group.add(s); group.add(label); hotspots.push(s);
-  }
-  const title = makeLabelSprite('NORTH-CENTRAL\nNIGERIA', {glow:'#5ef2b0', color:'#ffffff', fontSize:60, scale:2.4});
-  title.position.set(0,0,0.2);
-  group.add(title);
-  function anim(){
-    group.rotation.y += 0.004; group.rotation.x += 0.0008;
-    hotspots.forEach((s,i)=>{ const sc = 1 + 0.3*Math.sin(Date.now()*0.003 + i); s.scale.set(sc,sc,sc); });
-    renderer.render(scene,camera);
-    requestAnimationFrame(anim);
-  }
-  anim();
+const PALETTE = [0x5ef2b0,0xffd166,0x5b9dff,0xff6b6b,0xc98bff,0x6ce7cf,0xff9ebc];
+function pal(i){ return PALETTE[i%PALETTE.length]; }
+function hexStr(n){ return '#'+(new THREE.Color(n)).getHexString(); }
+
+/* Simple stylised low-poly human figure — used for people-centred sections */
+function makeHumanFigure(color, scale=1){
+  const g = new THREE.Group();
+  const mat = new THREE.MeshStandardMaterial({color, emissive:color, emissiveIntensity:0.28});
+  const head = new THREE.Mesh(new THREE.SphereGeometry(0.28,16,16), mat); head.position.y=1.55; g.add(head);
+  const torso = new THREE.Mesh(new THREE.CylinderGeometry(0.32,0.4,1.0,12), mat); torso.position.y=0.85; g.add(torso);
+  const armGeo = new THREE.CylinderGeometry(0.09,0.09,0.85,8);
+  const armL = new THREE.Mesh(armGeo,mat); armL.position.set(-0.5,0.95,0); armL.rotation.z=0.35; g.add(armL);
+  const armR = new THREE.Mesh(armGeo,mat); armR.position.set(0.5,0.95,0); armR.rotation.z=-0.35; g.add(armR);
+  const legGeo = new THREE.CylinderGeometry(0.11,0.11,0.9,8);
+  const legL = new THREE.Mesh(legGeo,mat); legL.position.set(-0.18,0.05,0); g.add(legL);
+  const legR = new THREE.Mesh(legGeo,mat); legR.position.set(0.18,0.05,0); g.add(legR);
+  g.scale.set(scale,scale,scale);
+  return g;
 }
 
-/* SEE-SHARE-DECIDE-ACT-LEARN WHEEL (slide 3) — labels welded onto each cube */
-function buildWheel(){
-  const container = document.getElementById('three-wheel');
+/* Generic row of human figures, each with a welded label */
+function buildHumanRow(containerId, people, opts={}){
+  const container = document.getElementById(containerId);
   const {scene,camera,renderer} = baseScene(container);
+  camera.position.set(0, 1.1, people.length>3?10.5:9.2);
   const group = new THREE.Group(); scene.add(group);
-  const labels = ['SEE','SHARE','DECIDE','ACT','LEARN'];
-  const colors = [0x5ef2b0,0xffd166,0x5b9dff,0xff6b6b,0xc98bff];
-  const glows  = ['#5ef2b0','#ffd166','#5b9dff','#ff6b6b','#c98bff'];
-  labels.forEach((label,i)=>{
-    const a = (i/labels.length)*Math.PI*2;
-    const geo = new THREE.BoxGeometry(1.5,1.5,1.5);
-    const mat = new THREE.MeshStandardMaterial({color:colors[i], emissive:colors[i], emissiveIntensity:0.25});
-    const cube = new THREE.Mesh(geo,mat);
-    cube.position.set(3.2*Math.cos(a),3.2*Math.sin(a),0);
-    group.add(cube);
-    const lbl = makeLabelSprite(label, {glow:glows[i], fontSize:70, scale:1.7});
-    lbl.position.set(3.2*Math.cos(a),3.2*Math.sin(a),1.3);
+  const n = people.length;
+  const spacing = opts.spacing || 2.3;
+  const startX = -((n-1)*spacing)/2;
+  const figures=[];
+  people.forEach((p,i)=>{
+    const fig = makeHumanFigure(p.color, p.scale||1);
+    fig.position.x = startX + i*spacing;
+    fig.userData.phase = i*0.7;
+    group.add(fig);
+    figures.push(fig);
+    const lbl = makeLabelSprite(p.label, {glow:hexStr(p.color), fontSize:32, scale:0.95});
+    lbl.position.set(fig.position.x, 2.15, 0);
     group.add(lbl);
   });
-  const center = makeLabelSprite('ONE\nCYCLE', {glow:'#ffffff', fontSize:50, scale:1.6});
-  group.add(center);
+  if(opts.centerLabel){
+    const cl = makeLabelSprite(opts.centerLabel, {glow:'#ffffff', fontSize:48, scale:1.55});
+    cl.position.set(0, -1.55, 0.6);
+    group.add(cl);
+  }
   function anim(){
-    group.rotation.z += 0.006; group.rotation.y += 0.01;
+    const t = Date.now()*0.0015;
+    figures.forEach(f=>{ f.position.y = Math.sin(t+f.userData.phase)*0.08; f.rotation.y = Math.sin(t*0.5+f.userData.phase)*0.15; });
+    group.rotation.y = Math.sin(t*0.2)*0.08;
     renderer.render(scene,camera);
     requestAnimationFrame(anim);
   }
   anim();
 }
 
-/* FUSION CENTRE (slide 4) — agency names orbit welded to their nodes */
-function buildFusion(){
-  const container = document.getElementById('three-fusion');
+/* Generic orbit scene — core (shape/tree/human) with N labelled items orbiting */
+function buildOrbit3D(containerId, opts){
+  const {coreLabel, coreColor=0xffd166, coreShape='octa', items=[], radius=3.5, coreIsHuman=false} = opts;
+  const container = document.getElementById(containerId);
   const {scene,camera,renderer} = baseScene(container);
+  if(items.length>7) camera.position.set(0,0,11);
   const group = new THREE.Group(); scene.add(group);
-  const coreMat = new THREE.MeshStandardMaterial({color:0xffd166, emissive:0xaa7700, emissiveIntensity:0.6});
-  group.add(new THREE.Mesh(new THREE.OctahedronGeometry(0.8,0), coreMat));
-  const coreLabel = makeLabelSprite('FUSION', {glow:'#ffd166', fontSize:56, scale:1.4});
-  coreLabel.position.set(0,1.3,0);
-  group.add(coreLabel);
-  const agencies = ['ARMED\nFORCES','POLICE','DSS','NSCDC','NDLEA /\nCUSTOMS','STATE\nCOUNCILS','LOCAL\nGOVT','TRADITIONAL\nRULERS','COMMUNITY'];
+  let core = null;
+  if(coreIsHuman){
+    core = makeHumanFigure(coreColor, 1.2);
+    group.add(core);
+  } else if(coreShape==='tree'){
+    for(let i=0;i<5;i++){
+      const tgeo = new THREE.ConeGeometry(0.32+Math.random()*0.15,1.0+Math.random()*0.4,8);
+      const tmat = new THREE.MeshStandardMaterial({color:0x1f7a4d, emissive:0x0d3a20, emissiveIntensity:0.3});
+      const tm = new THREE.Mesh(tgeo,tmat);
+      const ang = (i/5)*Math.PI*2;
+      tm.position.set(Math.cos(ang)*0.42, Math.sin(ang)*0.22-0.2, Math.sin(ang)*0.42);
+      group.add(tm);
+    }
+  } else if(coreShape==='shield'){
+    core = new THREE.Mesh(new THREE.OctahedronGeometry(0.95,0), new THREE.MeshStandardMaterial({color:coreColor, emissive:coreColor, emissiveIntensity:0.45}));
+    group.add(core);
+  } else {
+    const geo = coreShape==='box'? new THREE.BoxGeometry(1.2,1.2,1.2) : new THREE.OctahedronGeometry(0.85,0);
+    core = new THREE.Mesh(geo, new THREE.MeshStandardMaterial({color:coreColor, emissive:coreColor, emissiveIntensity:0.4}));
+    group.add(core);
+  }
+  if(coreLabel){
+    const lbl = makeLabelSprite(coreLabel, {glow:hexStr(coreColor), fontSize:44, scale:1.3});
+    lbl.position.set(0, coreIsHuman?2.2:1.5, 0);
+    group.add(lbl);
+  }
+  const n = items.length;
   const orbiters=[];
-  agencies.forEach((name,i)=>{
-    const a = (i/agencies.length)*Math.PI*2;
-    const m = new THREE.Mesh(new THREE.SphereGeometry(0.26,14,14), new THREE.MeshStandardMaterial({color:0x5ef2b0, emissive:0x226644,emissiveIntensity:0.4}));
-    m.userData.angle = a; m.userData.radius = 3.5;
-    const lbl = makeLabelSprite(name, {glow:'#5ef2b0', fontSize:46, scale:1.05});
-    lbl.position.set(0,0.55,0);
+  items.forEach((it,i)=>{
+    const a = (i/n)*Math.PI*2;
+    const col = it.color!==undefined ? it.color : pal(i);
+    const shapeGeo = it.shape==='box'? new THREE.BoxGeometry(0.5,0.5,0.5) : new THREE.SphereGeometry(0.28,14,14);
+    const m = new THREE.Mesh(shapeGeo, new THREE.MeshStandardMaterial({color: col, emissive: col, emissiveIntensity:0.4}));
+    m.userData.angle = a; m.userData.radius = radius;
+    const lbl = makeLabelSprite(it.label, {glow: hexStr(col), fontSize: n>8?32:44, scale: n>8?0.8:1.05});
+    lbl.position.set(0,0.5,0);
     m.add(lbl);
     group.add(m); orbiters.push(m);
-    const points = [new THREE.Vector3(0,0,0), new THREE.Vector3(3.5*Math.cos(a),3.5*Math.sin(a),0)];
-    const lineGeo = new THREE.BufferGeometry().setFromPoints(points);
+    const lineGeo = new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(0,0,0), new THREE.Vector3(radius*Math.cos(a),radius*Math.sin(a),0)]);
     group.add(new THREE.Line(lineGeo, new THREE.LineBasicMaterial({color:0x2a3a66})));
   });
   function anim(){
@@ -506,13 +724,178 @@ function buildFusion(){
       m.position.set(m.userData.radius*Math.cos(a), m.userData.radius*Math.sin(a), Math.sin(t*2+a)*0.4);
     });
     group.rotation.y += 0.0015;
+    if(core) core.rotation.y += 0.01;
     renderer.render(scene,camera);
     requestAnimationFrame(anim);
   }
   anim();
 }
 
-/* THREE-LAYER PYRAMID (slide 7) — labels welded onto each ring */
+/* GLOBE (slide 0) — spinning tilted sphere textured with Nigeria's outline in flag colours */
+function buildGlobe(){
+  const container = document.getElementById('three-globe');
+  const {scene,camera,renderer} = baseScene(container);
+  camera.position.set(0,0,9);
+  const group = new THREE.Group(); scene.add(group);
+  group.rotation.z = 0.33;
+
+  const cw=1400, ch=1000;
+  const tc = document.createElement('canvas'); tc.width=cw; tc.height=ch;
+  const tctx = tc.getContext('2d');
+  tctx.fillStyle = '#050912'; tctx.fillRect(0,0,cw,ch);
+  tctx.fillStyle='#12203a';
+  for(let i=0;i<90;i++){ tctx.beginPath(); tctx.arc(Math.random()*cw,Math.random()*ch,1.3,0,Math.PI*2); tctx.fill(); }
+
+  const outline = [
+    [2.7,6.4],[3.4,6.4],[5.0,5.5],[6.0,4.4],[7.0,4.3],[8.0,4.5],[8.7,4.9],
+    [9.5,6.5],[11.5,7.0],[13.0,10.0],[14.6,13.1],[13.5,13.3],[11.0,13.5],
+    [8.5,13.0],[5.5,13.3],[3.9,12.5],[2.9,11.0],[2.7,9.0],[2.7,7.5]
+  ];
+  const lonC=8.65, latC=8.9, pxScale=38;
+  const cx = cw/2, cy = ch/2;
+  function proj(lon,lat){ return [ cx + (lon-lonC)*pxScale, cy - (lat-latC)*pxScale ]; }
+
+  tctx.beginPath();
+  outline.forEach(([lon,lat],i)=>{ const [x,y]=proj(lon,lat); if(i===0) tctx.moveTo(x,y); else tctx.lineTo(x,y); });
+  tctx.closePath();
+  tctx.save(); tctx.clip();
+  const bx0=cx-280, bx1=cx+280, by0=cy-320, by1=cy+320;
+  tctx.fillStyle = '#0a7a3c'; tctx.fillRect(bx0,by0,bx1-bx0,by1-by0);
+  tctx.fillStyle = '#ffffff'; tctx.fillRect(bx0+(bx1-bx0)/3, by0, (bx1-bx0)/3, by1-by0);
+  tctx.restore();
+  tctx.strokeStyle='#ffe08a'; tctx.lineWidth=3; tctx.shadowColor='#ffd166'; tctx.shadowBlur=12; tctx.stroke(); tctx.shadowBlur=0;
+
+  const focusStates = { KWARA:[4.5,8.7], NIGER:[6.5,9.9], PLATEAU:[9.2,9.2], NASARAWA:[8.2,8.6], FCT:[7.5,9.0], KOGI:[6.7,7.8], BENUE:[8.7,7.3] };
+  const otherStates = { LAGOS:[3.4,6.5], KADUNA:[7.4,10.5], KANO:[8.5,12.0], SOKOTO:[5.2,13.0], BORNO:[13.0,11.8], ADAMAWA:[12.4,9.3], TARABA:[10.8,8.0], ENUGU:[7.5,6.5], RIVERS:[6.9,4.8], DELTA:[5.7,5.6], EDO:[5.8,6.6], OYO:[3.9,8.0], BAUCHI:[10.0,10.8], YOBE:[11.5,12.3], KATSINA:[7.6,12.9], ZAMFARA:[6.2,12.2], KEBBI:[4.2,11.8], JIGAWA:[9.3,12.2], GOMBE:[11.2,10.3], EBONYI:[8.1,6.3], ANAMBRA:[6.9,6.2], IMO:[7.0,5.5], ABIA:[7.5,5.4], BAYELSA:[6.1,4.7], OGUN:[3.35,7.0], OSUN:[4.5,7.6], ONDO:[4.9,7.1], EKITI:[5.2,7.7] };
+
+  Object.entries(otherStates).forEach(([name,[lon,lat]])=>{
+    const [x,y]=proj(lon,lat);
+    tctx.beginPath(); tctx.fillStyle='#ffffffaa'; tctx.arc(x,y,3,0,Math.PI*2); tctx.fill();
+  });
+  Object.entries(focusStates).forEach(([name,[lon,lat]])=>{
+    const [x,y]=proj(lon,lat);
+    tctx.beginPath(); tctx.fillStyle='#ffd166'; tctx.shadowColor='#ffd166'; tctx.shadowBlur=14; tctx.arc(x,y,6,0,Math.PI*2); tctx.fill(); tctx.shadowBlur=0;
+    tctx.font='800 22px Segoe UI'; tctx.textAlign='center';
+    tctx.shadowColor='#ffd166'; tctx.shadowBlur=8; tctx.fillStyle='#ffffff';
+    tctx.fillText(name, x, y-14);
+    tctx.shadowBlur=0;
+  });
+
+  const tex = new THREE.CanvasTexture(tc);
+  const sphere = new THREE.Mesh(new THREE.SphereGeometry(3,64,64), new THREE.MeshStandardMaterial({map:tex, roughness:0.55, metalness:0.1}));
+  group.add(sphere);
+  const wire = new THREE.Mesh(new THREE.SphereGeometry(3.06,24,24), new THREE.MeshBasicMaterial({color:0x2a3a66, wireframe:true, transparent:true, opacity:0.35}));
+  group.add(wire);
+
+  function anim(){
+    group.rotation.y += 0.005;
+    renderer.render(scene,camera);
+    requestAnimationFrame(anim);
+  }
+  anim();
+}
+
+/* SEE-SHARE-DECIDE-ACT-LEARN WHEEL */
+function buildWheel(){
+  buildOrbit3D('three-wheel', {
+    coreLabel:'ONE\nCYCLE', coreColor:0xffffff, coreShape:'box', radius:3.2,
+    items:[
+      {label:'SEE', color:0x5ef2b0, shape:'box'}, {label:'SHARE', color:0xffd166, shape:'box'},
+      {label:'DECIDE', color:0x5b9dff, shape:'box'}, {label:'ACT', color:0xff6b6b, shape:'box'},
+      {label:'LEARN', color:0xc98bff, shape:'box'}
+    ]
+  });
+}
+/* FUSION CENTRE — 9 agencies */
+function buildFusion(){
+  buildOrbit3D('three-fusion', {
+    coreLabel:'FUSION', coreColor:0xffd166, radius:3.5,
+    items:['ARMED\nFORCES','POLICE','DSS','NSCDC','NDLEA /\nCUSTOMS','STATE\nCOUNCILS','LOCAL\nGOVT','TRADITIONAL\nRULERS','COMMUNITY'].map((l,i)=>({label:l,color:0x5ef2b0}))
+  });
+}
+/* SECTION FIVE — Regional Fusion Centre lineage */
+function buildFusionCentre(){
+  buildOrbit3D('three-fusioncentre', {
+    coreLabel:'5 QUESTIONS\nANSWERED\nCONTINUOUSLY', coreColor:0xffd166, radius:3.6,
+    items:[
+      {label:'JTAC\n(UK)', color:0x5b9dff},{label:'NCTC\n(USA)', color:0xff6b6b},
+      {label:'MAC\n(INDIA)', color:0x5ef2b0},{label:'NC FUSION\nCENTRE', color:0xffd166}
+    ]
+  });
+}
+/* SECTION SIX handled by drawIntelAction (2D) */
+
+/* SECTION SEVEN — Community as first sensor */
+function buildSensor(){
+  buildHumanRow('three-sensor', [
+    {label:'FARMER', color:0x5ef2b0},{label:'HUNTER', color:0xffd166},
+    {label:'TEACHER', color:0x5b9dff},{label:'MARKET\nWOMAN', color:0xff9ebc},
+    {label:'TRADITIONAL\nRULER', color:0xc98bff}
+  ], {centerLabel:'FIRST SENSOR NETWORK'});
+}
+/* SECTION EIGHT — Traditional rulers, standing table */
+function buildRulers(){
+  buildOrbit3D('three-rulers', {
+    coreLabel:'TRADITIONAL\nCOUNCIL', coreColor:0xffd166, coreIsHuman:true, radius:3.6,
+    items:['POLICE','DSS','MILITARY\nLIAISON','LOCAL\nGOVT','COMMUNITY\nREPS'].map(l=>({label:l,color:0x5ef2b0}))
+  });
+}
+/* SECTION ELEVEN — Technology multiplies human capability */
+function buildTech(){
+  buildOrbit3D('three-tech', {
+    coreLabel:'COMMANDER', coreColor:0xffd166, coreIsHuman:true, radius:3.6,
+    items:['DRONE\nSURVEILLANCE','SATELLITE\nIMAGERY','SECURE\nCOMMS','BIOMETRIC\nID','GIS\nMAPPING','AI\nPATTERN'].map(l=>({label:l,color:0x5b9dff}))
+  });
+}
+/* SECTION TWELVE — Forest problem */
+function buildForest(){
+  buildOrbit3D('three-forest', {
+    coreLabel:'DENY, DON\'T\nSUSPECT', coreColor:0x1f7a4d, coreShape:'tree', radius:3.4,
+    items:['SANCTUARY','MOBILITY','SUPPLIES','COMMS','FINANCING','MOVEMENT'].map(l=>({label:l,color:0x5ef2b0}))
+  });
+}
+/* SECTION THIRTEEN — Separate criminal from community */
+function buildSeparate(){
+  buildHumanRow('three-separate', [
+    {label:'FULANI\nPASTORALIST', color:0x5ef2b0},{label:'TIV\nFARMER', color:0x5ef2b0},
+    {label:'IDOMA\nYOUTH', color:0x5ef2b0},{label:'MUSLIM', color:0x5ef2b0},
+    {label:'CHRISTIAN', color:0x5ef2b0},{label:'THE\nCRIMINAL', color:0xff6b6b}
+  ], {centerLabel:'BEHAVIOUR & EVIDENCE — NEVER IDENTITY', spacing:2.05});
+}
+/* SECTION FOURTEEN — Farmer-herder governance */
+function buildFarmHerd(){
+  buildHumanRow('three-farmherd', [
+    {label:'FARMER', color:0x5ef2b0},{label:'HERDER', color:0xffd166}
+  ], {centerLabel:'GOVERNANCE, NOT GUNFIRE', spacing:3.2});
+}
+/* SECTION FIFTEEN — Youth investment */
+function buildYouth(){
+  buildOrbit3D('three-youth', {
+    coreLabel:'YOUTH', coreColor:0x5ef2b0, coreIsHuman:true, radius:3.6,
+    items:['VOCATIONAL','AGRICULTURE','TECHNOLOGY','SPORTS','EDUCATION','APPRENTICE-\nSHIP'].map(l=>({label:l,color:0xffd166}))
+  });
+}
+/* SECTIONS 16&17 — Women & Local Government */
+function buildWomenLG(){
+  buildHumanRow('three-women-lg', [
+    {label:'WOMAN\nSECURITY PARTNER', color:0xff9ebc},{label:'LGA\nCHAIRMAN', color:0x5b9dff}
+  ], {centerLabel:'PROXIMITY = FASTER WARNING', spacing:3.2});
+}
+/* SECTION EIGHTEEN — State police safeguards */
+function buildStatePolice(){
+  buildOrbit3D('three-statepolice', {
+    coreLabel:'STATE\nPOLICE', coreColor:0xffd166, coreShape:'shield', radius:3.6,
+    items:['NATIONAL\nSTANDARDS','RECRUITMENT','COMPLAINTS\nMECHANISM','RULES OF\nENGAGEMENT','OVERSIGHT'].map(l=>({label:l,color:0x5b9dff}))
+  });
+}
+/* SECTIONS 19&20 — Funding & welfare */
+function buildFunding(){
+  buildOrbit3D('three-funding', {
+    coreLabel:'PERSONNEL', coreColor:0xffd166, coreIsHuman:true, radius:3.6,
+    items:['COMMS &\nACCOMMODATION','MEDICAL\nCARE','FOOD','TRANSPORT','EQUIPMENT','PSYCH\nSUPPORT'].map(l=>({label:l,color:0xff6b6b}))
+  });
+}
+/* SECTION TWENTY-ONE — Three-layer model */
 function buildLayers(){
   const container = document.getElementById('three-layers');
   const {scene,camera,renderer} = baseScene(container);
@@ -541,8 +924,14 @@ function buildLayers(){
   }
   anim();
 }
-
-/* SEVEN COMMITMENTS HEPTAGON (slide 9) — labels welded onto each cone */
+/* SECTION TWENTY-THREE — Next 90 days, 10 actions */
+function build90Days(){
+  buildOrbit3D('three-90days', {
+    coreLabel:'90\nDAYS', coreColor:0xffd166, radius:4.2,
+    items:['SECURITY\nSECRETARIAT','FUSION\nMECHANISM','MAP\nCORRIDORS','100 VULNERABLE\nCOMMUNITIES','EARLY-WARNING\nNETWORKS','RAPID-RESPONSE\nPROTOCOLS','DIGITAL LINK\nGOVERNORS','COMMON\nTRAINING','FUNDING\nMECHANISM','QUARTERLY\nINDICATORS'].map((l,i)=>({label:l,color:pal(i)}))
+  });
+}
+/* SECTION TWENTY-FOUR — Seven commitments heptagon */
 function buildHeptagon(){
   const container = document.getElementById('three-heptagon');
   const {scene,camera,renderer} = baseScene(container);
@@ -573,8 +962,32 @@ function buildHeptagon(){
   }
   anim();
 }
+/* SECTION TWENTY-FIVE — success in three years */
+function buildSuccess(){
+  buildHumanRow('three-success', [
+    {label:'FARMER\nRETURNS', color:0x5ef2b0, scale:1.05},{label:'FAMILY\nCOMES HOME', color:0xffd166}
+  ], {centerLabel:'KIDNAPPING ↓ · TRUST ↑ · HIGHWAYS SECURE', spacing:3.0});
+}
+/* SECTION TWENTY-SIX — mental shift */
+function buildMental(){
+  buildOrbit3D('three-mental', {
+    coreLabel:'MINDSET', coreColor:0xffffff, radius:3.8,
+    items:[
+      {label:'INTELLIGENCE\nnot troops', color:0x5ef2b0},{label:'COORDINATION\nnot weapons', color:0xffd166},
+      {label:'PREVENTION\nnot operations', color:0x5b9dff},{label:'ACCOUNTABILITY\nnot money', color:0xff6b6b},
+      {label:'TRUST\nnot personnel', color:0xc98bff}
+    ]
+  });
+}
+/* OPENING — one ecosystem, the people behind the statistics */
+function buildOpening(){
+  buildHumanRow('three-opening', [
+    {label:'MOTHER\nBENUE', color:0xff9ebc},{label:'FARMER\nPLATEAU', color:0x5ef2b0},
+    {label:'TRADITIONAL RULER\nNIGER STATE', color:0xffd166},{label:'SOLDIER\nREDEPLOYED', color:0x5b9dff}
+  ], {centerLabel:'ONE ECOSYSTEM, NOT SEPARATE PROBLEMS'});
+}
 
-/* CLOSING VISUAL */
+/* CLOSING VISUAL — rising particles + a human figure arriving home */
 function buildClose(){
   const container = document.getElementById('three-close');
   const {scene,camera,renderer} = baseScene(container);
@@ -590,15 +1003,22 @@ function buildClose(){
   geo.setAttribute('position', new THREE.BufferAttribute(arr,3));
   const points = new THREE.Points(geo, new THREE.PointsMaterial({color:0xffd166, size:0.09}));
   group.add(points);
+  const figure = makeHumanFigure(0x5ef2b0, 1.3);
+  figure.position.set(0,-1.2,0.5);
+  group.add(figure);
   const label = makeLabelSprite('ARRIVE\nALIVE', {glow:'#5ef2b0', fontSize:72, scale:2.6});
+  label.position.set(0,1.6,0);
   group.add(label);
   function anim(){
+    const t = Date.now()*0.0015;
     const pos = geo.attributes.position.array;
     for(let i=0;i<count;i++){
       pos[i*3+1] += 0.006;
       if(pos[i*3+1] > 3) pos[i*3+1] = -3;
     }
     geo.attributes.position.needsUpdate = true;
+    figure.position.y = -1.2 + Math.sin(t)*0.06;
+    figure.rotation.y = Math.sin(t*0.4)*0.2;
     renderer.render(scene,camera);
     requestAnimationFrame(anim);
   }
@@ -608,8 +1028,12 @@ function buildClose(){
 /* ---------- LAZY INIT ---------- */
 const built = {};
 const initializers = {
-  0: buildGlobe, 1: animateCounters, 2: drawCycle, 3: buildWheel, 4: buildFusion,
-  5: drawCorridors, 6: drawTimer, 7: buildLayers, 8: drawClock, 9: buildHeptagon, 10: buildClose
+  0: buildGlobe, 1: buildOpening, 2: animateCounters, 3: drawSecQ1, 4: drawCycle,
+  5: buildWheel, 6: buildFusion, 7: buildFusionCentre, 8: drawIntelAction, 9: buildSensor,
+  10: buildRulers, 11: drawCorridors, 12: drawTimer, 13: buildTech, 14: buildForest,
+  15: buildSeparate, 16: buildFarmHerd, 17: buildYouth, 18: buildWomenLG, 19: buildStatePolice,
+  20: buildFunding, 21: buildLayers, 22: drawClock, 23: build90Days, 24: buildHeptagon,
+  25: buildSuccess, 26: buildMental, 27: buildClose
 };
 function triggerSlideEffects(idx){
   if(built[idx]) return;
