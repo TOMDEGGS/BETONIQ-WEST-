@@ -620,16 +620,21 @@ function hexStr(n){ return '#'+(new THREE.Color(n)).getHexString(); }
 
 /* Real photographic African human figures — image sprites, not caricatures */
 function makeHumanImageFigure(imgUrl, height=2.6){
-  const spr = new THREE.Sprite(new THREE.SpriteMaterial({transparent:true, opacity:0}));
+  const spr = new THREE.Sprite(new THREE.SpriteMaterial({transparent:true, opacity:1, depthTest:false}));
   spr.scale.set(height*0.62, height, 1);
-  new THREE.TextureLoader().load(imgUrl, (tex)=>{
+  spr.renderOrder = 5;
+  const img = new Image();
+  img.crossOrigin = 'anonymous';
+  img.onload = function(){
+    const tex = new THREE.Texture(img);
+    tex.needsUpdate = true;
     tex.minFilter = THREE.LinearFilter;
     spr.material.map = tex;
-    spr.material.opacity = 1;
     spr.material.needsUpdate = true;
-    const iw = tex.image && tex.image.width, ih = tex.image && tex.image.height;
-    if(iw && ih){ spr.scale.set(height*(iw/ih), height, 1); }
-  }, undefined, ()=>{ spr.material.opacity = 1; });
+    if(img.width && img.height){ spr.scale.set(height*(img.width/img.height), height, 1); }
+  };
+  img.onerror = function(){ /* keep silhouette-less sprite hidden rather than a broken box */ spr.material.opacity = 0; };
+  img.src = imgUrl;
   return spr;
 }
 /* Anonymised silhouette — used only for the unidentified "criminal" node, deliberately faceless */
@@ -783,21 +788,7 @@ function buildGlobe(){
   tctx.restore();
   tctx.strokeStyle='#ffe08a'; tctx.lineWidth=3; tctx.shadowColor='#ffd166'; tctx.shadowBlur=12; tctx.stroke(); tctx.shadowBlur=0;
 
-  const focusStates = { KWARA:[4.5,8.7], NIGER:[6.5,9.9], PLATEAU:[9.2,9.2], NASARAWA:[8.2,8.6], FCT:[7.5,9.0], KOGI:[6.7,7.8], BENUE:[8.7,7.3] };
-  const otherStates = { LAGOS:[3.4,6.5], KADUNA:[7.4,10.5], KANO:[8.5,12.0], SOKOTO:[5.2,13.0], BORNO:[13.0,11.8], ADAMAWA:[12.4,9.3], TARABA:[10.8,8.0], ENUGU:[7.5,6.5], RIVERS:[6.9,4.8], DELTA:[5.7,5.6], EDO:[5.8,6.6], OYO:[3.9,8.0], BAUCHI:[10.0,10.8], YOBE:[11.5,12.3], KATSINA:[7.6,12.9], ZAMFARA:[6.2,12.2], KEBBI:[4.2,11.8], JIGAWA:[9.3,12.2], GOMBE:[11.2,10.3], EBONYI:[8.1,6.3], ANAMBRA:[6.9,6.2], IMO:[7.0,5.5], ABIA:[7.5,5.4], BAYELSA:[6.1,4.7], OGUN:[3.35,7.0], OSUN:[4.5,7.6], ONDO:[4.9,7.1], EKITI:[5.2,7.7] };
-
-  Object.entries(otherStates).forEach(([name,[lon,lat]])=>{
-    const [x,y]=proj(lon,lat);
-    tctx.beginPath(); tctx.fillStyle='#ffffffaa'; tctx.arc(x,y,3,0,Math.PI*2); tctx.fill();
-  });
-  Object.entries(focusStates).forEach(([name,[lon,lat]])=>{
-    const [x,y]=proj(lon,lat);
-    tctx.beginPath(); tctx.fillStyle='#ffd166'; tctx.shadowColor='#ffd166'; tctx.shadowBlur=14; tctx.arc(x,y,6,0,Math.PI*2); tctx.fill(); tctx.shadowBlur=0;
-    tctx.font='800 22px Segoe UI'; tctx.textAlign='center';
-    tctx.shadowColor='#ffd166'; tctx.shadowBlur=8; tctx.fillStyle='#ffffff';
-    tctx.fillText(name, x, y-14);
-    tctx.shadowBlur=0;
-  });
+  /* No town/state labels or dots on the globe — clean flag-coloured landmass only, per Tom's direction */
 
   const tex = new THREE.CanvasTexture(tc);
   const sphere = new THREE.Mesh(new THREE.SphereGeometry(3,64,64), new THREE.MeshStandardMaterial({map:tex, roughness:0.55, metalness:0.1}));
