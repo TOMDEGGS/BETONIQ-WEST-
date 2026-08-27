@@ -619,30 +619,34 @@ function pal(i){ return PALETTE[i%PALETTE.length]; }
 function hexStr(n){ return '#'+(new THREE.Color(n)).getHexString(); }
 
 /* Real photographic African human figures — image sprites, not caricatures.
-   Drawn onto an offscreen 2D canvas first (same proven technique as the text-label
-   sprites) then wrapped in THREE.CanvasTexture — avoids the black-texture failure
-   seen with THREE.Texture(img) direct-binding on some GPU/driver combos. */
+   Fetched as a blob and loaded via a blob: object URL (immune to any tainted-canvas /
+   texImage2D security failure), then drawn onto an offscreen 2D canvas and wrapped
+   in THREE.CanvasTexture — the same proven technique as the working text-label sprites. */
 function makeHumanImageFigure(imgUrl, height=2.6){
   const spr = new THREE.Sprite(new THREE.SpriteMaterial({transparent:true, opacity:0, depthTest:false}));
   spr.scale.set(height*0.62, height, 1);
   spr.renderOrder = 5;
-  const img = new Image();
-  img.onload = function(){
-    const cw = img.width || 512, ch = img.height || 512;
-    const oc = document.createElement('canvas');
-    oc.width = cw; oc.height = ch;
-    const octx = oc.getContext('2d');
-    octx.drawImage(img, 0, 0, cw, ch);
-    const tex = new THREE.CanvasTexture(oc);
-    tex.minFilter = THREE.LinearFilter;
-    tex.needsUpdate = true;
-    spr.material.map = tex;
-    spr.material.opacity = 1;
-    spr.material.needsUpdate = true;
-    spr.scale.set(height*(cw/ch), height, 1);
-  };
-  img.onerror = function(){ spr.material.opacity = 0; };
-  img.src = imgUrl;
+  fetch(imgUrl).then(r=>r.blob()).then(blob=>{
+    const objUrl = URL.createObjectURL(blob);
+    const img = new Image();
+    img.onload = function(){
+      const cw = img.width || 512, ch = img.height || 512;
+      const oc = document.createElement('canvas');
+      oc.width = cw; oc.height = ch;
+      const octx = oc.getContext('2d');
+      octx.drawImage(img, 0, 0, cw, ch);
+      const tex = new THREE.CanvasTexture(oc);
+      tex.minFilter = THREE.LinearFilter;
+      tex.needsUpdate = true;
+      spr.material.map = tex;
+      spr.material.opacity = 1;
+      spr.material.needsUpdate = true;
+      spr.scale.set(height*(cw/ch), height, 1);
+      URL.revokeObjectURL(objUrl);
+    };
+    img.onerror = function(){ spr.material.opacity = 0; };
+    img.src = objUrl;
+  }).catch(()=>{ spr.material.opacity = 0; });
   return spr;
 }
 /* Anonymised silhouette — used only for the unidentified "criminal" node, deliberately faceless */
