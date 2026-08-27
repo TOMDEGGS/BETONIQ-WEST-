@@ -111,3 +111,37 @@ Real estate: 79 projects. Investor pipeline: 2 investor records; feasibility: 1 
 ### Continuity note
 
 The live Base44 database remains authoritative. This repository snapshot is a synchronized operational copy for Backup 777 continuity.
+
+## Refresh — 2026-08-27T07:01:00+01:00
+
+Live Base44 refresh completed for 18 configured business entities. Total records: 155.
+
+### Current counts
+
+RealEstateProject: 79
+Investor: 2
+Investment: 0
+CountryMacroData: 6
+ComplianceRecord: 0
+FeasibilityStudy: 1
+Commission: 0
+DeveloperListing: 1
+Subscription: 1
+LeadCapture: 3
+VisitorActivity: 11
+ZPTransaction: 9
+ZPMerchant: 8
+ZPAgent: 6
+TeamTask: 9
+FieldMeeting: 0
+BackupAgentMessage: 6
+FundingOutreach: 13
+
+### Operational snapshot
+
+The live refresh confirmed 79 real-estate projects, 2 investor records, 1 feasibility study, 9 ZeroPay transactions, 8 merchants, 6 agents, 3 leads, 1 subscription, 9 team tasks, 0 field meetings, and 13 funding-outreach records. No count changes were detected from the prior snapshot.
+
+### Continuity note
+
+Base44 remains the authoritative live source. This repository snapshot is synchronized for Backup 777 continuity and should not replace the live database.
+
