@@ -618,21 +618,30 @@ const PALETTE = [0x5ef2b0,0xffd166,0x5b9dff,0xff6b6b,0xc98bff,0x6ce7cf,0xff9ebc]
 function pal(i){ return PALETTE[i%PALETTE.length]; }
 function hexStr(n){ return '#'+(new THREE.Color(n)).getHexString(); }
 
-/* Real photographic African human figures — image sprites, not caricatures */
+/* Real photographic African human figures — image sprites, not caricatures.
+   Drawn onto an offscreen 2D canvas first (same proven technique as the text-label
+   sprites) then wrapped in THREE.CanvasTexture — avoids the black-texture failure
+   seen with THREE.Texture(img) direct-binding on some GPU/driver combos. */
 function makeHumanImageFigure(imgUrl, height=2.6){
-  const spr = new THREE.Sprite(new THREE.SpriteMaterial({transparent:true, opacity:1, depthTest:false}));
+  const spr = new THREE.Sprite(new THREE.SpriteMaterial({transparent:true, opacity:0, depthTest:false}));
   spr.scale.set(height*0.62, height, 1);
   spr.renderOrder = 5;
   const img = new Image();
   img.onload = function(){
-    const tex = new THREE.Texture(img);
-    tex.needsUpdate = true;
+    const cw = img.width || 512, ch = img.height || 512;
+    const oc = document.createElement('canvas');
+    oc.width = cw; oc.height = ch;
+    const octx = oc.getContext('2d');
+    octx.drawImage(img, 0, 0, cw, ch);
+    const tex = new THREE.CanvasTexture(oc);
     tex.minFilter = THREE.LinearFilter;
+    tex.needsUpdate = true;
     spr.material.map = tex;
+    spr.material.opacity = 1;
     spr.material.needsUpdate = true;
-    if(img.width && img.height){ spr.scale.set(height*(img.width/img.height), height, 1); }
+    spr.scale.set(height*(cw/ch), height, 1);
   };
-  img.onerror = function(){ /* keep silhouette-less sprite hidden rather than a broken box */ spr.material.opacity = 0; };
+  img.onerror = function(){ spr.material.opacity = 0; };
   img.src = imgUrl;
   return spr;
 }
