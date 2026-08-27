@@ -777,9 +777,12 @@ function buildGlobe(){
   const cw=1400, ch=1000;
   const tc = document.createElement('canvas'); tc.width=cw; tc.height=ch;
   const tctx = tc.getContext('2d');
-  tctx.fillStyle = '#050912'; tctx.fillRect(0,0,cw,ch);
-  tctx.fillStyle='#12203a';
-  for(let i=0;i<90;i++){ tctx.beginPath(); tctx.arc(Math.random()*cw,Math.random()*ch,1.3,0,Math.PI*2); tctx.fill(); }
+
+  /* Whole sphere is flag-coloured — no dark background anywhere. Vertical green-white-green
+     bands cover the ENTIRE texture (so every side of the globe as it spins is green-white-green),
+     not just a small cut-out patch. */
+  tctx.fillStyle = '#0a7a3c'; tctx.fillRect(0,0,cw,ch);
+  tctx.fillStyle = '#ffffff'; tctx.fillRect(cw/3,0,cw/3,ch);
 
   const outline = [
     [2.7,6.4],[3.4,6.4],[5.0,5.5],[6.0,4.4],[7.0,4.3],[8.0,4.5],[8.7,4.9],
@@ -790,15 +793,17 @@ function buildGlobe(){
   const cx = cw/2, cy = ch/2;
   function proj(lon,lat){ return [ cx + (lon-lonC)*pxScale, cy - (lat-latC)*pxScale ]; }
 
+  /* Emboss the country shape so it reads clearly against the flag background — slightly
+     brighter fill inside the outline plus a glowing gold border. Still 100% green/white, no dark tones. */
   tctx.beginPath();
   outline.forEach(([lon,lat],i)=>{ const [x,y]=proj(lon,lat); if(i===0) tctx.moveTo(x,y); else tctx.lineTo(x,y); });
   tctx.closePath();
   tctx.save(); tctx.clip();
-  const bx0=cx-280, bx1=cx+280, by0=cy-320, by1=cy+320;
-  tctx.fillStyle = '#0a7a3c'; tctx.fillRect(bx0,by0,bx1-bx0,by1-by0);
+  const bx0=cx-320, bx1=cx+320, by0=cy-360, by1=cy+360;
+  tctx.fillStyle = '#12924f'; tctx.fillRect(bx0,by0,bx1-bx0,by1-by0);
   tctx.fillStyle = '#ffffff'; tctx.fillRect(bx0+(bx1-bx0)/3, by0, (bx1-bx0)/3, by1-by0);
   tctx.restore();
-  tctx.strokeStyle='#ffe08a'; tctx.lineWidth=3; tctx.shadowColor='#ffd166'; tctx.shadowBlur=12; tctx.stroke(); tctx.shadowBlur=0;
+  tctx.strokeStyle='#ffe08a'; tctx.lineWidth=4; tctx.shadowColor='#ffd166'; tctx.shadowBlur=16; tctx.stroke(); tctx.shadowBlur=0;
 
   /* Bold, correctly-positioned town labels across Nigeria (major cities + North-Central state
      capitals, which anchor this keynote's geography) — real lat/lon, projected with proj(). */
