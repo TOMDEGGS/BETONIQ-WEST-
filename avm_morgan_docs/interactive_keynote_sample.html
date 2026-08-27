@@ -27,6 +27,7 @@
   .stage{width:min(900px,90vw);height:min(52vh,480px);position:relative;margin:14px 0;}
   canvas.draw2d{width:100%;height:100%;display:block;border-radius:12px;background:radial-gradient(circle at 50% 30%,#101830,#05070d);}
   .three-container{width:100%;height:100%;border-radius:12px;overflow:hidden;background:radial-gradient(circle at 50% 30%,#101830,#05070d);}
+  .three-container canvas{display:block;width:100% !important;height:100% !important;}
   .nav{
     position:absolute;bottom:22px;left:0;width:100%;display:flex;justify-content:center;
     align-items:center;gap:16px;z-index:50;
@@ -94,7 +95,7 @@
     <div class="kicker">Section Three — Security as Collective Responsibility</div>
     <h1>Five Disciplines, One Cycle</h1>
     <div class="stage"><div class="three-container" id="three-wheel"></div></div>
-    <p class="muted">Drag to rotate — SEE · SHARE · DECIDE · ACT · LEARN</p>
+    <p class="muted">SEE · SHARE · DECIDE · ACT · LEARN</p>
   </section>
 
   <!-- SLIDE 4: ONE SECURITY PICTURE -->
@@ -176,6 +177,7 @@ slides.forEach((s,i)=>{
   dotsWrap.appendChild(d);
 });
 const dots = Array.from(dotsWrap.children);
+
 function goTo(i){
   if(i<0||i>=slides.length) return;
   slides[current].classList.remove('active');
@@ -184,7 +186,8 @@ function goTo(i){
   slides[current].classList.add('active');
   dots[current].classList.add('active');
   document.getElementById('progress').style.width = ((current+1)/slides.length*100)+'%';
-  triggerSlideEffects(current);
+  // wait a tick so layout has actually applied (display:none -> flex) before measuring sizes
+  requestAnimationFrame(()=> requestAnimationFrame(()=> triggerSlideEffects(current)));
 }
 document.getElementById('nextBtn').addEventListener('click',()=>goTo(current+1));
 document.getElementById('prevBtn').addEventListener('click',()=>goTo(current-1));
@@ -198,7 +201,6 @@ function animateCounters(){
   document.querySelectorAll('#statgrid .counter').forEach(el=>{
     const target = parseInt(el.getAttribute('data-target'),10);
     const suffix = el.getAttribute('data-suffix')||'';
-    let start = 0;
     const dur = 1200;
     const t0 = performance.now();
     function step(now){
@@ -216,15 +218,14 @@ function animateCounters(){
 function drawCycle(){
   const cv = document.getElementById('canvas-cycle');
   const ctx = cv.getContext('2d');
-  function resize(){ cv.width = cv.clientWidth*2; cv.height = cv.clientHeight*2; ctx.scale(2,2); }
-  cv.width = cv.clientWidth; cv.height = cv.clientHeight;
   const steps = ['Attack Occurs','People Killed','Police Alerted','Military Mobilised','Attackers Vanish','Community Searched','We Wait'];
   let angle = 0;
   function render(){
     const w = cv.clientWidth, h = cv.clientHeight;
+    if(w<2||h<2){ requestAnimationFrame(render); return; }
     cv.width = w; cv.height = h;
     ctx.clearRect(0,0,w,h);
-    const cx = w/2, cy = h/2, r = Math.min(w,h)/2 - 60;
+    const cx = w/2, cy = h/2, r = Math.max(20, Math.min(w,h)/2 - 60);
     ctx.strokeStyle = '#c0392b55'; ctx.lineWidth=2;
     ctx.beginPath(); ctx.arc(cx,cy,r,0,Math.PI*2); ctx.stroke();
     steps.forEach((label,i)=>{
@@ -236,7 +237,6 @@ function drawCycle(){
       const lx = cx + (r+34)*Math.cos(a), ly = cy + (r+34)*Math.sin(a);
       ctx.fillText(label, lx, ly);
     });
-    // arrow indicating rotation direction
     ctx.fillStyle='#7fd1ae'; ctx.font='13px Segoe UI'; ctx.textAlign='center';
     ctx.fillText('cycle repeats →', cx, cy);
     angle += 0.004;
@@ -260,6 +260,7 @@ function drawCorridors(){
   let t = 0;
   function render(){
     const w = cv.clientWidth, h = cv.clientHeight;
+    if(w<2||h<2){ requestAnimationFrame(render); return; }
     cv.width = w; cv.height = h;
     ctx.clearRect(0,0,w,h);
     ctx.lineWidth = 2;
@@ -268,7 +269,6 @@ function drawCorridors(){
       const x1=ax*w,y1=ay*h,x2=bx*w,y2=by*h;
       ctx.strokeStyle = '#c9a24b55';
       ctx.beginPath(); ctx.moveTo(x1,y1); ctx.lineTo(x2,y2); ctx.stroke();
-      // moving pulse dot along edge to represent threat movement
       const p = (Math.sin(t + (x1+y1)*0.01)+1)/2;
       const px = x1 + (x2-x1)*p, py = y1 + (y2-y1)*p;
       ctx.beginPath(); ctx.fillStyle='#d9534f';
@@ -294,17 +294,16 @@ function drawTimer(){
   let progress = 0;
   function render(){
     const w = cv.clientWidth, h = cv.clientHeight;
+    if(w<2||h<2){ requestAnimationFrame(render); return; }
     cv.width = w; cv.height = h;
     ctx.clearRect(0,0,w,h);
-    const cx = w/2, cy = h*0.35, r = Math.min(w,h)*0.28;
-    // clock face
+    const cx = w/2, cy = h*0.35, r = Math.max(20,Math.min(w,h)*0.28);
     ctx.strokeStyle = '#1e2740'; ctx.lineWidth=10;
     ctx.beginPath(); ctx.arc(cx,cy,r,0,Math.PI*2); ctx.stroke();
     ctx.strokeStyle = progress < 0.5 ? '#7fd1ae' : '#d9534f'; ctx.lineWidth=10;
     ctx.beginPath(); ctx.arc(cx,cy,r,-Math.PI/2, -Math.PI/2 + progress*Math.PI*2); ctx.stroke();
     ctx.fillStyle='#eef1f6'; ctx.font='bold 22px Segoe UI'; ctx.textAlign='center';
     ctx.fillText(Math.round(progress*60)+' min', cx, cy+8);
-    // chain of responders below
     const y2 = h*0.78;
     chain.forEach((label,i)=>{
       const x = w*(0.1 + i*0.8/(chain.length-1));
@@ -338,9 +337,10 @@ function drawClock(){
   let rot = 0;
   function render(){
     const w = cv.clientWidth, h = cv.clientHeight;
+    if(w<2||h<2){ requestAnimationFrame(render); return; }
     cv.width = w; cv.height = h;
     ctx.clearRect(0,0,w,h);
-    const cx=w/2, cy=h/2, r=Math.min(w,h)*0.38;
+    const cx=w/2, cy=h/2, r=Math.max(20,Math.min(w,h)*0.38);
     quads.forEach((q,i)=>{
       const start = rot + i*Math.PI/2, end = rot + (i+1)*Math.PI/2;
       ctx.beginPath(); ctx.moveTo(cx,cy); ctx.arc(cx,cy,r,start,end); ctx.closePath();
@@ -362,7 +362,7 @@ function drawClock(){
 
 /* ---------- THREE.JS HELPERS ---------- */
 function baseScene(container){
-  const w = container.clientWidth, h = container.clientHeight;
+  const w = Math.max(container.clientWidth,2), h = Math.max(container.clientHeight,2);
   const scene = new THREE.Scene();
   const camera = new THREE.PerspectiveCamera(50, w/h, 0.1, 100);
   camera.position.set(0,0,9);
@@ -371,22 +371,23 @@ function baseScene(container){
   renderer.setPixelRatio(window.devicePixelRatio||1);
   container.appendChild(renderer.domElement);
   const light = new THREE.PointLight(0xffffff,1.2); light.position.set(5,5,8); scene.add(light);
-  scene.add(new THREE.AmbientLight(0x445577,0.8));
-  window.addEventListener('resize', ()=>{
-    const nw=container.clientWidth, nh=container.clientHeight;
+  scene.add(new THREE.AmbientLight(0x8899cc,1.1));
+  function resize(){
+    const nw=Math.max(container.clientWidth,2), nh=Math.max(container.clientHeight,2);
     renderer.setSize(nw,nh); camera.aspect=nw/nh; camera.updateProjectionMatrix();
-  });
-  return {scene,camera,renderer};
+  }
+  window.addEventListener('resize', resize);
+  return {scene,camera,renderer,resize};
 }
 
-/* GLOBE (slide 0) — Nigeria network with pulsing threat nodes over NC states */
+/* GLOBE (slide 0) */
 function buildGlobe(){
   const container = document.getElementById('three-globe');
   const {scene,camera,renderer} = baseScene(container);
   const group = new THREE.Group(); scene.add(group);
   const geo = new THREE.IcosahedronGeometry(3, 2);
   const mat = new THREE.MeshBasicMaterial({color:0x1e2740, wireframe:true});
-  const wire = new THREE.Mesh(geo, mat); group.add(wire);
+  group.add(new THREE.Mesh(geo, mat));
   const hotspots = [];
   for(let i=0;i<9;i++){
     const phi = Math.acos(-1 + (2*i)/9);
@@ -394,8 +395,7 @@ function buildGlobe(){
     const r = 3;
     const x = r*Math.cos(theta)*Math.sin(phi), y = r*Math.sin(theta)*Math.sin(phi), z = r*Math.cos(phi);
     const sMat = new THREE.MeshBasicMaterial({color: i%3===0?0xd9534f:0xc9a24b});
-    const sGeo = new THREE.SphereGeometry(0.09,12,12);
-    const s = new THREE.Mesh(sGeo,sMat); s.position.set(x,y,z);
+    const s = new THREE.Mesh(new THREE.SphereGeometry(0.09,12,12), sMat); s.position.set(x,y,z);
     group.add(s); hotspots.push(s);
   }
   function anim(){
@@ -422,9 +422,7 @@ function buildWheel(){
     cube.position.set(3*Math.cos(a),3*Math.sin(a),0);
     group.add(cube);
   });
-  const centerGeo = new THREE.SphereGeometry(0.6,16,16);
-  const centerMat = new THREE.MeshStandardMaterial({color:0xeef1f6});
-  group.add(new THREE.Mesh(centerGeo,centerMat));
+  group.add(new THREE.Mesh(new THREE.SphereGeometry(0.6,16,16), new THREE.MeshStandardMaterial({color:0xeef1f6})));
   function anim(){
     group.rotation.z += 0.006; group.rotation.y += 0.01;
     renderer.render(scene,camera);
@@ -433,26 +431,22 @@ function buildWheel(){
   anim();
 }
 
-/* FUSION CENTRE (slide 4) — 9 agencies orbiting a core */
+/* FUSION CENTRE (slide 4) */
 function buildFusion(){
   const container = document.getElementById('three-fusion');
   const {scene,camera,renderer} = baseScene(container);
   const group = new THREE.Group(); scene.add(group);
   const coreMat = new THREE.MeshStandardMaterial({color:0xc9a24b, emissive:0x442200});
-  const core = new THREE.Mesh(new THREE.OctahedronGeometry(0.7,0), coreMat);
-  group.add(core);
+  group.add(new THREE.Mesh(new THREE.OctahedronGeometry(0.7,0), coreMat));
   const agencies = 9; const orbiters=[];
   for(let i=0;i<agencies;i++){
     const a = (i/agencies)*Math.PI*2;
-    const geo = new THREE.SphereGeometry(0.22,14,14);
-    const mat = new THREE.MeshStandardMaterial({color:0x7fd1ae});
-    const m = new THREE.Mesh(geo,mat);
+    const m = new THREE.Mesh(new THREE.SphereGeometry(0.22,14,14), new THREE.MeshStandardMaterial({color:0x7fd1ae}));
     m.userData.angle = a; m.userData.radius = 3.2;
     group.add(m); orbiters.push(m);
-    const lineMat = new THREE.LineBasicMaterial({color:0x1e2740});
     const points = [new THREE.Vector3(0,0,0), new THREE.Vector3(3.2*Math.cos(a),3.2*Math.sin(a),0)];
     const lineGeo = new THREE.BufferGeometry().setFromPoints(points);
-    group.add(new THREE.Line(lineGeo,lineMat));
+    group.add(new THREE.Line(lineGeo, new THREE.LineBasicMaterial({color:0x1e2740})));
   }
   function anim(){
     const t = Date.now()*0.0006;
@@ -500,7 +494,6 @@ function buildHeptagon(){
   const {scene,camera,renderer} = baseScene(container);
   const group = new THREE.Group(); scene.add(group);
   const n = 7;
-  const labels = ['Threat Picture','Early-Warning','Rapid-Response','Professional Standard','Regional Approach','Development Agenda','Measure of Success'];
   for(let i=0;i<n;i++){
     const a = (i/n)*Math.PI*2;
     const geo = new THREE.ConeGeometry(0.5,1.4,6);
@@ -510,8 +503,7 @@ function buildHeptagon(){
     m.rotation.z = a + Math.PI/2;
     group.add(m);
   }
-  const centerMat = new THREE.MeshStandardMaterial({color:0xeef1f6});
-  group.add(new THREE.Mesh(new THREE.IcosahedronGeometry(0.5,0), centerMat));
+  group.add(new THREE.Mesh(new THREE.IcosahedronGeometry(0.5,0), new THREE.MeshStandardMaterial({color:0xeef1f6})));
   function anim(){
     group.rotation.z += 0.007;
     renderer.render(scene,camera);
@@ -526,7 +518,6 @@ function buildClose(){
   const {scene,camera,renderer} = baseScene(container);
   const group = new THREE.Group(); scene.add(group);
   const count = 120;
-  const positions = [];
   const geo = new THREE.BufferGeometry();
   const arr = new Float32Array(count*3);
   for(let i=0;i<count;i++){
@@ -535,8 +526,7 @@ function buildClose(){
     arr[i*3+2] = (Math.random()-0.5)*4;
   }
   geo.setAttribute('position', new THREE.BufferAttribute(arr,3));
-  const mat = new THREE.PointsMaterial({color:0xc9a24b, size:0.08});
-  const points = new THREE.Points(geo,mat);
+  const points = new THREE.Points(geo, new THREE.PointsMaterial({color:0xc9a24b, size:0.08}));
   group.add(points);
   function anim(){
     const pos = geo.attributes.position.array;
@@ -552,22 +542,28 @@ function buildClose(){
   anim();
 }
 
-/* ---------- INIT (lazy trigger per-slide to keep it light) ---------- */
+/* ---------- LAZY INIT: only build a slide's visual the first time it's shown ---------- */
 const built = {};
+const initializers = {
+  0: buildGlobe,
+  1: animateCounters,
+  2: drawCycle,
+  3: buildWheel,
+  4: buildFusion,
+  5: drawCorridors,
+  6: drawTimer,
+  7: buildLayers,
+  8: drawClock,
+  9: buildHeptagon,
+  10: buildClose
+};
 function triggerSlideEffects(idx){
-  if(idx===1 && !built[1]){ animateCounters(); built[1]=true; }
+  if(built[idx]) return;
+  const fn = initializers[idx];
+  if(fn){ fn(); built[idx] = true; }
 }
 window.addEventListener('load', ()=>{
-  buildGlobe();
-  drawCycle();
-  buildWheel();
-  buildFusion();
-  drawCorridors();
-  drawTimer();
-  buildLayers();
-  drawClock();
-  buildHeptagon();
-  buildClose();
+  triggerSlideEffects(0);
 });
 </script>
 </body>
