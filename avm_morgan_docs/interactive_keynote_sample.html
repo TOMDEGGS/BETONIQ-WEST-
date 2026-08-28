@@ -681,38 +681,91 @@ function makeSilhouetteSprite(color, height=2.6){
 }
 
 /* Generic row of real human photo figures, each with a welded label */
-function buildHumanRow(containerId, people, opts={}){
+/* Plain HTML/CSS version of the human-portrait row — used when WebGL is unavailable. Same
+   real photos, same labels, same colour glows, just laid out with flexbox instead of a 3D
+   scene. Guaranteed to render on any browser since it needs no canvas/WebGL context at all. */
+function buildHumanRowFallback(containerId, people, opts={}){
   const container = document.getElementById(containerId);
-  const {scene,camera,renderer} = baseScene(container);
-  camera.position.set(0, 1.3, people.length>3?11.5:10);
-  const group = new THREE.Group(); scene.add(group);
-  const n = people.length;
-  const spacing = opts.spacing || 2.6;
-  const startX = -((n-1)*spacing)/2;
-  const figures=[];
-  people.forEach((p,i)=>{
-    const fig = p.img ? makeHumanImageFigure(p.img, p.height||2.6) : makeSilhouetteSprite(hexStr(p.color!==undefined?p.color:0xff6b6b), p.height||2.6);
-    fig.position.x = startX + i*spacing;
-    fig.userData.phase = i*0.7;
-    group.add(fig);
-    figures.push(fig);
-    const lbl = makeLabelSprite(p.label, {glow:hexStr(p.color!==undefined?p.color:0xffffff), fontSize:32, scale:0.95});
-    lbl.position.set(fig.position.x, 2.55, 0);
-    group.add(lbl);
+  container.innerHTML='';
+  container.style.display='flex'; container.style.flexDirection='column';
+  container.style.alignItems='center'; container.style.justifyContent='center';
+  container.style.gap='10px'; container.style.padding='14px';
+  const row = document.createElement('div');
+  row.style.display='flex'; row.style.gap='18px'; row.style.alignItems='flex-end'; row.style.justifyContent='center';
+  row.style.flexWrap='wrap';
+  people.forEach(p=>{
+    const col = document.createElement('div');
+    col.style.display='flex'; col.style.flexDirection='column'; col.style.alignItems='center'; col.style.gap='8px';
+    const glow = hexStr(p.color!==undefined?p.color:0xffffff);
+    const nameDiv = document.createElement('div');
+    nameDiv.style.color = glow; nameDiv.style.fontWeight='800'; nameDiv.style.fontSize='13px';
+    nameDiv.style.textAlign='center'; nameDiv.style.letterSpacing='0.5px'; nameDiv.style.textShadow=`0 0 10px ${glow}`;
+    nameDiv.style.whiteSpace='pre-line';
+    nameDiv.textContent = p.label;
+    if(p.img){
+      const im = document.createElement('img');
+      im.src = p.img; im.alt = p.label;
+      im.style.height = '150px'; im.style.maxWidth='140px'; im.style.objectFit='contain';
+      im.style.filter = `drop-shadow(0 0 10px ${glow}88)`;
+      im.style.borderRadius='8px';
+      col.appendChild(nameDiv); col.appendChild(im);
+    } else {
+      const sil = document.createElement('div');
+      sil.style.width='90px'; sil.style.height='150px'; sil.style.borderRadius='45px 45px 8px 8px';
+      sil.style.background='#0d0d0f'; sil.style.border=`2px solid ${glow}`; sil.style.boxShadow=`0 0 16px ${glow}88`;
+      col.appendChild(nameDiv); col.appendChild(sil);
+    }
+    row.appendChild(col);
   });
+  container.appendChild(row);
   if(opts.centerLabel){
-    const cl = makeLabelSprite(opts.centerLabel, {glow:'#ffffff', fontSize:48, scale:1.55});
-    cl.position.set(0, -1.65, 0.6);
-    group.add(cl);
+    const cl = document.createElement('div');
+    cl.style.color='#ffffff'; cl.style.fontWeight='800'; cl.style.fontSize='15px'; cl.style.letterSpacing='1px';
+    cl.style.textAlign='center'; cl.style.textShadow='0 0 12px rgba(255,255,255,0.6)';
+    cl.textContent = opts.centerLabel;
+    container.appendChild(cl);
   }
-  function anim(){
-    const t = Date.now()*0.0015;
-    figures.forEach(f=>{ f.position.y = Math.sin(t+f.userData.phase)*0.08; });
-    group.rotation.y = Math.sin(t*0.2)*0.06;
-    renderer.render(scene,camera);
-    requestAnimationFrame(anim);
+}
+
+/* Generic row of real human photo figures, each with a welded label */
+function buildHumanRow(containerId, people, opts={}){
+  if(!WEBGL_OK){ buildHumanRowFallback(containerId, people, opts); return; }
+  try{
+    const container = document.getElementById(containerId);
+    const {scene,camera,renderer} = baseScene(container);
+    camera.position.set(0, 1.3, people.length>3?11.5:10);
+    const group = new THREE.Group(); scene.add(group);
+    const n = people.length;
+    const spacing = opts.spacing || 2.6;
+    const startX = -((n-1)*spacing)/2;
+    const figures=[];
+    people.forEach((p,i)=>{
+      const fig = p.img ? makeHumanImageFigure(p.img, p.height||2.6) : makeSilhouetteSprite(hexStr(p.color!==undefined?p.color:0xff6b6b), p.height||2.6);
+      fig.position.x = startX + i*spacing;
+      fig.userData.phase = i*0.7;
+      group.add(fig);
+      figures.push(fig);
+      const lbl = makeLabelSprite(p.label, {glow:hexStr(p.color!==undefined?p.color:0xffffff), fontSize:32, scale:0.95});
+      lbl.position.set(fig.position.x, 2.55, 0);
+      group.add(lbl);
+    });
+    if(opts.centerLabel){
+      const cl = makeLabelSprite(opts.centerLabel, {glow:'#ffffff', fontSize:48, scale:1.55});
+      cl.position.set(0, -1.65, 0.6);
+      group.add(cl);
+    }
+    function anim(){
+      const t = Date.now()*0.0015;
+      figures.forEach(f=>{ f.position.y = Math.sin(t+f.userData.phase)*0.08; });
+      group.rotation.y = Math.sin(t*0.2)*0.06;
+      renderer.render(scene,camera);
+      requestAnimationFrame(anim);
+    }
+    anim();
+  }catch(e){
+    console.warn('3D human row failed, falling back to 2D:', e);
+    buildHumanRowFallback(containerId, people, opts);
   }
-  anim();
 }
 
 /* Generic orbit scene — core (shape/tree/human photo) with N labelled items orbiting */
@@ -1199,9 +1252,19 @@ function triggerSlideEffects(idx){
       fn();
     }catch(e){
       /* Defensive: a build function failing (e.g. an unexpected WebGL error on some laptop)
-         should never break navigation or leave a console-only silent blank slide. Log it and
-         move on — the slide's HTML text/headline still displays normally either way. */
+         should never break navigation or leave the slide showing a broken/blank-white box.
+         Several slides (title globe, human-portrait rows) have real 2D fallbacks built in and
+         won't reach this catch. For the rest (diagram/orbit visuals with no 2D equivalent yet),
+         hide the empty stage entirely so the slide reads clean — headline + supporting text
+         only — instead of an ugly empty rectangle. */
       console.warn('Slide '+idx+' visual build failed:', e);
+      const section = document.querySelector(`section[data-idx="${idx}"]`);
+      if(section){
+        const stage = section.querySelector('.stage');
+        if(stage && stage.querySelector('.three-container') && !stage.querySelector('.three-container').hasChildNodes()){
+          stage.style.display = 'none';
+        }
+      }
     }
     built[idx] = true;
   }
