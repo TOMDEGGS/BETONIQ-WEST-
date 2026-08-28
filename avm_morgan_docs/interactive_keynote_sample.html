@@ -151,29 +151,8 @@
   <section class="slide" data-idx="9">
     <div class="kicker">Section Seven — Learning From Britain and Israel</div>
     <h1>Proactive Intelligence: Nip It In The Bud</h1>
-    <div class="stage">
-      <div class="modelgrid">
-        <div class="modelcol">
-          <div class="modelflag">UNITED KINGDOM — CONTEST DOCTRINE</div>
-          <ul class="modellist">
-            <li>Prevent, Pursue, Protect, Prepare — four pillars, one strategy</li>
-            <li>JTAC fuses fragmented reporting into a single threat picture</li>
-            <li>Community-embedded policing stops radicalisation years before an attack</li>
-            <li>Prevent Duty places statutory safeguarding responsibility on schools, health &amp; local bodies</li>
-          </ul>
-        </div>
-        <div class="modelcol">
-          <div class="modelflag">ISRAEL — COLLABORATIVE FUSION</div>
-          <ul class="modellist">
-            <li>Intelligence fusion: human, signals &amp; aerial sources merged into one picture</li>
-            <li>Real-time sharing: whoever can act, knows first — locals see threats before HQ does</li>
-            <li>Intelligence-to-action cycle: assess, respond, feed lessons back in</li>
-            <li>Nigeria: regional fusion centres — Armed Forces, Police, DSS, NIA, NSCDC + community networks</li>
-          </ul>
-        </div>
-      </div>
-      <div class="modelcallout">North-Central Nigeria needs both instincts: prevention through trust, and speed through fusion.</div>
-    </div>
+    <div class="stage"><div class="three-container" id="three-proactive"></div></div>
+    <div class="modelcallout">North-Central Nigeria needs both instincts: prevention through trust (Britain), and speed through fusion (Israel).</div>
   </section>
 
   <!-- 10: SECTION SEVEN -->
@@ -1150,6 +1129,23 @@ function buildFusionCentre(){
 }
 /* SECTION SIX handled by drawIntelAction (2D) */
 
+/* SECTION SEVEN — Britain (blue) vs Israel (green) proactive-intelligence models */
+function buildProactive(){
+  buildOrbit3D('three-proactive', {
+    coreLabel:'NIP IT\nIN THE\nBUD', coreColor:0xffd166, radius:3.7,
+    items:[
+      {label:'UK:\n4 PILLARS\n(CONTEST)', color:0x5b9dff},
+      {label:'UK:\nJTAC\nFUSION', color:0x5b9dff},
+      {label:'UK:\nCOMMUNITY\nPOLICING', color:0x5b9dff},
+      {label:'UK:\nPREVENT\nDUTY', color:0x5b9dff},
+      {label:'ISRAEL:\nINTEL\nFUSION', color:0x5ef2b0},
+      {label:'ISRAEL:\nREAL-TIME\nSHARE', color:0x5ef2b0},
+      {label:'ISRAEL:\nACT &\nLEARN', color:0x5ef2b0},
+      {label:'ISRAEL:\nNIGERIA\nFUSION HUB', color:0x5ef2b0}
+    ]
+  });
+}
+
 /* SECTION SEVEN — Community as first sensor */
 function buildSensor(){
   buildHumanRow('three-sensor', [
@@ -1356,6 +1352,7 @@ const built = {};
 const initializers = {
   0: buildGlobe, 1: buildOpening, 2: animateCounters, 3: drawSecQ1, 4: drawCycle,
   5: buildWheel, 6: buildFusion, 7: buildFusionCentre, 8: drawIntelAction,
+  9: buildProactive,
   10: buildSensor, 11: buildRulers, 12: drawCorridors, 13: drawTimer, 14: buildTech, 15: buildForest,
   16: buildSeparate, 17: buildFarmHerd, 18: buildYouth, 19: buildWomenLG, 20: buildStatePolice,
   21: buildFunding, 22: buildLayers, 23: drawClock, 24: build90Days, 25: buildHeptagon,
