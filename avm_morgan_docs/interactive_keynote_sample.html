@@ -69,6 +69,11 @@
   .refs-item b{color:var(--accent2);}
   .refs-item::before{content:counter(refnum);counter-increment:refnum;position:absolute;left:0;top:0;color:var(--accent);font-weight:800;}
   .refs-list{counter-reset:refnum;}
+  .comptable{width:min(980px,92vw);border-collapse:collapse;margin:0 auto;font-size:clamp(12px,1.2vw,15px);background:var(--panel);border-radius:12px;overflow:hidden;}
+  .comptable th,.comptable td{padding:10px 14px;border:1px solid rgba(255,255,255,0.08);text-align:left;color:var(--text);}
+  .comptable th{background:rgba(255,209,102,0.14);color:var(--accent);text-transform:uppercase;letter-spacing:1px;font-size:12px;}
+  .comptable tr:last-child td{background:rgba(94,242,176,0.08);}
+
 </style>
 </head>
 <body>
@@ -120,183 +125,215 @@
     <div class="stage"><div class="three-container" id="three-fusioncentre"></div></div>
   </section>
 
-  <!-- 6: NEW SECTION SIX -->
+  <!-- 6: SECTION SIX -->
   <section class="slide" data-idx="6">
-    <div class="kicker">Section Six — Collaborative Security: The Proposition</div>
-    <h1>One Coherent Security Ecosystem</h1>
+    <div class="kicker">Section Six — The Central Question</div>
+    <h1>Two Models to Learn From</h1>
     <div class="stage"><canvas class="draw2d" id="canvas-intelaction"></canvas></div>
+    <p class="muted">Not whether Nigeria has enough security agencies — we do. The question is whether agencies, governments, communities and citizens are connected enough to act as one system.</p>
   </section>
 
-  <!-- 9: NEW SECTION SEVEN -->
+  <!-- 7: SECTION SEVEN -->
   <section class="slide" data-idx="7">
-    <div class="newbadge">Updated — 28 Aug</div>
-    <div class="kicker">Section Seven — The Israeli Model and the British Model</div>
-    <h1>Two Proven Models, One Nigerian Hybrid</h1>
+    <div class="kicker">Section Seven — The Israeli Model: Whole-of-Nation Integration</div>
+    <h1>National Security Is a Whole-of-Nation Responsibility</h1>
     <div class="stage"><div class="three-container" id="three-proactive"></div></div>
-    <div class="modelcallout">Israel teaches integration and citizen participation. Britain teaches coordination without destroying institutions. The Nigerian answer: NCISRM — a deliberate hybrid.</div>
+    <div class="modelcallout">Israel's National Security Council fuses intelligence, political, military and government information into one national picture — continuously, not just after an attack.</div>
   </section>
 
-  <!-- 10: SECTION EIGHT -->
+  <!-- 8: SECTION EIGHT -->
   <section class="slide" data-idx="8">
-    <div class="kicker">Section Eight — The NCISRM: Five Levels, One System</div>
-    <h1>Five Levels, One System</h1>
-    <div class="stage"><div class="three-container" id="three-sensor"></div></div>
-    <div class="modelcallout">The citizen must become a sensor in the security network — not simply a casualty statistic.</div>
+    <div class="kicker">Section Eight — The Israeli Model: The Citizen as Sensor</div>
+    <h1>Intelligence → Decision → Command → Local Authority → Community → Response</h1>
+    <div class="stage">
+      <div class="refs-list" style="counter-reset:none;">
+        <div class="refs-item" style="padding-left:0;"><b>The Home Front Command</b> keeps a continuous relationship with local authorities — exercises, emergency plans, and a direct link between military capability and civilian structures.</div>
+        <div class="refs-item" style="padding-left:0;">The citizen is not a victim waiting for government. The citizen becomes part of the security architecture.</div>
+        <div class="refs-item" style="padding-left:0;">Our communities already know who is entering the forest, who is moving cattle, who is unfamiliar — often before headquarters does.</div>
+      </div>
+    </div>
   </section>
 
-  <!-- 11: SECTION NINE -->
+  <!-- 9: SECTION NINE -->
   <section class="slide" data-idx="9">
-    <div class="kicker">Section Nine — The Role of Veterans: The North-Central Advantage</div>
+    <div class="kicker">Section Nine — Five Lessons Israel Offers North-Central Nigeria</div>
+    <h1>What We Borrow — and What We Don't</h1>
+    <div class="stage">
+      <div class="refs-list" style="counter-reset:refnum;">
+        <div class="refs-item">Permanent intelligence fusion</div>
+        <div class="refs-item">Strong regional operational coordination</div>
+        <div class="refs-item">Military–police–intelligence integration</div>
+        <div class="refs-item">Prepared local authorities</div>
+        <div class="refs-item">Community participation and resilience</div>
+      </div>
+    </div>
+    <p class="muted">We do not copy Israel's highly militarised environment wholesale — Nigeria is a larger, more diverse federation with different realities.</p>
+  </section>
+
+  <!-- 10: SECTION TEN -->
+  <section class="slide" data-idx="10">
+    <div class="kicker">Section Ten — The UK Model: CONTEST and Coordinated Policing</div>
+    <h1>Coordination Without Destroying Institutions</h1>
+    <div class="stage">
+      <div class="refs-list" style="counter-reset:none;">
+        <div class="refs-item" style="padding-left:0;"><b>CONTEST</b> — four pillars: Prevent, Pursue, Protect, Prepare — linking central government, intelligence, police, military, emergency services, local authorities and communities.</div>
+        <div class="refs-item" style="padding-left:0;">Forty-three police forces across England and Wales, plus Scotland and Northern Ireland, cooperate through one national counter-terrorism structure — surging capability to where the threat is greatest.</div>
+        <div class="refs-item" style="padding-left:0;">The <b>Counter Terrorism Operations Centre</b> converts intelligence into action faster by putting agencies and policing in the same room.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 11: SECTION ELEVEN -->
+  <section class="slide" data-idx="11">
+    <div class="kicker">Section Eleven — The UK Model: The Lesson for Nigeria</div>
+    <h1>Centralise Intelligence. Decentralise Delivery.</h1>
+    <div class="stage"><div class="three-container" id="three-fusioncentre2"></div></div>
+    <div class="modelcallout">Nigeria's NCTC already runs an all-source intelligence function under ONSA — Whole-of-Government, Whole-of-Society. The gap isn't institutions. It's integration between them.</div>
+  </section>
+
+  <!-- 12: SECTION TWELVE — COMPARISON TABLE -->
+  <section class="slide" data-idx="12">
+    <div class="kicker">Section Twelve — Israel vs UK: A Quick Comparison</div>
+    <h1>Neither Model Alone Is Right for Us</h1>
+    <div class="stage" style="height:auto;">
+      <table class="comptable">
+        <tr><th>Dimension</th><th>Israeli Model</th><th>UK Model</th></tr>
+        <tr><td>Intelligence</td><td>Highly integrated</td><td>Highly coordinated</td></tr>
+        <tr><td>Military role</td><td>Very prominent</td><td>More specialised</td></tr>
+        <tr><td>Local authorities</td><td>Strong emergency role</td><td>Strong prevention / community role</td></tr>
+        <tr><td>Community</td><td>Active security participant</td><td>Prevention &amp; resilience partner</td></tr>
+        <tr><td>Command</td><td>Strong operational integration</td><td>Networked coordination</td></tr>
+        <tr><td>Technology</td><td>Very intensive</td><td>Very intensive</td></tr>
+        <tr><td>National strategy</td><td>Strong central direction</td><td>Strong central framework</td></tr>
+        <tr><td><b>Best lesson for Nigeria</b></td><td><b>Integration &amp; rapid response</b></td><td><b>Coordination &amp; institutional balance</b></td></tr>
+      </table>
+    </div>
+  </section>
+
+  <!-- 13: SECTION THIRTEEN -->
+  <section class="slide" data-idx="13">
+    <div class="kicker">Section Thirteen — The Hybrid Model: The NCISRM</div>
+    <h1>The North-Central Integrated Security &amp; Resilience Model</h1>
+    <div class="stage"><div class="three-container" id="three-ncisrm"></div></div>
+    <div class="modelcallout">Israeli intelligence integration + Israeli local resilience + British institutional coordination + Nigerian community intelligence.</div>
+  </section>
+
+  <!-- 14: SECTION FOURTEEN -->
+  <section class="slide" data-idx="14">
+    <div class="kicker">Section Fourteen — NCISRM Levels One &amp; Two</div>
+    <h1>Regional Fusion, State Coordination</h1>
+    <div class="stage"><div class="three-container" id="three-sensor"></div></div>
+    <div class="modelcallout">One threat picture, one regional assessment — with twenty-four-hour state coordination centres, not meetings after the attack.</div>
+  </section>
+
+  <!-- 15: SECTION FIFTEEN -->
+  <section class="slide" data-idx="15">
+    <div class="kicker">Section Fifteen — NCISRM Level Three</div>
+    <h1>The Local Security Network</h1>
+    <div class="stage">
+      <div class="refs-list" style="counter-reset:none;">
+        <div class="refs-item" style="padding-left:0;">Security agencies + traditional institutions + local government + community leaders + farmers + pastoralists + credible civil society + trained community observers — one integrated structure per high-risk LGA.</div>
+        <div class="refs-item" style="padding-left:0;">This is not vigilante justice. It is structured early warning and lawful information sharing.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 16: SECTION SIXTEEN -->
+  <section class="slide" data-idx="16">
+    <div class="kicker">Section Sixteen — NCISRM Level Four</div>
+    <h1>The Forest and Rural Security Layer</h1>
+    <div class="stage"><div class="three-container" id="three-forest"></div></div>
+    <div class="modelcallout">Forests and rural spaces cannot remain intelligence black holes — rangers become the eyes and ears of the state; specialised units keep the high-risk operations.</div>
+  </section>
+
+  <!-- 17: SECTION SEVENTEEN -->
+  <section class="slide" data-idx="17">
+    <div class="kicker">Section Seventeen — NCISRM Level Five</div>
+    <h1>The Citizen</h1>
+    <div class="stage">
+      <div class="refs-list" style="counter-reset:refnum;">
+        <div class="refs-item">Who do I call?</div>
+        <div class="refs-item">What do I report?</div>
+        <div class="refs-item">How do I report it?</div>
+        <div class="refs-item">What happens after I report it?</div>
+      </div>
+    </div>
+    <p class="muted">The citizen must become a sensor in the security network — not simply a casualty statistic.</p>
+  </section>
+
+  <!-- 18: SECTION EIGHTEEN -->
+  <section class="slide" data-idx="18">
+    <div class="kicker">Section Eighteen — The Role of Veterans: The North-Central Advantage</div>
     <h1>A Regional Security Advisory and Training Reserve</h1>
     <div class="stage"><div class="three-container" id="three-rulers"></div></div>
     <div class="modelcallout">Retired professionals do not replace serving personnel — they strengthen the system without creating a parallel armed force.</div>
   </section>
 
-  <!-- 12: SECTION TEN -->
-  <section class="slide" data-idx="10">
-    <div class="kicker">Section Ten — From Reaction to Prevention</div>
+  <!-- 19: SECTION NINETEEN -->
+  <section class="slide" data-idx="19">
+    <div class="kicker">Section Nineteen — From Reaction to Prevention</div>
     <h1>Prevent. Pursue. Protect. Prepare. Partner.</h1>
     <div class="stage"><canvas class="draw2d" id="canvas-corridors"></canvas></div>
   </section>
 
-  <!-- 13: SECTION TEN -->
-  <section class="slide" data-idx="11">
-    <div class="kicker">Section Eleven — Rapid Response</div>
-    <h1>The Thirty-to-Sixty-Minute Window</h1>
-    <div class="stage" style="height:min(48vh,400px);"><canvas class="draw2d" id="canvas-timer"></canvas></div>
-  </section>
-
-  <!-- 14: SECTION ELEVEN -->
-  <section class="slide" data-idx="12">
-    <div class="kicker">Section Twelve — Technology Should Multiply Human Capability</div>
-    <h1>A Doctrine, Not a Shopping List</h1>
-    <div class="stage"><div class="three-container" id="three-tech"></div></div>
-  </section>
-
-  <!-- 15: SECTION TWELVE -->
-  <section class="slide" data-idx="13">
-    <div class="kicker">Section Thirteen — The Forest Problem</div>
-    <h1>Deny Sanctuary, Not the Farmer</h1>
-    <div class="stage"><div class="three-container" id="three-forest"></div></div>
-  </section>
-
-  <!-- 16: SECTION THIRTEEN -->
-  <section class="slide" data-idx="14">
-    <div class="kicker">Section Fourteen — Separate the Criminal From the Community</div>
-    <h1>Identify by Behaviour, Never by Identity</h1>
-    <div class="stage"><div class="three-container" id="three-separate"></div></div>
-  </section>
-
-  <!-- 17: SECTION FOURTEEN -->
-  <section class="slide" data-idx="15">
-    <div class="kicker">Section Fifteen — Farmer-Herder Conflict as a Governance Issue</div>
-    <h1>We Cannot Shoot Our Way Out of a Dispute</h1>
-    <div class="stage"><div class="three-container" id="three-farmherd"></div></div>
-  </section>
-
-  <!-- 18: SECTION FIFTEEN -->
-  <section class="slide" data-idx="16">
-    <div class="kicker">Section Sixteen — Young People, the Most Important Investment</div>
-    <h1>A Credible Alternative Future, Offered Early</h1>
-    <div class="stage"><div class="three-container" id="three-youth"></div></div>
-  </section>
-
-  <!-- 19: SECTIONS 16&17 -->
-  <section class="slide" data-idx="17">
-    <div class="kicker">Sections Seventeen & Eighteen — Women & Local Government</div>
-    <h1>Proximity Means Faster Warning</h1>
-    <div class="stage"><div class="three-container" id="three-women-lg"></div></div>
-  </section>
-
-  <!-- 20: SECTION EIGHTEEN -->
-  <section class="slide" data-idx="18">
-    <div class="kicker">Section Nineteen — State Police: An Opportunity That Requires Safeguards</div>
-    <h1>Competence Close to Community, Without Abuse</h1>
-    <div class="stage"><div class="three-container" id="three-statepolice"></div></div>
-  </section>
-
-  <!-- 21: SECTIONS 19&20 -->
-  <section class="slide" data-idx="19">
-    <div class="kicker">Sections Twenty & Twenty-One — Predictable Funding & Personnel Welfare</div>
-    <h1>Morale Is a Combat Capability</h1>
-    <div class="stage"><div class="three-container" id="three-funding"></div></div>
-  </section>
-
-  <!-- 22: SECTION TWENTY-ONE -->
+  <!-- 20: SECTION TWENTY -->
   <section class="slide" data-idx="20">
-    <div class="kicker">Section Twenty-Two — The Architecture</div>
-    <h1>The Three-Layer Security Model</h1>
-    <div class="stage"><div class="three-container" id="three-layers"></div></div>
+    <div class="kicker">Section Twenty — Conclusion: Three Lessons, One System</div>
+    <h1>No Intelligence Isolated. No Community Disconnected.</h1>
+    <div class="stage">
+      <div class="refs-list" style="counter-reset:none;">
+        <div class="refs-item" style="padding-left:0;"><b>Israel:</b> no intelligence should remain isolated, and no community should remain disconnected from the security system.</div>
+        <div class="refs-item" style="padding-left:0;"><b>Britain:</b> different agencies can retain their identities while operating toward one national objective.</div>
+        <div class="refs-item" style="padding-left:0;"><b>Nigeria:</b> our solution must be built around our geography, our communities, our constitutional structure and our own realities.</div>
+      </div>
+    </div>
   </section>
 
-  <!-- 23: SECTION TWENTY-TWO -->
+  <!-- 21: SECTION TWENTY-ONE -->
   <section class="slide" data-idx="21">
-    <div class="kicker">Section Twenty-Three — Around the Clock</div>
-    <h1>A Twenty-Four-Hour Security Cycle</h1>
-    <div class="stage" style="height:min(54vh,440px);"><canvas class="draw2d" id="canvas-clock"></canvas></div>
+    <div class="kicker">Section Twenty-One — Conclusion: The Nigerian Commitments</div>
+    <h1>Unmistakably Nigerian</h1>
+    <div class="stage">
+      <div class="refs-list" style="counter-reset:refnum;">
+        <div class="refs-item">Centralised intelligence</div>
+        <div class="refs-item">Integrated command</div>
+        <div class="refs-item">Decentralised community engagement</div>
+        <div class="refs-item">Technology-enabled surveillance</div>
+        <div class="refs-item">Prepared local authorities</div>
+        <div class="refs-item">Veteran expertise</div>
+        <div class="refs-item">Early warning</div>
+        <div class="refs-item">Rapid response</div>
+        <div class="refs-item">Continuous learning</div>
+      </div>
+    </div>
   </section>
 
-  <!-- 24: SECTION TWENTY-THREE -->
+  <!-- 22: CLOSING -->
   <section class="slide" data-idx="22">
-    <div class="kicker">Section Twenty-Four — What Should Happen in the Next Ninety Days</div>
-    <h1>No Abstractions — Ten Concrete Actions</h1>
-    <div class="stage"><div class="three-container" id="three-90days"></div></div>
-  </section>
-
-  <!-- 25: SECTION TWENTY-FOUR -->
-  <section class="slide" data-idx="23">
-    <div class="kicker">Section Twenty-Five — The North-Central Security Compact</div>
-    <h1>Seven Commitments</h1>
-    <div class="stage"><div class="three-container" id="three-heptagon"></div></div>
-  </section>
-
-  <!-- 26: SECTION TWENTY-FIVE -->
-  <section class="slide" data-idx="24">
-    <div class="kicker">Section Twenty-Six — What Success Should Look Like in Three Years</div>
-    <h1>Farmers Return. Families Come Home.</h1>
-    <div class="stage"><div class="three-container" id="three-success"></div></div>
-  </section>
-
-  <!-- 27: SECTION TWENTY-SIX -->
-  <section class="slide" data-idx="25">
-    <div class="kicker">Section Twenty-Seven — The Biggest Change We Need Is Mental</div>
-    <h1>How We Think, Before How Much We Spend</h1>
-    <div class="stage"><div class="three-container" id="three-mental"></div></div>
-  </section>
-
-  <!-- 28: CLOSING -->
-  <section class="slide" data-idx="26">
-    <div class="kicker">Closing</div>
+    <div class="kicker">Closing — The Ultimate Objective</div>
     <div class="stage"><div class="three-container" id="three-close"></div></div>
     <h1>He Simply Wants to Arrive Alive.</h1>
+    <p class="muted">Not a soldier in every village — a system where intelligence reaches the right commander, the commander reaches the right capability, and the capability reaches the threatened community before the attack occurs. Thank you.</p>
     <p class="muted">— Air Vice Marshal Monday Riku Morgan (Rtd)</p>
   </section>
 
-  <!-- 29: REFERENCES -->
-  <section class="slide" data-idx="27">
+  <!-- 23: REFERENCES -->
+  <section class="slide" data-idx="23">
     <div class="kicker">References</div>
-    <h1>Sources &amp; Comparative Precedents</h1>
+    <h1>Sources</h1>
     <div class="refs-list">
-      <div class="refs-item"><b>ACLED</b> (2025) <i>Armed Conflict Location &amp; Event Data Project: Nigeria, Jan 2024–Dec 2025.</i> Conflict and fatality data, Benue, Plateau &amp; Niger States.</div>
-      <div class="refs-item"><b>Federal Government of Nigeria</b> (2026) <i>Northern Nigerian Security Trust Fund.</i> Inaugurated July 2026.</div>
-      <div class="refs-item"><b>Government of Colombia</b> (1990s–2000s) <i>Plan Colombia: Community Intelligence &amp; Reintegration Programmes.</i></div>
-      <div class="refs-item"><b>Government of Kenya</b> (n.d.) <i>Nyumba Kumi Community Policing Initiative.</i></div>
-      <div class="refs-item"><b>Government of the Philippines</b> (n.d.) <i>Barangay Peacekeeping Action Teams.</i></div>
-      <div class="refs-item"><b>UK Government</b> (n.d.) <i>Joint Terrorism Analysis Centre (JTAC).</i></div>
+      <div class="refs-item"><b>Israel National Security Council</b> (2023) <i>National Security Concept and the Role of the Situation Room.</i> Jerusalem: Prime Minister's Office.</div>
+      <div class="refs-item"><b>Israel Home Front Command</b> (2022) <i>Civilian Preparedness and Local Authority Coordination Doctrine.</i> Ramla: Israel Defense Forces.</div>
       <div class="refs-item"><b>HM Government</b> (2023) <i>CONTEST: The United Kingdom's Strategy for Countering Terrorism.</i> London: Home Office.</div>
-      <div class="refs-item"><b>UK Home Office</b> (2023) <i>Revised Prevent Duty Guidance for England and Wales.</i> London: Home Office.</div>
-      <div class="refs-item"><b>US Government</b> (n.d.) <i>National Counterterrorism Center (NCTC).</i></div>
-      <div class="refs-item"><b>Government of India</b> (2009) <i>Multi-Agency Centre (MAC), established following the 2008 Mumbai attacks.</i></div>
-      <div class="refs-item"><b>Government of Israel</b> (n.d.) <i>Civil Defence Rapid-Response &amp; Pre-Positioning Doctrine.</i></div>
-      <div class="refs-item"><b>Byman, D.</b> (2011) <i>A High Price: The Triumphs and Failures of Israeli Counterterrorism.</i> Oxford: Oxford University Press.</div>
-      <div class="refs-item"><b>Israel Security Agency</b> (2024) <i>Collaborative Intelligence-Fusion Doctrine: Military, Domestic Security, Police, Border &amp; Community Reporting.</i> Tel Aviv: Israel Security Agency.</div>
-      <div class="refs-item"><b>Government of the United Kingdom</b> (1998–) <i>Good Friday Agreement — Northern Ireland Youth Reintegration Programmes.</i></div>
-      <div class="refs-item"><b>Government of South Africa</b> (n.d.) <i>Provincial Policing Powers Debate.</i></div>
-      <div class="refs-item"><b>Sahel Regional Bodies &amp; Governments of Kenya/Ethiopia</b> (n.d.) <i>Cross-Border Grazing &amp; Pastoralist Dialogue Initiatives.</i></div>
-      <div class="refs-item"><b>North-Central Nigeria Governors' Forum</b> (2025) <i>Joint Security Operations Agreement.</i></div>
+      <div class="refs-item"><b>National Police Chiefs' Council</b> (2022) <i>Counter Terrorism Policing: National Structures and the Counter Terrorism Operations Centre.</i> London: NPCC.</div>
+      <div class="refs-item"><b>Office of the National Security Adviser, Nigeria</b> (2024) <i>National Counter Terrorism Centre: Whole-of-Government and Whole-of-Society Framework.</i> Abuja: ONSA.</div>
+      <div class="refs-item"><b>ACLED</b> (2025) <i>Nigeria: North-Central Conflict Trends, Benue, Plateau and Niger States.</i> Madison, WI: ACLED.</div>
+      <div class="refs-item"><b>International Crisis Group</b> (2024) <i>Rethinking Nigeria's Approach to Farmer-Herder and Communal Conflict.</i> Brussels: ICG.</div>
+      <div class="refs-item"><b>Federal Ministry of Environment, Nigeria</b> (2025) <i>National Forest Security Initiative: Framework Document.</i> Abuja: FME.</div>
     </div>
     <p class="muted" style="margin-top:10px;">Air Vice Marshal Monday Riku Morgan (Rtd) · MOD Keynote Address · 31 August 2026</p>
   </section>
+
 
   <div class="nav">
     <button class="navbtn" id="prevBtn">◀ Prev</button>
@@ -308,28 +345,24 @@
       <option value="3">4. One Common Security Framework</option>
       <option value="4">5. From Agency-Centric to System-Centric</option>
       <option value="5">6. Two Lessons, One Nigerian Model</option>
-      <option value="6">7. One Coherent Security Ecosystem</option>
-      <option value="7">8. Two Proven Models, One Nigerian Hybrid</option>
-      <option value="8">9. Five Levels, One System</option>
-      <option value="9">10. A Regional Security Advisory and Training Reserve</option>
-      <option value="10">11. Prevent. Pursue. Protect. Prepare. Partner.</option>
-      <option value="11">12. The Thirty-to-Sixty-Minute Window</option>
-      <option value="12">13. A Doctrine, Not a Shopping List</option>
-      <option value="13">14. Deny Sanctuary, Not the Farmer</option>
-      <option value="14">15. Identify by Behaviour, Never by Identity</option>
-      <option value="15">16. We Cannot Shoot Our Way Out of a Dispute</option>
-      <option value="16">17. A Credible Alternative Future, Offered Early</option>
-      <option value="17">18. Proximity Means Faster Warning</option>
-      <option value="18">19. Competence Close to Community, Without Abuse</option>
-      <option value="19">20. Morale Is a Combat Capability</option>
-      <option value="20">21. The Three-Layer Security Model</option>
-      <option value="21">22. A Twenty-Four-Hour Security Cycle</option>
-      <option value="22">23. No Abstractions — Ten Concrete Actions</option>
-      <option value="23">24. Seven Commitments</option>
-      <option value="24">25. Farmers Return. Families Come Home.</option>
-      <option value="25">26. How We Think, Before How Much We Spend</option>
-      <option value="26">27. He Simply Wants to Arrive Alive.</option>
-      <option value="27">28. Sources & Comparative Precedents</option>
+      <option value="6">7. Two Models to Learn From</option>
+      <option value="7">8. National Security Is a Whole-of-Nation Responsibility</option>
+      <option value="8">9. Intelligence to Decision to Command to Local to Community to Response</option>
+      <option value="9">10. What We Borrow — and What We Don't</option>
+      <option value="10">11. Coordination Without Destroying Institutions</option>
+      <option value="11">12. Centralise Intelligence. Decentralise Delivery.</option>
+      <option value="12">13. Neither Model Alone Is Right for Us</option>
+      <option value="13">14. The North-Central Integrated Security & Resilience Model</option>
+      <option value="14">15. Regional Fusion, State Coordination</option>
+      <option value="15">16. The Local Security Network</option>
+      <option value="16">17. The Forest and Rural Security Layer</option>
+      <option value="17">18. The Citizen</option>
+      <option value="18">19. A Regional Security Advisory and Training Reserve</option>
+      <option value="19">20. Prevent. Pursue. Protect. Prepare. Partner.</option>
+      <option value="20">21. No Intelligence Isolated. No Community Disconnected.</option>
+      <option value="21">22. Unmistakably Nigerian</option>
+      <option value="22">23. He Simply Wants to Arrive Alive.</option>
+      <option value="23">24. Sources</option>
     </select>
     <div class="dots" id="dots"></div>
     <button class="navbtn" id="nextBtn">Next ▶</button>
@@ -1398,12 +1431,26 @@ const built = {};
 const initializers = {
   0: buildGlobe, 1: drawSecQ1, 2: drawCycle,
   3: buildWheel, 4: buildFusion, 5: buildFusionCentre, 6: drawIntelAction,
-  7: buildProactive,
-  8: buildFiveLevel, 9: buildVeteranReserve, 10: drawFiveP, 11: drawTimer, 12: buildTech, 13: buildForest,
-  14: buildSeparate, 15: buildFarmHerd, 16: buildYouth, 17: buildWomenLG, 18: buildStatePolice,
-  19: buildFunding, 20: buildLayers, 21: drawClock, 22: build90Days, 23: buildHeptagon,
-  24: buildSuccess, 25: buildMental, 26: buildClose
+  7: buildProactive, 11: buildUKLesson, 13: buildNCISRM,
+  14: buildFiveLevel, 16: buildForest, 18: buildVeteranReserve, 19: drawFiveP,
+  22: buildClose
 };
+/* --- New wrapper visuals for rebuilt slides 11 & 13 (28 Aug rebuild) --- */
+function buildUKLesson(){
+  buildOrbit3D('three-fusioncentre2', {
+    coreLabel:'NCTC:\nWHOLE-OF-\nGOVERNMENT', coreColor:0x5b9dff, radius:3.6,
+    items:[
+      {label:'CENTRALISE\nINTELLIGENCE', color:0x5b9dff},{label:'DECENTRALISE\nDELIVERY', color:0xffd166},
+      {label:'ONSA /\nNCTC', color:0x5ef2b0}
+    ]
+  });
+}
+function buildNCISRM(){
+  buildOrbit3D('three-ncisrm', {
+    coreLabel:'NCISRM', coreColor:0xffd166, radius:4.0, cameraZ:10,
+    items:['ISRAEL:\nINTEGRATION','ISRAEL:\nRESILIENCE','BRITAIN:\nCOORDINATION','NIGERIA:\nCOMMUNITY INTEL'].map(l=>({label:l,color:0x5ef2b0}))
+  });
+}
 function triggerSlideEffects(idx){
   if(built[idx]) return;
   const fn = initializers[idx];
