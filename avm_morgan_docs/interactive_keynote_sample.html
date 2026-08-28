@@ -775,17 +775,20 @@ function buildHumanRow(containerId, people, opts={}){
   try{
     const container = document.getElementById(containerId);
     const {scene,camera,renderer} = baseScene(container);
-    camera.position.set(0, 1.3, people.length>3?14:12.2);
+    camera.position.set(0, 1.3, people.length>3?19:14);
     const group = new THREE.Group(); scene.add(group);
     const n = people.length;
-    /* Slightly wider spacing than the raw height increase alone would need, so the now-bigger
-       portraits (audience visibility request) still have clean air between them even in the
-       6-person row. */
-    const spacing = opts.spacing ? opts.spacing*1.45 : 3.25;
+    const figHeight = opts.height || 3.8;
+    /* IMPORTANT: every real portrait photo in this deck is a square 1024x1024 file, so once its
+       texture loads, makeHumanImageFigure renders it at width == height (not the 0.62 "portrait"
+       ratio the original spacing values were tuned against). Recompute spacing from the *true*
+       square width so figures never overlap, while preserving each row's originally-intended
+       breathing room as an explicit gap on top of that true width. */
+    const legacyGap = Math.max(0.55, (opts.spacing || 2.6) - 2.6*0.62);
+    const spacing = figHeight + legacyGap;
     const startX = -((n-1)*spacing)/2;
     const figures=[];
     people.forEach((p,i)=>{
-      const figHeight = p.height || opts.height || 3.8;
       const fig = p.img ? makeHumanImageFigure(p.img, figHeight) : makeSilhouetteSprite(hexStr(p.color!==undefined?p.color:0xff6b6b), figHeight);
       fig.position.x = startX + i*spacing;
       fig.userData.phase = i*0.7;
@@ -796,9 +799,8 @@ function buildHumanRow(containerId, people, opts={}){
       group.add(lbl);
     });
     if(opts.centerLabel){
-      const maxFigHeight = Math.max(...people.map(p=>p.height||opts.height||3.8));
       const cl = makeLabelSprite(opts.centerLabel, {glow:'#ffffff', fontSize:48, scale:1.55});
-      cl.position.set(0, -(maxFigHeight/2) - 0.55, 0.6);
+      cl.position.set(0, -(figHeight/2) - 0.55, 0.6);
       group.add(cl);
     }
     function anim(){
