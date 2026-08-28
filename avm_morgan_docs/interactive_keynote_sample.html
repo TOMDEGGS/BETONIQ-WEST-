@@ -784,7 +784,7 @@ function buildHumanRow(containerId, people, opts={}){
        ratio the original spacing values were tuned against). Recompute spacing from the *true*
        square width so figures never overlap, while preserving each row's originally-intended
        breathing room as an explicit gap on top of that true width. */
-    const legacyGap = Math.max(0.55, (opts.spacing || 2.6) - 2.6*0.62);
+    const legacyGap = Math.max(1.05, (opts.spacing || 2.6) - 2.6*0.62);
     const spacing = figHeight + legacyGap;
     const startX = -((n-1)*spacing)/2;
     const figures=[];
