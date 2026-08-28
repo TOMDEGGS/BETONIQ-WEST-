@@ -50,6 +50,14 @@
   .counter{font-size:clamp(30px,5vw,52px);font-weight:900;color:var(--danger);text-shadow:0 0 24px rgba(255,107,107,0.7);}
   .counterlabel{font-size:13px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;font-weight:700;}
   .statgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;width:min(960px,92vw);margin-top:6px;}
+  .modelgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;width:min(1000px,92vw);margin-top:10px;}
+  .modelcol{background:var(--panel);border:1px solid var(--accent);border-radius:12px;padding:20px 22px;box-shadow:0 0 20px rgba(255,209,102,0.12);}
+  .modelflag{font-size:15px;font-weight:800;letter-spacing:1px;color:var(--accent);margin-bottom:12px;text-transform:uppercase;}
+  .modellist{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px;}
+  .modellist li{font-size:15px;line-height:1.4;color:#fff;padding-left:18px;position:relative;}
+  .modellist li:before{content:'▸';position:absolute;left:0;color:var(--accent);}
+  .modelcallout{width:min(1000px,92vw);margin:18px auto 0;text-align:center;font-size:15px;font-weight:700;color:var(--accent);padding:12px 20px;border-top:1px solid rgba(255,209,102,0.25);}
+
   .statcard{background:var(--panel);border:1px solid var(--accent);border-radius:12px;padding:14px 8px;box-shadow:0 0 20px rgba(255,209,102,0.12);}
   .topline{position:absolute;top:14px;left:20px;font-size:11px;color:var(--muted);letter-spacing:2px;z-index:40;font-weight:700;}
   .progress{position:absolute;top:0;left:0;height:4px;background:var(--accent);z-index:60;transition:width .3s;box-shadow:0 0 12px var(--accent);}
@@ -139,142 +147,169 @@
     <div class="stage"><canvas class="draw2d" id="canvas-intelaction"></canvas></div>
   </section>
 
-  <!-- 9: SECTION SEVEN -->
+  <!-- 9: NEW SECTION SEVEN -->
   <section class="slide" data-idx="9">
+    <div class="kicker">Section Seven — Learning From Britain and Israel</div>
+    <h1>Proactive Intelligence: Nip It In The Bud</h1>
+    <div class="stage">
+      <div class="modelgrid">
+        <div class="modelcol">
+          <div class="modelflag">UNITED KINGDOM — CONTEST DOCTRINE</div>
+          <ul class="modellist">
+            <li>Prevent, Pursue, Protect, Prepare — four pillars, one strategy</li>
+            <li>JTAC fuses fragmented reporting into a single threat picture</li>
+            <li>Community-embedded policing stops radicalisation years before an attack</li>
+          </ul>
+        </div>
+        <div class="modelcol">
+          <div class="modelflag">ISRAEL — COLLABORATIVE FUSION</div>
+          <ul class="modellist">
+            <li>Military intelligence + police + border + community = one system</li>
+            <li>Real-time sharing: whoever can act, knows first</li>
+            <li>Discover early, fuse, share, decide, act — before the threat matures</li>
+          </ul>
+        </div>
+      </div>
+      <div class="modelcallout">North-Central Nigeria needs both instincts: prevention through trust, and speed through fusion.</div>
+    </div>
+  </section>
+
+  <!-- 10: SECTION SEVEN -->
+  <section class="slide" data-idx="10">
     <div class="kicker">Section Seven — The Community Must Become the First Sensor</div>
     <h1>They See What No Satellite Ever Will</h1>
     <div class="stage"><div class="three-container" id="three-sensor"></div></div>
   </section>
 
-  <!-- 10: SECTION EIGHT -->
-  <section class="slide" data-idx="10">
+  <!-- 11: SECTION EIGHT -->
+  <section class="slide" data-idx="11">
     <div class="kicker">Section Eight — Traditional Rulers in the Security Architecture</div>
     <h1>A Standing Table, Not an Emergency Meeting</h1>
     <div class="stage"><div class="three-container" id="three-rulers"></div></div>
   </section>
 
-  <!-- 11: SECTION NINE -->
-  <section class="slide" data-idx="11">
+  <!-- 12: SECTION NINE -->
+  <section class="slide" data-idx="12">
     <div class="kicker">Section Nine — Security Corridors, Not Administrative Boundaries</div>
     <h1>Threats Move Along Corridors</h1>
     <div class="stage"><canvas class="draw2d" id="canvas-corridors"></canvas></div>
   </section>
 
-  <!-- 12: SECTION TEN -->
-  <section class="slide" data-idx="12">
+  <!-- 13: SECTION TEN -->
+  <section class="slide" data-idx="13">
     <div class="kicker">Section Ten — Rapid Response</div>
     <h1>The Thirty-to-Sixty-Minute Window</h1>
     <div class="stage" style="height:min(48vh,400px);"><canvas class="draw2d" id="canvas-timer"></canvas></div>
   </section>
 
-  <!-- 13: SECTION ELEVEN -->
-  <section class="slide" data-idx="13">
+  <!-- 14: SECTION ELEVEN -->
+  <section class="slide" data-idx="14">
     <div class="kicker">Section Eleven — Technology Should Multiply Human Capability</div>
     <h1>A Doctrine, Not a Shopping List</h1>
     <div class="stage"><div class="three-container" id="three-tech"></div></div>
   </section>
 
-  <!-- 14: SECTION TWELVE -->
-  <section class="slide" data-idx="14">
+  <!-- 15: SECTION TWELVE -->
+  <section class="slide" data-idx="15">
     <div class="kicker">Section Twelve — The Forest Problem</div>
     <h1>Deny Sanctuary, Not the Farmer</h1>
     <div class="stage"><div class="three-container" id="three-forest"></div></div>
   </section>
 
-  <!-- 15: SECTION THIRTEEN -->
-  <section class="slide" data-idx="15">
+  <!-- 16: SECTION THIRTEEN -->
+  <section class="slide" data-idx="16">
     <div class="kicker">Section Thirteen — Separate the Criminal From the Community</div>
     <h1>Identify by Behaviour, Never by Identity</h1>
     <div class="stage"><div class="three-container" id="three-separate"></div></div>
   </section>
 
-  <!-- 16: SECTION FOURTEEN -->
-  <section class="slide" data-idx="16">
+  <!-- 17: SECTION FOURTEEN -->
+  <section class="slide" data-idx="17">
     <div class="kicker">Section Fourteen — Farmer-Herder Conflict as a Governance Issue</div>
     <h1>We Cannot Shoot Our Way Out of a Dispute</h1>
     <div class="stage"><div class="three-container" id="three-farmherd"></div></div>
   </section>
 
-  <!-- 17: SECTION FIFTEEN -->
-  <section class="slide" data-idx="17">
+  <!-- 18: SECTION FIFTEEN -->
+  <section class="slide" data-idx="18">
     <div class="kicker">Section Fifteen — Young People, the Most Important Investment</div>
     <h1>A Credible Alternative Future, Offered Early</h1>
     <div class="stage"><div class="three-container" id="three-youth"></div></div>
   </section>
 
-  <!-- 18: SECTIONS 16&17 -->
-  <section class="slide" data-idx="18">
+  <!-- 19: SECTIONS 16&17 -->
+  <section class="slide" data-idx="19">
     <div class="kicker">Sections Sixteen & Seventeen — Women & Local Government</div>
     <h1>Proximity Means Faster Warning</h1>
     <div class="stage"><div class="three-container" id="three-women-lg"></div></div>
   </section>
 
-  <!-- 19: SECTION EIGHTEEN -->
-  <section class="slide" data-idx="19">
+  <!-- 20: SECTION EIGHTEEN -->
+  <section class="slide" data-idx="20">
     <div class="kicker">Section Eighteen — State Police: An Opportunity That Requires Safeguards</div>
     <h1>Competence Close to Community, Without Abuse</h1>
     <div class="stage"><div class="three-container" id="three-statepolice"></div></div>
   </section>
 
-  <!-- 20: SECTIONS 19&20 -->
-  <section class="slide" data-idx="20">
+  <!-- 21: SECTIONS 19&20 -->
+  <section class="slide" data-idx="21">
     <div class="kicker">Sections Nineteen & Twenty — Predictable Funding & Personnel Welfare</div>
     <h1>Morale Is a Combat Capability</h1>
     <div class="stage"><div class="three-container" id="three-funding"></div></div>
   </section>
 
-  <!-- 21: SECTION TWENTY-ONE -->
-  <section class="slide" data-idx="21">
+  <!-- 22: SECTION TWENTY-ONE -->
+  <section class="slide" data-idx="22">
     <div class="kicker">Section Twenty-One — The Architecture</div>
     <h1>The Three-Layer Security Model</h1>
     <div class="stage"><div class="three-container" id="three-layers"></div></div>
   </section>
 
-  <!-- 22: SECTION TWENTY-TWO -->
-  <section class="slide" data-idx="22">
+  <!-- 23: SECTION TWENTY-TWO -->
+  <section class="slide" data-idx="23">
     <div class="kicker">Section Twenty-Two — Around the Clock</div>
     <h1>A Twenty-Four-Hour Security Cycle</h1>
     <div class="stage" style="height:min(54vh,440px);"><canvas class="draw2d" id="canvas-clock"></canvas></div>
   </section>
 
-  <!-- 23: SECTION TWENTY-THREE -->
-  <section class="slide" data-idx="23">
+  <!-- 24: SECTION TWENTY-THREE -->
+  <section class="slide" data-idx="24">
     <div class="kicker">Section Twenty-Three — What Should Happen in the Next Ninety Days</div>
     <h1>No Abstractions — Ten Concrete Actions</h1>
     <div class="stage"><div class="three-container" id="three-90days"></div></div>
   </section>
 
-  <!-- 24: SECTION TWENTY-FOUR -->
-  <section class="slide" data-idx="24">
+  <!-- 25: SECTION TWENTY-FOUR -->
+  <section class="slide" data-idx="25">
     <div class="kicker">Section Twenty-Four — The North-Central Security Compact</div>
     <h1>Seven Commitments</h1>
     <div class="stage"><div class="three-container" id="three-heptagon"></div></div>
   </section>
 
-  <!-- 25: SECTION TWENTY-FIVE -->
-  <section class="slide" data-idx="25">
+  <!-- 26: SECTION TWENTY-FIVE -->
+  <section class="slide" data-idx="26">
     <div class="kicker">Section Twenty-Five — What Success Should Look Like in Three Years</div>
     <h1>Farmers Return. Families Come Home.</h1>
     <div class="stage"><div class="three-container" id="three-success"></div></div>
   </section>
 
-  <!-- 26: SECTION TWENTY-SIX -->
-  <section class="slide" data-idx="26">
+  <!-- 27: SECTION TWENTY-SIX -->
+  <section class="slide" data-idx="27">
     <div class="kicker">Section Twenty-Six — The Biggest Change We Need Is Mental</div>
     <h1>How We Think, Before How Much We Spend</h1>
     <div class="stage"><div class="three-container" id="three-mental"></div></div>
   </section>
 
-  <!-- 27: CLOSING -->
-  <section class="slide" data-idx="27">
+  <!-- 28: CLOSING -->
+  <section class="slide" data-idx="28">
     <div class="kicker">Closing</div>
     <div class="stage"><div class="three-container" id="three-close"></div></div>
     <h1>He Simply Wants to Arrive Alive.</h1>
     <p class="muted">— Air Vice Marshal Monday Riku Morgan (Rtd)</p>
   </section>
 
-  <!-- 28: REFERENCES -->
-  <section class="slide" data-idx="28">
+  <!-- 29: REFERENCES -->
+  <section class="slide" data-idx="29">
     <div class="kicker">References</div>
     <h1>Sources &amp; Comparative Precedents</h1>
     <div class="refs-list">
@@ -284,9 +319,13 @@
       <div class="refs-item"><b>Government of Kenya</b> (n.d.) <i>Nyumba Kumi Community Policing Initiative.</i></div>
       <div class="refs-item"><b>Government of the Philippines</b> (n.d.) <i>Barangay Peacekeeping Action Teams.</i></div>
       <div class="refs-item"><b>UK Government</b> (n.d.) <i>Joint Terrorism Analysis Centre (JTAC).</i></div>
+      <div class="refs-item"><b>HM Government</b> (2023) <i>CONTEST: The United Kingdom's Strategy for Countering Terrorism.</i> London: Home Office.</div>
+      <div class="refs-item"><b>UK Home Office</b> (2023) <i>Revised Prevent Duty Guidance for England and Wales.</i> London: Home Office.</div>
       <div class="refs-item"><b>US Government</b> (n.d.) <i>National Counterterrorism Center (NCTC).</i></div>
       <div class="refs-item"><b>Government of India</b> (2009) <i>Multi-Agency Centre (MAC), established following the 2008 Mumbai attacks.</i></div>
       <div class="refs-item"><b>Government of Israel</b> (n.d.) <i>Civil Defence Rapid-Response &amp; Pre-Positioning Doctrine.</i></div>
+      <div class="refs-item"><b>Byman, D.</b> (2011) <i>A High Price: The Triumphs and Failures of Israeli Counterterrorism.</i> Oxford: Oxford University Press.</div>
+      <div class="refs-item"><b>Israel Security Agency</b> (2024) <i>Collaborative Intelligence-Fusion Doctrine: Military, Domestic Security, Police, Border &amp; Community Reporting.</i> Tel Aviv: Israel Security Agency.</div>
       <div class="refs-item"><b>Government of the United Kingdom</b> (1998–) <i>Good Friday Agreement — Northern Ireland Youth Reintegration Programmes.</i></div>
       <div class="refs-item"><b>Government of South Africa</b> (n.d.) <i>Provincial Policing Powers Debate.</i></div>
       <div class="refs-item"><b>Sahel Regional Bodies &amp; Governments of Kenya/Ethiopia</b> (n.d.) <i>Cross-Border Grazing &amp; Pastoralist Dialogue Initiatives.</i></div>
@@ -297,7 +336,7 @@
 
   <div class="nav">
     <button class="navbtn" id="prevBtn">◀ Prev</button>
-    <span id="slideCounter">1 / 29</span>
+    <span id="slideCounter">1 / 30</span>
     <select id="slideJump" title="Jump to any slide">
       <option value="0">1. Title — Collaborative Approaches to Strengthening Security in North-Central Nigeria</option>
       <option value="1">2. The People Behind the Statistics</option>
@@ -308,26 +347,27 @@
       <option value="6">7. Nine Agencies, One Threat Picture</option>
       <option value="7">8. Built on a Proven Global Principle</option>
       <option value="8">9. The Pathway Must Close the Loop</option>
-      <option value="9">10. They See What No Satellite Ever Will</option>
-      <option value="10">11. A Standing Table, Not an Emergency Meeting</option>
-      <option value="11">12. Threats Move Along Corridors</option>
-      <option value="12">13. The Thirty-to-Sixty-Minute Window</option>
-      <option value="13">14. A Doctrine, Not a Shopping List</option>
-      <option value="14">15. Deny Sanctuary, Not the Farmer</option>
-      <option value="15">16. Identify by Behaviour, Never by Identity</option>
-      <option value="16">17. We Cannot Shoot Our Way Out of a Dispute</option>
-      <option value="17">18. A Credible Alternative Future, Offered Early</option>
-      <option value="18">19. Proximity Means Faster Warning</option>
-      <option value="19">20. Competence Close to Community, Without Abuse</option>
-      <option value="20">21. Morale Is a Combat Capability</option>
-      <option value="21">22. The Three-Layer Security Model</option>
-      <option value="22">23. A Twenty-Four-Hour Security Cycle</option>
-      <option value="23">24. No Abstractions — Ten Concrete Actions</option>
-      <option value="24">25. Seven Commitments</option>
-      <option value="25">26. Farmers Return. Families Come Home.</option>
-      <option value="26">27. How We Think, Before How Much We Spend</option>
-      <option value="27">28. He Simply Wants to Arrive Alive.</option>
-      <option value="28">29. Sources & Comparative Precedents</option>
+      <option value="9">10. Proactive Intelligence: Nip It In The Bud</option>
+      <option value="10">11. They See What No Satellite Ever Will</option>
+      <option value="11">12. A Standing Table, Not an Emergency Meeting</option>
+      <option value="12">13. Threats Move Along Corridors</option>
+      <option value="13">14. The Thirty-to-Sixty-Minute Window</option>
+      <option value="14">15. A Doctrine, Not a Shopping List</option>
+      <option value="15">16. Deny Sanctuary, Not the Farmer</option>
+      <option value="16">17. Identify by Behaviour, Never by Identity</option>
+      <option value="17">18. We Cannot Shoot Our Way Out of a Dispute</option>
+      <option value="18">19. A Credible Alternative Future, Offered Early</option>
+      <option value="19">20. Proximity Means Faster Warning</option>
+      <option value="20">21. Competence Close to Community, Without Abuse</option>
+      <option value="21">22. Morale Is a Combat Capability</option>
+      <option value="22">23. The Three-Layer Security Model</option>
+      <option value="23">24. A Twenty-Four-Hour Security Cycle</option>
+      <option value="24">25. No Abstractions — Ten Concrete Actions</option>
+      <option value="25">26. Seven Commitments</option>
+      <option value="26">27. Farmers Return. Families Come Home.</option>
+      <option value="27">28. How We Think, Before How Much We Spend</option>
+      <option value="28">29. He Simply Wants to Arrive Alive.</option>
+      <option value="29">30. Sources & Comparative Precedents</option>
     </select>
     <div class="dots" id="dots"></div>
     <button class="navbtn" id="nextBtn">Next ▶</button>
@@ -1313,11 +1353,11 @@ function buildClose(){
 const built = {};
 const initializers = {
   0: buildGlobe, 1: buildOpening, 2: animateCounters, 3: drawSecQ1, 4: drawCycle,
-  5: buildWheel, 6: buildFusion, 7: buildFusionCentre, 8: drawIntelAction, 9: buildSensor,
-  10: buildRulers, 11: drawCorridors, 12: drawTimer, 13: buildTech, 14: buildForest,
-  15: buildSeparate, 16: buildFarmHerd, 17: buildYouth, 18: buildWomenLG, 19: buildStatePolice,
-  20: buildFunding, 21: buildLayers, 22: drawClock, 23: build90Days, 24: buildHeptagon,
-  25: buildSuccess, 26: buildMental, 27: buildClose
+  5: buildWheel, 6: buildFusion, 7: buildFusionCentre, 8: drawIntelAction,
+  10: buildSensor, 11: buildRulers, 12: drawCorridors, 13: drawTimer, 14: buildTech, 15: buildForest,
+  16: buildSeparate, 17: buildFarmHerd, 18: buildYouth, 19: buildWomenLG, 20: buildStatePolice,
+  21: buildFunding, 22: buildLayers, 23: drawClock, 24: build90Days, 25: buildHeptagon,
+  26: buildSuccess, 27: buildMental, 28: buildClose
 };
 function triggerSlideEffects(idx){
   if(built[idx]) return;
