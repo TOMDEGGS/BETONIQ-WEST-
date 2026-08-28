@@ -670,7 +670,16 @@ function drawClock(){
 
 /* ---------- THREE.JS HELPERS ---------- */
 function baseScene(container){
-  const w = Math.max(container.clientWidth,2), h = Math.max(container.clientHeight,2);
+  /* Mobile Safari fix (Aug 28): on first paint, layout/reflow can lag behind script execution,
+     so container.clientWidth/Height sometimes reads as 0 here. The old code just floored that
+     to 2px and rendered a near-invisible 2x2 scene stretched across the whole box forever — it
+     looked like a plain blank/blurred rectangle and never self-corrected because nothing ever
+     told it the real size had become available (only a manual window resize/rotate did). Now we
+     use a sane provisional estimate (not 2px) AND a ResizeObserver that re-fits the instant the
+     container's true size lands, with no dependency on the user resizing anything. */
+  const rect = container.getBoundingClientRect();
+  const w = Math.max(rect.width || container.clientWidth, 40) || (window.innerWidth*0.6);
+  const h = Math.max(rect.height || container.clientHeight, 40) || (window.innerHeight*0.4);
   const scene = new THREE.Scene();
   const camera = new THREE.PerspectiveCamera(50, w/h, 0.1, 100);
   camera.position.set(0,0,9);
@@ -685,6 +694,18 @@ function baseScene(container){
     renderer.setSize(nw,nh); camera.aspect=nw/nh; camera.updateProjectionMatrix();
   }
   window.addEventListener('resize', resize);
+  if(window.ResizeObserver){
+    let lastW = w, lastH = h;
+    const ro = new ResizeObserver(entries=>{
+      for(const entry of entries){
+        const cw = entry.contentRect.width, ch = entry.contentRect.height;
+        if(cw>1 && ch>1 && (Math.abs(cw-lastW)>4 || Math.abs(ch-lastH)>4)){
+          lastW=cw; lastH=ch; resize();
+        }
+      }
+    });
+    ro.observe(container);
+  }
   /* Fix for "blank screen when returning to an earlier 3D slide": with ~20 slides each holding
      their own live WebGLRenderer/canvas forever (none are ever torn down), the browser's total
      WebGL-context budget (commonly 8-16 per page, lower on weaker/locked-down GPUs like Tom's
