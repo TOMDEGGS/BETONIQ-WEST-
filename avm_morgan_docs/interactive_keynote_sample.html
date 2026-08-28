@@ -582,6 +582,17 @@ function baseScene(container){
   return {scene,camera,renderer,resize};
 }
 
+/* One-time WebGL capability probe — some locked-down/corporate laptops have hardware
+   acceleration or WebGL disabled, which throws inside `new THREE.WebGLRenderer()` and would
+   otherwise leave a 3D slide's container completely blank. Every build function that can render
+   a 2D fallback should check this first. */
+const WEBGL_OK = (function(){
+  try{
+    const c = document.createElement('canvas');
+    return !!(window.WebGLRenderingContext && (c.getContext('webgl')||c.getContext('experimental-webgl')));
+  }catch(e){ return false; }
+})();
+
 /* Bright glowing text sprite — welds text ONTO the 3D graphic itself */
 function makeLabelSprite(text, {color='#ffffff', glow='#ffd166', fontSize=64, scale=2.2}={}){
   const lines = text.split('\n');
@@ -775,11 +786,6 @@ const NC_STATES = ['Niger','Kwara','Kogi','Nasarawa','Plateau','Benue','FCT'];
 
 function buildGlobe(){
   const container = document.getElementById('three-globe');
-  const {scene,camera,renderer} = baseScene(container);
-  camera.position.set(0,0,9);
-  const group = new THREE.Group(); scene.add(group);
-  group.rotation.z = 0.33;
-
   const cw=1600, ch=1150;
   const tc = document.createElement('canvas'); tc.width=cw; tc.height=ch;
   const tctx = tc.getContext('2d');
@@ -900,18 +906,48 @@ function buildGlobe(){
     tctx.fillText(t.name, lx, ly);
   });
 
-  const tex = new THREE.CanvasTexture(tc);
-  const sphere = new THREE.Mesh(new THREE.SphereGeometry(3,64,64), new THREE.MeshStandardMaterial({map:tex, roughness:0.6, metalness:0.05}));
-  group.add(sphere);
-
-  /* Slow, deliberate spin — the country only spans a narrow slice of the full 360° wrap, so a
-     slower rate keeps it in clear view for longer stretches while AVM Morgan is introduced. */
-  function anim(){
-    group.rotation.y += 0.0014;
-    renderer.render(scene,camera);
-    requestAnimationFrame(anim);
+  /* Try the full 3D spinning globe first. Some locked-down/corporate laptops have WebGL or
+     hardware acceleration disabled — new THREE.WebGLRenderer() throws in that case, which would
+     otherwise leave this whole title slide blank. If that happens (or ANY WebGL error occurs),
+     fall back to mounting the exact same accurate terrain-map canvas directly as flat 2D,
+     with a gentle CSS pan so it still feels alive — guaranteed to render on every browser. */
+  function mount2DFallback(){
+    tc.style.width='100%'; tc.style.height='100%'; tc.style.objectFit='cover';
+    tc.style.borderRadius='14px';
+    tc.style.animation='globePan 26s ease-in-out infinite alternate';
+    container.innerHTML='';
+    container.appendChild(tc);
+    if(!document.getElementById('globePanKeyframes')){
+      const style = document.createElement('style');
+      style.id='globePanKeyframes';
+      style.textContent='@keyframes globePan{0%{transform:scale(1.12) translateX(2%);}100%{transform:scale(1.12) translateX(-2%);}}';
+      document.head.appendChild(style);
+    }
   }
-  anim();
+
+  if(!WEBGL_OK){ mount2DFallback(); return; }
+  try{
+    const {scene,camera,renderer} = baseScene(container);
+    camera.position.set(0,0,9);
+    const group = new THREE.Group(); scene.add(group);
+    group.rotation.z = 0.33;
+
+    const tex = new THREE.CanvasTexture(tc);
+    const sphere = new THREE.Mesh(new THREE.SphereGeometry(3,64,64), new THREE.MeshStandardMaterial({map:tex, roughness:0.6, metalness:0.05}));
+    group.add(sphere);
+
+    /* Slow, deliberate spin — the country only spans a narrow slice of the full 360° wrap, so a
+       slower rate keeps it in clear view for longer stretches while AVM Morgan is introduced. */
+    function anim(){
+      group.rotation.y += 0.0014;
+      renderer.render(scene,camera);
+      requestAnimationFrame(anim);
+    }
+    anim();
+  }catch(e){
+    console.warn('3D globe failed, falling back to 2D terrain map:', e);
+    mount2DFallback();
+  }
 }
 
 /* SEE-SHARE-DECIDE-ACT-LEARN WHEEL */
@@ -1158,7 +1194,17 @@ const initializers = {
 function triggerSlideEffects(idx){
   if(built[idx]) return;
   const fn = initializers[idx];
-  if(fn){ fn(); built[idx] = true; }
+  if(fn){
+    try{
+      fn();
+    }catch(e){
+      /* Defensive: a build function failing (e.g. an unexpected WebGL error on some laptop)
+         should never break navigation or leave a console-only silent blank slide. Log it and
+         move on — the slide's HTML text/headline still displays normally either way. */
+      console.warn('Slide '+idx+' visual build failed:', e);
+    }
+    built[idx] = true;
+  }
 }
 window.addEventListener('load', ()=>{ triggerSlideEffects(0); });
 </script>
