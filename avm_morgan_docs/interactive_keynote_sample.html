@@ -57,6 +57,7 @@
   .modellist li{font-size:15px;line-height:1.4;color:#fff;padding-left:18px;position:relative;}
   .modellist li:before{content:'▸';position:absolute;left:0;color:var(--accent);}
   .modelcallout{width:min(1000px,92vw);margin:18px auto 0;text-align:center;font-size:15px;font-weight:700;color:var(--accent);padding:12px 20px;border-top:1px solid rgba(255,209,102,0.25);}
+  .newbadge{position:absolute;top:14px;right:14px;background:#ff2d2d;color:#fff;font-size:12px;font-weight:800;letter-spacing:1px;padding:6px 14px;border-radius:20px;box-shadow:0 0 16px rgba(255,45,45,0.6);text-transform:uppercase;z-index:20;}
 
   .statcard{background:var(--panel);border:1px solid var(--accent);border-radius:12px;padding:14px 8px;box-shadow:0 0 20px rgba(255,209,102,0.12);}
   .topline{position:absolute;top:14px;left:20px;font-size:11px;color:var(--muted);letter-spacing:2px;z-index:40;font-weight:700;}
@@ -149,6 +150,7 @@
 
   <!-- 9: NEW SECTION SEVEN -->
   <section class="slide" data-idx="9">
+    <div class="newbadge">New — Added 28 Aug</div>
     <div class="kicker">Section Seven — Learning From Britain and Israel</div>
     <h1>Proactive Intelligence: Nip It In The Bud</h1>
     <div class="stage"><div class="three-container" id="three-proactive"></div></div>
@@ -863,10 +865,12 @@ function buildHumanRow(containerId, people, opts={}){
 
 /* Generic orbit scene — core (shape/tree/human photo) with N labelled items orbiting */
 function buildOrbit3D(containerId, opts){
-  const {coreLabel, coreColor=0xffd166, coreShape='octa', items=[], radius=3.5, coreIsHuman=false, coreImg} = opts;
+  const {coreLabel, coreColor=0xffd166, coreShape='octa', items=[], radius=3.5, coreIsHuman=false, coreImg,
+         coreLabelScale, itemLabelScale, cameraZ} = opts;
   const container = document.getElementById(containerId);
   const {scene,camera,renderer} = baseScene(container);
-  if(items.length>7) camera.position.set(0,0,11);
+  if(cameraZ) camera.position.set(0,0,cameraZ);
+  else if(items.length>7) camera.position.set(0,0,11);
   const group = new THREE.Group(); scene.add(group);
   let core = null;
   if(coreIsHuman){
@@ -890,7 +894,7 @@ function buildOrbit3D(containerId, opts){
     group.add(core);
   }
   if(coreLabel){
-    const lbl = makeLabelSprite(coreLabel, {glow:hexStr(coreColor), fontSize:44, scale:1.3});
+    const lbl = makeLabelSprite(coreLabel, {glow:hexStr(coreColor), fontSize:44, scale:coreLabelScale||1.3});
     lbl.position.set(0, coreIsHuman?3.3:1.5, 0);
     group.add(lbl);
   }
@@ -905,7 +909,7 @@ function buildOrbit3D(containerId, opts){
     const shapeGeo = it.shape==='box'? new THREE.BoxGeometry(0.5,0.5,0.5) : new THREE.SphereGeometry(n>8?0.38:0.28,14,14);
     const m = new THREE.Mesh(shapeGeo, new THREE.MeshStandardMaterial({color: col, emissive: col, emissiveIntensity:0.4}));
     m.userData.angle = a; m.userData.radius = radius;
-    const lbl = makeLabelSprite(it.label, {glow: hexStr(col), fontSize: n>8?42:44, scale: n>8?1.05:1.05});
+    const lbl = makeLabelSprite(it.label, {glow: hexStr(col), fontSize: n>8?42:44, scale: itemLabelScale || (n>8?1.05:1.05)});
     lbl.position.set(0,0.5,0);
     m.add(lbl);
     group.add(m); orbiters.push(m);
@@ -1131,8 +1135,12 @@ function buildFusionCentre(){
 
 /* SECTION SEVEN — Britain (blue) vs Israel (green) proactive-intelligence models */
 function buildProactive(){
+  /* Per Tom's follow-up (Aug 28 2026): triple the label size on this slide specifically
+     ("3 times bigger and bolder") vs every other orbit slide. Widened radius + pulled the
+     camera back so the now much-larger labels still clear each other while orbiting. */
   buildOrbit3D('three-proactive', {
-    coreLabel:'NIP IT\nIN THE\nBUD', coreColor:0xffd166, radius:3.7,
+    coreLabel:'NIP IT\nIN THE\nBUD', coreColor:0xffd166, radius:6.5, cameraZ:19,
+    coreLabelScale:3.9, itemLabelScale:3.15,
     items:[
       {label:'UK:\n4 PILLARS\n(CONTEST)', color:0x5b9dff},
       {label:'UK:\nJTAC\nFUSION', color:0x5b9dff},
