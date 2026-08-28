@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <title>AVM Morgan — Collaborative Security in North-Central Nigeria (Interactive Keynote)</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="vendor/three.min.js"></script>
 <style>
   :root{
     --bg:#05070d; --panel:#0d1220; --accent:#ffd166; --accent2:#5ef2b0; --danger:#ff6b6b;
@@ -29,7 +29,7 @@
   p.muted{color:var(--muted);font-size:clamp(13px,1.3vw,17px);max-width:820px;line-height:1.5;font-weight:600;}
   .stage{width:min(900px,88vw);height:min(46vh,420px);position:relative;margin:8px 0;}
   canvas.draw2d{width:100%;height:100%;display:block;border-radius:14px;background:radial-gradient(circle at 50% 30%,#141d38,#05070d);}
-  .three-container{width:100%;height:100%;border-radius:14px;overflow:hidden;background:radial-gradient(circle at 50% 30%,#141d38,#05070d);}
+  .three-container{width:100%;height:100%;border-radius:14px;overflow:hidden;background:radial-gradient(circle at 50% 30%,#1b2a4d,#0a0e1a);display:flex;align-items:center;justify-content:center;}.three-container:empty::before{content:'Loading visual…';color:#5b9dff;font:600 14px Segoe UI;letter-spacing:0.05em;opacity:0.7;}
   .three-container canvas{display:block;width:100% !important;height:100% !important;}
   .nav{
     position:absolute;bottom:14px;left:0;width:100%;display:flex;justify-content:center;
@@ -1092,9 +1092,14 @@ function buildGlobe(){
     /* Bumped again per Tom's "faster" follow-up (Aug 28 2026) — now roughly 3x the
        original rate so the spin is clearly visible at a glance during the live intro. */
     function anim(){
-      group.rotation.y += 0.0045;
-      renderer.render(scene,camera);
-      requestAnimationFrame(anim);
+      try{
+        group.rotation.y += 0.0045;
+        renderer.render(scene,camera);
+        requestAnimationFrame(anim);
+      }catch(e){
+        console.warn('Globe render loop failed mid-playback, falling back to 2D terrain map:', e);
+        mount2DFallback();
+      }
     }
     anim();
   }catch(e){
