@@ -1,31 +1,32 @@
 {
-  "export_name": "BETONIQ WEST / Backup 777 full data refresh",
-  "generated_at": "2026-08-27T07:01:00+01:00",
-  "source": "Base44 entity database (live refresh confirmed)",
-  "destination": "TOMDEGGS/BETONIQ-WEST-",
-  "privacy_note": "Record-level business data snapshot for Backup 777 continuity. Treat Base44 as the authoritative live source.",
-  "total_records": 155,
-  "entity_counts": {
-    "RealEstateProject": 79,
-    "Investor": 2,
-    "Investment": 0,
-    "CountryMacroData": 6,
-    "ComplianceRecord": 0,
-    "FeasibilityStudy": 1,
-    "Commission": 0,
-    "DeveloperListing": 1,
-    "Subscription": 1,
-    "LeadCapture": 3,
-    "VisitorActivity": 11,
-    "ZPTransaction": 9,
-    "ZPMerchant": 8,
-    "ZPAgent": 6,
-    "TeamTask": 9,
-    "FieldMeeting": 0,
-    "BackupAgentMessage": 6,
-    "FundingOutreach": 13
+  "metadata": {
+    "generated_at": "2026-08-28T06:02:47+00:00",
+    "source": "Base44 entity API",
+    "app_id": "69c1064318031a63c4728734",
+    "entity_count": 18,
+    "record_count": 155,
+    "record_counts": {
+      "RealEstateProject": 79,
+      "Investor": 2,
+      "Investment": 0,
+      "CountryMacroData": 6,
+      "ComplianceRecord": 0,
+      "FeasibilityStudy": 1,
+      "Commission": 0,
+      "DeveloperListing": 1,
+      "Subscription": 1,
+      "LeadCapture": 3,
+      "VisitorActivity": 11,
+      "ZPTransaction": 9,
+      "ZPMerchant": 8,
+      "ZPAgent": 6,
+      "TeamTask": 9,
+      "FieldMeeting": 0,
+      "BackupAgentMessage": 6,
+      "FundingOutreach": 13
+    }
   },
-  "records": {
+  "data": {
     "RealEstateProject": [
       {
         "country": "Kenya",
@@ -3896,6 +3897,5 @@
         "is_sample": false
       }
     ]
-  },
-  "refresh_note": "Live refresh on 2026-08-27 confirmed 155 records across 18 configured entities; counts match the prior snapshot."
+  }
 }

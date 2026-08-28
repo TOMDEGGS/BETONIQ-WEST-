@@ -145,3 +145,17 @@ The live refresh confirmed 79 real-estate projects, 2 investor records, 1 feasib
 
 Base44 remains the authoritative live source. This repository snapshot is synchronized for Backup 777 continuity and should not replace the live database.
 
+## Data Refresh — 2026-08-28T06:02:47+00:00
+
+Automated refresh from the live Base44 business entities for Backup 777.
+
+- **Entities refreshed:** 18
+- **Records captured:** 155
+- **Real estate projects:** 79
+- **Investors / investments:** 2 / 0
+- **ZeroPay merchants / agents / transactions:** 8 / 6 / 9
+- **Subscriptions / leads / feasibility studies:** 1 / 3 / 1
+- **Business developments (tasks, meetings, funding outreach):** 9 / 0 / 13
+- **Output:** `full_data_export.json`
+
+The JSON snapshot is the current source-of-truth export; timestamps and system metadata are retained for continuity.
