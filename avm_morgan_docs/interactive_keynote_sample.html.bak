@@ -150,33 +150,31 @@
 
   <!-- 9: NEW SECTION SEVEN -->
   <section class="slide" data-idx="9">
-    <div class="newbadge">Updated — 28 Aug</div>
-    <div class="kicker">Section Seven — The Israeli Model and the British Model</div>
-    <h1>Two Proven Models, One Nigerian Hybrid</h1>
+    <div class="newbadge">New — Added 28 Aug</div>
+    <div class="kicker">Section Seven — Learning From Britain and Israel</div>
+    <h1>Proactive Intelligence: Nip It In The Bud</h1>
     <div class="stage"><div class="three-container" id="three-proactive"></div></div>
-    <div class="modelcallout">Israel teaches integration and citizen participation. Britain teaches coordination without destroying institutions. The Nigerian answer: NCISRM — a deliberate hybrid.</div>
+    <div class="modelcallout">North-Central Nigeria needs both instincts: prevention through trust (Britain), and speed through fusion (Israel).</div>
   </section>
 
-  <!-- 10: SECTION EIGHT -->
+  <!-- 10: SECTION SEVEN -->
   <section class="slide" data-idx="10">
-    <div class="kicker">Section Eight — The NCISRM: Five Levels, One System</div>
-    <h1>Five Levels, One System</h1>
+    <div class="kicker">Section Seven — The Community Must Become the First Sensor</div>
+    <h1>They See What No Satellite Ever Will</h1>
     <div class="stage"><div class="three-container" id="three-sensor"></div></div>
-    <div class="modelcallout">The citizen must become a sensor in the security network — not simply a casualty statistic.</div>
   </section>
 
-  <!-- 11: SECTION NINE -->
+  <!-- 11: SECTION EIGHT -->
   <section class="slide" data-idx="11">
-    <div class="kicker">Section Nine — The Role of Veterans: The North-Central Advantage</div>
-    <h1>A Regional Security Advisory and Training Reserve</h1>
+    <div class="kicker">Section Eight — Traditional Rulers in the Security Architecture</div>
+    <h1>A Standing Table, Not an Emergency Meeting</h1>
     <div class="stage"><div class="three-container" id="three-rulers"></div></div>
-    <div class="modelcallout">Retired professionals do not replace serving personnel — they strengthen the system without creating a parallel armed force.</div>
   </section>
 
-  <!-- 12: SECTION TEN -->
+  <!-- 12: SECTION NINE -->
   <section class="slide" data-idx="12">
-    <div class="kicker">Section Ten — From Reaction to Prevention</div>
-    <h1>Prevent. Pursue. Protect. Prepare. Partner.</h1>
+    <div class="kicker">Section Nine — Security Corridors, Not Administrative Boundaries</div>
+    <h1>Threats Move Along Corridors</h1>
     <div class="stage"><canvas class="draw2d" id="canvas-corridors"></canvas></div>
   </section>
 
@@ -466,43 +464,14 @@ function drawSecQ1(){
     'NIGER':[0.36,0.30],'PLATEAU':[0.74,0.26],'FCT':[0.55,0.42]
   }, [['KWARA','NIGER'],['NIGER','FCT'],['FCT','NASARAWA'],['NASARAWA','BENUE'],['NASARAWA','PLATEAU'],['KOGI','NASARAWA'],['KOGI','BENUE']]);
 }
-/* SECTION TEN — From reaction to prevention: the fifth P. Five-segment wheel,
-   same drawing pattern as the reactive-cycle wheel (drawCycle) on slide 5, but forward-
-   looking: Prevent, Pursue, Protect, Prepare, Partner. Canvas id kept as 'canvas-corridors'. */
-function drawFiveP(){
-  const cv = document.getElementById('canvas-corridors');
-  const ctx = cv.getContext('2d');
-  const quads = [
-    {label:'PREVENT', color:'#5ef2b0'},
-    {label:'PURSUE', color:'#5b9dff'},
-    {label:'PROTECT', color:'#ffd166'},
-    {label:'PREPARE', color:'#c98bff'},
-    {label:'PARTNER', color:'#ff9ebc'}
-  ];
-  let rot = 0;
-  function render(){
-    const w = cv.clientWidth, h = cv.clientHeight;
-    if(w<2||h<2){ requestAnimationFrame(render); return; }
-    cv.width = w; cv.height = h;
-    ctx.clearRect(0,0,w,h);
-    const cx=w/2, cy=h/2, r=Math.max(30,Math.min(w,h)*0.40);
-    quads.forEach((q,i)=>{
-      const start = rot + i*(Math.PI*2/5), end = rot + (i+1)*(Math.PI*2/5);
-      ctx.beginPath(); ctx.moveTo(cx,cy); ctx.arc(cx,cy,r,start,end); ctx.closePath();
-      ctx.fillStyle = q.color+'dd'; ctx.shadowColor=q.color; ctx.shadowBlur=18;
-      ctx.fill(); ctx.shadowBlur=0;
-      ctx.strokeStyle='#05070d'; ctx.lineWidth=4; ctx.stroke();
-      const mid = (start+end)/2;
-      const lx = cx + r*0.62*Math.cos(mid), ly = cy + r*0.62*Math.sin(mid);
-      ctx.font='800 20px Segoe UI'; ctx.textAlign='center'; ctx.fillStyle='#05070d';
-      ctx.fillText(q.label, lx, ly);
-    });
-    ctx.beginPath(); ctx.fillStyle='#05070d'; ctx.arc(cx,cy,34,0,Math.PI*2); ctx.fill();
-    glowText(ctx,'5P',cx,cy,20,'#ffffff');
-    rot += 0.0025;
-    requestAnimationFrame(render);
-  }
-  render();
+function drawCorridors(){
+  drawNetworkMap2D('canvas-corridors', {
+    'KWARA':[0.16,0.55],'NIGER':[0.40,0.35],'KAINJI':[0.28,0.18],
+    'KADUNA':[0.58,0.16],'FCT':[0.55,0.42],'BENUE':[0.76,0.56],
+    'NASARAWA':[0.63,0.48],'TARABA':[0.90,0.50],'PLATEAU':[0.70,0.28],
+    'BAUCHI':[0.86,0.16],'KOGI':[0.40,0.64]
+  }, [['KWARA','NIGER'],['NIGER','KAINJI'],['NIGER','KADUNA'],['KADUNA','FCT'],
+      ['BENUE','NASARAWA'],['BENUE','TARABA'],['PLATEAU','BAUCHI'],['KOGI','NASARAWA'],['NASARAWA','BENUE'],['KOGI','BENUE']]);
 }
 
 /* ---------- 2D: REACTIVE CYCLE ---------- */
@@ -1171,63 +1140,38 @@ function buildFusionCentre(){
 
 /* SECTION SEVEN — Britain (blue) vs Israel (green) proactive-intelligence models */
 function buildProactive(){
-  /* Updated 28 Aug (full rebuild): now represents the ISRAEL + UK hybrid recommendation
-     (NCISRM) rather than just "nip it in the bud". Kept the same large label scale Tom
-     asked for on this slide. */
+  /* Per Tom's follow-up (Aug 28 2026): triple the label size on this slide specifically
+     ("3 times bigger and bolder") vs every other orbit slide. Widened radius + pulled the
+     camera back so the now much-larger labels still clear each other while orbiting. */
   buildOrbit3D('three-proactive', {
-    coreLabel:'HYBRID:\nNCISRM', coreColor:0xffd166, radius:6.5, cameraZ:19,
+    coreLabel:'NIP IT\nIN THE\nBUD', coreColor:0xffd166, radius:6.5, cameraZ:19,
     coreLabelScale:3.9, itemLabelScale:3.15,
     items:[
-      {label:'UK:\nCONTEST\n4 PILLARS', color:0x5b9dff},
-      {label:'UK:\nCT POLICING\nNETWORK', color:0x5b9dff},
-      {label:'UK:\nCTOC\nFUSION', color:0x5b9dff},
-      {label:'UK:\nCENTRALISE INTEL,\nDECENTRALISE OPS', color:0x5b9dff},
-      {label:'ISRAEL:\nNSC\nFUSION', color:0x5ef2b0},
-      {label:'ISRAEL:\nHOME FRONT\nCOMMAND', color:0x5ef2b0},
-      {label:'ISRAEL:\nCITIZEN AS\nSENSOR', color:0x5ef2b0},
-      {label:'ISRAEL:\nINTEL TO\nACTION CYCLE', color:0x5ef2b0}
+      {label:'UK:\n4 PILLARS\n(CONTEST)', color:0x5b9dff},
+      {label:'UK:\nJTAC\nFUSION', color:0x5b9dff},
+      {label:'UK:\nCOMMUNITY\nPOLICING', color:0x5b9dff},
+      {label:'UK:\nPREVENT\nDUTY', color:0x5b9dff},
+      {label:'ISRAEL:\nINTEL\nFUSION', color:0x5ef2b0},
+      {label:'ISRAEL:\nREAL-TIME\nSHARE', color:0x5ef2b0},
+      {label:'ISRAEL:\nACT &\nLEARN', color:0x5ef2b0},
+      {label:'ISRAEL:\nNIGERIA\nFUSION HUB', color:0x5ef2b0}
     ]
   });
 }
 
-/* SECTION EIGHT — NCISRM: five-level architecture (stacked, like the Three-Layer Model
-   but with 5 tiers). Container id kept as 'three-sensor' to avoid touching the HTML markup. */
-function buildFiveLevel(){
-  const container = document.getElementById('three-sensor');
-  const {scene,camera,renderer} = baseScene(container);
-  const group = new THREE.Group(); scene.add(group);
-  const layerData = [
-    {y:-4.4, color:0x5ef2b0, size:5.6, label:'LEVEL 5: THE CITIZEN', glow:'#5ef2b0'},
-    {y:-2.2, color:0x1f7a4d, size:5.0, label:'LEVEL 4: FOREST & RURAL LAYER', glow:'#1f7a4d'},
-    {y:0,    color:0xffd166, size:4.2, label:'LEVEL 3: LOCAL SECURITY NETWORK', glow:'#ffd166'},
-    {y:2.2,  color:0x5b9dff, size:3.2, label:'LEVEL 2: STATE COORDINATION CENTRES', glow:'#5b9dff'},
-    {y:4.4,  color:0xff6b6b, size:2.1, label:'LEVEL 1: REGIONAL FUSION CENTRE', glow:'#ff6b6b'},
-  ];
-  layerData.forEach(l=>{
-    const geo = new THREE.CylinderGeometry(l.size,l.size,1.0,32);
-    const mat = new THREE.MeshStandardMaterial({color:l.color, transparent:true, opacity:0.88, emissive:l.color, emissiveIntensity:0.2});
-    const mesh = new THREE.Mesh(geo,mat);
-    mesh.position.y = l.y;
-    group.add(mesh);
-    const lbl = makeLabelSprite(l.label, {glow:l.glow, fontSize:56, scale:2.1});
-    lbl.position.set(0, l.y, l.size+1.3);
-    group.add(lbl);
-  });
-  camera.position.set(9.5,4.2,14.5);
-  camera.lookAt(0,0,0);
-  function anim(){
-    group.rotation.y += 0.005;
-    renderer.render(scene,camera);
-    requestAnimationFrame(anim);
-  }
-  anim();
+/* SECTION SEVEN — Community as first sensor */
+function buildSensor(){
+  buildHumanRow('three-sensor', [
+    {label:'FARMER', color:0x5ef2b0, img:'images/farmer_man.png'},{label:'HUNTER', color:0xffd166, img:'images/hunter.png'},
+    {label:'TEACHER', color:0x5b9dff, img:'images/mother.jpg'},{label:'MARKET\nWOMAN', color:0xff9ebc, img:'images/mother2.png'},
+    {label:'TRADITIONAL\nRULER', color:0xc98bff, img:'images/traditional_ruler.png'}
+  ], {centerLabel:'FIRST SENSOR NETWORK'});
 }
-/* SECTION NINE — Role of veterans: Regional Security Advisory and Training Reserve.
-   Container id kept as 'three-rulers' to avoid touching the HTML markup. */
-function buildVeteranReserve(){
+/* SECTION EIGHT — Traditional rulers, standing table */
+function buildRulers(){
   buildOrbit3D('three-rulers', {
-    coreLabel:'VETERAN\nRESERVE', coreColor:0xffd166, coreIsHuman:true, coreImg:'images/soldier.png', radius:3.8,
-    items:['INTEL\nANALYSIS','TRAINING &\nMENTORING','STRATEGIC\nPLANNING','EARLY\nWARNING','SIMULATION\nEXERCISES','LESSONS\nLEARNED'].map(l=>({label:l,color:0x5ef2b0}))
+    coreLabel:'TRADITIONAL\nCOUNCIL', coreColor:0xffd166, coreIsHuman:true, coreImg:'images/traditional_ruler.png', radius:3.6,
+    items:['POLICE','DSS','MILITARY\nLIAISON','LOCAL\nGOVT','COMMUNITY\nREPS'].map(l=>({label:l,color:0x5ef2b0}))
   });
 }
 /* SECTION ELEVEN — Technology multiplies human capability */
@@ -1422,7 +1366,7 @@ const initializers = {
   0: buildGlobe, 1: buildOpening, 2: animateCounters, 3: drawSecQ1, 4: drawCycle,
   5: buildWheel, 6: buildFusion, 7: buildFusionCentre, 8: drawIntelAction,
   9: buildProactive,
-  10: buildFiveLevel, 11: buildVeteranReserve, 12: drawFiveP, 13: drawTimer, 14: buildTech, 15: buildForest,
+  10: buildSensor, 11: buildRulers, 12: drawCorridors, 13: drawTimer, 14: buildTech, 15: buildForest,
   16: buildSeparate, 17: buildFarmHerd, 18: buildYouth, 19: buildWomenLG, 20: buildStatePolice,
   21: buildFunding, 22: buildLayers, 23: drawClock, 24: build90Days, 25: buildHeptagon,
   26: buildSuccess, 27: buildMental, 28: buildClose
