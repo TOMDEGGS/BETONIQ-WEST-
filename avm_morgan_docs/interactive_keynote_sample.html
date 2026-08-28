@@ -802,7 +802,7 @@ function buildGlobe(){
      canvas around 360°, and only ~half of that (one hemisphere) faces the camera at once. Sizing
      the country at ~66% of canvas width made it spill past the visible horizon and wrap around
      the edge. ~26% keeps it comfortably inside the visible front-facing hemisphere. */
-  const pxScale = Math.min((cw*0.26)/(lonMax-lonMin), (ch*0.50)/(latMax-latMin));
+  const pxScale = Math.min((cw*0.42)/(lonMax-lonMin), (ch*0.85)/(latMax-latMin));
   /* Three.js SphereGeometry's front-facing point (facing +z, toward the camera at z=9) is at
      texture u≈0.25, not the canvas midpoint (u=0.5, which faces sideways) — so the map must be
      drawn centred at cw*0.25, not cw/2, to appear centred on the visible face. */
@@ -861,14 +861,17 @@ function buildGlobe(){
   drawRiver([[12.4,7.9],[10.8,7.9],[9.3,7.85],[8.54,7.73],[6.73,7.80]], 4.5);       // Benue River
 
   /* North-Central state-capital labels at true lat/lon. */
+  /* Explicit per-town label offsets (dx,dy) — these 7 North-Central capitals sit close together
+     in real life, so directly-above placement for all of them would collide. Each gets its own
+     direction, with a thin leader line back to its true dot when offset is non-trivial. */
   const towns = [
-    {name:'ABUJA (FCT)', lat:9.0765, lon:7.3986, cap:true},
-    {name:'JOS (PLATEAU)', lat:9.8965, lon:8.8583, cap:true},
-    {name:'MAKURDI (BENUE)', lat:7.7322, lon:8.5391, cap:true},
-    {name:'MINNA (NIGER)', lat:9.6139, lon:6.5569, cap:true},
-    {name:'LOKOJA (KOGI)', lat:7.8023, lon:6.7333, cap:true},
-    {name:'LAFIA (NASARAWA)', lat:8.4939, lon:8.5169, cap:true},
-    {name:'ILORIN (KWARA)', lat:8.4966, lon:4.5426, cap:true}
+    {name:'ABUJA (FCT)', lat:9.0765, lon:7.3986, dx:0,  dy:-22, align:'center'},
+    {name:'JOS (PLATEAU)', lat:9.8965, lon:8.8583, dx:58, dy:-26, align:'left'},
+    {name:'MAKURDI (BENUE)', lat:7.7322, lon:8.5391, dx:52, dy:30, align:'left'},
+    {name:'MINNA (NIGER)', lat:9.6139, lon:6.5569, dx:-64, dy:-18, align:'right'},
+    {name:'LOKOJA (KOGI)', lat:7.8023, lon:6.7333, dx:-58, dy:26, align:'right'},
+    {name:'LAFIA (NASARAWA)', lat:8.4939, lon:8.5169, dx:66, dy:6, align:'left'},
+    {name:'ILORIN (KWARA)', lat:8.4966, lon:4.5426, dx:0, dy:-22, align:'center'}
   ];
   towns.forEach(t=>{
     const [x,y] = proj(t.lon, t.lat);
@@ -881,15 +884,20 @@ function buildGlobe(){
     tctx.shadowBlur = 0;
     tctx.strokeStyle = '#0a0a0a'; tctx.lineWidth = 1.2; tctx.stroke();
 
-    tctx.font = `bold 21px Arial, sans-serif`;
-    tctx.textAlign = 'center';
+    const lx = x + t.dx, ly = y + t.dy;
+    if(Math.abs(t.dx)>5 || Math.abs(t.dy)>14){
+      tctx.beginPath(); tctx.moveTo(x,y); tctx.lineTo(lx,ly);
+      tctx.strokeStyle='rgba(255,209,102,0.55)'; tctx.lineWidth=1.2; tctx.stroke();
+    }
+
+    tctx.font = `bold 17px Arial, sans-serif`;
+    tctx.textAlign = t.align;
     tctx.textBaseline = 'middle';
-    const labelY = y - dotR - 9;
     tctx.lineJoin = 'round';
-    tctx.strokeStyle = '#0a0a0a'; tctx.lineWidth = 4.5;
-    tctx.strokeText(t.name, x, labelY);
+    tctx.strokeStyle = '#0a0a0a'; tctx.lineWidth = 4;
+    tctx.strokeText(t.name, lx, ly);
     tctx.fillStyle = '#ffd166';
-    tctx.fillText(t.name, x, labelY);
+    tctx.fillText(t.name, lx, ly);
   });
 
   const tex = new THREE.CanvasTexture(tc);
