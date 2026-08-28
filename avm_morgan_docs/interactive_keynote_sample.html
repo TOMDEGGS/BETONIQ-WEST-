@@ -621,6 +621,26 @@ function baseScene(container){
     renderer.setSize(nw,nh); camera.aspect=nw/nh; camera.updateProjectionMatrix();
   }
   window.addEventListener('resize', resize);
+  /* Fix for "blank screen when returning to an earlier 3D slide": with ~20 slides each holding
+     their own live WebGLRenderer/canvas forever (none are ever torn down), the browser's total
+     WebGL-context budget (commonly 8-16 per page, lower on weaker/locked-down GPUs like Tom's
+     presentation laptop) gets exhausted well before the deck ends. Once exceeded, the browser
+     silently reclaims the *least recently used* contexts, which are exactly the early slides
+     you've since navigated away from -- so they render nothing when you scroll back to them,
+     even though nothing in our code re-ran or errored. `built[idx]=true` then permanently blocks
+     any rebuild attempt. Fix: listen for the real 'webglcontextlost' event on this canvas; when
+     it fires, clear that slide's container and its `built[idx]` flag so the very next time the
+     user navigates to it, triggerSlideEffects() sees built[idx]===false and reruns the slide's
+     build function, creating a fresh working context. */
+  renderer.domElement.addEventListener('webglcontextlost', function(evt){
+    evt.preventDefault();
+    const section = container.closest('section[data-idx]');
+    if(section){
+      const idx = Number(section.dataset.idx);
+      if(typeof built === 'object' && built) built[idx] = false;
+    }
+    container.innerHTML = '';
+  }, false);
   return {scene,camera,renderer,resize};
 }
 
@@ -740,20 +760,20 @@ function buildHumanRowFallback(containerId, people, opts={}){
     col.style.display='flex'; col.style.flexDirection='column'; col.style.alignItems='center'; col.style.gap='8px';
     const glow = hexStr(p.color!==undefined?p.color:0xffffff);
     const nameDiv = document.createElement('div');
-    nameDiv.style.color = glow; nameDiv.style.fontWeight='800'; nameDiv.style.fontSize='13px';
+    nameDiv.style.color = glow; nameDiv.style.fontWeight='800'; nameDiv.style.fontSize='16px';
     nameDiv.style.textAlign='center'; nameDiv.style.letterSpacing='0.5px'; nameDiv.style.textShadow=`0 0 10px ${glow}`;
     nameDiv.style.whiteSpace='pre-line';
     nameDiv.textContent = p.label;
     if(p.img){
       const im = document.createElement('img');
       im.src = p.img; im.alt = p.label;
-      im.style.height = '250px'; im.style.maxWidth='220px'; im.style.objectFit='contain';
+      im.style.height = '310px'; im.style.maxWidth='270px'; im.style.objectFit='contain';
       im.style.filter = `drop-shadow(0 0 10px ${glow}88)`;
       im.style.borderRadius='8px';
       col.appendChild(nameDiv); col.appendChild(im);
     } else {
       const sil = document.createElement('div');
-      sil.style.width='135px'; sil.style.height='230px'; sil.style.borderRadius='68px 68px 8px 8px';
+      sil.style.width='165px'; sil.style.height='285px'; sil.style.borderRadius='82px 82px 8px 8px';
       sil.style.background='#0d0d0f'; sil.style.border=`2px solid ${glow}`; sil.style.boxShadow=`0 0 16px ${glow}88`;
       col.appendChild(nameDiv); col.appendChild(sil);
     }
@@ -762,7 +782,7 @@ function buildHumanRowFallback(containerId, people, opts={}){
   container.appendChild(row);
   if(opts.centerLabel){
     const cl = document.createElement('div');
-    cl.style.color='#ffffff'; cl.style.fontWeight='800'; cl.style.fontSize='15px'; cl.style.letterSpacing='1px';
+    cl.style.color='#ffffff'; cl.style.fontWeight='800'; cl.style.fontSize='19px'; cl.style.letterSpacing='1px';
     cl.style.textAlign='center'; cl.style.textShadow='0 0 12px rgba(255,255,255,0.6)';
     cl.textContent = opts.centerLabel;
     container.appendChild(cl);
@@ -775,10 +795,13 @@ function buildHumanRow(containerId, people, opts={}){
   try{
     const container = document.getElementById(containerId);
     const {scene,camera,renderer} = baseScene(container);
-    camera.position.set(0, 1.3, people.length>3?19:14);
+    /* Bumped figure size again (Aug 28) + pulled camera back proportionally (same ~21% factor
+       as the height increase) so Sections Thirteen, Fourteen, Sixteen/Seventeen read clearly
+       larger without re-introducing the overlap the earlier spacing fix solved. */
+    camera.position.set(0, 1.3, people.length>3?23:17);
     const group = new THREE.Group(); scene.add(group);
     const n = people.length;
-    const figHeight = opts.height || 3.8;
+    const figHeight = opts.height || 4.6;
     /* IMPORTANT: every real portrait photo in this deck is a square 1024x1024 file, so once its
        texture loads, makeHumanImageFigure renders it at width == height (not the 0.62 "portrait"
        ratio the original spacing values were tuned against). Recompute spacing from the *true*
@@ -794,13 +817,13 @@ function buildHumanRow(containerId, people, opts={}){
       fig.userData.phase = i*0.7;
       group.add(fig);
       figures.push(fig);
-      const lbl = makeLabelSprite(p.label, {glow:hexStr(p.color!==undefined?p.color:0xffffff), fontSize:32, scale:0.95});
-      lbl.position.set(fig.position.x, figHeight/2 + 1.25, 0);
+      const lbl = makeLabelSprite(p.label, {glow:hexStr(p.color!==undefined?p.color:0xffffff), fontSize:42, scale:1.2});
+      lbl.position.set(fig.position.x, figHeight/2 + 1.5, 0);
       group.add(lbl);
     });
     if(opts.centerLabel){
-      const cl = makeLabelSprite(opts.centerLabel, {glow:'#ffffff', fontSize:48, scale:1.55});
-      cl.position.set(0, -(figHeight/2) - 0.55, 0.6);
+      const cl = makeLabelSprite(opts.centerLabel, {glow:'#ffffff', fontSize:58, scale:1.85});
+      cl.position.set(0, -(figHeight/2) - 0.65, 0.6);
       group.add(cl);
     }
     function anim(){
@@ -855,10 +878,13 @@ function buildOrbit3D(containerId, opts){
   items.forEach((it,i)=>{
     const a = (i/n)*Math.PI*2;
     const col = it.color!==undefined ? it.color : pal(i);
-    const shapeGeo = it.shape==='box'? new THREE.BoxGeometry(0.5,0.5,0.5) : new THREE.SphereGeometry(0.28,14,14);
+    /* Fusion's 9-agency ring (Section Four) was noticeably smaller/harder to read than every
+       other orbit diagram since it was the only one hitting this >8-item branch — bumped both
+       the orbiter size and label size here so it matches the visual weight of the rest. */
+    const shapeGeo = it.shape==='box'? new THREE.BoxGeometry(0.5,0.5,0.5) : new THREE.SphereGeometry(n>8?0.38:0.28,14,14);
     const m = new THREE.Mesh(shapeGeo, new THREE.MeshStandardMaterial({color: col, emissive: col, emissiveIntensity:0.4}));
     m.userData.angle = a; m.userData.radius = radius;
-    const lbl = makeLabelSprite(it.label, {glow: hexStr(col), fontSize: n>8?32:44, scale: n>8?0.8:1.05});
+    const lbl = makeLabelSprite(it.label, {glow: hexStr(col), fontSize: n>8?42:44, scale: n>8?1.05:1.05});
     lbl.position.set(0,0.5,0);
     m.add(lbl);
     group.add(m); orbiters.push(m);
@@ -1160,9 +1186,9 @@ function buildLayers(){
   const {scene,camera,renderer} = baseScene(container);
   const group = new THREE.Group(); scene.add(group);
   const layerData = [
-    {y:-2.4, color:0x5ef2b0, size:4.4, label:'COMMUNITY', glow:'#5ef2b0'},
-    {y:0, color:0xffd166, size:3.1, label:'STATE', glow:'#ffd166'},
-    {y:2.4, color:0xff6b6b, size:1.9, label:'FEDERAL', glow:'#ff6b6b'},
+    {y:-2.8, color:0x5ef2b0, size:5.2, label:'COMMUNITY', glow:'#5ef2b0'},
+    {y:0, color:0xffd166, size:3.7, label:'STATE', glow:'#ffd166'},
+    {y:2.8, color:0xff6b6b, size:2.3, label:'FEDERAL', glow:'#ff6b6b'},
   ];
   layerData.forEach(l=>{
     const geo = new THREE.CylinderGeometry(l.size,l.size,1.2,32);
@@ -1170,11 +1196,11 @@ function buildLayers(){
     const mesh = new THREE.Mesh(geo,mat);
     mesh.position.y = l.y;
     group.add(mesh);
-    const lbl = makeLabelSprite(l.label, {glow:l.glow, fontSize:64, scale:1.9});
-    lbl.position.set(0, l.y, l.size+1.2);
+    const lbl = makeLabelSprite(l.label, {glow:l.glow, fontSize:78, scale:2.3});
+    lbl.position.set(0, l.y, l.size+1.3);
     group.add(lbl);
   });
-  camera.position.set(6.5,3,9);
+  camera.position.set(7.8,3.6,10.8);
   camera.lookAt(0,0,0);
   function anim(){
     group.rotation.y += 0.006;
