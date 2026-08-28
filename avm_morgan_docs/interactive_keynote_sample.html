@@ -798,8 +798,15 @@ function buildGlobe(){
     if(lon<lonMin)lonMin=lon; if(lon>lonMax)lonMax=lon; if(lat<latMin)latMin=lat; if(lat>latMax)latMax=lat;
   }));
   const lonC=(lonMin+lonMax)/2, latC=(latMin+latMax)/2;
-  const pxScale = Math.min((cw*0.66)/(lonMax-lonMin), (ch*0.72)/(latMax-latMin));
-  const cx = cw/2, cy = ch/2;
+  /* Keep the country map small relative to the FULL texture width — the sphere wraps the whole
+     canvas around 360°, and only ~half of that (one hemisphere) faces the camera at once. Sizing
+     the country at ~66% of canvas width made it spill past the visible horizon and wrap around
+     the edge. ~26% keeps it comfortably inside the visible front-facing hemisphere. */
+  const pxScale = Math.min((cw*0.26)/(lonMax-lonMin), (ch*0.50)/(latMax-latMin));
+  /* Three.js SphereGeometry's front-facing point (facing +z, toward the camera at z=9) is at
+     texture u≈0.25, not the canvas midpoint (u=0.5, which faces sideways) — so the map must be
+     drawn centred at cw*0.25, not cw/2, to appear centred on the visible face. */
+  const cx = cw*0.25, cy = ch/2;
   function proj(lon,lat){ return [ cx + (lon-lonC)*pxScale, cy - (lat-latC)*pxScale ]; }
 
   /* Real terrain palette, banded by latitude to match Nigeria's actual biomes — Sahel/semi-arid
