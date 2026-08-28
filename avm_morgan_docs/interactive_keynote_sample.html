@@ -675,7 +675,7 @@ function hexStr(n){ return '#'+(new THREE.Color(n)).getHexString(); }
    Fetched as a blob and loaded via a blob: object URL (immune to any tainted-canvas /
    texImage2D security failure), then drawn onto an offscreen 2D canvas and wrapped
    in THREE.CanvasTexture — the same proven technique as the working text-label sprites. */
-function makeHumanImageFigure(imgUrl, height=2.6){
+function makeHumanImageFigure(imgUrl, height=3.3){
   const spr = new THREE.Sprite(new THREE.SpriteMaterial({transparent:true, opacity:0, depthTest:false}));
   spr.scale.set(height*0.62, height, 1);
   spr.renderOrder = 5;
@@ -703,7 +703,7 @@ function makeHumanImageFigure(imgUrl, height=2.6){
   return spr;
 }
 /* Anonymised silhouette — used only for the unidentified "criminal" node, deliberately faceless */
-function makeSilhouetteSprite(color, height=2.6){
+function makeSilhouetteSprite(color, height=3.3){
   const canvas = document.createElement('canvas'); canvas.width=300; canvas.height=420;
   const ctx = canvas.getContext('2d');
   ctx.save();
@@ -747,13 +747,13 @@ function buildHumanRowFallback(containerId, people, opts={}){
     if(p.img){
       const im = document.createElement('img');
       im.src = p.img; im.alt = p.label;
-      im.style.height = '150px'; im.style.maxWidth='140px'; im.style.objectFit='contain';
+      im.style.height = '210px'; im.style.maxWidth='190px'; im.style.objectFit='contain';
       im.style.filter = `drop-shadow(0 0 10px ${glow}88)`;
       im.style.borderRadius='8px';
       col.appendChild(nameDiv); col.appendChild(im);
     } else {
       const sil = document.createElement('div');
-      sil.style.width='90px'; sil.style.height='150px'; sil.style.borderRadius='45px 45px 8px 8px';
+      sil.style.width='115px'; sil.style.height='195px'; sil.style.borderRadius='58px 58px 8px 8px';
       sil.style.background='#0d0d0f'; sil.style.border=`2px solid ${glow}`; sil.style.boxShadow=`0 0 16px ${glow}88`;
       col.appendChild(nameDiv); col.appendChild(sil);
     }
@@ -775,20 +775,24 @@ function buildHumanRow(containerId, people, opts={}){
   try{
     const container = document.getElementById(containerId);
     const {scene,camera,renderer} = baseScene(container);
-    camera.position.set(0, 1.3, people.length>3?11.5:10);
+    camera.position.set(0, 1.3, people.length>3?12.5:11);
     const group = new THREE.Group(); scene.add(group);
     const n = people.length;
-    const spacing = opts.spacing || 2.6;
+    /* Slightly wider spacing than the raw height increase alone would need, so the now-bigger
+       portraits (audience visibility request) still have clean air between them even in the
+       6-person row. */
+    const spacing = opts.spacing ? opts.spacing*1.12 : 2.85;
     const startX = -((n-1)*spacing)/2;
     const figures=[];
     people.forEach((p,i)=>{
-      const fig = p.img ? makeHumanImageFigure(p.img, p.height||2.6) : makeSilhouetteSprite(hexStr(p.color!==undefined?p.color:0xff6b6b), p.height||2.6);
+      const figHeight = p.height || opts.height || 3.3;
+      const fig = p.img ? makeHumanImageFigure(p.img, figHeight) : makeSilhouetteSprite(hexStr(p.color!==undefined?p.color:0xff6b6b), figHeight);
       fig.position.x = startX + i*spacing;
       fig.userData.phase = i*0.7;
       group.add(fig);
       figures.push(fig);
       const lbl = makeLabelSprite(p.label, {glow:hexStr(p.color!==undefined?p.color:0xffffff), fontSize:32, scale:0.95});
-      lbl.position.set(fig.position.x, 2.55, 0);
+      lbl.position.set(fig.position.x, figHeight/2 + 1.25, 0);
       group.add(lbl);
     });
     if(opts.centerLabel){
@@ -819,7 +823,7 @@ function buildOrbit3D(containerId, opts){
   const group = new THREE.Group(); scene.add(group);
   let core = null;
   if(coreIsHuman){
-    core = makeHumanImageFigure(coreImg || 'images/soldier.png', 2.9);
+    core = makeHumanImageFigure(coreImg || 'images/soldier.png', 3.6);
     group.add(core);
   } else if(coreShape==='tree'){
     for(let i=0;i<5;i++){
@@ -840,7 +844,7 @@ function buildOrbit3D(containerId, opts){
   }
   if(coreLabel){
     const lbl = makeLabelSprite(coreLabel, {glow:hexStr(coreColor), fontSize:44, scale:1.3});
-    lbl.position.set(0, coreIsHuman?2.7:1.5, 0);
+    lbl.position.set(0, coreIsHuman?3.05:1.5, 0);
     group.add(lbl);
   }
   const n = items.length;
@@ -1255,7 +1259,7 @@ function buildClose(){
   geo.setAttribute('position', new THREE.BufferAttribute(arr,3));
   const points = new THREE.Points(geo, new THREE.PointsMaterial({color:0xffd166, size:0.09}));
   group.add(points);
-  const figure = makeHumanImageFigure('images/closing_walk.png', 3.0);
+  const figure = makeHumanImageFigure('images/closing_walk.png', 3.7);
   figure.position.set(0,-0.9,0.5);
   group.add(figure);
   const label = makeLabelSprite('ARRIVE\nALIVE', {glow:'#5ef2b0', fontSize:72, scale:2.6});
