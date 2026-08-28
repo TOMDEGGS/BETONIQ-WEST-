@@ -1038,10 +1038,10 @@ function buildGlobe(){
     const sphere = new THREE.Mesh(new THREE.SphereGeometry(3,64,64), new THREE.MeshStandardMaterial({map:tex, roughness:0.6, metalness:0.05}));
     group.add(sphere);
 
-    /* Slow, deliberate spin — the country only spans a narrow slice of the full 360° wrap, so a
-       slower rate keeps it in clear view for longer stretches while AVM Morgan is introduced. */
+    /* Doubled spin rate per Tom's request (Aug 28 2026) so the globe visibly keeps turning
+       throughout the AVM Morgan introduction rather than looking near-static. */
     function anim(){
-      group.rotation.y += 0.0014;
+      group.rotation.y += 0.0028;
       renderer.render(scene,camera);
       requestAnimationFrame(anim);
     }
