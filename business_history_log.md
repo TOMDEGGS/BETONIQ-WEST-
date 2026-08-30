@@ -174,3 +174,18 @@ Automated refresh from the live Base44 business entities for Backup 777.
 - **Output:** `full_data_export.json`
 
 The JSON snapshot was rebuilt from the live API; timestamps and system metadata are retained for continuity. Base44 remains authoritative.
+
+## Data Refresh — 2026-08-30T07:01:00+01:00
+
+Automated refresh from the live Base44 business entities for Backup 777.
+
+- **Entities refreshed:** 18
+- **Records captured:** 155
+- **Real estate projects:** 79
+- **Investors / investments:** 2 / 0
+- **ZeroPay merchants / agents / transactions:** 8 / 6 / 9
+- **Subscriptions / leads / feasibility studies:** 1 / 3 / 1
+- **Business developments (tasks, meetings, funding outreach):** 9 / 0 / 13
+- **Output:** `full_data_export.json`
+
+The live refresh confirmed no record-count changes from the prior snapshot. The JSON snapshot was regenerated with the current refresh metadata; Base44 remains authoritative.
