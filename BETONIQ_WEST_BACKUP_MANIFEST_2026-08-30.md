@@ -3,9 +3,9 @@
 Generated: 30 August 2026, 20:00 Africa/Lagos
 Previous backup: BETONIQ_WEST_WEEKLY_OPERATIONAL_BACKUP_2026-08-23.zip
 
-This backup contains 108 current Markdown, CSV, script, and PDF files. Each file is recorded with size and SHA-256 hash.
+Backup scope: 108 current repository-relative Markdown, CSV, script, and PDF files. Files include SHA-256 hashes.
 
-## Contents
+## Counts
 
 - files: 108
 - markdown: 56
@@ -17,9 +17,11 @@ This backup contains 108 current Markdown, CSV, script, and PDF files. Each file
 - removed: 625
 - unchanged: 0
 
-## Changes since previous backup
+## Comparison note
 
-### Added (107)
+The 2026-08-23 archive recorded a flattened source-root snapshot; this manifest compares repository-relative paths exactly. A path appearing removed may have been reorganized or is no longer present in the current repository.
+
+## Added
 
 - `AGENT_1_TECHNICAL_SPEC.md`
 - `AGENT_2_BRIEF_FULLSTACK.md`
@@ -129,11 +131,11 @@ This backup contains 108 current Markdown, CSV, script, and PDF files. Each file
 - `white_papers/ZeroPay_Formal_Verification_ProofOfConcept.pdf`
 - `white_papers/ZeroPay_Technical_Objection_Killer_FAQ.pdf`
 
-### Modified (1)
+## Modified
 
 - `zeropay_backend/main.py`
 
-### Removed (625)
+## Removed (exact paths absent from current repository)
 
 - `BETONIQ_AGENT_BRAIN_EXPORT.md`
 - `BETONIQ_CAS_AirForce_Letter_v2.pdf`

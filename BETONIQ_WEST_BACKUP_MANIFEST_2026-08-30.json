@@ -1189,5 +1189,24 @@
       "size": 574,
       "sha256": "e2b98c88e76ef067aab9180a492d4180e07146536e0628fcb4d9a7a4b3fb98ee"
     }
+  },
+  "comparison_note": "The 2026-08-23 archive recorded a flattened source-root snapshot; this manifest compares repository-relative paths exactly. A path appearing removed may have been reorganized or is no longer present in the current repository.",
+  "selection": {
+    "extensions": [
+      ".md",
+      ".csv",
+      ".pdf",
+      ".py",
+      ".js",
+      ".ts",
+      ".sh",
+      ".bash",
+      ".ps1"
+    ],
+    "excluded": [
+      ".git metadata",
+      "HTML/media/DOCX/PPTX assets",
+      "prior backup ZIP archives"
+    ]
   }
 }
