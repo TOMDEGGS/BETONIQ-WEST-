@@ -204,3 +204,7 @@ Automated refresh from the live Base44 business entities for Backup 777.
 - **Output:** `full_data_export.json`
 
 The live refresh confirmed no record-count changes from the prior snapshot. The JSON snapshot metadata was regenerated for this run; Base44 remains authoritative.
+
+## 2026-09-01 — Backup 777 live data refresh
+
+Pulled the current Base44 entity snapshot and refreshed `full_data_export.json` from the live workspace. The snapshot contains 18 entities and 155 records, including the real-estate portfolio, investor/funding pipeline, ZeroPay merchants, agents, transactions, subscriptions, leads, feasibility data, operational tasks, field meetings, and Backup Agent messages. No record-count changes were detected versus the previous snapshot.
