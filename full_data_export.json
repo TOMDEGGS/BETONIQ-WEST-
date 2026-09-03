@@ -1,6 +1,6 @@
 {
   "export_name": "BETONIQ WEST / Backup 777 full data refresh",
-  "generated_at": "2026-09-02T07:02:10+01:00",
+  "generated_at": "2026-09-03T07:01:00+01:00",
   "source": "Base44 entity database (live refresh)",
   "destination": "TOMDEGGS/BETONIQ-WEST-",
   "privacy_note": "Record-level business data snapshot for Backup 777 continuity. Treat Base44 as the authoritative live source.",
@@ -3896,5 +3896,32 @@
         "is_sample": false
       }
     ]
-  }
+  },
+  "refresh_note": "Live entity refresh completed 2026-09-03. Counts unchanged from prior snapshot; Base44 remains authoritative.",
+  "business_developments": [
+    {
+      "date": "2026-09-02",
+      "topic": "Paystack integration",
+      "status": "Declined",
+      "detail": "Paystack Support declined the ZeroPay settlement-rail partnership because crypto-based payment infrastructure is outside current integration scope; no live-mode activation or compliance approval was found."
+    },
+    {
+      "date": "2026-08-27",
+      "topic": "Kwati Group JV / ZeroPay investment",
+      "status": "Contingent",
+      "detail": "Wisdom Kwati verbally restated commitment but needs to raise the $500,000 investment before signing; no firm signing date and NDA remains unsigned."
+    },
+    {
+      "date": "2026-08-26",
+      "topic": "Startup visa / EIC route",
+      "status": "Awaiting evaluation",
+      "detail": "Estonia and Lithuania Startup Visa applications are submitted and awaiting evaluation; EIC Accelerator remains blocked until an eligible EU/associated-country entity and address are available."
+    },
+    {
+      "date": "2026-08-26",
+      "topic": "FID grant",
+      "status": "Urgent follow-up",
+      "detail": "FID application draft was finalized, but submission confirmation still needs to be verified in the portal."
+    }
+  ]
 }
