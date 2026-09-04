@@ -1,6 +1,6 @@
 {
   "export_name": "BETONIQ WEST / Backup 777 full data refresh",
-  "generated_at": "2026-09-03T07:01:00+01:00",
+  "generated_at": "2026-09-04T07:03:00+01:00",
   "source": "Base44 entity database (live refresh)",
   "destination": "TOMDEGGS/BETONIQ-WEST-",
   "privacy_note": "Record-level business data snapshot for Backup 777 continuity. Treat Base44 as the authoritative live source.",
@@ -3897,7 +3897,7 @@
       }
     ]
   },
-  "refresh_note": "Live entity refresh completed 2026-09-03. Counts unchanged from prior snapshot; Base44 remains authoritative.",
+  "refresh_note": "All configured business entities queried live and synchronized for Backup 777 continuity.",
   "business_developments": [
     {
       "date": "2026-09-02",
@@ -3922,6 +3922,7 @@
       "topic": "FID grant",
       "status": "Urgent follow-up",
       "detail": "FID application draft was finalized, but submission confirmation still needs to be verified in the portal."
-    }
+    },
+    "The 2026-09-04 live entity refresh completed successfully; no new record-level business developments were identified since the previous snapshot."
   ]
 }

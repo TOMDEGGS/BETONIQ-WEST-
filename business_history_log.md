@@ -1,12 +1,12 @@
 # BETONIQ WEST — Backup 777 Business History Log
 
-Refresh timestamp: 2026-09-03T07:01:00+01:00
+Refresh timestamp: 2026-09-04T07:03:00+01:00
 Source: Base44 entity database (live refresh)
 Destination: TOMDEGGS/BETONIQ-WEST-
 
 ## Refresh completed
 
-All 18 configured business entities were queried live. The full record-level export contains 155 records. Entity counts are unchanged from the previous refresh.
+All 18 configured business entities were queried live. The full record-level export contains 155 records.
 
 ## Current counts
 
@@ -35,10 +35,11 @@ Real estate: 79 projects. Investor pipeline: 2 investor records; feasibility: 1 
 
 ## New business developments
 
-1. Paystack Support declined the ZeroPay settlement-rail partnership on 2026-09-02, citing crypto-based payment infrastructure outside its current integration scope. No live-mode activation or compliance approval was found.
-2. The Kwati Group JV / ZeroPay $500,000 investment remains contingent on Wisdom Kwati raising funds before signing; no firm signing date was set and the NDA remains unsigned.
-3. Estonia and Lithuania Startup Visa applications remain submitted and awaiting evaluation. The EIC Accelerator route remains blocked until an eligible EU/associated-country entity and address are available.
-4. The FID grant draft is finalized, but portal submission/confirmation remains the urgent verification item.
+1. {'date': '2026-09-02', 'topic': 'Paystack integration', 'status': 'Declined', 'detail': 'Paystack Support declined the ZeroPay settlement-rail partnership because crypto-based payment infrastructure is outside current integration scope; no live-mode activation or compliance approval was found.'}
+2. {'date': '2026-08-27', 'topic': 'Kwati Group JV / ZeroPay investment', 'status': 'Contingent', 'detail': 'Wisdom Kwati verbally restated commitment but needs to raise the $500,000 investment before signing; no firm signing date and NDA remains unsigned.'}
+3. {'date': '2026-08-26', 'topic': 'Startup visa / EIC route', 'status': 'Awaiting evaluation', 'detail': 'Estonia and Lithuania Startup Visa applications are submitted and awaiting evaluation; EIC Accelerator remains blocked until an eligible EU/associated-country entity and address are available.'}
+4. {'date': '2026-08-26', 'topic': 'FID grant', 'status': 'Urgent follow-up', 'detail': 'FID application draft was finalized, but submission confirmation still needs to be verified in the portal.'}
+5. The 2026-09-04 live entity refresh completed successfully; no new record-level business developments were identified since the previous snapshot.
 
 ## Continuity note
 
