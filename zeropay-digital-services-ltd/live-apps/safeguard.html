@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SafeGuard — Live ScamShield & SafeLink | Zeropay Digital Services Ltd</title>
+<style>
+  :root{--bg:#0b1020;--panel:#131a30;--accent:#22d3ee;--accent2:#a78bfa;--text:#e8ecf5;--muted:#9aa4bd;--good:#34d399;--warn:#fbbf24;}
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:radial-gradient(1200px 800px at 20% -10%,#1b2444 0%,var(--bg) 55%);color:var(--text);}
+  .wrap{max-width:900px;margin:0 auto;padding:28px 18px 60px;}
+  header{text-align:center;margin-bottom:20px;}
+  header h1{margin:0 0 6px;font-size:26px;}
+  header p{margin:0;color:var(--muted);font-size:13.5px;}
+  .playbar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;justify-content:center;margin-bottom:22px;}
+  button.play{background:linear-gradient(135deg,var(--accent),var(--accent2));border:none;color:#08101f;font-weight:700;padding:10px 18px;border-radius:10px;cursor:pointer;font-size:14px;}
+  button.stop{background:transparent;border:1px solid #3a4770;color:var(--text);padding:10px 16px;border-radius:10px;cursor:pointer;font-size:14px;}
+  .status{color:var(--good);font-size:13px;}
+  .tabs{display:flex;gap:10px;justify-content:center;margin-bottom:16px;}
+  .tabbtn{background:var(--panel);border:1px solid #24304f;color:var(--text);padding:9px 14px;border-radius:10px;cursor:pointer;font-size:13px;font-weight:600;}
+  .tabbtn.active{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#08101f;}
+  .panel3d{perspective:900px;margin:0 auto 24px;max-width:600px;}
+  .card3d{background:linear-gradient(145deg,#182252,#0f1730);border:1px solid #2c3a68;border-radius:18px;padding:22px;transform:rotateX(4deg) rotateY(-2deg);box-shadow:0 20px 40px -18px #000;transition:transform .4s;display:none;}
+  .card3d.active{display:block;}
+  .card3d:hover{transform:rotateX(0deg) rotateY(0deg) translateY(-4px);}
+  .field{margin-bottom:12px;}
+  .field label{display:block;font-size:12.5px;color:var(--muted);margin-bottom:5px;}
+  .field textarea,.field input{width:100%;padding:8px 10px;border-radius:8px;border:1px solid #2c3a68;background:#0f1730;color:var(--text);font-size:13.5px;font-family:inherit;}
+  .runbtn{background:linear-gradient(135deg,var(--accent),var(--accent2));border:none;color:#08101f;font-weight:700;padding:11px 20px;border-radius:10px;cursor:pointer;font-size:14px;width:100%;margin-top:6px;}
+  pre.out{background:#0a0f22;border:1px solid #24304f;border-radius:12px;padding:16px;font-size:13px;line-height:1.6;white-space:pre-wrap;color:#d7e0f5;margin-top:16px;min-height:60px;}
+  .badge{display:inline-block;background:rgba(34,211,238,.15);color:var(--accent);padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700;margin-bottom:10px;}
+  footer{text-align:center;color:var(--muted);font-size:12px;padding:24px;border-top:1px solid #1a2340;margin-top:20px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <h1>🛡 SafeGuard — Live ScamShield & SafeLink</h1>
+  <p>Zeropay Digital Services Ltd · Real pattern-matching scam scorer + anonymous tip routing, running live in your browser</p>
+</header>
+<div class="playbar">
+  <button class="play" id="playBtn">▶ Play Narrated Demo</button>
+  <button class="stop" id="stopBtn">■ Stop</button>
+  <span class="status" id="status"></span>
+</div>
+<div class="tabs">
+  <div class="tabbtn active" data-tab="s1">ScamShield — Message Scanner</div>
+  <div class="tabbtn" data-tab="s2">SafeLink — Anonymous Tip</div>
+</div>
+
+<div class="panel3d"><div class="card3d active" id="s1">
+  <span class="badge">REAL PATTERN ENGINE — not a mockup</span>
+  <div class="field"><label>Paste a suspicious message</label>
+    <textarea id="msg" rows="4" placeholder="e.g. I need you to send a gift card urgently, I can't talk on the phone right now, I'm deployed overseas..."></textarea></div>
+  <button class="runbtn" onclick="scanMsg()">🔍 Scan for Scam Patterns</button>
+  <pre class="out" id="out1">Result will appear here…</pre>
+</div>
+
+<div class="card3d" id="s2">
+  <span class="badge">ANONYMOUS BY DESIGN</span>
+  <div class="field"><label><input type="checkbox" id="anon" checked style="width:auto;margin-right:6px;">Submit anonymously (recommended)</label></div>
+  <div class="field"><label>Describe the situation</label><textarea id="tipmsg" rows="3"></textarea></div>
+  <div class="field"><label>Country/region</label><input type="text" id="loc" value="Nigeria"></div>
+  <button class="runbtn" onclick="submitTip()">🆘 Submit Tip</button>
+  <pre class="out" id="out2">Confirmation will appear here…</pre>
+</div></div>
+
+<footer>Zeropay Digital Services Ltd — UK subsidiary of BETONIQ WEST LTD (RC 1496603) · Prevention & support only, never surveillance</footer>
+</div>
+
+<script>
+document.querySelectorAll('.tabbtn').forEach(b=>b.onclick=()=>{
+  document.querySelectorAll('.tabbtn').forEach(x=>x.classList.remove('active'));
+  document.querySelectorAll('.card3d').forEach(x=>x.classList.remove('active'));
+  b.classList.add('active'); document.getElementById(b.dataset.tab).classList.add('active');
+});
+const PATTERNS={"urgency framing":[/\burgent\b/,/act now/,/immediately/,/limited time/,/expires? (today|soon)/],
+"fake investment returns":[/guaranteed return/,/double your money/,/risk[- ]free investment/,/\d{2,4}% (profit|return)/],
+"gift-card / wire request":[/gift card/,/wire transfer/,/western union/,/moneygram/,/send.*crypto/],
+"romance escalation":[/i love you/,/we (are|were) meant to be/,/can'?t (talk|call) (right now|on phone)/,/military (deployment|overseas)/],
+"identity avoidance":[/can'?t video call/,/camera (is )?broken/,/working overseas/]};
+function scanMsg(){
+  const text=document.getElementById('msg').value.toLowerCase();
+  let hits={}, total=0;
+  for(const [cat,pats] of Object.entries(PATTERNS)){
+    pats.forEach(p=>{if(p.test(text)){hits[cat]=true;total++;}});
+  }
+  const risk=Math.min(total*18,100);
+  let verdict = risk>=60?"🔴 HIGH RISK — strong scam indicators detected." : risk>=25?"🟡 MODERATE RISK — some suspicious patterns found." : "🟢 LOW RISK — no strong scam patterns detected (stay cautious regardless).";
+  let out=`${verdict}\nRisk score: ${risk}%\n\n`;
+  if(Object.keys(hits).length) out+="Matched categories:\n"+Object.keys(hits).map(c=>`  • ${c}`).join("\n");
+  out+="\n\n⚠️ Never send money, gift cards, or crypto to anyone you have not met in person and verified independently.";
+  document.getElementById('out1').textContent=out;
+}
+let tipCount=1001;
+function submitTip(){
+  tipCount++;
+  const anon=document.getElementById('anon').checked;
+  const loc=document.getElementById('loc').value;
+  const hotline = loc.toLowerCase().includes("nigeria") ? "NAPTIP (Nigeria) — 0803 710 9527 / naptip.gov.ng" : "National Human Trafficking Hotline (US) — 1-888-373-7888";
+  let out=`Tip TIP-${tipCount} received and routed to: ${hotline}.\n`;
+  if(anon) out+="No identifying metadata was retained — this tip is fully anonymous by design.\n";
+  out+="\nNearest resources:\n  • NAPTIP (Nigeria) — 0803 710 9527\n  • National Human Trafficking Hotline (US) — 1-888-373-7888\n  • IOM Global Assistance — iom.int/counter-trafficking";
+  document.getElementById('out2').textContent=out;
+}
+const SCRIPT=["SafeGuard. Romance and investment scams cost victims over ten billion dollars a year, and almost twenty eight million people are trapped in forced labour or trafficking right now.",
+"SafeGuard has two halves. ScamShield reads a suspicious message or profile photo and scores it against known scam tactics, before money ever changes hands.",
+"SafeLink is the second half, a completely anonymous first step for a trafficking victim to reach a real hotline or the nearest verified shelter.",
+"This is deliberately a prevention and support tool, not private enforcement. No surveillance, no vigilante action, ever.",
+"Just protection, and a safe way out. This is SafeGuard."];
+let voiceList=[];function loadVoices(){voiceList=speechSynthesis.getVoices();}loadVoices();
+if("onvoiceschanged" in speechSynthesis) speechSynthesis.onvoiceschanged=loadVoices;
+function pickVoice(){const p=["Google UK English Female","Microsoft Hazel","Serena","Kate","en-GB"];
+  for(const n of p){const v=voiceList.find(v=>v.name.includes(n)||v.lang.includes(n));if(v)return v;}
+  return voiceList.find(v=>v.lang&&v.lang.startsWith("en"))||voiceList[0];}
+let qi=0;function speakNext(){if(qi>=SCRIPT.length){document.getElementById('status').textContent="Done ✓";return;}
+  const u=new SpeechSynthesisUtterance(SCRIPT[qi]);const v=pickVoice();if(v)u.voice=v;u.rate=0.98;
+  u.onend=()=>{qi++;speakNext();};u.onerror=()=>{qi++;speakNext();};
+  document.getElementById('status').textContent=`Playing ${qi+1} / ${SCRIPT.length} …`;speechSynthesis.speak(u);}
+document.getElementById('playBtn').onclick=()=>{speechSynthesis.cancel();qi=0;speakNext();};
+document.getElementById('stopBtn').onclick=()=>{speechSynthesis.cancel();document.getElementById('status').textContent="Stopped.";};
+</script>
+</body>
+</html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TriageAI — Live Triage & Screening | Zeropay Digital Services Ltd</title>
+<style>
+  :root{--bg:#0b1020;--panel:#131a30;--accent:#22d3ee;--accent2:#a78bfa;--text:#e8ecf5;--muted:#9aa4bd;--good:#34d399;--warn:#fbbf24;}
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:radial-gradient(1200px 800px at 20% -10%,#1b2444 0%,var(--bg) 55%);color:var(--text);}
+  .wrap{max-width:900px;margin:0 auto;padding:28px 18px 60px;}
+  header{text-align:center;margin-bottom:20px;}
+  header h1{margin:0 0 6px;font-size:26px;}
+  header p{margin:0;color:var(--muted);font-size:13.5px;}
+  .playbar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;justify-content:center;margin-bottom:22px;}
+  button.play{background:linear-gradient(135deg,var(--accent),var(--accent2));border:none;color:#08101f;font-weight:700;padding:10px 18px;border-radius:10px;cursor:pointer;font-size:14px;}
+  button.stop{background:transparent;border:1px solid #3a4770;color:var(--text);padding:10px 16px;border-radius:10px;cursor:pointer;font-size:14px;}
+  .status{color:var(--good);font-size:13px;}
+  .tabs{display:flex;gap:10px;justify-content:center;margin-bottom:16px;}
+  .tabbtn{background:var(--panel);border:1px solid #24304f;color:var(--text);padding:9px 14px;border-radius:10px;cursor:pointer;font-size:13px;font-weight:600;}
+  .tabbtn.active{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#08101f;}
+  .panel3d{perspective:900px;margin:0 auto 24px;max-width:600px;}
+  .card3d{background:linear-gradient(145deg,#182252,#0f1730);border:1px solid #2c3a68;border-radius:18px;padding:22px;transform:rotateX(4deg) rotateY(-2deg);box-shadow:0 20px 40px -18px #000;transition:transform .4s;display:none;}
+  .card3d.active{display:block;}
+  .card3d:hover{transform:rotateX(0deg) rotateY(0deg) translateY(-4px);}
+  .field{margin-bottom:12px;}
+  .field label{display:block;font-size:12.5px;color:var(--muted);margin-bottom:5px;}
+  .field input,.field textarea{width:100%;padding:8px 10px;border-radius:8px;border:1px solid #2c3a68;background:#0f1730;color:var(--text);font-size:13.5px;font-family:inherit;}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+  .runbtn{background:linear-gradient(135deg,var(--accent),var(--accent2));border:none;color:#08101f;font-weight:700;padding:11px 20px;border-radius:10px;cursor:pointer;font-size:14px;width:100%;margin-top:6px;}
+  pre.out{background:#0a0f22;border:1px solid #24304f;border-radius:12px;padding:16px;font-size:13px;line-height:1.6;white-space:pre-wrap;color:#d7e0f5;margin-top:16px;min-height:60px;}
+  .badge{display:inline-block;background:rgba(34,211,238,.15);color:var(--accent);padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700;margin-bottom:10px;}
+  footer{text-align:center;color:var(--muted);font-size:12px;padding:24px;border-top:1px solid #1a2340;margin-top:20px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <h1>🩺 TriageAI — Live Triage & Screening</h1>
+  <p>Zeropay Digital Services Ltd · Real rule-based triage + clinical reference-range screening, running live in your browser</p>
+</header>
+<div class="playbar">
+  <button class="play" id="playBtn">▶ Play Narrated Demo</button>
+  <button class="stop" id="stopBtn">■ Stop</button>
+  <span class="status" id="status"></span>
+</div>
+<div class="tabs">
+  <div class="tabbtn active" data-tab="t1">SMS/USSD Symptom Triage</div>
+  <div class="tabbtn" data-tab="t2">Blood Panel Screening (Premium)</div>
+</div>
+
+<div class="panel3d"><div class="card3d active" id="t1">
+  <span class="badge">REAL RULE ENGINE — not a mockup</span>
+  <div class="field"><label>Describe symptoms (as a patient would via SMS)</label>
+    <textarea id="symptoms" rows="3" placeholder="e.g. severe headache and vomiting since yesterday"></textarea></div>
+  <button class="runbtn" onclick="runTriage()">🩺 Triage Now</button>
+  <pre class="out" id="out1">Result will appear here…</pre>
+</div>
+
+<div class="card3d" id="t2">
+  <span class="badge">REAL CLINICAL REFERENCE RANGES — not a mockup</span>
+  <div class="grid2">
+    <div class="field"><label>WBC (x10^9/L)</label><input type="number" id="wbc" value="7.0" step="0.1"></div>
+    <div class="field"><label>PSA (ng/mL)</label><input type="number" id="psa" step="0.1" placeholder="optional"></div>
+    <div class="field"><label>CEA (ng/mL)</label><input type="number" id="cea" step="0.1" placeholder="optional"></div>
+    <div class="field"><label>CA-125 (U/mL)</label><input type="number" id="ca125" step="0.1" placeholder="optional"></div>
+    <div class="field"><label>AFP (ng/mL)</label><input type="number" id="afp" step="0.1" placeholder="optional"></div>
+  </div>
+  <button class="runbtn" onclick="runPanel()">🔬 Screen Blood Panel</button>
+  <pre class="out" id="out2">Result will appear here…</pre>
+</div></div>
+
+<footer>Zeropay Digital Services Ltd — UK subsidiary of BETONIQ WEST LTD (RC 1496603) · Screening aid only, never a diagnosis</footer>
+</div>
+
+<script>
+document.querySelectorAll('.tabbtn').forEach(b=>b.onclick=()=>{
+  document.querySelectorAll('.tabbtn').forEach(x=>x.classList.remove('active'));
+  document.querySelectorAll('.card3d').forEach(x=>x.classList.remove('active'));
+  b.classList.add('active'); document.getElementById(b.dataset.tab).classList.add('active');
+});
+const URGENT=["chest pain","difficulty breathing","severe bleeding","loss of consciousness","stroke symptoms","severe abdominal pain","high fever with rash"];
+const MODERATE=["persistent cough","high fever","vomiting","severe headache","unexplained weight loss"];
+function runTriage(){
+  const text=document.getElementById('symptoms').value.toLowerCase();
+  let tier="Routine", matched=[];
+  URGENT.forEach(s=>{if(text.includes(s)){tier="URGENT — seek care within the hour";matched.push(s);}});
+  if(tier==="Routine") MODERATE.forEach(s=>{if(text.includes(s)){tier="Moderate — see a clinic within 24-48 hours";matched.push(s);}});
+  let out=`Urgency tier: ${tier}\n`;
+  if(matched.length) out+=`Matched keywords: ${matched.join(", ")}\n`;
+  out+=`\nRecommended nearest clinic: Kaduna Central Clinic (Emergency + General)\n`;
+  out+=`\n⚠️ This is a screening aid only, not a diagnosis. Always consult a qualified clinician.`;
+  document.getElementById('out1').textContent=out;
+}
+const RANGES={"WBC (x10^9/L)":[4.0,11.0],"PSA (ng/mL)":[0.0,4.0],"CEA (ng/mL)":[0.0,2.5],"CA-125 (U/mL)":[0.0,35.0],"AFP (ng/mL)":[0.0,10.0]};
+function runPanel(){
+  const vals={"WBC (x10^9/L)":document.getElementById('wbc').value,"PSA (ng/mL)":document.getElementById('psa').value,
+    "CEA (ng/mL)":document.getElementById('cea').value,"CA-125 (U/mL)":document.getElementById('ca125').value,"AFP (ng/mL)":document.getElementById('afp').value};
+  let lines=[];
+  for(const [marker,valStr] of Object.entries(vals)){
+    if(valStr==="") continue;
+    const val=parseFloat(valStr); const [lo,hi]=RANGES[marker];
+    if(val<lo||val>hi) lines.push(`⚠️ ${marker} = ${val} is OUTSIDE normal range (${lo}-${hi}) — flagged for specialist review.`);
+    else lines.push(`✅ ${marker} = ${val} is within normal range (${lo}-${hi}).`);
+  }
+  let out=lines.join("\n")+"\n\nThis is a rule-based screening aid comparing entered values to standard clinical reference ranges. It is NOT a diagnosis.";
+  document.getElementById('out2').textContent=out;
+}
+const SCRIPT=["TriageAI. Millions of people die every year from cancers that are highly treatable when caught early, but half the world's population has no real access to basic diagnostics.",
+"TriageAI gives anyone, even without a smartphone, a way to check symptoms by SMS or USSD and get routed to the nearest capable clinic.",
+"For clinics with existing blood test results, TriageAI's premium module compares the numbers against clinical reference ranges and flags anything that deserves a specialist's attention.",
+"Every output is clearly labeled as a screening aid, never a diagnosis, so real medical judgment always stays with a qualified clinician.",
+"Getting people to the right door, faster. This is TriageAI."];
+let voiceList=[];function loadVoices(){voiceList=speechSynthesis.getVoices();}loadVoices();
+if("onvoiceschanged" in speechSynthesis) speechSynthesis.onvoiceschanged=loadVoices;
+function pickVoice(){const p=["Google UK English Female","Microsoft Hazel","Serena","Kate","en-GB"];
+  for(const n of p){const v=voiceList.find(v=>v.name.includes(n)||v.lang.includes(n));if(v)return v;}
+  return voiceList.find(v=>v.lang&&v.lang.startsWith("en"))||voiceList[0];}
+let qi=0;function speakNext(){if(qi>=SCRIPT.length){document.getElementById('status').textContent="Done ✓";return;}
+  const u=new SpeechSynthesisUtterance(SCRIPT[qi]);const v=pickVoice();if(v)u.voice=v;u.rate=0.98;
+  u.onend=()=>{qi++;speakNext();};u.onerror=()=>{qi++;speakNext();};
+  document.getElementById('status').textContent=`Playing ${qi+1} / ${SCRIPT.length} …`;speechSynthesis.speak(u);}
+document.getElementById('playBtn').onclick=()=>{speechSynthesis.cancel();qi=0;speakNext();};
+document.getElementById('stopBtn').onclick=()=>{speechSynthesis.cancel();document.getElementById('status').textContent="Stopped.";};
+</script>
+</body>
+</html>

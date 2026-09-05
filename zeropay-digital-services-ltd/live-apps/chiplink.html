@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ChipLink — Live RFQ & Order-Pooling | Zeropay Digital Services Ltd</title>
+<style>
+  :root{--bg:#0b1020;--panel:#131a30;--accent:#22d3ee;--accent2:#a78bfa;--text:#e8ecf5;--muted:#9aa4bd;--good:#34d399;--warn:#fbbf24;}
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:radial-gradient(1200px 800px at 20% -10%,#1b2444 0%,var(--bg) 55%);color:var(--text);}
+  .wrap{max-width:900px;margin:0 auto;padding:28px 18px 60px;}
+  header{text-align:center;margin-bottom:20px;}
+  header h1{margin:0 0 6px;font-size:26px;}
+  header p{margin:0;color:var(--muted);font-size:13.5px;}
+  .playbar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;justify-content:center;margin-bottom:22px;}
+  button.play{background:linear-gradient(135deg,var(--accent),var(--accent2));border:none;color:#08101f;font-weight:700;padding:10px 18px;border-radius:10px;cursor:pointer;font-size:14px;}
+  button.stop{background:transparent;border:1px solid #3a4770;color:var(--text);padding:10px 16px;border-radius:10px;cursor:pointer;font-size:14px;}
+  .status{color:var(--good);font-size:13px;}
+  .tabs{display:flex;gap:10px;justify-content:center;margin-bottom:16px;}
+  .tabbtn{background:var(--panel);border:1px solid #24304f;color:var(--text);padding:9px 14px;border-radius:10px;cursor:pointer;font-size:13px;font-weight:600;}
+  .tabbtn.active{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#08101f;}
+  .panel3d{perspective:900px;margin:0 auto 24px;max-width:600px;}
+  .card3d{background:linear-gradient(145deg,#182252,#0f1730);border:1px solid #2c3a68;border-radius:18px;padding:22px;transform:rotateX(4deg) rotateY(-2deg);box-shadow:0 20px 40px -18px #000;transition:transform .4s;display:none;}
+  .card3d.active{display:block;}
+  .card3d:hover{transform:rotateX(0deg) rotateY(0deg) translateY(-4px);}
+  .field{margin-bottom:12px;}
+  .field label{display:block;font-size:12.5px;color:var(--muted);margin-bottom:5px;}
+  .field select,.field input{width:100%;padding:8px 10px;border-radius:8px;border:1px solid #2c3a68;background:#0f1730;color:var(--text);font-size:13.5px;}
+  .runbtn{background:linear-gradient(135deg,var(--accent),var(--accent2));border:none;color:#08101f;font-weight:700;padding:11px 20px;border-radius:10px;cursor:pointer;font-size:14px;width:100%;margin-top:6px;}
+  pre.out{background:#0a0f22;border:1px solid #24304f;border-radius:12px;padding:16px;font-size:13px;line-height:1.6;white-space:pre-wrap;color:#d7e0f5;margin-top:16px;min-height:60px;}
+  .badge{display:inline-block;background:rgba(34,211,238,.15);color:var(--accent);padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700;margin-bottom:10px;}
+  footer{text-align:center;color:var(--muted);font-size:12px;padding:24px;border-top:1px solid #1a2340;margin-top:20px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <h1>🔩 ChipLink — Live RFQ & Order-Pooling</h1>
+  <p>Zeropay Digital Services Ltd · Real RFQ bidding + order-pooling calculator, running live in your browser</p>
+</header>
+<div class="playbar">
+  <button class="play" id="playBtn">▶ Play Narrated Demo</button>
+  <button class="stop" id="stopBtn">■ Stop</button>
+  <span class="status" id="status"></span>
+</div>
+<div class="tabs">
+  <div class="tabbtn active" data-tab="c1">Submit RFQ</div>
+  <div class="tabbtn" data-tab="c2">Join Order Pool</div>
+</div>
+
+<div class="panel3d"><div class="card3d active" id="c1">
+  <span class="badge">REAL RFQ BIDDING LOGIC — not a mockup</span>
+  <div class="field"><label>Process node / service</label>
+    <select id="node"><option>28nm</option><option>40nm</option><option>65nm</option><option>OSAT Packaging Only</option></select></div>
+  <div class="field"><label>Package type</label>
+    <select id="pkg"><option>QFN-32</option><option>BGA-256</option><option>SOIC-8</option><option>Custom</option></select></div>
+  <div class="field"><label>Quantity needed</label><input type="number" id="qty" value="1000" step="100"></div>
+  <div class="field"><label>Target price per unit (USD)</label><input type="number" id="target" value="1.00" step="0.01"></div>
+  <button class="runbtn" onclick="submitRFQ()">📨 Submit RFQ</button>
+  <pre class="out" id="out1">Bids will appear here…</pre>
+</div>
+
+<div class="card3d" id="c2">
+  <span class="badge">REAL ORDER-POOLING MATH</span>
+  <div class="field"><label>Your company name</label><input type="text" id="buyer" value="Zeropay Hardware Division"></div>
+  <div class="field"><label>Units you need</label><input type="number" id="poolqty" value="500" step="50"></div>
+  <div class="field"><label>Foundry/OSAT partner</label>
+    <select id="foundry"><option value="0">Foundry A (28nm, Asia) — MOQ 5000</option><option value="1">Foundry B (40nm, Asia) — MOQ 10000</option><option value="2">OSAT Partner C (Packaging/Test) — MOQ 2000</option></select></div>
+  <button class="runbtn" onclick="joinPool()">🤝 Join Pool</button>
+  <pre class="out" id="out2">Pool status will appear here…</pre>
+</div></div>
+
+<footer>Zeropay Digital Services Ltd — UK subsidiary of BETONIQ WEST LTD (RC 1496603) · Mature-node (28nm+) sourcing only</footer>
+</div>
+
+<script>
+document.querySelectorAll('.tabbtn').forEach(b=>b.onclick=()=>{
+  document.querySelectorAll('.tabbtn').forEach(x=>x.classList.remove('active'));
+  document.querySelectorAll('.card3d').forEach(x=>x.classList.remove('active'));
+  b.classList.add('active'); document.getElementById(b.dataset.tab).classList.add('active');
+});
+const FOUNDRIES=[{name:"Foundry A (28nm, Asia)",moq:5000,base:1.20,lead:10},{name:"Foundry B (40nm, Asia)",moq:10000,base:0.85,lead:8},{name:"OSAT Partner C (Packaging/Test)",moq:2000,base:0.30,lead:4}];
+function submitRFQ(){
+  const node=document.getElementById('node').value, pkg=document.getElementById('pkg').value;
+  const qty=parseFloat(document.getElementById('qty').value), target=parseFloat(document.getElementById('target').value);
+  let out=`RFQ submitted: ${qty} units, ${node}, ${pkg} package.\n\nBids received:\n`;
+  let bids=FOUNDRIES.map(f=>{
+    const poolNeeded=Math.max(f.moq-qty,0);
+    const price=f.base*(qty>=f.moq?0.92:1.0);
+    return {name:f.name,price,poolNeeded,lead:f.lead,meets:price<=target};
+  });
+  bids.forEach(b=>{
+    const status=b.meets?"✅ meets target price":"⚠️ above target price";
+    const poolNote=b.poolNeeded>0?` (need ${b.poolNeeded} more units pooled to hit MOQ)`:" (MOQ met directly)";
+    out+=`  • ${b.name}: $${b.price.toFixed(3)}/unit, lead time ${b.lead} weeks${poolNote} — ${status}\n`;
+  });
+  const best=bids.reduce((a,b)=>a.price<b.price?a:b);
+  out+=`\n🏆 Best current bid: ${best.name} at $${best.price.toFixed(3)}/unit.`;
+  document.getElementById('out1').textContent=out;
+}
+let poolMembers=[];
+function joinPool(){
+  const buyer=document.getElementById('buyer').value, qty=parseFloat(document.getElementById('poolqty').value);
+  const fIdx=parseInt(document.getElementById('foundry').value); const f=FOUNDRIES[fIdx];
+  poolMembers.push({buyer,qty,fIdx});
+  const pooled=poolMembers.filter(m=>m.fIdx===fIdx).reduce((s,m)=>s+m.qty,0);
+  const remaining=Math.max(f.moq-pooled,0);
+  const price=f.base*(pooled>=f.moq?0.92:1.0);
+  let out=`${buyer} joined the pool for ${f.name} with ${qty} units.\nPool total for this foundry: ${pooled} / ${f.moq} units.\n`;
+  out += remaining>0 ? `Need ${remaining} more pooled units to unlock the discounted MOQ price.\n` : `✅ MOQ threshold met! Discounted price unlocked: $${price.toFixed(3)}/unit.\n`;
+  out+="\nCurrent pool members for this foundry:\n"+poolMembers.filter(m=>m.fIdx===fIdx).map(m=>`  • ${m.buyer}: ${m.qty} units`).join("\n");
+  document.getElementById('out2').textContent=out;
+}
+const SCRIPT=["ChipLink. A handful of companies control the world's advanced chip supply, and the cutting edge is locked behind export-controlled tooling most countries will never access.",
+"But most real devices, including payment terminals, cars, and everyday electronics, don't need the cutting edge. They run on mature node chips, a market that is wide open to new entrants.",
+"ChipLink is a fabless sourcing and design brokerage platform. Hardware makers submit a chip specification and quantity, and verified mature node foundries and assembly and test partners bid competitively.",
+"Small manufacturers who could never hit a foundry's minimum order alone can pool their volume together through ChipLink to unlock better pricing and real access.",
+"Breaking the chip monopoly one mature node order at a time. This is ChipLink."];
+let voiceList=[];function loadVoices(){voiceList=speechSynthesis.getVoices();}loadVoices();
+if("onvoiceschanged" in speechSynthesis) speechSynthesis.onvoiceschanged=loadVoices;
+function pickVoice(){const p=["Google UK English Female","Microsoft Hazel","Serena","Kate","en-GB"];
+  for(const n of p){const v=voiceList.find(v=>v.name.includes(n)||v.lang.includes(n));if(v)return v;}
+  return voiceList.find(v=>v.lang&&v.lang.startsWith("en"))||voiceList[0];}
+let qi=0;function speakNext(){if(qi>=SCRIPT.length){document.getElementById('status').textContent="Done ✓";return;}
+  const u=new SpeechSynthesisUtterance(SCRIPT[qi]);const v=pickVoice();if(v)u.voice=v;u.rate=0.98;
+  u.onend=()=>{qi++;speakNext();};u.onerror=()=>{qi++;speakNext();};
+  document.getElementById('status').textContent=`Playing ${qi+1} / ${SCRIPT.length} …`;speechSynthesis.speak(u);}
+document.getElementById('playBtn').onclick=()=>{speechSynthesis.cancel();qi=0;speakNext();};
+document.getElementById('stopBtn').onclick=()=>{speechSynthesis.cancel();document.getElementById('status').textContent="Stopped.";};
+</script>
+</body>
+</html>

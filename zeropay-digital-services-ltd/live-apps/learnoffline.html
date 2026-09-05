@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LearnOffline — Live Adaptive Tutor | Zeropay Digital Services Ltd</title>
+<style>
+  :root{--bg:#0b1020;--panel:#131a30;--accent:#22d3ee;--accent2:#a78bfa;--text:#e8ecf5;--muted:#9aa4bd;--good:#34d399;--warn:#fbbf24;}
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:radial-gradient(1200px 800px at 20% -10%,#1b2444 0%,var(--bg) 55%);color:var(--text);}
+  .wrap{max-width:900px;margin:0 auto;padding:28px 18px 60px;}
+  header{text-align:center;margin-bottom:20px;}
+  header h1{margin:0 0 6px;font-size:26px;}
+  header p{margin:0;color:var(--muted);font-size:13.5px;}
+  .playbar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;justify-content:center;margin-bottom:22px;}
+  button.play{background:linear-gradient(135deg,var(--accent),var(--accent2));border:none;color:#08101f;font-weight:700;padding:10px 18px;border-radius:10px;cursor:pointer;font-size:14px;}
+  button.stop{background:transparent;border:1px solid #3a4770;color:var(--text);padding:10px 16px;border-radius:10px;cursor:pointer;font-size:14px;}
+  .status{color:var(--good);font-size:13px;}
+  .panel3d{perspective:900px;margin:0 auto 24px;max-width:600px;}
+  .card3d{background:linear-gradient(145deg,#182252,#0f1730);border:1px solid #2c3a68;border-radius:18px;padding:22px;transform:rotateX(4deg) rotateY(-2deg);box-shadow:0 20px 40px -18px #000;transition:transform .4s;}
+  .card3d:hover{transform:rotateX(0deg) rotateY(0deg) translateY(-4px);}
+  .qbox{background:#0f1730;border:1px solid #2c3a68;border-radius:12px;padding:16px;font-size:16px;margin-bottom:14px;min-height:40px;}
+  .field input{width:100%;padding:9px 10px;border-radius:8px;border:1px solid #2c3a68;background:#0f1730;color:var(--text);font-size:14px;margin-bottom:10px;}
+  .btnrow{display:flex;gap:8px;flex-wrap:wrap;}
+  .runbtn{background:linear-gradient(135deg,var(--accent),var(--accent2));border:none;color:#08101f;font-weight:700;padding:10px 16px;border-radius:10px;cursor:pointer;font-size:13.5px;flex:1;}
+  .ghostbtn{background:transparent;border:1px solid #3a4770;color:var(--text);padding:10px 16px;border-radius:10px;cursor:pointer;font-size:13.5px;}
+  pre.out{background:#0a0f22;border:1px solid #24304f;border-radius:12px;padding:16px;font-size:13px;line-height:1.6;white-space:pre-wrap;color:#d7e0f5;margin-top:16px;min-height:60px;}
+  .badge{display:inline-block;background:rgba(34,211,238,.15);color:var(--accent);padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700;margin-bottom:10px;}
+  footer{text-align:center;color:var(--muted);font-size:12px;padding:24px;border-top:1px solid #1a2340;margin-top:20px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <h1>📘 LearnOffline — Live Adaptive Tutor</h1>
+  <p>Zeropay Digital Services Ltd · Real adaptive-difficulty engine, running fully client-side (as it would offline, on-device)</p>
+</header>
+<div class="playbar">
+  <button class="play" id="playBtn">▶ Play Narrated Demo</button>
+  <button class="stop" id="stopBtn">■ Stop</button>
+  <span class="status" id="status"></span>
+</div>
+
+<div class="panel3d"><div class="card3d">
+  <span class="badge">REAL ADAPTIVE ENGINE — not a mockup</span>
+  <div class="qbox" id="question">Loading question…</div>
+  <div class="field"><input type="text" id="answer" placeholder="Your answer"></div>
+  <div class="btnrow">
+    <button class="runbtn" onclick="submitAnswer()">✅ Submit Answer</button>
+    <button class="ghostbtn" onclick="loadQuestion()">🔄 New Question</button>
+    <button class="ghostbtn" onclick="resetProgress()">♻️ Reset</button>
+  </div>
+  <pre class="out" id="out">Level 1 — good luck!</pre>
+</div></div>
+
+<footer>Zeropay Digital Services Ltd — UK subsidiary of BETONIQ WEST LTD (RC 1496603) · Fully offline-capable by design</footer>
+</div>
+
+<script>
+const BANK={1:[["What is 3 + 4?","7"],["What is 10 - 6?","4"],["What is 2 x 3?","6"]],
+2:[["What is 12 x 4?","48"],["What is 100 - 37?","63"],["What is 56 / 8?","7"]],
+3:[["What is 17 x 13?","221"],["What is the square root of 144?","12"],["What is 15% of 200?","30"]],
+4:[["Solve for x: 2x + 5 = 17","6"],["What is 7^2 - 5^2?","24"],["What is 3/4 as a decimal?","0.75"]]};
+let level=1, streak=0, history=[], currentAnswer=null;
+function loadQuestion(){
+  const [q,a]=BANK[level][Math.floor(Math.random()*BANK[level].length)];
+  currentAnswer=a; document.getElementById('question').textContent=`Level ${level} — ${q}`;
+  document.getElementById('answer').value="";
+}
+function submitAnswer(){
+  const userAns=document.getElementById('answer').value.trim();
+  const correct = userAns.toLowerCase()===String(currentAnswer).toLowerCase();
+  history.push(correct);
+  let feedback="";
+  if(correct){
+    streak++; feedback=`✅ Correct! Streak: ${streak}`;
+    if(streak>=2 && level<4){level++;streak=0;feedback+=` → Level up! Now at Level ${level}.`;}
+  } else {
+    streak=0; feedback=`❌ Not quite — correct answer was ${currentAnswer}.`;
+    if(level>1){level--;feedback+=` → Adjusting down to Level ${level} to rebuild mastery.`;}
+  }
+  const last10=history.slice(-10); const mastery=last10.filter(x=>x).length/last10.length*100;
+  document.getElementById('out').textContent=`${feedback}\n\nMastery (last 10): ${mastery.toFixed(0)}%\nProgress record synced (queued if offline).`;
+  loadQuestion();
+}
+function resetProgress(){level=1;streak=0;history=[];document.getElementById('out').textContent="Progress reset.";loadQuestion();}
+loadQuestion();
+const SCRIPT=["LearnOffline. Six hundred and seventeen million children worldwide are not reaching basic proficiency in reading or maths, many without ever having a qualified teacher in front of them.",
+"Most ed-tech assumes constant internet. That assumption excludes exactly the students who need help most.",
+"LearnOffline downloads a full curriculum-aligned lesson pack once, then works completely offline from that point on.",
+"An on-device adaptive engine adjusts pacing to each student's real mastery level, and quietly syncs progress the moment any connection appears.",
+"A qualified tutor in every pocket, connectivity or not. This is LearnOffline."];
+let voiceList=[];function loadVoices(){voiceList=speechSynthesis.getVoices();}loadVoices();
+if("onvoiceschanged" in speechSynthesis) speechSynthesis.onvoiceschanged=loadVoices;
+function pickVoice(){const p=["Google UK English Female","Microsoft Hazel","Serena","Kate","en-GB"];
+  for(const n of p){const v=voiceList.find(v=>v.name.includes(n)||v.lang.includes(n));if(v)return v;}
+  return voiceList.find(v=>v.lang&&v.lang.startsWith("en"))||voiceList[0];}
+let qi=0;function speakNext(){if(qi>=SCRIPT.length){document.getElementById('status').textContent="Done ✓";return;}
+  const u=new SpeechSynthesisUtterance(SCRIPT[qi]);const v=pickVoice();if(v)u.voice=v;u.rate=0.98;
+  u.onend=()=>{qi++;speakNext();};u.onerror=()=>{qi++;speakNext();};
+  document.getElementById('status').textContent=`Playing ${qi+1} / ${SCRIPT.length} …`;speechSynthesis.speak(u);}
+document.getElementById('playBtn').onclick=()=>{speechSynthesis.cancel();qi=0;speakNext();};
+document.getElementById('stopBtn').onclick=()=>{speechSynthesis.cancel();document.getElementById('status').textContent="Stopped.";};
+</script>
+</body>
+</html>

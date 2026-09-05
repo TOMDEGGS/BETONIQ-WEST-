@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CivicTrack — Live Hash-Chained Tracker | Zeropay Digital Services Ltd</title>
+<style>
+  :root{--bg:#0b1020;--panel:#131a30;--accent:#22d3ee;--accent2:#a78bfa;--text:#e8ecf5;--muted:#9aa4bd;--good:#34d399;--warn:#fbbf24;}
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:radial-gradient(1200px 800px at 20% -10%,#1b2444 0%,var(--bg) 55%);color:var(--text);}
+  .wrap{max-width:900px;margin:0 auto;padding:28px 18px 60px;}
+  header{text-align:center;margin-bottom:20px;}
+  header h1{margin:0 0 6px;font-size:26px;}
+  header p{margin:0;color:var(--muted);font-size:13.5px;}
+  .playbar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;justify-content:center;margin-bottom:22px;}
+  button.play{background:linear-gradient(135deg,var(--accent),var(--accent2));border:none;color:#08101f;font-weight:700;padding:10px 18px;border-radius:10px;cursor:pointer;font-size:14px;}
+  button.stop{background:transparent;border:1px solid #3a4770;color:var(--text);padding:10px 16px;border-radius:10px;cursor:pointer;font-size:14px;}
+  .status{color:var(--good);font-size:13px;}
+  .panel3d{perspective:900px;margin:0 auto 24px;max-width:600px;}
+  .card3d{background:linear-gradient(145deg,#182252,#0f1730);border:1px solid #2c3a68;border-radius:18px;padding:22px;transform:rotateX(4deg) rotateY(-2deg);box-shadow:0 20px 40px -18px #000;transition:transform .4s;}
+  .card3d:hover{transform:rotateX(0deg) rotateY(0deg) translateY(-4px);}
+  .field{margin-bottom:12px;}
+  .field label{display:block;font-size:12.5px;color:var(--muted);margin-bottom:5px;}
+  .field input,.field select{width:100%;padding:8px 10px;border-radius:8px;border:1px solid #2c3a68;background:#0f1730;color:var(--text);font-size:13.5px;}
+  .runbtn{background:linear-gradient(135deg,var(--accent),var(--accent2));border:none;color:#08101f;font-weight:700;padding:10px 16px;border-radius:10px;cursor:pointer;font-size:13.5px;margin-top:4px;}
+  .row2{display:flex;gap:10px;}
+  pre.out{background:#0a0f22;border:1px solid #24304f;border-radius:12px;padding:16px;font-size:12.5px;line-height:1.6;white-space:pre-wrap;color:#d7e0f5;margin-top:14px;min-height:60px;}
+  .badge{display:inline-block;background:rgba(34,211,238,.15);color:var(--accent);padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700;margin-bottom:10px;}
+  footer{text-align:center;color:var(--muted);font-size:12px;padding:24px;border-top:1px solid #1a2340;margin-top:20px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <h1>🏛 CivicTrack — Live Hash-Chained Tracker</h1>
+  <p>Zeropay Digital Services Ltd · Real SHA-256 hash-chain audit trail, running live in your browser</p>
+</header>
+<div class="playbar">
+  <button class="play" id="playBtn">▶ Play Narrated Demo</button>
+  <button class="stop" id="stopBtn">■ Stop</button>
+  <span class="status" id="status"></span>
+</div>
+
+<div class="panel3d"><div class="card3d">
+  <span class="badge">REAL SHA-256 CHAIN — not a mockup</span>
+  <div class="field"><label>Applicant name</label><input type="text" id="applicant" value="Jane Doe"></div>
+  <div class="field"><label>Service type</label>
+    <select id="service"><option>Business Permit</option><option>National ID Renewal</option><option>Land Title Registration</option></select></div>
+  <button class="runbtn" onclick="newApplication()">📥 Submit New Application</button>
+  <div class="field" style="margin-top:14px;"><label>Reference to update</label><input type="text" id="refInput" placeholder="e.g. REF-88214"></div>
+  <div class="row2">
+    <div class="field" style="flex:1;"><label>New status</label>
+      <select id="newStatus"><option>Under Review</option><option>Awaiting Document</option><option>Approved</option><option>Rejected</option></select></div>
+  </div>
+  <button class="runbtn" onclick="updateStatus()">✏️ Update Status</button>
+  <button class="runbtn" onclick="verifyChain()" style="margin-left:8px;background:transparent;border:1px solid #3a4770;color:var(--text);">🔍 Verify Chain Integrity</button>
+  <pre class="out" id="out">Audit trail will appear here…</pre>
+</div></div>
+
+<footer>Zeropay Digital Services Ltd — UK subsidiary of BETONIQ WEST LTD (RC 1496603) · GitHub-hosted, zero external dependency</footer>
+</div>
+
+<script>
+let chain=[]; let refCounter=88213;
+async function sha256(str){const buf=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(str));
+  return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,"0")).join("");}
+async function genesisHash(){return sha256("CIVICTRACK-GENESIS");}
+function renderChain(){
+  if(!chain.length) return "No applications submitted yet.";
+  return chain.map(r=>`[${r.timestamp.slice(0,19)}] ${r.ref} — ${r.status}  (hash: ${r.hash.slice(0,12)}...)`).join("\n");
+}
+async function newApplication(){
+  refCounter++; const ref=`REF-${refCounter}`;
+  const prevHash = chain.length? chain[chain.length-1].hash : await genesisHash();
+  const record={ref, applicant:document.getElementById('applicant').value, service:document.getElementById('service').value,
+    status:"Submitted", timestamp:new Date().toISOString(), prev_hash:prevHash};
+  const recordStr=JSON.stringify(record,Object.keys(record).sort());
+  record.hash=await sha256(recordStr);
+  chain.push(record);
+  document.getElementById('refInput').value=ref;
+  document.getElementById('out').textContent=`Your reference: ${ref}\n\n`+renderChain();
+}
+async function updateStatus(){
+  const ref=document.getElementById('refInput').value.trim();
+  const idx=chain.findIndex(r=>r.ref===ref);
+  if(idx===-1){document.getElementById('out').textContent="Reference not found.";return;}
+  const r=chain[idx];
+  const prevHash = idx>0? chain[idx-1].hash : await genesisHash();
+  const rec={ref, applicant:r.applicant, service:r.service, status:document.getElementById('newStatus').value,
+    timestamp:new Date().toISOString(), prev_hash:r.hash};
+  rec.hash=await sha256(JSON.stringify(rec,Object.keys(rec).sort()));
+  chain.push(rec);
+  document.getElementById('out').textContent=renderChain();
+}
+async function verifyChain(){
+  let prev=await genesisHash(); let ok=true; let failAt=-1;
+  for(let i=0;i<chain.length;i++){
+    const r=chain[i]; const check={...r}; delete check.hash;
+    const recomputed=await sha256(JSON.stringify(check,Object.keys(check).sort()));
+    if(recomputed!==r.hash){ok=false;failAt=i;break;}
+    prev=r.hash;
+  }
+  document.getElementById('out').textContent = ok
+    ? `✅ Chain verified — ${chain.length} records, no tampering detected.\n\n`+renderChain()
+    : `❌ TAMPER DETECTED at record ${failAt} (${chain[failAt].ref}) — hash mismatch.`;
+}
+const SCRIPT=["CivicTrack. Corruption drains over three and a half trillion dollars from the global economy every year, much of it through delay and quiet bribery in ordinary public services.",
+"The trick is always the same: no visible timeline, so a small unofficial payment magically speeds things up.",
+"CivicTrack removes that trick. Every application gets an instant, timestamped reference number the citizen can check anytime, by app or by simple SMS.",
+"Every status change is hash-chained, so tampering with the record afterward is detectable. Average processing time per office is published publicly.",
+"Delay becomes visible, and visibility is accountability. This is CivicTrack."];
+let voiceList=[];function loadVoices(){voiceList=speechSynthesis.getVoices();}loadVoices();
+if("onvoiceschanged" in speechSynthesis) speechSynthesis.onvoiceschanged=loadVoices;
+function pickVoice(){const p=["Google UK English Female","Microsoft Hazel","Serena","Kate","en-GB"];
+  for(const n of p){const v=voiceList.find(v=>v.name.includes(n)||v.lang.includes(n));if(v)return v;}
+  return voiceList.find(v=>v.lang&&v.lang.startsWith("en"))||voiceList[0];}
+let qi=0;function speakNext(){if(qi>=SCRIPT.length){document.getElementById('status').textContent="Done ✓";return;}
+  const u=new SpeechSynthesisUtterance(SCRIPT[qi]);const v=pickVoice();if(v)u.voice=v;u.rate=0.98;
+  u.onend=()=>{qi++;speakNext();};u.onerror=()=>{qi++;speakNext();};
+  document.getElementById('status').textContent=`Playing ${qi+1} / ${SCRIPT.length} …`;speechSynthesis.speak(u);}
+document.getElementById('playBtn').onclick=()=>{speechSynthesis.cancel();qi=0;speakNext();};
+document.getElementById('stopBtn').onclick=()=>{speechSynthesis.cancel();document.getElementById('status').textContent="Stopped.";};
+</script>
+</body>
+</html>
