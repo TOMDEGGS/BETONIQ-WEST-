@@ -52,6 +52,7 @@
   <div class="tab" data-app="civic">🏛 CivicTrack</div>
   <div class="tab" data-app="triage">🩺 TriageAI</div>
   <div class="tab" data-app="learn">📘 LearnOffline</div>
+  <div class="tab" data-app="safeguard">🛡 SafeGuard</div>
 </div>
 
 <!-- AGRILINK -->
@@ -154,6 +155,33 @@
   </div>
 </section>
 
+
+<!-- SAFEGUARD -->
+<section class="app" id="safeguard">
+  <div class="hero">
+    <h2>SafeGuard</h2>
+    <div class="stat">Romance and investment scams cost victims over 10 billion dollars a year globally, and an estimated 27.6 million people are trapped in forced labor and trafficking worldwide.</div>
+    <p>SafeGuard has two modules under one roof: ScamShield detects and reports fraud/romance scam patterns, and SafeLink gives trafficking victims an anonymous, safe path to report and reach help. Built for victim protection and prevention — not vigilante enforcement.</p>
+    <div class="playbar">
+      <button class="play" data-script="safeguard">▶ Play Narrated Demo</button>
+      <button class="stop">■ Stop</button>
+      <span class="status"></span>
+    </div>
+  </div>
+  <div class="grid">
+    <div class="card"><h3>ScamShield: Pattern Detection</h3><p>AI scans chat/email text for known scam tactics (urgency, fake investment returns, request-for-gift-cards patterns) and warns the user in real time.</p></div>
+    <div class="card"><h3>ScamShield: Reverse Lookup</h3><p>Cross-references submitted photos/profiles against a crowdsourced reported-scammer database before a victim sends money.</p></div>
+    <div class="card"><h3>SafeLink: Anonymous Reporting</h3><p>A safe, anonymous channel for trafficking tips and victim self-reporting, routed directly to NAPTIP, IOM, and the National Human Trafficking Hotline.</p></div>
+    <div class="card"><h3>SafeLink: Resource Locator</h3><p>Finds the nearest verified shelter, legal aid, or support NGO based on location, even under time pressure.</p></div>
+  </div>
+  <div class="mock">
+    <h4>ScamShield Alert Preview</h4>
+    <div class="row"><span>Incoming message pattern match</span><span class="badge warn">92% scam-tactic similarity — gift card request</span></div>
+    <div class="row"><span>Profile photo cross-check</span><span class="badge warn">Reported 14x under different names</span></div>
+    <div class="row"><span>SafeLink tip submitted</span><span class="badge">Routed to NAPTIP · Case opened anonymously</span></div>
+  </div>
+</section>
+
 <footer>Zeropay Digital Services Ltd (UK) · New Ventures Portfolio · Prepared for grant and investor review 2026</footer>
 
 <script>
@@ -186,6 +214,13 @@ const scripts = {
     "It adjusts difficulty automatically based on how each student performs, like a personal tutor that never gets tired.",
     "The moment the device reconnects to the internet, progress syncs automatically for teachers and parents to see.",
     "Quality learning, without waiting for infrastructure. This is LearnOffline."
+  ],
+  safeguard: [
+    "SafeGuard. Romance and investment scams cost victims over ten billion dollars every year, and an estimated twenty seven point six million people are trapped in forced labor and trafficking worldwide.",
+    "SafeGuard has two modules working together. ScamShield protects people before they lose money. SafeLink protects people who are already in danger.",
+    "ScamShield scans messages in real time for known scam tactics, and cross-checks photos and profiles against a crowdsourced database of reported scammers.",
+    "SafeLink gives a trafficking victim a safe, anonymous way to reach help, routed directly to NAPTIP, the IOM, and the National Human Trafficking Hotline, plus a locator for the nearest verified shelter or legal aid.",
+    "This is built for prevention and protection, never vigilante enforcement. This is SafeGuard."
   ]
 };
 
