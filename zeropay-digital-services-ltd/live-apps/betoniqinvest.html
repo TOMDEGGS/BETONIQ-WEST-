@@ -183,18 +183,42 @@ function showScene(i){
   document.querySelectorAll('.dot').forEach((d,idx)=>d.classList.toggle('active',idx===i));
 }
 buildStage();
-let voiceList=[];function loadVoices(){voiceList=speechSynthesis.getVoices();}loadVoices();
+let voiceList=[];let voicesReady=false;
+function loadVoices(){voiceList=speechSynthesis.getVoices();if(voiceList&&voiceList.length)voicesReady=true;}
+loadVoices();
 if("onvoiceschanged" in speechSynthesis) speechSynthesis.onvoiceschanged=loadVoices;
-function pickVoice(){const p=["Google UK English Female","Microsoft Hazel","Serena","Kate","en-GB"];
-  for(const n of p){const v=voiceList.find(v=>v.name.includes(n)||v.lang.includes(n));if(v)return v;}
-  return voiceList.find(v=>v.lang&&v.lang.startsWith("en"))||voiceList[0];}
-let qi=0;function speakNext(){if(qi>=SCRIPT.length){document.getElementById('status').textContent="Done ✓";return;}
+// iOS Safari loads voices asynchronously and unreliably - poll as a fallback
+let __voicePoll=setInterval(()=>{loadVoices();if(voicesReady)clearInterval(__voicePoll);},250);
+setTimeout(()=>clearInterval(__voicePoll),5000);
+function pickVoice(){
+  loadVoices();
+  // British female priority: Apple iOS/macOS voices first (Serena/Martha/Kate = en-GB female), then desktop Chrome/Edge voices
+  const p=["Serena","Martha","Kate","Google UK English Female","Microsoft Hazel","Microsoft Sonia","Sonia","Emma","Libby"];
+  for(const n of p){const v=voiceList.find(v=>v.name.includes(n));if(v)return v;}
+  const gb=voiceList.filter(v=>v.lang&&(v.lang==="en-GB"||v.lang.includes("en_GB")));
+  const gbFemale=gb.find(v=>!/male/i.test(v.name)&&!/daniel|arthur|oliver|george|ryan/i.test(v.name));
+  if(gbFemale)return gbFemale;
+  if(gb.length)return gb[0];
+  return voiceList.find(v=>v.lang&&v.lang.startsWith("en"))||voiceList[0];
+}
+let qi=0;let __keepAlive=null;
+function __startKeepAlive(){
+  // Fixes the classic iOS/Safari Web Speech bug where long narration stalls/goes sluggish after ~15s
+  clearInterval(__keepAlive);
+  __keepAlive=setInterval(()=>{ if(speechSynthesis.speaking){ speechSynthesis.pause(); speechSynthesis.resume(); } },4000);
+}
+function __stopKeepAlive(){ clearInterval(__keepAlive); __keepAlive=null; }
+function speakNext(){if(qi>=SCRIPT.length){document.getElementById('status').textContent="Done ✓";__stopKeepAlive();return;}
   showScene(qi);
-  const u=new SpeechSynthesisUtterance(SCRIPT[qi]);const v=pickVoice();if(v)u.voice=v;u.rate=0.98;
+  const u=new SpeechSynthesisUtterance(SCRIPT[qi]);const v=pickVoice();if(v){u.voice=v;u.lang=v.lang;}else{u.lang="en-GB";}
+  u.rate=0.98;u.pitch=1.0;
   u.onend=()=>{qi++;speakNext();};u.onerror=()=>{qi++;speakNext();};
-  document.getElementById('status').textContent=`Playing ${qi+1} / ${SCRIPT.length} …`;speechSynthesis.speak(u);}
-document.getElementById('playBtn').onclick=()=>{speechSynthesis.cancel();qi=0;speakNext();};
-document.getElementById('stopBtn').onclick=()=>{speechSynthesis.cancel();document.getElementById('status').textContent="Stopped.";};
+  document.getElementById('status').textContent=`Playing ${qi+1} / ${SCRIPT.length} …`;
+  speechSynthesis.speak(u);
+  __startKeepAlive();
+}
+document.getElementById('playBtn').onclick=()=>{speechSynthesis.cancel();__stopKeepAlive();qi=0;speakNext();};
+document.getElementById('stopBtn').onclick=()=>{speechSynthesis.cancel();__stopKeepAlive();document.getElementById('status').textContent="Stopped.";};
 
 const APP_SLUG = 'betoniqinvest';
 
