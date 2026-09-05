@@ -40,6 +40,24 @@
 .dots{display:flex;gap:8px;justify-content:center;margin-bottom:20px;}
 .dot{width:9px;height:9px;border-radius:50%;background:#2c3a68;cursor:pointer;transition:.2s;}
 .dot.active{background:var(--accent);width:22px;border-radius:5px;}
+
+nav.mainnav{display:flex;gap:6px;justify-content:center;margin-bottom:22px;flex-wrap:wrap;}
+.navbtn{background:var(--panel);border:1px solid #24304f;color:var(--muted);padding:9px 14px;border-radius:10px;cursor:pointer;font-size:12.5px;font-weight:700;}
+.navbtn.active{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#08101f;border-color:transparent;}
+.screen{display:none;}
+.screen.active{display:block;}
+.dashstats{display:flex;gap:14px;justify-content:center;margin-bottom:18px;flex-wrap:wrap;}
+.dashstat{background:var(--panel);border:1px solid #24304f;border-radius:12px;padding:12px 20px;text-align:center;min-width:120px;}
+.dashstat .num{font-size:22px;font-weight:800;color:var(--accent);}
+.dashstat .lbl{font-size:11px;color:var(--muted);margin-top:2px;}
+.histitem{background:var(--panel);border:1px solid #24304f;border-radius:10px;padding:12px 14px;margin-bottom:10px;max-width:620px;margin-left:auto;margin-right:auto;}
+.histitem .ts{font-size:11px;color:var(--muted);margin-bottom:6px;}
+.histitem pre{margin:0;font-size:12px;white-space:pre-wrap;color:#d7e0f5;}
+.emptyhist{text-align:center;color:var(--muted);font-size:13px;padding:30px 0;}
+.aboutcard{max-width:620px;margin:0 auto;background:var(--panel);border:1px solid #24304f;border-radius:14px;padding:22px;}
+.aboutcard h3{margin:0 0 10px;color:var(--accent);font-size:15px;}
+.aboutcard p{font-size:13.5px;line-height:1.7;color:#d7e0f5;margin:0 0 16px;}
+.clearbtn{background:transparent;border:1px solid #4a2c3a;color:#f0879a;padding:9px 16px;border-radius:10px;cursor:pointer;font-size:13px;display:block;margin:16px auto 0;}
 </style>
 </head>
 <body>
@@ -48,6 +66,13 @@
   <h1>🩺 TriageAI — Live Triage & Screening</h1>
   <p>Zeropay Digital Services Ltd · Real rule-based triage + clinical reference-range screening, running live in your browser</p>
 </header>
+<nav class="mainnav">
+  <button class="navbtn active" data-screen="home">🏠 Demo</button>
+  <button class="navbtn" data-screen="tool">🛠 Try It Live</button>
+  <button class="navbtn" data-screen="dash">📊 My Dashboard</button>
+  <button class="navbtn" data-screen="about">ℹ️ About</button>
+</nav>
+<section class="screen active" id="screen-home">
 <div class="playbar">
   <button class="play" id="playBtn">▶ Play Narrated Demo</button>
   <button class="stop" id="stopBtn">■ Stop</button>
@@ -55,6 +80,9 @@
 </div>
 <div class="stage" id="stage"></div>
 <div class="dots" id="dots"></div>
+</section>
+<section class="screen" id="screen-tool">
+
 <div class="tabs">
   <div class="tabbtn active" data-tab="t1">SMS/USSD Symptom Triage</div>
   <div class="tabbtn" data-tab="t2">Blood Panel Screening (Premium)</div>
@@ -81,6 +109,22 @@
   <pre class="out" id="out2">Result will appear here…</pre>
 </div></div>
 
+</section>
+<section class="screen" id="screen-dash">
+  <div class="dashstats" id="dashstats"></div>
+  <div id="historyList"></div>
+  <button class="clearbtn" onclick="clearHistory()">🗑 Clear History</button>
+</section>
+<section class="screen" id="screen-about">
+  <div class="aboutcard">
+    <h3>🩺 TriageAI — SMS/USSD symptom triage, clinic routing, and blood-panel risk screening.</h3>
+    <p><b>The problem:</b> Millions of people die annually from cancers that are highly treatable when caught early, yet roughly half the world's population lacks access to basic diagnostic services (WHO).</p>
+    <p>In low-connectivity and low-income regions, patients often have no accessible way to determine whether a symptom warrants urgent care, and existing blood test results are frequently filed without being reviewed for early risk markers due to clinician time pressure. TriageAI addresses both the front-door triage gap and the underused-data gap.</p>
+    <p><b>Market:</b> Digital health market in Sub-Saharan Africa projected to reach $3.5B by 2030. Target beachhead: rural primary health centres lacking specialist access.</p>
+    <p><b>Grant fit:</b> Strong fit for global health innovation funding: Gates Foundation Global Health Discovery, WHO digital health initiatives, EU Horizon Europe Health cluster, and national ministry of health digital triage programs.</p>
+    <p><b>The ask:</b> $180,000 grant to deploy SMS/USSD triage across 100 rural clinics + blood-panel screening pilot, 12 months.</p>
+  </div>
+</section>
 <footer>Zeropay Digital Services Ltd — UK subsidiary of BETONIQ WEST LTD (RC 1496603) · Screening aid only, never a diagnosis</footer>
 </div>
 
@@ -151,6 +195,52 @@ let qi=0;function speakNext(){if(qi>=SCRIPT.length){document.getElementById('sta
   document.getElementById('status').textContent=`Playing ${qi+1} / ${SCRIPT.length} …`;speechSynthesis.speak(u);}
 document.getElementById('playBtn').onclick=()=>{speechSynthesis.cancel();qi=0;speakNext();};
 document.getElementById('stopBtn').onclick=()=>{speechSynthesis.cancel();document.getElementById('status').textContent="Stopped.";};
+
+const APP_SLUG = 'triageai';
+
+// ---- Multi-screen navigation ----
+document.querySelectorAll('.navbtn').forEach(b=>b.onclick=()=>{
+  document.querySelectorAll('.navbtn').forEach(x=>x.classList.remove('active'));
+  document.querySelectorAll('.screen').forEach(x=>x.classList.remove('active'));
+  b.classList.add('active');
+  document.getElementById('screen-'+b.dataset.screen).classList.add('active');
+  if(b.dataset.screen==='dash') renderHistory();
+});
+
+// ---- Local persistence (no backend, no cost, GitHub-hosted only) ----
+const HKEY = 'betoniq_history_' + APP_SLUG;
+function loadHistory(){ try{ return JSON.parse(localStorage.getItem(HKEY)||'[]'); }catch(e){ return []; } }
+function saveHistoryEntry(label, output){
+  const hist = loadHistory();
+  hist.unshift({ ts: new Date().toLocaleString(), label, output });
+  localStorage.setItem(HKEY, JSON.stringify(hist.slice(0,50)));
+}
+function clearHistory(){ localStorage.removeItem(HKEY); renderHistory(); }
+function renderHistory(){
+  const hist = loadHistory();
+  document.getElementById('dashstats').innerHTML =
+    `<div class="dashstat"><div class="num">${hist.length}</div><div class="lbl">Saved runs</div></div>` +
+    `<div class="dashstat"><div class="num">${hist.length?hist[0].ts.split(',')[0]:'—'}</div><div class="lbl">Last run</div></div>`;
+  const list = document.getElementById('historyList');
+  if(!hist.length){ list.innerHTML = '<div class="emptyhist">No saved runs yet — use "Try It Live" and your results will be saved here automatically.</div>'; return; }
+  list.innerHTML = hist.map(h => `<div class="histitem"><div class="ts">${h.ts} — ${h.label}</div><pre>${h.output}</pre></div>`).join('');
+}
+// Generic: capture output of any .runbtn click into local history
+document.querySelectorAll('.runbtn').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    setTimeout(()=>{
+      const card = btn.closest('.card3d') || document;
+      const out = card.querySelector('pre.out');
+      const activeTab = document.querySelector('.tabbtn.active');
+      const label = activeTab ? activeTab.textContent.trim() : document.querySelector('header h1').textContent.trim();
+      if(out && out.textContent && !out.textContent.includes('will appear here')){
+        saveHistoryEntry(label, out.textContent);
+      }
+    }, 120);
+  });
+});
+renderHistory();
+
 </script>
 </body>
 </html>
