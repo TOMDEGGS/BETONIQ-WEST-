@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zeropay Digital Services Ltd — New Ventures: AgriLink · CivicTrack · TriageAI · LearnOffline</title>
+<style>
+  :root{
+    --bg:#0b1020; --panel:#131a30; --accent:#22d3ee; --accent2:#a78bfa;
+    --text:#e8ecf5; --muted:#9aa4bd; --good:#34d399; --warn:#fbbf24;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:radial-gradient(1200px 800px at 20% -10%, #1b2444 0%, var(--bg) 55%);color:var(--text);}
+  header{padding:28px 20px 14px;text-align:center;}
+  header h1{margin:0 0 6px;font-size:26px;letter-spacing:.3px;}
+  header p{margin:0;color:var(--muted);font-size:14px;}
+  .tabs{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;padding:18px;max-width:1000px;margin:0 auto;}
+  .tab{background:var(--panel);border:1px solid #24304f;color:var(--text);padding:12px 16px;border-radius:12px;cursor:pointer;font-size:14px;font-weight:600;transition:.2s;flex:1;min-width:150px;text-align:center;}
+  .tab.active{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#08101f;border-color:transparent;}
+  .app{display:none;max-width:960px;margin:0 auto;padding:0 18px 60px;}
+  .app.active{display:block;}
+  .hero{background:var(--panel);border:1px solid #24304f;border-radius:18px;padding:26px;margin-bottom:18px;}
+  .hero h2{margin:0 0 8px;font-size:22px;}
+  .hero .stat{color:var(--warn);font-weight:700;font-size:15px;margin-bottom:10px;}
+  .hero p{color:var(--muted);line-height:1.55;margin:0 0 16px;font-size:14.5px;}
+  .playbar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;}
+  button.play{background:linear-gradient(135deg,var(--accent),var(--accent2));border:none;color:#08101f;font-weight:700;padding:10px 18px;border-radius:10px;cursor:pointer;font-size:14px;}
+  button.stop{background:transparent;border:1px solid #3a4770;color:var(--text);padding:10px 16px;border-radius:10px;cursor:pointer;font-size:14px;}
+  .status{color:var(--good);font-size:13px;min-height:18px;}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-top:6px;}
+  .card{background:#0f1730;border:1px solid #24304f;border-radius:14px;padding:16px;}
+  .card h3{margin:0 0 6px;font-size:15px;color:var(--accent);}
+  .card p{margin:0;color:var(--muted);font-size:13px;line-height:1.5;}
+  .mock{background:#0f1730;border:1px solid #24304f;border-radius:14px;padding:18px;margin-top:14px;}
+  .mock h4{margin:0 0 10px;font-size:14px;color:var(--accent2);}
+  .row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px dashed #24304f;font-size:13px;}
+  .row:last-child{border-bottom:none;}
+  .badge{background:rgba(52,211,153,.15);color:var(--good);padding:2px 10px;border-radius:20px;font-size:11px;font-weight:700;}
+  .badge.warn{background:rgba(251,191,36,.15);color:var(--warn);}
+  footer{text-align:center;color:var(--muted);font-size:12px;padding:20px;border-top:1px solid #1a2340;}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Zeropay Digital Services Ltd — New Ventures Portfolio</h1>
+  <p>Four smart-solution apps targeting urgent global problems · Narrated live demos for grant &amp; investor pitches</p>
+</header>
+
+<div class="tabs">
+  <div class="tab active" data-app="agri">🌾 AgriLink</div>
+  <div class="tab" data-app="civic">🏛 CivicTrack</div>
+  <div class="tab" data-app="triage">🩺 TriageAI</div>
+  <div class="tab" data-app="learn">📘 LearnOffline</div>
+</div>
+
+<!-- AGRILINK -->
+<section class="app active" id="agri">
+  <div class="hero">
+    <h2>AgriLink</h2>
+    <div class="stat">1.3 billion tonnes of food — a third of everything the world produces — is lost or wasted every year, while 733 million people go hungry.</div>
+    <p>AgriLink connects smallholder farmers directly to buyers and available cold-chain trucks in real time, closing the gap between harvest and market before crops spoil.</p>
+    <div class="playbar">
+      <button class="play" data-script="agri">▶ Play Narrated Demo</button>
+      <button class="stop">■ Stop</button>
+      <span class="status"></span>
+    </div>
+  </div>
+  <div class="grid">
+    <div class="card"><h3>Farmer Listing</h3><p>Post crop type, quantity, harvest date and asking price in under a minute, even on a basic Android phone.</p></div>
+    <div class="card"><h3>Buyer Matching</h3><p>Buyers and cold-chain truckers see live listings nearby, ranked by distance and freshness window.</p></div>
+    <div class="card"><h3>In-App Deal Lock</h3><p>Price and pickup confirmed digitally — no more brokers taking a cut on both ends.</p></div>
+  </div>
+  <div class="mock">
+    <h4>Live Listing Preview</h4>
+    <div class="row"><span>Maize · 4 tonnes · Kaduna</span><span class="badge">Buyer matched</span></div>
+    <div class="row"><span>Tomatoes · 800kg · Jos</span><span class="badge warn">Truck en route — 40 min</span></div>
+    <div class="row"><span>Cassava · 2.1 tonnes · Benue</span><span class="badge">Deal confirmed</span></div>
+  </div>
+</section>
+
+<!-- CIVICTRACK -->
+<section class="app" id="civic">
+  <div class="hero">
+    <h2>CivicTrack</h2>
+    <div class="stat">Corruption drains over $3.6 trillion from the global economy every year — much of it extracted through delay and bribery in basic public services.</div>
+    <p>CivicTrack gives every citizen a trackable reference number for permit, ID and license applications, with real-time status updates — closing the invisible gap where informal "facilitation fees" happen.</p>
+    <div class="playbar">
+      <button class="play" data-script="civic">▶ Play Narrated Demo</button>
+      <button class="stop">■ Stop</button>
+      <span class="status"></span>
+    </div>
+  </div>
+  <div class="grid">
+    <div class="card"><h3>Citizen Submission</h3><p>Apply for a service, get a tracked reference number instantly — no office visit required to check status.</p></div>
+    <div class="card"><h3>Agency Dashboard</h3><p>Staff update status and add notes from one screen, creating a visible, timestamped audit trail.</p></div>
+    <div class="card"><h3>Public Accountability</h3><p>Average processing time per service type is published, making delay visible and measurable.</p></div>
+  </div>
+  <div class="mock">
+    <h4>Application Tracker Preview</h4>
+    <div class="row"><span>REF-88213 · Business Permit</span><span class="badge">Approved</span></div>
+    <div class="row"><span>REF-88214 · National ID Renewal</span><span class="badge warn">Under review — Day 3 of 5</span></div>
+    <div class="row"><span>REF-88215 · Land Title Registration</span><span class="badge warn">Awaiting document upload</span></div>
+  </div>
+</section>
+
+<!-- TRIAGEAI -->
+<section class="app" id="triage">
+  <div class="hero">
+    <h2>TriageAI</h2>
+    <div class="stat">Every year, millions die from cancers that are highly treatable when caught early — but half the world's population lacks basic diagnostic access.</div>
+    <p>TriageAI offers free SMS/USSD symptom triage and clinic routing for anyone without smartphone access, plus a premium feature that reads existing blood test results and flags concerning markers for specialist follow-up.</p>
+    <div class="playbar">
+      <button class="play" data-script="triage">▶ Play Narrated Demo</button>
+      <button class="stop">■ Stop</button>
+      <span class="status"></span>
+    </div>
+  </div>
+  <div class="grid">
+    <div class="card"><h3>Symptom Intake</h3><p>Works over basic SMS or USSD — no data connection or smartphone needed.</p></div>
+    <div class="card"><h3>Clinic Router</h3><p>Matches the patient to the nearest appropriate clinic with contact details and directions.</p></div>
+    <div class="card"><h3>Blood Panel Risk-Flag (Premium)</h3><p>Enter existing CBC, PSA, CEA, CA-125 or AFP values — get a clear risk-flag summary, always paired with a "see a specialist" disclaimer, never a diagnosis.</p></div>
+  </div>
+  <div class="mock">
+    <h4>Risk-Flag Preview</h4>
+    <div class="row"><span>PSA: 1.2 ng/mL</span><span class="badge">Normal range</span></div>
+    <div class="row"><span>CA-125: 42 U/mL</span><span class="badge warn">Elevated — recommend specialist review</span></div>
+    <div class="row"><span>CBC — full panel</span><span class="badge">Normal range</span></div>
+  </div>
+</section>
+
+<!-- LEARNOFFLINE -->
+<section class="app" id="learn">
+  <div class="hero">
+    <h2>LearnOffline</h2>
+    <div class="stat">617 million children and adolescents worldwide are not achieving minimum proficiency in reading or math — many without ever having a qualified teacher.</div>
+    <p>LearnOffline is an AI tutor that runs fully offline on cheap Android devices, adapts to the local curriculum, and syncs progress automatically the moment connectivity returns.</p>
+    <div class="playbar">
+      <button class="play" data-script="learn">▶ Play Narrated Demo</button>
+      <button class="stop">■ Stop</button>
+      <span class="status"></span>
+    </div>
+  </div>
+  <div class="grid">
+    <div class="card"><h3>Offline-First Lessons</h3><p>Full lesson packs download once, then run with zero internet dependency.</p></div>
+    <div class="card"><h3>Adaptive Difficulty</h3><p>AI adjusts pacing per student based on quiz performance, like a personal tutor.</p></div>
+    <div class="card"><h3>Auto-Sync Progress</h3><p>The moment a device reconnects, progress uploads automatically for teachers and parents to review.</p></div>
+  </div>
+  <div class="mock">
+    <h4>Student Progress Preview</h4>
+    <div class="row"><span>Amina O. · Grade 4 Math</span><span class="badge">92% mastery</span></div>
+    <div class="row"><span>Chidi E. · Grade 6 English</span><span class="badge warn">Needs review — fractions module</span></div>
+    <div class="row"><span>Class Sync Status</span><span class="badge">Last synced 4 min ago</span></div>
+  </div>
+</section>
+
+<footer>Zeropay Digital Services Ltd (UK) · New Ventures Portfolio · Prepared for grant and investor review 2026</footer>
+
+<script>
+const scripts = {
+  agri: [
+    "AgriLink. One third of all food produced on Earth is lost or wasted every year, while seven hundred and thirty three million people go hungry.",
+    "The problem is not scarcity. It is a broken connection between the farmer's field and the buyer's table.",
+    "AgriLink lets a smallholder farmer post their harvest in under a minute, even on a basic Android phone.",
+    "Buyers and cold chain truckers nearby see the listing instantly, ranked by distance and freshness window, and can lock in a deal before the crop spoils.",
+    "No broker taking a cut on both ends. Just a direct, fast, fair connection. This is AgriLink."
+  ],
+  civic: [
+    "CivicTrack. Corruption drains over three point six trillion dollars from the global economy every single year.",
+    "Most of that is not stolen in dramatic heists. It is extracted quietly, through delay, through an official who slows down your permit until you pay to speed it up.",
+    "CivicTrack closes that gap. Every citizen gets a tracked reference number the moment they apply for a permit, an ID, or a license.",
+    "Status updates happen in real time, visible to the applicant, creating a timestamped audit trail agency staff cannot quietly bypass.",
+    "Transparency, by design. This is CivicTrack."
+  ],
+  triage: [
+    "TriageAI. Every year, millions of people die from cancers that are highly treatable, if only they are caught early.",
+    "But half the world's population has no real access to basic diagnostic care.",
+    "TriageAI offers free symptom triage over simple SMS or USSD, routing patients to the nearest appropriate clinic, no smartphone required.",
+    "Its premium feature reads a patient's existing blood test values and flags concerning markers for a specialist to review, always clearly labeled as a screening aid, never a diagnosis.",
+    "Early detection, made accessible. This is TriageAI."
+  ],
+  learn: [
+    "LearnOffline. Six hundred and seventeen million children and adolescents worldwide are not achieving minimum proficiency in reading or math.",
+    "Many of them have never had access to a qualified teacher.",
+    "LearnOffline is an AI tutor that runs fully offline, on cheap Android devices, adapted to the local curriculum.",
+    "It adjusts difficulty automatically based on how each student performs, like a personal tutor that never gets tired.",
+    "The moment the device reconnects to the internet, progress syncs automatically for teachers and parents to see.",
+    "Quality learning, without waiting for infrastructure. This is LearnOffline."
+  ]
+};
+
+let voiceList = [];
+function pickVoice(){
+  const priority = ["Google UK English Female","Microsoft Hazel","Serena","Kate","en-GB"];
+  for(const name of priority){
+    const v = voiceList.find(v=>v.name.includes(name) || v.lang.includes(name));
+    if(v) return v;
+  }
+  return voiceList.find(v=>v.lang && v.lang.startsWith("en")) || voiceList[0];
+}
+function loadVoices(){ voiceList = speechSynthesis.getVoices(); }
+loadVoices();
+if("onvoiceschanged" in speechSynthesis){ speechSynthesis.onvoiceschanged = loadVoices; }
+
+let queue = [];
+let queueIndex = 0;
+let activeStatus = null;
+
+function speakNext(){
+  if(queueIndex >= queue.length){
+    if(activeStatus) activeStatus.textContent = "Done ✓";
+    return;
+  }
+  const utter = new SpeechSynthesisUtterance(queue[queueIndex]);
+  const v = pickVoice();
+  if(v) utter.voice = v;
+  utter.rate = 0.98;
+  utter.onend = function(){ queueIndex++; speakNext(); };
+  utter.onerror = function(){ queueIndex++; speakNext(); };
+  if(activeStatus) activeStatus.textContent = "Playing " + (queueIndex+1) + " / " + queue.length + " …";
+  speechSynthesis.speak(utter);
+}
+
+document.querySelectorAll(".play").forEach(btn=>{
+  btn.addEventListener("click", function(){
+    speechSynthesis.cancel();
+    const key = btn.getAttribute("data-script");
+    queue = scripts[key].slice();
+    queueIndex = 0;
+    activeStatus = btn.parentElement.querySelector(".status");
+    speakNext();
+  });
+});
+document.querySelectorAll(".stop").forEach(btn=>{
+  btn.addEventListener("click", function(){
+    speechSynthesis.cancel();
+    const status = btn.parentElement.querySelector(".status");
+    if(status) status.textContent = "Stopped.";
+  });
+});
+
+document.querySelectorAll(".tab").forEach(tab=>{
+  tab.addEventListener("click", function(){
+    speechSynthesis.cancel();
+    document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));
+    document.querySelectorAll(".app").forEach(a=>a.classList.remove("active"));
+    tab.classList.add("active");
+    document.getElementById(tab.getAttribute("data-app")).classList.add("active");
+  });
+});
+</script>
+
+</body>
+</html>
