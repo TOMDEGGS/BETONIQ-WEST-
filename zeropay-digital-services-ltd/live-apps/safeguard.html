@@ -29,6 +29,16 @@
   pre.out{background:#0a0f22;border:1px solid #24304f;border-radius:12px;padding:16px;font-size:13px;line-height:1.6;white-space:pre-wrap;color:#d7e0f5;margin-top:16px;min-height:60px;}
   .badge{display:inline-block;background:rgba(34,211,238,.15);color:var(--accent);padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700;margin-bottom:10px;}
   footer{text-align:center;color:var(--muted);font-size:12px;padding:24px;border-top:1px solid #1a2340;margin-top:20px;}
+
+.stage{position:relative;max-width:640px;margin:0 auto 8px;height:190px;perspective:1000px;}
+.scene{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;opacity:0;transform:rotateY(40deg) scale(.85);transition:opacity .5s,transform .6s;pointer-events:none;}
+.scene.active{opacity:1;transform:rotateY(0deg) scale(1);pointer-events:auto;}
+.scene .icon{font-size:60px;animation:floaty 2.4s ease-in-out infinite;filter:drop-shadow(0 8px 18px rgba(34,211,238,.35));}
+.scene .cap{margin-top:10px;font-size:12.5px;color:var(--muted);text-align:center;max-width:540px;padding:0 14px;line-height:1.5;}
+@keyframes floaty{0%,100%{transform:translateY(0px) rotate(0deg);}50%{transform:translateY(-10px) rotate(4deg);}}
+.dots{display:flex;gap:8px;justify-content:center;margin-bottom:20px;}
+.dot{width:9px;height:9px;border-radius:50%;background:#2c3a68;cursor:pointer;transition:.2s;}
+.dot.active{background:var(--accent);width:22px;border-radius:5px;}
 </style>
 </head>
 <body>
@@ -42,6 +52,8 @@
   <button class="stop" id="stopBtn">■ Stop</button>
   <span class="status" id="status"></span>
 </div>
+<div class="stage" id="stage"></div>
+<div class="dots" id="dots"></div>
 <div class="tabs">
   <div class="tabbtn active" data-tab="s1">ScamShield — Message Scanner</div>
   <div class="tabbtn" data-tab="s2">SafeLink — Anonymous Tip</div>
@@ -107,12 +119,30 @@ const SCRIPT=["SafeGuard. Romance and investment scams cost victims over ten bil
 "SafeLink is the second half, a completely anonymous first step for a trafficking victim to reach a real hotline or the nearest verified shelter.",
 "This is deliberately a prevention and support tool, not private enforcement. No surveillance, no vigilante action, ever.",
 "Just protection, and a safe way out. This is SafeGuard."];
+const ICONS=['⚠️', '💬', '🕵️', '🚫', '🆘'];
+function buildStage(){
+  const stage=document.getElementById('stage'); const dotsEl=document.getElementById('dots');
+  stage.innerHTML=""; dotsEl.innerHTML="";
+  SCRIPT.forEach((line,i)=>{
+    const sc=document.createElement('div'); sc.className='scene'+(i===0?' active':''); sc.dataset.i=i;
+    sc.innerHTML=`<div class="icon">${ICONS[i]}</div><div class="cap">${line}</div>`;
+    stage.appendChild(sc);
+    const d=document.createElement('div'); d.className='dot'+(i===0?' active':''); d.onclick=()=>showScene(i);
+    dotsEl.appendChild(d);
+  });
+}
+function showScene(i){
+  document.querySelectorAll('.scene').forEach((s,idx)=>s.classList.toggle('active',idx===i));
+  document.querySelectorAll('.dot').forEach((d,idx)=>d.classList.toggle('active',idx===i));
+}
+buildStage();
 let voiceList=[];function loadVoices(){voiceList=speechSynthesis.getVoices();}loadVoices();
 if("onvoiceschanged" in speechSynthesis) speechSynthesis.onvoiceschanged=loadVoices;
 function pickVoice(){const p=["Google UK English Female","Microsoft Hazel","Serena","Kate","en-GB"];
   for(const n of p){const v=voiceList.find(v=>v.name.includes(n)||v.lang.includes(n));if(v)return v;}
   return voiceList.find(v=>v.lang&&v.lang.startsWith("en"))||voiceList[0];}
 let qi=0;function speakNext(){if(qi>=SCRIPT.length){document.getElementById('status').textContent="Done ✓";return;}
+  showScene(qi);
   const u=new SpeechSynthesisUtterance(SCRIPT[qi]);const v=pickVoice();if(v)u.voice=v;u.rate=0.98;
   u.onend=()=>{qi++;speakNext();};u.onerror=()=>{qi++;speakNext();};
   document.getElementById('status').textContent=`Playing ${qi+1} / ${SCRIPT.length} …`;speechSynthesis.speak(u);}
