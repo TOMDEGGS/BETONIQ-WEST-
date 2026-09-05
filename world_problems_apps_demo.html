@@ -53,6 +53,7 @@
   <div class="tab" data-app="triage">🩺 TriageAI</div>
   <div class="tab" data-app="learn">📘 LearnOffline</div>
   <div class="tab" data-app="safeguard">🛡 SafeGuard</div>
+  <div class="tab" data-app="chiplink">🔩 ChipLink</div>
 </div>
 
 <!-- AGRILINK -->
@@ -182,6 +183,32 @@
   </div>
 </section>
 
+
+<!-- CHIPLINK -->
+<section class="app" id="chiplink">
+  <div class="hero">
+    <h2>ChipLink</h2>
+    <div class="stat">A handful of companies control the world's advanced chip supply, and cutting-edge fabrication requires export-controlled tooling most countries can never access — but most real-world devices run on mature-node chips, a market wide open to new entrants.</div>
+    <p>ChipLink is a fabless chip-sourcing and design-brokerage platform connecting African hardware makers directly to legacy-node foundries and OSAT (assembly/test) partners — cutting through markup and minimum-order-quantity walls that lock small manufacturers out today.</p>
+    <div class="playbar">
+      <button class="play" data-script="chiplink">▶ Play Narrated Demo</button>
+      <button class="stop">■ Stop</button>
+      <span class="status"></span>
+    </div>
+  </div>
+  <div class="grid">
+    <div class="card"><h3>RFQ Marketplace</h3><p>Hardware makers submit a chip spec and quantity; verified mature-node foundries and OSAT partners bid competitively.</p></div>
+    <div class="card"><h3>Group-Buy Pooling</h3><p>Small manufacturers pool order volume together to hit foundry minimum-order-quantity thresholds none could reach alone.</p></div>
+    <div class="card"><h3>Design Support</h3><p>Fabless design-review service helps buyers translate a product need into a manufacturable chip specification.</p></div>
+  </div>
+  <div class="mock">
+    <h4>Live RFQ Preview</h4>
+    <div class="row"><span>Secure element chip · 50,000 units</span><span class="badge">3 foundry bids received</span></div>
+    <div class="row"><span>NFC controller · 20,000 units</span><span class="badge warn">Pooling — 60% of MOQ filled</span></div>
+    <div class="row"><span>Power management IC · 15,000 units</span><span class="badge">Deal confirmed — OSAT booked</span></div>
+  </div>
+</section>
+
 <footer>Zeropay Digital Services Ltd (UK) · New Ventures Portfolio · Prepared for grant and investor review 2026</footer>
 
 <script>
@@ -221,6 +248,13 @@ const scripts = {
     "ScamShield scans messages in real time for known scam tactics, and cross-checks photos and profiles against a crowdsourced database of reported scammers.",
     "SafeLink gives a trafficking victim a safe, anonymous way to reach help, routed directly to NAPTIP, the IOM, and the National Human Trafficking Hotline, plus a locator for the nearest verified shelter or legal aid.",
     "This is built for prevention and protection, never vigilante enforcement. This is SafeGuard."
+  ],
+  chiplink: [
+    "ChipLink. A handful of companies control the world's advanced chip supply, and the cutting edge is locked behind export-controlled tooling most countries will never access.",
+    "But most real devices, including payment terminals, cars, and everyday electronics, don't need the cutting edge. They run on mature node chips, a market that is wide open to new entrants.",
+    "ChipLink is a fabless sourcing and design brokerage platform. Hardware makers submit a chip specification and quantity, and verified mature node foundries and assembly and test partners bid competitively.",
+    "Small manufacturers who could never hit a foundry's minimum order alone can pool their volume together through ChipLink to unlock better pricing and real access.",
+    "Breaking the chip monopoly one mature node order at a time. This is ChipLink."
   ]
 };
 
