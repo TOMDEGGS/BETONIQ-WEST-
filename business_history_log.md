@@ -1,53 +1,49 @@
 # BETONIQ WEST — Backup 777 Business History Log
 
-Refresh timestamp: 2026-09-04T07:03:00+01:00
+Refresh timestamp: 2026-09-06T07:02:00+01:00
 Source: Base44 entity database (live refresh)
 Destination: TOMDEGGS/BETONIQ-WEST-
 
 ## Refresh completed
 
-All 18 configured business entities were queried live. The full record-level export contains 155 records.
+All 18 tracked business entities were queried or count-verified against the live Base44 database. The synchronized record-level export contains 155 records. No entity count or observed record-level change was detected since the verified 2026-09-05 snapshot, so the full snapshot was carried forward with this new refresh timestamp.
 
 ## Current counts
 
-RealEstateProject: 79
-Investor: 2
-Investment: 0
-CountryMacroData: 6
-ComplianceRecord: 0
-FeasibilityStudy: 1
-Commission: 0
-DeveloperListing: 1
-Subscription: 1
-LeadCapture: 3
-VisitorActivity: 11
-ZPTransaction: 9
-ZPMerchant: 8
-ZPAgent: 6
-TeamTask: 9
-FieldMeeting: 0
-BackupAgentMessage: 6
-FundingOutreach: 13
+- RealEstateProject: 79
+- Investor: 2
+- Investment: 0
+- CountryMacroData: 6
+- ComplianceRecord: 0
+- FeasibilityStudy: 1
+- Commission: 0
+- DeveloperListing: 1
+- Subscription: 1
+- LeadCapture: 3
+- VisitorActivity: 11
+- ZPTransaction: 9
+- ZPMerchant: 8
+- ZPAgent: 6
+- TeamTask: 9
+- FieldMeeting: 0
+- BackupAgentMessage: 6
+- FundingOutreach: 13
+
 
 ## Operational snapshot
 
-Real estate: 79 projects. Investor pipeline: 2 investor records; feasibility: 1 study. ZeroPay: 9 transactions, 8 merchants, and 6 agents. Commercial pipeline: 3 leads, 1 subscription, 9 team tasks, 0 field meetings, and 13 funding-outreach records.
+Real estate: 79 projects. Investor pipeline: 2 investor records; no investments or commissions. Feasibility: 1 study. ZeroPay: 9 transactions, 8 merchants, and 6 agents across Nigeria, Ghana, the United Kingdom, and Senegal. Commercial pipeline: 3 leads, 1 active subscription, 9 team tasks, 0 field meetings, and 13 funding-outreach records.
 
 ## New business developments
 
-1. {'date': '2026-09-02', 'topic': 'Paystack integration', 'status': 'Declined', 'detail': 'Paystack Support declined the ZeroPay settlement-rail partnership because crypto-based payment infrastructure is outside current integration scope; no live-mode activation or compliance approval was found.'}
-2. {'date': '2026-08-27', 'topic': 'Kwati Group JV / ZeroPay investment', 'status': 'Contingent', 'detail': 'Wisdom Kwati verbally restated commitment but needs to raise the $500,000 investment before signing; no firm signing date and NDA remains unsigned.'}
-3. {'date': '2026-08-26', 'topic': 'Startup visa / EIC route', 'status': 'Awaiting evaluation', 'detail': 'Estonia and Lithuania Startup Visa applications are submitted and awaiting evaluation; EIC Accelerator remains blocked until an eligible EU/associated-country entity and address are available.'}
-4. {'date': '2026-08-26', 'topic': 'FID grant', 'status': 'Urgent follow-up', 'detail': 'FID application draft was finalized, but submission confirmation still needs to be verified in the portal.'}
-5. The 2026-09-04 live entity refresh completed successfully; no new record-level business developments were identified since the previous snapshot.
+- **FID pilot grant — submitted 2026-09-05:** €200,000 application reference 3ae3162ee9 is under review; FID says submissions are final and updates will come by email.
+- **Seven-platform lineup — complete 2026-09-05:** AgriLink, CivicTrack, TriageAI, LearnOffline, SafeGuard, ChipLink, and BETONIQ INVEST now have matching white papers, pitch decks, live demos, and GitHub assets. ZeroPay Money remains on its separate funding pipeline.
+- **Master hub — queued:** The GitHub launcher is updated, but the Netlify redeploy waits for funds expected Friday 2026-09-11 because the account is near its credit limit. The working rawcdn hub is `https://rawcdn.githack.com/TOMDEGGS/BETONIQ-WEST-/main/betoniq_launcher.html`.
+- **UK subsidiary registration — on hold:** Zeropay Digital Services Ltd registration waits for funds expected Friday 2026-09-11; the issued company number will later be added to the venture documents and EIC Step 1 proposal.
+- **Paystack integration — declined 2026-09-02:** Paystack declined the proposed ZeroPay settlement-rail partnership because crypto-based payment infrastructure is outside its current scope.
+- **Kwati Group JV — contingent:** The proposed $500,000 investment still depends on Wisdom Kwati raising funds; no signing date is fixed and the NDA remains unsigned.
+- **Startup visa / EIC route:** Estonia and Lithuania Startup Visa applications are awaiting evaluation; EIC remains blocked until an eligible EU/associated-country entity and address are available.
 
 ## Continuity note
 
-The live Base44 database remains authoritative. This repository snapshot is a synchronized operational copy for Backup 777 continuity.
-
-
-## 2026-09-05 — Backup 777 data refresh
-
-All 18 tracked live Base44 entities were queried. The synchronized export contains 155 records: 79 real-estate projects, 2 investors, 6 country macro records, 1 feasibility study, 1 developer listing, 1 subscription, 3 leads, 11 visitor activities, 9 ZeroPay transactions, 8 merchants, 6 agents, 9 team tasks, 6 backup-agent messages, and 13 funding-outreach records. Investment, compliance, commission, and field-meeting entities remain empty.
-
-No record-level changes or new business developments were identified since the 2026-09-04 snapshot. `full_data_export.json` was regenerated with the 2026-09-05 07:01 WAT refresh timestamp and is ready for Backup 777.
+The live Base44 database remains authoritative. This repository snapshot is the synchronized operational copy for Backup 777 continuity. No records were modified or deleted during this run.

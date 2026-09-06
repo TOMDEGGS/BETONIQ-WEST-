@@ -1,7 +1,7 @@
 {
   "export_name": "BETONIQ WEST / Backup 777 full data refresh",
-  "generated_at": "2026-09-05T07:01:00+01:00",
-  "source": "Base44 entity database (live refresh)",
+  "generated_at": "2026-09-06T07:02:00+01:00",
+  "source": "Base44 entity database (live refresh; counts re-verified 2026-09-06)",
   "destination": "TOMDEGGS/BETONIQ-WEST-",
   "privacy_note": "Record-level business data snapshot for Backup 777 continuity. Treat Base44 as the authoritative live source.",
   "total_records": 155,
@@ -3897,13 +3897,31 @@
       }
     ]
   },
-  "refresh_note": "Full live Base44 entity refresh completed 2026-09-05. All 18 tracked business entities were queried; counts and record content match the prior 2026-09-04 snapshot. No new record-level business developments identified.",
+  "refresh_note": "All 18 tracked entities were queried on 2026-09-06. Current live counts remain 155 records; the record-level snapshot is carried forward from the verified 2026-09-05 export because no entity count or observed record change was detected.",
   "business_developments": [
     {
       "date": "2026-09-05",
-      "topic": "Backup 777 data refresh",
-      "status": "Synchronized",
-      "detail": "All 18 tracked business entities were queried from the live Base44 database. 155 records exported; no count or record-level changes since the 2026-09-04 refresh."
+      "topic": "FID pilot grant",
+      "status": "Submitted / under review",
+      "detail": "€200,000 FID pilot grant application submitted. Reference 3ae3162ee9. FID confirmation says the application is under review, submissions are final, and updates will come directly by email."
+    },
+    {
+      "date": "2026-09-05",
+      "topic": "Zeropay Digital Services Ltd platform lineup",
+      "status": "Complete",
+      "detail": "Seven-platform one-stop digital services lineup finalized: AgriLink, CivicTrack, TriageAI, LearnOffline, SafeGuard, ChipLink, and BETONIQ INVEST. White papers, pitch decks, live demos, and GitHub assets are complete; ZeroPay Money remains on its separate funding pipeline."
+    },
+    {
+      "date": "2026-09-05",
+      "topic": "Master hub deployment",
+      "status": "Queued",
+      "detail": "Master launcher updated with all seven platform links. Netlify redeploy is queued until funds arrive on Friday 2026-09-11 because the account is near its credit limit. Working rawcdn hub: https://rawcdn.githack.com/TOMDEGGS/BETONIQ-WEST-/main/betoniq_launcher.html"
+    },
+    {
+      "date": "2026-09-05",
+      "topic": "UK subsidiary registration",
+      "status": "On hold",
+      "detail": "Zeropay Digital Services Ltd UK registration is waiting for funds expected Friday 2026-09-11; once incorporated, the company number must be added to the venture documents and pending EIC Step 1 proposal."
     },
     {
       "date": "2026-09-02",
@@ -3922,13 +3940,6 @@
       "topic": "Startup visa / EIC route",
       "status": "Awaiting evaluation",
       "detail": "Estonia and Lithuania Startup Visa applications are submitted and awaiting evaluation; EIC Accelerator remains blocked until an eligible EU/associated-country entity and address are available."
-    },
-    {
-      "date": "2026-08-26",
-      "topic": "FID grant",
-      "status": "Urgent follow-up",
-      "detail": "FID application draft was finalized, but submission confirmation still needs to be verified in the portal."
-    },
-    "The 2026-09-04 live entity refresh completed successfully; no new record-level business developments were identified since the previous snapshot."
+    }
   ]
 }
