@@ -2,9 +2,22 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SafeGuard — Live ScamShield & SafeLink | Zeropay Digital Services Ltd</title>
+<title>SafeGuard — Free Evidence-Based Scam & Child Safety Scanner | Zeropay Digital Services Ltd</title>
+<meta name="description" content="SafeGuard is a free evidence-based scam and grooming pattern scanner: ScamShield detects romance/investment scams, Child Protector flags online grooming red flags, and SafeGuard routes anonymous tips to real hotlines. Free for everyone. Elite tier for families, schools, and corporates.">
+<meta name="keywords" content="scam detector, romance scam checker, child grooming detector, online safety app, fraud scanner, anonymous tip hotline, child protection app, scam evidence report">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="SafeGuard by Zeropay Digital Services Ltd">
+<meta property="og:title" content="SafeGuard — Free Evidence-Based Scam & Child Safety Scanner">
+<meta property="og:description" content="Three shields: ScamShield (scam evidence scanner), Child Protector (grooming red-flag detector), SafeGuard (anonymous tip & hotline routing). Free for everyone — Elite tier available.">
+<meta property="og:url" content="https://rawcdn.githack.com/TOMDEGGS/BETONIQ-WEST-/main/zeropay-digital-services-ltd/live-apps/safeguard.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="SafeGuard — Free Evidence-Based Scam & Child Safety Scanner">
+<meta name="twitter:description" content="Scan any message for scam evidence, or any chat for grooming red flags — free, instant, evidence-based. Elite tier for families, schools & corporates.">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"SoftwareApplication","name":"SafeGuard","applicationCategory":"SecurityApplication","operatingSystem":"Any (Web Browser)","description":"Free evidence-based scam, fraud, and child grooming pattern scanner with three shields: ScamShield, Child Protector, and SafeGuard anonymous tip routing.","offers":[{"@type":"Offer","name":"SafeGuard Community","price":"0","priceCurrency":"USD"},{"@type":"Offer","name":"SafeGuard Elite","price":"15","priceCurrency":"USD"}],"publisher":{"@type":"Organization","name":"Zeropay Digital Services Ltd","parentOrganization":"BETONIQ WEST LTD"}}
+</script>
 <style>
-  :root{--bg:#0b1020;--panel:#131a30;--accent:#22d3ee;--accent2:#a78bfa;--text:#e8ecf5;--muted:#9aa4bd;--good:#34d399;--warn:#fbbf24;}
+  :root{--bg:#0b1020;--panel:#131a30;--accent:#22d3ee;--accent2:#a78bfa;--text:#e8ecf5;--muted:#9aa4bd;--good:#34d399;--warn:#fbbf24;--danger:#f87171;--gold:#facc15;}
   *{box-sizing:border-box;}
   body{margin:0;font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:radial-gradient(1200px 800px at 20% -10%,#1b2444 0%,var(--bg) 55%);color:var(--text);}
   .wrap{max-width:900px;margin:0 auto;padding:28px 18px 60px;}
@@ -15,19 +28,22 @@
   button.play{background:linear-gradient(135deg,var(--accent),var(--accent2));border:none;color:#08101f;font-weight:700;padding:10px 18px;border-radius:10px;cursor:pointer;font-size:14px;}
   button.stop{background:transparent;border:1px solid #3a4770;color:var(--text);padding:10px 16px;border-radius:10px;cursor:pointer;font-size:14px;}
   .status{color:var(--good);font-size:13px;}
-  .tabs{display:flex;gap:10px;justify-content:center;margin-bottom:16px;}
+  .tabs{display:flex;gap:10px;justify-content:center;margin-bottom:16px;flex-wrap:wrap;}
   .tabbtn{background:var(--panel);border:1px solid #24304f;color:var(--text);padding:9px 14px;border-radius:10px;cursor:pointer;font-size:13px;font-weight:600;}
   .tabbtn.active{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#08101f;}
-  .panel3d{perspective:900px;margin:0 auto 24px;max-width:600px;}
+  .panel3d{perspective:900px;margin:0 auto 24px;max-width:620px;}
   .card3d{background:linear-gradient(145deg,#182252,#0f1730);border:1px solid #2c3a68;border-radius:18px;padding:22px;transform:rotateX(4deg) rotateY(-2deg);box-shadow:0 20px 40px -18px #000;transition:transform .4s;display:none;}
   .card3d.active{display:block;}
   .card3d:hover{transform:rotateX(0deg) rotateY(0deg) translateY(-4px);}
   .field{margin-bottom:12px;}
   .field label{display:block;font-size:12.5px;color:var(--muted);margin-bottom:5px;}
-  .field textarea,.field input{width:100%;padding:8px 10px;border-radius:8px;border:1px solid #2c3a68;background:#0f1730;color:var(--text);font-size:13.5px;font-family:inherit;}
+  .field textarea,.field input,.field select{width:100%;padding:8px 10px;border-radius:8px;border:1px solid #2c3a68;background:#0f1730;color:var(--text);font-size:13.5px;font-family:inherit;}
   .runbtn{background:linear-gradient(135deg,var(--accent),var(--accent2));border:none;color:#08101f;font-weight:700;padding:11px 20px;border-radius:10px;cursor:pointer;font-size:14px;width:100%;margin-top:6px;}
+  .runbtn.danger{background:linear-gradient(135deg,#f87171,#a78bfa);}
   pre.out{background:#0a0f22;border:1px solid #24304f;border-radius:12px;padding:16px;font-size:13px;line-height:1.6;white-space:pre-wrap;color:#d7e0f5;margin-top:16px;min-height:60px;}
   .badge{display:inline-block;background:rgba(34,211,238,.15);color:var(--accent);padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700;margin-bottom:10px;}
+  .badge.child{background:rgba(167,139,250,.18);color:var(--accent2);}
+  .badge.elite{background:rgba(250,204,21,.15);color:var(--gold);}
   footer{text-align:center;color:var(--muted);font-size:12px;padding:24px;border-top:1px solid #1a2340;margin-top:20px;}
 
 .stage{position:relative;max-width:640px;margin:0 auto 8px;height:190px;perspective:1000px;}
@@ -36,7 +52,7 @@
 .scene .icon{font-size:60px;animation:floaty 2.4s ease-in-out infinite;filter:drop-shadow(0 8px 18px rgba(34,211,238,.35));}
 .scene .cap{margin-top:10px;font-size:12.5px;color:var(--muted);text-align:center;max-width:540px;padding:0 14px;line-height:1.5;}
 @keyframes floaty{0%,100%{transform:translateY(0px) rotate(0deg);}50%{transform:translateY(-10px) rotate(4deg);}}
-.dots{display:flex;gap:8px;justify-content:center;margin-bottom:20px;}
+.dots{display:flex;gap:8px;justify-content:center;margin-bottom:20px;flex-wrap:wrap;}
 .dot{width:9px;height:9px;border-radius:50%;background:#2c3a68;cursor:pointer;transition:.2s;}
 .dot.active{background:var(--accent);width:22px;border-radius:5px;}
 
@@ -57,17 +73,36 @@ nav.mainnav{display:flex;gap:6px;justify-content:center;margin-bottom:22px;flex-
 .aboutcard h3{margin:0 0 10px;color:var(--accent);font-size:15px;}
 .aboutcard p{font-size:13.5px;line-height:1.7;color:#d7e0f5;margin:0 0 16px;}
 .clearbtn{background:transparent;border:1px solid #4a2c3a;color:#f0879a;padding:9px 16px;border-radius:10px;cursor:pointer;font-size:13px;display:block;margin:16px auto 0;}
+.pillargrid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:10px;}
+@media(max-width:640px){.pillargrid{grid-template-columns:1fr;}}
+.pillar{background:#0f1730;border:1px solid #2c3a68;border-radius:10px;padding:10px;text-align:center;font-size:11.5px;color:var(--muted);}
+.pillar b{display:block;color:var(--text);font-size:13px;margin-bottom:3px;}
+.sharebar{display:flex;gap:8px;justify-content:center;margin:10px 0 4px;flex-wrap:wrap;}
+.sharebtn{background:var(--panel);border:1px solid #24304f;color:var(--text);padding:7px 12px;border-radius:20px;font-size:12px;cursor:pointer;text-decoration:none;display:inline-block;}
+.pricingwrap{max-width:720px;margin:0 auto;}
+.priceexplain{background:var(--panel);border:1px solid #24304f;border-radius:12px;padding:14px 16px;font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:16px;}
+.pricegrid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+@media(max-width:640px){.pricegrid{grid-template-columns:1fr;}}
+.pricecard{background:linear-gradient(145deg,#182252,#0f1730);border:1px solid #2c3a68;border-radius:16px;padding:20px;}
+.pricecard.elite{border:1px solid rgba(250,204,21,.4);box-shadow:0 0 30px -10px rgba(250,204,21,.25);}
+.pricecard h4{margin:0 0 4px;font-size:16px;}
+.pricecard .amt{font-size:26px;font-weight:800;color:var(--accent);margin:6px 0 2px;}
+.pricecard.elite .amt{color:var(--gold);}
+.pricecard .amt small{font-size:12px;color:var(--muted);font-weight:500;}
+.pricecard ul{margin:12px 0 0;padding-left:18px;font-size:12.5px;color:#d7e0f5;line-height:1.8;}
+.tierlbl{display:flex;align-items:center;gap:8px;font-size:11px;color:var(--muted);margin-top:14px;}
 </style>
 </head>
 <body>
 <div class="wrap">
 <header>
-  <h1>🛡 SafeGuard — Live ScamShield & SafeLink</h1>
-  <p>Zeropay Digital Services Ltd · Real pattern-matching scam scorer + anonymous tip routing, running live in your browser</p>
+  <h1>🛡 SafeGuard — Live Evidence-Based Protection Suite</h1>
+  <p>Zeropay Digital Services Ltd · Three shields: ScamShield, Child Protector, SafeGuard — free for everyone, running live in your browser</p>
 </header>
 <nav class="mainnav">
   <button class="navbtn active" data-screen="home">🏠 Demo</button>
   <button class="navbtn" data-screen="tool">🛠 Try It Live</button>
+  <button class="navbtn" data-screen="pricing">💎 Pricing</button>
   <button class="navbtn" data-screen="dash">📊 My Dashboard</button>
   <button class="navbtn" data-screen="about">ℹ️ About</button>
 </nav>
@@ -79,31 +114,88 @@ nav.mainnav{display:flex;gap:6px;justify-content:center;margin-bottom:22px;flex-
 </div>
 <div class="stage" id="stage"></div>
 <div class="dots" id="dots"></div>
+<div class="sharebar">
+  <a class="sharebtn" target="_blank" rel="noopener" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Frawcdn.githack.com%2FTOMDEGGS%2FBETONIQ-WEST-%2Fmain%2Fzeropay-digital-services-ltd%2Flive-apps%2Fsafeguard.html">📘 Share on Facebook</a>
+  <a class="sharebtn" target="_blank" rel="noopener" href="https://twitter.com/intent/tweet?text=SafeGuard%20%E2%80%94%20free%20evidence-based%20scam%20%26%20child%20grooming%20scanner&url=https%3A%2F%2Frawcdn.githack.com%2FTOMDEGGS%2FBETONIQ-WEST-%2Fmain%2Fzeropay-digital-services-ltd%2Flive-apps%2Fsafeguard.html">🐦 Share on X</a>
+  <a class="sharebtn" target="_blank" rel="noopener" href="https://wa.me/?text=SafeGuard%20%E2%80%94%20free%20evidence-based%20scam%20%26%20child%20safety%20scanner%3A%20https%3A%2F%2Frawcdn.githack.com%2FTOMDEGGS%2FBETONIQ-WEST-%2Fmain%2Fzeropay-digital-services-ltd%2Flive-apps%2Fsafeguard.html">💬 Share on WhatsApp</a>
+  <button class="sharebtn" onclick="copyLinkForTikTok()">🎵 Copy link for TikTok bio</button>
+</div>
 </section>
 <section class="screen" id="screen-tool">
 
 <div class="tabs">
-  <div class="tabbtn active" data-tab="s1">ScamShield — Message Scanner</div>
-  <div class="tabbtn" data-tab="s2">SafeLink — Anonymous Tip</div>
+  <div class="tabbtn active" data-tab="s1">🔍 ScamShield — Scam Evidence Scanner</div>
+  <div class="tabbtn" data-tab="s3">🧒 Child Protector — Grooming Scanner</div>
+  <div class="tabbtn" data-tab="s2">🆘 SafeGuard — Anonymous Tip &amp; Hotline</div>
 </div>
 
-<div class="panel3d"><div class="card3d active" id="s1">
-  <span class="badge">REAL PATTERN ENGINE — not a mockup</span>
-  <div class="field"><label>Paste a suspicious message</label>
-    <textarea id="msg" rows="4" placeholder="e.g. I need you to send a gift card urgently, I can't talk on the phone right now, I'm deployed overseas..."></textarea></div>
-  <button class="runbtn" onclick="scanMsg()">🔍 Scan for Scam Patterns</button>
-  <pre class="out" id="out1">Result will appear here…</pre>
+<div class="panel3d">
+
+<div class="card3d active" id="s1">
+  <span class="badge">EVIDENCE-BASED ENGINE — trained on scam pattern trends, not a mockup</span>
+  <div class="field"><label>Paste a suspicious message, chat, or profile bio</label>
+    <textarea id="msg" rows="4" placeholder="e.g. I need you to send a gift card urgently, I can't talk on the phone right now, I'm deployed overseas, this trading platform guarantees 40% returns..."></textarea></div>
+  <button class="runbtn" onclick="scanMsg()">🔍 Scan for Irrefutable Evidence</button>
+  <pre class="out" id="out1">Evidence report will appear here…</pre>
+</div>
+
+<div class="card3d" id="s3">
+  <span class="badge child">CHILD SAFETY ENGINE — grooming red-flag detection, evidence-based</span>
+  <div class="field"><label>Paste a chat/DM conversation involving a child or teen</label>
+    <textarea id="childmsg" rows="4" placeholder="e.g. Don't tell your parents we talk. Add me on Snapchat instead. You're so mature for your age. Send me a pic, I'll get you V-Bucks..."></textarea></div>
+  <button class="runbtn danger" onclick="scanChild()">🚨 Scan for Grooming Evidence</button>
+  <pre class="out" id="out3">Evidence report will appear here…</pre>
 </div>
 
 <div class="card3d" id="s2">
   <span class="badge">ANONYMOUS BY DESIGN</span>
   <div class="field"><label><input type="checkbox" id="anon" checked style="width:auto;margin-right:6px;">Submit anonymously (recommended)</label></div>
   <div class="field"><label>Describe the situation</label><textarea id="tipmsg" rows="3"></textarea></div>
+  <div class="field"><label>Who is this about?</label>
+    <select id="who"><option value="adult">Adult — scam / fraud / trafficking</option><option value="child">Child / teen — grooming / exploitation</option></select></div>
   <div class="field"><label>Country/region</label><input type="text" id="loc" value="Nigeria"></div>
   <button class="runbtn" onclick="submitTip()">🆘 Submit Tip</button>
   <pre class="out" id="out2">Confirmation will appear here…</pre>
-</div></div>
+</div>
 
+</div>
+
+</section>
+<section class="screen" id="screen-pricing">
+<div class="pricingwrap">
+  <div class="priceexplain"><b>How pricing works:</b> SafeGuard's core protection is free forever for individuals — everyone deserves the same evidence-based scam and grooming detection, regardless of income. The Elite tier adds features aimed at families managing multiple children's devices, schools/corporates needing bulk protection, and high-net-worth or public-facing individuals who face a higher volume or sophistication of targeted attacks (e.g. curated approach scams, deepfake voice cloning attempts, coordinated multi-platform fraud). Elite funds free access for everyone else.</div>
+  <div class="pricegrid">
+    <div class="pricecard">
+      <span class="badge">FREE FOREVER</span>
+      <h4>SafeGuard Community</h4>
+      <div class="amt">$0 <small>/ month</small></div>
+      <ul>
+        <li>Unlimited ScamShield scam-evidence scans (9 trend categories)</li>
+        <li>Unlimited Child Protector grooming scans (6 trend categories)</li>
+        <li>Full evidence reports — matched phrases + plain-language reasoning</li>
+        <li>Anonymous tip routing to public hotlines (NAPTIP, NCMEC, IWF, National Trafficking Hotline)</li>
+        <li>Local, on-device history only</li>
+      </ul>
+      <div class="tierlbl">For: individuals, students, families, anyone online</div>
+    </div>
+    <div class="pricecard elite">
+      <span class="badge elite">PREMIUM</span>
+      <h4>SafeGuard Elite</h4>
+      <div class="amt">from $15 <small>/ month, per person</small></div>
+      <ul>
+        <li>Everything in Community, plus:</li>
+        <li>Exportable, timestamped legal/law-enforcement-ready evidence dossiers (PDF)</li>
+        <li>Real-time monitoring alerts on ongoing conversations (SMS/WhatsApp/email)</li>
+        <li>Reverse-image cross-check against known scammer photo databases</li>
+        <li>Multi-child / multi-device family dashboard, one login</li>
+        <li>Priority escalation — a human case manager files the report on your behalf</li>
+        <li>Executive &amp; HNI protection add-on — reputational-risk monitoring + close-protection referral</li>
+        <li>White-label/API access for schools, banks &amp; corporates</li>
+      </ul>
+      <div class="tierlbl">Family Elite (5 devices): $35/mo · School/Corporate/API: custom, from $500/mo</div>
+    </div>
+  </div>
+</div>
 </section>
 <section class="screen" id="screen-dash">
   <div class="dashstats" id="dashstats"></div>
@@ -112,15 +204,22 @@ nav.mainnav{display:flex;gap:6px;justify-content:center;margin-bottom:22px;flex-
 </section>
 <section class="screen" id="screen-about">
   <div class="aboutcard">
-    <h3>🛡 SafeGuard — ScamShield fraud/romance-scam detection and SafeLink anonymous trafficking-victim support.</h3>
-    <p><b>The problem:</b> Romance and investment scams cost victims an estimated $10+ billion annually worldwide, and an estimated 27.6 million people are in situations of forced labor or trafficking (ILO/Walk Free).</p>
-    <p>Victims of romance and investment fraud typically have no real-time warning system before money is sent, and trafficking victims often lack a safe, anonymous first step to seek help. SafeGuard is deliberately built as a prevention and victim-support tool, not a private enforcement tool.</p>
-    <p><b>Market:</b> Global online fraud-prevention software market projected to exceed $80B by 2030. Target beachhead: consumer scam-pattern detection in Nigeria and UK diaspora corridors.</p>
-    <p><b>Grant fit:</b> Strong fit for anti-trafficking and consumer-protection funding: US J/TIP grants, EU Anti-Trafficking Action Grants, UNODC, and Google.org/Meta digital safety grants.</p>
-    <p><b>The ask:</b> $130,000 grant to launch ScamShield public beta + SafeLink hotline integration, 12 months.</p>
+    <h3>🛡 SafeGuard — Three shields: ScamShield, Child Protector, and SafeGuard.</h3>
+    <p><b>The problem:</b> Romance and investment scams cost victims an estimated $10+ billion annually worldwide (FTC/FBI IC3), an estimated 27.6 million people are in situations of forced labor or trafficking (ILO/Walk Free), and 1 in 5 children globally have experienced online sexual solicitation (WeProtect Global Alliance).</p>
+    <div class="pillargrid">
+      <div class="pillar"><b>🔍 ScamShield</b>Evidence-based scanner covering 9+ scam trend categories — pig-butchering crypto, military impersonation, lottery fraud, job scams, tech-support scams, and more — trained on pattern trends drawn from millions of reported cases (FTC, FBI IC3, UK Action Fraud).</div>
+      <div class="pillar"><b>🧒 Child Protector</b>Scans chats and profiles for grooming red flags — secrecy demands, isolation, gift manipulation, off-platform escalation, image requests — and routes evidence straight to NCMEC, IWF, or NAPTIP.</div>
+      <div class="pillar"><b>🆘 SafeGuard</b>A completely anonymous first step for any victim, of any age, to reach a real hotline or the nearest verified shelter, with zero identifying metadata retained.</div>
+    </div>
+    <p style="margin-top:16px;">Every verdict in ScamShield and Child Protector is shown as an <b>evidence report</b>: the exact matched phrase, the named scam or grooming trend it belongs to, and a plain-language reason why it's dangerous — irrefutable, not a vague score, so anyone can act on it in seconds.</p>
+    <p><b>Access model:</b> Core protection is free forever for individuals — see the Pricing tab. Elite tier funds free access for everyone else while serving families, schools, corporates, and high-exposure individuals who need deeper monitoring and priority escalation.</p>
+    <p><b>Distribution:</b> Built for viral, free-to-access reach — shareable directly to Facebook, X, and WhatsApp, with a copyable link for TikTok bio placement, plus SEO-optimized metadata so the tool surfaces on Google search for scam-checking and online-safety queries.</p>
+    <p><b>Market:</b> Global online fraud-prevention software market projected to exceed $80B by 2030; global child online-safety software market projected to exceed $25B by 2030. Target beachhead: consumer scam and grooming-pattern detection across Nigeria, the UK diaspora corridor, and global English-speaking markets.</p>
+    <p><b>Grant fit:</b> Strong fit for anti-trafficking, consumer-protection, and child-safety funding: US J/TIP grants, EU Anti-Trafficking Action Grants, UNODC, NCMEC/IWF partnership grants, and Google.org/Meta digital safety grants.</p>
+    <p><b>The ask:</b> $180,000 grant to launch ScamShield + Child Protector public beta and SafeGuard hotline integration, 12 months.</p>
   </div>
 </section>
-<footer>Zeropay Digital Services Ltd — UK subsidiary of BETONIQ WEST LTD (RC 1496603) · Prevention & support only, never surveillance</footer>
+<footer>Zeropay Digital Services Ltd — UK subsidiary of BETONIQ WEST LTD (RC 1496603) · Prevention &amp; support only, never surveillance · Free tier for everyone, forever</footer>
 </div>
 
 <script>
@@ -129,41 +228,154 @@ document.querySelectorAll('.tabbtn').forEach(b=>b.onclick=()=>{
   document.querySelectorAll('.card3d').forEach(x=>x.classList.remove('active'));
   b.classList.add('active'); document.getElementById(b.dataset.tab).classList.add('active');
 });
-const PATTERNS={"urgency framing":[/\burgent\b/,/act now/,/immediately/,/limited time/,/expires? (today|soon)/],
-"fake investment returns":[/guaranteed return/,/double your money/,/risk[- ]free investment/,/\d{2,4}% (profit|return)/],
-"gift-card / wire request":[/gift card/,/wire transfer/,/western union/,/moneygram/,/send.*crypto/],
-"romance escalation":[/i love you/,/we (are|were) meant to be/,/can'?t (talk|call) (right now|on phone)/,/military (deployment|overseas)/],
-"identity avoidance":[/can'?t video call/,/camera (is )?broken/,/working overseas/]};
-function scanMsg(){
-  const text=document.getElementById('msg').value.toLowerCase();
-  let hits={}, total=0;
-  for(const [cat,pats] of Object.entries(PATTERNS)){
-    pats.forEach(p=>{if(p.test(text)){hits[cat]=true;total++;}});
+
+function copyLinkForTikTok(){
+  const url = "https://rawcdn.githack.com/TOMDEGGS/BETONIQ-WEST-/main/zeropay-digital-services-ltd/live-apps/safeguard.html";
+  if(navigator.clipboard){ navigator.clipboard.writeText(url).then(()=>alert("Link copied! Paste it into your TikTok bio link.")); }
+  else { alert(url); }
+}
+
+// ===== ScamShield: evidence-based scam-trend pattern engine =====
+const SCAM_TYPES={
+  "Urgency & Pressure Tactics":{
+    patterns:[/\burgent\b/,/act now/,/immediately/,/limited time/,/expires? (today|soon)/,/right now/],
+    evidence:"Scammers manufacture artificial time pressure to stop victims thinking clearly or consulting anyone else before sending money."
+  },
+  "Pig-Butchering / Fake Crypto Investment":{
+    patterns:[/guaranteed return/,/double your money/,/risk[- ]free investment/,/\d{2,4}\s*%\s*(profit|return)/,/crypto (platform|exchange|wallet)/,/trading (platform|app|bot)/,/withdraw.*fee/],
+    evidence:"Matches the 'pig-butchering' trend: a fake trading platform promises guaranteed high returns, then demands a hidden fee before any withdrawal — the single largest romance-scam-linked fraud category by dollar volume (FBI IC3, 2024)."
+  },
+  "Gift-Card / Wire / Crypto Payment Request":{
+    patterns:[/gift card/,/wire transfer/,/western union/,/moneygram/,/send.*crypto/,/bitcoin/,/usdt/,/itunes card/,/steam card/],
+    evidence:"Legitimate contacts never ask for payment via gift card or wire transfer — this is the #1 payment method requested in FTC-reported romance scams."
+  },
+  "Romance Escalation / Love-Bombing":{
+    patterns:[/i love you/,/we (are|were) meant to be/,/soulmate/,/god (brought|sent) (you|us) together/],
+    evidence:"Declaring love within days of first contact ('love-bombing') is a documented manipulation tactic used to fast-track trust before a financial request."
+  },
+  "Military / Overseas-Worker Impersonation":{
+    patterns:[/military (deployment|overseas)/,/stationed (in|at)/,/oil rig/,/peacekeeping/,/u\.?n\.? (mission|peacekeeper)/,/deployed to/],
+    evidence:"Impersonating deployed military personnel or offshore oil-rig workers is one of the most common romance-scam personas — it conveniently explains away video calls and long absences."
+  },
+  "Identity / Video-Call Avoidance":{
+    patterns:[/can'?t video call/,/camera (is )?broken/,/working overseas/,/bad connection.*camera/,/phone (is )?(broken|damaged)/],
+    evidence:"A persistent, evolving list of excuses to avoid any live video verification is one of the strongest predictors of a fabricated identity."
+  },
+  "Lottery / Inheritance / Advance-Fee Fraud":{
+    patterns:[/you (have )?won/,/inheritance/,/next of kin/,/claim your (prize|funds)/,/processing fee/,/customs (fee|clearance)/],
+    evidence:"Classic advance-fee fraud: a large unexpected sum is dangled, but a smaller 'fee' must be paid first to release it — the fee itself is the entire scam."
+  },
+  "Job / Task Scam":{
+    patterns:[/work from home/,/easy (money|income)/,/task[- ]based (job|income)/,/daily (payout|earning)/,/hiring.{0,15}no experience/],
+    evidence:"Fake remote-job offers requiring an upfront 'training' or 'equipment' payment before any real work is one of the fastest-growing scam categories (FTC data)."
+  },
+  "Tech-Support / Account-Scare Scam":{
+    patterns:[/your account (has been|will be) (suspended|locked)/,/virus detected/,/call (this|the) number immediately/,/verify your account.{0,15}or/],
+    evidence:"Manufactured urgency around account security is used to panic victims into handing over remote access or payment details."
   }
-  const risk=Math.min(total*18,100);
-  let verdict = risk>=60?"🔴 HIGH RISK — strong scam indicators detected." : risk>=25?"🟡 MODERATE RISK — some suspicious patterns found." : "🟢 LOW RISK — no strong scam patterns detected (stay cautious regardless).";
-  let out=`${verdict}\nRisk score: ${risk}%\n\n`;
-  if(Object.keys(hits).length) out+="Matched categories:\n"+Object.keys(hits).map(c=>`  • ${c}`).join("\n");
-  out+="\n\n⚠️ Never send money, gift cards, or crypto to anyone you have not met in person and verified independently.";
+};
+function extractEvidence(text, patterns){
+  const found=[];
+  patterns.forEach(p=>{ const m=text.match(p); if(m) found.push(m[0]); });
+  return found;
+}
+function scanMsg(){
+  const raw=document.getElementById('msg').value;
+  const text=raw.toLowerCase();
+  let report=[], total=0;
+  for(const [type,cfg] of Object.entries(SCAM_TYPES)){
+    const hits=extractEvidence(text,cfg.patterns);
+    if(hits.length){ report.push({type,hits,evidence:cfg.evidence}); total+=hits.length; }
+  }
+  const risk=Math.min(total*16,100);
+  const verdict = risk>=60?"🔴 HIGH RISK — strong, multi-category scam evidence detected." : risk>=25?"🟡 MODERATE RISK — some evidence of manipulation tactics found." : "🟢 LOW RISK — no strong scam-trend evidence detected (stay cautious regardless).";
+  let out=`${verdict}\nEvidence-based risk score: ${risk}%  (${total} matched indicator${total===1?'':'s'} across ${report.length} trend categor${report.length===1?'y':'ies'})\n`;
+  if(report.length){
+    out+="\n— EVIDENCE REPORT —\n";
+    report.forEach(r=>{
+      out+=`\n▸ ${r.type}\n   Matched text: "${r.hits.join('", "')}"\n   Why this matters: ${r.evidence}\n`;
+    });
+  }
+  out+="\n⚠️ Never send money, gift cards, or crypto to anyone you have not met in person and verified independently.";
   document.getElementById('out1').textContent=out;
 }
+
+// ===== Child Protector: evidence-based grooming-trend pattern engine =====
+const GROOMING_TYPES={
+  "Secrecy & Isolation":{
+    patterns:[/don'?t tell (your|ur) (mom|dad|parents|mum)/,/keep this (a )?secret/,/just between us/,/our little secret/],
+    evidence:"Demanding secrecy from parents or guardians is the single most consistent grooming red flag identified by child-safety researchers (NCMEC, IWF)."
+  },
+  "Trust-Building via Gift Manipulation":{
+    patterns:[/i('ll| will) (buy|send) you/,/gift card/,/v[- ]?bucks/,/robux/,/free (skin|item|game)/],
+    evidence:"Small gifts (in-game currency, gift cards) build a sense of obligation and a private bond before a request is made — a well-documented grooming step."
+  },
+  "Escalation to Off-Platform, Unmonitored Contact":{
+    patterns:[/add me on (snap|snapchat|whatsapp|telegram|discord)/,/let'?s (talk|move) (somewhere )?private/,/dm me/,/text me (at|on)/],
+    evidence:"Moving a conversation off a monitored public platform onto a private, disappearing-message app is a documented and deliberate grooming step."
+  },
+  "Image / Video Requests":{
+    patterns:[/send (me )?(a )?pic/,/send (me )?(a )?photo/,/turn on your camera/,/show me/],
+    evidence:"Any unsolicited request for photos or video from a minor is an immediate, serious red flag requiring urgent reporting — regardless of context."
+  },
+  "Age / Vulnerability Probing":{
+    patterns:[/how old are you/,/are your parents (home|around)/,/are you alone/,/what school/],
+    evidence:"Repeated questions about age, parental presence, and school routine are used to assess a target's vulnerability and access."
+  },
+  "Flattery & Special-Relationship Framing":{
+    patterns:[/you'?re (so )?mature for your age/,/i understand you better than/,/you'?re not like other kids/],
+    evidence:"Framing the relationship as uniquely special or more understanding than parents/peers is used to displace trust away from safe adults."
+  }
+};
+function scanChild(){
+  const raw=document.getElementById('childmsg').value;
+  const text=raw.toLowerCase();
+  let report=[], total=0;
+  for(const [type,cfg] of Object.entries(GROOMING_TYPES)){
+    const hits=extractEvidence(text,cfg.patterns);
+    if(hits.length){ report.push({type,hits,evidence:cfg.evidence}); total+=hits.length; }
+  }
+  const risk=Math.min(total*20,100);
+  const verdict = risk>=60?"🔴 URGENT — strong grooming-pattern evidence detected. Report immediately." : risk>=25?"🟡 CONCERNING — some grooming-pattern evidence found. Review closely and consider reporting." : "🟢 LOW — no strong grooming-pattern evidence detected (stay observant regardless).";
+  let out=`${verdict}\nEvidence-based risk score: ${risk}%  (${total} matched indicator${total===1?'':'s'} across ${report.length} pattern categor${report.length===1?'y':'ies'})\n`;
+  if(report.length){
+    out+="\n— EVIDENCE REPORT —\n";
+    report.forEach(r=>{
+      out+=`\n▸ ${r.type}\n   Matched text: "${r.hits.join('", "')}"\n   Why this matters: ${r.evidence}\n`;
+    });
+  }
+  out+="\n🚨 If you believe a child is at risk, report now:\n   • NCMEC CyberTipline (US/global) — report.cybertip.org / 1-800-843-5678\n   • UK Internet Watch Foundation — report.iwf.org.uk\n   • NAPTIP Nigeria Child Protection — 0803 710 9527 / naptip.gov.ng\n   • Childline (UK) — 0800 1111";
+  document.getElementById('out3').textContent=out;
+}
+
 let tipCount=1001;
 function submitTip(){
   tipCount++;
   const anon=document.getElementById('anon').checked;
   const loc=document.getElementById('loc').value;
-  const hotline = loc.toLowerCase().includes("nigeria") ? "NAPTIP (Nigeria) — 0803 710 9527 / naptip.gov.ng" : "National Human Trafficking Hotline (US) — 1-888-373-7888";
+  const who=document.getElementById('who').value;
+  let hotline;
+  if(who==='child'){
+    hotline = loc.toLowerCase().includes("nigeria") ? "NAPTIP Child Protection (Nigeria) — 0803 710 9527 / naptip.gov.ng" : "NCMEC CyberTipline — report.cybertip.org / 1-800-843-5678";
+  } else {
+    hotline = loc.toLowerCase().includes("nigeria") ? "NAPTIP (Nigeria) — 0803 710 9527 / naptip.gov.ng" : "National Human Trafficking Hotline (US) — 1-888-373-7888";
+  }
   let out=`Tip TIP-${tipCount} received and routed to: ${hotline}.\n`;
   if(anon) out+="No identifying metadata was retained — this tip is fully anonymous by design.\n";
-  out+="\nNearest resources:\n  • NAPTIP (Nigeria) — 0803 710 9527\n  • National Human Trafficking Hotline (US) — 1-888-373-7888\n  • IOM Global Assistance — iom.int/counter-trafficking";
+  out+="\nNearest resources:\n  • NAPTIP (Nigeria) — 0803 710 9527\n  • NCMEC CyberTipline (US/global) — 1-800-843-5678\n  • National Human Trafficking Hotline (US) — 1-888-373-7888\n  • UK Internet Watch Foundation — report.iwf.org.uk\n  • IOM Global Assistance — iom.int/counter-trafficking";
   document.getElementById('out2').textContent=out;
 }
-const SCRIPT=["SafeGuard. Romance and investment scams cost victims over ten billion dollars a year, and almost twenty eight million people are trapped in forced labour or trafficking right now.",
-"SafeGuard has two halves. ScamShield reads a suspicious message or profile photo and scores it against known scam tactics, before money ever changes hands.",
-"SafeLink is the second half, a completely anonymous first step for a trafficking victim to reach a real hotline or the nearest verified shelter.",
-"This is deliberately a prevention and support tool, not private enforcement. No surveillance, no vigilante action, ever.",
-"Just protection, and a safe way out. This is SafeGuard."];
-const ICONS=['⚠️', '💬', '🕵️', '🚫', '🆘'];
+
+// ===== Narrated demo (8 scenes) =====
+const SCRIPT=["SafeGuard. Romance and investment scams cost victims over ten billion dollars a year, and almost twenty eight million people are trapped in forced labour or trafficking right now. Today, we're expanding SafeGuard into three complete shields.",
+"The first shield is ScamShield, an evidence-based scanner trained on scam pattern trends drawn from millions of reported cases, covering pig butchering crypto scams, military impersonation, lottery fraud, job scams, and more.",
+"ScamShield doesn't just give a risk score. It shows the exact matched phrases as irrefutable evidence, so anyone can see precisely why a message is dangerous, in seconds.",
+"The second shield is Child Protector, built to defend the most vulnerable. It scans chats and profiles for grooming red flags: secrecy demands, isolation tactics, gift manipulation, and requests to move off platform.",
+"Any match is flagged as evidence and routed straight to the right authority, NCMEC's CyberTipline, the UK's Internet Watch Foundation, or NAPTIP in Nigeria, giving parents and guardians a clear, immediate next step.",
+"The third shield is SafeGuard itself, a completely anonymous first step for any victim, of any age, to reach a real hotline or the nearest verified shelter, with zero identifying metadata retained.",
+"Three shields, one mission: prevention and evidence-based support, never surveillance, never vigilante action.",
+"Just evidence, protection, and a safe way out, for adults facing scammers, and for children facing predators. This is SafeGuard."];
+const ICONS=['⚠️','🔍','📋','🧒','🚨','🆘','🛡️','❤️'];
 function buildStage(){
   const stage=document.getElementById('stage'); const dotsEl=document.getElementById('dots');
   stage.innerHTML=""; dotsEl.innerHTML="";
