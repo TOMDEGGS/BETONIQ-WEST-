@@ -1,6 +1,6 @@
 # BETONIQ WEST — Backup 777 Business History Log
 
-Refresh timestamp: 2026-09-07T06:02:03+00:00
+Refresh timestamp: 2026-09-08T07:01:00+01:00
 Source: Base44 entity database (live refresh)
 Destination: TOMDEGGS/BETONIQ-WEST-
 
@@ -35,12 +35,11 @@ Real estate: 79 projects. Investor pipeline: 2 investor records; feasibility: 1 
 
 ## New business developments
 
-1. {'date': '2026-09-02', 'topic': 'Paystack integration', 'status': 'Declined', 'detail': 'Paystack Support declined the ZeroPay settlement-rail partnership because crypto-based payment infrastructure is outside current integration scope; no live-mode activation or compliance approval was found.'}
-2. {'date': '2026-08-27', 'topic': 'Kwati Group JV / ZeroPay investment', 'status': 'Contingent', 'detail': 'Wisdom Kwati verbally restated commitment but needs to raise the $500,000 investment before signing; no firm signing date and NDA remains unsigned.'}
-3. {'date': '2026-08-26', 'topic': 'Startup visa / EIC route', 'status': 'Awaiting evaluation', 'detail': 'Estonia and Lithuania Startup Visa applications are submitted and awaiting evaluation; EIC Accelerator remains blocked until an eligible EU/associated-country entity and address are available.'}
-4. {'date': '2026-08-26', 'topic': 'FID grant', 'status': 'Urgent follow-up', 'detail': 'FID application draft was finalized, but submission confirmation still needs to be verified in the portal.'}
-5. The 2026-09-04 live entity refresh completed successfully; no new record-level business developments were identified since the previous snapshot.
-6. The 2026-09-07 live entity refresh completed successfully; all configured business entities were queried and the Backup 777 export was regenerated.
+1. **Backup 777 continuity refresh** — Completed: All 18 configured business entities were queried live; 155 records exported for continuity.
+2. **FID Pilot grant** — Submitted / Under review: The €200,000 Pilot application was submitted Sep 5, 2026; confirmation reference 3ae3162ee9 received. FID says evaluation is ongoing and submissions are final; do not supplement or contact during review.
+3. **Corporate structure** — Confirmed: ZeroPay Digital Services Ltd remains a separate UK entity planned to umbrella AgriLink, CivicTrack, TriageAI, LearnOffline, SafeGuard, ChipLink and CineLink. ZerôPâŷ Money and BETONIQ INVEST remain subsidiaries of BETONIQ WEST LTD; UK registration is on hold pending funds expected around Sep 11.
+4. **Grant sprint** — Active: Gates Grand Challenges is confirmed open through Sep 29, 2026. YC Winter 2027 is open with an early deadline around Sep 25; FISRI follow-up is overdue for the Horizon Europe Africa route.
+5. **Master hub deployment** — Queued: The master hub live Netlify redeploy remains queued until funds land because Netlify credits are low; current working rawcdn.githack demo link is https://rawcdn.githack.com/TOMDEGGS/BETONIQ-WEST-/main/betoniq_launcher.html.
 
 ## Continuity note
 
