@@ -58,3 +58,9 @@ DRAFT NOTES FOR TOM:
 - This is a first pass — tone, tiers, and dollar goal are all adjustable.
 - Recommend pairing this campaign with the raw dead-zone payment video once you have a merchant lined up — campaigns with real video convert dramatically better than text/images alone.
 - You post/launch this yourself per your standing preference; I can revise wording, add more tiers, or draft the companion social posts once you review this.
+
+---
+## UK CONTACT (added Sep 10, 2026)
+For UK-based backers/inquiries — WhatsApp only:
++44 7788 371744
+Address for reference: 15 Fleming Road, Dickens Estate, George Row, SE16 4UL, London
