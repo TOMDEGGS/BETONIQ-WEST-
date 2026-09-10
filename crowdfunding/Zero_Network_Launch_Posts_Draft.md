@@ -8,7 +8,7 @@ All copy below is ready to post as-is or edit. Tom posts these himself, per stan
 TITLE (paste exactly, HN strips most formatting from titles):
 Show HN: An offline payment protocol using PUF + ECC that works with zero connectivity
 
-URL field: link to the ZeroPay technical whitepaper or GitHub repo (recommend: https://github.com/TOMDEGGS/BETONIQ-WEST- — pick whichever specific doc/page you want HN traffic landing on)
+URL field: https://rawcdn.githack.com/TOMDEGGS/BETONIQ-WEST-/main/crowdfunding/back_us.html (the live crowdfunding page with all 5 payment tiers)
 
 BODY TEXT (post this as the first comment under your own submission, HN convention):
 
@@ -20,7 +20,7 @@ What I built: a terminal that signs transactions fully offline using ECC P-256 e
 
 I formally verified the core protocol logic using TLA+ (the same formal-verification approach used to catch real bugs in distributed systems at AWS and Azure before they ship) rather than just testing happy paths.
 
-Currently live: a working Paystack merchant integration for settlement, and I'm working on getting real dead-zone transaction footage recorded with an actual merchant this week.
+Currently live: a working Paystack merchant integration for settlement, and a small crowdfunding round to fund our first pilot terminal production run (link in the post URL above) if anyone wants to back real hardware getting built rather than just discuss the crypto design. I'm working on getting real dead-zone transaction footage recorded with an actual merchant this week too.
 
 Genuinely interested in HN's take on the crypto design — particularly the distance-bounding approach against relay attacks, and any prior art I should know about. Also happy to answer anything about the offline sync/settlement model.
 
@@ -40,7 +40,7 @@ Built by BETONIQ WEST LTD as part of BETONIQ INVEST, an AI-powered real estate i
 Try it free. If you want the full AI-verified feasibility study, compliance checks, and direct access to vetted projects, that's where the paid tiers come in — but the instant score is free, always.
 
 FIRST MAKER COMMENT (post immediately after listing goes live):
-Hey Product Hunt — Tom here, Shareholder & CEO of BETONIQ WEST LTD. We built this because every real estate feasibility study I'd seen took weeks and cost thousands before you even knew if a project was worth pursuing. This tool gives you a real, data-driven directional answer in under 30 seconds, for free. Would love feedback on what other data points you'd want to see in the score.
+Hey Product Hunt — Tom here, Shareholder & CEO of BETONIQ WEST LTD. We built this because every real estate feasibility study I'd seen took weeks and cost thousands before you even knew if a project was worth pursuing. This tool gives you a real, data-driven directional answer in under 30 seconds, for free. Would love feedback on what other data points you'd want to see in the score. Also running a small crowdfunding round for our sister project ZerôPâŷ Money (offline payment terminals) if anyone wants to check that out too: https://rawcdn.githack.com/TOMDEGGS/BETONIQ-WEST-/main/crowdfunding/back_us.html
 
 ---
 
@@ -60,7 +60,7 @@ TITLE: We formally verified our offline payment protocol with TLA+ before writin
 BODY:
 Building ZerôPâŷ Money, an offline-first payment protocol (PUF + ECC P-256 signing, distance-bounding anti-relay checks, 72-hour offline token TTL, auto-sync on reconnect). Rather than just testing happy paths, we ran the core protocol logic through TLA+ formal verification — the same method used to catch real distributed-systems bugs at AWS and Azure before shipping.
 
-Curious what this community thinks about offline-first payment security models generally — is formal verification something more fintech infra teams should be doing, or is it overkill pre-product-market-fit?
+Curious what this community thinks about offline-first payment security models generally — is formal verification something more fintech infra teams should be doing, or is it overkill pre-product-market-fit? Also running a small crowdfunding round to fund the first pilot terminal production batch, link here if you want to see the tiers: https://rawcdn.githack.com/TOMDEGGS/BETONIQ-WEST-/main/crowdfunding/back_us.html
 
 ### r/SideProject
 TITLE: Built a free instant ROI scoring tool for real estate — 30 seconds, no signup wall, would love brutal feedback
