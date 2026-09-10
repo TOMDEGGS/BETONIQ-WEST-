@@ -33,15 +33,14 @@ We're not asking you to bet on an idea. We're asking you to help us get real ter
 ## FUNDING GOAL
 $5,000 minimum goal — this funds our first small production run of terminals for pilot merchants and unlocks the next phase of development. Every dollar beyond that accelerates how many merchants we can reach.
 
-## REWARD TIERS
-- $10 — Early Supporter: Your name on our official Founding Backers page + monthly progress updates.
-- $25 — Believer: All of the above + an exclusive behind-the-scenes video of the offline payment protocol in action, before public release.
-- $50 — Founding Merchant Access: All of the above + priority access to be one of our first pilot merchants when terminals ship, with reduced transaction fees for your first 6 months.
-- $100 — Insider: All of the above + a personal thank-you video from Tom Ugbodaga, Shareholder & CEO, + early access to the BETONIQ INVEST platform's premium AI feasibility tools.
-- $250 — Champion: All of the above + your name/business listed as a Founding Partner on the ZerôPâŷ Money website.
-- $500+ — Visionary Partner: All of the above + a direct 30-minute call with the founding team to discuss partnership, investment, or bulk terminal deployment opportunities.
+## REWARD TIERS (LIVE — Stripe payment links active as of Sep 10, 2026)
+- £25 — Believer: An exclusive behind-the-scenes video of the offline payment protocol in action, before public release. PAY HERE: https://buy.stripe.com/8x29AS7WwdzW8cVbEWabK00
+- £50 — Founding Merchant Access: All of the above + priority access to be one of our first pilot merchants when terminals ship, with reduced transaction fees for your first 6 months. PAY HERE: https://buy.stripe.com/aFa00i2Cc1Real39wOabK03
+- £100 — Insider: All of the above + a personal thank-you video from Tom Ugbodaga, Shareholder & CEO, + early access to the BETONIQ INVEST platform's premium AI feasibility tools. PAY HERE: https://buy.stripe.com/14A4gygt27by8cV38qabK04
+- £125 — Founding Partner Plus: All of the above + your name/business listed as an early Founding Partner on the ZerôPâŷ Money website. PAY HERE: https://buy.stripe.com/3cI00i7WwgM8eBjbEWabK02
+- £250 — Champion: All of the above + a direct 30-minute call with the founding team to discuss partnership, investment, or bulk terminal deployment opportunities. PAY HERE: https://buy.stripe.com/6oUeVc3Gg9jGfFnaASabK05
 
-(Note: reward tiers/pricing are a first draft — happy to adjust amounts or perks before this goes live.)
+(Note: tiers now match the 5 live Stripe payment links Tom generated on Sep 10, 2026. Currency is GBP to match Stripe account setup. Perks/wording still adjustable before public launch.)
 
 ## RISKS AND CHALLENGES (standard, required transparency section)
 Hardware manufacturing and distribution timelines can shift, especially across international logistics into Nigeria and West Africa. We've mitigated this by keeping our first production run small and focused on proven pilot merchants rather than mass-market shipping on day one. Our core software/cryptographic protocol is already built and formally verified — the funding gap is specifically for physical terminal manufacturing and merchant onboarding, not unproven R&D.
