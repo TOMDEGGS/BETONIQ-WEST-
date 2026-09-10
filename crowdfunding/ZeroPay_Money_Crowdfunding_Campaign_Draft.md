@@ -63,4 +63,5 @@ DRAFT NOTES FOR TOM:
 ## UK CONTACT (added Sep 10, 2026)
 For UK-based backers/inquiries — WhatsApp only:
 +44 7788 371744
+Email: betoniqwestltd@gmail.com
 Address for reference: 15 Fleming Road, Dickens Estate, George Row, SE16 4UL, London
