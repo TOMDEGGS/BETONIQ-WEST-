@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Back ZerôPâŷ Money — Payments That Don't Wait For The Network</title>
+<style>
+:root{--accent:#00d4ff;--bg:#02040a;--panel:#0a1428;--muted:#8a99ad}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:var(--bg);color:#fff;line-height:1.6}
+a{color:var(--accent);text-decoration:none}
+.wrap{max-width:960px;margin:0 auto;padding:0 24px}
+
+.hdr{background:linear-gradient(135deg,#02040a 0%,#0a1428 100%);border-bottom:1px solid #0d1e35;padding:18px 0}
+.hdr .wrap{display:flex;align-items:center;justify-content:space-between}
+.logo{font-size:1.3rem;font-weight:900;color:var(--accent);letter-spacing:2px}
+.logo span{color:#fff;font-weight:300;font-size:0.75rem;display:block;letter-spacing:1px}
+
+.hero{padding:70px 0 50px;text-align:center;background:radial-gradient(ellipse at 50% 20%,#0a1f3a 0%,#02040a 70%)}
+.badge{display:inline-block;background:rgba(0,212,255,0.1);border:1px solid rgba(0,212,255,0.3);color:var(--accent);font-size:0.7rem;font-weight:700;letter-spacing:2px;padding:6px 16px;border-radius:20px;margin-bottom:22px;text-transform:uppercase}
+.hero h1{font-size:2.4rem;font-weight:900;margin-bottom:16px;line-height:1.25}
+.hero h1 span{color:var(--accent)}
+.hero p.sub{font-size:1.05rem;color:var(--muted);max-width:620px;margin:0 auto 28px}
+.hero .hook{font-size:0.95rem;color:#ccd;max-width:640px;margin:0 auto 30px;padding:16px 20px;border-left:3px solid var(--accent);background:rgba(0,212,255,0.05);text-align:left}
+
+.section{padding:50px 0;border-top:1px solid #0d1e35}
+.section-tag{font-size:0.65rem;letter-spacing:3px;color:var(--accent);font-weight:700;text-transform:uppercase;margin-bottom:10px}
+.section-title{font-size:1.7rem;font-weight:900;margin-bottom:14px}
+.section p{color:var(--muted);font-size:0.95rem;margin-bottom:14px}
+.section ol,.section ul{color:var(--muted);font-size:0.95rem;margin-left:20px;margin-bottom:14px}
+.section li{margin-bottom:8px}
+
+.goal-box{background:var(--panel);border:1px solid #0d1e35;border-radius:12px;padding:24px;margin-bottom:30px;text-align:center}
+.goal-box .amt{font-size:2.2rem;font-weight:900;color:var(--accent)}
+.goal-box .lbl{color:var(--muted);font-size:0.85rem;margin-top:4px}
+
+.tiers{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px;margin-top:24px}
+.tier{background:var(--panel);border:1px solid #0d1e35;border-radius:12px;padding:24px;display:flex;flex-direction:column}
+.tier.champion{border-color:var(--accent);box-shadow:0 0 24px rgba(0,212,255,0.15)}
+.tier .price{font-size:1.8rem;font-weight:900;color:var(--accent);margin-bottom:6px}
+.tier .name{font-size:1rem;font-weight:700;margin-bottom:12px}
+.tier .perks{color:var(--muted);font-size:0.85rem;flex-grow:1;margin-bottom:18px}
+.tier .perks li{margin-bottom:6px;list-style:none}
+.tier .perks li::before{content:"✓ ";color:var(--accent)}
+.pay-btn{display:block;text-align:center;background:linear-gradient(135deg,var(--accent),#0088cc);color:#000;font-weight:800;padding:12px 0;border-radius:8px;font-size:0.9rem}
+.pay-btn:hover{opacity:0.9}
+
+.risk-box{background:rgba(255,180,0,0.06);border:1px solid rgba(255,180,0,0.25);border-radius:10px;padding:18px;font-size:0.88rem;color:#ddb;margin-top:10px}
+
+.team{display:flex;gap:20px;flex-wrap:wrap;margin-top:16px}
+.team-card{background:var(--panel);border:1px solid #0d1e35;border-radius:10px;padding:18px;flex:1;min-width:240px}
+.team-card b{color:#fff;display:block;margin-bottom:4px}
+.team-card span{color:var(--muted);font-size:0.85rem}
+
+.contact-box{background:var(--panel);border:1px solid #0d1e35;border-radius:12px;padding:24px;margin-top:20px}
+.contact-box p{margin-bottom:8px;font-size:0.9rem}
+
+.footer{padding:30px 0;text-align:center;color:#556;font-size:0.8rem;border-top:1px solid #0d1e35}
+</style>
+</head>
+<body>
+
+<div class="hdr">
+  <div class="wrap">
+    <div class="logo">ZERÔPÂŶ<span>MONEY</span></div>
+    <div style="color:#667;font-size:0.8rem">Back Our Launch</div>
+  </div>
+</div>
+
+<div class="hero">
+  <div class="wrap">
+    <div class="badge">Crowdfunding Campaign</div>
+    <h1>ZerôPâŷ Money: Payments That <span>Don't Wait</span> For The Network</h1>
+    <p class="sub">The first payment terminal that completes real transactions with zero internet, zero signal, zero excuses.</p>
+    <div class="hook">1.4 billion people worldwide have no reliable access to banking. 38 million of them are in Nigeria alone. Most of them live and trade in places where the network drops out exactly when they need it most.</div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="wrap">
+    <div class="section-tag">The Problem</div>
+    <div class="section-title">One dependency locks out hundreds of millions</div>
+    <p>Every existing digital payment system — card, mobile money, bank transfer — depends on one thing: a live internet connection at the exact moment of the transaction. In large parts of Africa, rural Europe, disaster zones, and anywhere infrastructure is unreliable, that single dependency locks hundreds of millions of people and small merchants out of the digital economy entirely.</p>
+
+    <div class="section-tag" style="margin-top:30px">The Solution</div>
+    <div class="section-title">Signs offline. Settles the moment it can.</div>
+    <p>ZerôPâŷ Money is a payment protocol and terminal that completes and cryptographically signs a transaction entirely offline, then syncs and settles automatically the moment any connection — even a brief one — becomes available.</p>
+    <ol>
+      <li>A silicon-level Physical Unclonable Function (PUF) gives every terminal a unique, un-copyable hardware identity.</li>
+      <li>ECC P-256 elliptic curve cryptography signs each transaction on-device, offline.</li>
+      <li>Distance-bounding checks stop relay/replay attacks — a common weak point in offline systems.</li>
+      <li>The signed transaction is held as a cryptographic offline token for up to 72 hours.</li>
+      <li>The moment the terminal reaches a Solar Mesh Hub or any connectivity, it syncs and settlement completes through our licensed payment rail into the merchant's bank.</li>
+    </ol>
+    <p>This isn't a concept. The core protocol has been formally verified using TLA+ (the same formal-verification method used to catch real bugs in systems like AWS and Azure before they ship), and our Paystack merchant integration is live today.</p>
+  </div>
+</div>
+
+<div class="section">
+  <div class="wrap">
+    <div class="section-tag">Why This, Why Now</div>
+    <div class="section-title">The tech works. We need capital to scale it.</div>
+    <p>We're not asking you to bet on an idea. We're asking you to help us get real terminals into real merchants' hands faster — the technology already works, verified and tested. What's missing is capital to manufacture and distribute terminals at scale.</p>
+
+    <div class="goal-box">
+      <div class="amt">$5,000</div>
+      <div class="lbl">Minimum goal — funds our first small production run of terminals for pilot merchants. Every dollar beyond that accelerates how many merchants we can reach.</div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="wrap">
+    <div class="section-tag">Back Us</div>
+    <div class="section-title">Choose your tier</div>
+    <p>All payments are processed securely through Stripe. Click any "Back This Tier" button to pay instantly.</p>
+
+    <div class="tiers">
+      <div class="tier">
+        <div class="price">£25</div>
+        <div class="name">Believer</div>
+        <ul class="perks">
+          <li>Exclusive behind-the-scenes video of the offline payment protocol in action, before public release</li>
+        </ul>
+        <a class="pay-btn" href="https://buy.stripe.com/8x29AS7WwdzW8cVbEWabK00">Back This Tier</a>
+      </div>
+      <div class="tier">
+        <div class="price">£50</div>
+        <div class="name">Founding Merchant Access</div>
+        <ul class="perks">
+          <li>All of the above</li>
+          <li>Priority access to be one of our first pilot merchants when terminals ship, with reduced transaction fees for your first 6 months</li>
+        </ul>
+        <a class="pay-btn" href="https://buy.stripe.com/aFa00i2Cc1Real39wOabK03">Back This Tier</a>
+      </div>
+      <div class="tier">
+        <div class="price">£100</div>
+        <div class="name">Insider</div>
+        <ul class="perks">
+          <li>All of the above</li>
+          <li>A personal thank-you video from Tom Ugbodaga, Shareholder &amp; CEO</li>
+          <li>Early access to the BETONIQ INVEST platform's premium AI feasibility tools</li>
+        </ul>
+        <a class="pay-btn" href="https://buy.stripe.com/14A4gygt27by8cV38qabK04">Back This Tier</a>
+      </div>
+      <div class="tier">
+        <div class="price">£125</div>
+        <div class="name">Founding Partner Plus</div>
+        <ul class="perks">
+          <li>All of the above</li>
+          <li>Your name/business listed as an early Founding Partner on the ZerôPâŷ Money website</li>
+        </ul>
+        <a class="pay-btn" href="https://buy.stripe.com/3cI00i7WwgM8eBjbEWabK02">Back This Tier</a>
+      </div>
+      <div class="tier champion">
+        <div class="price">£250</div>
+        <div class="name">Champion</div>
+        <ul class="perks">
+          <li>All of the above</li>
+          <li>A direct 30-minute call with the founding team to discuss partnership, investment, or bulk terminal deployment opportunities</li>
+        </ul>
+        <a class="pay-btn" href="https://buy.stripe.com/6oUeVc3Gg9jGfFnaASabK05">Back This Tier</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="wrap">
+    <div class="section-tag">Risks &amp; Challenges</div>
+    <div class="section-title">Straight talk</div>
+    <div class="risk-box">Hardware manufacturing and distribution timelines can shift, especially across international logistics into Nigeria and West Africa. We've mitigated this by keeping our first production run small and focused on proven pilot merchants rather than mass-market shipping on day one. Our core software/cryptographic protocol is already built and formally verified — the funding gap is specifically for physical terminal manufacturing and merchant onboarding, not unproven R&amp;D.</div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="wrap">
+    <div class="section-tag">Team</div>
+    <div class="section-title">Who's building this</div>
+    <div class="team">
+      <div class="team-card">
+        <b>Tom Ugbodaga — Shareholder &amp; CEO</b>
+        <span>MSc Computer Systems Security (University of Gloucestershire, England, 2011). Dissertation: NFC Contactless Technology for Financial Payments (Merit Class).</span>
+      </div>
+      <div class="team-card">
+        <b>Air Vice Marshal Monday Riku Morgan (Rtd)</b>
+        <span>Executive Vice Chairman</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="wrap">
+    <div class="section-tag">Contact (UK)</div>
+    <div class="contact-box">
+      <p>WhatsApp only: <a href="https://wa.me/447788371744">+44 7788 371744</a></p>
+      <p>Email: <a href="mailto:betoniqwestltd@gmail.com">betoniqwestltd@gmail.com</a></p>
+      <p>Address: 15 Fleming Road, Dickens Estate, George Row, SE16 4UL, London</p>
+    </div>
+  </div>
+</div>
+
+<div class="section" style="text-align:center;border-top:1px solid #0d1e35">
+  <div class="wrap">
+    <div class="section-title">Help us prove no one should be locked out of the digital economy just because the signal dropped.</div>
+    <p style="font-size:1.1rem;color:#fff;font-weight:700">Back ZerôPâŷ Money today.</p>
+  </div>
+</div>
+
+<div class="footer">© 2026 BETONIQ WEST LTD (RC 1496603). ZerôPâŷ Money is a product of BETONIQ WEST LTD.</div>
+
+</body>
+</html>
