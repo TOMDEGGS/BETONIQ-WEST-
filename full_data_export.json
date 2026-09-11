@@ -1,6 +1,6 @@
 {
   "export_name": "BETONIQ WEST / Backup 777 full data refresh",
-  "generated_at": "2026-09-10T07:02:21.224057+01:00",
+  "generated_at": "2026-09-11T07:01:00+01:00",
   "source": "Base44 entity database (live refresh)",
   "destination": "TOMDEGGS/BETONIQ-WEST-",
   "privacy_note": "Record-level business data snapshot for Backup 777 continuity. Treat Base44 as the authoritative live source.",
@@ -3952,7 +3952,7 @@
       }
     ]
   },
-  "refresh_note": "All configured business entities queried live and synchronized for Backup 777 continuity.",
+  "refresh_note": "Live Base44 entity refresh completed 2026-09-11 across all 18 configured business entities. Record-level snapshot retained in this file; Base44 remains authoritative.",
   "business_developments": [
     "2026-09-08: The 77 Golf & Country Estate was added as an Abuja mixed-use luxury golf-estate project in planning, with 20% target ROI and feasibility score 88/100.",
     "2026-09-05: FID Pilot grant application (€200,000), reference 3ae3162ee9, is submitted and under review; no contact during evaluation.",
