@@ -1,49 +1,13 @@
-# BETONIQ WEST — Backup 777 Business History Log
+# BETONIQ WEST — Business History Log
 
-Refresh timestamp: 2026-09-10T07:02:21.224057+01:00
-Source: Base44 entity database (live refresh)
-Destination: TOMDEGGS/BETONIQ-WEST-
+## 2026-09-12 — Backup 777 live data refresh
 
-## Refresh completed
+A live refresh was completed from the Base44 business entities for Backup 777 continuity. The refreshed snapshot covers real-estate projects, investors, feasibility studies, country macro data, subscriptions, leads, ZeroPay transactions, merchants, agents, team tasks, funding outreach, developer listings, and backup-agent messages.
 
-All 18 configured business entities were queried live. The full record-level export contains 157 records.
+Current live counts: 80 real-estate projects, 2 investors, 2 feasibility studies, 8 ZeroPay merchants, 6 agents, 9 transactions, 1 active subscription, 3 leads, 13 funding-outreach records, 9 team tasks, 6 country-macro records, and 6 backup-agent messages. There are currently no recorded investments, commissions, compliance records, or field meetings.
 
-## Current counts
+New project captured since the prior export: *The 77 Golf & Country Estate* in Bwari, Abuja — 77-hectare mixed-use luxury golf estate, planning stage, featured, with a recorded feasibility score of 85 and a linked feasibility study scoring 88 overall. The project remains subject to FCDA approvals and land-title perfection.
 
-RealEstateProject: 80
-Investor: 2
-Investment: 0
-CountryMacroData: 6
-ComplianceRecord: 0
-FeasibilityStudy: 2
-Commission: 0
-DeveloperListing: 1
-Subscription: 1
-LeadCapture: 3
-VisitorActivity: 11
-ZPTransaction: 9
-ZPMerchant: 8
-ZPAgent: 6
-TeamTask: 9
-FieldMeeting: 0
-BackupAgentMessage: 6
-FundingOutreach: 13
+Operational continuity items remain: maintain the master hub and ZeroPay assets; progress Katampe Terrace direct HNI sales; monitor Paystack activation; complete Tom’s approval of the embedded cryptography hiring specification; and keep funding outreach/status records current. The FID application is recorded in the wider business briefing as submitted and under review; Horizon/FISRI remains a partnership-dependent pipeline item.
 
-## Operational snapshot
-
-Real estate: 80 projects. Investor pipeline: 2 investor records; feasibility: 2 studies. ZeroPay: 9 transactions, 8 merchants, and 6 agents. Commercial pipeline: 3 leads, 1 subscriptions, 9 team tasks, 0 field meetings, and 13 funding-outreach records.
-
-## New business developments
-
-1. 2026-09-08: The 77 Golf & Country Estate was added as an Abuja mixed-use luxury golf-estate project in planning, with 20% target ROI and feasibility score 88/100.
-2. 2026-09-05: FID Pilot grant application (€200,000), reference 3ae3162ee9, is submitted and under review; no contact during evaluation.
-3. 2026-09-05: Seven-platform lineup complete with white papers, pitch decks, live demos, and GitHub assets.
-4. 2026-09-08: Netlify billing notice verified; master hub redeploy remains queued until funds land, with projected suspension around Oct 5 if billing is not resolved.
-5. 2026-09-09: Backup 777 data refresh synchronized to the live Base44 entity snapshot.
-6. 2026-09-10T07:02:21.224057+01:00: Live Backup 777 refresh completed successfully across all 18 configured business entities; the repository snapshot was regenerated from the Base44 database.
-
-7. 2026-09-11T07:01:00+01:00: Live Backup 777 refresh completed successfully across all 18 configured business entities; export timestamp and continuity records reconciled.
-
-## Continuity note
-
-The live Base44 database remains authoritative. This repository snapshot is a synchronized operational copy for Backup 777 continuity.
+This file and `full_data_export.json` are generated for the TOMDEGGS/BETONIQ-WEST- repository. Base44 is the authoritative source for any subsequent field-level changes.
