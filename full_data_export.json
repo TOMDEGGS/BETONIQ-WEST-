@@ -1,6 +1,6 @@
 {
   "export_name": "BETONIQ WEST / Backup 777 full data refresh",
-  "generated_at": "2026-09-13T07:02:08.735664+01:00",
+  "generated_at": "2026-09-13T20:03:05+01:00",
   "source": "Base44 entity database (live refresh)",
   "destination": "TOMDEGGS/BETONIQ-WEST-",
   "privacy_note": "Record-level business data snapshot for Backup 777 continuity. Treat Base44 as the authoritative live source.",
@@ -3954,6 +3954,7 @@
   },
   "refresh_note": "All configured business entities queried live and synchronized for Backup 777 continuity.",
   "business_developments": [
-    "2026-09-13T07:02:08.735664+01:00: Live Backup 777 refresh completed successfully across all 18 configured business entities; the repository snapshot was regenerated from the Base44 database."
+    "2026-09-13T07:02:08.735664+01:00: Live Backup 777 refresh completed successfully across all 18 configured business entities; the repository snapshot was regenerated from the Base44 database.",
+    "2026-09-13T20:03:05+01:00: Live Backup 777 refresh completed successfully across all 18 configured business entities; repository snapshot regenerated from the Base44 database."
   ]
 }
