@@ -1,13 +1,42 @@
-# BETONIQ WEST — Business History Log
+# BETONIQ WEST — Backup 777 Business History Log
 
-## 2026-09-12 — Backup 777 live data refresh
+Refresh timestamp: 2026-09-13T07:02:08.735664+01:00
+Source: Base44 entity database (live refresh)
+Destination: TOMDEGGS/BETONIQ-WEST-
 
-A live refresh was completed from the Base44 business entities for Backup 777 continuity. The refreshed snapshot covers real-estate projects, investors, feasibility studies, country macro data, subscriptions, leads, ZeroPay transactions, merchants, agents, team tasks, funding outreach, developer listings, and backup-agent messages.
+## Refresh completed
 
-Current live counts: 80 real-estate projects, 2 investors, 2 feasibility studies, 8 ZeroPay merchants, 6 agents, 9 transactions, 1 active subscription, 3 leads, 13 funding-outreach records, 9 team tasks, 6 country-macro records, and 6 backup-agent messages. There are currently no recorded investments, commissions, compliance records, or field meetings.
+All 18 configured business entities were queried live. The full record-level export contains 157 records.
 
-New project captured since the prior export: *The 77 Golf & Country Estate* in Bwari, Abuja — 77-hectare mixed-use luxury golf estate, planning stage, featured, with a recorded feasibility score of 85 and a linked feasibility study scoring 88 overall. The project remains subject to FCDA approvals and land-title perfection.
+## Current counts
 
-Operational continuity items remain: maintain the master hub and ZeroPay assets; progress Katampe Terrace direct HNI sales; monitor Paystack activation; complete Tom’s approval of the embedded cryptography hiring specification; and keep funding outreach/status records current. The FID application is recorded in the wider business briefing as submitted and under review; Horizon/FISRI remains a partnership-dependent pipeline item.
+RealEstateProject: 80
+Investor: 2
+Investment: 0
+CountryMacroData: 6
+ComplianceRecord: 0
+FeasibilityStudy: 2
+Commission: 0
+DeveloperListing: 1
+Subscription: 1
+LeadCapture: 3
+VisitorActivity: 11
+ZPTransaction: 9
+ZPMerchant: 8
+ZPAgent: 6
+TeamTask: 9
+FieldMeeting: 0
+BackupAgentMessage: 6
+FundingOutreach: 13
 
-This file and `full_data_export.json` are generated for the TOMDEGGS/BETONIQ-WEST- repository. Base44 is the authoritative source for any subsequent field-level changes.
+## Operational snapshot
+
+Real estate: 80 projects. Investor pipeline: 2 investor records; feasibility: 2 studies. ZeroPay: 9 transactions, 8 merchants, and 6 agents. Commercial pipeline: 3 leads, 1 subscriptions, 9 team tasks, 0 field meetings, and 13 funding-outreach records.
+
+## New business developments
+
+1. 2026-09-13T07:02:08.735664+01:00: Live Backup 777 refresh completed successfully across all 18 configured business entities; the repository snapshot was regenerated from the Base44 database.
+
+## Continuity note
+
+The live Base44 database remains authoritative. This repository snapshot is a synchronized operational copy for Backup 777 continuity.
