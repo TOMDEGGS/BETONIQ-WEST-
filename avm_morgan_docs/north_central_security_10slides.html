@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>North-Central Security: Crisis to Grassroots Shield — AVM Morgan</title>
+<style>
+  :root{
+    --green:#1B3A2B; --gold:#C9A24B; --cream:#F2EFE6; --red:#8C2E2E; --dark:#0D1A13;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html,body{width:100%; height:100%; overflow:hidden; background:var(--dark); font-family:'Segoe UI', Arial, sans-serif; color:var(--cream);}
+  #canvas3d{position:fixed; top:0; left:0; width:100%; height:100%; z-index:0;}
+  .deck{position:relative; width:100%; height:100vh; z-index:1;}
+  .slide{
+    position:absolute; top:0; left:0; width:100%; height:100%;
+    display:flex; flex-direction:column; justify-content:center; align-items:center;
+    padding:6vh 8vw; text-align:center; opacity:0; pointer-events:none;
+    transition:opacity .6s ease;
+  }
+  .slide.active{opacity:1; pointer-events:auto;}
+  h1{font-size:3.2vw; color:var(--gold); letter-spacing:1px; margin-bottom:1.2vh; font-weight:800;}
+  h2{font-size:2.2vw; color:var(--gold); margin-bottom:2vh; font-weight:700;}
+  p, li{font-size:1.35vw; line-height:1.5; color:var(--cream);}
+  .tag{font-size:1vw; letter-spacing:3px; color:#9fbfa9; text-transform:uppercase; margin-bottom:1vh;}
+  .stat-row{display:flex; gap:3vw; justify-content:center; margin-top:3vh; flex-wrap:wrap;}
+  .stat-box{background:rgba(255,255,255,0.06); border:1px solid var(--gold); border-radius:14px; padding:2.5vh 2vw; min-width:14vw; backdrop-filter:blur(4px);}
+  .stat-num{font-size:3vw; font-weight:800; color:var(--gold); display:block;}
+  .stat-label{font-size:1vw; color:var(--cream); opacity:0.85;}
+  .bars{display:flex; gap:2.5vw; align-items:flex-end; height:35vh; margin-top:3vh;}
+  .bar-wrap{display:flex; flex-direction:column; align-items:center; width:6vw;}
+  .bar{width:100%; background:linear-gradient(180deg, var(--gold), var(--green)); border-radius:6px 6px 0 0; box-shadow:0 0 20px rgba(201,162,75,0.5); transition:height 1.2s cubic-bezier(.2,.9,.3,1);}
+  .bar-num{color:var(--gold); font-weight:700; font-size:1.1vw; margin-bottom:0.5vh;}
+  .bar-label{font-size:0.9vw; color:var(--cream); margin-top:0.8vh; text-align:center;}
+  .chain{display:flex; align-items:center; gap:1.5vw; margin-top:3vh; flex-wrap:wrap; justify-content:center;}
+  .node{background:rgba(255,255,255,0.08); border:2px solid var(--gold); border-radius:50%; width:9vw; height:9vw; display:flex; align-items:center; justify-content:center; font-size:0.95vw; font-weight:700; color:var(--cream); text-align:center; padding:0.5vw; box-shadow:0 0 25px rgba(201,162,75,0.35); animation:pulse 3s infinite ease-in-out;}
+  .node:nth-child(odd){animation-delay:0.5s;}
+  @keyframes pulse{0%,100%{transform:scale(1);} 50%{transform:scale(1.08);}}
+  .arrow{font-size:2vw; color:var(--gold);}
+  .quote{font-size:2vw; font-style:italic; color:var(--cream); max-width:75vw; line-height:1.6; text-shadow:0 2px 12px rgba(0,0,0,0.6);}
+  .formula{font-size:1.6vw; color:var(--gold); font-weight:700; display:flex; gap:1.2vw; align-items:center; flex-wrap:wrap; justify-content:center; margin-top:3vh;}
+  .formula span.op{color:var(--cream); font-weight:400; font-size:1.4vw;}
+  .cycle{display:flex; gap:2vw; justify-content:center; margin-top:3vh; flex-wrap:wrap;}
+  .cyc-step{background:rgba(140,46,46,0.15); border:1px solid var(--red); border-radius:10px; padding:1.5vh 1.4vw; font-size:1vw; max-width:11vw;}
+  .cyc-step b{color:var(--gold); display:block; font-size:1.1vw; margin-bottom:0.4vh;}
+  .footer-tag{position:absolute; bottom:2.5vh; font-size:0.85vw; color:#9fbfa9; opacity:0.7; letter-spacing:1px;}
+  .nav{position:fixed; bottom:3vh; left:50%; transform:translateX(-50%); display:flex; gap:1vw; z-index:10;}
+  .dot{width:10px; height:10px; border-radius:50%; background:rgba(255,255,255,0.25); cursor:pointer; transition:.3s;}
+  .dot.active{background:var(--gold); box-shadow:0 0 8px var(--gold);}
+  .arrows{position:fixed; top:50%; width:100%; display:flex; justify-content:space-between; padding:0 2vw; transform:translateY(-50%); z-index:10; pointer-events:none;}
+  .arrows button{pointer-events:auto; background:rgba(255,255,255,0.08); border:1px solid var(--gold); color:var(--gold); font-size:1.8vw; width:3.5vw; height:3.5vw; border-radius:50%; cursor:pointer;}
+  .arrows button:hover{background:var(--gold); color:var(--dark);}
+  .counter-note{font-size:0.9vw; color:#e0c98f; margin-top:1.5vh; font-style:italic;}
+  .slide-idx{position:fixed; top:2.5vh; right:2vw; font-size:1vw; color:var(--gold); z-index:10; letter-spacing:1px;}
+</style>
+</head>
+<body>
+<canvas id="canvas3d"></canvas>
+<div class="slide-idx" id="slideIdx">01 / 10</div>
+<div class="deck" id="deck">
+
+  <!-- SLIDE 1 -->
+  <div class="slide active" data-i="0">
+    <div class="tag">North-Central Security Summit &middot; 2026</div>
+    <h1>FROM CRISIS TO GRASSROOTS SHIELD</h1>
+    <p>Presented by AVM Monday Riku Morgan (Rtd)</p>
+    <p class="counter-note">Human cost data, ransom economics, and a bottom-up security architecture for Benue, Kogi, Kwara, Nasarawa, Niger &amp; Plateau</p>
+  </div>
+
+  <!-- SLIDE 2 -->
+  <div class="slide" data-i="1">
+    <div class="tag">The National Picture &middot; Jul 2025 &ndash; Jun 2026</div>
+    <h2>A Scaling, Self-Funding Criminal Economy</h2>
+    <div class="stat-row">
+      <div class="stat-box"><span class="stat-num" data-count="7825">0</span><span class="stat-label">Kidnapped Nationwide</span></div>
+      <div class="stat-box"><span class="stat-num" data-count="1142">0</span><span class="stat-label">Killed</span></div>
+      <div class="stat-box"><span class="stat-num" data-count="66" data-suffix="%">0</span><span class="stat-label">Year-on-Year Increase</span></div>
+      <div class="stat-box"><span class="stat-num" data-prefix="&#8358;" data-count="7.78" data-decimals="2" data-suffix="bn">0</span><span class="stat-label">Ransom Paid</span></div>
+    </div>
+    <div class="counter-note">Source: SBM Intelligence, 2026</div>
+  </div>
+
+  <!-- SLIDE 3 -->
+  <div class="slide" data-i="2">
+    <div class="tag">Plateau State &middot; Confirmed, Named Incidents</div>
+    <h2>121 Killed in 10 Weeks</h2>
+    <div class="bars" id="plateauBars">
+      <div class="bar-wrap"><span class="bar-num">62</span><div class="bar" style="height:0%" data-h="62"></div><span class="bar-label">May 2026</span></div>
+      <div class="bar-wrap"><span class="bar-num">43</span><div class="bar" style="height:0%" data-h="43"></div><span class="bar-label">June 2026</span></div>
+      <div class="bar-wrap"><span class="bar-num">16</span><div class="bar" style="height:0%" data-h="16"></div><span class="bar-label">1-11 July</span></div>
+    </div>
+    <div class="counter-note">Barkin Ladi, Riyom, Bassa, Jos South &amp; Pankshin LGAs &mdash; Berom Youth Moulders Assoc. / HumAngle (2026)</div>
+  </div>
+
+  <!-- SLIDE 4 -->
+  <div class="slide" data-i="3">
+    <div class="tag">Niger State &middot; Borgu, Kpenya/Dekara &middot; Aug 2026</div>
+    <h2>A Single Operation, Hundreds of Lives</h2>
+    <div class="stat-row">
+      <div class="stat-box"><span class="stat-num" data-count="30">0</span><span class="stat-label">Confirmed Killed</span></div>
+      <div class="stat-box"><span class="stat-num" data-count="80">0</span><span class="stat-label">Abducted (Police-Confirmed)</span></div>
+      <div class="stat-box"><span class="stat-num" data-count="600">0</span><span class="stat-label">Unverified (Bandit Video)</span></div>
+      <div class="stat-box"><span class="stat-num" data-count="2000">0</span><span class="stat-label">Displaced to Benin Republic</span></div>
+    </div>
+    <div class="counter-note">Reuters (22 &amp; 24 Aug 2026), Daily Trust &mdash; unverified figures always shown bracketed</div>
+  </div>
+
+  <!-- SLIDE 5 -->
+  <div class="slide" data-i="4">
+    <div class="tag">Full Regional Totals &middot; 7 North-Central Units &middot; Modeled Estimate</div>
+    <h2>Every State Carries a Share</h2>
+    <div class="bars" id="stateBars">
+      <div class="bar-wrap"><span class="bar-num">400</span><div class="bar" style="height:0%" data-h="400"></div><span class="bar-label">Niger</span></div>
+      <div class="bar-wrap"><span class="bar-num">430</span><div class="bar" style="height:0%" data-h="430"></div><span class="bar-label">Plateau</span></div>
+      <div class="bar-wrap"><span class="bar-num">330</span><div class="bar" style="height:0%" data-h="330"></div><span class="bar-label">Benue</span></div>
+      <div class="bar-wrap"><span class="bar-num">50</span><div class="bar" style="height:0%" data-h="50"></div><span class="bar-label">Kwara</span></div>
+      <div class="bar-wrap"><span class="bar-num">40</span><div class="bar" style="height:0%" data-h="40"></div><span class="bar-label">Kogi</span></div>
+      <div class="bar-wrap"><span class="bar-num">32</span><div class="bar" style="height:0%" data-h="32"></div><span class="bar-label">Nasarawa</span></div>
+      <div class="bar-wrap"><span class="bar-num">22</span><div class="bar" style="height:0%" data-h="22"></div><span class="bar-label">FCT</span></div>
+    </div>
+    <div class="counter-note">Est. fatalities, midpoint of modeled ACLED/HumAngle ranges, Mar&ndash;Sep 2026 &mdash; directional, not individually confirmed</div>
+  </div>
+
+  <!-- SLIDE 6 -->
+  <div class="slide" data-i="5">
+    <div class="tag">Understanding the Threat</div>
+    <h2>The Ransom Economy Self-Funds</h2>
+    <div class="cycle">
+      <div class="cyc-step"><b>1. Abduct</b>Mass raid on mosque, village, highway or farm</div>
+      <div class="cyc-step"><b>2. Hold</b>Victims held days to weeks, negotiation begins</div>
+      <div class="cyc-step"><b>3. Collect</b>Ransom paid &mdash; ₦7.78bn nationwide in 12 months</div>
+      <div class="cyc-step"><b>4. Reinvest</b>Funds weapons, transport, recruitment</div>
+      <div class="cyc-step"><b>5. Repeat</b>Stronger capability for the next attack</div>
+    </div>
+    <div class="counter-note">Every ransom paid measurably strengthens the next attack's capability</div>
+  </div>
+
+  <!-- SLIDE 7 -->
+  <div class="slide" data-i="6">
+    <h1 style="font-size:2.6vw;">THIS IS A DEVELOPMENT EMERGENCY</h1>
+    <p class="quote">Not merely a law-and-order problem. Lost harvests. Interrupted schooling. Ransom economies. A generation growing up distrustful of the state's capacity to protect it.</p>
+  </div>
+
+  <!-- SLIDE 8 -->
+  <div class="slide" data-i="7">
+    <div class="tag">The Solution &middot; Bottom-Up Security Architecture</div>
+    <h2>Financially Autonomous Local Governments</h2>
+    <div class="chain">
+      <div class="node">Federal<br>Government</div>
+      <div class="arrow">&#8594;</div>
+      <div class="node">State<br>Government</div>
+      <div class="arrow">&#8594;</div>
+      <div class="node">Accountable<br>LG</div>
+      <div class="arrow">&#8594;</div>
+      <div class="node">Community</div>
+      <div class="arrow">&#8594;</div>
+      <div class="node">Security<br>Agencies</div>
+    </div>
+    <div class="counter-note">Across all 6 North-Central states: Benue, Kogi, Kwara, Nasarawa, Niger &amp; Plateau</div>
+  </div>
+
+  <!-- SLIDE 9 -->
+  <div class="slide" data-i="8">
+    <div class="tag">The Formula</div>
+    <div class="formula">
+      <div class="stat-box">Financial Autonomy</div><span class="op">+</span>
+      <div class="stat-box">Accountability</div><span class="op">+</span>
+      <div class="stat-box">Local Intelligence</div><span class="op">+</span>
+      <div class="stat-box">Responsive Governance</div><span class="op">+</span>
+      <div class="stat-box">Professional Coordination</div>
+    </div>
+    <p class="counter-note" style="font-size:1.4vw; margin-top:4vh; color:var(--gold);">= Stronger Grassroots Security</p>
+    <p class="counter-note">Without transparent procurement and independent auditing, autonomy alone could simply decentralise corruption.</p>
+  </div>
+
+  <!-- SLIDE 10 -->
+  <div class="slide" data-i="9">
+    <div class="tag">Closing</div>
+    <p class="quote">"If one local government is empowered, it can respond to a community. If every local government in a state is empowered, the state acquires a grassroots security network. But if all local governments across the six North-Central states are empowered, accountable and connected &mdash; we begin to build a regional security shield."</p>
+    <div class="footer-tag">AVM MONDAY RIKU MORGAN (RTD) &middot; NORTH-CENTRAL SECURITY SUMMIT &middot; 2026</div>
+  </div>
+
+</div>
+
+<div class="arrows">
+  <button id="prevBtn">&#8592;</button>
+  <button id="nextBtn">&#8594;</button>
+</div>
+<div class="nav" id="navDots"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/128/three.min.js"></script>
+<script>
+// ---------- SLIDE NAVIGATION ----------
+const slides = document.querySelectorAll('.slide');
+const total = slides.length;
+let current = 0;
+const navDots = document.getElementById('navDots');
+const slideIdx = document.getElementById('slideIdx');
+
+slides.forEach((s,i)=>{
+  const d = document.createElement('div');
+  d.className = 'dot' + (i===0?' active':'');
+  d.addEventListener('click', ()=>goTo(i));
+  navDots.appendChild(d);
+});
+
+function goTo(i){
+  if(i<0) i = total-1;
+  if(i>=total) i = 0;
+  slides[current].classList.remove('active');
+  navDots.children[current].classList.remove('active');
+  current = i;
+  slides[current].classList.add('active');
+  navDots.children[current].classList.add('active');
+  slideIdx.textContent = String(current+1).padStart(2,'0') + ' / ' + total;
+  animateSlide(current);
+}
+document.getElementById('prevBtn').addEventListener('click', ()=>goTo(current-1));
+document.getElementById('nextBtn').addEventListener('click', ()=>goTo(current+1));
+document.addEventListener('keydown', (e)=>{
+  if(e.key==='ArrowRight' || e.key===' ') goTo(current+1);
+  if(e.key==='ArrowLeft') goTo(current-1);
+});
+
+// ---------- COUNTER ANIMATION ----------
+function animateSlide(i){
+  const slide = slides[i];
+  // number counters
+  slide.querySelectorAll('.stat-num').forEach(el=>{
+    const target = parseFloat(el.dataset.count);
+    const decimals = parseInt(el.dataset.decimals || '0');
+    const prefix = el.dataset.prefix || '';
+    const suffix = el.dataset.suffix || '';
+    let startTime = null;
+    const duration = 1400;
+    function step(ts){
+      if(!startTime) startTime = ts;
+      const progress = Math.min((ts-startTime)/duration, 1);
+      const val = target * progress;
+      el.textContent = prefix + val.toFixed(decimals).replace(/\B(?=(\d{3})+(?!\d))/g, ',') + suffix;
+      if(progress<1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  });
+  // bar charts
+  slide.querySelectorAll('.bar').forEach(bar=>{
+    const h = parseFloat(bar.dataset.h);
+    const maxH = 480; // approx max value used for scaling across all bar slides
+    setTimeout(()=>{ bar.style.height = Math.min((h/maxH)*100 + 20, 100) + '%'; }, 150);
+  });
+}
+animateSlide(0);
+
+// ---------- THREE.JS 3D BACKGROUND (with 2D/CSS fallback) ----------
+let webglOK = true;
+try{
+  const testCanvas = document.createElement('canvas');
+  webglOK = !!(window.WebGLRenderingContext && (testCanvas.getContext('webgl') || testCanvas.getContext('experimental-webgl')));
+}catch(e){ webglOK = false; }
+
+if(webglOK && typeof THREE !== 'undefined'){
+  const canvas = document.getElementById('canvas3d');
+  const renderer = new THREE.WebGLRenderer({canvas, antialias:true, alpha:true});
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
+
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(60, window.innerWidth/window.innerHeight, 0.1, 100);
+  camera.position.z = 12;
+
+  // Ambient particle field (representing scale / human cost, subtle, non-distracting)
+  const particleCount = 500;
+  const positions = new Float32Array(particleCount*3);
+  for(let i=0;i<particleCount;i++){
+    positions[i*3] = (Math.random()-0.5)*40;
+    positions[i*3+1] = (Math.random()-0.5)*24;
+    positions[i*3+2] = (Math.random()-0.5)*20 - 5;
+  }
+  const geo = new THREE.BufferGeometry();
+  geo.setAttribute('position', new THREE.BufferAttribute(positions,3));
+  const mat = new THREE.PointsMaterial({color:0xC9A24B, size:0.045, transparent:true, opacity:0.55});
+  const points = new THREE.Points(geo, mat);
+  scene.add(points);
+
+  const ambient = new THREE.AmbientLight(0x223322, 1.2);
+  scene.add(ambient);
+
+  let mouseX = 0, mouseY = 0;
+  document.addEventListener('mousemove', (e)=>{
+    mouseX = (e.clientX/window.innerWidth - 0.5);
+    mouseY = (e.clientY/window.innerHeight - 0.5);
+  });
+
+  function animate(){
+    requestAnimationFrame(animate);
+    points.rotation.y += 0.0007;
+    points.rotation.x += 0.0002;
+    camera.position.x += (mouseX*2 - camera.position.x)*0.02;
+    camera.position.y += (-mouseY*2 - camera.position.y)*0.02;
+    camera.lookAt(0,0,0);
+    renderer.render(scene, camera);
+  }
+  animate();
+
+  window.addEventListener('resize', ()=>{
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    camera.aspect = window.innerWidth/window.innerHeight;
+    camera.updateProjectionMatrix();
+  });
+} else {
+  // 2D/CSS fallback background if WebGL unavailable
+  document.getElementById('canvas3d').style.background =
+    'radial-gradient(circle at 30% 20%, rgba(201,162,75,0.12), transparent 60%), radial-gradient(circle at 80% 80%, rgba(27,58,43,0.4), transparent 60%), #0D1A13';
+}
+</script>
+</body>
+</html>
