@@ -132,7 +132,7 @@
 <div class="orb orb3"></div>
 <canvas id="canvas3d"></canvas>
 <button class="savebtn" id="saveBtn">&#128190; SAVE TO MY LAPTOP</button>
-<div class="slide-idx" id="slideIdx">01 / 23</div>
+<div class="slide-idx" id="slideIdx">01 / 24</div>
 <div class="pace" id="paceTag">~2 MIN</div>
 <div class="deck" id="deck">
 
@@ -533,7 +533,23 @@
   </div>
 
   <!-- SLIDE 19 -->
+  <!-- SLIDE 20 (NEW, CORRECTING OMISSION) : FIVE PILLARS -->
   <div class="slide" data-i="20">
+    <div class="icon">&#127959;&#65039;</div>
+    <div class="tag cyan">New Security Architecture &middot; Regional Framework</div>
+    <h2 class="cyan">Five Pillars of the Regional Security Architecture</h2>
+    <div class="commit-grid" style="margin-top:1.5vh;">
+      <div class="commit-item"><b>1. Strategic Coordination</b> &mdash; a North Central Regional Security Council bringing together the states, the Federal Government, security agencies, traditional institutions and other critical stakeholders.</div>
+      <div class="commit-item"><b>2. Intelligence &amp; Early Warning</b> &mdash; a Regional Intelligence and Security Fusion Centre, linked to every state and Local Government, so threats are identified and addressed before they become crises.</div>
+      <div class="commit-item"><b>3. Community Resilience</b> &mdash; the Local Government and the community as the foundation of early warning, conflict prevention and public confidence.</div>
+      <div class="commit-item"><b>4. Technology &amp; Infrastructure Protection</b> &mdash; intelligence, communications, surveillance, forensics and emergency response integrated into the region's development system, with security by design in every major project.</div>
+      <div class="commit-item" style="grid-column:1/3;"><b>5. Sustainable Financing &amp; Human Capacity</b> &mdash; a North Central Security Endowment Fund, and mobilisation of the region's vast pool of experienced military, intelligence, police, technical and professional personnel.</div>
+    </div>
+    <p style="max-width:74vw; margin-top:2vh; font-weight:700; font-size:1.5vw; color:var(--gold); line-height:1.5;">Our ambition should be very clear: a North Central where farmers can farm, businesses can invest, children can go to school, communities can live in peace, infrastructure can function and development can continue without fear or disruption.</p>
+    <div class="say">Five pillars, one architecture — coordination, intelligence, community, technology, and the financing and people to sustain all four.</div>
+  </div>
+
+  <div class="slide" data-i="21">
     <div class="icon">&#9997;&#65039;</div>
     <div class="tag">The North-Central Security Compact</div>
     <h2>Seven Commitments</h2>
@@ -550,7 +566,7 @@
   </div>
 
   <!-- SLIDE 20 -->
-  <div class="slide" data-i="21">
+  <div class="slide" data-i="22">
     <div class="icon">&#128737;&#65039;</div>
     <div class="tag">Closing</div>
     <p class="quote">"If every local government across the North-Central states is empowered, accountable and connected — we begin to build a regional security shield."</p>
@@ -559,7 +575,7 @@
   </div>
 
   <!-- SLIDE 21 : REFERENCES -->
-  <div class="slide" data-i="22">
+  <div class="slide" data-i="23">
     <div class="tag">Harvard-Style References</div>
     <h2 style="font-size:2vw;">References</h2>
     <div class="ref-list" id="refList">
@@ -610,7 +626,7 @@ let current = 0;
 const navDots = document.getElementById('navDots');
 const slideIdx = document.getElementById('slideIdx');
 const paceTag = document.getElementById('paceTag');
-const pacing = ['~2 MIN','~45 SEC','~45 SEC','~40 SEC','~40 SEC','~35 SEC','~30 SEC','~30 SEC','~30 SEC','~30 SEC','~30 SEC','~40 SEC','~40 SEC','~40 SEC','~35 SEC','~35 SEC','~35 SEC','~35 SEC','~35 SEC','~50 SEC','~40 SEC','~30 SEC','APPENDIX'];
+const pacing = ['~2 MIN','~45 SEC','~45 SEC','~40 SEC','~40 SEC','~35 SEC','~30 SEC','~30 SEC','~30 SEC','~30 SEC','~30 SEC','~40 SEC','~40 SEC','~40 SEC','~35 SEC','~35 SEC','~35 SEC','~35 SEC','~35 SEC','~45 SEC','~50 SEC','~40 SEC','~30 SEC','APPENDIX'];
 
 slides.forEach((s,i)=>{
   const d = document.createElement('div');
