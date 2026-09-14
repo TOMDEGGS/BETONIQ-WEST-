@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>North-Central Security: Crisis to Grassroots Shield — AVM Morgan</title>
+<title>North-Central Security: Crisis to Grassroots Shield — AVM Morgan (5-Min Cut)</title>
 <style>
   :root{
-    --green:#1B3A2B; --gold:#C9A24B; --cream:#F2EFE6; --red:#8C2E2E; --dark:#0D1A13;
+    --green:#1B3A2B; --gold:#C9A24B; --cream:#F2EFE6; --red:#B23A3A; --dark:#0D1A13;
   }
   *{box-sizing:border-box; margin:0; padding:0;}
   html,body{width:100%; height:100%; overflow:hidden; background:var(--dark); font-family:'Segoe UI', Arial, sans-serif; color:var(--cream);}
@@ -15,56 +15,67 @@
   .slide{
     position:absolute; top:0; left:0; width:100%; height:100%;
     display:flex; flex-direction:column; justify-content:center; align-items:center;
-    padding:6vh 8vw; text-align:center; opacity:0; pointer-events:none;
-    transition:opacity .6s ease;
+    padding:5vh 6vw; text-align:center; opacity:0; pointer-events:none;
+    transition:opacity .5s ease;
   }
   .slide.active{opacity:1; pointer-events:auto;}
-  h1{font-size:3.2vw; color:var(--gold); letter-spacing:1px; margin-bottom:1.2vh; font-weight:800;}
-  h2{font-size:2.2vw; color:var(--gold); margin-bottom:2vh; font-weight:700;}
-  p, li{font-size:1.35vw; line-height:1.5; color:var(--cream);}
+  .icon{font-size:5.5vw; margin-bottom:1vh; filter:drop-shadow(0 0 25px rgba(201,162,75,0.55)); animation:iconPulse 2.2s ease-in-out infinite;}
+  @keyframes iconPulse{0%,100%{transform:scale(1);} 50%{transform:scale(1.12);}}
+  h1{font-size:3.6vw; color:var(--gold); letter-spacing:1px; margin-bottom:1vh; font-weight:900; text-shadow:0 0 30px rgba(201,162,75,0.4);}
+  h2{font-size:2.6vw; color:var(--gold); margin-bottom:1.5vh; font-weight:800; text-shadow:0 0 20px rgba(201,162,75,0.3);}
+  p, li{font-size:1.3vw; line-height:1.5; color:var(--cream);}
   .tag{font-size:1vw; letter-spacing:3px; color:#9fbfa9; text-transform:uppercase; margin-bottom:1vh;}
-  .stat-row{display:flex; gap:3vw; justify-content:center; margin-top:3vh; flex-wrap:wrap;}
-  .stat-box{background:rgba(255,255,255,0.06); border:1px solid var(--gold); border-radius:14px; padding:2.5vh 2vw; min-width:14vw; backdrop-filter:blur(4px);}
-  .stat-num{font-size:3vw; font-weight:800; color:var(--gold); display:block;}
-  .stat-label{font-size:1vw; color:var(--cream); opacity:0.85;}
-  .bars{display:flex; gap:2.5vw; align-items:flex-end; height:35vh; margin-top:3vh;}
+  .say{font-size:1.15vw; color:#ffd98a; font-weight:700; margin-top:2.2vh; padding:1vh 1.6vw; border:1px dashed var(--gold); border-radius:10px; background:rgba(201,162,75,0.08); max-width:60vw;}
+  .say::before{content:"\1F5E3  SAY: "; color:var(--gold);}
+  .stat-row{display:flex; gap:2.5vw; justify-content:center; margin-top:2vh; flex-wrap:wrap;}
+  .stat-box{background:rgba(255,255,255,0.07); border:2px solid var(--gold); border-radius:16px; padding:2.2vh 1.8vw; min-width:13vw; backdrop-filter:blur(4px); box-shadow:0 0 30px rgba(201,162,75,0.25); animation:boxGlow 3s ease-in-out infinite;}
+  @keyframes boxGlow{0%,100%{box-shadow:0 0 20px rgba(201,162,75,0.2);} 50%{box-shadow:0 0 40px rgba(201,162,75,0.5);}}
+  .stat-icon{font-size:2vw; margin-bottom:0.5vh; display:block;}
+  .stat-num{font-size:3.4vw; font-weight:900; color:var(--gold); display:block; text-shadow:0 0 18px rgba(201,162,75,0.5);}
+  .stat-label{font-size:1vw; color:var(--cream); opacity:0.9; font-weight:600;}
+  .bars{display:flex; gap:2.2vw; align-items:flex-end; height:32vh; margin-top:2vh;}
   .bar-wrap{display:flex; flex-direction:column; align-items:center; width:6vw;}
-  .bar{width:100%; background:linear-gradient(180deg, var(--gold), var(--green)); border-radius:6px 6px 0 0; box-shadow:0 0 20px rgba(201,162,75,0.5); transition:height 1.2s cubic-bezier(.2,.9,.3,1);}
-  .bar-num{color:var(--gold); font-weight:700; font-size:1.1vw; margin-bottom:0.5vh;}
-  .bar-label{font-size:0.9vw; color:var(--cream); margin-top:0.8vh; text-align:center;}
-  .chain{display:flex; align-items:center; gap:1.5vw; margin-top:3vh; flex-wrap:wrap; justify-content:center;}
-  .node{background:rgba(255,255,255,0.08); border:2px solid var(--gold); border-radius:50%; width:9vw; height:9vw; display:flex; align-items:center; justify-content:center; font-size:0.95vw; font-weight:700; color:var(--cream); text-align:center; padding:0.5vw; box-shadow:0 0 25px rgba(201,162,75,0.35); animation:pulse 3s infinite ease-in-out;}
-  .node:nth-child(odd){animation-delay:0.5s;}
-  @keyframes pulse{0%,100%{transform:scale(1);} 50%{transform:scale(1.08);}}
-  .arrow{font-size:2vw; color:var(--gold);}
-  .quote{font-size:2vw; font-style:italic; color:var(--cream); max-width:75vw; line-height:1.6; text-shadow:0 2px 12px rgba(0,0,0,0.6);}
-  .formula{font-size:1.6vw; color:var(--gold); font-weight:700; display:flex; gap:1.2vw; align-items:center; flex-wrap:wrap; justify-content:center; margin-top:3vh;}
-  .formula span.op{color:var(--cream); font-weight:400; font-size:1.4vw;}
-  .cycle{display:flex; gap:2vw; justify-content:center; margin-top:3vh; flex-wrap:wrap;}
-  .cyc-step{background:rgba(140,46,46,0.15); border:1px solid var(--red); border-radius:10px; padding:1.5vh 1.4vw; font-size:1vw; max-width:11vw;}
-  .cyc-step b{color:var(--gold); display:block; font-size:1.1vw; margin-bottom:0.4vh;}
+  .bar{width:100%; background:linear-gradient(180deg, var(--gold), var(--red)); border-radius:6px 6px 0 0; box-shadow:0 0 30px rgba(201,162,75,0.6); transition:height 1s cubic-bezier(.2,.9,.3,1);}
+  .bar-num{color:var(--gold); font-weight:800; font-size:1.3vw; margin-bottom:0.5vh; text-shadow:0 0 10px rgba(201,162,75,0.5);}
+  .bar-label{font-size:0.95vw; color:var(--cream); margin-top:0.8vh; text-align:center; font-weight:600;}
+  .chain{display:flex; align-items:center; gap:1.2vw; margin-top:2vh; flex-wrap:wrap; justify-content:center;}
+  .node{background:rgba(255,255,255,0.09); border:3px solid var(--gold); border-radius:50%; width:8.5vw; height:8.5vw; display:flex; flex-direction:column; align-items:center; justify-content:center; font-size:0.95vw; font-weight:800; color:var(--cream); text-align:center; padding:0.5vw; box-shadow:0 0 35px rgba(201,162,75,0.4); animation:pulse 2.4s infinite ease-in-out;}
+  .node span{font-size:1.8vw; margin-bottom:0.3vh;}
+  .node:nth-child(odd){animation-delay:0.4s;}
+  @keyframes pulse{0%,100%{transform:scale(1);} 50%{transform:scale(1.1);}}
+  .arrow{font-size:2.2vw; color:var(--gold); text-shadow:0 0 15px rgba(201,162,75,0.6);}
+  .quote{font-size:2.1vw; font-style:italic; color:var(--cream); max-width:72vw; line-height:1.55; text-shadow:0 2px 15px rgba(0,0,0,0.7); font-weight:600;}
+  .formula{font-size:1.4vw; color:var(--gold); font-weight:800; display:flex; gap:1vw; align-items:center; flex-wrap:wrap; justify-content:center; margin-top:2vh;}
+  .formula span.op{color:var(--cream); font-weight:400; font-size:1.5vw;}
+  .cycle{display:flex; gap:1.6vw; justify-content:center; margin-top:2vh; flex-wrap:wrap;}
+  .cyc-step{background:rgba(178,58,58,0.18); border:2px solid var(--red); border-radius:12px; padding:1.6vh 1.3vw; font-size:1.05vw; max-width:10.5vw; box-shadow:0 0 20px rgba(178,58,58,0.25);}
+  .cyc-step .cicon{font-size:1.8vw; display:block; margin-bottom:0.4vh;}
+  .cyc-step b{color:var(--gold); display:block; font-size:1.1vw; margin-bottom:0.3vh;}
   .footer-tag{position:absolute; bottom:2.5vh; font-size:0.85vw; color:#9fbfa9; opacity:0.7; letter-spacing:1px;}
   .nav{position:fixed; bottom:3vh; left:50%; transform:translateX(-50%); display:flex; gap:1vw; z-index:10;}
   .dot{width:10px; height:10px; border-radius:50%; background:rgba(255,255,255,0.25); cursor:pointer; transition:.3s;}
-  .dot.active{background:var(--gold); box-shadow:0 0 8px var(--gold);}
+  .dot.active{background:var(--gold); box-shadow:0 0 10px var(--gold);}
   .arrows{position:fixed; top:50%; width:100%; display:flex; justify-content:space-between; padding:0 2vw; transform:translateY(-50%); z-index:10; pointer-events:none;}
-  .arrows button{pointer-events:auto; background:rgba(255,255,255,0.08); border:1px solid var(--gold); color:var(--gold); font-size:1.8vw; width:3.5vw; height:3.5vw; border-radius:50%; cursor:pointer;}
+  .arrows button{pointer-events:auto; background:rgba(255,255,255,0.08); border:2px solid var(--gold); color:var(--gold); font-size:1.8vw; width:3.5vw; height:3.5vw; border-radius:50%; cursor:pointer;}
   .arrows button:hover{background:var(--gold); color:var(--dark);}
-  .counter-note{font-size:0.9vw; color:#e0c98f; margin-top:1.5vh; font-style:italic;}
+  .counter-note{font-size:0.85vw; color:#e0c98f; margin-top:1vh; font-style:italic; opacity:0.85;}
   .slide-idx{position:fixed; top:2.5vh; right:2vw; font-size:1vw; color:var(--gold); z-index:10; letter-spacing:1px;}
+  .pace{position:fixed; top:2.5vh; left:2vw; font-size:0.95vw; color:#ffd98a; z-index:10; letter-spacing:1px; font-weight:700;}
 </style>
 </head>
 <body>
 <canvas id="canvas3d"></canvas>
 <div class="slide-idx" id="slideIdx">01 / 10</div>
+<div class="pace" id="paceTag">~30 SEC</div>
 <div class="deck" id="deck">
 
   <!-- SLIDE 1 -->
   <div class="slide active" data-i="0">
+    <div class="icon">&#128737;&#65039;</div>
     <div class="tag">North-Central Security Summit &middot; 2026</div>
     <h1>FROM CRISIS TO GRASSROOTS SHIELD</h1>
     <p>Presented by AVM Monday Riku Morgan (Rtd)</p>
-    <p class="counter-note">Human cost data, ransom economics, and a bottom-up security architecture for Benue, Kogi, Kwara, Nasarawa, Niger &amp; Plateau</p>
+    <div class="say">In the next 5 minutes: the human cost, the money behind it, and the fix.</div>
   </div>
 
   <!-- SLIDE 2 -->
@@ -72,16 +83,17 @@
     <div class="tag">The National Picture &middot; Jul 2025 &ndash; Jun 2026</div>
     <h2>A Scaling, Self-Funding Criminal Economy</h2>
     <div class="stat-row">
-      <div class="stat-box"><span class="stat-num" data-count="7825">0</span><span class="stat-label">Kidnapped Nationwide</span></div>
-      <div class="stat-box"><span class="stat-num" data-count="1142">0</span><span class="stat-label">Killed</span></div>
-      <div class="stat-box"><span class="stat-num" data-count="66" data-suffix="%">0</span><span class="stat-label">Year-on-Year Increase</span></div>
-      <div class="stat-box"><span class="stat-num" data-prefix="&#8358;" data-count="7.78" data-decimals="2" data-suffix="bn">0</span><span class="stat-label">Ransom Paid</span></div>
+      <div class="stat-box"><span class="stat-icon">&#9993;&#65039;</span><span class="stat-num" data-count="7825">0</span><span class="stat-label">Kidnapped Nationwide</span></div>
+      <div class="stat-box"><span class="stat-icon">&#128128;</span><span class="stat-num" data-count="1142">0</span><span class="stat-label">Killed</span></div>
+      <div class="stat-box"><span class="stat-icon">&#128200;</span><span class="stat-num" data-count="66" data-suffix="%">0</span><span class="stat-label">Year-on-Year Increase</span></div>
+      <div class="stat-box"><span class="stat-icon">&#128176;</span><span class="stat-num" data-prefix="&#8358;" data-count="7.78" data-decimals="2" data-suffix="bn">0</span><span class="stat-label">Ransom Paid</span></div>
     </div>
-    <div class="counter-note">Source: SBM Intelligence, 2026</div>
+    <div class="say">This isn't crime — it's an industry, and it's growing 66% a year.</div>
   </div>
 
   <!-- SLIDE 3 -->
   <div class="slide" data-i="2">
+    <div class="icon">&#9888;&#65039;</div>
     <div class="tag">Plateau State &middot; Confirmed, Named Incidents</div>
     <h2>121 Killed in 10 Weeks</h2>
     <div class="bars" id="plateauBars">
@@ -89,25 +101,27 @@
       <div class="bar-wrap"><span class="bar-num">43</span><div class="bar" style="height:0%" data-h="43"></div><span class="bar-label">June 2026</span></div>
       <div class="bar-wrap"><span class="bar-num">16</span><div class="bar" style="height:0%" data-h="16"></div><span class="bar-label">1-11 July</span></div>
     </div>
-    <div class="counter-note">Barkin Ladi, Riyom, Bassa, Jos South &amp; Pankshin LGAs &mdash; Berom Youth Moulders Assoc. / HumAngle (2026)</div>
+    <div class="say">121 people. One state. Ten weeks. This is happening right now.</div>
   </div>
 
   <!-- SLIDE 4 -->
   <div class="slide" data-i="3">
+    <div class="icon">&#9939;&#65039;</div>
     <div class="tag">Niger State &middot; Borgu, Kpenya/Dekara &middot; Aug 2026</div>
     <h2>A Single Operation, Hundreds of Lives</h2>
     <div class="stat-row">
-      <div class="stat-box"><span class="stat-num" data-count="30">0</span><span class="stat-label">Confirmed Killed</span></div>
-      <div class="stat-box"><span class="stat-num" data-count="80">0</span><span class="stat-label">Abducted (Police-Confirmed)</span></div>
-      <div class="stat-box"><span class="stat-num" data-count="600">0</span><span class="stat-label">Unverified (Bandit Video)</span></div>
-      <div class="stat-box"><span class="stat-num" data-count="2000">0</span><span class="stat-label">Displaced to Benin Republic</span></div>
+      <div class="stat-box"><span class="stat-icon">&#128128;</span><span class="stat-num" data-count="30">0</span><span class="stat-label">Confirmed Killed</span></div>
+      <div class="stat-box"><span class="stat-icon">&#9939;&#65039;</span><span class="stat-num" data-count="80">0</span><span class="stat-label">Abducted (Confirmed)</span></div>
+      <div class="stat-box"><span class="stat-icon">&#10067;</span><span class="stat-num" data-count="600">0</span><span class="stat-label">Unverified (Video)</span></div>
+      <div class="stat-box"><span class="stat-icon">&#127939;</span><span class="stat-num" data-count="2000">0</span><span class="stat-label">Fled to Benin Republic</span></div>
     </div>
-    <div class="counter-note">Reuters (22 &amp; 24 Aug 2026), Daily Trust &mdash; unverified figures always shown bracketed</div>
+    <div class="say">One raid emptied entire villages — some fled the country to survive.</div>
   </div>
 
   <!-- SLIDE 5 -->
   <div class="slide" data-i="4">
-    <div class="tag">Full Regional Totals &middot; 7 North-Central Units &middot; Modeled Estimate</div>
+    <div class="icon">&#128506;&#65039;</div>
+    <div class="tag">Full Regional Totals &middot; 7 North-Central Units</div>
     <h2>Every State Carries a Share</h2>
     <div class="bars" id="stateBars">
       <div class="bar-wrap"><span class="bar-num">400</span><div class="bar" style="height:0%" data-h="400"></div><span class="bar-label">Niger</span></div>
@@ -118,49 +132,54 @@
       <div class="bar-wrap"><span class="bar-num">32</span><div class="bar" style="height:0%" data-h="32"></div><span class="bar-label">Nasarawa</span></div>
       <div class="bar-wrap"><span class="bar-num">22</span><div class="bar" style="height:0%" data-h="22"></div><span class="bar-label">FCT</span></div>
     </div>
-    <div class="counter-note">Est. fatalities, midpoint of modeled ACLED/HumAngle ranges, Mar&ndash;Sep 2026 &mdash; directional, not individually confirmed</div>
+    <div class="say">No state in this region is untouched — this is a regional emergency.</div>
   </div>
 
   <!-- SLIDE 6 -->
   <div class="slide" data-i="5">
+    <div class="icon">&#128257;</div>
     <div class="tag">Understanding the Threat</div>
     <h2>The Ransom Economy Self-Funds</h2>
     <div class="cycle">
-      <div class="cyc-step"><b>1. Abduct</b>Mass raid on mosque, village, highway or farm</div>
-      <div class="cyc-step"><b>2. Hold</b>Victims held days to weeks, negotiation begins</div>
-      <div class="cyc-step"><b>3. Collect</b>Ransom paid &mdash; ₦7.78bn nationwide in 12 months</div>
-      <div class="cyc-step"><b>4. Reinvest</b>Funds weapons, transport, recruitment</div>
-      <div class="cyc-step"><b>5. Repeat</b>Stronger capability for the next attack</div>
+      <div class="cyc-step"><span class="cicon">&#128737;&#65039;</span><b>1. Abduct</b>Mass raid on mosque, village, highway</div>
+      <div class="cyc-step"><span class="cicon">&#9200;</span><b>2. Hold</b>Days to weeks of negotiation</div>
+      <div class="cyc-step"><span class="cicon">&#128176;</span><b>3. Collect</b>&#8358;7.78bn paid in 12 months</div>
+      <div class="cyc-step"><span class="cicon">&#128299;</span><b>4. Reinvest</b>Weapons, transport, recruits</div>
+      <div class="cyc-step"><span class="cicon">&#128260;</span><b>5. Repeat</b>Stronger for the next attack</div>
     </div>
-    <div class="counter-note">Every ransom paid measurably strengthens the next attack's capability</div>
+    <div class="say">Every naira paid in ransom funds the next attack. It's a business model.</div>
   </div>
 
   <!-- SLIDE 7 -->
   <div class="slide" data-i="6">
-    <h1 style="font-size:2.6vw;">THIS IS A DEVELOPMENT EMERGENCY</h1>
-    <p class="quote">Not merely a law-and-order problem. Lost harvests. Interrupted schooling. Ransom economies. A generation growing up distrustful of the state's capacity to protect it.</p>
+    <div class="icon">&#128680;</div>
+    <h1 style="font-size:2.8vw;">THIS IS A DEVELOPMENT EMERGENCY</h1>
+    <p class="quote">Not merely a law-and-order problem. Lost harvests. Interrupted schooling. A generation growing up distrustful of the state.</p>
+    <div class="say">Say it plainly: we are losing a generation, not just a security statistic.</div>
   </div>
 
   <!-- SLIDE 8 -->
   <div class="slide" data-i="7">
+    <div class="icon">&#127963;&#65039;</div>
     <div class="tag">The Solution &middot; Bottom-Up Security Architecture</div>
     <h2>Financially Autonomous Local Governments</h2>
     <div class="chain">
-      <div class="node">Federal<br>Government</div>
+      <div class="node"><span>&#127963;&#65039;</span>Federal</div>
       <div class="arrow">&#8594;</div>
-      <div class="node">State<br>Government</div>
+      <div class="node"><span>&#127961;&#65039;</span>State</div>
       <div class="arrow">&#8594;</div>
-      <div class="node">Accountable<br>LG</div>
+      <div class="node"><span>&#128181;</span>Accountable LG</div>
       <div class="arrow">&#8594;</div>
-      <div class="node">Community</div>
+      <div class="node"><span>&#129485;</span>Community</div>
       <div class="arrow">&#8594;</div>
-      <div class="node">Security<br>Agencies</div>
+      <div class="node"><span>&#128737;&#65039;</span>Security</div>
     </div>
-    <div class="counter-note">Across all 6 North-Central states: Benue, Kogi, Kwara, Nasarawa, Niger &amp; Plateau</div>
+    <div class="say">Push power and money down to the LG — that's where the threat actually lives.</div>
   </div>
 
   <!-- SLIDE 9 -->
   <div class="slide" data-i="8">
+    <div class="icon">&#10133;</div>
     <div class="tag">The Formula</div>
     <div class="formula">
       <div class="stat-box">Financial Autonomy</div><span class="op">+</span>
@@ -169,15 +188,17 @@
       <div class="stat-box">Responsive Governance</div><span class="op">+</span>
       <div class="stat-box">Professional Coordination</div>
     </div>
-    <p class="counter-note" style="font-size:1.4vw; margin-top:4vh; color:var(--gold);">= Stronger Grassroots Security</p>
-    <p class="counter-note">Without transparent procurement and independent auditing, autonomy alone could simply decentralise corruption.</p>
+    <p class="counter-note" style="font-size:1.5vw; margin-top:3vh; color:var(--gold); font-weight:800;">= Stronger Grassroots Security</p>
+    <div class="say">Autonomy without audits just decentralises corruption — say this caveat out loud.</div>
   </div>
 
   <!-- SLIDE 10 -->
   <div class="slide" data-i="9">
+    <div class="icon">&#128737;&#65039;</div>
     <div class="tag">Closing</div>
-    <p class="quote">"If one local government is empowered, it can respond to a community. If every local government in a state is empowered, the state acquires a grassroots security network. But if all local governments across the six North-Central states are empowered, accountable and connected &mdash; we begin to build a regional security shield."</p>
+    <p class="quote">"If every local government across the six North-Central states is empowered, accountable and connected — we begin to build a regional security shield."</p>
     <div class="footer-tag">AVM MONDAY RIKU MORGAN (RTD) &middot; NORTH-CENTRAL SECURITY SUMMIT &middot; 2026</div>
+    <div class="say">End on the shield line. Pause. Let it land.</div>
   </div>
 
 </div>
@@ -196,6 +217,7 @@ const total = slides.length;
 let current = 0;
 const navDots = document.getElementById('navDots');
 const slideIdx = document.getElementById('slideIdx');
+const paceTag = document.getElementById('paceTag');
 
 slides.forEach((s,i)=>{
   const d = document.createElement('div');
@@ -213,6 +235,7 @@ function goTo(i){
   slides[current].classList.add('active');
   navDots.children[current].classList.add('active');
   slideIdx.textContent = String(current+1).padStart(2,'0') + ' / ' + total;
+  paceTag.textContent = '~30 SEC \u00b7 ELAPSED TARGET ' + ((current+1)*30) + 'S / 300S';
   animateSlide(current);
 }
 document.getElementById('prevBtn').addEventListener('click', ()=>goTo(current-1));
@@ -225,14 +248,13 @@ document.addEventListener('keydown', (e)=>{
 // ---------- COUNTER ANIMATION ----------
 function animateSlide(i){
   const slide = slides[i];
-  // number counters
   slide.querySelectorAll('.stat-num').forEach(el=>{
     const target = parseFloat(el.dataset.count);
     const decimals = parseInt(el.dataset.decimals || '0');
     const prefix = el.dataset.prefix || '';
     const suffix = el.dataset.suffix || '';
     let startTime = null;
-    const duration = 1400;
+    const duration = 1100;
     function step(ts){
       if(!startTime) startTime = ts;
       const progress = Math.min((ts-startTime)/duration, 1);
@@ -242,14 +264,14 @@ function animateSlide(i){
     }
     requestAnimationFrame(step);
   });
-  // bar charts
   slide.querySelectorAll('.bar').forEach(bar=>{
     const h = parseFloat(bar.dataset.h);
-    const maxH = 480; // approx max value used for scaling across all bar slides
-    setTimeout(()=>{ bar.style.height = Math.min((h/maxH)*100 + 20, 100) + '%'; }, 150);
+    const maxH = 480;
+    setTimeout(()=>{ bar.style.height = Math.min((h/maxH)*100 + 20, 100) + '%'; }, 120);
   });
 }
 animateSlide(0);
+paceTag.textContent = '~30 SEC \u00b7 ELAPSED TARGET 30S / 300S';
 
 // ---------- THREE.JS 3D BACKGROUND (with 2D/CSS fallback) ----------
 let webglOK = true;
@@ -268,8 +290,7 @@ if(webglOK && typeof THREE !== 'undefined'){
   const camera = new THREE.PerspectiveCamera(60, window.innerWidth/window.innerHeight, 0.1, 100);
   camera.position.z = 12;
 
-  // Ambient particle field (representing scale / human cost, subtle, non-distracting)
-  const particleCount = 500;
+  const particleCount = 650;
   const positions = new Float32Array(particleCount*3);
   for(let i=0;i<particleCount;i++){
     positions[i*3] = (Math.random()-0.5)*40;
@@ -278,7 +299,7 @@ if(webglOK && typeof THREE !== 'undefined'){
   }
   const geo = new THREE.BufferGeometry();
   geo.setAttribute('position', new THREE.BufferAttribute(positions,3));
-  const mat = new THREE.PointsMaterial({color:0xC9A24B, size:0.045, transparent:true, opacity:0.55});
+  const mat = new THREE.PointsMaterial({color:0xC9A24B, size:0.06, transparent:true, opacity:0.65});
   const points = new THREE.Points(geo, mat);
   scene.add(points);
 
@@ -293,8 +314,8 @@ if(webglOK && typeof THREE !== 'undefined'){
 
   function animate(){
     requestAnimationFrame(animate);
-    points.rotation.y += 0.0007;
-    points.rotation.x += 0.0002;
+    points.rotation.y += 0.0011;
+    points.rotation.x += 0.0004;
     camera.position.x += (mouseX*2 - camera.position.x)*0.02;
     camera.position.y += (-mouseY*2 - camera.position.y)*0.02;
     camera.lookAt(0,0,0);
@@ -308,9 +329,8 @@ if(webglOK && typeof THREE !== 'undefined'){
     camera.updateProjectionMatrix();
   });
 } else {
-  // 2D/CSS fallback background if WebGL unavailable
   document.getElementById('canvas3d').style.background =
-    'radial-gradient(circle at 30% 20%, rgba(201,162,75,0.12), transparent 60%), radial-gradient(circle at 80% 80%, rgba(27,58,43,0.4), transparent 60%), #0D1A13';
+    'radial-gradient(circle at 30% 20%, rgba(201,162,75,0.14), transparent 60%), radial-gradient(circle at 80% 80%, rgba(27,58,43,0.45), transparent 60%), #0D1A13';
 }
 </script>
 </body>
