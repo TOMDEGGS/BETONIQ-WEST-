@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>North-Central Security: 20-Year Development Architecture — AVM Morgan (20-Slide Expanded)</title>
+<style>
+  :root{
+    --green:#1B3A2B; --gold:#C9A24B; --cream:#F2EFE6; --red:#B23A3A; --dark:#0D1A13; --cyan:#2FD8C9;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html,body{width:100%; height:100%; overflow:hidden; background:var(--dark); font-family:'Segoe UI', Arial, sans-serif; color:var(--cream);}
+  #canvas3d{position:fixed; top:0; left:0; width:100%; height:100%; z-index:0;}
+  .orb{position:fixed; border-radius:50%; filter:blur(40px); opacity:0.35; z-index:0; pointer-events:none;}
+  .orb1{width:26vw; height:26vw; background:radial-gradient(circle, var(--gold), transparent 70%); top:-6vw; left:-6vw; animation:floatA 14s ease-in-out infinite;}
+  .orb2{width:32vw; height:32vw; background:radial-gradient(circle, var(--red), transparent 70%); bottom:-10vw; right:-8vw; animation:floatB 18s ease-in-out infinite;}
+  .orb3{width:20vw; height:20vw; background:radial-gradient(circle, var(--cyan), transparent 70%); top:40%; right:10%; animation:floatC 16s ease-in-out infinite;}
+  @keyframes floatA{0%,100%{transform:translate(0,0) scale(1);} 50%{transform:translate(4vw,6vw) scale(1.15);}}
+  @keyframes floatB{0%,100%{transform:translate(0,0) scale(1);} 50%{transform:translate(-5vw,-4vw) scale(1.1);}}
+  @keyframes floatC{0%,100%{transform:translate(0,0) scale(1);} 50%{transform:translate(-3vw,4vw) scale(1.2);}}
+  .deck{position:relative; width:100%; height:100vh; z-index:1;}
+  .slide{
+    position:absolute; top:0; left:0; width:100%; height:100%;
+    display:flex; flex-direction:column; justify-content:center; align-items:center;
+    padding:4.5vh 5vw; text-align:center; opacity:0; pointer-events:none;
+    transition:opacity .5s ease; overflow-y:auto;
+  }
+  .slide.active{opacity:1; pointer-events:auto;}
+  .icon{font-size:6vw; margin-bottom:1vh; filter:drop-shadow(0 0 30px rgba(201,162,75,0.7)); animation:iconPulse 2.2s ease-in-out infinite, iconFloat 3.4s ease-in-out infinite;}
+  @keyframes iconPulse{0%,100%{transform:scale(1);} 50%{transform:scale(1.18);}}
+  @keyframes iconFloat{0%,100%{margin-top:0;} 50%{margin-top:-1.2vh;}}
+  h1{
+    font-size:4vw; letter-spacing:1px; margin-bottom:1vh; font-weight:900;
+    background:linear-gradient(90deg, var(--gold), #fff3d0, var(--gold));
+    background-size:200% auto; -webkit-background-clip:text; background-clip:text; color:transparent;
+    animation:shimmer 4s linear infinite, zoomPulse 5s ease-in-out infinite; text-shadow:0 0 40px rgba(201,162,75,0.35);
+  }
+  @keyframes shimmer{0%{background-position:0% 50%;} 100%{background-position:200% 50%;}}
+  @keyframes zoomPulse{0%,100%{transform:scale(1);} 50%{transform:scale(1.035);}}
+  h2{font-size:2.9vw; color:var(--gold); margin-bottom:1.5vh; font-weight:800; text-shadow:0 0 25px rgba(201,162,75,0.45); animation:glowPulse 2.6s ease-in-out infinite;}
+  @keyframes glowPulse{0%,100%{text-shadow:0 0 15px rgba(201,162,75,0.3);} 50%{text-shadow:0 0 35px rgba(201,162,75,0.7);}}
+  h2.cyan{color:var(--cyan); text-shadow:0 0 25px rgba(47,216,201,0.5);}
+  p, li{font-size:1.45vw; line-height:1.55; color:var(--cream);}
+  .tag{font-size:1.05vw; letter-spacing:3px; color:#9fbfa9; text-transform:uppercase; margin-bottom:1vh; font-weight:700;}
+  .tag.cyan{color:var(--cyan);}
+  .say{font-size:1.25vw; color:#ffd98a; font-weight:700; margin-top:2vh; padding:1vh 1.6vw; border:1px dashed var(--gold); border-radius:10px; background:rgba(201,162,75,0.08); max-width:64vw; box-shadow:0 0 25px rgba(201,162,75,0.2); animation:sayGlow 3s ease-in-out infinite;}
+  @keyframes sayGlow{0%,100%{box-shadow:0 0 15px rgba(201,162,75,0.15);} 50%{box-shadow:0 0 35px rgba(201,162,75,0.4);}}
+  .say::before{content:"\1F5E3  SAY: "; color:var(--gold);}
+  .stat-row{display:flex; gap:2.5vw; justify-content:center; margin-top:2vh; flex-wrap:wrap;}
+  .stat-box{background:rgba(255,255,255,0.07); border:2px solid var(--gold); border-radius:16px; padding:2.2vh 1.8vw; min-width:13vw; backdrop-filter:blur(4px); box-shadow:0 0 30px rgba(201,162,75,0.25); animation:boxGlow 3s ease-in-out infinite, boxFloat 4.5s ease-in-out infinite; font-size:1.2vw; font-weight:700;}
+  .stat-box:nth-child(2){animation-delay:0.4s;} .stat-box:nth-child(3){animation-delay:0.8s;} .stat-box:nth-child(4){animation-delay:1.2s;}
+  @keyframes boxGlow{0%,100%{box-shadow:0 0 20px rgba(201,162,75,0.2);} 50%{box-shadow:0 0 50px rgba(201,162,75,0.6);}}
+  @keyframes boxFloat{0%,100%{transform:translateY(0);} 50%{transform:translateY(-0.8vh);}}
+  .stat-box.cyan{border-color:var(--cyan); box-shadow:0 0 30px rgba(47,216,201,0.25);}
+  .stat-icon{font-size:2.2vw; margin-bottom:0.5vh; display:block;}
+  .stat-num{font-size:3.8vw; font-weight:900; color:var(--gold); display:block; text-shadow:0 0 22px rgba(201,162,75,0.6);}
+  .stat-label{font-size:1.1vw; color:var(--cream); opacity:0.9; font-weight:600;}
+  .bars{display:flex; gap:2.2vw; align-items:flex-end; height:30vh; margin-top:2vh;}
+  .bar-wrap{display:flex; flex-direction:column; align-items:center; justify-content:flex-end; width:6vw; height:100%;}
+  .bar{width:100%; min-height:2px; background:linear-gradient(180deg, #ffe9b3, var(--gold) 40%, var(--red)); border-radius:8px 8px 0 0; box-shadow:0 0 35px rgba(201,162,75,0.75), inset 0 0 15px rgba(255,255,255,0.3); transition:height 1.1s cubic-bezier(.2,.9,.3,1); position:relative; overflow:hidden;}
+  .bar::after{content:''; position:absolute; top:0; left:0; right:0; bottom:0; background:linear-gradient(180deg, rgba(255,255,255,0.35), transparent 60%); animation:barShine 2.5s ease-in-out infinite;}
+  @keyframes barShine{0%,100%{opacity:0.3;} 50%{opacity:0.8;}}
+  .bar-num{color:var(--gold); font-weight:800; font-size:1.4vw; margin-bottom:0.5vh; text-shadow:0 0 15px rgba(201,162,75,0.6);}
+  .bar-label{font-size:1.05vw; color:var(--cream); margin-top:0.8vh; text-align:center; font-weight:600;}
+  .chain{display:flex; align-items:center; gap:1.2vw; margin-top:2vh; flex-wrap:wrap; justify-content:center;}
+  .node{background:rgba(255,255,255,0.09); border:3px solid var(--gold); border-radius:50%; width:8.5vw; height:8.5vw; display:flex; flex-direction:column; align-items:center; justify-content:center; font-size:1.05vw; font-weight:800; color:var(--cream); text-align:center; padding:0.5vw; box-shadow:0 0 40px rgba(201,162,75,0.5); animation:pulse 2.4s infinite ease-in-out;}
+  .node span{font-size:1.9vw; margin-bottom:0.3vh;}
+  .node.cyan{border-color:var(--cyan); box-shadow:0 0 40px rgba(47,216,201,0.5);}
+  .node:nth-child(odd){animation-delay:0.4s;}
+  @keyframes pulse{0%,100%{transform:scale(1);} 50%{transform:scale(1.12);}}
+  .arrow{font-size:2.3vw; color:var(--gold); text-shadow:0 0 20px rgba(201,162,75,0.7); animation:arrowMove 1.6s ease-in-out infinite;}
+  .arrow.cyan{color:var(--cyan);}
+  @keyframes arrowMove{0%,100%{transform:translateX(0);} 50%{transform:translateX(0.5vw);}}
+  .quote{font-size:2.3vw; font-style:italic; color:var(--cream); max-width:74vw; line-height:1.55; text-shadow:0 2px 20px rgba(0,0,0,0.7); font-weight:600;}
+  .formula{font-size:1.5vw; color:var(--gold); font-weight:800; display:flex; gap:1vw; align-items:center; flex-wrap:wrap; justify-content:center; margin-top:2vh;}
+  .formula span.op{color:var(--cream); font-weight:400; font-size:1.6vw;}
+  .cycle{display:flex; gap:1.6vw; justify-content:center; margin-top:2vh; flex-wrap:wrap;}
+  .cyc-step{background:rgba(178,58,58,0.18); border:2px solid var(--red); border-radius:12px; padding:1.6vh 1.3vw; font-size:1.15vw; max-width:11vw; box-shadow:0 0 25px rgba(178,58,58,0.35); animation:cycFloat 3.6s ease-in-out infinite;}
+  .cyc-step:nth-child(2){animation-delay:0.3s;} .cyc-step:nth-child(3){animation-delay:0.6s;} .cyc-step:nth-child(4){animation-delay:0.9s;} .cyc-step:nth-child(5){animation-delay:1.2s;}
+  @keyframes cycFloat{0%,100%{transform:translateY(0);} 50%{transform:translateY(-0.6vh);}}
+  .cyc-step .cicon{font-size:1.9vw; display:block; margin-bottom:0.4vh;}
+  .cyc-step b{color:var(--gold); display:block; font-size:1.15vw; margin-bottom:0.3vh;}
+  .footer-tag{position:absolute; bottom:2.5vh; font-size:0.95vw; color:#9fbfa9; opacity:0.7; letter-spacing:1px;}
+  .nav{position:fixed; bottom:3vh; left:50%; transform:translateX(-50%); display:flex; gap:0.6vw; z-index:10; flex-wrap:wrap; max-width:70vw; justify-content:center;}
+  .dot{width:9px; height:9px; border-radius:50%; background:rgba(255,255,255,0.25); cursor:pointer; transition:.3s;}
+  .dot.active{background:var(--gold); box-shadow:0 0 10px var(--gold);}
+  .arrows{position:fixed; top:50%; width:100%; display:flex; justify-content:space-between; padding:0 2vw; transform:translateY(-50%); z-index:10; pointer-events:none;}
+  .arrows button{pointer-events:auto; background:rgba(255,255,255,0.08); border:2px solid var(--gold); color:var(--gold); font-size:1.8vw; width:3.5vw; height:3.5vw; border-radius:50%; cursor:pointer;}
+  .arrows button:hover{background:var(--gold); color:var(--dark);}
+  .counter-note{font-size:0.95vw; color:#e0c98f; margin-top:1vh; font-style:italic; opacity:0.85;}
+  .slide-idx{position:fixed; top:2.5vh; right:2vw; font-size:1.05vw; color:var(--gold); z-index:10; letter-spacing:1px; font-weight:700;}
+  .pace{position:fixed; top:2.5vh; left:2vw; font-size:1vw; color:#ffd98a; z-index:10; letter-spacing:1px; font-weight:700;}
+  .savebtn{
+    position:fixed; top:2.5vh; left:50%; transform:translateX(-50%); z-index:20;
+    background:linear-gradient(135deg, var(--gold), #a8823a); color:#0D1A13; font-weight:800;
+    border:none; border-radius:30px; padding:0.9vh 1.6vw; font-size:0.95vw; cursor:pointer;
+    box-shadow:0 0 25px rgba(201,162,75,0.6); letter-spacing:0.5px;
+    animation:saveBtnPulse 2.8s ease-in-out infinite;
+  }
+  .savebtn:hover{transform:translateX(-50%) scale(1.06);}
+  @keyframes saveBtnPulse{0%,100%{box-shadow:0 0 18px rgba(201,162,75,0.4);} 50%{box-shadow:0 0 34px rgba(201,162,75,0.75);}}
+  /* ---- TABLE COMPONENT ---- */
+  .data-table{border-collapse:collapse; margin-top:1.5vh; width:88vw; max-width:1400px; font-size:1.05vw; box-shadow:0 0 40px rgba(201,162,75,0.25); border-radius:10px; overflow:hidden;}
+  .data-table th{background:linear-gradient(135deg, var(--green), #10261b); color:var(--gold); padding:1vh 0.9vw; font-weight:800; letter-spacing:0.5px; text-transform:uppercase; font-size:0.9vw; border:1px solid rgba(201,162,75,0.3);}
+  .data-table td{background:rgba(255,255,255,0.05); color:var(--cream); padding:0.9vh 0.9vw; border:1px solid rgba(201,162,75,0.15); font-size:0.98vw; line-height:1.35;}
+  .data-table tr:nth-child(even) td{background:rgba(255,255,255,0.08);}
+  .data-table td.unverified{color:#ffb0b0; font-style:italic;}
+  .note-box{background:rgba(47,216,201,0.08); border:1px dashed var(--cyan); border-radius:10px; padding:1vh 1.4vw; font-size:0.95vw; color:#c9f5ef; max-width:88vw; margin-top:1vh; text-align:left;}
+  .note-box b{color:var(--cyan);}
+  /* ---- ZOOM / EXPAND-CONTRACT EMPHASIS TEXT ---- */
+  .zoomtext{display:inline-block; animation:zoomInOut 3.2s ease-in-out infinite; font-weight:900; color:var(--gold);}
+  @keyframes zoomInOut{0%,100%{transform:scale(1);} 50%{transform:scale(1.18);}}
+  .zoomtext.cyan{color:var(--cyan);}
+  .zoomtext.red{color:var(--red);}
+  .big-year{font-size:2.4vw; font-weight:900; color:var(--gold); text-shadow:0 0 25px rgba(201,162,75,0.6); animation:zoomInOut 4s ease-in-out infinite;}
+  .phase-row{display:flex; gap:1.4vw; justify-content:center; margin-top:2vh; flex-wrap:wrap;}
+  .phase-card{background:rgba(255,255,255,0.06); border:2px solid var(--cyan); border-radius:14px; padding:1.6vh 1.3vw; width:20vw; box-shadow:0 0 30px rgba(47,216,201,0.25); animation:boxFloat 4.5s ease-in-out infinite; text-align:left;}
+  .phase-card:nth-child(2){animation-delay:0.3s;} .phase-card:nth-child(3){animation-delay:0.6s;} .phase-card:nth-child(4){animation-delay:0.9s;}
+  .phase-card .yr{font-size:1.1vw; font-weight:900; color:var(--cyan); display:block; margin-bottom:0.4vh;}
+  .phase-card .ph{font-size:1.15vw; font-weight:800; color:var(--gold); display:block; margin-bottom:0.6vh;}
+  .phase-card p{font-size:0.85vw; line-height:1.4; color:var(--cream);}
+  .commit-grid{display:grid; grid-template-columns:1fr 1fr; gap:1.2vw; margin-top:2vh; max-width:78vw;}
+  .commit-item{background:rgba(255,255,255,0.06); border-left:4px solid var(--gold); border-radius:8px; padding:1.2vh 1.2vw; font-size:1.05vw; text-align:left; box-shadow:0 0 20px rgba(201,162,75,0.15);}
+  .commit-item b{color:var(--gold);}
+  .ref-list{text-align:left; max-width:86vw; max-height:62vh; overflow-y:auto; font-size:0.82vw; line-height:1.6; color:#d8d3c4; padding:1vh 1vw; background:rgba(255,255,255,0.03); border-radius:10px;}
+  .ref-list p{font-size:0.82vw; margin-bottom:0.6vh; color:#d8d3c4;}
+</style>
+</head>
+<body>
+<div class="orb orb1"></div>
+<div class="orb orb2"></div>
+<div class="orb orb3"></div>
+<canvas id="canvas3d"></canvas>
+<button class="savebtn" id="saveBtn">&#128190; SAVE TO MY LAPTOP</button>
+<div class="slide-idx" id="slideIdx">01 / 21</div>
+<div class="pace" id="paceTag">~2 MIN</div>
+<div class="deck" id="deck">
+
+  <!-- SLIDE 1 -->
+  <div class="slide active" data-i="0">
+    <div class="icon">&#127963;&#65039;</div>
+    <div class="tag">North-Central Security Summit &middot; 20-Year Development Plan &middot; 2026</div>
+    <h1 style="font-size:3vw;">SECURITY AS THE FOUNDATION OF <span class="zoomtext">20-YEAR</span> DEVELOPMENT</h1>
+    <p style="max-width:70vw;">Presented by AVM Monday Riku Morgan (Rtd)</p>
+    <p class="quote" style="font-size:1.5vw; max-width:66vw; margin-top:1.5vh;">"Give communities the resources, institutions and partnerships to secure peace — and peace will give development the space to flourish."</p>
+    <div class="say">Open with the full 2-minute introduction: development cannot endure where insecurity thrives — and LG financial autonomy is the hinge that changes the whole equation.</div>
+  </div>
+
+  <!-- SLIDE 2 : TABLE 1 -->
+  <div class="slide" data-i="1">
+    <div class="tag cyan">Documented Evidence &middot; Table 1</div>
+    <h2 class="cyan">Chronology of Kidnapping &amp; Banditry</h2>
+    <table class="data-table">
+      <tr><th>Period</th><th>Location</th><th>Incident</th><th>Killed</th><th>Abducted</th></tr>
+      <tr><td>May 2026</td><td>Plateau State</td><td>Coordinated attacks, multiple communities</td><td>62</td><td>&mdash;</td></tr>
+      <tr><td>June 2026</td><td>Plateau State</td><td>Continued attacks, multiple LGAs</td><td>43</td><td>&mdash;</td></tr>
+      <tr><td>1&ndash;11 July 2026</td><td>Plateau State</td><td>Early-July escalation</td><td>16</td><td>&mdash;</td></tr>
+      <tr><td>22 Aug 2026</td><td>Niger State (Borgu)</td><td>Mosque raid, Kpenya/Dekara</td><td>30 confirmed</td><td>60&ndash;80 confirmed; <span class="unverified">600 unverified</span></td></tr>
+      <tr><td>Aug 2026 (ongoing)</td><td>Niger &rarr; Benin Republic</td><td>Mass displacement post-raid</td><td>&mdash;</td><td>~2,000 fled</td></tr>
+      <tr><td>Jul 2025&ndash;Jun 2026</td><td>National aggregate</td><td>Full 12-month total</td><td>1,142</td><td>7,825</td></tr>
+    </table>
+    <div class="note-box"><b>Note:</b> "Unverified" figures (e.g. the 600 abduction claim) are video-sourced, not police-confirmed — always distinguish confirmed vs. unverified at the podium.</div>
+    <div class="say">This isn't scattered incidents — it's a 12-month, nationally-documented pattern, and North-Central sits at the centre of it.</div>
+  </div>
+
+  <!-- SLIDE 3 : TABLE 2 -->
+  <div class="slide" data-i="2">
+    <div class="tag cyan">Documented Evidence &middot; Table 2</div>
+    <h2 class="cyan">The Economy of Kidnapping</h2>
+    <table class="data-table">
+      <tr><th>Metric</th><th>Figure</th><th>Note</th></tr>
+      <tr><td>Total ransom paid (12 months)</td><td>&#8358;7.78 billion</td><td>SBM Intelligence (2026)</td></tr>
+      <tr><td>Total victims (12 months)</td><td>7,825</td><td>SBM Intelligence (2026)</td></tr>
+      <tr><td>Average ransom per victim</td><td>&asymp; &#8358;994,500</td><td>Calculated: &#8358;7.78bn &divide; 7,825</td></tr>
+      <tr><td>USD equivalent of total ransom</td><td>&asymp; US$5.2 million</td><td>&asymp;&#8358;1,500/US$1; matches Reuters (2026c)</td></tr>
+      <tr><td>Year-on-year growth</td><td><span class="zoomtext cyan">66%</span></td><td>SBM Intelligence (2026)</td></tr>
+    </table>
+    <div class="note-box"><b>Note:</b> Average-per-victim and USD figures are calculated from the two SBM Intelligence totals above — they are national averages, not confirmed per-case amounts.</div>
+    <div class="say">Every naira paid is seed capital for the next attack — a self-funding business model. We must break the funding cycle, not just chase the perpetrators.</div>
+  </div>
+
+  <!-- SLIDE 4 -->
+  <div class="slide" data-i="3">
+    <div class="icon">&#127757;</div>
+    <div class="tag">Regional Context</div>
+    <h2>The North-Central Security Question</h2>
+    <p style="max-width:70vw;">Benue, Kogi, Kwara, Nasarawa, Niger, Plateau, and the FCT form the bridge between north and south — our agricultural belts, forests, highways, energy infrastructure. Increasingly, they contain terrorism, banditry, kidnapping, farmer-herder conflict and rural criminality.</p>
+    <div class="say">The enemy does not respect state boundaries. Why should our response?</div>
+  </div>
+
+  <!-- SLIDE 5 -->
+  <div class="slide" data-i="4">
+    <div class="icon">&#9888;&#65039;</div>
+    <div class="tag">Plateau State &middot; Confirmed, Named Incidents</div>
+    <h2>121 Killed in 10 Weeks</h2>
+    <div class="bars" id="plateauBars">
+      <div class="bar-wrap"><span class="bar-num">62</span><div class="bar" style="height:2px" data-h="62" data-max="70"></div><span class="bar-label">May 2026</span></div>
+      <div class="bar-wrap"><span class="bar-num">43</span><div class="bar" style="height:2px" data-h="43" data-max="70"></div><span class="bar-label">June 2026</span></div>
+      <div class="bar-wrap"><span class="bar-num">16</span><div class="bar" style="height:2px" data-h="16" data-max="70"></div><span class="bar-label">1-11 July</span></div>
+    </div>
+    <div class="say">121 people. One state. Ten weeks. This is happening right now.</div>
+  </div>
+
+  <!-- SLIDE 6 -->
+  <div class="slide" data-i="5">
+    <div class="icon">&#9939;&#65039;</div>
+    <div class="tag">Niger State &middot; Borgu, Kpenya/Dekara &middot; Aug 2026</div>
+    <h2>A Single Operation, Hundreds of Lives</h2>
+    <div class="stat-row">
+      <div class="stat-box"><span class="stat-icon">&#128128;</span><span class="stat-num" data-count="30">0</span><span class="stat-label">Confirmed Killed</span></div>
+      <div class="stat-box"><span class="stat-icon">&#9939;&#65039;</span><span class="stat-num" data-count="80">0</span><span class="stat-label">Abducted (Confirmed)</span></div>
+      <div class="stat-box"><span class="stat-icon">&#10067;</span><span class="stat-num" data-count="600">0</span><span class="stat-label">Unverified (Video)</span></div>
+      <div class="stat-box"><span class="stat-icon">&#127939;</span><span class="stat-num" data-count="2000">0</span><span class="stat-label">Fled to Benin Republic</span></div>
+    </div>
+    <div class="say">One raid emptied entire villages — some fled the country to survive.</div>
+  </div>
+
+  <!-- SLIDE 7 -->
+  <div class="slide" data-i="6">
+    <div class="icon">&#128506;&#65039;</div>
+    <div class="tag">Full Regional Totals &middot; 7 North-Central Units</div>
+    <h2>Every State Carries a Share</h2>
+    <div class="bars" id="stateBars">
+      <div class="bar-wrap"><span class="bar-num">400</span><div class="bar" style="height:2px" data-h="400" data-max="430"></div><span class="bar-label">Niger</span></div>
+      <div class="bar-wrap"><span class="bar-num">430</span><div class="bar" style="height:2px" data-h="430" data-max="430"></div><span class="bar-label">Plateau</span></div>
+      <div class="bar-wrap"><span class="bar-num">330</span><div class="bar" style="height:2px" data-h="330" data-max="430"></div><span class="bar-label">Benue</span></div>
+      <div class="bar-wrap"><span class="bar-num">50</span><div class="bar" style="height:2px" data-h="50" data-max="430"></div><span class="bar-label">Kwara</span></div>
+      <div class="bar-wrap"><span class="bar-num">40</span><div class="bar" style="height:2px" data-h="40" data-max="430"></div><span class="bar-label">Kogi</span></div>
+      <div class="bar-wrap"><span class="bar-num">32</span><div class="bar" style="height:2px" data-h="32" data-max="430"></div><span class="bar-label">Nasarawa</span></div>
+      <div class="bar-wrap"><span class="bar-num">22</span><div class="bar" style="height:2px" data-h="22" data-max="430"></div><span class="bar-label">FCT</span></div>
+    </div>
+    <div class="say">No state in this region is untouched — this is a regional emergency.</div>
+  </div>
+
+  <!-- SLIDE 8 -->
+  <div class="slide" data-i="7">
+    <div class="icon">&#128257;</div>
+    <div class="tag">Understanding the Threat</div>
+    <h2>The Ransom Economy Self-Funds</h2>
+    <div class="cycle">
+      <div class="cyc-step"><span class="cicon">&#128737;&#65039;</span><b>1. Abduct</b>Mass raid on mosque, village, highway</div>
+      <div class="cyc-step"><span class="cicon">&#9200;</span><b>2. Hold</b>Days to weeks of negotiation</div>
+      <div class="cyc-step"><span class="cicon">&#128176;</span><b>3. Collect</b>&#8358;7.78bn paid in 12 months</div>
+      <div class="cyc-step"><span class="cicon">&#128299;</span><b>4. Reinvest</b>Weapons, transport, recruits</div>
+      <div class="cyc-step"><span class="cicon">&#128260;</span><b>5. Repeat</b>Stronger for the next attack</div>
+    </div>
+    <div class="say">Every naira paid in ransom funds the next attack. It's a business model.</div>
+  </div>
+
+  <!-- SLIDE 9 -->
+  <div class="slide" data-i="8">
+    <div class="icon">&#128680;</div>
+    <h1 style="font-size:3vw;">THIS IS A <span class="zoomtext red">DEVELOPMENT EMERGENCY</span></h1>
+    <p class="quote">Not merely a law-and-order problem. Lost harvests. Interrupted schooling. A generation growing up distrustful of the state.</p>
+    <div class="say">Say it plainly: we are losing a generation, not just a security statistic.</div>
+  </div>
+
+  <!-- SLIDE 10 -->
+  <div class="slide" data-i="9">
+    <div class="icon">&#128225;</div>
+    <div class="tag cyan">New Security Architecture &middot; Part 1</div>
+    <h2 class="cyan">One Threat Picture</h2>
+    <div class="cycle">
+      <div class="cyc-step" style="border-color:var(--cyan); background:rgba(47,216,201,0.12);"><span class="cicon">&#128065;&#65039;</span><b>SEE</b>Collect information</div>
+      <div class="cyc-step" style="border-color:var(--cyan); background:rgba(47,216,201,0.12);"><span class="cicon">&#128225;</span><b>SHARE</b>Move it fast to who needs it</div>
+      <div class="cyc-step" style="border-color:var(--cyan); background:rgba(47,216,201,0.12);"><span class="cicon">&#9878;&#65039;</span><b>DECIDE</b>Clear command &amp; responsibility</div>
+      <div class="cyc-step" style="border-color:var(--cyan); background:rgba(47,216,201,0.12);"><span class="cicon">&#9889;</span><b>ACT</b>Respond fast &amp; proportionately</div>
+      <div class="cyc-step" style="border-color:var(--cyan); background:rgba(47,216,201,0.12);"><span class="cicon">&#128218;</span><b>LEARN</b>Prevent repetition</div>
+    </div>
+    <div class="say">No single agency can do everything — together, fused, our agencies can know almost everything that matters.</div>
+  </div>
+
+  <!-- SLIDE 11 -->
+  <div class="slide" data-i="10">
+    <div class="icon">&#127959;&#65039;</div>
+    <div class="tag cyan">New Security Architecture &middot; Part 2</div>
+    <h2 class="cyan">Regional Security Intelligence &amp; Fusion Centre</h2>
+    <p style="max-width:72vw;">Answers five questions continuously: where is the threat, who is responsible, what is their capability, what will they do next, what resource responds fastest.</p>
+    <div class="stat-row">
+      <div class="stat-box cyan">UK &middot; JTAC</div>
+      <div class="stat-box cyan">US &middot; NCTC</div>
+      <div class="stat-box cyan">India &middot; MAC (post-2008 Mumbai)</div>
+    </div>
+    <div class="say">Fragmented agencies, however capable, lose to threats that move faster than their information. North-Central needs its own fusion centre.</div>
+  </div>
+
+  <!-- SLIDE 12 -->
+  <div class="slide" data-i="11">
+    <div class="icon">&#129485;</div>
+    <div class="tag cyan">New Security Architecture &middot; Part 3</div>
+    <h2 class="cyan">Community Early Warning &amp; Early Response Network</h2>
+    <p style="max-width:72vw;">Farmers, hunters, teachers, traditional rulers, transporters, market women see things no satellite or patrol ever will. A disciplined, legally-governed network — not a vigilante system.</p>
+    <div class="stat-row">
+      <div class="stat-box cyan">Kenya &middot; Nyumba Kumi</div>
+      <div class="stat-box cyan">Philippines &middot; Barangay Peacekeeping</div>
+    </div>
+    <div class="say">Formal, well-governed community structures outperform informal vigilantism on accuracy, accountability and sustainability.</div>
+  </div>
+
+  <!-- SLIDE 13 -->
+  <div class="slide" data-i="12">
+    <div class="icon">&#128081;</div>
+    <div class="tag cyan">New Security Architecture &middot; Part 4</div>
+    <h2 class="cyan">Traditional Rulers in the Security Architecture</h2>
+    <div class="chain">
+      <div class="node cyan"><span>&#128081;</span>Traditional Council</div>
+      <div class="arrow cyan">&#8594;</div>
+      <div class="node cyan"><span>&#128737;&#65039;</span>Police / DSS</div>
+      <div class="arrow cyan">&#8594;</div>
+      <div class="node cyan"><span>&#127894;</span>Military Liaison</div>
+      <div class="arrow cyan">&#8594;</div>
+      <div class="node cyan"><span>&#127963;&#65039;</span>Local Govt</div>
+      <div class="arrow cyan">&#8594;</div>
+      <div class="node cyan"><span>&#129485;</span>Community Reps</div>
+    </div>
+    <div class="say">Today rulers are consulted mostly after violence — their value is greatest before it. A standing table, not an emergency meeting.</div>
+  </div>
+
+  <!-- SLIDE 14 -->
+  <div class="slide" data-i="13">
+    <div class="icon">&#128506;&#65039;</div>
+    <div class="tag cyan">New Security Architecture &middot; Part 5</div>
+    <h2 class="cyan">Security Corridors, Not Administrative Boundaries</h2>
+    <p style="max-width:72vw;">Kwara&ndash;Niger&ndash;Kainji &middot; Niger&ndash;Kaduna&ndash;FCT &middot; Benue&ndash;Nasarawa &middot; Benue&ndash;Taraba &middot; Plateau&ndash;Bauchi &middot; Kogi&ndash;Nasarawa&ndash;Benue &mdash; the actual routes threats move today.</p>
+    <div class="say">Governors agreed on joint corridor operations in 2025. The next step isn't another agreement — it's institutionalisation.</div>
+  </div>
+
+  <!-- SLIDE 15 -->
+  <div class="slide" data-i="14">
+    <div class="icon">&#9201;&#65039;</div>
+    <div class="tag cyan">New Security Architecture &middot; Part 6</div>
+    <h2 class="cyan">Rapid Response: The <span class="zoomtext cyan">30&ndash;60 Minute</span> Window</h2>
+    <p style="max-width:72vw;">Police rapid response units, military QRF, mobile teams, medical evacuation, aviation support, community liaison &mdash; all pre-positioned, not reactive.</p>
+    <div class="say">Israel's civil defence doctrine proves what a well-rehearsed short window achieves, versus a slow chain of phone calls.</div>
+  </div>
+
+  <!-- SLIDE 16 -->
+  <div class="slide" data-i="15">
+    <div class="icon">&#127963;&#65039;</div>
+    <div class="tag">The Solution &middot; Bottom-Up Security Architecture</div>
+    <h2>Financially Autonomous Local Governments</h2>
+    <div class="chain">
+      <div class="node"><span>&#127963;&#65039;</span>Federal</div>
+      <div class="arrow">&#8594;</div>
+      <div class="node"><span>&#127961;&#65039;</span>State</div>
+      <div class="arrow">&#8594;</div>
+      <div class="node"><span>&#128181;</span>Accountable LG</div>
+      <div class="arrow">&#8594;</div>
+      <div class="node"><span>&#129485;</span>Community</div>
+      <div class="arrow">&#8594;</div>
+      <div class="node"><span>&#128737;&#65039;</span>Security</div>
+    </div>
+    <div class="say">Push power and money down to the LG — that's where the threat actually lives.</div>
+  </div>
+
+  <!-- SLIDE 17 -->
+  <div class="slide" data-i="16">
+    <div class="icon">&#10133;</div>
+    <div class="tag">The Formula</div>
+    <div class="formula">
+      <div class="stat-box">Financial Autonomy</div><span class="op">+</span>
+      <div class="stat-box">Accountability</div><span class="op">+</span>
+      <div class="stat-box">Local Intelligence</div><span class="op">+</span>
+      <div class="stat-box">Responsive Governance</div><span class="op">+</span>
+      <div class="stat-box">Professional Coordination</div>
+    </div>
+    <p class="counter-note" style="font-size:1.6vw; margin-top:3vh; color:var(--gold); font-weight:800;">= Stronger Grassroots Security</p>
+    <div class="say">Autonomy without audits just decentralises corruption — say this caveat out loud.</div>
+  </div>
+
+  <!-- SLIDE 18 -->
+  <div class="slide" data-i="17">
+    <div class="icon">&#128202;</div>
+    <div class="tag cyan">Evaluation Roadmap</div>
+    <h2 class="cyan">5-Year Metrics &amp; Evaluation Roadmap</h2>
+    <div class="phase-row">
+      <div class="phase-card"><span class="yr">YEARS 1&ndash;5</span><span class="ph">I &middot; Foundation</span><p>Fusion Centre live in all 7 states/FCT; kidnapping down 30%; Early-Warning Network in 50% of high-risk LGAs; response &lt;90 min</p></div>
+      <div class="phase-card"><span class="yr">YEARS 6&ndash;10</span><span class="ph">II &middot; Consolidation</span><p>Kidnapping down 60%; 100% LGAs fused; all 6 corridors institutionalised; displaced return &gt;70%; audit compliance &gt;90%</p></div>
+      <div class="phase-card"><span class="yr">YEARS 11&ndash;15</span><span class="ph">III &middot; Maturity</span><p>Kidnapping down 85%; response &lt;45 min region-wide; rising prosecutions; trust index &gt;75%; farms fully reactivated</p></div>
+      <div class="phase-card"><span class="yr">YEARS 16&ndash;20</span><span class="ph">IV &middot; Sustained Peace</span><p>Kidnapping industry &lt;5% of baseline; region exports best practice; full corridor integration; self-sustaining LG financing</p></div>
+    </div>
+    <div class="say">A twenty-year plan without five-year checkpoints is just a hope. These are the checkpoints — judge us against them publicly.</div>
+  </div>
+
+  <!-- SLIDE 19 -->
+  <div class="slide" data-i="18">
+    <div class="icon">&#9997;&#65039;</div>
+    <div class="tag">The North-Central Security Compact</div>
+    <h2>Seven Commitments</h2>
+    <div class="commit-grid">
+      <div class="commit-item"><b>1. One Threat Picture</b> — we share intelligence</div>
+      <div class="commit-item"><b>2. One Early-Warning System</b> — we listen to communities</div>
+      <div class="commit-item"><b>3. One Rapid-Response Philosophy</b> — before massacres, not after</div>
+      <div class="commit-item"><b>4. One Professional Standard</b> — discipline, law, dignity</div>
+      <div class="commit-item"><b>5. One Regional Approach</b> — no state-border cover</div>
+      <div class="commit-item"><b>6. One Development Agenda</b> — secure and rebuild together</div>
+      <div class="commit-item" style="grid-column:1/3;"><b>7. One Measure of Success</b> — the safety and dignity of the citizen, not the volume of activity we report</div>
+    </div>
+    <div class="say">Ask the summit to adopt all seven, together, as one compact.</div>
+  </div>
+
+  <!-- SLIDE 20 -->
+  <div class="slide" data-i="19">
+    <div class="icon">&#128737;&#65039;</div>
+    <div class="tag">Closing</div>
+    <p class="quote">"If every local government across the North-Central states is empowered, accountable and connected — we begin to build a regional security shield."</p>
+    <p style="max-width:66vw; margin-top:2vh; font-weight:700; font-size:1.6vw; color:var(--gold);">He simply wants to arrive alive. That is the standard by which we must judge ourselves. And it is not beyond the capacity of Nigeria.</p>
+    <div class="footer-tag">AVM MONDAY RIKU MORGAN (RTD) &middot; NORTH-CENTRAL SECURITY SUMMIT &middot; 2026</div>
+  </div>
+
+  <!-- SLIDE 21 : REFERENCES -->
+  <div class="slide" data-i="20">
+    <div class="tag">Harvard-Style References</div>
+    <h2 style="font-size:2vw;">References</h2>
+    <div class="ref-list" id="refList">
+      <p>ACLED &ndash; Armed Conflict Location &amp; Event Data Project (2026) Nigeria conflict and fatality data, North-Central zone, March&ndash;September 2026. Available at: https://acleddata.com (Accessed: 14 September 2026).</p>
+      <p>Berom Youth Moulders Association (2026) Incident data on Plateau State attacks, May&ndash;July 2026, reviewed and published by HumAngle Media (2026), op. cit.</p>
+      <p>Daily Trust (2026) 30 killed in attacks on four Niger mosques. Available at: https://dailytrust.com/30-killed-in-attacks-on-four-niger-mosques (Accessed: 14 September 2026).</p>
+      <p>Government of India, Ministry of Home Affairs (2026) Multi-Agency Centre (MAC), established following the 26 November 2008 Mumbai attacks.</p>
+      <p>Government of Israel, Home Front Command (2026) Civil defence rapid-response and pre-positioning doctrine. Available at: https://www.idf.il/en/mini-sites/home-front-command (Accessed: 14 September 2026).</p>
+      <p>Government of Kenya, National Police Service (2026) Nyumba Kumi Community Policing Initiative.</p>
+      <p>Government of the Philippines, Department of the Interior and Local Government (2026) Barangay Peacekeeping Action Teams (BPAT).</p>
+      <p>Government of the United Kingdom, Security Service MI5 (2026) Joint Terrorism Analysis Centre (JTAC). Available at: https://www.mi5.gov.uk/joint-terrorism-analysis-centre (Accessed: 14 September 2026).</p>
+      <p>HumAngle Media (2026) Residents recall a weekend of bloodshed across Benue and Plateau communities. Available at: https://humanglemedia.com/residents-recall-a-weekend-of-bloodshed-across-benue-and-plateau-communities (Accessed: 14 September 2026).</p>
+      <p>HumAngle Media (2026) Nigeria Conflict Tracker &ndash; monthly national security metrics, March&ndash;June 2026. Available at: https://humanglemedia.com (Accessed: 14 September 2026).</p>
+      <p>International Organization for Migration (2026) Displacement Tracking Matrix (DTM), Nigeria, Round 18. Geneva: IOM.</p>
+      <p>National Counterterrorism Center (2026) About NCTC. Available at: https://www.dni.gov/nctc (Accessed: 14 September 2026).</p>
+      <p>North-Central Nigeria Governors' Forum (2025) Joint Security Operations Agreement across shared corridors.</p>
+      <p>Premium Times (2026) Nine family members, baby killed in Plateau attack. Available at: https://www.premiumtimesng.com/news/headlines/894898-nine-family-members-baby-killed-in-plateau-attack.html (Accessed: 14 September 2026).</p>
+      <p>Reuters (2026a) Gunmen abduct over 60 worshippers, Nigeria mosque, police say. 22 August. Available at: https://www.reuters.com/world/africa/gunmen-abduct-over-60-worshippers-nigeria-mosque-police-say-2026-08-22/ (Accessed: 14 September 2026).</p>
+      <p>Reuters (2026b) Video appears to show 600 people abducted in Nigeria mosque attack, residents say. 24 August. Available at: https://www.reuters.com/world/africa/video-appears-show-600-people-abducted-nigeria-mosque-attack-residents-say-2026-08-24/ (Accessed: 14 September 2026).</p>
+      <p>Reuters (2026c) Nigerian gunmen raise over $5 million in mass kidnappings, study finds. 26 August. Available at: https://www.reuters.com/world/africa/nigerian-gunmen-raise-over-5-million-mass-kidnappings-study-finds-2026-08-26/ (Accessed: 14 September 2026).</p>
+      <p>Revo Culture (2026) Regional synthesis of Niger State Borgu attacks and cross-border displacement. Available at: https://revoculture.org/articles/religion/103 (Accessed: 14 September 2026).</p>
+      <p>SBM Intelligence (2026) The Economics of Nigeria's Kidnap Industry (2026 Edition). Lagos: SBM Intelligence.</p>
+      <p>Vanguard (2026) 7,825 abducted, 1,142 killed in one year &ndash; SBM. Available at: https://www.vanguardngr.com/2026/08/7825-abducted-1142-killed-in-one-year-sbm/ (Accessed: 14 September 2026).</p>
+    </div>
+    <div class="footer-tag">ALL SOURCES HARVARD-REFERENCED &middot; FULL LIST ALSO IN TALKING POINTS DOCUMENT</div>
+  </div>
+
+</div>
+
+<div class="arrows">
+  <button id="prevBtn">&#8592;</button>
+  <button id="nextBtn">&#8594;</button>
+</div>
+<div class="nav" id="navDots"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+document.getElementById('saveBtn').addEventListener('click', ()=>{
+  const a = document.createElement('a');
+  a.href = window.location.href;
+  a.download = 'north_central_security_20slides.html';
+  a.click();
+});
+
+const slides = document.querySelectorAll('.slide');
+const total = slides.length;
+let current = 0;
+const navDots = document.getElementById('navDots');
+const slideIdx = document.getElementById('slideIdx');
+const paceTag = document.getElementById('paceTag');
+const pacing = ['~2 MIN','~45 SEC','~45 SEC','~35 SEC','~30 SEC','~30 SEC','~30 SEC','~30 SEC','~30 SEC','~40 SEC','~40 SEC','~40 SEC','~35 SEC','~35 SEC','~35 SEC','~35 SEC','~35 SEC','~50 SEC','~40 SEC','~30 SEC','APPENDIX'];
+
+slides.forEach((s,i)=>{
+  const d = document.createElement('div');
+  d.className = 'dot' + (i===0?' active':'');
+  d.addEventListener('click', ()=>goTo(i));
+  navDots.appendChild(d);
+});
+
+function goTo(i){
+  if(i<0) i = total-1;
+  if(i>=total) i = 0;
+  slides[current].classList.remove('active');
+  navDots.children[current].classList.remove('active');
+  current = i;
+  slides[current].classList.add('active');
+  navDots.children[current].classList.add('active');
+  slideIdx.textContent = String(current+1).padStart(2,'0') + ' / ' + total;
+  paceTag.textContent = pacing[current] || '';
+  animateSlide(current);
+}
+document.getElementById('prevBtn').addEventListener('click', ()=>goTo(current-1));
+document.getElementById('nextBtn').addEventListener('click', ()=>goTo(current+1));
+document.addEventListener('keydown', (e)=>{
+  if(e.key==='ArrowRight' || e.key===' ') goTo(current+1);
+  if(e.key==='ArrowLeft') goTo(current-1);
+});
+
+// ---------- COUNTER + BAR ANIMATION ----------
+function animateSlide(i){
+  const slide = slides[i];
+  slide.querySelectorAll('.stat-num').forEach(el=>{
+    const target = parseFloat(el.dataset.count);
+    if(isNaN(target)) return;
+    const decimals = parseInt(el.dataset.decimals || '0');
+    const prefix = el.dataset.prefix || '';
+    const suffix = el.dataset.suffix || '';
+    let startTime = null;
+    const duration = 1100;
+    function step(ts){
+      if(!startTime) startTime = ts;
+      const progress = Math.min((ts-startTime)/duration, 1);
+      const val = target * progress;
+      el.textContent = prefix + val.toFixed(decimals).replace(/\B(?=(\d{3})+(?!\d))/g, ',') + suffix;
+      if(progress<1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  });
+  slide.querySelectorAll('.bar').forEach(bar=>{
+    const h = parseFloat(bar.dataset.h);
+    const maxVal = parseFloat(bar.dataset.max);
+    const maxVh = 24;
+    const targetVh = Math.max((h/maxVal)*maxVh, 1.5);
+    setTimeout(()=>{ bar.style.height = targetVh + 'vh'; }, 100);
+  });
+}
+animateSlide(0);
+paceTag.textContent = pacing[0];
+
+// ---------- THREE.JS 3D BACKGROUND (with 2D/CSS fallback) ----------
+let webglOK = true;
+try{
+  const testCanvas = document.createElement('canvas');
+  webglOK = !!(window.WebGLRenderingContext && (testCanvas.getContext('webgl') || testCanvas.getContext('experimental-webgl')));
+}catch(e){ webglOK = false; }
+
+if(webglOK && typeof THREE !== 'undefined'){
+  const canvas = document.getElementById('canvas3d');
+  const renderer = new THREE.WebGLRenderer({canvas, antialias:true, alpha:true});
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
+
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(60, window.innerWidth/window.innerHeight, 0.1, 100);
+  camera.position.z = 12;
+
+  const particleCount = 900;
+  const positions = new Float32Array(particleCount*3);
+  const colors = new Float32Array(particleCount*3);
+  for(let i=0;i<particleCount;i++){
+    positions[i*3] = (Math.random()-0.5)*42;
+    positions[i*3+1] = (Math.random()-0.5)*26;
+    positions[i*3+2] = (Math.random()-0.5)*22 - 5;
+    const useCyan = Math.random() < 0.3;
+    colors[i*3] = useCyan ? 0.18 : 0.79;
+    colors[i*3+1] = useCyan ? 0.85 : 0.64;
+    colors[i*3+2] = useCyan ? 0.79 : 0.29;
+  }
+  const geo = new THREE.BufferGeometry();
+  geo.setAttribute('position', new THREE.BufferAttribute(positions,3));
+  geo.setAttribute('color', new THREE.BufferAttribute(colors,3));
+  const mat = new THREE.PointsMaterial({size:0.08, vertexColors:true, transparent:true, opacity:0.8});
+  const points = new THREE.Points(geo, mat);
+  scene.add(points);
+
+  const accentGeo = new THREE.IcosahedronGeometry(0.5, 1);
+  const accentMat = new THREE.MeshBasicMaterial({color:0xC9A24B, wireframe:true, transparent:true, opacity:0.5});
+  const accentMatCyan = new THREE.MeshBasicMaterial({color:0x2FD8C9, wireframe:true, transparent:true, opacity:0.45});
+  const accents = [];
+  for(let a=0;a<6;a++){
+    const mesh = new THREE.Mesh(accentGeo, a%2===0 ? accentMat : accentMatCyan);
+    mesh.position.set((Math.random()-0.5)*16, (Math.random()-0.5)*10, (Math.random()-0.5)*6 - 3);
+    mesh.scale.setScalar(0.6 + Math.random()*1.2);
+    scene.add(mesh);
+    accents.push(mesh);
+  }
+
+  const ambient = new THREE.AmbientLight(0x223322, 1.2);
+  scene.add(ambient);
+
+  let mouseX = 0, mouseY = 0;
+  document.addEventListener('mousemove', (e)=>{
+    mouseX = (e.clientX/window.innerWidth - 0.5);
+    mouseY = (e.clientY/window.innerHeight - 0.5);
+  });
+
+  function animate(){
+    requestAnimationFrame(animate);
+    points.rotation.y += 0.0013;
+    points.rotation.x += 0.0005;
+    accents.forEach((m,idx)=>{
+      m.rotation.x += 0.004 + idx*0.0008;
+      m.rotation.y += 0.006 + idx*0.0006;
+      m.position.y += Math.sin(Date.now()*0.0006 + idx)*0.003;
+    });
+    camera.position.x += (mouseX*2.5 - camera.position.x)*0.02;
+    camera.position.y += (-mouseY*2.5 - camera.position.y)*0.02;
+    camera.lookAt(0,0,0);
+    renderer.render(scene, camera);
+  }
+  animate();
+
+  window.addEventListener('resize', ()=>{
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    camera.aspect = window.innerWidth/window.innerHeight;
+    camera.updateProjectionMatrix();
+  });
+} else {
+  document.getElementById('canvas3d').style.background =
+    'radial-gradient(circle at 30% 20%, rgba(201,162,75,0.16), transparent 60%), radial-gradient(circle at 70% 30%, rgba(47,216,201,0.12), transparent 60%), radial-gradient(circle at 80% 80%, rgba(27,58,43,0.5), transparent 60%), #0D1A13';
+}
+</script>
+</body>
+</html>
