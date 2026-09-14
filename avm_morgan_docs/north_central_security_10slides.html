@@ -11,6 +11,13 @@
   *{box-sizing:border-box; margin:0; padding:0;}
   html,body{width:100%; height:100%; overflow:hidden; background:var(--dark); font-family:'Segoe UI', Arial, sans-serif; color:var(--cream);}
   #canvas3d{position:fixed; top:0; left:0; width:100%; height:100%; z-index:0;}
+  .orb{position:fixed; border-radius:50%; filter:blur(40px); opacity:0.35; z-index:0; pointer-events:none;}
+  .orb1{width:26vw; height:26vw; background:radial-gradient(circle, var(--gold), transparent 70%); top:-6vw; left:-6vw; animation:floatA 14s ease-in-out infinite;}
+  .orb2{width:32vw; height:32vw; background:radial-gradient(circle, var(--red), transparent 70%); bottom:-10vw; right:-8vw; animation:floatB 18s ease-in-out infinite;}
+  .orb3{width:20vw; height:20vw; background:radial-gradient(circle, var(--gold), transparent 70%); top:40%; right:10%; animation:floatC 16s ease-in-out infinite;}
+  @keyframes floatA{0%,100%{transform:translate(0,0) scale(1);} 50%{transform:translate(4vw,6vw) scale(1.15);}}
+  @keyframes floatB{0%,100%{transform:translate(0,0) scale(1);} 50%{transform:translate(-5vw,-4vw) scale(1.1);}}
+  @keyframes floatC{0%,100%{transform:translate(0,0) scale(1);} 50%{transform:translate(-3vw,4vw) scale(1.2);}}
   .deck{position:relative; width:100%; height:100vh; z-index:1;}
   .slide{
     position:absolute; top:0; left:0; width:100%; height:100%;
@@ -19,36 +26,52 @@
     transition:opacity .5s ease;
   }
   .slide.active{opacity:1; pointer-events:auto;}
-  .icon{font-size:5.5vw; margin-bottom:1vh; filter:drop-shadow(0 0 25px rgba(201,162,75,0.55)); animation:iconPulse 2.2s ease-in-out infinite;}
-  @keyframes iconPulse{0%,100%{transform:scale(1);} 50%{transform:scale(1.12);}}
-  h1{font-size:3.6vw; color:var(--gold); letter-spacing:1px; margin-bottom:1vh; font-weight:900; text-shadow:0 0 30px rgba(201,162,75,0.4);}
-  h2{font-size:2.6vw; color:var(--gold); margin-bottom:1.5vh; font-weight:800; text-shadow:0 0 20px rgba(201,162,75,0.3);}
+  .icon{font-size:5.5vw; margin-bottom:1vh; filter:drop-shadow(0 0 30px rgba(201,162,75,0.7)); animation:iconPulse 2.2s ease-in-out infinite, iconFloat 3.4s ease-in-out infinite;}
+  @keyframes iconPulse{0%,100%{transform:scale(1);} 50%{transform:scale(1.15);}}
+  @keyframes iconFloat{0%,100%{margin-top:0;} 50%{margin-top:-1.2vh;}}
+  h1{
+    font-size:3.6vw; letter-spacing:1px; margin-bottom:1vh; font-weight:900;
+    background:linear-gradient(90deg, var(--gold), #fff3d0, var(--gold));
+    background-size:200% auto; -webkit-background-clip:text; background-clip:text; color:transparent;
+    animation:shimmer 4s linear infinite; text-shadow:0 0 40px rgba(201,162,75,0.35);
+  }
+  @keyframes shimmer{0%{background-position:0% 50%;} 100%{background-position:200% 50%;}}
+  h2{font-size:2.6vw; color:var(--gold); margin-bottom:1.5vh; font-weight:800; text-shadow:0 0 25px rgba(201,162,75,0.45); animation:glowPulse 2.6s ease-in-out infinite;}
+  @keyframes glowPulse{0%,100%{text-shadow:0 0 15px rgba(201,162,75,0.3);} 50%{text-shadow:0 0 35px rgba(201,162,75,0.7);}}
   p, li{font-size:1.3vw; line-height:1.5; color:var(--cream);}
   .tag{font-size:1vw; letter-spacing:3px; color:#9fbfa9; text-transform:uppercase; margin-bottom:1vh;}
-  .say{font-size:1.15vw; color:#ffd98a; font-weight:700; margin-top:2.2vh; padding:1vh 1.6vw; border:1px dashed var(--gold); border-radius:10px; background:rgba(201,162,75,0.08); max-width:60vw;}
+  .say{font-size:1.15vw; color:#ffd98a; font-weight:700; margin-top:2.2vh; padding:1vh 1.6vw; border:1px dashed var(--gold); border-radius:10px; background:rgba(201,162,75,0.08); max-width:60vw; box-shadow:0 0 25px rgba(201,162,75,0.2); animation:sayGlow 3s ease-in-out infinite;}
+  @keyframes sayGlow{0%,100%{box-shadow:0 0 15px rgba(201,162,75,0.15);} 50%{box-shadow:0 0 35px rgba(201,162,75,0.4);}}
   .say::before{content:"\1F5E3  SAY: "; color:var(--gold);}
   .stat-row{display:flex; gap:2.5vw; justify-content:center; margin-top:2vh; flex-wrap:wrap;}
-  .stat-box{background:rgba(255,255,255,0.07); border:2px solid var(--gold); border-radius:16px; padding:2.2vh 1.8vw; min-width:13vw; backdrop-filter:blur(4px); box-shadow:0 0 30px rgba(201,162,75,0.25); animation:boxGlow 3s ease-in-out infinite;}
-  @keyframes boxGlow{0%,100%{box-shadow:0 0 20px rgba(201,162,75,0.2);} 50%{box-shadow:0 0 40px rgba(201,162,75,0.5);}}
+  .stat-box{background:rgba(255,255,255,0.07); border:2px solid var(--gold); border-radius:16px; padding:2.2vh 1.8vw; min-width:13vw; backdrop-filter:blur(4px); box-shadow:0 0 30px rgba(201,162,75,0.25); animation:boxGlow 3s ease-in-out infinite, boxFloat 4.5s ease-in-out infinite;}
+  .stat-box:nth-child(2){animation-delay:0.4s;} .stat-box:nth-child(3){animation-delay:0.8s;} .stat-box:nth-child(4){animation-delay:1.2s;}
+  @keyframes boxGlow{0%,100%{box-shadow:0 0 20px rgba(201,162,75,0.2);} 50%{box-shadow:0 0 50px rgba(201,162,75,0.6);}}
+  @keyframes boxFloat{0%,100%{transform:translateY(0);} 50%{transform:translateY(-0.8vh);}}
   .stat-icon{font-size:2vw; margin-bottom:0.5vh; display:block;}
-  .stat-num{font-size:3.4vw; font-weight:900; color:var(--gold); display:block; text-shadow:0 0 18px rgba(201,162,75,0.5);}
+  .stat-num{font-size:3.4vw; font-weight:900; color:var(--gold); display:block; text-shadow:0 0 22px rgba(201,162,75,0.6);}
   .stat-label{font-size:1vw; color:var(--cream); opacity:0.9; font-weight:600;}
   .bars{display:flex; gap:2.2vw; align-items:flex-end; height:32vh; margin-top:2vh;}
-  .bar-wrap{display:flex; flex-direction:column; align-items:center; width:6vw;}
-  .bar{width:100%; background:linear-gradient(180deg, var(--gold), var(--red)); border-radius:6px 6px 0 0; box-shadow:0 0 30px rgba(201,162,75,0.6); transition:height 1s cubic-bezier(.2,.9,.3,1);}
-  .bar-num{color:var(--gold); font-weight:800; font-size:1.3vw; margin-bottom:0.5vh; text-shadow:0 0 10px rgba(201,162,75,0.5);}
+  .bar-wrap{display:flex; flex-direction:column; align-items:center; justify-content:flex-end; width:6vw; height:100%;}
+  .bar{width:100%; min-height:2px; background:linear-gradient(180deg, #ffe9b3, var(--gold) 40%, var(--red)); border-radius:8px 8px 0 0; box-shadow:0 0 35px rgba(201,162,75,0.75), inset 0 0 15px rgba(255,255,255,0.3); transition:height 1.1s cubic-bezier(.2,.9,.3,1); position:relative; overflow:hidden;}
+  .bar::after{content:''; position:absolute; top:0; left:0; right:0; bottom:0; background:linear-gradient(180deg, rgba(255,255,255,0.35), transparent 60%); animation:barShine 2.5s ease-in-out infinite;}
+  @keyframes barShine{0%,100%{opacity:0.3;} 50%{opacity:0.8;}}
+  .bar-num{color:var(--gold); font-weight:800; font-size:1.3vw; margin-bottom:0.5vh; text-shadow:0 0 15px rgba(201,162,75,0.6);}
   .bar-label{font-size:0.95vw; color:var(--cream); margin-top:0.8vh; text-align:center; font-weight:600;}
   .chain{display:flex; align-items:center; gap:1.2vw; margin-top:2vh; flex-wrap:wrap; justify-content:center;}
-  .node{background:rgba(255,255,255,0.09); border:3px solid var(--gold); border-radius:50%; width:8.5vw; height:8.5vw; display:flex; flex-direction:column; align-items:center; justify-content:center; font-size:0.95vw; font-weight:800; color:var(--cream); text-align:center; padding:0.5vw; box-shadow:0 0 35px rgba(201,162,75,0.4); animation:pulse 2.4s infinite ease-in-out;}
+  .node{background:rgba(255,255,255,0.09); border:3px solid var(--gold); border-radius:50%; width:8.5vw; height:8.5vw; display:flex; flex-direction:column; align-items:center; justify-content:center; font-size:0.95vw; font-weight:800; color:var(--cream); text-align:center; padding:0.5vw; box-shadow:0 0 40px rgba(201,162,75,0.5); animation:pulse 2.4s infinite ease-in-out;}
   .node span{font-size:1.8vw; margin-bottom:0.3vh;}
   .node:nth-child(odd){animation-delay:0.4s;}
-  @keyframes pulse{0%,100%{transform:scale(1);} 50%{transform:scale(1.1);}}
-  .arrow{font-size:2.2vw; color:var(--gold); text-shadow:0 0 15px rgba(201,162,75,0.6);}
-  .quote{font-size:2.1vw; font-style:italic; color:var(--cream); max-width:72vw; line-height:1.55; text-shadow:0 2px 15px rgba(0,0,0,0.7); font-weight:600;}
+  @keyframes pulse{0%,100%{transform:scale(1);} 50%{transform:scale(1.12);}}
+  .arrow{font-size:2.2vw; color:var(--gold); text-shadow:0 0 20px rgba(201,162,75,0.7); animation:arrowMove 1.6s ease-in-out infinite;}
+  @keyframes arrowMove{0%,100%{transform:translateX(0);} 50%{transform:translateX(0.5vw);}}
+  .quote{font-size:2.1vw; font-style:italic; color:var(--cream); max-width:72vw; line-height:1.55; text-shadow:0 2px 20px rgba(0,0,0,0.7); font-weight:600;}
   .formula{font-size:1.4vw; color:var(--gold); font-weight:800; display:flex; gap:1vw; align-items:center; flex-wrap:wrap; justify-content:center; margin-top:2vh;}
   .formula span.op{color:var(--cream); font-weight:400; font-size:1.5vw;}
   .cycle{display:flex; gap:1.6vw; justify-content:center; margin-top:2vh; flex-wrap:wrap;}
-  .cyc-step{background:rgba(178,58,58,0.18); border:2px solid var(--red); border-radius:12px; padding:1.6vh 1.3vw; font-size:1.05vw; max-width:10.5vw; box-shadow:0 0 20px rgba(178,58,58,0.25);}
+  .cyc-step{background:rgba(178,58,58,0.18); border:2px solid var(--red); border-radius:12px; padding:1.6vh 1.3vw; font-size:1.05vw; max-width:10.5vw; box-shadow:0 0 25px rgba(178,58,58,0.35); animation:cycFloat 3.6s ease-in-out infinite;}
+  .cyc-step:nth-child(2){animation-delay:0.3s;} .cyc-step:nth-child(3){animation-delay:0.6s;} .cyc-step:nth-child(4){animation-delay:0.9s;} .cyc-step:nth-child(5){animation-delay:1.2s;}
+  @keyframes cycFloat{0%,100%{transform:translateY(0);} 50%{transform:translateY(-0.6vh);}}
   .cyc-step .cicon{font-size:1.8vw; display:block; margin-bottom:0.4vh;}
   .cyc-step b{color:var(--gold); display:block; font-size:1.1vw; margin-bottom:0.3vh;}
   .footer-tag{position:absolute; bottom:2.5vh; font-size:0.85vw; color:#9fbfa9; opacity:0.7; letter-spacing:1px;}
@@ -61,10 +84,23 @@
   .counter-note{font-size:0.85vw; color:#e0c98f; margin-top:1vh; font-style:italic; opacity:0.85;}
   .slide-idx{position:fixed; top:2.5vh; right:2vw; font-size:1vw; color:var(--gold); z-index:10; letter-spacing:1px;}
   .pace{position:fixed; top:2.5vh; left:2vw; font-size:0.95vw; color:#ffd98a; z-index:10; letter-spacing:1px; font-weight:700;}
+  .savebtn{
+    position:fixed; top:2.5vh; left:50%; transform:translateX(-50%); z-index:20;
+    background:linear-gradient(135deg, var(--gold), #a8823a); color:#0D1A13; font-weight:800;
+    border:none; border-radius:30px; padding:0.9vh 1.6vw; font-size:0.9vw; cursor:pointer;
+    box-shadow:0 0 25px rgba(201,162,75,0.6); letter-spacing:0.5px;
+    animation:saveBtnPulse 2.8s ease-in-out infinite;
+  }
+  .savebtn:hover{transform:translateX(-50%) scale(1.06);}
+  @keyframes saveBtnPulse{0%,100%{box-shadow:0 0 18px rgba(201,162,75,0.4);} 50%{box-shadow:0 0 34px rgba(201,162,75,0.75);}}
 </style>
 </head>
 <body>
+<div class="orb orb1"></div>
+<div class="orb orb2"></div>
+<div class="orb orb3"></div>
 <canvas id="canvas3d"></canvas>
+<button class="savebtn" id="saveBtn">&#128190; SAVE TO MY LAPTOP</button>
 <div class="slide-idx" id="slideIdx">01 / 10</div>
 <div class="pace" id="paceTag">~30 SEC</div>
 <div class="deck" id="deck">
@@ -97,9 +133,9 @@
     <div class="tag">Plateau State &middot; Confirmed, Named Incidents</div>
     <h2>121 Killed in 10 Weeks</h2>
     <div class="bars" id="plateauBars">
-      <div class="bar-wrap"><span class="bar-num">62</span><div class="bar" style="height:0%" data-h="62"></div><span class="bar-label">May 2026</span></div>
-      <div class="bar-wrap"><span class="bar-num">43</span><div class="bar" style="height:0%" data-h="43"></div><span class="bar-label">June 2026</span></div>
-      <div class="bar-wrap"><span class="bar-num">16</span><div class="bar" style="height:0%" data-h="16"></div><span class="bar-label">1-11 July</span></div>
+      <div class="bar-wrap"><span class="bar-num">62</span><div class="bar" style="height:2px" data-h="62" data-max="70"></div><span class="bar-label">May 2026</span></div>
+      <div class="bar-wrap"><span class="bar-num">43</span><div class="bar" style="height:2px" data-h="43" data-max="70"></div><span class="bar-label">June 2026</span></div>
+      <div class="bar-wrap"><span class="bar-num">16</span><div class="bar" style="height:2px" data-h="16" data-max="70"></div><span class="bar-label">1-11 July</span></div>
     </div>
     <div class="say">121 people. One state. Ten weeks. This is happening right now.</div>
   </div>
@@ -124,13 +160,13 @@
     <div class="tag">Full Regional Totals &middot; 7 North-Central Units</div>
     <h2>Every State Carries a Share</h2>
     <div class="bars" id="stateBars">
-      <div class="bar-wrap"><span class="bar-num">400</span><div class="bar" style="height:0%" data-h="400"></div><span class="bar-label">Niger</span></div>
-      <div class="bar-wrap"><span class="bar-num">430</span><div class="bar" style="height:0%" data-h="430"></div><span class="bar-label">Plateau</span></div>
-      <div class="bar-wrap"><span class="bar-num">330</span><div class="bar" style="height:0%" data-h="330"></div><span class="bar-label">Benue</span></div>
-      <div class="bar-wrap"><span class="bar-num">50</span><div class="bar" style="height:0%" data-h="50"></div><span class="bar-label">Kwara</span></div>
-      <div class="bar-wrap"><span class="bar-num">40</span><div class="bar" style="height:0%" data-h="40"></div><span class="bar-label">Kogi</span></div>
-      <div class="bar-wrap"><span class="bar-num">32</span><div class="bar" style="height:0%" data-h="32"></div><span class="bar-label">Nasarawa</span></div>
-      <div class="bar-wrap"><span class="bar-num">22</span><div class="bar" style="height:0%" data-h="22"></div><span class="bar-label">FCT</span></div>
+      <div class="bar-wrap"><span class="bar-num">400</span><div class="bar" style="height:2px" data-h="400" data-max="430"></div><span class="bar-label">Niger</span></div>
+      <div class="bar-wrap"><span class="bar-num">430</span><div class="bar" style="height:2px" data-h="430" data-max="430"></div><span class="bar-label">Plateau</span></div>
+      <div class="bar-wrap"><span class="bar-num">330</span><div class="bar" style="height:2px" data-h="330" data-max="430"></div><span class="bar-label">Benue</span></div>
+      <div class="bar-wrap"><span class="bar-num">50</span><div class="bar" style="height:2px" data-h="50" data-max="430"></div><span class="bar-label">Kwara</span></div>
+      <div class="bar-wrap"><span class="bar-num">40</span><div class="bar" style="height:2px" data-h="40" data-max="430"></div><span class="bar-label">Kogi</span></div>
+      <div class="bar-wrap"><span class="bar-num">32</span><div class="bar" style="height:2px" data-h="32" data-max="430"></div><span class="bar-label">Nasarawa</span></div>
+      <div class="bar-wrap"><span class="bar-num">22</span><div class="bar" style="height:2px" data-h="22" data-max="430"></div><span class="bar-label">FCT</span></div>
     </div>
     <div class="say">No state in this region is untouched — this is a regional emergency.</div>
   </div>
@@ -211,6 +247,22 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/128/three.min.js"></script>
 <script>
+// ---------- SAVE TO LAPTOP (one-click, no right-click needed) ----------
+document.getElementById('saveBtn').addEventListener('click', function(){
+  const htmlContent = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
+  const blob = new Blob([htmlContent], {type:'text/html'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'AVM_MORGAN_NORTH_CENTRAL_SECURITY_PRESENTATION.html';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+  this.textContent = '\u2705 SAVED! CHECK DOWNLOADS';
+  setTimeout(()=>{ this.innerHTML = '&#128190; SAVE TO MY LAPTOP'; }, 2500);
+});
+
 // ---------- SLIDE NAVIGATION ----------
 const slides = document.querySelectorAll('.slide');
 const total = slides.length;
@@ -235,7 +287,7 @@ function goTo(i){
   slides[current].classList.add('active');
   navDots.children[current].classList.add('active');
   slideIdx.textContent = String(current+1).padStart(2,'0') + ' / ' + total;
-  paceTag.textContent = '~30 SEC \u00b7 ELAPSED TARGET ' + ((current+1)*30) + 'S / 300S';
+  paceTag.textContent = '~30 SEC \u00b7 TARGET ' + ((current+1)*30) + 'S / 300S';
   animateSlide(current);
 }
 document.getElementById('prevBtn').addEventListener('click', ()=>goTo(current-1));
@@ -245,7 +297,7 @@ document.addEventListener('keydown', (e)=>{
   if(e.key==='ArrowLeft') goTo(current-1);
 });
 
-// ---------- COUNTER ANIMATION ----------
+// ---------- COUNTER + BAR ANIMATION (fixed: direct vh units, not %) ----------
 function animateSlide(i){
   const slide = slides[i];
   slide.querySelectorAll('.stat-num').forEach(el=>{
@@ -266,12 +318,14 @@ function animateSlide(i){
   });
   slide.querySelectorAll('.bar').forEach(bar=>{
     const h = parseFloat(bar.dataset.h);
-    const maxH = 480;
-    setTimeout(()=>{ bar.style.height = Math.min((h/maxH)*100 + 20, 100) + '%'; }, 120);
+    const maxVal = parseFloat(bar.dataset.max);
+    const maxVh = 26; // max bar height in vh units, leaves room for number+label
+    const targetVh = Math.max((h/maxVal)*maxVh, 1.5);
+    setTimeout(()=>{ bar.style.height = targetVh + 'vh'; }, 100);
   });
 }
 animateSlide(0);
-paceTag.textContent = '~30 SEC \u00b7 ELAPSED TARGET 30S / 300S';
+paceTag.textContent = '~30 SEC \u00b7 TARGET 30S / 300S';
 
 // ---------- THREE.JS 3D BACKGROUND (with 2D/CSS fallback) ----------
 let webglOK = true;
@@ -290,18 +344,30 @@ if(webglOK && typeof THREE !== 'undefined'){
   const camera = new THREE.PerspectiveCamera(60, window.innerWidth/window.innerHeight, 0.1, 100);
   camera.position.z = 12;
 
-  const particleCount = 650;
+  const particleCount = 800;
   const positions = new Float32Array(particleCount*3);
   for(let i=0;i<particleCount;i++){
-    positions[i*3] = (Math.random()-0.5)*40;
-    positions[i*3+1] = (Math.random()-0.5)*24;
-    positions[i*3+2] = (Math.random()-0.5)*20 - 5;
+    positions[i*3] = (Math.random()-0.5)*42;
+    positions[i*3+1] = (Math.random()-0.5)*26;
+    positions[i*3+2] = (Math.random()-0.5)*22 - 5;
   }
   const geo = new THREE.BufferGeometry();
   geo.setAttribute('position', new THREE.BufferAttribute(positions,3));
-  const mat = new THREE.PointsMaterial({color:0xC9A24B, size:0.06, transparent:true, opacity:0.65});
+  const mat = new THREE.PointsMaterial({color:0xC9A24B, size:0.075, transparent:true, opacity:0.75});
   const points = new THREE.Points(geo, mat);
   scene.add(points);
+
+  // a few larger glowing accent spheres drifting through the scene
+  const accentGeo = new THREE.IcosahedronGeometry(0.5, 1);
+  const accentMat = new THREE.MeshBasicMaterial({color:0xC9A24B, wireframe:true, transparent:true, opacity:0.5});
+  const accents = [];
+  for(let a=0;a<5;a++){
+    const mesh = new THREE.Mesh(accentGeo, accentMat);
+    mesh.position.set((Math.random()-0.5)*16, (Math.random()-0.5)*10, (Math.random()-0.5)*6 - 3);
+    mesh.scale.setScalar(0.6 + Math.random()*1.2);
+    scene.add(mesh);
+    accents.push(mesh);
+  }
 
   const ambient = new THREE.AmbientLight(0x223322, 1.2);
   scene.add(ambient);
@@ -314,10 +380,15 @@ if(webglOK && typeof THREE !== 'undefined'){
 
   function animate(){
     requestAnimationFrame(animate);
-    points.rotation.y += 0.0011;
-    points.rotation.x += 0.0004;
-    camera.position.x += (mouseX*2 - camera.position.x)*0.02;
-    camera.position.y += (-mouseY*2 - camera.position.y)*0.02;
+    points.rotation.y += 0.0013;
+    points.rotation.x += 0.0005;
+    accents.forEach((m,idx)=>{
+      m.rotation.x += 0.004 + idx*0.0008;
+      m.rotation.y += 0.006 + idx*0.0006;
+      m.position.y += Math.sin(Date.now()*0.0006 + idx)*0.003;
+    });
+    camera.position.x += (mouseX*2.5 - camera.position.x)*0.02;
+    camera.position.y += (-mouseY*2.5 - camera.position.y)*0.02;
     camera.lookAt(0,0,0);
     renderer.render(scene, camera);
   }
@@ -330,7 +401,7 @@ if(webglOK && typeof THREE !== 'undefined'){
   });
 } else {
   document.getElementById('canvas3d').style.background =
-    'radial-gradient(circle at 30% 20%, rgba(201,162,75,0.14), transparent 60%), radial-gradient(circle at 80% 80%, rgba(27,58,43,0.45), transparent 60%), #0D1A13';
+    'radial-gradient(circle at 30% 20%, rgba(201,162,75,0.16), transparent 60%), radial-gradient(circle at 80% 80%, rgba(27,58,43,0.5), transparent 60%), #0D1A13';
 }
 </script>
 </body>
