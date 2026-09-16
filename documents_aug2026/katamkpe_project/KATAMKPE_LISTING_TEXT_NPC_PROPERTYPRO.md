@@ -38,8 +38,8 @@ Developer: BETONIQ INVEST (Real Estate Arm of BETONIQ WEST LTD, RC 1496603)
 Executive Lead: Tom Ugbodaga, Shareholder & CEO — MSc Computer Systems Security (University of Gloucestershire, England, 2011)
 
 ## CONTACT DETAILS FOR THE LISTING
+- Phone / WhatsApp (Nigeria): +234 706 525 2117 (Tom Ugbodaga, direct)
 - Email: betoniqwestltd@gmail.com
-- Local Nigeria enquiries: as per your registered developer account contact details
 - Corporate Entity: BETONIQ INVEST / BETONIQ WEST LTD (RC 1496603), Abuja, FCT, Nigeria
 
 ## PHOTOS TO UPLOAD (7 clean site-progress stills, pulled from today's construction video)

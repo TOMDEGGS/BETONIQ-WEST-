@@ -69,6 +69,7 @@ Katamkpe Luxury Terrace Estate is executed under institutional governance by **B
   * **Official Email:** [betoniqwestltd@gmail.com](mailto:betoniqwestltd@gmail.com)  
 
 * **Nigeria & Local Abuja Inquiries:**  
+  * **Phone / WhatsApp (Nigeria):** +234 706 525 2117 (Tom Ugbodaga, direct)  
   * **Official Email:** [betoniqwestltd@gmail.com](mailto:betoniqwestltd@gmail.com)  
   * **Corporate Entity:** BETONIQ INVEST / BETONIQ WEST LTD (RC 1496603), Abuja, FCT, Nigeria  
   * **Executive Contact:** Tom Ugbodaga, Shareholder & CEO (LinkedIn profile available on request)  
