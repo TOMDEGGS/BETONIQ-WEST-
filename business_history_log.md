@@ -1,38 +1,82 @@
-# Business History Log
+# BETONIQ WEST — Backup 777 Business History Log
 
-Last refreshed: 2026-09-15T06:03:33.567290+00:00
+Refresh timestamp: 2026-09-14T07:02:13.320465+01:00
+Source: Base44 entity database (live refresh)
+Destination: TOMDEGGS/BETONIQ-WEST-
 
-This log is regenerated from the current Base44 business entities for Backup 777 continuity.
+## Refresh completed
 
-## Current entity snapshot
+All 18 configured business entities were queried live. The record-level export was regenerated for Backup 777 continuity. No new investment, compliance, commission, or field-meeting records were present in this refresh; the current operational data remains represented in the export.
 
-- RealEstateProject: 80 record(s)
-- Investor: 2 record(s)
-- Investment: 0 record(s)
-- CountryMacroData: 6 record(s)
-- ComplianceRecord: 0 record(s)
-- FeasibilityStudy: 2 record(s)
-- Commission: 0 record(s)
-- DeveloperListing: 1 record(s)
-- Subscription: 1 record(s)
-- LeadCapture: 3 record(s)
-- VisitorActivity: 11 record(s)
-- ZPTransaction: 9 record(s)
-- ZPMerchant: 8 record(s)
-- ZPAgent: 6 record(s)
-- TeamTask: 9 record(s)
-- FieldMeeting: 0 record(s)
-- BackupAgentMessage: 6 record(s)
-- FundingOutreach: 13 record(s)
+## Current counts
 
-## Key current developments
+RealEstateProject: 80
+Investor: 2
+Investment: 0
+CountryMacroData: 6
+ComplianceRecord: 0
+FeasibilityStudy: 2
+Commission: 0
+DeveloperListing: 1
+Subscription: 1
+LeadCapture: 3
+VisitorActivity: 11
+ZPTransaction: 9
+ZPMerchant: 8
+ZPAgent: 6
+TeamTask: 9
+FieldMeeting: 0
+BackupAgentMessage: 6
+FundingOutreach: 13
 
-- Real-estate inventory includes The 77 Golf & Country Estate, Eko Atlantic City, Maasai Mara eco-lodge land, Wembley Park Build-to-Rent, M Avenue Marrakech, and Rixos Morocco opportunities.
-- Katampe terrace feasibility data remains in the system with an overall score of 88 and a 31% IRR study record; current construction-stage pricing must be revalidated before external publication.
-- ZeroPay records include merchants and agents across Nigeria, the United Kingdom, Ghana, and Senegal, plus online/offline NFC transaction records.
-- FundingOutreach contains active, drafted, submitted, acknowledged, blocked, and not-started capital pipeline items; statuses should be updated when new correspondence is verified.
-- TeamTask records retain the current execution queue, including Katampe direct sales, data continuity, Paystack activation, technical hiring, and platform maintenance.
+Total records: 157
+
+## Operational highlights
+
+1. Real-estate pipeline: 80 projects, including The 77 Golf & Country Estate and the wider African/global opportunity set.
+2. ZeroPay operating data: 9 transactions, 8 merchants, and 6 agents.
+3. Current pipeline/supporting records: 3 leads, 2 feasibility studies, 13 funding-outreach records, and 9 team tasks.
 
 ## Continuity note
 
-This export is an operational snapshot, not a substitute for source-document verification. Financial, regulatory, construction-stage, and investor-facing claims require confirmation before publication.
+Base44 remains the authoritative live source. This file and full_data_export.json are refreshed for Backup 777 to pick up automatically on its next request.
+
+
+---
+
+# Live continuity refresh — 2026-09-16T07:02:54.971617+01:00
+
+Source: Base44 entity database (live refresh)  
+Destination: TOMDEGGS/BETONIQ-WEST-  
+Total records represented: 157
+
+## Verified entity counts
+
+- RealEstateProject: 80
+- Investor: 2
+- Investment: 0
+- CountryMacroData: 6
+- ComplianceRecord: 0
+- FeasibilityStudy: 2
+- Commission: 0
+- DeveloperListing: 1
+- Subscription: 1
+- LeadCapture: 3
+- VisitorActivity: 11
+- ZPTransaction: 9
+- ZPMerchant: 8
+- ZPAgent: 6
+- TeamTask: 9
+- FieldMeeting: 0
+- BackupAgentMessage: 6
+- FundingOutreach: 13
+
+## Current business developments captured
+
+1. FID pilot grant application (€200,000) remains submitted and under review; no supplemental contact is due during evaluation.
+2. Techstars London preference was confirmed/submitted on 2026-09-14; this is a preference confirmation, not an acceptance decision.
+3. ZeroPay Digital Services Ltd incorporation remains targeted for 2026-09-18 and is gated on raising the £50 Companies House fee through hardware sales.
+4. The 77 Golf & Country Estate feasibility record remains current, with an overall score of 88 and 20% ROI model.
+5. ZeroPay operational snapshot remains represented by 8 merchants, 6 agents, and 9 transaction records; no investment, compliance, commission, or field-meeting records are present.
+
+Base44 remains the authoritative live source. This export and log are maintained so Backup 777 can pick up the latest continuity snapshot automatically.

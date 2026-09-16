@@ -1,12 +1,31 @@
 {
-  "export_metadata": {
-    "generated_at_utc": "2026-09-15T06:03:33.567290+00:00",
-    "app_id": "69c1064318031a63c4728734",
-    "source": "Base44 entity API",
-    "entity_count": 18,
-    "record_count": 157
+  "export_name": "BETONIQ WEST / Backup 777 full data refresh",
+  "generated_at": "2026-09-16T07:02:54.971617+01:00",
+  "source": "Base44 entity database (live refresh on 2026-09-16)",
+  "destination": "TOMDEGGS/BETONIQ-WEST-",
+  "privacy_note": "Record-level business data snapshot for Backup 777 continuity. Treat Base44 as the authoritative live source.",
+  "total_records": 157,
+  "entity_counts": {
+    "RealEstateProject": 80,
+    "Investor": 2,
+    "Investment": 0,
+    "CountryMacroData": 6,
+    "ComplianceRecord": 0,
+    "FeasibilityStudy": 2,
+    "Commission": 0,
+    "DeveloperListing": 1,
+    "Subscription": 1,
+    "LeadCapture": 3,
+    "VisitorActivity": 11,
+    "ZPTransaction": 9,
+    "ZPMerchant": 8,
+    "ZPAgent": 6,
+    "TeamTask": 9,
+    "FieldMeeting": 0,
+    "BackupAgentMessage": 6,
+    "FundingOutreach": 13
   },
-  "entities": {
+  "records": {
     "RealEstateProject": [
       {
         "country": "Nigeria",
@@ -3932,5 +3951,9 @@
         "is_sample": false
       }
     ]
-  }
+  },
+  "refresh_note": "All 18 configured business entities queried live; counts verified against the current Base44 snapshot.",
+  "business_developments": [
+    "2026-09-13T07:02:08.735664+01:00: Live Backup 777 refresh completed successfully across all 18 configured business entities; the repository snapshot was regenerated from the Base44 database."
+  ]
 }
