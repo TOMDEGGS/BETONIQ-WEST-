@@ -1,12 +1,12 @@
 # BETONIQ WEST — Backup 777 Business History Log
 
-Refresh timestamp: 2026-09-10T07:02:21.224057+01:00
+Refresh timestamp: 2026-09-14T07:02:13.320465+01:00
 Source: Base44 entity database (live refresh)
 Destination: TOMDEGGS/BETONIQ-WEST-
 
 ## Refresh completed
 
-All 18 configured business entities were queried live. The full record-level export contains 157 records.
+All 18 configured business entities were queried live. The record-level export was regenerated for Backup 777 continuity. No new investment, compliance, commission, or field-meeting records were present in this refresh; the current operational data remains represented in the export.
 
 ## Current counts
 
@@ -29,19 +29,54 @@ FieldMeeting: 0
 BackupAgentMessage: 6
 FundingOutreach: 13
 
-## Operational snapshot
+Total records: 157
 
-Real estate: 80 projects. Investor pipeline: 2 investor records; feasibility: 2 studies. ZeroPay: 9 transactions, 8 merchants, and 6 agents. Commercial pipeline: 3 leads, 1 subscriptions, 9 team tasks, 0 field meetings, and 13 funding-outreach records.
+## Operational highlights
 
-## New business developments
-
-1. 2026-09-08: The 77 Golf & Country Estate was added as an Abuja mixed-use luxury golf-estate project in planning, with 20% target ROI and feasibility score 88/100.
-2. 2026-09-05: FID Pilot grant application (€200,000), reference 3ae3162ee9, is submitted and under review; no contact during evaluation.
-3. 2026-09-05: Seven-platform lineup complete with white papers, pitch decks, live demos, and GitHub assets.
-4. 2026-09-08: Netlify billing notice verified; master hub redeploy remains queued until funds land, with projected suspension around Oct 5 if billing is not resolved.
-5. 2026-09-09: Backup 777 data refresh synchronized to the live Base44 entity snapshot.
-6. 2026-09-10T07:02:21.224057+01:00: Live Backup 777 refresh completed successfully across all 18 configured business entities; the repository snapshot was regenerated from the Base44 database.
+1. Real-estate pipeline: 80 projects, including The 77 Golf & Country Estate and the wider African/global opportunity set.
+2. ZeroPay operating data: 9 transactions, 8 merchants, and 6 agents.
+3. Current pipeline/supporting records: 3 leads, 2 feasibility studies, 13 funding-outreach records, and 9 team tasks.
 
 ## Continuity note
 
-The live Base44 database remains authoritative. This repository snapshot is a synchronized operational copy for Backup 777 continuity.
+Base44 remains the authoritative live source. This file and full_data_export.json are refreshed for Backup 777 to pick up automatically on its next request.
+
+
+---
+
+# Live continuity refresh — 2026-09-16T07:02:54.971617+01:00
+
+Source: Base44 entity database (live refresh)  
+Destination: TOMDEGGS/BETONIQ-WEST-  
+Total records represented: 157
+
+## Verified entity counts
+
+- RealEstateProject: 80
+- Investor: 2
+- Investment: 0
+- CountryMacroData: 6
+- ComplianceRecord: 0
+- FeasibilityStudy: 2
+- Commission: 0
+- DeveloperListing: 1
+- Subscription: 1
+- LeadCapture: 3
+- VisitorActivity: 11
+- ZPTransaction: 9
+- ZPMerchant: 8
+- ZPAgent: 6
+- TeamTask: 9
+- FieldMeeting: 0
+- BackupAgentMessage: 6
+- FundingOutreach: 13
+
+## Current business developments captured
+
+1. FID pilot grant application (€200,000) remains submitted and under review; no supplemental contact is due during evaluation.
+2. Techstars London preference was confirmed/submitted on 2026-09-14; this is a preference confirmation, not an acceptance decision.
+3. ZeroPay Digital Services Ltd incorporation remains targeted for 2026-09-18 and is gated on raising the £50 Companies House fee through hardware sales.
+4. The 77 Golf & Country Estate feasibility record remains current, with an overall score of 88 and 20% ROI model.
+5. ZeroPay operational snapshot remains represented by 8 merchants, 6 agents, and 9 transaction records; no investment, compliance, commission, or field-meeting records are present.
+
+Base44 remains the authoritative live source. This export and log are maintained so Backup 777 can pick up the latest continuity snapshot automatically.

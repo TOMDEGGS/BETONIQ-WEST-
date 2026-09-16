@@ -1,0 +1,75 @@
+{
+  "backup_name": "BETONIQ WEST / ZeroPay Weekly Operational Backup",
+  "generated_at": "2026-09-13T20:03:18+01:00",
+  "repository": "https://github.com/TOMDEGGS/BETONIQ-WEST-",
+  "previous_backup": "BETONIQ_WEST_WEEKLY_OPERATIONAL_BACKUP_2026-09-06.zip",
+  "change_basis": "Working-tree changes since the repository snapshot pulled immediately before this live refresh.",
+  "changed_files": [
+    {
+      "path": "business_history_log.md",
+      "change": "M",
+      "bytes": 1472
+    },
+    {
+      "path": "full_data_export.json",
+      "change": "M",
+      "bytes": 182972
+    }
+  ],
+  "changed_file_count": 2,
+  "live_data_refresh": "Completed from all 18 configured entities; see full_data_export.json and business_history_log.md.",
+  "contents_note": "Includes current tracked repository files: Markdown, CSV, scripts, PDFs, DOCX, HTML, JSON and other operational assets. Prior backup ZIPs are excluded to prevent recursive growth.",
+  "restore_note": "Extract the ZIP into a clean folder. The live Base44 database remains authoritative.",
+  "split_strategy": "6 parts capped at 45MB uncompressed per part to stay below GitHub per-file limits.",
+  "parts": [
+    {
+      "part": 1,
+      "filename": "BETONIQ_WEST_WEEKLY_OPERATIONAL_BACKUP_2026-09-13_part1of6.zip",
+      "file_count": 6,
+      "uncompressed_bytes": 47185910,
+      "compressed_bytes": 36243238,
+      "compressed_mb": 34.56
+    },
+    {
+      "part": 2,
+      "filename": "BETONIQ_WEST_WEEKLY_OPERATIONAL_BACKUP_2026-09-13_part2of6.zip",
+      "file_count": 7,
+      "uncompressed_bytes": 47185908,
+      "compressed_bytes": 41896951,
+      "compressed_mb": 39.96
+    },
+    {
+      "part": 3,
+      "filename": "BETONIQ_WEST_WEEKLY_OPERATIONAL_BACKUP_2026-09-13_part3of6.zip",
+      "file_count": 10,
+      "uncompressed_bytes": 47185884,
+      "compressed_bytes": 43475016,
+      "compressed_mb": 41.46
+    },
+    {
+      "part": 4,
+      "filename": "BETONIQ_WEST_WEEKLY_OPERATIONAL_BACKUP_2026-09-13_part4of6.zip",
+      "file_count": 23,
+      "uncompressed_bytes": 47185891,
+      "compressed_bytes": 45854409,
+      "compressed_mb": 43.73
+    },
+    {
+      "part": 5,
+      "filename": "BETONIQ_WEST_WEEKLY_OPERATIONAL_BACKUP_2026-09-13_part5of6.zip",
+      "file_count": 65,
+      "uncompressed_bytes": 47185903,
+      "compressed_bytes": 44234406,
+      "compressed_mb": 42.19
+    },
+    {
+      "part": 6,
+      "filename": "BETONIQ_WEST_WEEKLY_OPERATIONAL_BACKUP_2026-09-13_part6of6.zip",
+      "file_count": 432,
+      "uncompressed_bytes": 36089195,
+      "compressed_bytes": 32794298,
+      "compressed_mb": 31.28
+    }
+  ],
+  "total_files": 543
+}
