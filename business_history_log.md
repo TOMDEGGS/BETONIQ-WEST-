@@ -80,3 +80,35 @@ Total records represented: 157
 5. ZeroPay operational snapshot remains represented by 8 merchants, 6 agents, and 9 transaction records; no investment, compliance, commission, or field-meeting records are present.
 
 Base44 remains the authoritative live source. This export and log are maintained so Backup 777 can pick up the latest continuity snapshot automatically.
+
+
+--- Live continuity refresh — 2026-09-17T07:05:13.191763+01:00 ---
+
+Source: Base44 entity database (live entity pull)  
+Destination: TOMDEGGS/BETONIQ-WEST-  
+Total records represented: 157
+
+## Verified entity counts
+
+- RealEstateProject: 80
+- Investor: 2
+- Investment: 0
+- CountryMacroData: 6
+- ComplianceRecord: 0
+- FeasibilityStudy: 2
+- Commission: 0
+- DeveloperListing: 1
+- Subscription: 1
+- LeadCapture: 3
+- VisitorActivity: 11
+- ZPTransaction: 9
+- ZPMerchant: 8
+- ZPAgent: 6
+- TeamTask: 9
+- FieldMeeting: 0
+- BackupAgentMessage: 6
+- FundingOutreach: 13
+
+## Refresh note
+
+All business entities requested for the Backup 777 refresh were pulled and verified: real-estate projects, investors, investments, macro data, compliance records, feasibility studies, commissions, developer listings, subscriptions, leads, visitor activity, ZeroPay transactions, merchants, agents, team tasks, field meetings, backup-agent messages, and funding outreach. Base44 remains the authoritative live source.
