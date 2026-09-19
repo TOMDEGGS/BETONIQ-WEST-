@@ -1,6 +1,6 @@
 {
   "export_name": "BETONIQ WEST Full Business Data Export",
-  "generated_at": "2026-09-18T07:01:54.325746+01:00",
+  "generated_at": "2026-09-19T07:04:11.719088+01:00",
   "source": "Base44 entity database (live refresh)",
   "destination": "TOMDEGGS/BETONIQ-WEST-",
   "privacy_note": "Operational continuity export for Backup 777.",
@@ -3951,30 +3951,5 @@
         "is_sample": false
       }
     ]
-  },
-  "refresh_note": "Live refresh of all 18 configured business entities, including current operations, pipeline, ZeroPay merchants/agents/transactions, subscriptions, leads, projects, investors and business-development records.",
-  "business_developments": [
-    "2026-09-13T07:02:08.735664+01:00: Live Backup 777 refresh completed successfully across all 18 configured business entities; the repository snapshot was regenerated from the Base44 database."
-  ],
-  "refresh_status": "completed",
-  "verified_entities": [
-    "RealEstateProject",
-    "Investor",
-    "Investment",
-    "CountryMacroData",
-    "ComplianceRecord",
-    "FeasibilityStudy",
-    "Commission",
-    "DeveloperListing",
-    "Subscription",
-    "LeadCapture",
-    "VisitorActivity",
-    "ZPTransaction",
-    "ZPMerchant",
-    "ZPAgent",
-    "TeamTask",
-    "FieldMeeting",
-    "BackupAgentMessage",
-    "FundingOutreach"
-  ]
+  }
 }
