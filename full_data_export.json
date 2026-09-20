@@ -1,9 +1,9 @@
 {
-  "export_name": "BETONIQ WEST Full Business Data Export",
-  "generated_at": "2026-09-19T07:04:11.719088+01:00",
-  "source": "Base44 entity database (live refresh)",
+  "export_name": "BETONIQ WEST / Backup 777 full data refresh",
+  "generated_at": "2026-09-20T07:03:32.145504+01:00",
+  "source": "Base44 entity database (live refresh on 2026-09-20)",
   "destination": "TOMDEGGS/BETONIQ-WEST-",
-  "privacy_note": "Operational continuity export for Backup 777.",
+  "privacy_note": "Record-level business data snapshot for Backup 777 continuity. Treat Base44 as the authoritative live source.",
   "total_records": 157,
   "entity_counts": {
     "RealEstateProject": 80,
@@ -3951,5 +3951,9 @@
         "is_sample": false
       }
     ]
-  }
+  },
+  "refresh_note": "Latest live entity reads completed on 2026-09-20. Entity totals were checked against the prior snapshot; no record-count changes were detected.",
+  "business_developments": [
+    "2026-09-13T07:02:08.735664+01:00: Live Backup 777 refresh completed successfully across all 18 configured business entities; the repository snapshot was regenerated from the Base44 database."
+  ]
 }

@@ -1,47 +1,37 @@
-# BETONIQ WEST LTD — BUSINESS HISTORY LOG
+# Live continuity refresh — 2026-09-20T07:03:32.145504+01:00
 
-## Automated live refresh — 2026-09-19 07:04:11 UTC+01:00 (Africa/Lagos)
+Source: Base44 entity database (live refresh)
+Destination: TOMDEGGS/BETONIQ-WEST-
+Last verified: 2026-09-20 (Africa/Lagos)
+Total records represented: 157
 
-Source: Base44 entity database (live refresh).
-Destination: TOMDEGGS/BETONIQ-WEST-.
+## Verified entity counts
 
-This log records the latest continuity snapshot for Backup 777. The structured record-level source is `full_data_export.json`.
+- RealEstateProject: 80
+- Investor: 2
+- Investment: 0
+- CountryMacroData: 6
+- ComplianceRecord: 0
+- FeasibilityStudy: 2
+- Commission: 0
+- DeveloperListing: 1
+- Subscription: 1
+- LeadCapture: 3
+- VisitorActivity: 11
+- ZPTransaction: 9
+- ZPMerchant: 8
+- ZPAgent: 6
+- TeamTask: 9
+- FieldMeeting: 0
+- BackupAgentMessage: 6
+- FundingOutreach: 13
 
-## Entity counts
+## Current business developments captured
 
-RealEstateProject: 80
-Investor: 2
-Investment: 0
-CountryMacroData: 6
-ComplianceRecord: 0
-FeasibilityStudy: 2
-Commission: 0
-DeveloperListing: 1
-Subscription: 1
-LeadCapture: 3
-VisitorActivity: 11
-ZPTransaction: 9
-ZPMerchant: 8
-ZPAgent: 6
-TeamTask: 9
-FieldMeeting: 0
-BackupAgentMessage: 6
-FundingOutreach: 13
+1. Base44 Enterprise payment extension remains the operative deadline: the current window runs from 2026-09-01 through 2026-10-31, granted by Josh Rothstein.
+2. Stripe is the preferred near-term payment rail for the fundraising/payment-link route, settling to the linked NatWest account.
+3. ZerôPâŷ Money merchant-pilot execution remains the main near-term revenue priority; grant cycles are not being counted on for the October deadline.
+4. FID pilot grant application (€200,000) is recorded in the continuity notes as submitted on 2026-09-05 and under review.
+5. The live entity read confirmed 80 real-estate projects, 8 merchants, 6 agents, and 9 transaction records. No investment, compliance, commission, or field-meeting records are present.
 
-## Current operating snapshot
-
-BETONIQ INVEST: 80 real-estate project records, including the active Nigeria pipeline and international market entries.
-ZerôPâŷ Money: 8 active merchants (7 KYC-verified), 6 active agents, 9 transaction records (7 settled/synced), and 3 captured leads.
-Continuity and execution: 9 non-completed TeamTask records and 13 non-closed funding/outreach records remain in the database.
-
-## Business developments carried forward
-
-Deal origination and brokerage preparation remains active. BETONIQ WEST is positioned for strategic origination and business-development services, with seller-first outreach, signed confidentiality/non-circumvention and fee terms before buyer introductions, and the registration email zeropointfeild_nonwnt@zeropay.site.
-
-ZerôPâŷ Money remains the main near-term operating priority alongside merchant activation monitoring and the 45-day self-sufficiency objective. The export includes merchants, agents, transactions, leads and subscription data.
-
-The export retains empty entities rather than omitting them, so Backup 777 can distinguish no current records from missing tables.
-
-## Backup continuity
-
-Backup 777 should use `full_data_export.json` as the structured source of truth and this log for the latest refresh timestamp, entity counts and business context.
+Base44 remains the authoritative live source. This export and log are maintained so Backup 777 can pick up the latest continuity snapshot automatically.
