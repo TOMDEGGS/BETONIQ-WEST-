@@ -1,0 +1,414 @@
+{
+  "backup_name": "BETONIQ_WEST_WEEKLY_OPERATIONAL_BACKUP",
+  "generated_at": "2026-09-20T19:03:01.808198+00:00",
+  "source": "TOMDEGGS/BETONIQ-WEST- operational repository snapshot",
+  "total_files": 592,
+  "split_strategy": "45MB uncompressed bin-packed parts, excluding prior weekly backup ZIPs",
+  "parts": [
+    {
+      "part": 1,
+      "filename": "BETONIQ_WEST_WEEKLY_OPERATIONAL_BACKUP_2026-09-20_part1of6.zip",
+      "file_count": 6,
+      "uncompressed_bytes": 47185910,
+      "compressed_bytes": 36243238,
+      "compressed_mb": 34.56
+    },
+    {
+      "part": 2,
+      "filename": "BETONIQ_WEST_WEEKLY_OPERATIONAL_BACKUP_2026-09-20_part2of6.zip",
+      "file_count": 7,
+      "uncompressed_bytes": 47185920,
+      "compressed_bytes": 41909795,
+      "compressed_mb": 39.97
+    },
+    {
+      "part": 3,
+      "filename": "BETONIQ_WEST_WEEKLY_OPERATIONAL_BACKUP_2026-09-20_part3of6.zip",
+      "file_count": 10,
+      "uncompressed_bytes": 47185894,
+      "compressed_bytes": 43475118,
+      "compressed_mb": 41.46
+    },
+    {
+      "part": 4,
+      "filename": "BETONIQ_WEST_WEEKLY_OPERATIONAL_BACKUP_2026-09-20_part4of6.zip",
+      "file_count": 23,
+      "uncompressed_bytes": 47185891,
+      "compressed_bytes": 45854409,
+      "compressed_mb": 43.73
+    },
+    {
+      "part": 5,
+      "filename": "BETONIQ_WEST_WEEKLY_OPERATIONAL_BACKUP_2026-09-20_part5of6.zip",
+      "file_count": 65,
+      "uncompressed_bytes": 47185882,
+      "compressed_bytes": 44223739,
+      "compressed_mb": 42.18
+    },
+    {
+      "part": 6,
+      "filename": "BETONIQ_WEST_WEEKLY_OPERATIONAL_BACKUP_2026-09-20_part6of6.zip",
+      "file_count": 481,
+      "uncompressed_bytes": 38726886,
+      "compressed_bytes": 35159395,
+      "compressed_mb": 33.53
+    }
+  ],
+  "changes_since_2026-09-13": [
+    {
+      "commit": "781bb00",
+      "date": "2026-09-20",
+      "subject": "Refresh Backup 777 continuity data 2026-09-20"
+    },
+    {
+      "commit": "33179c4",
+      "date": "2026-09-19",
+      "subject": "Final corrected teaser: Katampe spelling, Jacaranda Homes JV structure (5:4), full-project raise"
+    },
+    {
+      "commit": "944d8d4",
+      "date": "2026-09-19",
+      "subject": "Add corrected Katamkpe Terrace Residences investment teaser (fixed spelling, fresh file)"
+    },
+    {
+      "commit": "d2b5296",
+      "date": "2026-09-19",
+      "subject": "Refresh live business data export 2026-09-19"
+    },
+    {
+      "commit": "266ea4b",
+      "date": "2026-09-18",
+      "subject": "Add Katampe Terrace Residences investment teaser (PDF+DOCX) for AFSIC data room"
+    },
+    {
+      "commit": "611a8d0",
+      "date": "2026-09-18",
+      "subject": "Add Katampe Terrace global HNI outreach templates (LinkedIn, portal, courier letter)"
+    },
+    {
+      "commit": "064d1cc",
+      "date": "2026-09-18",
+      "subject": "Refresh Backup 777 business data export"
+    },
+    {
+      "commit": "42fcfe2",
+      "date": "2026-09-17",
+      "subject": "Add formal introductory letters for sellers and buyers (deal brokerage)"
+    },
+    {
+      "commit": "79d83b0",
+      "date": "2026-09-17",
+      "subject": "Correct title to Managing Director; add NCNDA/outreach templates for deal brokerage"
+    },
+    {
+      "commit": "7d1fa96",
+      "date": "2026-09-17",
+      "subject": "Add corporate credibility profile for deal brokerage outreach"
+    },
+    {
+      "commit": "b0317e8",
+      "date": "2026-09-17",
+      "subject": "Add global cash cow asset acquisition intelligence report"
+    },
+    {
+      "commit": "975eb87",
+      "date": "2026-09-17",
+      "subject": "Add USAID DIV Stage 1 draft application for ZeroPay Money"
+    },
+    {
+      "commit": "9bebd76",
+      "date": "2026-09-17",
+      "subject": "Refresh Backup 777 business data 2026-09-17"
+    },
+    {
+      "commit": "19daed4",
+      "date": "2026-09-17",
+      "subject": "Add Zenith Bank SME loan brief (N4M/24mo)"
+    },
+    {
+      "commit": "f129941",
+      "date": "2026-09-16",
+      "subject": "Add Katamkpe global diaspora buyer one-pager (Word doc) and standalone landing page site for London/USA diaspora outreach"
+    },
+    {
+      "commit": "0ff2e86",
+      "date": "2026-09-16",
+      "subject": "Add Katamkpe listing PDF with verified clickable photo links"
+    },
+    {
+      "commit": "1c63809",
+      "date": "2026-09-16",
+      "subject": "Add Katamkpe NPC/PropertyPro listing text as Word doc with clickable photo links"
+    },
+    {
+      "commit": "5a2db86",
+      "date": "2026-09-16",
+      "subject": "Add 7 platforms funding/asset status tracker"
+    },
+    {
+      "commit": "1a26f78",
+      "date": "2026-09-16",
+      "subject": "Merge branch 'main' of https://github.com/TOMDEGGS/BETONIQ-WEST-"
+    },
+    {
+      "commit": "a48d272",
+      "date": "2026-09-16",
+      "subject": "Add Speedinvest Connect form ready-to-paste answers"
+    },
+    {
+      "commit": "76159bb",
+      "date": "2026-09-16",
+      "subject": "Add Tom's Nigeria phone number to Katamkpe contact blocks, alongside wife's UK number"
+    },
+    {
+      "commit": "b955ac1",
+      "date": "2026-09-16",
+      "subject": "Add complete Katamkpe buyer outreach package as single Word document"
+    },
+    {
+      "commit": "d889e63",
+      "date": "2026-09-16",
+      "subject": "Add Katamkpe LinkedIn + Facebook diaspora draft posts"
+    },
+    {
+      "commit": "620b619",
+      "date": "2026-09-16",
+      "subject": "Add Katamkpe listing text for NPC/PropertyPro.ng + 7 site-progress photos + updated buyer one-pager"
+    },
+    {
+      "commit": "3274126",
+      "date": "2026-09-16",
+      "subject": "Refresh Backup 777 live business data 2026-09-16"
+    },
+    {
+      "commit": "5ce01a0",
+      "date": "2026-09-15",
+      "subject": "Backup 777 data refresh: business_history_log.md"
+    },
+    {
+      "commit": "7c5d272",
+      "date": "2026-09-15",
+      "subject": "Backup 777 data refresh: full_data_export.json"
+    },
+    {
+      "commit": "3e65b98",
+      "date": "2026-09-14",
+      "subject": "Add missing slide 20: Five Pillars of Regional Security Architecture (NORTH_CENTRAL_SECURITY_20SLIDE_FAILSAFE.pptx)"
+    },
+    {
+      "commit": "f1a4ec4",
+      "date": "2026-09-14",
+      "subject": "Add missing slide 20: Five Pillars of Regional Security Architecture (AVM_MORGAN_TALKING_POINTS_20SLIDE_SYNC.docx)"
+    },
+    {
+      "commit": "135eeba",
+      "date": "2026-09-14",
+      "subject": "Add missing slide 20: Five Pillars of Regional Security Architecture (north_central_security_20slides.html)"
+    },
+    {
+      "commit": "cb09dd4",
+      "date": "2026-09-14",
+      "subject": "Add 2 Nigeria severity/economy maps to NORTH_CENTRAL_SECURITY_20SLIDE_FAILSAFE.pptx"
+    },
+    {
+      "commit": "d00028d",
+      "date": "2026-09-14",
+      "subject": "Add 2 Nigeria severity/economy maps to AVM_MORGAN_TALKING_POINTS_20SLIDE_SYNC.docx"
+    },
+    {
+      "commit": "7b6267b",
+      "date": "2026-09-14",
+      "subject": "Add 2 Nigeria severity/economy maps to north_central_security_20slides.html"
+    },
+    {
+      "commit": "e960154",
+      "date": "2026-09-14",
+      "subject": "Add/update NORTH_CENTRAL_SECURITY_20SLIDE_FAILSAFE.pptx (20-slide expanded AVM Morgan keynote)"
+    },
+    {
+      "commit": "d77cb88",
+      "date": "2026-09-14",
+      "subject": "Add/update AVM_MORGAN_TALKING_POINTS_20SLIDE_SYNC.docx (20-slide expanded AVM Morgan keynote)"
+    },
+    {
+      "commit": "e7e756d",
+      "date": "2026-09-14",
+      "subject": "Add/update north_central_security_20slides.html (20-slide expanded AVM Morgan keynote)"
+    },
+    {
+      "commit": "c60c526",
+      "date": "2026-09-14",
+      "subject": "Add Techstars London accelerator application draft"
+    },
+    {
+      "commit": "48d14ca",
+      "date": "2026-09-14",
+      "subject": "Add Word talking-points script synced 1:1 with the 10-slide deck, references at bottom"
+    },
+    {
+      "commit": "a274ac3",
+      "date": "2026-09-14",
+      "subject": "Fix invisible bar-chart bug (percent-height-of-auto-height issue), add glow/motion/floating orbs, one-click laptop save button"
+    },
+    {
+      "commit": "b2f61ea",
+      "date": "2026-09-14",
+      "subject": "Add static PPTX fail-safe deck mirroring the 10-slide interactive HTML for AVM Morgan"
+    },
+    {
+      "commit": "ca7b373",
+      "date": "2026-09-14",
+      "subject": "Punch up 10-slide deck: bold icons, glow effects, per-slide SAY cues, 5-min pacing tracker"
+    },
+    {
+      "commit": "309be8b",
+      "date": "2026-09-14",
+      "subject": "Add 10-slide interactive 2D/3D North-Central security presentation (Three.js + CSS fallback) for AVM Morgan"
+    },
+    {
+      "commit": "0092155",
+      "date": "2026-09-14",
+      "subject": "Add Financially Autonomous LGs as Security Multiplier policy brief for AVM Morgan"
+    },
+    {
+      "commit": "ffb3923",
+      "date": "2026-09-14",
+      "subject": "Add one-page 5-headline-number cheat sheet for AVM Morgan podium use"
+    },
+    {
+      "commit": "22cd6d5",
+      "date": "2026-09-14",
+      "subject": "Add 12-month Nigeria kidnapping economy report for AVM Morgan security presentation"
+    },
+    {
+      "commit": "dcac5c6",
+      "date": "2026-09-14",
+      "subject": "Add Kogi & Kwara unverified-but-real data instead of leaving blank, per Tom's directive"
+    },
+    {
+      "commit": "033ef35",
+      "date": "2026-09-14",
+      "subject": "Add Harvard-style References section (sources) to human cost statistics document"
+    },
+    {
+      "commit": "9b39c6e",
+      "date": "2026-09-14",
+      "subject": "Update human cost statistics with verified sources + full 7-state modeled regional totals for AVM Morgan security presentation"
+    },
+    {
+      "commit": "a6af257",
+      "date": "2026-09-14",
+      "subject": "Restructure human cost statistics table state-by-state (all 7 North-Central units)"
+    },
+    {
+      "commit": "673ba09",
+      "date": "2026-09-14",
+      "subject": "Add human cost of banditry/kidnapping in North-Central Nigeria as tabular Word document"
+    },
+    {
+      "commit": "a391842",
+      "date": "2026-09-14",
+      "subject": "Merge branch 'main' of https://github.com/TOMDEGGS/BETONIQ-WEST-"
+    },
+    {
+      "commit": "da1e78b",
+      "date": "2026-09-14",
+      "subject": "Insert fresh 2026 human-cost data (Plateau, Niger State, national SBM stats) into AVM Morgan 30-min speech Section 4"
+    },
+    {
+      "commit": "05c00a9",
+      "date": "2026-09-14",
+      "subject": "chore: refresh Backup 777 business data 2026-09-14"
+    },
+    {
+      "commit": "1765e71",
+      "date": "2026-09-14",
+      "subject": "Merge remote-tracking branch 'origin/main'"
+    },
+    {
+      "commit": "dad28cd",
+      "date": "2026-09-14",
+      "subject": "Add Real Estate Ecosystem Blueprint one-pager (ZeroPay + BETONIQ INVEST flow) for pitch deck"
+    },
+    {
+      "commit": "62ade7a",
+      "date": "2026-09-13",
+      "subject": "Create weekly Backup 777 refresh for 2026-09-13"
+    },
+    {
+      "commit": "5fd9171",
+      "date": "2026-09-13",
+      "subject": "Investor-facing cleanup: remove internal correction history and 'what's held back' framing from business plan + teaser. Final figures unchanged (Phase 1 revenue Rs40B, ROI 128.6%, 11ha residential zone, 19ha statutory infra reserve) \u2014 presented as the plan's design, not as a fix."
+    },
+    {
+      "commit": "69fcc77",
+      "date": "2026-09-13",
+      "subject": "CORRECTION: FCDA statutory 25% infrastructure reserve was under-allocated (8ha vs required ~19ha). Corrected land use across 27-page business plan + 3-page teaser: residential zone 22ha->11ha, plot count 500->120, duplex sales now counted in base case (previously excluded), Phase 1 revenue 50B->40B, ROI 186%->128.6%"
+    },
+    {
+      "commit": "736046d",
+      "date": "2026-09-13",
+      "subject": "Add EWC 2026 application drafts for AgriLink and SafeGuard (pending Tom's review/submit)"
+    },
+    {
+      "commit": "74f90bd",
+      "date": "2026-09-13",
+      "subject": "Add funding-platform alignment per asset (portal-only channels, no cold email) to proof pack"
+    },
+    {
+      "commit": "4e6becb",
+      "date": "2026-09-13",
+      "subject": "Master hub: switch all 8 remaining githack demo links to GitHub Pages (no interstitial)"
+    },
+    {
+      "commit": "9e95415",
+      "date": "2026-09-13",
+      "subject": "Switch live demo links to GitHub Pages (tomdeggs.github.io) - eliminates githack's interstitial warning page entirely"
+    },
+    {
+      "commit": "35102ca",
+      "date": "2026-09-13",
+      "subject": "Revert PDF doc links to raw.githubusercontent.com direct-download (GitHub blob preview is unreliable, confirmed via live browser test)"
+    },
+    {
+      "commit": "2b55ae3",
+      "date": "2026-09-13",
+      "subject": "Fix broken jsdelivr live-demo links (were serving as plain text) - switch to githack for demos, GitHub blob view for PDFs"
+    },
+    {
+      "commit": "0233c3e",
+      "date": "2026-09-13",
+      "subject": "Fix proof pack: embed real clickable hyperlinks for all 21 links (demos, whitepapers, pitch decks)"
+    },
+    {
+      "commit": "33b58d4",
+      "date": "2026-09-13",
+      "subject": "Add 7-asset launch readiness proof pack (verified live demos, white papers, pitch decks) for AVM Morgan"
+    },
+    {
+      "commit": "6a5258b",
+      "date": "2026-09-13",
+      "subject": "Add 3-page investment teaser for The 77 Golf & Country Estate (global investor outreach)"
+    },
+    {
+      "commit": "41d0959",
+      "date": "2026-09-13",
+      "subject": "Add 2-page visual summary of the 77 Golf & Country Estate business case (for Chairman AVM Morgan)"
+    },
+    {
+      "commit": "7dadf6c",
+      "date": "2026-09-13",
+      "subject": "Add 7-asset launch strategy + copy kit report (AgriLink, CivicTrack, TriageAI, LearnOffline, SafeGuard, ChipLink, CineLink)"
+    },
+    {
+      "commit": "6011c1f",
+      "date": "2026-09-13",
+      "subject": "chore: refresh Backup 777 business_history_log"
+    },
+    {
+      "commit": "8f606ff",
+      "date": "2026-09-13",
+      "subject": "chore: refresh Backup 777 full_data_export.j"
+    }
+  ]
+}
