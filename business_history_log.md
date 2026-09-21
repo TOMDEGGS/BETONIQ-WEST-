@@ -35,3 +35,9 @@ Total records represented: 157
 5. The live entity read confirmed 80 real-estate projects, 8 merchants, 6 agents, and 9 transaction records. No investment, compliance, commission, or field-meeting records are present.
 
 Base44 remains the authoritative live source. This export and log are maintained so Backup 777 can pick up the latest continuity snapshot automatically.
+
+## Automated refresh — 2026-09-21T07:02:16.092849+01:00
+
+- Live Base44 reads completed for the tracked business entities and developments.
+- Verified counts remain: 80 real-estate projects, 2 investors, 0 investments, 6 macro records, 0 compliance records, 2 feasibility studies, 0 commissions, 1 developer listing, 1 subscription, 3 leads, 11 visitor activities, 9 ZeroPay transactions, 8 merchants, 6 agents, 9 team tasks, 0 field meetings, 6 backup messages, and 13 funding-outreach records.
+- `full_data_export.json` regenerated with the refresh timestamp and pushed with this log.
