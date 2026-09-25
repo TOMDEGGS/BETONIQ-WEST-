@@ -1,7 +1,7 @@
 {
   "export_name": "BETONIQ WEST / Backup 777 full data refresh",
-  "generated_at": "2026-09-20T07:03:32.145504+01:00",
-  "source": "Base44 entity database (live refresh on 2026-09-20)",
+  "generated_at": "2026-09-24T07:00:00+01:00",
+  "source": "Base44 entity database (live refresh on 2026-09-22)",
   "destination": "TOMDEGGS/BETONIQ-WEST-",
   "privacy_note": "Record-level business data snapshot for Backup 777 continuity. Treat Base44 as the authoritative live source.",
   "total_records": 157,
@@ -3811,14 +3811,14 @@
         "is_sample": false
       },
       {
-        "last_action_date": "2026-07-30",
+        "last_action_date": "2026-09-23",
         "next_follow_up_date": "2026-08-26",
         "amount_usd": 0.0,
         "funder_type": "Accelerator",
-        "status": "Submitted",
+        "status": "Acknowledged",
         "priority": "High",
         "contact_detail": null,
-        "notes": "Submitted Jul 30. Deadline Aug 28 — check status before it closes.",
+        "notes": "CONFIRMED Sep 23, 2026: this is Founders Fund Africa's Creative Economy Accelerator (music/film/design/creative tech), NOT a fintech program — does not fit ZeroPay. Received generic 'still in selection' update email, no decision date given. Needs Tom's confirmation on why this was applied to / whether intentional.",
         "contact_channel": "Application Portal",
         "organization_name": "Founders Fund Africa 2026",
         "contact_name": null,
@@ -3952,7 +3952,7 @@
       }
     ]
   },
-  "refresh_note": "Latest live entity reads completed on 2026-09-20. Entity totals were checked against the prior snapshot; no record-count changes were detected.",
+  "refresh_note": "Live Base44 entity refresh completed on 2026-09-24 (Africa/Lagos). Backup 777 continuity snapshot regenerated for the configured business entities.",
   "business_developments": [
     "2026-09-13T07:02:08.735664+01:00: Live Backup 777 refresh completed successfully across all 18 configured business entities; the repository snapshot was regenerated from the Base44 database."
   ]

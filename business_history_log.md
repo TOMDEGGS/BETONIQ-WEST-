@@ -35,3 +35,20 @@ Total records represented: 157
 5. The live entity read confirmed 80 real-estate projects, 8 merchants, 6 agents, and 9 transaction records. No investment, compliance, commission, or field-meeting records are present.
 
 Base44 remains the authoritative live source. This export and log are maintained so Backup 777 can pick up the latest continuity snapshot automatically.
+
+## Automated refresh — 2026-09-21T07:02:16.092849+01:00
+
+- Live Base44 reads completed for the tracked business entities and developments.
+- Verified counts remain: 80 real-estate projects, 2 investors, 0 investments, 6 macro records, 0 compliance records, 2 feasibility studies, 0 commissions, 1 developer listing, 1 subscription, 3 leads, 11 visitor activities, 9 ZeroPay transactions, 8 merchants, 6 agents, 9 team tasks, 0 field meetings, 6 backup messages, and 13 funding-outreach records.
+- `full_data_export.json` regenerated with the refresh timestamp and pushed with this log.
+## Automated refresh — 2026-09-22T07:04:56.969950+01:00
+
+- Live Base44 reads completed for the tracked business entities and developments.
+- Verified counts: RealEstateProject: 80, Investor: 2, Investment: 0, CountryMacroData: 6, ComplianceRecord: 0, FeasibilityStudy: 2, Commission: 0, DeveloperListing: 1, Subscription: 1, LeadCapture: 3, VisitorActivity: 11, ZPTransaction: 9, ZPMerchant: 8, ZPAgent: 6, TeamTask: 9, FieldMeeting: 0, BackupAgentMessage: 6, FundingOutreach: 13.
+- `full_data_export.json` regenerated with the refresh timestamp and pushed with this log.
+
+## Automated refresh — 2026-09-24T07:00:00+01:00
+
+A live Base44 refresh was completed for the configured continuity entities: RealEstateProject (80), Investor (2), FeasibilityStudy (2), Subscription (1), LeadCapture (3), ZPTransaction (9), ZPMerchant (8), ZPAgent (6), TeamTask (9), and FundingOutreach (13). The complete export snapshot remains at 157 records across 18 configured entities, including zero-count entities.
+
+Newly verified business development: Founders Fund Africa 2026 remains acknowledged, with the 2026-09-23 update confirming that the program is a Creative Economy Accelerator rather than a fintech program. No decision date was provided.
