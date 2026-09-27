@@ -1,0 +1,124 @@
+{
+  "backup_name": "BETONIQ_WEST_WEEKLY_OPERATIONAL_BACKUP",
+  "generated_at": "2026-09-27T19:03:08.438711+00:00",
+  "source": "TOMDEGGS/BETONIQ-WEST- operational repository snapshot",
+  "total_files": 598,
+  "split_strategy": "45MB uncompressed bin-packed parts, excluding prior weekly backup ZIPs",
+  "parts": [
+    {
+      "part": 1,
+      "filename": "BETONIQ_WEST_WEEKLY_OPERATIONAL_BACKUP_2026-09-27_part1of6.zip",
+      "file_count": 6,
+      "uncompressed_bytes": 47185910,
+      "compressed_bytes": 36243238,
+      "compressed_mb": 34.56
+    },
+    {
+      "part": 2,
+      "filename": "BETONIQ_WEST_WEEKLY_OPERATIONAL_BACKUP_2026-09-27_part2of6.zip",
+      "file_count": 7,
+      "uncompressed_bytes": 47185920,
+      "compressed_bytes": 41909795,
+      "compressed_mb": 39.97
+    },
+    {
+      "part": 3,
+      "filename": "BETONIQ_WEST_WEEKLY_OPERATIONAL_BACKUP_2026-09-27_part3of6.zip",
+      "file_count": 10,
+      "uncompressed_bytes": 47185894,
+      "compressed_bytes": 43475118,
+      "compressed_mb": 41.46
+    },
+    {
+      "part": 4,
+      "filename": "BETONIQ_WEST_WEEKLY_OPERATIONAL_BACKUP_2026-09-27_part4of6.zip",
+      "file_count": 23,
+      "uncompressed_bytes": 47185891,
+      "compressed_bytes": 45854409,
+      "compressed_mb": 43.73
+    },
+    {
+      "part": 5,
+      "filename": "BETONIQ_WEST_WEEKLY_OPERATIONAL_BACKUP_2026-09-27_part5of6.zip",
+      "file_count": 65,
+      "uncompressed_bytes": 47185882,
+      "compressed_bytes": 44223739,
+      "compressed_mb": 42.18
+    },
+    {
+      "part": 6,
+      "filename": "BETONIQ_WEST_WEEKLY_OPERATIONAL_BACKUP_2026-09-27_part6of6.zip",
+      "file_count": 487,
+      "uncompressed_bytes": 39169350,
+      "compressed_bytes": 35577703,
+      "compressed_mb": 33.93
+    }
+  ],
+  "changes_since_2026-09-20": [
+    {
+      "commit": "781bb0084ca362ec223f0ff631460b8e5752d2b6",
+      "date": "2026-09-20",
+      "subject": "Refresh Backup 777 continuity data 2026-09-20"
+    },
+    {
+      "commit": "3587d96b510f15fe46d7996fcbf572b06c199209",
+      "date": "2026-09-20",
+      "subject": "Add complete weekly operational backup 2026-09-20"
+    },
+    {
+      "commit": "3b5cd795dc67f51e3d77120e0ff3fde6e95145e7",
+      "date": "2026-09-21",
+      "subject": "Add weekly backup links as PDF and Word doc (2026-09-20)"
+    },
+    {
+      "commit": "20befc28ffc4327cf48e60fc915af82a5949b560",
+      "date": "2026-09-21",
+      "subject": "Refresh Backup 777 data export and business history"
+    },
+    {
+      "commit": "553a959823ca8cb0491906f5476133428bf50668",
+      "date": "2026-09-22",
+      "subject": "chore: refresh Backup 777 business data"
+    },
+    {
+      "commit": "616242e8418d958be4f538f56cbad3c56f4c2f2f",
+      "date": "2026-09-22",
+      "subject": "chore: refresh Backup 777 business data"
+    },
+    {
+      "commit": "4818627621a0919d91beafd74153a5c84d6e1380",
+      "date": "2026-09-22",
+      "subject": "Add KDF (Kwararafa Development Forum) draft framework Word doc"
+    },
+    {
+      "commit": "3c30a9b5691be6009e054bd4eb3afdc17691a6f5",
+      "date": "2026-09-23",
+      "subject": "Normalize KDF doc to uniform Calibri 12pt font/size throughout"
+    },
+    {
+      "commit": "55c1808e6d1de6bd4ddffae45ad05d7bbe358b30",
+      "date": "2026-09-24",
+      "subject": "Refresh Backup 777 business data 2026-09-24"
+    },
+    {
+      "commit": "57b6b5f067f0783df29f6b5a4d9d63d1fa30e9d6",
+      "date": "2026-09-25",
+      "subject": "Add corrected NDA in Word format: BETONIQ WEST LTD, RC 1496603, Managing Director, explicit Non-Circumvention clause"
+    },
+    {
+      "commit": "c1b2fe36bd85c1533b30d6b3041b605afe97566a",
+      "date": "2026-09-25",
+      "subject": "Merge branch 'main' of https://github.com/TOMDEGGS/BETONIQ-WEST-"
+    },
+    {
+      "commit": "a2f54c396e9d8adbf32496b735c0f4346eb60e69",
+      "date": "2026-09-27",
+      "subject": "Refresh live business continuity data 2026-09-27"
+    },
+    {
+      "commit": "dbddaf6c0097e008325d8f1de5812016a5f2bf1f",
+      "date": "2026-09-27",
+      "subject": "Create weekly operational backup 2026-09-27"
+    }
+  ]
+}
