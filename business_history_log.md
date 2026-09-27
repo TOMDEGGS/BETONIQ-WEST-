@@ -52,3 +52,11 @@ Base44 remains the authoritative live source. This export and log are maintained
 A live Base44 refresh was completed for the configured continuity entities: RealEstateProject (80), Investor (2), FeasibilityStudy (2), Subscription (1), LeadCapture (3), ZPTransaction (9), ZPMerchant (8), ZPAgent (6), TeamTask (9), and FundingOutreach (13). The complete export snapshot remains at 157 records across 18 configured entities, including zero-count entities.
 
 Newly verified business development: Founders Fund Africa 2026 remains acknowledged, with the 2026-09-23 update confirming that the program is a Creative Economy Accelerator rather than a fintech program. No decision date was provided.
+
+## Automated live refresh — 2026-09-27T07:03:10+01:00 (Africa/Lagos)
+
+- Pulled 157 records from the Base44 API across 18 configured entities.
+- Regenerated `full_data_export.json` from the live records; Base44 remains the system of record.
+- Current funding follow-ups at/past due date: 11; critical team tasks: 3; field meetings: 0.
+- FID record currently shows `Under Review` with next follow-up `2026-10-09`; consult its record notes before treating any application outcome as final.
+- See the export for full entity counts, records, and development snapshot.
