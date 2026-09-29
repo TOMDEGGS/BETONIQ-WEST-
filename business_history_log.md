@@ -60,3 +60,9 @@ Newly verified business development: Founders Fund Africa 2026 remains acknowled
 - Current funding follow-ups at/past due date: 11; critical team tasks: 3; field meetings: 0.
 - FID record currently shows `Under Review` with next follow-up `2026-10-09`; consult its record notes before treating any application outcome as final.
 - See the export for full entity counts, records, and development snapshot.
+
+## Automated live refresh — 2026-09-29T07:02:00+01:00 (Africa/Lagos)
+
+- Queried all 18 configured continuity entity types in Base44. Verified live counts: RealEstateProject 80, Investor 2, Investment 0, CountryMacroData 6, ComplianceRecord 0, FeasibilityStudy 2, Commission 0, DeveloperListing 1, Subscription 1, LeadCapture 3, VisitorActivity 11, ZPTransaction 9, ZPMerchant 8, ZPAgent 6, TeamTask 9, FieldMeeting 0, BackupAgentMessage 6, FundingOutreach 13 (159 total).
+- Selected live details: The 77 Golf & Country Estate remains in Planning with FCDA/title perfection pending; FID remains Under Review with 9 Oct follow-up; Founders Fund Africa remains acknowledged with no decision date; IFC SME Growth Accelerator remains not started with 15 Nov deadline. Zero records returned for Investment, ComplianceRecord, FieldMeeting and Commission.
+- Important limitation: the complete RealEstateProject record response exceeded the available tool output, and this run did not rehydrate every record payload. `full_data_export.json` therefore retains the complete record array from the 2026-09-27 snapshot and now clearly labels this refresh as count/selected-detail verification, not a complete record-level refresh. Base44 is authoritative for full current records.
