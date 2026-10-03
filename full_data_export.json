@@ -1,6 +1,6 @@
 {
   "export_name": "BETONIQ WEST / ZeroPay live data continuity export",
-  "generated_at": "2026-09-29T07:02:00+01:00",
+  "generated_at": "2026-10-03T07:02:43+01:00",
   "source": "Base44 entity database (live API refresh)",
   "destination": "TOMDEGGS/BETONIQ-WEST-",
   "privacy_note": "Record-level business data snapshot for Backup 777 continuity. Treat Base44 as the authoritative live source. Contains personal and commercial data; restrict access to authorized company operators.",
@@ -3952,19 +3952,19 @@
       }
     ]
   },
-  "refresh_note": "Live entity counts and selected operational records verified against Base44 on 2026-09-29. The records array is preserved from the 2026-09-27 complete record-level export; full record payload could not be rehydrated in this run. Base44 is authoritative; do not treat unchanged record payloads as a complete record-level refresh.",
+  "refresh_note": "Live entity reads verified all 18 entity counts on 2026-10-03. Existing last complete record-level export retained; the 80-project tool response was truncated, so project payloads were not rehydrated in this run.",
   "business_developments": [
-    "Live database refresh completed 2026-09-27T07:03:10+01:00; record totals and counts reflect the API response at refresh time.",
-    "FID (Fund for Innovation in Development) live record: status=Under Review, amount_usd=3200000.0, deadline=2026-09-01, next_follow_up_date=2026-10-09. See FundingOutreach record notes for submission/review evidence.",
-    "11 funding follow-up record(s) have next-follow-up dates on or before refresh date; listed records remain open per current statuses.",
-    "3 critical TeamTask record(s) currently tracked; statuses and notes are in the exported TeamTask records.",
-    "FieldMeeting records currently present: 0."
+    "Live database refresh completed 2026-10-02T07:04:23+01:00 from Base44 API. Full record payloads are included for all configured entities.",
+    "The 77 Golf & Country Estate record: status=Planning, regulatory_status=Pending FCDA approvals & land title perfection.",
+    "FID record: status=Under Review, next_follow_up_date=2026-10-09; notes remain the source for its review/submission evidence.",
+    "IFC SME Growth Accelerator: status=Not Started, deadline=2026-11-15, next_follow_up_date=2026-10-01.",
+    "FISRI partner record: status=Follow-Up Due, next_follow_up_date=2026-09-06.",
+    "Current live counts verified 2026-10-03: 80 projects, 8 merchants, 6 agents, 9 transactions; 157 records across 18 entity types. The full project payload was not rehydrated in this run, so its prior complete record snapshot is retained.",
+    "Current live counts verified 2026-10-03: 80 projects, 8 merchants, 6 agents, 9 transactions; 157 records across 18 entity types. The full project payload was not rehydrated in this run, so its prior complete record snapshot is retained."
   ],
   "live_verification": {
-    "verified_at": "2026-09-29T07:02:00+01:00",
-    "scope": "Live reads of all 18 configured continuity entity types; full result sets read except RealEstateProject (80-record response exceeded tool output limit).",
-    "record_level_payload_complete": false,
-    "counts": {
+    "verified_at": "2026-10-03T07:02:43+01:00",
+    "verified_entity_counts": {
       "RealEstateProject": 80,
       "Investor": 2,
       "Investment": 0,
@@ -3984,28 +3984,7 @@
       "BackupAgentMessage": 6,
       "FundingOutreach": 13
     },
-    "notable_live_records": {
-      "RealEstateProject": [
-        "The 77 Golf & Country Estate, Abuja, updated 2026-09-08, planning stage, pending FCDA approvals and land-title perfection."
-      ],
-      "FundingOutreach": [
-        "FID: Under Review, last action 2026-09-25, follow-up 2026-10-09.",
-        "Founders Fund Africa: Acknowledged; Sep 23 update says still in selection, no decision date.",
-        "IFC SME Growth Accelerator: Not Started, deadline 2026-11-15."
-      ],
-      "TeamTask": [
-        "9 open/in-progress/blocked/awaiting tasks; Agent 1 technical spec and approval task remain open/in progress; sourcing blocked pending approval."
-      ],
-      "ZPMerchant": [
-        "8 merchant records; 7 KYC Verified and 1 Pending."
-      ],
-      "ZPTransaction": [
-        "9 transaction records, including one demo offline transaction marked pending_sync."
-      ],
-      "Investment": [],
-      "ComplianceRecord": [],
-      "FieldMeeting": [],
-      "Commission": []
-    }
+    "full_project_payload_refreshed": false,
+    "note": "All entity reads completed; the RealEstateProject result exceeded the available response output, so no claim is made that all project record fields were refreshed. Base44 remains authoritative."
   }
 }
