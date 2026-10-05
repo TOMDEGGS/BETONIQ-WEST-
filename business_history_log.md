@@ -74,3 +74,19 @@ Newly verified business development: Founders Fund Africa 2026 remains acknowled
 - Current follow-up/status checks: FID remains Under Review with next follow-up 2026-10-09; IFC SME Growth Accelerator is Not Started, deadline 2026-11-15, follow-up date 2026-10-01; FISRI remains Follow-Up Due with follow-up date 2026-09-06. The hiring/task records still show Agent 1 spec In Progress and Katampe sales Awaiting Tom.
 - Limitation: the RealEstateProject read returned a truncated payload because the 80 records exceeded the tool response size. The existing complete project record snapshot was retained, not presented as rehydrated. Base44 remains authoritative for current full project fields.
 - No new business development was verified beyond these entity-record checks.
+
+
+## Automated complete live refresh — 2026-10-05T07:04:02+01:00 (Africa/Lagos)
+
+- Pulled 157 live records across all 18 configured entity types. Counts: RealEstateProject 80, Investor 2, Investment 0, CountryMacroData 6, ComplianceRecord 0, FeasibilityStudy 2, Commission 0, DeveloperListing 1, Subscription 1, LeadCapture 3, VisitorActivity 11, ZPTransaction 9, ZPMerchant 8, ZPAgent 6, TeamTask 9, FieldMeeting 0, BackupAgentMessage 6, FundingOutreach 13.
+- FID (Fund for Innovation in Development): status Under Review; next follow-up 2026-10-09; deadline 2026-09-01. Record notes retained in the export.
+- FISRI (University of Gloucestershire): status Follow-Up Due; next follow-up 2026-09-06; deadline not listed. Record notes retained in the export.
+- Horizon Europe Africa Initiative IV: status Not Started; next follow-up 2026-09-06; deadline not listed. Record notes retained in the export.
+- Founders Fund Africa 2026: status Acknowledged; next follow-up 2026-08-26; deadline 2026-08-28. Record notes retained in the export.
+- IFC SME Growth Accelerator: status Not Started; next follow-up 2026-10-01; deadline 2026-11-15. Record notes retained in the export.
+- Team task: Draft technical hiring spec: ECC P-256 + PUF challenge-response remains On Hold.
+- Team task: Source and shortlist embedded cryptography engineer/contractor remains On Hold.
+- Team task: Katampe Terrace Residences direct HNI sales push remains Awaiting Tom.
+- Team task: Review and approve Agent 1 technical spec remains On Hold.
+- Business update from Tom (Oct 5): Estonia and Lithuania startup/business visa applications have both been submitted. Decision/status not yet verified; portal access is not available in this refresh.
+- Complete record arrays are included in full_data_export.json; this run did not rely on a prior snapshot.
