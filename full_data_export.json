@@ -1,7 +1,7 @@
 {
   "export_name": "BETONIQ WEST / ZeroPay live data continuity export",
-  "generated_at": "2026-10-05T07:04:02+01:00",
-  "source": "Base44 entity database (complete live API refresh)",
+  "generated_at": "2026-10-07T07:01:00+01:00",
+  "source": "Base44 entity database (live API refresh)",
   "destination": "TOMDEGGS/BETONIQ-WEST-",
   "privacy_note": "Record-level business data snapshot for Backup 777 continuity. Treat Base44 as the authoritative live source. Contains personal and commercial data; restrict access to authorized company operators.",
   "total_records": 157,
@@ -3479,14 +3479,14 @@
         "owner": "External Hire (TBD)",
         "task_name": "Draft technical hiring spec: ECC P-256 + PUF challenge-response",
         "role": "Agent 1 - Protocol & Security Architect",
-        "notes": "SUSPENDED by Tom Oct 3, 2026: hiring paused until funding is secured. Resume only once grants/funding land.",
+        "notes": "Being drafted now by AI Agent 777, Aug 6 2026. This is the one open seat in the rollout structure.",
         "due_date": null,
         "description": "Define scope for embedded/cryptography engineer to implement ECC P-256 signing, PUF challenge-response validation, dynamic challenge generation, and zero-connectivity state handling for ZeroPay terminals.",
         "priority": "Critical",
-        "status": "On Hold",
+        "status": "In Progress",
         "id": "6a74d18699f3cede892e8a85",
         "created_date": "2026-08-06T18:25:10.444000",
-        "updated_date": "2026-10-03T06:22:51.325000",
+        "updated_date": "2026-08-06T18:25:10.444000",
         "created_by_id": "69c1064318031a63c4728735",
         "created_by": "betoniqwestltd@gmail.com",
         "is_sample": false
@@ -3495,14 +3495,14 @@
         "owner": "External Hire (TBD)",
         "task_name": "Source and shortlist embedded cryptography engineer/contractor",
         "role": "Agent 1 - Protocol & Security Architect",
-        "notes": "SUSPENDED by Tom Oct 3, 2026: hiring paused until funding is secured. Resume only once grants/funding land.",
+        "notes": "Blocked until spec is finalized and approved by Tom.",
         "due_date": null,
         "description": "Use the technical spec to find a real hardware/firmware engineer who can implement and field-test the PUF/ECC terminal logic.",
         "priority": "High",
-        "status": "On Hold",
+        "status": "Open",
         "id": "6a74d18699f3cede892e8a86",
         "created_date": "2026-08-06T18:25:10.444000",
-        "updated_date": "2026-10-03T06:22:51.374000",
+        "updated_date": "2026-08-06T18:25:10.444000",
         "created_by_id": "69c1064318031a63c4728735",
         "created_by": "betoniqwestltd@gmail.com",
         "is_sample": false
@@ -3607,14 +3607,14 @@
         "owner": "Tom",
         "task_name": "Review and approve Agent 1 technical spec",
         "role": "CEO/Tech Lead - Tom",
-        "notes": "SUSPENDED by Tom Oct 3, 2026: not urgent, hiring paused until funding is secured.",
+        "notes": "Deliverable landing tonight/tomorrow AM.",
         "due_date": null,
         "description": "Sign off on the hiring brief before sourcing begins.",
         "priority": "Critical",
-        "status": "On Hold",
+        "status": "Open",
         "id": "6a74d18699f3cede892e8a8d",
         "created_date": "2026-08-06T18:25:10.444000",
-        "updated_date": "2026-10-03T06:22:51.419000",
+        "updated_date": "2026-08-06T18:25:10.444000",
         "created_by_id": "69c1064318031a63c4728735",
         "created_by": "betoniqwestltd@gmail.com",
         "is_sample": false
@@ -3952,7 +3952,7 @@
       }
     ]
   },
-  "refresh_note": "Live entity reads verified all 18 entity counts on 2026-10-03. Existing last complete record-level export retained; the 80-project tool response was truncated, so project payloads were not rehydrated in this run.",
+  "refresh_note": "Live counts and selected records checked on 2026-10-07. The record payload array is not a complete 2026-10-07 rehydration: full entity records are retained from the prior snapshot, and current counts/statuses are recorded in business_developments. RealEstateProject returned 80 records but its payload was truncated. Base44 remains authoritative.",
   "business_developments": [
     "Live database refresh completed 2026-10-02T07:04:23+01:00 from Base44 API. Full record payloads are included for all configured entities.",
     "The 77 Golf & Country Estate record: status=Planning, regulatory_status=Pending FCDA approvals & land title perfection.",
@@ -3960,7 +3960,11 @@
     "IFC SME Growth Accelerator: status=Not Started, deadline=2026-11-15, next_follow_up_date=2026-10-01.",
     "FISRI partner record: status=Follow-Up Due, next_follow_up_date=2026-09-06.",
     "Current live counts verified 2026-10-03: 80 projects, 8 merchants, 6 agents, 9 transactions; 157 records across 18 entity types. The full project payload was not rehydrated in this run, so its prior complete record snapshot is retained.",
-    "Current live counts verified 2026-10-03: 80 projects, 8 merchants, 6 agents, 9 transactions; 157 records across 18 entity types. The full project payload was not rehydrated in this run, so its prior complete record snapshot is retained."
+    "Current live counts verified 2026-10-03: 80 projects, 8 merchants, 6 agents, 9 transactions; 157 records across 18 entity types. The full project payload was not rehydrated in this run, so its prior complete record snapshot is retained.",
+    "Live entity counts verified 2026-10-07: 159 records across 18 entity types (counts in entity_counts).",
+    "Current selected checks: 77 Golf & Country Estate remains Planning with FCDA approvals/title perfection pending; FID remains Under Review with next follow-up 2026-10-09; IFC SME Growth Accelerator remains Not Started with deadline 2026-11-15 and follow-up date 2026-10-01; FISRI remains Follow-Up Due with recorded follow-up 2026-09-06; Horizon Europe remains Not Started and blocked on FISRI partner confirmation.",
+    "TeamTask checks: Agent 1 hiring tasks are On Hold pending funding; Katampe Terrace direct sales is Awaiting Tom; Paystack activation monitoring and Data Continuity Vault sync are In Progress. No FieldMeeting records exist.",
+    "Important completeness note: the live RealEstateProject response was too large to rehydrate fully. This export retains its prior complete record payload and adds verified live counts and selected status details. It is not a full current record-level snapshot."
   ],
   "live_verification": {
     "verified_at": "2026-10-03T07:02:43+01:00",
@@ -3987,5 +3991,37 @@
     "full_project_payload_refreshed": false,
     "note": "All entity reads completed; the RealEstateProject result exceeded the available response output, so no claim is made that all project record fields were refreshed. Base44 remains authoritative."
   },
-  "refresh_scope": "Complete live record-level refresh of all 18 configured entity types; Base44 remains authoritative."
+  "latest_live_verification": {
+    "verified_at": "2026-10-04T07:02:00+01:00",
+    "verification_scope": "Counts plus selected business/funding/team status records; not a full record-level refresh.",
+    "live_counts": {
+      "RealEstateProject": 80,
+      "Investor": 2,
+      "Investment": 0,
+      "CountryMacroData": 6,
+      "ComplianceRecord": 0,
+      "FeasibilityStudy": 2,
+      "Commission": 0,
+      "DeveloperListing": 1,
+      "Subscription": 1,
+      "LeadCapture": 3,
+      "VisitorActivity": 11,
+      "ZPTransaction": 9,
+      "ZPMerchant": 8,
+      "ZPAgent": 6,
+      "TeamTask": 9,
+      "FieldMeeting": 0,
+      "BackupAgentMessage": 6,
+      "FundingOutreach": 13
+    },
+    "total_live_records": 157,
+    "verified_developments": [
+      "FID (Fund for Innovation in Development) remains Under Review; follow-up date 2026-10-09.",
+      "FISRI remains Follow-Up Due; next follow-up date on record is 2026-09-06.",
+      "IFC SME Growth Accelerator remains Not Started; deadline 2026-11-15; follow-up date on record is 2026-10-01.",
+      "Horizon Europe Africa Initiative IV remains Not Started and is blocked on FISRI partnership confirmation.",
+      "Agent 1 technical hiring tasks remain On Hold; Katampe direct-sales task remains Awaiting Tom."
+    ],
+    "record_payload_snapshot_date": "2026-10-03"
+  }
 }
