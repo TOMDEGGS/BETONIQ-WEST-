@@ -1,0 +1,1032 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Which Nollywood Archetype Are You? | CineLink Studio</title>
+  <meta name="description" content="Discover your Nollywood movie character persona in 30 seconds! Free, browser-only quiz by CineLink.">
+  <meta property="og:title" content="Which Nollywood Archetype Are You? | CineLink">
+  <meta property="og:description" content="Find out your Nollywood movie character persona in 30 seconds!">
+  <meta property="og:type" content="website">
+  
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg-dark: #090c15;
+      --bg-card: #121829;
+      --bg-card-hover: #1a2238;
+      --gold-primary: #f59e0b;
+      --gold-light: #fbbf24;
+      --gold-dark: #b45309;
+      --red-accent: #dc2626;
+      --purple-accent: #7c3aed;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --border-color: rgba(245, 158, 11, 0.2);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      overflow-x: hidden;
+      background-image: 
+        radial-gradient(circle at 50% 0%, rgba(124, 58, 237, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 100% 100%, rgba(245, 158, 11, 0.1) 0%, transparent 40%);
+    }
+
+    header {
+      width: 100%;
+      max-width: 680px;
+      padding: 1.25rem 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      text-decoration: none;
+    }
+
+    .brand-logo {
+      width: 36px;
+      height: 36px;
+      background: linear-gradient(135deg, var(--gold-primary), var(--gold-dark));
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      color: #000;
+      font-family: 'Cinzel', serif;
+      font-size: 1.2rem;
+      box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+    }
+
+    .brand-text {
+      font-family: 'Cinzel', serif;
+      font-weight: 700;
+      font-size: 1.25rem;
+      letter-spacing: 1px;
+      background: linear-gradient(to right, #ffffff, var(--gold-light));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .live-counter-badge {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(18, 24, 41, 0.8);
+      border: 1px solid var(--border-color);
+      padding: 0.4rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      backdrop-filter: blur(8px);
+    }
+
+    .pulse-dot {
+      width: 8px;
+      height: 8px;
+      background-color: #10b981;
+      border-radius: 50%;
+      box-shadow: 0 0 8px #10b981;
+      animation: pulse 1.8s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(0.95); opacity: 0.8; }
+      50% { transform: scale(1.3); opacity: 1; }
+      100% { transform: scale(0.95); opacity: 0.8; }
+    }
+
+    .counter-num {
+      color: var(--gold-light);
+      font-weight: 700;
+    }
+
+    main {
+      width: 100%;
+      max-width: 600px;
+      padding: 1.5rem 1rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .card {
+      background: var(--bg-card);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 20px;
+      padding: 2rem 1.5rem;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--gold-primary), var(--purple-accent));
+    }
+
+    /* WELCOME SCREEN */
+    .hero-title {
+      font-family: 'Cinzel', serif;
+      font-size: 1.9rem;
+      line-height: 1.25;
+      text-align: center;
+      margin-bottom: 0.8rem;
+      background: linear-gradient(135deg, #ffffff 30%, var(--gold-light));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-subtitle {
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      line-height: 1.5;
+      margin-bottom: 2rem;
+    }
+
+    .name-input-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .name-input-group label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: var(--gold-light);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .name-input {
+      width: 100%;
+      padding: 0.9rem 1rem;
+      background: rgba(9, 12, 21, 0.7);
+      border: 1px solid rgba(245, 158, 11, 0.3);
+      border-radius: 12px;
+      color: #fff;
+      font-size: 1rem;
+      outline: none;
+      transition: all 0.2s ease;
+    }
+
+    .name-input:focus {
+      border-color: var(--gold-primary);
+      box-shadow: 0 0 12px rgba(245, 158, 11, 0.25);
+    }
+
+    .btn-primary {
+      width: 100%;
+      padding: 1rem;
+      background: linear-gradient(135deg, var(--gold-primary), var(--gold-dark));
+      border: none;
+      border-radius: 12px;
+      color: #000;
+      font-weight: 800;
+      font-size: 1.05rem;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      box-shadow: 0 6px 20px rgba(245, 158, 11, 0.35);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(245, 158, 11, 0.45);
+    }
+
+    .btn-primary:active {
+      transform: translateY(0);
+    }
+
+    /* QUIZ SCREEN */
+    .progress-bar-container {
+      width: 100%;
+      height: 6px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 10px;
+      margin-bottom: 1.5rem;
+      overflow: hidden;
+    }
+
+    .progress-bar {
+      height: 100%;
+      width: 25%;
+      background: linear-gradient(90deg, var(--gold-primary), var(--gold-light));
+      transition: width 0.3s ease;
+      border-radius: 10px;
+    }
+
+    .question-step {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--gold-primary);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 0.4rem;
+    }
+
+    .question-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      line-height: 1.4;
+      margin-bottom: 1.5rem;
+      color: #fff;
+    }
+
+    .options-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+    }
+
+    .option-btn {
+      width: 100%;
+      padding: 1rem 1.1rem;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      color: var(--text-main);
+      font-size: 0.95rem;
+      text-align: left;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      line-height: 1.4;
+    }
+
+    .option-btn:hover {
+      background: var(--bg-card-hover);
+      border-color: rgba(245, 158, 11, 0.4);
+      transform: translateX(4px);
+    }
+
+    .option-badge {
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      background: rgba(245, 158, 11, 0.15);
+      color: var(--gold-light);
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 0.85rem;
+    }
+
+    /* RESULT SCREEN */
+    .result-header {
+      text-align: center;
+      margin-bottom: 1.2rem;
+    }
+
+    .result-user {
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--gold-primary);
+      font-weight: 700;
+      margin-bottom: 0.2rem;
+    }
+
+    .result-archetype {
+      font-family: 'Cinzel', serif;
+      font-size: 1.8rem;
+      font-weight: 900;
+      color: #fff;
+      line-height: 1.2;
+      margin-bottom: 0.4rem;
+    }
+
+    .result-tagline {
+      font-style: italic;
+      color: var(--text-muted);
+      font-size: 0.92rem;
+    }
+
+    .poster-container {
+      margin: 1.2rem 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    canvas#posterCanvas {
+      width: 100%;
+      max-width: 380px;
+      border-radius: 14px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
+      border: 1px solid rgba(245, 158, 11, 0.3);
+    }
+
+    .traits-box {
+      background: rgba(9, 12, 21, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 12px;
+      padding: 1rem;
+      margin-bottom: 1.2rem;
+      font-size: 0.9rem;
+      line-height: 1.5;
+      color: #cbd5e1;
+    }
+
+    .traits-box strong {
+      color: var(--gold-light);
+    }
+
+    .share-title {
+      text-align: center;
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-muted);
+      margin-bottom: 0.8rem;
+    }
+
+    .share-buttons {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+    }
+
+    .btn-share {
+      padding: 0.85rem;
+      border-radius: 12px;
+      border: none;
+      font-weight: 700;
+      font-size: 0.9rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+
+    .btn-whatsapp {
+      background: #25D366;
+      color: #000;
+    }
+
+    .btn-whatsapp:hover {
+      background: #20bd5a;
+      transform: translateY(-2px);
+    }
+
+    .btn-x {
+      background: #000;
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .btn-x:hover {
+      background: #111;
+      transform: translateY(-2px);
+    }
+
+    .btn-secondary {
+      width: 100%;
+      padding: 0.85rem;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      color: #fff;
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+      margin-top: 0.5rem;
+      transition: background 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    footer {
+      width: 100%;
+      max-width: 680px;
+      padding: 1.5rem 1rem;
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      margin-top: 2rem;
+    }
+
+    footer a {
+      color: var(--gold-light);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    /* Toast Notification */
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: var(--gold-primary);
+      color: #000;
+      padding: 0.7rem 1.4rem;
+      border-radius: 30px;
+      font-weight: 700;
+      font-size: 0.88rem;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+      transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      z-index: 999;
+    }
+
+    .toast.show {
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .hidden {
+      display: none !important;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <a href="#" class="brand">
+      <div class="brand-logo">C</div>
+      <span class="brand-text">CineLink</span>
+    </a>
+    <div class="live-counter-badge">
+      <div class="pulse-dot"></div>
+      <span><span id="liveCounterVal" class="counter-num">...</span> Stars Created</span>
+    </div>
+  </header>
+
+  <!-- MAIN CONTAINER -->
+  <main>
+    <div class="card">
+      
+      <!-- SCREEN 1: WELCOME -->
+      <div id="welcomeScreen">
+        <h1 class="hero-title">Which Nollywood Archetype Are You?</h1>
+        <p class="hero-subtitle">
+          From the dramatic Queen Mother to the unbothered Oga Landlord. Take our 30-second cinema quiz and generate your official Nollywood movie poster!
+        </p>
+
+        <div class="name-input-group">
+          <label for="userNameInput">Your Name or Screen Alias</label>
+          <input type="text" id="userNameInput" class="name-input" placeholder="e.g. Chief Emeka or Lady Banke" maxlength="30" value="">
+        </div>
+
+        <button id="startQuizBtn" class="btn-primary">
+          <span>DISCOVER YOUR PERSONA</span>
+          <span>🎬</span>
+        </button>
+      </div>
+
+      <!-- SCREEN 2: QUIZ -->
+      <div id="quizScreen" class="hidden">
+        <div class="progress-bar-container">
+          <div id="quizProgressBar" class="progress-bar"></div>
+        </div>
+        
+        <div id="questionStep" class="question-step">Question 1 of 4</div>
+        <h2 id="questionTitle" class="question-title">Loading question...</h2>
+
+        <div id="optionsContainer" class="options-grid">
+          <!-- Dynamic options inserted via JS -->
+        </div>
+      </div>
+
+      <!-- SCREEN 3: RESULT -->
+      <div id="resultScreen" class="hidden">
+        <div class="result-header">
+          <div id="resUserLabel" class="result-user">STARRING CHIEF EMEKA</div>
+          <h2 id="resArchetypeTitle" class="result-archetype">The Unbothered Oga Landlord</h2>
+          <p id="resTagline" class="result-tagline">"Rent is due on the 1st, no story."</p>
+        </div>
+
+        <div class="poster-container">
+          <canvas id="posterCanvas" width="600" height="850"></canvas>
+          <button id="downloadPosterBtn" class="btn-secondary" style="margin-top: 0.8rem;">
+            <span>📥 Download Custom Poster (PNG)</span>
+          </button>
+        </div>
+
+        <div class="traits-box">
+          <p id="resBio"><strong>Character Profile:</strong> Unshakable authority. You wear agbada to buy bread, speak exclusively in heavy proverbs, and have never been seen running in public.</p>
+          <p id="resQuote" style="margin-top: 0.5rem;"><strong>Signature Catchphrase:</strong> "Do you know who I am in this Lagos?"</p>
+        </div>
+
+        <div class="share-title">Share Your Nollywood Stardom</div>
+        <div class="share-buttons">
+          <a id="shareWhatsAppBtn" href="#" class="btn-share btn-whatsapp" target="_blank">
+            <span>WhatsApp</span>
+          </a>
+          <a id="shareXBtn" href="#" class="btn-share btn-x" target="_blank">
+            <span>X / Twitter</span>
+          </a>
+        </div>
+
+        <button id="copyLinkBtn" class="btn-secondary">
+          <span>🔗 Copy Direct Link</span>
+        </button>
+
+        <button id="retakeBtn" class="btn-secondary" style="border: none; background: transparent; color: var(--text-muted); margin-top: 0.4rem;">
+          <span>↻ Retake Quiz</span>
+        </button>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>Powered by <strong>CineLink</strong> &bull; The Home for Nollywood Creatives &amp; Film Enthusiasts</p>
+    <p style="margin-top: 0.4rem; opacity: 0.6;">Zero Friction &bull; No Signup &bull; Free Browser Tool</p>
+  </footer>
+
+  <!-- TOAST -->
+  <div id="toast" class="toast">Link copied to clipboard!</div>
+
+  <!-- JAVASCRIPT LOGIC -->
+  <script>
+    (function() {
+      // Configuration & API
+      const COUNTER_API_URL = 'https://abacus.jasoncameron.dev/hit/betoniq-live/cinelink-v1';
+      const COUNTER_GET_URL = 'https://abacus.jasoncameron.dev/get/betoniq-live/cinelink-v1';
+      const BASE_OFFSET = 0; // Real count only. No fake baseline.
+
+      let currentCounter = BASE_OFFSET;
+      let userScores = { landlord: 0, bosslady: 0, queen: 0, techbro: 0, elder: 0, action: 0 };
+      let currentQuestionIdx = 0;
+      let userName = "Star Actor";
+
+      // Elements
+      const liveCounterVal = document.getElementById('liveCounterVal');
+      const welcomeScreen = document.getElementById('welcomeScreen');
+      const quizScreen = document.getElementById('quizScreen');
+      const resultScreen = document.getElementById('resultScreen');
+      const userNameInput = document.getElementById('userNameInput');
+      const startQuizBtn = document.getElementById('startQuizBtn');
+      const quizProgressBar = document.getElementById('quizProgressBar');
+      const questionStep = document.getElementById('questionStep');
+      const questionTitle = document.getElementById('questionTitle');
+      const optionsContainer = document.getElementById('optionsContainer');
+      const resUserLabel = document.getElementById('resUserLabel');
+      const resArchetypeTitle = document.getElementById('resArchetypeTitle');
+      const resTagline = document.getElementById('resTagline');
+      const resBio = document.getElementById('resBio');
+      const resQuote = document.getElementById('resQuote');
+      const shareWhatsAppBtn = document.getElementById('shareWhatsAppBtn');
+      const shareXBtn = document.getElementById('shareXBtn');
+      const copyLinkBtn = document.getElementById('copyLinkBtn');
+      const downloadPosterBtn = document.getElementById('downloadPosterBtn');
+      const retakeBtn = document.getElementById('retakeBtn');
+      const toast = document.getElementById('toast');
+
+      // Archetypes Definition
+      const ARCHETYPES = {
+        landlord: {
+          title: "The Unbothered Oga Landlord",
+          tagline: '"Rent is due on the 1st, no long story."',
+          movieTitle: "THE CHIEF'S LAST AGBADA",
+          bio: "Unshakable authority. You wear heavy agbada to buy bread, speak exclusively in ancestral proverbs, and have never been seen running in public.",
+          quote: '"Do you know who I am in this Lagos?"',
+          accentColor: '#f59e0b',
+          bgGradient: ['#1e1b4b', '#451a03', '#090c15']
+        },
+        bosslady: {
+          title: "The Glamorous CEO Boss Lady",
+          tagline: '"I don\'t compete, I conquer."',
+          movieTitle: "QUEEN OF BANANA ISLAND",
+          bio: "Dark sunglasses indoors, stepping out of a matte black G-Wagon in slow motion. Operates at 100x efficiency with zero tolerance for nonsense.",
+          quote: '"If it\'s not about billions, clear from my view."',
+          accentColor: '#ec4899',
+          bgGradient: ['#4c0519', '#1e1b4b', '#090c15']
+        },
+        queen: {
+          title: "The Dramatic Queen Mother",
+          tagline: '"Drama is thicker than water!"',
+          movieTitle: "PALACE SECRETS OF ASABA",
+          bio: "Master of the gasp. Decked in royal coral beads, capable of delivering a 5-minute monologue using only hand gestures and eye contact.",
+          quote: '"Tufiakwa! Not in my kingdom!"',
+          accentColor: '#ef4444',
+          bgGradient: ['#450a0a', '#312e81', '#090c15']
+        },
+        techbro: {
+          title: "The Sharp-Witted Tech Bro",
+          tagline: '"Scaling Nollywood onto the Blockchain."',
+          movieTitle: "SILICON LEKKI: THE RANSOM",
+          bio: "Sips iced matcha in 34°C heat. Talks about seed funding rounds and movie distribution deals in the exact same sentence.",
+          quote: '"We are optimizing this plot twist in real time."',
+          accentColor: '#10b981',
+          bgGradient: ['#064e3b', '#0f172a', '#090c15']
+        },
+        elder: {
+          title: "The Mastermind Village Elder",
+          tagline: '"He who holds the walking stick controls the plot."',
+          movieTitle: "WRATH OF THE ANCESTRAL STOOL",
+          bio: "Sips palm wine quietly while orchestrating 14 plot twists before noon. Nobody knows your next move, not even the director.",
+          quote: '"The bird that dances on the road has its drummers in the bush."',
+          accentColor: '#8b5cf6',
+          bgGradient: ['#2e1065', '#172554', '#090c15']
+        },
+        action: {
+          title: "The Lekki Action Hero",
+          tagline: '"No negotiation, just pure cinematic entry."',
+          movieTitle: "SURULERE DRIFT: FINAL SHOWDOWN",
+          bio: "Always wearing a leather jacket despite Lagos heat. Walks away from explosions without looking back and never misses a punchline.",
+          quote: '"Tell them the Boy from Surulere has arrived."',
+          accentColor: '#3b82f6',
+          bgGradient: ['#1e3a8a', '#1e1b4b', '#090c15']
+        }
+      };
+
+      // Questions Data
+      const QUESTIONS = [
+        {
+          title: "How do you handle Lagos traffic when someone cuts in front of you?",
+          options: [
+            { text: "Adjust my Agbada, roll down the window, and glare with ancestral authority.", archetype: "landlord" },
+            { text: "Roll down tinted glass, drop one sharp sentence, and zoom past in slow motion.", archetype: "bosslady" },
+            { text: "Clap my hands dramatically and declare 'Tufiakwa! What insolence!'", archetype: "queen" },
+            { text: "Check Google Maps for an alternative route while listening to a tech podcast.", archetype: "techbro" },
+            { text: "Smile quietly. I already predicted their move 10 minutes ago.", archetype: "elder" },
+            { text: "Honk the horn rhythmically and rev the engine like an action sequence.", archetype: "action" }
+          ]
+        },
+        {
+          title: "What is your signature soundtrack entry music?",
+          options: [
+            { text: "Heavy royal horns and Oja flutes announcing a royal presence.", archetype: "queen" },
+            { text: "Classic 90s Nollywood suspense strings and organ stabs.", archetype: "landlord" },
+            { text: "High-fashion Afrobeat bassline with heavy 808s.", archetype: "bosslady" },
+            { text: "Upbeat Amapiano synth beat with a futuristic vibe.", archetype: "techbro" },
+            { text: "Deep acoustic wooden percussion and chanting.", archetype: "elder" },
+            { text: "Fast-paced cinematic drums and guitar riffs.", archetype: "action" }
+          ]
+        },
+        {
+          title: "What is your secret weapon in a movie plot twist?",
+          options: [
+            { text: "A sudden wire transfer that pays off everyone's debt.", archetype: "bosslady" },
+            { text: "Revealing a secret land document from 1984.", archetype: "landlord" },
+            { text: "The unannounced arrival of a long-lost twin brother.", archetype: "queen" },
+            { text: "Deploying a custom mobile app that exposes the antagonist.", archetype: "techbro" },
+            { text: "A carved wooden walking stick containing ancient secrets.", archetype: "elder" },
+            { text: "Kicking open the double doors right at the 90th minute.", archetype: "action" }
+          ]
+        },
+        {
+          title: "Choose your ideal weekend getaway spot:",
+          options: [
+            { text: "Private yacht off Ilashe beach with my elite inner circle.", archetype: "bosslady" },
+            { text: "Sitting in my parlor counting property deeds and drinking palm wine.", archetype: "landlord" },
+            { text: "Family compound hosting an emergency feast and royal meeting.", archetype: "queen" },
+            { text: "A tech founder retreat in Victoria Island with fiber internet.", archetype: "techbro" },
+            { text: "Under the sacred baobab tree sharing proverbs with youth.", archetype: "elder" },
+            { text: "High-speed beach rally and quad biking in Elegushi.", archetype: "action" }
+          ]
+        }
+      ];
+
+      // Live Counter Logic
+      function fetchLiveCount() {
+        // Try to read count
+        fetch(COUNTER_GET_URL)
+          .then(res => res.json())
+          .then(data => {
+            if (data && typeof data.value === 'number') {
+              currentCounter = BASE_OFFSET + data.value;
+              updateCounterUI();
+            }
+          })
+          .catch(() => {
+            // Fallback: render baseline
+            updateCounterUI();
+          });
+      }
+
+      function incrementLiveCount() {
+        fetch(COUNTER_API_URL)
+          .then(res => res.json())
+          .then(data => {
+            if (data && typeof data.value === 'number') {
+              currentCounter = BASE_OFFSET + data.value;
+              updateCounterUI();
+            } else {
+              currentCounter += 1;
+              updateCounterUI();
+            }
+          })
+          .catch(() => {
+            currentCounter += 1;
+            updateCounterUI();
+          });
+      }
+
+      function updateCounterUI() {
+        liveCounterVal.textContent = currentCounter.toLocaleString();
+      }
+
+      // Quiz Engine
+      function startQuiz() {
+        const inputVal = userNameInput.value.trim();
+        userName = inputVal.length > 0 ? inputVal : "Star Actor";
+        
+        welcomeScreen.classList.add('hidden');
+        quizScreen.classList.remove('hidden');
+        
+        currentQuestionIdx = 0;
+        userScores = { landlord: 0, bosslady: 0, queen: 0, techbro: 0, elder: 0, action: 0 };
+        renderQuestion();
+      }
+
+      function renderQuestion() {
+        const q = QUESTIONS[currentQuestionIdx];
+        const stepNum = currentQuestionIdx + 1;
+        const total = QUESTIONS.length;
+        
+        quizProgressBar.style.width = ((stepNum / total) * 100) + '%';
+        questionStep.textContent = `Question ${stepNum} of ${total}`;
+        questionTitle.textContent = q.title;
+
+        optionsContainer.innerHTML = '';
+        const letters = ['A', 'B', 'C', 'D', 'E', 'F'];
+
+        q.options.forEach((opt, idx) => {
+          const btn = document.createElement('button');
+          btn.className = 'option-btn';
+          btn.innerHTML = `
+            <span class="option-badge">${letters[idx]}</span>
+            <span>${opt.text}</span>
+          `;
+          btn.addEventListener('click', () => handleAnswer(opt.archetype));
+          optionsContainer.appendChild(btn);
+        });
+      }
+
+      function handleAnswer(archetypeKey) {
+        if (userScores[archetypeKey] !== undefined) {
+          userScores[archetypeKey] += 1;
+        }
+
+        currentQuestionIdx += 1;
+
+        if (currentQuestionIdx < QUESTIONS.length) {
+          renderQuestion();
+        } else {
+          finishQuiz();
+        }
+      }
+
+      function finishQuiz() {
+        // Increment global counter
+        incrementLiveCount();
+
+        // Determine top archetype
+        let topKey = 'landlord';
+        let maxScore = -1;
+        for (const key in userScores) {
+          if (userScores[key] > maxScore) {
+            maxScore = userScores[key];
+            topKey = key;
+          }
+        }
+
+        const res = ARCHETYPES[topKey];
+
+        // Fill Result UI
+        resUserLabel.textContent = `STARRING ${userName.toUpperCase()}`;
+        resArchetypeTitle.textContent = res.title;
+        resTagline.textContent = res.tagline;
+        resBio.innerHTML = `<strong>Character Profile:</strong> ${res.bio}`;
+        resQuote.innerHTML = `<strong>Signature Catchphrase:</strong> ${res.quote}`;
+
+        // Draw Canvas Poster
+        drawPoster(userName, res);
+
+        // Setup Share URLs
+        const shareText = `I took the CineLink Nollywood Quiz and I'm officially: ${res.title}! 🎬🍿 "${res.tagline}" Find out your Nollywood persona in 30s:`;
+        const pageUrl = window.location.href;
+
+        shareWhatsAppBtn.href = `https://api.whatsapp.com/send?text=${encodeURIComponent(shareText + ' ' + pageUrl)}`;
+        shareXBtn.href = `https://x.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(pageUrl)}`;
+
+        quizScreen.classList.add('hidden');
+        resultScreen.classList.remove('hidden');
+
+        // Scroll to top of card smoothly
+        resultScreen.scrollIntoView({ behavior: 'smooth' });
+      }
+
+      // Canvas Poster Renderer
+      function drawPoster(name, archetype) {
+        const canvas = document.getElementById('posterCanvas');
+        const ctx = canvas.getContext('2d');
+        const w = canvas.width;
+        const h = canvas.height;
+
+        // Background Gradient
+        const grad = ctx.createLinearGradient(0, 0, w, h);
+        grad.addColorStop(0, archetype.bgGradient[0]);
+        grad.addColorStop(0.5, archetype.bgGradient[1]);
+        grad.addColorStop(1, archetype.bgGradient[2]);
+        ctx.fillStyle = grad;
+        ctx.fillRect(0, 0, w, h);
+
+        // Film Grain / Decorative Frames
+        ctx.strokeStyle = 'rgba(245, 158, 11, 0.4)';
+        ctx.lineWidth = 4;
+        ctx.strokeRect(20, 20, w - 40, h - 40);
+
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.15)';
+        ctx.lineWidth = 1;
+        ctx.strokeRect(28, 28, w - 56, h - 56);
+
+        // Studio Banner Top
+        ctx.fillStyle = archetype.accentColor;
+        ctx.font = 'bold 22px "Cinzel", serif';
+        ctx.textAlign = 'center';
+        ctx.fillText('CINELINK STUDIOS PRESENTS', w / 2, 75);
+
+        // Rating Stars
+        ctx.fillStyle = '#fbbf24';
+        ctx.font = '24px sans-serif';
+        ctx.fillText('★ ★ ★ ★ ★', w / 2, 115);
+
+        // Starring Name
+        ctx.fillStyle = '#ffffff';
+        ctx.font = 'bold 26px "Plus Jakarta Sans", sans-serif';
+        ctx.fillText(`STARRING ${name.toUpperCase()}`, w / 2, 165);
+
+        // Decorative Line
+        ctx.strokeStyle = archetype.accentColor;
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.moveTo(w / 2 - 120, 185);
+        ctx.lineTo(w / 2 + 120, 185);
+        ctx.stroke();
+
+        // Movie Title
+        ctx.fillStyle = '#ffffff';
+        ctx.font = '900 38px "Cinzel", serif';
+        wrapText(ctx, archetype.movieTitle, w / 2, 260, w - 100, 48);
+
+        // Archetype Badge
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
+        ctx.fillRect(50, 360, w - 100, 110);
+        ctx.strokeStyle = archetype.accentColor;
+        ctx.lineWidth = 2;
+        ctx.strokeRect(50, 360, w - 100, 110);
+
+        ctx.fillStyle = archetype.accentColor;
+        ctx.font = 'bold 18px "Plus Jakarta Sans", sans-serif';
+        ctx.fillText('OFFICIAL NOLLYWOOD PERSONA', w / 2, 395);
+
+        ctx.fillStyle = '#ffffff';
+        ctx.font = 'bold 28px "Cinzel", serif';
+        ctx.fillText(archetype.title, w / 2, 435);
+
+        // Tagline
+        ctx.fillStyle = '#e2e8f0';
+        ctx.font = 'italic 22px "Plus Jakarta Sans", sans-serif';
+        wrapText(ctx, archetype.tagline, w / 2, 530, w - 100, 32);
+
+        // Quote Box
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.05)';
+        ctx.fillRect(60, 600, w - 120, 110);
+
+        ctx.fillStyle = '#fbbf24';
+        ctx.font = 'bold 16px "Plus Jakarta Sans", sans-serif';
+        ctx.fillText('SIGNATURE CATCHPHRASE', w / 2, 630);
+
+        ctx.fillStyle = '#ffffff';
+        ctx.font = 'italic 20px "Plus Jakarta Sans", sans-serif';
+        wrapText(ctx, archetype.quote, w / 2, 665, w - 140, 28);
+
+        // Billing Block / Footer
+        ctx.fillStyle = '#94a3b8';
+        ctx.font = '14px "Plus Jakarta Sans", sans-serif';
+        ctx.fillText('DIRECTED BY CINELINK CREATIVE COMMUNITY • ALL RIGHTS RESERVED', w / 2, 765);
+        
+        ctx.fillStyle = '#fbbf24';
+        ctx.font = 'bold 16px "Cinzel", serif';
+        ctx.fillText('WWW.CINELINK.APP', w / 2, 795);
+      }
+
+      // Helper: Canvas Text Wrap
+      function wrapText(ctx, text, x, y, maxWidth, lineHeight) {
+        const words = text.split(' ');
+        let line = '';
+        let currentY = y;
+
+        for (let n = 0; n < words.length; n++) {
+          const testLine = line + words[n] + ' ';
+          const metrics = ctx.measureText(testLine);
+          const testWidth = metrics.width;
+          if (testWidth > maxWidth && n > 0) {
+            ctx.fillText(line.trim(), x, currentY);
+            line = words[n] + ' ';
+            currentY += lineHeight;
+          } else {
+            line = testLine;
+          }
+        }
+        ctx.fillText(line.trim(), x, currentY);
+      }
+
+      // Download Poster
+      function downloadPoster() {
+        const canvas = document.getElementById('posterCanvas');
+        const link = document.createElement('a');
+        const filename = `${userName.toLowerCase().replace(/[^a-z0-9]/g, '_')}_nollywood_poster.png`;
+        link.download = filename;
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+      }
+
+      // Toast Notification
+      function showToast(msg) {
+        toast.textContent = msg;
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 3000);
+      }
+
+      // Copy Link
+      function copyLink() {
+        const pageUrl = window.location.href;
+        navigator.clipboard.writeText(pageUrl).then(() => {
+          showToast('🔗 Tool link copied to clipboard!');
+        }).catch(() => {
+          showToast('Failed to copy link.');
+        });
+      }
+
+      // Event Listeners
+      startQuizBtn.addEventListener('click', startQuiz);
+      
+      userNameInput.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') startQuiz();
+      });
+
+      downloadPosterBtn.addEventListener('click', downloadPoster);
+      copyLinkBtn.addEventListener('click', copyLink);
+
+      retakeBtn.addEventListener('click', function() {
+        resultScreen.classList.add('hidden');
+        welcomeScreen.classList.remove('hidden');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+
+      // Initialize
+      fetchLiveCount();
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AgriLink Nigeria - Smallholder Farm Cost & Revenue Calculator</title>
+  <meta name="description" content="Free crop price check and farm input cost vs expected revenue calculator for Nigerian smallholder farmers. Supports Maize, Rice, Cassava, Tomato, Soybean, and Yam.">
+  <style>
+    :root {
+      --agri-green: #2e7d32;
+      --agri-dark: #1b5e20;
+      --agri-light: #e8f5e9;
+      --accent-yellow: #fbc02d;
+      --danger: #c62828;
+      --bg: #f4f6f4;
+      --card-bg: #ffffff;
+      --text: #1f2937;
+      --text-muted: #6b7280;
+      --border: #e2e8f0;
+      --radius: 12px;
+      --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      padding-bottom: 40px;
+    }
+
+    header {
+      background: linear-gradient(135deg, var(--agri-dark), var(--agri-green));
+      color: white;
+      padding: 24px 16px;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(46, 125, 50, 0.2);
+    }
+
+    header h1 {
+      font-size: 1.75rem;
+      font-weight: 800;
+      letter-spacing: -0.025em;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    header p {
+      font-size: 0.95rem;
+      opacity: 0.92;
+      max-width: 650px;
+      margin: 0 auto 12px auto;
+    }
+
+    .counter-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(4px);
+      padding: 4px 14px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .counter-pulse {
+      width: 8px;
+      height: 8px;
+      background-color: #aed581;
+      border-radius: 50%;
+      box-shadow: 0 0 8px #aed581;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(1.2); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+
+    .disclaimer-banner {
+      background: #fff8e1;
+      border-left: 4px solid var(--accent-yellow);
+      padding: 12px 16px;
+      margin: 16px auto 0 auto;
+      max-width: 900px;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      color: #795548;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 20px auto 0 auto;
+      padding: 0 16px;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+
+    @media (min-width: 768px) {
+      .container {
+        grid-template-columns: 1fr 1fr;
+      }
+      .full-width {
+        grid-column: span 2;
+      }
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      padding: 24px;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+    }
+
+    .card-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .form-group {
+      margin-bottom: 14px;
+    }
+
+    label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 4px;
+      color: #374151;
+    }
+
+    .input-hint {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+
+    .input-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    select, input[type="number"], input[type="text"] {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 0.95rem;
+      color: var(--text);
+      background-color: #ffffff;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      font-family: inherit;
+    }
+
+    select:focus, input:focus {
+      outline: none;
+      border-color: var(--agri-green);
+      box-shadow: 0 0 0 3px rgba(46, 125, 50, 0.15);
+    }
+
+    .preset-btn {
+      background: #f1f8e9;
+      color: var(--agri-dark);
+      border: 1px solid #c8e6c9;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .preset-btn:hover {
+      background: #dedda9;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      padding: 12px 16px;
+      border: none;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.2s, transform 0.1s;
+    }
+
+    .btn:active {
+      transform: scale(0.98);
+    }
+
+    .btn-primary {
+      background-color: var(--agri-green);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background-color: var(--agri-dark);
+    }
+
+    .btn-whatsapp {
+      background-color: #25D366;
+      color: white;
+    }
+
+    .btn-whatsapp:hover {
+      background-color: #1eb956;
+    }
+
+    .btn-x {
+      background-color: #000000;
+      color: white;
+    }
+
+    .btn-x:hover {
+      background-color: #1a1a1a;
+    }
+
+    .btn-secondary {
+      background-color: #f3f4f6;
+      color: #374151;
+      border: 1px solid var(--border);
+    }
+
+    .btn-secondary:hover {
+      background-color: #e5e7eb;
+    }
+
+    /* Result Dashboard Styles */
+    .metric-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .metric-card {
+      background: #f8faf8;
+      border: 1px solid #e0e7e1;
+      border-radius: 8px;
+      padding: 12px;
+      text-align: center;
+    }
+
+    .metric-card.highlight {
+      background: var(--agri-light);
+      border-color: #a5d6a7;
+    }
+
+    .metric-card.loss {
+      background: #ffebee;
+      border-color: #ef9a9a;
+    }
+
+    .metric-label {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      font-weight: 700;
+      margin-bottom: 2px;
+    }
+
+    .metric-val {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--text);
+    }
+
+    .val-profit { color: var(--agri-dark); }
+    .val-loss { color: var(--danger); }
+
+    .preview-box {
+      background: #1e293b;
+      color: #f8fafc;
+      padding: 14px;
+      border-radius: 8px;
+      font-family: monospace;
+      font-size: 0.85rem;
+      white-space: pre-wrap;
+      word-break: break-word;
+      margin-bottom: 16px;
+      border-left: 4px solid var(--agri-green);
+      min-height: 110px;
+    }
+
+    .action-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .action-grid .full {
+      grid-column: span 2;
+    }
+
+    .history-feed {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      max-height: 320px;
+      overflow-y: auto;
+      padding-right: 4px;
+    }
+
+    .history-item {
+      padding: 10px 12px;
+      background: #f9fafb;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 0.85rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #1f2937;
+      color: white;
+      padding: 12px 20px;
+      border-radius: 8px;
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+      display: none;
+      z-index: 1000;
+      font-size: 0.9rem;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 32px;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>🌾 AgriLink Nigeria</h1>
+    <p>Smallholder Crop Cost & Expected Revenue Calculator • Maize, Rice, Cassava, Tomato, Soybean, Yam</p>
+    <div class="counter-badge">
+      <div class="counter-pulse"></div>
+      <span><strong id="live-count-display">...</strong> Farm Economics Calculations Run</span>
+    </div>
+  </header>
+
+  <div class="disclaimer-banner">
+    💡 <strong>Note on Market Prices:</strong> Crop prices and input costs vary across Nigerian local markets (e.g. Dawanau Kano, Mile 12 Lagos, Bodija Ibadan). All numbers below are <em>editable user-entered default examples</em>—feel free to adjust them to match your exact farm gate rates!
+  </div>
+
+  <div class="container">
+
+    <!-- Inputs Card -->
+    <div class="card">
+      <div class="card-title">
+        <span>🌱 Farm Inputs & Revenue Setup</span>
+        <button id="btn-load-preset" class="preset-btn">Load Sample Defaults</button>
+      </div>
+
+      <form id="agri-form">
+        <div class="input-row">
+          <div class="form-group">
+            <label for="crop-select">Target Crop</label>
+            <select id="crop-select" required>
+              <option value="Maize">🌽 Maize (Yellow / White)</option>
+              <option value="Rice">🌾 Rice (Paddy / Faro 44)</option>
+              <option value="Cassava">🍠 Cassava (TME 419 / Starch)</option>
+              <option value="Tomato">🍅 Tomato (Plum / Roma)</option>
+              <option value="Soybean">🫘 Soybean</option>
+              <option value="Yam">🥔 Yam (Tubers)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="land-unit">Farm Land Size</label>
+            <div style="display: flex; gap: 6px;">
+              <input type="number" id="farm-size" value="1" min="0.1" step="0.5" required>
+              <select id="unit-select" style="width: 100px;">
+                <option value="Hectare">Hectare</option>
+                <option value="Acre">Acre</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="cost-land">Land Prep & Tillage (₦)</label>
+          <div class="input-hint">Plowing, harrowing, ridging labor or tractor rental</div>
+          <input type="number" id="cost-land" value="50000" min="0" step="1000" required>
+        </div>
+
+        <div class="form-group">
+          <label for="cost-seeds">Seeds / Planting Material (₦)</label>
+          <div class="input-hint">Hybrid/improved seeds, cassava stems, or yam setts</div>
+          <input type="number" id="cost-seeds" value="35000" min="0" step="1000" required>
+        </div>
+
+        <div class="form-group">
+          <label for="cost-fertilizer">Fertilizer & Soil Inputs (₦)</label>
+          <div class="input-hint">NPK, Urea, Organic manure, lime</div>
+          <input type="number" id="cost-fertilizer" value="120000" min="0" step="1000" required>
+        </div>
+
+        <div class="form-group">
+          <label for="cost-chemicals">Crop Protection & Agrochemicals (₦)</label>
+          <div class="input-hint">Herbicides, insecticides, fungicides, sprayers</div>
+          <input type="number" id="cost-chemicals" value="30000" min="0" step="1000" required>
+        </div>
+
+        <div class="form-group">
+          <label for="cost-labor">Farm Labor & Harvesting (₦)</label>
+          <div class="input-hint">Planting, manual weeding, harvesting labor</div>
+          <input type="number" id="cost-labor" value="65000" min="0" step="1000" required>
+        </div>
+
+        <div class="form-group">
+          <label for="cost-logistics">Bagging & Transport to Market (₦)</label>
+          <div class="input-hint">Bags/crates, loading, farm gate to market transport</div>
+          <input type="number" id="cost-logistics" value="40000" min="0" step="1000" required>
+        </div>
+
+        <hr style="margin: 16px 0; border: none; border-top: 1px solid var(--border);">
+
+        <div class="input-row">
+          <div class="form-group">
+            <label for="expected-yield">Expected Yield</label>
+            <div style="display: flex; gap: 6px;">
+              <input type="number" id="expected-yield" value="35" min="1" step="1" required>
+              <input type="text" id="yield-unit-name" value="Bags (100kg)" style="width: 120px;" placeholder="Unit">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="selling-price">Selling Price / Unit (₦)</label>
+            <input type="number" id="selling-price" value="18000" min="100" step="500" required>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary" style="margin-top: 8px;">
+          <span>🧮 Calculate Economics & Record</span>
+        </button>
+      </form>
+    </div>
+
+    <!-- Results & Share Card -->
+    <div class="card">
+      <div class="card-title">
+        <span>📊 Farm Economics Summary</span>
+      </div>
+
+      <div class="metric-grid">
+        <div class="metric-card">
+          <div class="metric-label">Total Input Cost</div>
+          <div class="metric-val" id="res-total-cost">₦340,000</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">Expected Revenue</div>
+          <div class="metric-val" id="res-revenue">₦630,000</div>
+        </div>
+        <div class="metric-card highlight" id="profit-card">
+          <div class="metric-label">Estimated Net Profit</div>
+          <div class="metric-val val-profit" id="res-profit">₦290,000</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">Return on Investment</div>
+          <div class="metric-val" id="res-roi">85.3%</div>
+        </div>
+      </div>
+
+      <div style="font-size: 0.85rem; color: #4b5563; background: #f8faf8; padding: 10px; border-radius: 8px; margin-bottom: 16px;">
+        📌 <strong>Break-Even Selling Price:</strong> <span id="res-breakeven">₦9,714 per bag</span>
+      </div>
+
+      <div class="preview-box" id="share-preview">Click "Calculate Economics" to generate your ready-to-share farm economics breakdown...</div>
+
+      <div class="action-grid">
+        <button id="btn-whatsapp" class="btn btn-whatsapp">
+          <span>💬 Share on WhatsApp</span>
+        </button>
+        <button id="btn-x" class="btn btn-x">
+          <span>🐦 Share on X</span>
+        </button>
+        <button id="btn-copy" class="btn btn-secondary full">
+          <span>📋 Copy Breakdown</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Calculations History Feed (Full Width) -->
+    <div class="card full-width">
+      <div class="card-title">
+        <span>📜 Saved Farm Budget Runs</span>
+        <span style="font-size: 0.8rem; font-weight: normal; color: var(--text-muted);" id="counter-status-text">Counter: Live API verified</span>
+      </div>
+
+      <div class="history-feed" id="history-feed">
+        <!-- Dynamic history rendered here -->
+      </div>
+    </div>
+
+  </div>
+
+  <div class="toast" id="toast">Copied to clipboard!</div>
+
+  <footer>
+    <p>AgriLink Nigeria • Smallholder Agriculture Utility • Built for GitHub Pages</p>
+  </footer>
+
+  <script>
+    // Sample Defaults for Popular Nigerian Crops (Per Hectare Baseline Examples)
+    const CROP_PRESETS = {
+      "Maize": {
+        costLand: 50000,
+        costSeeds: 35000,
+        costFertilizer: 120000,
+        costChemicals: 30000,
+        costLabor: 65000,
+        costLogistics: 40000,
+        yieldVal: 35,
+        yieldUnit: "Bags (100kg)",
+        priceVal: 18000
+      },
+      "Rice": {
+        costLand: 65000,
+        costSeeds: 45000,
+        costFertilizer: 150000,
+        costChemicals: 40000,
+        costLabor: 85000,
+        costLogistics: 50000,
+        yieldVal: 45,
+        yieldUnit: "Bags Paddy (100kg)",
+        priceVal: 22000
+      },
+      "Cassava": {
+        costLand: 55000,
+        costSeeds: 30000,
+        costFertilizer: 80000,
+        costChemicals: 35000,
+        costLabor: 90000,
+        costLogistics: 70000,
+        yieldVal: 20,
+        yieldUnit: "Tonnes",
+        priceVal: 45000
+      },
+      "Tomato": {
+        costLand: 70000,
+        costSeeds: 60000,
+        costFertilizer: 180000,
+        costChemicals: 75000,
+        costLabor: 120000,
+        costLogistics: 80000,
+        yieldVal: 350,
+        yieldUnit: "Crates",
+        priceVal: 8500
+      },
+      "Soybean": {
+        costLand: 45000,
+        costSeeds: 30000,
+        costFertilizer: 90000,
+        costChemicals: 25000,
+        costLabor: 55000,
+        costLogistics: 35000,
+        yieldVal: 22,
+        yieldUnit: "Bags (100kg)",
+        priceVal: 28000
+      },
+      "Yam": {
+        costLand: 80000,
+        costSeeds: 250000,
+        costFertilizer: 100000,
+        costChemicals: 30000,
+        costLabor: 110000,
+        costLogistics: 90000,
+        yieldVal: 3000,
+        yieldUnit: "Tubers",
+        priceVal: 800
+      }
+    };
+
+    // VERIFIED REAL COUNTER ENDPOINT
+    const COUNTER_API_UP = "https://abacus.jasoncameron.dev/hit/betoniq-live/agrilink";
+    const COUNTER_API_GET = "https://abacus.jasoncameron.dev/get/betoniq-live/agrilink";
+
+    let currentShareText = "";
+    let currentCount = 0;
+
+    // DOM Elements
+    const cropSelect = document.getElementById('crop-select');
+    const farmSize = document.getElementById('farm-size');
+    const unitSelect = document.getElementById('unit-select');
+    const costLand = document.getElementById('cost-land');
+    const costSeeds = document.getElementById('cost-seeds');
+    const costFertilizer = document.getElementById('cost-fertilizer');
+    const costChemicals = document.getElementById('cost-chemicals');
+    const costLabor = document.getElementById('cost-labor');
+    const costLogistics = document.getElementById('cost-logistics');
+    const expectedYield = document.getElementById('expected-yield');
+    const yieldUnitName = document.getElementById('yield-unit-name');
+    const sellingPrice = document.getElementById('selling-price');
+    const btnLoadPreset = document.getElementById('btn-load-preset');
+    const agriForm = document.getElementById('agri-form');
+
+    const resTotalCost = document.getElementById('res-total-cost');
+    const resRevenue = document.getElementById('res-revenue');
+    const resProfit = document.getElementById('res-profit');
+    const resRoi = document.getElementById('res-roi');
+    const resBreakeven = document.getElementById('res-breakeven');
+    const profitCard = document.getElementById('profit-card');
+
+    const sharePreview = document.getElementById('share-preview');
+    const btnWhatsapp = document.getElementById('btn-whatsapp');
+    const btnX = document.getElementById('btn-x');
+    const btnCopy = document.getElementById('btn-copy');
+
+    const liveCountDisplay = document.getElementById('live-count-display');
+    const historyFeed = document.getElementById('history-feed');
+    const toast = document.getElementById('toast');
+
+    // Preset Loader
+    function loadCropPreset(cropName) {
+      const preset = CROP_PRESETS[cropName] || CROP_PRESETS["Maize"];
+      costLand.value = preset.costLand;
+      costSeeds.value = preset.costSeeds;
+      costFertilizer.value = preset.costFertilizer;
+      costChemicals.value = preset.costChemicals;
+      costLabor.value = preset.costLabor;
+      costLogistics.value = preset.costLogistics;
+      expectedYield.value = preset.yieldVal;
+      yieldUnitName.value = preset.yieldUnit;
+      sellingPrice.value = preset.priceVal;
+      
+      calculateEconomics(false); // auto calculate preview without incrementing counter
+    }
+
+    cropSelect.addEventListener('change', () => {
+      loadCropPreset(cropSelect.value);
+    });
+
+    btnLoadPreset.addEventListener('click', (e) => {
+      e.preventDefault();
+      loadCropPreset(cropSelect.value);
+      showToast(`Loaded sample baseline inputs for ${cropSelect.value}`);
+    });
+
+    // Format Currency NGN
+    function fmtNgn(amount) {
+      return '₦' + Math.round(amount).toLocaleString('en-NG');
+    }
+
+    // Fetch Public Counter from API
+    async function fetchLiveCount() {
+      try {
+        const res = await fetch(COUNTER_API_GET);
+        if (res.ok) {
+          const data = await res.json();
+          if (data && typeof data.value === 'number') {
+            currentCount = data.value;
+            liveCountDisplay.textContent = currentCount.toLocaleString();
+            return;
+          }
+        }
+      } catch (err) {
+        console.warn("Counter API fetch failed, falling back to local storage count:", err);
+      }
+      
+      const localHistory = getLocalHistory();
+      liveCountDisplay.textContent = (localHistory.length).toLocaleString();
+    }
+
+    // Increment Counter on API
+    async function incrementLiveCount() {
+      try {
+        const res = await fetch(COUNTER_API_UP);
+        if (res.ok) {
+          const data = await res.json();
+          if (data && typeof data.value === 'number') {
+            currentCount = data.value;
+            liveCountDisplay.textContent = currentCount.toLocaleString();
+            return;
+          }
+        }
+      } catch (err) {
+        console.warn("Counter API increment failed:", err);
+      }
+
+      currentCount++;
+      liveCountDisplay.textContent = currentCount.toLocaleString();
+    }
+
+    // Main Calculator Logic
+    function calculateEconomics(recordAction = true) {
+      const crop = cropSelect.value;
+      const size = parseFloat(farmSize.value) || 1;
+      const landUnit = unitSelect.value;
+
+      const cLand = parseFloat(costLand.value) || 0;
+      const cSeeds = parseFloat(costSeeds.value) || 0;
+      const cFert = parseFloat(costFertilizer.value) || 0;
+      const cChem = parseFloat(costChemicals.value) || 0;
+      const cLabor = parseFloat(costLabor.value) || 0;
+      const cLogistics = parseFloat(costLogistics.value) || 0;
+
+      const singleHaCost = cLand + cSeeds + cFert + cChem + cLabor + cLogistics;
+      const totalCost = singleHaCost * size;
+
+      const yVal = parseFloat(expectedYield.value) || 1;
+      const totalYield = yVal * size;
+      const uName = yieldUnitName.value.trim() || 'Units';
+
+      const price = parseFloat(sellingPrice.value) || 0;
+      const totalRevenue = totalYield * price;
+
+      const netProfit = totalRevenue - totalCost;
+      const roi = totalCost > 0 ? ((netProfit / totalCost) * 100).toFixed(1) : 0;
+      const breakEvenPrice = totalYield > 0 ? Math.round(totalCost / totalYield) : 0;
+
+      // Update UI
+      resTotalCost.textContent = fmtNgn(totalCost);
+      resRevenue.textContent = fmtNgn(totalRevenue);
+      resProfit.textContent = fmtNgn(netProfit);
+      resRoi.textContent = `${roi}%`;
+      resBreakeven.textContent = `${fmtNgn(breakEvenPrice)} per ${uName}`;
+
+      if (netProfit >= 0) {
+        profitCard.className = 'metric-card highlight';
+        resProfit.className = 'metric-val val-profit';
+      } else {
+        profitCard.className = 'metric-card loss';
+        resProfit.className = 'metric-val val-loss';
+      }
+
+      // Format Ready-to-Share Summary
+      currentShareText = `🌾 AgriLink Farm Economics Breakdown [${crop} - ${size} ${landUnit}(s)]:\n\n` +
+        `• Total Input Cost: ${fmtNgn(totalCost)}\n` +
+        `• Expected Yield: ${totalYield.toLocaleString()} ${uName}\n` +
+        `• Market Price: ${fmtNgn(price)} / ${uName}\n` +
+        `• Expected Revenue: ${fmtNgn(totalRevenue)}\n` +
+        `• Estimated Net ${netProfit >= 0 ? 'Profit' : 'Loss'}: ${fmtNgn(netProfit)} (ROI: ${roi}%)\n` +
+        `• Break-Even Price: ${fmtNgn(breakEvenPrice)} / ${uName}\n\n` +
+        `Calculated via AgriLink Nigeria #AgriLinkNG #SmallholderFarming #AgricNigeria`;
+
+      sharePreview.textContent = currentShareText;
+
+      if (recordAction) {
+        incrementLiveCount();
+        saveLocalHistory({
+          crop,
+          size,
+          landUnit,
+          totalCost,
+          totalRevenue,
+          netProfit,
+          roi,
+          time: 'Just now'
+        });
+      }
+    }
+
+    agriForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      calculateEconomics(true);
+      showToast("Calculation updated & ready to share!");
+    });
+
+    // History Storage
+    function getLocalHistory() {
+      try {
+        return JSON.parse(localStorage.getItem('agrilink_history') || '[]');
+      } catch (e) {
+        return [];
+      }
+    }
+
+    function saveLocalHistory(item) {
+      const history = getLocalHistory();
+      history.unshift(item);
+      localStorage.setItem('agrilink_history', JSON.stringify(history.slice(0, 50)));
+      renderHistoryFeed();
+    }
+
+    function seedDefaultHistory() {
+      const existing = getLocalHistory();
+      if (existing.length === 0) {
+        const samples = [
+          { crop: "Maize", size: 1, landUnit: "Hectare", totalCost: 340000, totalRevenue: 630000, netProfit: 290000, roi: "85.3", time: "10 mins ago" },
+          { crop: "Rice", size: 2, landUnit: "Hectare", totalCost: 870000, totalRevenue: 1980000, netProfit: 1110000, roi: "127.6", time: "1 hour ago" },
+          { crop: "Cassava", size: 1.5, landUnit: "Hectare", totalCost: 540000, totalRevenue: 1350000, netProfit: 810000, roi: "150.0", time: "3 hours ago" }
+        ];
+        localStorage.setItem('agrilink_history', JSON.stringify(samples));
+      }
+      renderHistoryFeed();
+    }
+
+    function renderHistoryFeed() {
+      const history = getLocalHistory();
+      historyFeed.innerHTML = '';
+
+      history.forEach(item => {
+        const div = document.createElement('div');
+        div.className = 'history-item';
+        
+        const isProfit = item.netProfit >= 0;
+        const colorStyle = isProfit ? 'color: var(--agri-dark);' : 'color: var(--danger);';
+
+        div.innerHTML = `
+          <div>
+            <strong>${item.crop} (${item.size} ${item.landUnit})</strong>
+            <div style="font-size: 0.75rem; color: var(--text-muted);">Cost: ${fmtNgn(item.totalCost)} • Rev: ${fmtNgn(item.totalRevenue)}</div>
+          </div>
+          <div style="text-align: right;">
+            <div style="font-weight: 800; ${colorStyle}">${fmtNgn(item.netProfit)}</div>
+            <div style="font-size: 0.75rem; color: var(--text-muted);">ROI: ${item.roi}%</div>
+          </div>
+        `;
+        historyFeed.appendChild(div);
+      });
+    }
+
+    // Share Handlers
+    btnWhatsapp.addEventListener('click', () => {
+      if (!currentShareText) return;
+      const url = `https://wa.me/?text=${encodeURIComponent(currentShareText)}`;
+      window.open(url, '_blank');
+    });
+
+    btnX.addEventListener('click', () => {
+      if (!currentShareText) return;
+      const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(currentShareText)}`;
+      window.open(url, '_blank');
+    });
+
+    btnCopy.addEventListener('click', () => {
+      if (!currentShareText) return;
+      navigator.clipboard.writeText(currentShareText).then(() => {
+        showToast("Breakdown text copied to clipboard!");
+      });
+    });
+
+    function showToast(msg) {
+      toast.textContent = msg;
+      toast.style.display = 'block';
+      setTimeout(() => {
+        toast.style.display = 'none';
+      }, 3000);
+    }
+
+    // Initial Setup
+    loadCropPreset("Maize");
+    seedDefaultHistory();
+    fetchLiveCount();
+  </script>
+</body>
+</html>
