@@ -1,0 +1,10 @@
+{
+ "name": "TriageAI | BETONIQ WEST",
+ "short_name": "TriageAI",
+ "start_url": "triageai.html",
+ "scope": "./",
+ "display": "standalone",
+ "background_color": "#0b1020",
+ "theme_color": "#0b1020",
+ "icons": []
+}

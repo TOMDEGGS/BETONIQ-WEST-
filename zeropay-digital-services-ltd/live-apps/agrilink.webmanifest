@@ -1,0 +1,10 @@
+{
+ "name": "AgriLink | BETONIQ WEST",
+ "short_name": "AgriLink",
+ "start_url": "agrilink.html",
+ "scope": "./",
+ "display": "standalone",
+ "background_color": "#0b1020",
+ "theme_color": "#0b1020",
+ "icons": []
+}
