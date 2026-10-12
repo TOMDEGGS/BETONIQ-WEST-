@@ -1,3 +1,5 @@
+> READ FIRST: https://tomdeggs.github.io/BETONIQ-WEST-/GEMINI_MASTER_INDEX.md . It holds the current links and standing rules. Where this file disagrees with the index, the index wins. Hosting is GitHub Pages only. Any Netlify address mentioned in older text is retired.
+
 # ZEROPAY MASTER BRIEFING DOCUMENT
 ## AI Agent Operational Intelligence File
 ## BETONIQ WEST LTD — Confidential
@@ -33,12 +35,12 @@ Type: Private Company Limited by Shares
 Registered Address: D26 Flat 1, 25th Street, AMAC, FCT, Abuja, Nigeria
 Business Email: zeropointfeild_nonwnt@zeropay.site
 Personal Gmail: betoniqwestltd@gmail.com
-Website: https://zeropay-betoniqwest.netlify.app (LIVE — primary)
-Master Hub (all demo assets): https://betoniqwestmasterhublivedemos.netlify.app
+Website: https://tomdeggs.github.io/BETONIQ-WEST-/zeropay_landing.html (LIVE — primary)
+Master Hub (all demo assets): https://tomdeggs.github.io/BETONIQ-WEST-/
 OLD DEAD URL — NEVER USE: curious-pithivier-cff79f.netlify.app
 Domain: zeropay.site (Zoho Domains)
 
-CEO: Tom Ugbodaga — Shareholder & CEO (NEVER called "Founder")
+Managing Director: Tom Ugbodaga (NEVER "Founder", NEVER "Shareholder & CEO"). Tom prepares paperwork and operations. Formal signing authority sits with the board directors (AVM Morgan and the Emir of Borgu Kingdom).
 Executive Vice Chairman: Air Vice Marshal Monday Riku Morgan (Rtd)
 Tom's Ownership: 51–75% stake
 
@@ -132,12 +134,7 @@ UNIVERSITY OF GLOUCESTERSHIRE — FISRI:
 - Purpose: EU Horizon Europe co-application partner
 - FISRI email sent: July 30, 2026. Awaiting response.
 
-KWATI GROUP (Wisdom Kwati, 37, developer/drone manufacturer):
-- Lead offer is a REAL ESTATE JV: 100 hectares from Kwati's own existing landed assets (Kuje, Abuja + other holdings), BETONIQ WEST provides development execution. ZerôPâŷ Money equity (framed as Fintech-as-a-Service: PSSP+PTSP+Super-Agent) is a strategic SWEETENER on top, not the primary ask.
-- AVM Monday Riku Morgan (Rtd) chairs Kwati's security/defence company (standing relationship) and separately leads outreach to the Army/Air Force exploring institutional housing offtake — framed as an initiative he's positioned to lead, not a done deal.
-- Heads of Terms include equity offer: 40% ZerôPâŷ Money + 20% BETONIQ WEST LTD for Kwati.
-- NDA (PDF 6) must be signed BEFORE any technical/financial detail is shared. Do not reveal architecture pre-NDA.
-- Docs: KWATI_REAL_ESTATE_LED_OFFER.docx + KWATI_FULL_FINTECH_OFFER.docx (draft status — confirm with Tom before treating as final/sent).
+[REMOVED 12 Oct 2026: The Kwati Group section is retired. Kwati is not working with BETONIQ WEST LTD. Do not mention Kwati Group or Wisdom Kwati in any outreach, application, pitch or funding discussion.]
 
 ---
 
@@ -154,22 +151,22 @@ KWATI GROUP (Wisdom Kwati, 37, developer/drone manufacturer):
 ## SECTION 7: DEMO ASSETS (ALL LIVE)
 
 ZerôPâŷ Money Demo:
-https://htmlpreview.github.io/?https://raw.githubusercontent.com/TOMDEGGS/BETONIQ-WEST-/main/zeropay_demo.html
+https://tomdeggs.github.io/BETONIQ-WEST-/zeropay_demo.html
 
 ZerôPâŷ Money Operations Hub:
-https://htmlpreview.github.io/?https://raw.githubusercontent.com/TOMDEGGS/BETONIQ-WEST-/main/zeropay_operations_hub.html
+https://tomdeggs.github.io/BETONIQ-WEST-/zeropay_operations_hub.html
 
 BETONIQ INVEST Demo:
-https://htmlpreview.github.io/?https://raw.githubusercontent.com/TOMDEGGS/BETONIQ-WEST-/main/betoniq_invest.html
+https://tomdeggs.github.io/BETONIQ-WEST-/betoniq_invest.html
 
 Master Hub Launcher:
-rawcdn.githack.com/TOMDEGGS/BETONIQ-WEST-/main/betoniq_launcher.html
+https://tomdeggs.github.io/BETONIQ-WEST-/betoniq_launcher.html
 
 ZerôPâŷ Money LIVE Landing Page:
-https://zeropay-betoniqwest.netlify.app
+https://tomdeggs.github.io/BETONIQ-WEST-/zeropay_landing.html
 
 Master Hub (all demo assets, updated Aug 2026):
-https://betoniqwestmasterhublivedemos.netlify.app
+https://tomdeggs.github.io/BETONIQ-WEST-/
 
 OLD DEAD URL — NEVER USE: curious-pithivier-cff79f.netlify.app
 
@@ -193,7 +190,7 @@ https://base44.app/api/apps/69c1064318031a63c4728734/files/mp/public/69c10643180
 
 4. NDA (PDF 6) must be signed BEFORE any partnership meeting.
 
-5. Tom's title is always "Shareholder & CEO" — NEVER "Founder"
+5. Tom's title is always "Managing Director" — NEVER "Founder" and NEVER "Shareholder & CEO"
 
 6. Company name is always "BETONIQ WEST LTD" — NEVER "BETONIQ(WEST) LTD" or "Betoniq West"
 

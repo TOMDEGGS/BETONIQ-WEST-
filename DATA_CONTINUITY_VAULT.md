@@ -50,8 +50,8 @@ RULES FOR USING THIS NAME:
 - Domain: zeropay.site (Zoho Domains)
 
 ### Live Infrastructure URLs (Base44-independent, Netlify-hosted)
-- PRIMARY WEBSITE (ZerôPâŷ Money landing): https://zeropay-betoniqwest.netlify.app
-- MASTER HUB (all 9 demo assets): https://betoniqwestmasterhublivedemos.netlify.app
+- PRIMARY WEBSITE (ZerôPâŷ Money landing): https://tomdeggs.github.io/BETONIQ-WEST-/zeropay_landing.html
+- MASTER HUB (all 9 demo assets): https://tomdeggs.github.io/BETONIQ-WEST-/
 - OLD dead URL — never use: curious-pithivier-cff79f.netlify.app
 - GitHub repo (all code + this vault): github.com/TOMDEGGS/BETONIQ-WEST- (owner: TOMDEGGS, linked to betoniqwestltd@gmail.com)
 - Both Netlify sites are on continuous deployment from this GitHub repo (push to main = auto-deploy, no manual uploads needed)
