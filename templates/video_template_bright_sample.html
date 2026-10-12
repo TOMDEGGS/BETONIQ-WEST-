@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sample 2D interactive video (bright)</title>
+<style>
+:root{--bg:#EAF4FF;--text:#12263F;--accent:#E0A100;--accent2:#1E6FD9;--panel:#FFFFFF;}
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex;flex-direction:column;align-items:center}
+#stage{position:relative;width:min(960px,100vw);aspect-ratio:16/9;background:var(--panel);overflow:hidden;border-radius:12px;margin-top:12px;box-shadow:0 4px 18px rgba(18,38,63,.15)}
+.scene{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;text-align:center;opacity:0;transform:translateY(16px);transition:opacity .6s,transform .6s;pointer-events:none}
+.scene.on{opacity:1;transform:none;pointer-events:auto}
+.big{font-size:clamp(22px,4.2vw,42px);font-weight:700;max-width:80%}
+svg{width:min(60%,300px);height:auto;margin-top:12px}
+.dot{fill:var(--accent2)}.line{stroke:var(--accent);stroke-width:5;stroke-linecap:round}
+#cap{width:min(960px,100vw);min-height:48px;padding:10px 14px;font-size:clamp(16px,2.4vw,20px);text-align:center}
+#bar{width:min(960px,100vw);height:14px;background:#cfe0f5;border-radius:7px;cursor:pointer;margin:4px 0}
+#fill{height:100%;width:0;background:var(--accent2);border-radius:7px}
+#ctl{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;padding:8px}
+button{font-size:16px;padding:12px 16px;border:0;border-radius:10px;background:var(--accent2);color:#fff;cursor:pointer;min-width:56px}
+button.alt{background:var(--accent);color:#12263F}
+#start{position:absolute;inset:0;background:var(--panel);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:5}
+</style></head><body>
+<div id="stage">
+ <div id="start"><div class="big">Sample video</div><p>Bright background. Tap to start.</p><button id="go">Tap to start</button></div>
+ <section class="scene"><div class="big">Scene 1: the problem</div><svg viewBox="0 0 200 100"><circle class="dot" cx="40" cy="50" r="14"/><circle class="dot" cx="160" cy="50" r="14"/><line class="line" x1="54" y1="50" x2="146" y2="50" stroke-dasharray="6 10"/></svg></section>
+ <section class="scene"><div class="big">Scene 2: one clear idea</div><svg viewBox="0 0 200 100"><rect x="30" y="30" width="30" height="50" fill="var(--accent2)"/><rect x="85" y="15" width="30" height="65" fill="var(--accent)"/><rect x="140" y="5" width="30" height="75" fill="var(--accent2)"/></svg></section>
+ <section class="scene"><div class="big">Scene 3: what to remember</div><svg viewBox="0 0 200 100"><path class="line" d="M30 55 L80 80 L170 20" fill="none"/></svg></section>
+</div>
+<div id="cap"></div>
+<div id="bar"><div id="fill"></div></div>
+<div id="ctl"><button id="back">Back</button><button id="play">Pause</button><button id="next">Next</button><button id="rst" class="alt">Restart</button><button id="cc" class="alt">Captions: On</button></div>
+<script>
+const S=[{d:5,c:"Scene one. Say the problem in one plain sentence."},{d:5,c:"Scene two. Show one idea. Keep it simple."},{d:5,c:"Scene three. Give the one thing to remember."}];
+const T=S.reduce((a,s)=>a+s.d,0),sc=[...document.querySelectorAll('.scene')];
+let t=0,playing=false,last=0,cur=-1,ccOn=true;
+const st=i=>S.slice(0,i).reduce((a,s)=>a+s.d,0);
+function show(i){if(i===cur)return;cur=i;sc.forEach((e,k)=>e.classList.toggle('on',k===i));document.getElementById('cap').textContent=ccOn?S[i].c:''}
+function idx(){let a=0;for(let i=0;i<S.length;i++){a+=S[i].d;if(t<a)return i}return S.length-1}
+function tick(n){if(playing){t+=(n-last)/1000;if(t>=T){t=T-0.001;playing=false;document.getElementById('play').textContent='Play'}}last=n;show(idx());document.getElementById('fill').style.width=(t/T*100)+'%';requestAnimationFrame(tick)}
+function jump(i){t=st(Math.max(0,Math.min(S.length-1,i)))+0.01;show(idx())}
+document.getElementById('go').onclick=()=>{document.getElementById('start').style.display='none';playing=true;last=performance.now()};
+document.getElementById('play').onclick=e=>{playing=!playing;e.target.textContent=playing?'Pause':'Play'};
+document.getElementById('next').onclick=()=>jump(idx()+1);document.getElementById('back').onclick=()=>jump(idx()-1);
+document.getElementById('rst').onclick=()=>{t=0;playing=true;document.getElementById('play').textContent='Pause'};
+document.getElementById('cc').onclick=e=>{ccOn=!ccOn;e.target.textContent='Captions: '+(ccOn?'On':'Off');cur=-1;show(idx())};
+document.getElementById('bar').onclick=e=>{const r=e.currentTarget.getBoundingClientRect();t=((e.clientX-r.left)/r.width)*T;show(idx())};
+document.addEventListener('keydown',e=>{if(e.code==='Space'){e.preventDefault();document.getElementById('play').click()}if(e.code==='ArrowRight')jump(idx()+1);if(e.code==='ArrowLeft')jump(idx()-1)});
+requestAnimationFrame(tick);
+</script></body></html>
