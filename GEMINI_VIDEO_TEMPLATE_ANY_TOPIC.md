@@ -43,8 +43,20 @@ A6. TYPE OF VIDEO (pick one)
 A6b. WHAT SHOULD GEMINI DELIVER? (tick all that apply)
 [ ] 1. Word script (a .docx the person can edit)
 [ ] 2. Storyboard
-[ ] 3. LIVE INTERACTIVE 2D VIDEO as one HTML file (plays in a browser, with Play, Pause, Next, Back, captions)
-[ ] 4. An MP4 file, only if Gemini can really produce one
+[ ] 3. LIVE INTERACTIVE VIDEO as one HTML file (PREFERRED). Plays in a browser, with Play, Pause, Next, Back, captions.
+      Graphics style: [ ] 2D   [ ] 3D   [ ] Both (3D with automatic 2D fallback)
+[ ] 4. PDF or PowerPoint of the same script, as a backup copy
+[ ] 5. An MP4 file, only if Gemini can really produce one
+
+A6c. HOW INTERACTIVE? (tick all you want)
+[ ] Click or tap any item on screen to reveal more detail
+[ ] Quiz or "test yourself" questions with instant feedback
+[ ] Choose-your-path: the viewer picks what to see next
+[ ] Drag, slide or toggle controls (for example a slider that changes a number or a map layer)
+[ ] Hotspots on a map or diagram with pop-up explanations
+[ ] Chapter menu to jump anywhere
+[ ] Speaker notes panel for the presenter (hidden by default)
+Interactivity level: [light / medium / very interactive]
 
 A7. LENGTH: [90 seconds test / 3 minutes / 5 minutes]
 Format: [16:9 for laptop and meetings / 9:16 for WhatsApp and phone]
@@ -121,6 +133,8 @@ STEP 3. Say honestly what you can and cannot do in this chat:
    c. only script and storyboard, which the person builds in a video editor
    Never claim you can render a video if you cannot. If you cannot, give free, step-by-step instructions the person can follow on a laptop or phone.
 STEP 3b. If A6b ticks the Word script, produce it per B7. If A6b ticks the live HTML video, build it per B8 only after the script is approved.
+STEP 3c. For 3D, build and describe the 2D fallback first, then the 3D version on top of it.
+STEP 3d. After delivering any file, say: "Tell me what to change. I will return the full updated file each time."
 STEP 4. After the test version is approved, offer: a longer cut, a 9:16 vertical cut, a version in another language, and a captions-only silent version.
 
 ## B6. Self-check before every reply
@@ -130,7 +144,9 @@ Before you answer, check silently:
 3. Does any scene have more than 12 words on screen?
 4. Does the total time match A7?
 5. Did I mention anything in A10?
-6. For HTML: are all colours in the five CSS variables, is there one master clock, and is there nothing loaded from the internet?
+6. For HTML: are all colours in the five CSS variables, is there one master clock, and is the only thing loaded from the internet Three.js r128 (3D only)?
+7. For 3D: is there a WebGL check, a working 2D fallback and a visible Switch to 2D button?
+8. Did I return the COMPLETE file, bump the version, and list what changed and what did not?
 If any answer is yes, fix it first.
 
 
@@ -141,12 +157,13 @@ If any answer is yes, fix it first.
 4. List any "[NUMBER TO CONFIRM]" items together at the end.
 5. If you can create a downloadable .docx, do so. If you cannot, say so plainly and give the table so the person can paste it into Word.
 
-## B8. If A6b ticks "LIVE INTERACTIVE 2D VIDEO" (deliverable 3): build rules
+## B8. If A6b ticks "LIVE INTERACTIVE VIDEO" (deliverable 3): build rules
+Live HTML is the person's preferred format. Build it fully and confidently in 2D, 3D or both, as ticked in A6b.
 Build ONE self-contained HTML file with HTML, CSS and JavaScript inside it. Only start after the script is approved.
 
 C1. Scenes
 1. One scene per script row. Each scene is a <section> that fades or slides in.
-2. Each scene has: a visual made of SVG or CSS shapes, short on-screen text (12 words max), and a caption line that matches the narration.
+2. Each scene has: a visual (2D: SVG or CSS shapes; 3D: a Three.js scene, see C8), short on-screen text (12 words max), and a caption line that matches the narration.
 3. Animate with CSS transitions and requestAnimationFrame. Keep movement gentle: fades, slides, drawing lines, growing bars, moving arrows.
 
 C2. Controls (big, thumb-friendly, work on a phone)
@@ -167,7 +184,7 @@ C4. Narration and timing (hard-won rules, follow exactly)
 4. Do NOT embed audio as base64 inside the HTML. It crashes Chrome on large files. If real recorded narration is needed, reference separate .mp3 files in the same folder and say which files must be added.
 
 C5. Technical safety
-1. No external libraries, fonts, images or scripts loaded from the internet. Everything inside the one file, so it works offline and on GitHub Pages.
+1. 2D videos: no external libraries, fonts, images or scripts. Everything inside the one file. 3D videos: the ONLY external script allowed is Three.js r128 from https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js . Nothing else may be loaded from the internet.
 2. No tracking, no cookies, no forms, no network calls, no login, no personal data.
 3. Works on a laptop first (Chrome and Edge), then on an Android and iPhone browser. Responsive layout, text never smaller than 16px on phones.
 4. Test mentally before delivering: Start, Play, Pause, Next, Back, Restart, Captions, jump via progress bar, and window resize. Say which you could not test.
@@ -180,9 +197,41 @@ C6. Give the person the exact steps to publish
 4. Never use Netlify. Never use htmlpreview or githack links.
 
 C7. Honest limits to state
-1. This is an interactive animated page, not an MP4. It plays only in a browser.
-2. The person's standing rule is that HTML is not used for live meetings. For a live meeting, use the PDF or PowerPoint of the same script instead.
-3. Say anything you could not do or could not check.
+1. This is an interactive animated page, not an MP4. It plays in a browser, on laptop first (Chrome and Edge), then phone.
+2. Say anything you could not do or could not check. Never claim a feature works if you did not test it.
+3. For safety, always also offer the same script as a PDF or PowerPoint backup (deliverable 4), in case a venue's computer blocks the page. This is a spare, not a replacement.
+
+C8. 3D graphics rules (when A6b says 3D or Both)
+1. Use Three.js r128 from the pinned address in C5. Build the scene with simple 3D shapes: spheres, boxes, cylinders, lines, rotating globes or maps, floating labels. Keep it light so it runs on an ordinary laptop and phone.
+2. Mandatory WebGL check before drawing: try to create a WebGL context. If it fails, or Three.js does not load, switch automatically to the 2D version of the same scene (SVG or CSS). The video must never show a blank or frozen screen.
+3. The 3D version and the 2D fallback use the same script, same timings and same captions. Only the visuals differ.
+4. Slow, gentle camera moves only (a gentle orbit, a slow zoom). No fast spinning, no flashing. Pause rendering when the tab is hidden.
+5. Cap the pixel ratio at 2 and keep the object count modest (under 300 meshes), so phones do not overheat.
+6. For people in 3D scenes, use simple, respectful stylised figures: Black African figures, mixed gender, in everyday clothing. No weapons.
+7. A "Switch to 2D" button must always be visible, so the viewer can turn the 3D off if their device struggles.
+
+
+## B9. Interactivity rules (apply when A6c has any box ticked)
+1. Aim for the level chosen in A6c. If "very interactive", most scenes must have something the viewer can tap, drag, choose or answer. Never leave a long stretch of passive watching.
+2. Every interactive item must work with a finger on a phone and a mouse on a laptop. Tap targets at least 44px.
+3. Every interaction must give instant visible feedback: a highlight, a movement, a sound-free pop-up, a tick or cross on quizzes.
+4. Quiz answers must come from the facts in Part A only. Show the correct answer with one plain sentence of why.
+5. Interactions must never trap the viewer. A visible Close or Back always works, and the master clock and progress bar keep working.
+6. Add a chapter menu (a list of scenes the viewer can jump to) and keep the Play, Pause, Next, Back, Restart and Captions controls always visible.
+7. Nothing may collect, store or send the viewer's answers or taps. Keep everything in the page only.
+
+## B10. Corrections and adjustments (Gemini must be able to change anything)
+The person will ask for changes in plain words, in this chat, as many times as needed. Examples: "make the background brighter", "slow scene 3 down", "change the words on scene 5", "add a quiz after scene 4", "make the figures bigger", "remove the map".
+1. Always make the change and return the COMPLETE updated file. Never send only a fragment and never say "replace this part".
+2. Change only what was asked. Do not alter anything else. If a change could affect something else, say so in one line.
+3. Increase the version number each time (v1, v2, v3) in the file name and in a visible small label in the file.
+4. Start every reply with a "What I changed" list of 1 to 5 plain lines. End with "What I did not change".
+5. Build the file so that common changes are easy: all colours in the five CSS variables (C3); all scene words, timings and captions in ONE data block at the top of the script called SCENES; all quiz questions in ONE block called QUIZ. Label both blocks with a clear comment.
+6. After every change run the self-check in B6 again, and for 3D also check the 2D fallback still works.
+7. If a requested change would break a rule in Part B (for example adding an unverified number), do not just refuse. Explain which rule it breaks, offer the nearest safe version, and let the person decide. Facts from outside Part A stay as "[NUMBER TO CONFIRM]".
+8. If the person says "go back to the last version", return the previous complete file exactly.
+9. Keep a short CHANGE LOG as an HTML comment at the top of the file listing each version and what changed.
+10. If you cannot do something, say so plainly and give the nearest thing you can do. Never pretend.
 
 ---
 # PART C. EXAMPLE OF PART A, FILLED IN (for reference only, delete this part before pasting)

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sample 3D interactive video (bright, with 2D fallback)</title>
+<style>
+:root{--bg:#EAF4FF;--text:#12263F;--accent:#E0A100;--accent2:#1E6FD9;--panel:#FFFFFF;}
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex;flex-direction:column;align-items:center}
+#stage{position:relative;width:min(960px,100vw);aspect-ratio:16/9;background:var(--panel);overflow:hidden;border-radius:12px;margin-top:12px;box-shadow:0 4px 18px rgba(18,38,63,.15)}
+#gl{position:absolute;inset:0;width:100%;height:100%;display:block}
+#flat{position:absolute;inset:0;display:none;align-items:center;justify-content:center}
+#flat svg{width:min(70%,360px)}
+#title{position:absolute;left:0;right:0;top:8%;text-align:center;font-size:clamp(22px,4.2vw,42px);font-weight:700;padding:0 6%;transition:opacity .5s}
+#cap{width:min(960px,100vw);min-height:48px;padding:10px 14px;font-size:clamp(16px,2.4vw,20px);text-align:center}
+#bar{width:min(960px,100vw);height:14px;background:#cfe0f5;border-radius:7px;cursor:pointer;margin:4px 0}
+#fill{height:100%;width:0;background:var(--accent2);border-radius:7px}
+#ctl{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;padding:8px}
+button{font-size:16px;padding:12px 16px;border:0;border-radius:10px;background:var(--accent2);color:#fff;cursor:pointer;min-width:56px}
+button.alt{background:var(--accent);color:#12263F}
+#start{position:absolute;inset:0;background:var(--panel);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:5;text-align:center;padding:12px}
+</style></head><body>
+<div id="stage">
+ <canvas id="gl"></canvas>
+ <div id="flat"><svg viewBox="0 0 200 120"><circle id="f1" cx="50" cy="60" r="22" fill="var(--accent2)"/><circle id="f2" cx="100" cy="60" r="22" fill="var(--accent)"/><circle id="f3" cx="150" cy="60" r="22" fill="var(--accent2)"/></svg></div>
+ <div id="title"></div>
+ <div id="start"><div style="font-size:clamp(22px,4vw,38px);font-weight:700">Sample 3D video</div><p>Bright background. 3D with automatic 2D fallback.</p><button id="go">Tap to start</button></div>
+</div>
+<div id="cap"></div>
+<div id="bar"><div id="fill"></div></div>
+<div id="ctl"><button id="back">Back</button><button id="play">Pause</button><button id="next">Next</button><button id="rst" class="alt">Restart</button><button id="cc" class="alt">Captions: On</button><button id="mode" class="alt">Switch to 2D</button></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+const S=[{d:5,h:"Scene 1: the problem",c:"Scene one. Say the problem in one plain sentence."},{d:5,h:"Scene 2: one clear idea",c:"Scene two. Show one idea. Keep it simple."},{d:5,h:"Scene 3: what to remember",c:"Scene three. Give the one thing to remember."}];
+const T=S.reduce((a,s)=>a+s.d,0);
+let t=0,playing=false,last=0,cur=-1,ccOn=true,use3D=false,R,scene,cam,meshes=[];
+const $=id=>document.getElementById(id);
+function webglOK(){try{const c=document.createElement('canvas');return !!(window.THREE&&(c.getContext('webgl')||c.getContext('experimental-webgl')))}catch(e){return false}}
+function init3D(){
+  const cv=$('gl');R=new THREE.WebGLRenderer({canvas:cv,antialias:true});R.setPixelRatio(Math.min(window.devicePixelRatio||1,2));
+  scene=new THREE.Scene();scene.background=new THREE.Color(0xFFFFFF);
+  cam=new THREE.PerspectiveCamera(50,16/9,.1,100);cam.position.set(0,1.5,9);
+  scene.add(new THREE.AmbientLight(0xffffff,.8));const L=new THREE.DirectionalLight(0xffffff,.8);L.position.set(4,6,6);scene.add(L);
+  const cols=[0x1E6FD9,0xE0A100,0x1E6FD9];
+  for(let i=0;i<3;i++){const m=new THREE.Mesh(new THREE.SphereGeometry(1.2,32,32),new THREE.MeshStandardMaterial({color:cols[i]}));m.position.x=(i-1)*4;scene.add(m);meshes.push(m)}
+  resize();
+}
+function resize(){if(!R)return;const w=$('stage').clientWidth,h=$('stage').clientHeight;R.setSize(w,h,false);cam.aspect=w/h;cam.updateProjectionMatrix()}
+function set2D(on){use3D=!on;$('gl').style.display=on?'none':'block';$('flat').style.display=on?'flex':'none';$('mode').textContent=on?'Switch to 3D':'Switch to 2D';if(on&&R){}}
+const st=i=>S.slice(0,i).reduce((a,s)=>a+s.d,0);
+function idx(){let a=0;for(let i=0;i<S.length;i++){a+=S[i].d;if(t<a)return i}return S.length-1}
+function show(i){if(i===cur)return;cur=i;$('title').textContent=S[i].h;$('cap').textContent=ccOn?S[i].c:''}
+function draw(i){
+  if(use3D&&R){meshes.forEach((m,k)=>{const on=k===i;m.scale.setScalar(on?1.25:.8);m.rotation.y=t*.8});cam.position.x=Math.sin(t*.25)*1.5;cam.lookAt(0,0,0);R.render(scene,cam)}
+  else{['f1','f2','f3'].forEach((id,k)=>{$(id).setAttribute('r',k===i?30:18)})}
+}
+function tick(n){if(playing){t+=(n-last)/1000;if(t>=T){t=T-.001;playing=false;$('play').textContent='Play'}}last=n;if(!document.hidden){const i=idx();show(i);draw(i)}$('fill').style.width=(t/T*100)+'%';requestAnimationFrame(tick)}
+function jump(i){t=st(Math.max(0,Math.min(S.length-1,i)))+.01;show(idx())}
+$('go').onclick=()=>{$('start').style.display='none';playing=true;last=performance.now()};
+$('play').onclick=e=>{playing=!playing;e.target.textContent=playing?'Pause':'Play'};
+$('next').onclick=()=>jump(idx()+1);$('back').onclick=()=>jump(idx()-1);
+$('rst').onclick=()=>{t=0;playing=true;$('play').textContent='Pause'};
+$('cc').onclick=e=>{ccOn=!ccOn;e.target.textContent='Captions: '+(ccOn?'On':'Off');cur=-1;show(idx())};
+$('bar').onclick=e=>{const r=e.currentTarget.getBoundingClientRect();t=((e.clientX-r.left)/r.width)*T;show(idx())};
+$('mode').onclick=()=>{if(!R&&!use3D){return}set2D(use3D)};
+document.addEventListener('keydown',e=>{if(e.code==='Space'){e.preventDefault();$('play').click()}if(e.code==='ArrowRight')jump(idx()+1);if(e.code==='ArrowLeft')jump(idx()-1)});
+window.addEventListener('resize',resize);
+if(webglOK()){try{init3D();set2D(false)}catch(e){set2D(true);$('mode').style.display='none'}}else{set2D(true);$('mode').style.display='none'}
+requestAnimationFrame(tick);
+</script></body></html>
