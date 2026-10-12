@@ -48,6 +48,9 @@ A6b. WHAT SHOULD GEMINI DELIVER? (tick all that apply)
 [ ] 4. PDF or PowerPoint of the same script, as a backup copy
 [ ] 5. An MP4 file, only if Gemini can really produce one
 
+A6d. HOW DYNAMIC? [calm and smooth / lively / very dynamic with strong camera moves]
+Where should 3D be used? [maps / networks / people / charts / buildings / let Gemini choose]
+
 A6c. HOW INTERACTIVE? (tick all you want)
 [ ] Click or tap any item on screen to reveal more detail
 [ ] Quiz or "test yourself" questions with instant feedback
@@ -147,6 +150,8 @@ Before you answer, check silently:
 6. For HTML: are all colours in the five CSS variables, is there one master clock, and is the only thing loaded from the internet Three.js r128 (3D only)?
 7. For 3D: is there a WebGL check, a working 2D fallback and a visible Switch to 2D button?
 8. Did I return the COMPLETE file, bump the version, and list what changed and what did not?
+9. Is something always moving in every scene, are scenes built in beats, and is there a Reduce motion button (B11)?
+10. For 3D: did I use 3D only where it helps the point, and does every 3D scene have an animated 2D fallback (B12)?
 If any answer is yes, fix it first.
 
 
@@ -164,7 +169,7 @@ Build ONE self-contained HTML file with HTML, CSS and JavaScript inside it. Only
 C1. Scenes
 1. One scene per script row. Each scene is a <section> that fades or slides in.
 2. Each scene has: a visual (2D: SVG or CSS shapes; 3D: a Three.js scene, see C8), short on-screen text (12 words max), and a caption line that matches the narration.
-3. Animate with CSS transitions and requestAnimationFrame. Keep movement gentle: fades, slides, drawing lines, growing bars, moving arrows.
+3. Animate with CSS transitions and requestAnimationFrame. Follow the dynamic motion standard in B11. The video must feel alive, never like a slideshow.
 
 C2. Controls (big, thumb-friendly, work on a phone)
 1. Play / Pause button. Next and Back scene buttons. A progress bar the viewer can tap to jump. A Captions On/Off toggle. A Restart button.
@@ -205,7 +210,7 @@ C8. 3D graphics rules (when A6b says 3D or Both)
 1. Use Three.js r128 from the pinned address in C5. Build the scene with simple 3D shapes: spheres, boxes, cylinders, lines, rotating globes or maps, floating labels. Keep it light so it runs on an ordinary laptop and phone.
 2. Mandatory WebGL check before drawing: try to create a WebGL context. If it fails, or Three.js does not load, switch automatically to the 2D version of the same scene (SVG or CSS). The video must never show a blank or frozen screen.
 3. The 3D version and the 2D fallback use the same script, same timings and same captions. Only the visuals differ.
-4. Slow, gentle camera moves only (a gentle orbit, a slow zoom). No fast spinning, no flashing. Pause rendering when the tab is hidden.
+4. Use purposeful camera moves (see B11): fly-ins, orbits, push-ins, pull-backs and angle changes that follow the story. No strobing or flashing, and no spinning that makes the viewer dizzy. Pause rendering when the tab is hidden.
 5. Cap the pixel ratio at 2 and keep the object count modest (under 300 meshes), so phones do not overheat.
 6. For people in 3D scenes, use simple, respectful stylised figures: Black African figures, mixed gender, in everyday clothing. No weapons.
 7. A "Switch to 2D" button must always be visible, so the viewer can turn the 3D off if their device struggles.
@@ -232,6 +237,41 @@ The person will ask for changes in plain words, in this chat, as many times as n
 8. If the person says "go back to the last version", return the previous complete file exactly.
 9. Keep a short CHANGE LOG as an HTML comment at the top of the file listing each version and what changed.
 10. If you cannot do something, say so plainly and give the nearest thing you can do. Never pretend.
+
+
+## B11. Dynamic motion standard (the video must feel alive)
+The person wants a DYNAMIC video, not a slideshow. Apply all of this, whatever the graphics style in A6b.
+
+1. *Something is always moving.* In every scene, at least one element is in motion at all times: drawing lines, flowing arrows, travelling dots, counters rising, bars growing, maps panning, icons popping in, figures walking or gesturing. No still frame longer than 2 seconds.
+2. *Build each scene in beats.* A scene is not one picture. Split each scene into 3 to 5 beats that appear in sequence, timed to the narration: element 1 enters, then 2, then 3, then the key point lands. The key point gets the strongest motion.
+3. *Vary the entrances.* Do not use the same fade for everything. Mix slide, zoom, pop, wipe, draw-on, flip and grow. Stagger groups of items by 100 to 200 milliseconds so they cascade in.
+4. *Scene transitions that connect.* Move from scene to scene with a camera move, a zoom into a detail, a wipe or a morph, so one scene flows into the next. Do not simply cut or fade to black each time.
+5. *Depth and parallax.* Use layers moving at different speeds (background slow, foreground faster) so even 2D scenes have depth.
+6. *Show, don't tell.* Wherever the narration describes a process, a flow, a journey, a network or a comparison, ANIMATE it: a signal travelling along a path, items moving between boxes, a map lighting up region by region, a before and after that morphs.
+7. *Emphasis moves.* Use a quick pulse, glow, scale-up or highlight sweep on the word or object being spoken about at that moment.
+8. *Speed.* Entrances take 0.3 to 0.8 seconds. Big moves take up to 1.5 seconds. Energy should match the mood chosen in A8: calm and dignified means smooth and confident, not sluggish.
+9. *Safe motion.* No flashing or strobing faster than 3 times per second. Add a "Reduce motion" button that switches off the large moves and keeps the content. Respect the device's prefers-reduced-motion setting automatically.
+10. *Performance.* Animate only transform and opacity where possible. Keep it smooth (about 60 frames a second) on an ordinary laptop. If the page stutters, simplify the effects, not the content.
+
+## B12. When to use 3D (use it wherever it makes the point clearer)
+If A6b ticks 3D or Both, do not use 3D as decoration. Use it where depth or space helps the story. Choose from this menu and say which you used in each scene:
+1. *Globe or terrain map:* a rotating globe or a raised 3D map of the region, with glowing markers, connection lines and zones that rise up.
+2. *Networks and flows:* nodes and links floating in space, with signals travelling between them, to show systems, partnerships, supply chains or data paths.
+3. *Layers and stacks:* exploded 3D stacks that pull apart to show levels, tiers or how a system is built.
+4. *Charts in 3D:* bars, columns or rings that grow up out of the floor, with numbers floating above. Only with numbers from Part A.
+5. *Objects and buildings:* simple stylised 3D buildings, devices, vehicles, farms, clinics or houses, shown from changing angles.
+6. *People:* simple, respectful 3D figures (Black African, mixed gender, everyday clothing) in groups that walk, gather, point or hand things to each other, as set out in C8.
+7. *Timelines:* a path the camera travels along, stopping at milestones.
+8. *Camera storytelling:* a fly-through that opens on a wide view and pushes in on the key detail, then pulls back to link to the next scene.
+Rules for 3D scenes:
+a. Each 3D scene has a 2D fallback with the same beats and timing (C8). The fallback must also be animated, not a still picture.
+b. Add a "Switch to 2D" button and a "Reduce motion" button on every 3D scene.
+c. Keep 3D scenes light. Under 300 objects, pixel ratio capped at 2.
+d. Mix 2D and 3D in the same video where that is clearest: for example 2D for text and diagrams, 3D for maps, networks and people.
+e. A person can also ask for "more 3D" or "less 3D" at any time. Treat that as a normal correction under B10.
+
+## B13. Interactivity inside the motion
+Dynamic does not mean passive. In "very interactive" videos, pause the narration on key beats and let the viewer drag, tap or rotate: spin the 3D globe, tap a node to see its label, drag a slider to change a map layer. A "Continue" button or a 5-second auto-resume brings the story back on track.
 
 ---
 # PART C. EXAMPLE OF PART A, FILLED IN (for reference only, delete this part before pasting)
