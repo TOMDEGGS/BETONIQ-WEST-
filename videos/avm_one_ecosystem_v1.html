@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<!--
+CHANGE LOG
+v1, 12 Oct 2026: 90-second interactive video, 9 scenes. 2D with animated 3D scenes (Three.js r128) and automatic 2D fallback.
+Source: AVM Morgan keynote text only. No statistics used.
+-->
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>One Ecosystem, Not Separate Problems | AVM Monday Riku Morgan (Rtd.)</title>
+<style>
+/* ===== COLOURS: change the whole look here ===== */
+:root{--bg:#EAF4FF;--text:#12263F;--accent:#E0A100;--accent2:#1E6FD9;--panel:#FFFFFF;--soft:#cfe0f5;--good:#1E9E5A;--bad:#C0392B}
+*{box-sizing:border-box;margin:0}
+html,body{height:100%}
+body{font-family:Georgia,"Times New Roman",serif;background:var(--bg);color:var(--text);display:flex;flex-direction:column;align-items:center;overflow-x:hidden}
+#top{width:min(1000px,100vw);padding:10px 14px 4px;font:600 13px Arial,sans-serif;letter-spacing:.08em;color:var(--accent2);display:flex;justify-content:space-between;text-transform:uppercase}
+#stage{position:relative;width:min(1000px,100vw);aspect-ratio:16/9;background:linear-gradient(160deg,#fff 0%,#f3f9ff 100%);overflow:hidden;border-radius:14px;box-shadow:0 8px 28px rgba(18,38,63,.18)}
+#gl{position:absolute;inset:0;width:100%;height:100%;display:block}
+.layer{position:absolute;inset:0;pointer-events:none}
+#svgbox{position:absolute;inset:0}
+#svgbox svg{width:100%;height:100%}
+.scene{position:absolute;inset:0;opacity:0;visibility:hidden;transition:opacity .7s}
+.scene.on{opacity:1;visibility:visible}
+#ttl{position:absolute;left:0;right:0;top:5%;text-align:center;font-weight:700;font-size:clamp(20px,4.4vw,46px);padding:0 6%;line-height:1.15;z-index:3;text-shadow:0 2px 0 #fff}
+#ttl span{display:inline-block;animation:pop .6s cubic-bezier(.2,1.4,.4,1) both}
+@keyframes pop{from{opacity:0;transform:translateY(24px) scale(.9)}to{opacity:1;transform:none}}
+#sub{position:absolute;left:0;right:0;bottom:12%;text-align:center;font:600 clamp(14px,2.3vw,24px) Arial,sans-serif;color:var(--accent2);z-index:3;padding:0 8%}
+#start{position:absolute;inset:0;z-index:20;background:radial-gradient(circle at 50% 40%,#fff,#dcecff);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:16px}
+#start h1{font-size:clamp(24px,5.2vw,54px);line-height:1.1;max-width:88%}
+#start p{font:15px Arial,sans-serif;margin:12px 0 20px;max-width:80%}
+#start .big{font-size:20px;padding:16px 34px}
+#cap{width:min(1000px,100vw);min-height:58px;padding:10px 16px;font:clamp(15px,2.2vw,19px) Arial,sans-serif;text-align:center;line-height:1.4}
+#bar{position:relative;width:min(1000px,100vw);height:16px;background:var(--soft);border-radius:8px;cursor:pointer;margin:2px 0}
+#fill{height:100%;width:0;background:linear-gradient(90deg,var(--accent2),var(--accent));border-radius:8px}
+.tick{position:absolute;top:-3px;width:2px;height:22px;background:#fff;opacity:.9}
+#ctl{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;padding:8px;width:min(1000px,100vw)}
+button{font:600 15px Arial,sans-serif;padding:12px 15px;border:0;border-radius:10px;background:var(--accent2);color:#fff;cursor:pointer;min-width:52px;min-height:44px}
+button.alt{background:var(--accent);color:#12263F}
+button.ghost{background:#fff;color:var(--accent2);border:2px solid var(--accent2)}
+button:hover{filter:brightness(1.08)}
+#menu{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;padding:2px 8px 6px;width:min(1000px,100vw)}
+#menu button{font-size:12px;padding:8px 10px;min-height:36px;background:#fff;color:var(--text);border:1px solid var(--soft)}
+#menu button.cur{background:var(--accent);border-color:var(--accent)}
+#panel{position:absolute;right:2%;bottom:3%;max-width:46%;background:#fff;border:2px solid var(--accent);border-radius:12px;padding:12px 14px;font:14px/1.4 Arial,sans-serif;z-index:12;display:none;box-shadow:0 6px 18px rgba(0,0,0,.2)}
+#panel b{display:block;margin-bottom:4px;color:var(--accent2)}
+#panel .x{position:absolute;top:2px;right:6px;cursor:pointer;font-size:20px;pointer-events:auto}
+.hint{position:absolute;left:2%;bottom:3%;font:600 12px Arial,sans-serif;color:#fff;background:var(--accent2);padding:6px 10px;border-radius:20px;z-index:11;animation:pulse 1.6s infinite}
+@keyframes pulse{50%{transform:scale(1.07)}}
+.node{cursor:pointer;pointer-events:auto}
+.reduce *{animation-duration:.01s!important;transition-duration:.01s!important}
+#quiz{position:absolute;inset:0;z-index:15;background:rgba(234,244,255,.97);display:none;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:18px;text-align:center}
+#quiz h2{font-size:clamp(18px,3.4vw,32px)}
+#quiz .opts{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+#quiz .res{font:600 17px Arial,sans-serif;min-height:46px;max-width:80%}
+#ver{font:11px Arial,sans-serif;color:#6b7f99;padding:6px}
+@media(max-width:600px){#panel{max-width:90%;right:5%;bottom:14%}}
+</style></head><body>
+<div id="top"><span>BETONIQ WEST LTD</span><span id="count">Scene 1 of 9</span></div>
+<div id="stage">
+  <canvas id="gl"></canvas>
+  <div id="svgbox"></div>
+  <div id="ttl"></div>
+  <div id="sub"></div>
+  <div class="hint" id="hint" style="display:none"></div>
+  <div id="panel"><span class="x" id="px">&times;</span><b id="pt"></b><span id="pb"></span></div>
+  <div id="quiz"><h2 id="qq"></h2><div class="opts" id="qo"></div><div class="res" id="qr"></div><button id="qc" style="display:none">Continue</button></div>
+  <div id="start">
+    <h1>One Ecosystem, Not Separate Problems</h1>
+    <p>Air Vice Marshal Monday Riku Morgan (Rtd.) &middot; 90-second interactive message<br>Tap anything that glows to learn more.</p>
+    <button class="big" id="go">Tap to start</button>
+  </div>
+</div>
+<div id="cap"></div>
+<div id="bar"><div id="fill"></div></div>
+<div id="ctl">
+  <button id="back">&laquo; Back</button><button id="play">Pause</button><button id="next">Next &raquo;</button>
+  <button id="rst" class="alt">Restart</button><button id="cc" class="alt">Captions: On</button>
+  <button id="voice" class="ghost">Voice: Off</button><button id="mode" class="ghost">Switch to 2D</button><button id="rm" class="ghost">Reduce motion</button>
+</div>
+<div id="menu"></div>
+<div id="ver">v1 &middot; 12 Oct 2026 &middot; Draft for review by the speaker. Source: keynote text.</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+/* ============ SCENES: edit words, timings and captions here ============ */
+const SCENES=[
+ {d:10,t:"One Ecosystem, Not Separate Problems",s:"A mother. A farmer. A ruler. A soldier.",
+  c:"A mother in Benue sending her children to school. A farmer in Plateau. A traditional ruler in Niger State. A soldier redeployed again and again. Different people, one shared problem.",
+  v:"people",info:["Four people, one region","A mother, a farmer, a traditional ruler and a soldier. Each sees a different part of the same problem."]},
+ {d:10,t:"Force alone cannot win",s:"Not a task force. Not a committee. A permanent architecture.",
+  c:"North-Central Nigeria cannot defeat insecurity through military operations alone. The region needs a permanent partnership, not a temporary task force.",
+  v:"force",info:["The central argument","Military operations alone cannot defeat insecurity in North-Central Nigeria. The answer is a permanent partnership."]},
+ {d:10,t:"The cycle we have normalised",s:"Reaction without prevention.",
+  c:"An attack occurs. People are killed. Police are alerted. The military is mobilised. The attackers vanish. We wait. More manpower does not fix a cycle that is reactive by design.",
+  v:"cycle",info:["Why more manpower is not enough","A cycle that only reacts stays reactive, however many people join it."]},
+ {d:10,t:"Change the question",s:"What can we do today to prevent it?",
+  c:"The question must change. Not: an attack has occurred, what do we do? But: what is the probability of an attack, and what can we do today to prevent it?",
+  v:"question",info:["From reaction to prevention","The shift is in the question we ask before anything happens."]},
+ {d:10,t:"See. Share. Decide. Act. Learn.",s:"Five disciplines, one cycle.",
+  c:"Security is shared work in five steps. We see by collecting information. We share it fast. We decide with clear command. We act in proportion. We learn, so it does not repeat.",
+  v:"five",info:null},
+ {d:10,t:"One permanent partnership",s:"Everyone is part of the same system.",
+  c:"The military, the police, the intelligence services, state and local government, traditional rulers, communities, technology providers and citizens, working as one permanent architecture.",
+  v:"network",info:null},
+ {d:10,t:"The community is the first sensor",s:"Farmers, teachers, hunters, health workers, market women.",
+  c:"Farmers, hunters, teachers, traditional rulers, transporters, religious leaders, health workers and market women see what no satellite and no patrol will ever see.",
+  v:"sensor",info:["Not a vigilante system","It is a disciplined, legally governed community information network. People who report must receive feedback, or they stop reporting."]},
+ {d:10,t:"The first 30 to 60 minutes",s:"Pre-positioned, not reactive.",
+  c:"Thirty to sixty minutes can decide whether an incident becomes a failed attack or a mass-casualty event. Response must be in place before it is needed.",
+  v:"window",info:["Why the window matters","Rapid response units, medical evacuation, communications and community liaison, all pre-positioned."]},
+ {d:10,t:"Prevent first, react second.",s:"One ecosystem for peace across North-Central Nigeria.",
+  c:"Technology multiplies human capability. It does not replace people. Prevent first, react second. Let us build one ecosystem for peace across North-Central Nigeria.",
+  v:"close",info:["Technology multiplies people","A drone that cannot send useful information to a commander who can act is only an expensive flying camera."]}
+];
+const QUIZ={after:3,q:"In the keynote, what should the question become?",
+ o:[["How many troops do we need?",false],["What is the probability of an attack, and what can we do today to prevent it?",true],["Who is to blame?",false]],
+ why:"Correct. The shift is from reacting after an attack to preventing it."};
+const FIVE=[["SEE","Collect information"],["SHARE","Move it fast to those who need it"],["DECIDE","Clear responsibility and command"],["ACT","Respond in proportion, quickly"],["LEARN","Analyse and stop repetition"]];
+const NET=[["Armed Forces","Operations, with intelligence behind them."],["Police","Rapid response and local presence."],["Intelligence services","Fusing information so patterns show."],["State and local government","Resources, coordination and trust."],["Traditional rulers","Know who lives in and who enters their domain."],["Communities","The first sensor of all."],["Technology providers","Tools that multiply people."],["Citizens","Part of the system, not outside it."]];
+/* ======================================================================= */
+
+const NS="http://www.w3.org/2000/svg",$=id=>document.getElementById(id);
+const T=SCENES.reduce((a,s)=>a+s.d,0),starts=[];let acc=0;SCENES.forEach(s=>{starts.push(acc);acc+=s.d});
+let t=0,playing=false,last=0,cur=-1,ccOn=true,voiceOn=false,use3D=false,hasGL=false,R,scene3,cam,quizDone=false,quizOpen=false,rmOn=false;
+if(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches){rmOn=true;document.body.classList.add('reduce')}
+
+/* ---------- 2D art (SVG) ---------- */
+function el(n,a,p){const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);if(p)p.appendChild(e);return e}
+function person(g,x,y,col,sc,type){ // simple stylised figure, Black African, mixed gender
+  const f=el('g',{transform:`translate(${x},${y}) scale(${sc})`},g);
+  const skin="#5a3a28";
+  if(type==='f'){el('path',{d:'M-14,40 L-20,95 L20,95 L14,40 Z',fill:col},f)}else{el('rect',{x:-14,y:38,width:28,height:58,rx:8,fill:col},f)}
+  el('rect',{x:-6,y:28,width:12,height:12,fill:skin},f);
+  el('circle',{cx:0,cy:16,r:15,fill:skin},f);
+  if(type==='f'){el('path',{d:'M-16,14 Q0,-8 16,14 Q10,0 0,0 Q-10,0 -16,14Z',fill:'#1b1410'},f);el('circle',{cx:-15,cy:22,r:7,fill:'#1b1410'},f);el('circle',{cx:15,cy:22,r:7,fill:'#1b1410'},f)}
+  else{el('path',{d:'M-15,12 Q0,-4 15,12 Q8,2 0,2 Q-8,2 -15,12Z',fill:'#1b1410'},f)}
+  el('rect',{x:-22,y:44,width:10,height:36,rx:5,fill:col},f);el('rect',{x:12,y:44,width:10,height:36,rx:5,fill:col},f);
+  return f}
+function build2D(kind){
+  const box=$('svgbox');box.innerHTML='';
+  const svg=el('svg',{viewBox:'0 0 1000 562',preserveAspectRatio:'xMidYMid slice'});box.appendChild(svg);
+  // parallax background
+  const bg=el('g',{id:'bg'},svg);
+  for(let i=0;i<7;i++){const h=60+((i*53)%90);el('path',{d:`M${i*170-40},470 L${i*170+40},${470-h} L${i*170+120},470Z`,fill:i%2?'#d5e6fa':'#c4dcf5',opacity:.8},bg)}
+  el('rect',{x:0,y:470,width:1000,height:92,fill:'#cfe3f7'},svg);
+  el('path',{d:'M0,470 Q250,440 500,470 T1000,470',fill:'none',stroke:'#b6d2f0','stroke-width':3},svg);
+  const g=el('g',{id:'art'},svg);return g}
+let anim=null;
+function art(kind){
+  const g=build2D(kind);anim=null;
+  const cols=['#1E6FD9','#E0A100','#1E9E5A','#12263F'];
+  if(kind==='people'){
+    const defs=[[200,'f','Mother','#E0A100'],[420,'m','Farmer','#1E9E5A'],[640,'m','Traditional ruler','#C0392B'],[840,'m','Soldier','#12263F']];
+    const items=defs.map((d,i)=>{const gg=el('g',{opacity:0},g);person(gg,d[0],250,d[3],1.5,d[1]);
+      const lb=el('text',{x:d[0],y:440,'text-anchor':'middle','font-size':22,'font-family':'Arial',fill:'#12263F','font-weight':700},gg);lb.textContent=d[2];return gg});
+    anim=(p,tt)=>items.forEach((gg,i)=>{const k=Math.max(0,Math.min(1,(tt-i*1.4)/0.8));gg.setAttribute('opacity',k);gg.setAttribute('transform',`translate(0,${(1-k)*40}) translate(0,${Math.sin(tt*2+i)*3})`)});
+  }
+  if(kind==='force'){
+    const a=el('g',{},g);
+    const bar=el('rect',{x:120,y:300,width:0,height:70,rx:12,fill:'#C0392B'},a);
+    const tx=el('text',{x:130,y:345,'font-size':26,'font-family':'Arial','font-weight':700,fill:'#fff'},a);tx.textContent='Military operations alone';
+    const x=el('g',{opacity:0},g);el('line',{x1:760,y1:290,x2:880,y2:380,stroke:'#C0392B','stroke-width':16,'stroke-linecap':'round'},x);el('line',{x1:880,y1:290,x2:760,y2:380,stroke:'#C0392B','stroke-width':16,'stroke-linecap':'round'},x);
+    const nodes=['Police','Intelligence','Government','Rulers','Communities','Citizens'].map((n,i)=>{const gg=el('g',{opacity:0},g);const cx=140+i*145;el('circle',{cx,cy:200,r:44,fill:'#1E6FD9'},gg);const q=el('text',{x:cx,y:206,'text-anchor':'middle','font-size':14,'font-family':'Arial','font-weight':700,fill:'#fff'},gg);q.textContent=n;return gg});
+    anim=(p,tt)=>{bar.setAttribute('width',Math.min(620,tt*180));x.setAttribute('opacity',tt>3.5?1:0);nodes.forEach((n,i)=>{const k=Math.max(0,Math.min(1,(tt-5-i*.4)/.5));n.setAttribute('opacity',k)})};
+  }
+  if(kind==='cycle'){
+    const labels=['Attack occurs','People are killed','Police alerted','Military mobilised','Attackers vanish','We wait'];
+    const cx=500,cy=290,r=150;const dots=[];
+    el('circle',{cx,cy,r,fill:'none',stroke:'#C0392B','stroke-width':6,'stroke-dasharray':'12 10'},g);
+    labels.forEach((l,i)=>{const a=-Math.PI/2+i*2*Math.PI/6;const x=cx+Math.cos(a)*r,y=cy+Math.sin(a)*r;const gg=el('g',{opacity:0},g);el('circle',{cx:x,cy:y,r:18,fill:'#C0392B'},gg);
+      const tx=el('text',{x:x+(Math.cos(a)>0.2?30:Math.cos(a)<-0.2?-30:0),y:y+(Math.abs(Math.cos(a))<0.2?(Math.sin(a)<0?-30:42):6),'text-anchor':Math.cos(a)>0.2?'start':Math.cos(a)<-0.2?'end':'middle','font-size':22,'font-family':'Arial','font-weight':700,fill:'#12263F'},gg);tx.textContent=l;dots.push(gg)});
+    const ball=el('circle',{r:12,fill:'#E0A100',stroke:'#fff','stroke-width':3},g);
+    const c=el('text',{x:cx,y:cy+8,'text-anchor':'middle','font-size':26,'font-family':'Arial','font-weight':700,fill:'#C0392B'},g);c.textContent='REACTIVE';
+    anim=(p,tt)=>{dots.forEach((d,i)=>d.setAttribute('opacity',tt>i*.9?1:0));const a=-Math.PI/2+tt*1.1;ball.setAttribute('cx',cx+Math.cos(a)*r);ball.setAttribute('cy',cy+Math.sin(a)*r)};
+  }
+  if(kind==='question'){
+    const q1=el('text',{x:500,y:230,'text-anchor':'middle','font-size':34,'font-family':'Georgia',fill:'#C0392B','font-weight':700},g);q1.textContent='"An attack has occurred. What do we do?"';
+    const strike=el('line',{x1:120,y1:222,x2:120,y2:222,stroke:'#C0392B','stroke-width':6},g);
+    const q2=el('text',{x:500,y:340,'text-anchor':'middle','font-size':34,'font-family':'Georgia',fill:'#1E9E5A','font-weight':700,opacity:0},g);q2.textContent='"What is the probability of an attack,';
+    const q3=el('text',{x:500,y:386,'text-anchor':'middle','font-size':34,'font-family':'Georgia',fill:'#1E9E5A','font-weight':700,opacity:0},g);q3.textContent='and what can we do today to prevent it?"';
+    anim=(p,tt)=>{strike.setAttribute('x2',120+Math.min(760,Math.max(0,tt-2)*400));q2.setAttribute('opacity',tt>4?Math.min(1,(tt-4)):0);q3.setAttribute('opacity',tt>5?Math.min(1,(tt-5)):0);q1.setAttribute('opacity',tt>4?.45:1)};
+  }
+  if(kind==='five'){
+    const nodes=FIVE.map((f,i)=>{const x=110+i*195;const gg=el('g',{class:'node',opacity:0,style:'cursor:pointer'},g);
+      el('circle',{cx:x,cy:270,r:62,fill:cols[i%2?1:0]==='#1E6FD9'?'#1E6FD9':'#E0A100'},gg);
+      const a=el('text',{x,y:280,'text-anchor':'middle','font-size':26,'font-family':'Arial','font-weight':800,fill:i%2?'#12263F':'#fff'},gg);a.textContent=f[0];
+      if(i<4)el('path',{d:`M${x+66},270 L${x+126},270`,stroke:'#12263F','stroke-width':5,'marker-end':'url(#ar)'},g);
+      gg.addEventListener('click',()=>showPanel(f[0],f[1]));return gg});
+    const defs=el('defs',{},g);const m=el('marker',{id:'ar',markerWidth:10,markerHeight:10,refX:6,refY:3,orient:'auto'},defs);el('path',{d:'M0,0 L7,3 L0,6Z',fill:'#12263F'},m);
+    const loop=el('path',{d:'M880,340 Q500,520 110,340',fill:'none',stroke:'#1E9E5A','stroke-width':5,'stroke-dasharray':'10 8',opacity:0},g);
+    const lt=el('text',{x:500,y:470,'text-anchor':'middle','font-size':24,'font-family':'Arial','font-weight':700,fill:'#1E9E5A',opacity:0},g);lt.textContent='Learn, then see better next time';
+    anim=(p,tt)=>{nodes.forEach((n,i)=>{const k=Math.max(0,Math.min(1,(tt-i*1.6)/.6));n.setAttribute('opacity',k);n.setAttribute('transform',`translate(0,${(1-k)*-30+Math.sin(tt*2+i)*3})`)});const L=tt>8.3?1:0;loop.setAttribute('opacity',L);lt.setAttribute('opacity',L)};
+    setHint('Tap a step to learn more');
+  }
+  if(kind==='network'){
+    const cx=500,cy=290,r=185;const hub=el('circle',{cx,cy,r:58,fill:'#E0A100'},g);const ht=el('text',{x:cx,y:cy+6,'text-anchor':'middle','font-size':18,'font-family':'Arial','font-weight':800,fill:'#12263F'},g);ht.textContent='ONE SYSTEM';
+    const items=NET.map((n,i)=>{const a=-Math.PI/2+i*2*Math.PI/8;const x=cx+Math.cos(a)*r*1.35,y=cy+Math.sin(a)*r*.95;const gg=el('g',{class:'node',opacity:0},g);
+      const ln=el('line',{x1:cx,y1:cy,x2:x,y2:y,stroke:'#1E6FD9','stroke-width':3,opacity:.5},gg);el('circle',{cx:x,cy:y,r:36,fill:'#1E6FD9'},gg);
+      const lab=el('text',{x,y:y+(y<cy?-48:58),'text-anchor':'middle','font-size':15,'font-family':'Arial','font-weight':700,fill:'#12263F'},gg);lab.textContent=n[0];
+      const pk=el('circle',{r:6,fill:'#E0A100',cx:cx,cy:cy},gg);gg.addEventListener('click',()=>showPanel(n[0],n[1]));return {gg,pk,x,y}});
+    anim=(p,tt)=>items.forEach((o,i)=>{const k=Math.max(0,Math.min(1,(tt-i*.8)/.5));o.gg.setAttribute('opacity',k);const u=((tt*.5+i*.13)%1);o.pk.setAttribute('cx',cx+(o.x-cx)*u);o.pk.setAttribute('cy',cy+(o.y-cy)*u)});
+    setHint('Tap any partner');
+  }
+  if(kind==='sensor'){
+    const vill=el('g',{},g);for(let i=0;i<5;i++){el('rect',{x:70+i*50,y:330,width:40,height:36,fill:'#e8c9a0'},vill);el('path',{d:`M${64+i*50},330 L${90+i*50},304 L${116+i*50},330Z`,fill:'#a0522d'},vill)}
+    const pp=[['f','#E0A100',120],['m','#1E9E5A',230],['f','#C0392B',320]].map(d=>{const gg=el('g',{},g);person(gg,d[2],300,d[1],1.0,d[0]);return gg});
+    const path=[[330,380],[500,380],[650,330],[800,300]];
+    el('path',{d:'M330,400 L520,400 L650,350 L820,320',fill:'none',stroke:'#1E6FD9','stroke-width':4,'stroke-dasharray':'8 8'},g);
+    ['Community','Local node','Fusion centre','Response'].forEach((l,i)=>{const p=path[i];const gg=el('g',{class:'node'},g);el('circle',{cx:p[0]+(i?0:0),cy:p[1]+20,r:30,fill:i==3?'#E0A100':'#1E6FD9'},gg);const tx=el('text',{x:p[0],y:p[1]+68,'text-anchor':'middle','font-size':16,'font-family':'Arial','font-weight':700,fill:'#12263F'},gg);tx.textContent=l});
+    const sig=el('circle',{r:10,fill:'#E0A100',stroke:'#fff','stroke-width':3},g);
+    const fb=el('path',{d:'M820,350 Q570,520 340,430',fill:'none',stroke:'#1E9E5A','stroke-width':4,'stroke-dasharray':'8 8',opacity:0},g);
+    const ft=el('text',{x:580,y:500,'text-anchor':'middle','font-size':20,'font-family':'Arial','font-weight':700,fill:'#1E9E5A',opacity:0},g);ft.textContent='Feedback keeps trust alive';
+    const pts=[[330,420],[520,420],[650,370],[820,340]];
+    anim=(p,tt)=>{const u=Math.min(1,tt/6)*3,i=Math.min(2,Math.floor(u)),f=u-i;sig.setAttribute('cx',pts[i][0]+(pts[i+1][0]-pts[i][0])*f);sig.setAttribute('cy',pts[i][1]+(pts[i+1][1]-pts[i][1])*f);const on=tt>6.5?1:0;fb.setAttribute('opacity',on);ft.setAttribute('opacity',on)};
+    setHint('Tap a stage');
+  }
+  if(kind==='window'){
+    const cx=500,cy=300,r=140;el('circle',{cx,cy,r,fill:'#fff',stroke:'#12263F','stroke-width':8},g);
+    for(let i=0;i<12;i++){const a=i*Math.PI/6;el('line',{x1:cx+Math.cos(a)*(r-14),y1:cy+Math.sin(a)*(r-14),x2:cx+Math.cos(a)*(r-4),y2:cy+Math.sin(a)*(r-4),stroke:'#12263F','stroke-width':4},g)}
+    const arc=el('path',{d:'',fill:'#E0A10088',stroke:'#E0A100','stroke-width':3},g);
+    const hand=el('line',{x1:cx,y1:cy,x2:cx,y2:cy-r+20,stroke:'#C0392B','stroke-width':6,'stroke-linecap':'round'},g);
+    const lab=el('text',{x:cx,y:cy+r+60,'text-anchor':'middle','font-size':30,'font-family':'Arial','font-weight':800,fill:'#12263F'},g);
+    const side=['Rapid response units','Medical evacuation','Communications','Community liaison'].map((l,i)=>{const gg=el('g',{opacity:0},g);el('rect',{x:720,y:150+i*70,width:240,height:50,rx:10,fill:'#1E6FD9'},gg);const tx=el('text',{x:840,y:182+i*70,'text-anchor':'middle','font-size':17,'font-family':'Arial','font-weight':700,fill:'#fff'},gg);tx.textContent=l;return gg});
+    anim=(p,tt)=>{const m=Math.min(60,tt/8*60),ang=-Math.PI/2+m/60*2*Math.PI;hand.setAttribute('x2',cx+Math.cos(ang)*(r-20));hand.setAttribute('y2',cy+Math.sin(ang)*(r-20));
+      const x2=cx+Math.cos(ang)*(r-6),y2=cy+Math.sin(ang)*(r-6);arc.setAttribute('d',`M${cx},${cy} L${cx},${cy-r+6} A${r-6},${r-6} 0 ${m>30?1:0} 1 ${x2},${y2} Z`);lab.textContent=Math.round(m)+' minutes';
+      side.forEach((s,i)=>s.setAttribute('opacity',tt>1+i*1.2?1:0))};
+  }
+  if(kind==='close'){
+    const gl=el('g',{},g);
+    const stars=[];for(let i=0;i<14;i++){const c=el('circle',{cx:80+i*62,cy:120+((i*47)%220),r:5,fill:'#E0A100'},gl);stars.push(c)}
+    const grp=[['f','#E0A100',250],['m','#1E6FD9',380],['f','#1E9E5A',500],['m','#12263F',620],['f','#C0392B',750]].map(d=>{const gg=el('g',{opacity:0},g);person(gg,d[2],300,d[1],1.25,d[0]);return gg});
+    const big=el('text',{x:500,y:490,'text-anchor':'middle','font-size':44,'font-family':'Georgia','font-weight':700,fill:'#12263F',opacity:0},g);big.textContent='Prevent first, react second.';
+    anim=(p,tt)=>{stars.forEach((s,i)=>{s.setAttribute('r',4+Math.abs(Math.sin(tt*2+i))*5);});grp.forEach((gg,i)=>{const k=Math.max(0,Math.min(1,(tt-i*.5)/.6));gg.setAttribute('opacity',k)});big.setAttribute('opacity',Math.min(1,Math.max(0,(tt-3)/1)))};
+  }
+}
+function setHint(txt){const h=$('hint');if(txt){h.textContent=txt;h.style.display='block'}else h.style.display='none'}
+function showPanel(a,b){$('pt').textContent=a;$('pb').textContent=b;$('panel').style.display='block'}
+$('px').onclick=()=>$('panel').style.display='none';
+
+/* ---------- 3D (Three.js) : globe + glowing network on selected scenes ---------- */
+function webglOK(){try{const c=document.createElement('canvas');return !!(window.THREE&&(c.getContext('webgl')||c.getContext('experimental-webgl')))}catch(e){return false}}
+let globe,netGroup,ring,people3D=[],floor;
+function init3D(){
+  R=new THREE.WebGLRenderer({canvas:$('gl'),antialias:true,alpha:true});R.setPixelRatio(Math.min(window.devicePixelRatio||1,2));R.setClearColor(0x000000,0);
+  scene3=new THREE.Scene();cam=new THREE.PerspectiveCamera(45,16/9,.1,100);cam.position.set(0,0,12);
+  scene3.add(new THREE.AmbientLight(0xffffff,.85));const L=new THREE.DirectionalLight(0xffffff,.9);L.position.set(5,8,8);scene3.add(L);
+  globe=new THREE.Group();scene3.add(globe);
+  const sph=new THREE.Mesh(new THREE.SphereGeometry(2.6,40,28),new THREE.MeshStandardMaterial({color:0x1E6FD9,roughness:.6,metalness:.1,transparent:true,opacity:.92}));globe.add(sph);
+  const wire=new THREE.Mesh(new THREE.SphereGeometry(2.64,22,16),new THREE.MeshBasicMaterial({color:0xffffff,wireframe:true,transparent:true,opacity:.35}));globe.add(wire);
+  // glowing markers (the corridor region)
+  for(let i=0;i<9;i++){const m=new THREE.Mesh(new THREE.SphereGeometry(.13,12,12),new THREE.MeshBasicMaterial({color:0xE0A100}));const lat=(.08+Math.random()*.25),lon=(.2+i*.12);const r=2.72;m.position.set(r*Math.cos(lat)*Math.sin(lon*3),r*Math.sin(lat+.35),r*Math.cos(lat)*Math.cos(lon*3));globe.add(m);m.userData.i=i}
+  ring=new THREE.Mesh(new THREE.TorusGeometry(3.4,.04,10,90),new THREE.MeshBasicMaterial({color:0xE0A100}));ring.rotation.x=1.2;scene3.add(ring);
+  // network of 8 spheres
+  netGroup=new THREE.Group();scene3.add(netGroup);
+  const hub=new THREE.Mesh(new THREE.SphereGeometry(.7,24,24),new THREE.MeshStandardMaterial({color:0xE0A100}));netGroup.add(hub);
+  for(let i=0;i<8;i++){const a=i*Math.PI/4;const p=new THREE.Vector3(Math.cos(a)*3.4,Math.sin(a)*2.2,(i%2?1:-1)*1.2);const n=new THREE.Mesh(new THREE.SphereGeometry(.42,20,20),new THREE.MeshStandardMaterial({color:0x1E6FD9}));n.position.copy(p);netGroup.add(n);
+    const g=new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(0,0,0),p]);netGroup.add(new THREE.Line(g,new THREE.LineBasicMaterial({color:0x1E6FD9})));
+    const pk=new THREE.Mesh(new THREE.SphereGeometry(.12,10,10),new THREE.MeshBasicMaterial({color:0xE0A100}));pk.userData={p,i};netGroup.add(pk);people3D.push(pk)}
+  // five 3D columns (SEE SHARE DECIDE ACT LEARN)
+  floor=new THREE.Group();scene3.add(floor);
+  for(let i=0;i<5;i++){const h=1+i*.55;const m=new THREE.Mesh(new THREE.CylinderGeometry(.6,.6,h,28),new THREE.MeshStandardMaterial({color:i%2?0xE0A100:0x1E6FD9}));m.position.set((i-2)*1.7,-1.6+h/2,0);m.userData.h=h;floor.add(m)}
+  resize();
+}
+function resize(){if(!R)return;const w=$('stage').clientWidth,h=$('stage').clientHeight;R.setSize(w,h,false);cam.aspect=w/h;cam.updateProjectionMatrix()}
+function draw3D(i,tt){
+  const kind=SCENES[i].v;
+  const showGlobe=(kind==='force'||kind==='question'||kind==='close'||kind==='window');
+  const showNet=(kind==='network'||kind==='sensor');
+  const showCols=(kind==='five');
+  globe.visible=showGlobe;ring.visible=showGlobe;netGroup.visible=showNet;floor.visible=showCols;
+  const sc=Math.min(1,tt/1.2);
+  if(showGlobe){globe.rotation.y=t*.5+(dragY||0);globe.rotation.x=.25+(dragX||0);globe.scale.setScalar(.55+sc*.25);globe.position.set(kind==='close'?0:3.8,kind==='close'?1.0:.4,0);ring.position.copy(globe.position);ring.rotation.z=t*.6;ring.scale.setScalar(.55+sc*.25);
+    globe.children.forEach(c=>{if(c.userData.i!=null)c.scale.setScalar(1+.5*Math.sin(t*4+c.userData.i))})}
+  if(showNet){netGroup.rotation.y=Math.sin(t*.4)*.5+(dragY||0);netGroup.rotation.x=.15+(dragX||0);netGroup.scale.setScalar((.4+sc*.15));netGroup.position.set(kind==='sensor'?3.6:0,kind==='sensor'?1:0,0);
+    people3D.forEach(pk=>{const u=((t*.6+pk.userData.i*.12)%1);pk.position.copy(pk.userData.p).multiplyScalar(u)})}
+  if(showCols){floor.rotation.y=Math.sin(t*.5)*.4+(dragY||0);floor.position.y=1.2;floor.scale.setScalar(.6);floor.children.forEach((m,k)=>{const g=Math.max(0,Math.min(1,(tt-k*1.6)/.8));m.scale.y=Math.max(.01,g);m.position.y=-1.6+m.userData.h*g/2})}
+  // camera push-in per scene
+  const push=12-Math.min(3,tt*.35);cam.position.z=push;cam.position.x=Math.sin(t*.3)*.6;cam.lookAt(0,0,0);
+  R.render(scene3,cam);
+}
+let dragging=false,dragX=0,dragY=0,lx=0,ly=0;
+const stg=document.getElementById('stage');
+stg.addEventListener('pointerdown',e=>{if(e.target.closest('.node,button,#panel,#quiz'))return;dragging=true;lx=e.clientX;ly=e.clientY});
+window.addEventListener('pointermove',e=>{if(!dragging)return;dragY+=(e.clientX-lx)*.01;dragX+=(e.clientY-ly)*.005;lx=e.clientX;ly=e.clientY});
+window.addEventListener('pointerup',()=>dragging=false);
+function set2D(on){use3D=!on&&hasGL;$('gl').style.display=use3D?'block':'none';$('mode').textContent=use3D?'Switch to 2D':'Switch to 3D'}
+
+/* ---------- Voice (optional, never drives the clock) ---------- */
+function speak(txt){if(!voiceOn||!window.speechSynthesis)return;speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(txt);u.rate=.95;const v=speechSynthesis.getVoices();const pick=v.find(x=>/Google UK English Female/i.test(x.name))||v.find(x=>/Hazel|Serena|Kate/i.test(x.name))||v.find(x=>/en-GB/i.test(x.lang))||null;if(pick)u.voice=pick;speechSynthesis.speak(u)}
+
+/* ---------- Master clock ---------- */
+function idx(){for(let i=SCENES.length-1;i>=0;i--)if(t>=starts[i])return i;return 0}
+function enter(i){
+  cur=i;$('count').textContent='Scene '+(i+1)+' of '+SCENES.length;
+  $('ttl').innerHTML='<span>'+SCENES[i].t+'</span>';$('sub').textContent=SCENES[i].s;
+  $('cap').textContent=ccOn?SCENES[i].c:'';$('panel').style.display='none';setHint(null);
+  art(SCENES[i].v);
+  if(SCENES[i].info&&SCENES[i].v!=='five'&&SCENES[i].v!=='network'&&SCENES[i].v!=='sensor'){setHint('Tap the box for a detail');}
+  [...$('menu').children].forEach((b,k)=>b.classList.toggle('cur',k===i));
+  speak(SCENES[i].c);
+  dragX=0;dragY=0;
+}
+function frame(n){
+  if(playing&&!quizOpen){t+=(n-last)/1000;
+    if(!quizDone&&t>=starts[QUIZ.after]){t=starts[QUIZ.after];openQuiz()}
+    if(t>=T){t=T-.001;playing=false;$('play').textContent='Play';speechSynthesis&&speechSynthesis.cancel()}}
+  last=n;
+  if(!document.hidden){const i=idx();if(i!==cur)enter(i);const tt=t-starts[i];if(anim)anim(t,tt);if(use3D&&R)draw3D(i,tt)}
+  $('fill').style.width=(t/T*100)+'%';requestAnimationFrame(frame)
+}
+function jump(i){i=Math.max(0,Math.min(SCENES.length-1,i));t=starts[i]+.01;quizOpen=false;$('quiz').style.display='none';enter(i);if(!playing&&t<T){}}
+/* ---------- Quiz ---------- */
+function openQuiz(){quizOpen=true;$('quiz').style.display='flex';$('qq').textContent=QUIZ.q;$('qr').textContent='';$('qc').style.display='none';const o=$('qo');o.innerHTML='';
+  QUIZ.o.forEach(a=>{const b=document.createElement('button');b.textContent=a[0];b.onclick=()=>{$('qr').style.color=a[1]?'#1E9E5A':'#C0392B';$('qr').textContent=a[1]?QUIZ.why:'Not quite. Try again.';if(a[1])$('qc').style.display='inline-block'};o.appendChild(b)})}
+$('qc').onclick=()=>{quizDone=true;quizOpen=false;$('quiz').style.display='none'};
+/* ---------- Controls ---------- */
+$('go').onclick=()=>{$('start').style.display='none';playing=true;last=performance.now();enter(idx());window.speechSynthesis&&speechSynthesis.getVoices()};
+$('play').onclick=e=>{playing=!playing;e.target.textContent=playing?'Pause':'Play';if(!playing)window.speechSynthesis&&speechSynthesis.cancel();else speak(SCENES[cur].c)};
+$('next').onclick=()=>{if(quizOpen){return}jump(idx()+1)};$('back').onclick=()=>jump(idx()-1);
+$('rst').onclick=()=>{t=0;quizDone=false;quizOpen=false;$('quiz').style.display='none';playing=true;$('play').textContent='Pause';cur=-1;last=performance.now()};
+$('cc').onclick=e=>{ccOn=!ccOn;e.target.textContent='Captions: '+(ccOn?'On':'Off');$('cap').textContent=ccOn?SCENES[cur].c:''};
+$('voice').onclick=e=>{voiceOn=!voiceOn;e.target.textContent='Voice: '+(voiceOn?'On':'Off');if(voiceOn)speak(SCENES[cur].c);else window.speechSynthesis&&speechSynthesis.cancel()};
+$('mode').onclick=()=>{if(!hasGL)return;set2D(use3D)};
+$('rm').onclick=e=>{rmOn=!rmOn;document.body.classList.toggle('reduce',rmOn);e.target.textContent=rmOn?'Motion: Reduced':'Reduce motion'};
+$('bar').onclick=e=>{const r=e.currentTarget.getBoundingClientRect();const nt=((e.clientX-r.left)/r.width)*T;if(!quizDone&&nt>=starts[QUIZ.after])quizDone=true;t=Math.max(0,Math.min(T-.01,nt));quizOpen=false;$('quiz').style.display='none'};
+document.addEventListener('keydown',e=>{if(e.code==='Space'){e.preventDefault();$('play').click()}if(e.code==='ArrowRight')$('next').click();if(e.code==='ArrowLeft')$('back').click()});
+window.addEventListener('resize',resize);
+document.addEventListener('visibilitychange',()=>{last=performance.now()});
+// info boxes: tap the sub-title to open the scene detail
+$('sub').style.pointerEvents='auto';$('sub').style.cursor='pointer';$('sub').onclick=()=>{const s=SCENES[cur];if(s&&s.info)showPanel(s.info[0],s.info[1])};
+$('hint').style.pointerEvents='auto';$('hint').style.cursor='pointer';$('hint').onclick=()=>{const s=SCENES[cur];if(s&&s.info)showPanel(s.info[0],s.info[1])};
+// chapter menu
+SCENES.forEach((s,i)=>{const b=document.createElement('button');b.textContent=(i+1)+'. '+s.t;b.onclick=()=>{if(!quizDone&&i>QUIZ.after)quizDone=true;jump(i)};$('menu').appendChild(b)});
+// start-up: WebGL check with automatic 2D fallback
+hasGL=webglOK();
+if(hasGL){try{init3D();set2D(false)}catch(e){hasGL=false;set2D(true);$('mode').style.display='none'}}else{set2D(true);$('mode').style.display='none'}
+enter(0);requestAnimationFrame(frame);
+</script></body></html>
